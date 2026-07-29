@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COSC264 · Routing Visualizer</title>
+<style>
+:root{
+  --bg:#eaeff2; --surface:#ffffff; --surface-2:#f4f7f9; --border:#d2dce3;
+  --ink:#132330; --muted:#566673; --faint:#8394a0;
+  --accent:#0f8f83; --accent-soft:#d6efec; --accent-ink:#0a5b53;
+  --current:#c47d16; --current-soft:#f7e7c9;
+  --bad:#cf4536; --bad-soft:#f7dad5;
+  --good:#3c8a58;
+  --edge:#a7b7c2;
+  --shadow:0 1px 2px rgba(19,35,48,.06),0 10px 30px rgba(19,35,48,.07);
+  --mono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0b1317; --surface:#131f26; --surface-2:#0f1a20; --border:#26343d;
+  --ink:#e7eef3; --muted:#9db0bc; --faint:#6a7b87;
+  --accent:#31b3a5; --accent-soft:#0f302d; --accent-ink:#7fdcd2;
+  --current:#e0a34c; --current-soft:#382b16;
+  --bad:#e56a5c; --bad-soft:#3a1e1b;
+  --good:#5fb47c;
+  --edge:#42535e;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 14px 34px rgba(0,0,0,.4);
+}}
+:root[data-theme="light"]{
+  --bg:#eaeff2; --surface:#ffffff; --surface-2:#f4f7f9; --border:#d2dce3;
+  --ink:#132330; --muted:#566673; --faint:#8394a0;
+  --accent:#0f8f83; --accent-soft:#d6efec; --accent-ink:#0a5b53;
+  --current:#c47d16; --current-soft:#f7e7c9;
+  --bad:#cf4536; --bad-soft:#f7dad5; --good:#3c8a58; --edge:#a7b7c2;
+  --shadow:0 1px 2px rgba(19,35,48,.06),0 10px 30px rgba(19,35,48,.07);
+}
+:root[data-theme="dark"]{
+  --bg:#0b1317; --surface:#131f26; --surface-2:#0f1a20; --border:#26343d;
+  --ink:#e7eef3; --muted:#9db0bc; --faint:#6a7b87;
+  --accent:#31b3a5; --accent-soft:#0f302d; --accent-ink:#7fdcd2;
+  --current:#e0a34c; --current-soft:#382b16;
+  --bad:#e56a5c; --bad-soft:#3a1e1b; --good:#5fb47c; --edge:#42535e;
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 14px 34px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 64px}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
+.eyebrow{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-ink);
+  font-weight:600;font-family:var(--mono)}
+h1{font-size:clamp(26px,3.4vw,38px);margin:.15em 0 .1em;letter-spacing:-.02em;text-wrap:balance}
+.lede{color:var(--muted);max-width:60ch;margin:0;font-size:15.5px}
+.themebtn{flex:none;background:var(--surface);border:1px solid var(--border);color:var(--muted);
+  border-radius:9px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer;display:flex;
+  align-items:center;gap:7px;box-shadow:var(--shadow)}
+.themebtn:hover{color:var(--ink);border-color:var(--accent)}
+.tabs{display:flex;gap:6px;margin:20px 0 18px;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--border);color:var(--muted);font:inherit;
+  font-size:14px;font-weight:550;padding:10px 16px;border-radius:10px;cursor:pointer;display:flex;
+  gap:9px;align-items:center}
+.tab .dot{width:9px;height:9px;border-radius:50%}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--accent);
+  box-shadow:var(--shadow)}
+.tab:focus-visible,.btn:focus-visible,.themebtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--shadow);overflow:hidden}
+.card-h{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;
+  align-items:baseline;gap:12px}
+.card-h h2{font-size:15px;margin:0;letter-spacing:-.01em}
+.card-h .sub{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.card-b{padding:16px 18px}
+svg{width:100%;height:auto;display:block;touch-action:manipulation}
+.node-circ{transition:fill .35s ease, stroke .35s ease}
+.ring{transition:opacity .35s ease}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:14px 18px;border-top:1px solid var(--border);
+  background:var(--surface-2)}
+.btn{background:var(--surface);border:1px solid var(--border);color:var(--ink);font:inherit;font-size:13.5px;
+  font-weight:550;padding:9px 14px;border-radius:9px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover:not(:disabled){filter:brightness(1.06);color:#fff}
+.btn.warn{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn.warn:hover:not(:disabled){filter:brightness(1.06);color:#fff}
+.spacer{flex:1}
+.check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none}
+.check input{accent-color:var(--accent);width:15px;height:15px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:12px 18px;font-size:12.5px;color:var(--muted);
+  border-top:1px dashed var(--border)}
+.legend span{display:inline-flex;gap:7px;align-items:center}
+.sw{width:13px;height:13px;border-radius:4px;border:1px solid var(--border)}
+table{border-collapse:collapse;width:100%;font-family:var(--mono);font-size:12.5px;
+  font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--border);padding:6px 8px;text-align:center;white-space:nowrap}
+thead th{background:var(--surface-2);color:var(--muted);font-weight:600}
+tbody th{background:var(--surface-2);color:var(--ink);font-weight:600}
+td.added{background:var(--current-soft);color:var(--ink);font-weight:700}
+td.changed{background:var(--current-soft);font-weight:700}
+td.settled{color:var(--accent-ink)}
+td.inf{color:var(--bad);font-weight:700}
+.status{font-family:var(--mono);font-size:13px;padding:12px 18px;border-top:1px solid var(--border);
+  display:flex;gap:9px;align-items:center}
+.pill{font-family:var(--mono);font-size:11.5px;padding:2px 9px;border-radius:20px;font-weight:600;letter-spacing:.02em}
+.pill.run{background:var(--current-soft);color:var(--current)}
+.pill.done{background:var(--accent-soft);color:var(--accent-ink)}
+.pill.inf{background:var(--bad-soft);color:var(--bad)}
+.tblwrap{overflow-x:auto}
+.dvgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media (max-width:560px){.dvgrid{grid-template-columns:1fr}}
+.dvtbl h3{font-family:var(--mono);font-size:12px;margin:0 0 6px;color:var(--muted);font-weight:600}
+.fwd{margin-top:14px}
+.fwd h3{font-size:12px;color:var(--muted);margin:0 0 6px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.couple{margin-top:20px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);
+  border-radius:12px;padding:15px 18px;box-shadow:var(--shadow)}
+.couple h3{margin:0 0 6px;font-size:13px;letter-spacing:.02em}
+.couple p{margin:0;color:var(--muted);font-size:14px}
+.couple code{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);padding:1px 6px;border-radius:5px;color:var(--accent-ink)}
+.foot{margin-top:26px;color:var(--faint);font-size:12.5px;font-family:var(--mono);text-align:center}
+.hide{display:none!important}
+.via{color:var(--faint);font-size:11px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <div class="eyebrow">COSC264 · Term 4 · Interactive module — proof of concept</div>
+      <h1>Routing Visualizer</h1>
+      <p class="lede">Step through the two routing algorithms your students hand-execute in the labs —
+        link-state (Dijkstra) and distance-vector — and watch <strong>count-to-infinity</strong> happen live.</p>
+    </div>
+    <button class="themebtn" id="themeBtn" aria-label="Toggle colour theme">◐ Theme</button>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Algorithm">
+    <button class="tab" id="tab-ls" role="tab" aria-selected="true" aria-controls="view-ls">
+      <span class="dot" style="background:var(--accent)"></span>Link-State · Dijkstra</button>
+    <button class="tab" id="tab-dv" role="tab" aria-selected="false" aria-controls="view-dv">
+      <span class="dot" style="background:var(--bad)"></span>Distance-Vector · count to infinity</button>
+  </div>
+
+  <!-- ===================== LINK-STATE VIEW ===================== -->
+  <section id="view-ls" role="tabpanel" aria-labelledby="tab-ls">
+    <div class="grid">
+      <div class="card">
+        <div class="card-h"><h2>Network</h2><span class="sub">source = A · undirected, weighted</span></div>
+        <div class="card-b"><svg id="lsSvg" viewBox="0 0 640 380" role="img" aria-label="Network graph"></svg></div>
+        <div class="legend">
+          <span><span class="sw" style="background:var(--accent)"></span>In N′ (finalised)</span>
+          <span><span class="sw" style="background:var(--current);border-color:var(--current)"></span>Just added this step</span>
+          <span><span class="sw" style="background:var(--surface);border-color:var(--edge)"></span>Not yet finalised</span>
+          <span><span class="sw" style="background:var(--accent);border-radius:2px;height:5px"></span>Shortest-path tree</span>
+        </div>
+        <div class="controls">
+          <button class="btn" id="lsPrev">‹ Prev</button>
+          <button class="btn primary" id="lsNext">Next step ›</button>
+          <button class="btn" id="lsPlay">▶ Play</button>
+          <div class="spacer"></div>
+          <button class="btn" id="lsReset">↺ Reset</button>
+        </div>
+        <div class="status"><span class="pill run" id="lsPill">step 0</span><span id="lsMsg">Initialising from source A.</span></div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-h"><h2>Dijkstra working table</h2><span class="sub">D(v), p(v)</span></div>
+          <div class="card-b"><div class="tblwrap"><table id="lsTable"></table></div>
+            <div class="fwd"><h3>Forwarding table at A</h3><div class="tblwrap"><table id="lsFwd"></table></div></div>
+          </div>
+        </div>
+        <div class="couple">
+          <h3>What this rehearses</h3>
+          <p>Mirrors <code>Quiz: Routing</code> Q1 “apply Dijkstra on the example network” (14 marks),
+             Q2 “derive the forwarding table”, and Q13 forwarding vs. routing. Students step the exact
+             tabular method they’re marked on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DISTANCE-VECTOR VIEW ===================== -->
+  <section id="view-dv" role="tabpanel" aria-labelledby="tab-dv" class="hide">
+    <div class="grid">
+      <div class="card">
+        <div class="card-h"><h2>Network</h2><span class="sub">linear chain&nbsp; X — Y — Z</span></div>
+        <div class="card-b"><svg id="dvSvg" viewBox="0 0 640 240" role="img" aria-label="Distance-vector network"></svg></div>
+        <div class="legend">
+          <span><span class="sw" style="background:var(--current-soft);border-color:var(--current)"></span>Changed this round</span>
+          <span><span class="sw" style="background:var(--bad);border-color:var(--bad)"></span>Failed link</span>
+          <span>cost<sub class="via">via</sub> — subscript is the next hop · ∞ = 16 (RIP limit)</span>
+        </div>
+        <div class="controls">
+          <button class="btn primary" id="dvNext">Next round ›</button>
+          <button class="btn warn" id="dvBreak">⚡ Fail the X–Y link</button>
+          <label class="check"><input type="checkbox" id="dvSplit"> Split horizon (poison reverse)</label>
+          <div class="spacer"></div>
+          <button class="btn" id="dvReset">↺ Reset</button>
+        </div>
+        <div class="status"><span class="pill done" id="dvPill">round 0</span><span id="dvMsg">Converged baseline — every node knows its shortest path. Now fail the X–Y link.</span></div>
+      </div>
+
+      <div>
+        <div class="card">
+          <div class="card-h"><h2>Distance vectors</h2><span class="sub">each node’s table · cost to X / Y / Z</span></div>
+          <div class="card-b"><div id="dvTables" class="dvgrid"></div></div>
+        </div>
+        <div class="couple">
+          <h3>What this rehearses</h3>
+          <p>Mirrors <code>Quiz: Routing</code> Q4–Q8 (distance-vector tables updating over time steps),
+             Q18 “count-to-infinity”, and Q19 “RIP is limited …”. Fail the X–Y link to isolate X, then
+             step the rounds: Y and Z crawl up to 16 (RIP’s ∞). Toggle <em>split horizon</em> and reset
+             to watch the standard fix converge instead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">COSC264-26S2 · demo of an embeddable interactive for the Term 4 web module · runs fully offline, no dependencies</div>
+</div>
+
+<script>
+(function(){
+"use strict";
+var reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+var INF=Infinity;
+
+/* ---------- theme toggle ---------- */
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var cur=document.documentElement.getAttribute("data-theme");
+  if(!cur) cur = matchMedia("(prefers-color-scheme:dark)").matches ? "dark":"light";
+  document.documentElement.setAttribute("data-theme", cur==="dark"?"light":"dark");
+});
+
+/* ---------- tab switching ---------- */
+var tabLs=document.getElementById("tab-ls"), tabDv=document.getElementById("tab-dv");
+var viewLs=document.getElementById("view-ls"), viewDv=document.getElementById("view-dv");
+function selectTab(which){
+  var ls = which==="ls";
+  tabLs.setAttribute("aria-selected", ls); tabDv.setAttribute("aria-selected", !ls);
+  viewLs.classList.toggle("hide", !ls); viewDv.classList.toggle("hide", ls);
+}
+tabLs.addEventListener("click",function(){selectTab("ls");});
+tabDv.addEventListener("click",function(){selectTab("dv");});
+
+/* ================= LINK-STATE (Dijkstra) ================= */
+var LSN={A:[70,190],B:[215,66],C:[452,74],D:[228,306],E:[416,300],F:[578,188]};
+var LSE=[["A","B",2],["A","C",5],["A","D",1],["B","C",3],["B","D",2],["C","D",3],["C","E",1],["C","F",5],["D","E",1],["E","F",2]];
+var SRC="A";
+var NODES=Object.keys(LSN).sort();
+
+function copy(o){var r={};for(var k in o)r[k]=o[k];return r;}
+function fmt(x){return x===INF?"∞":x;}
+
+function dijkstra(){
+  var adj={}; NODES.forEach(function(n){adj[n]={};});
+  LSE.forEach(function(e){adj[e[0]][e[1]]=e[2]; adj[e[1]][e[0]]=e[2];});
+  var dist={},prev={},done={};
+  NODES.forEach(function(n){dist[n]=INF;prev[n]=null;done[n]=false;});
+  dist[SRC]=0;
+  var steps=[];
+  for(var i=0;i<NODES.length;i++){
+    var u=null,best=INF;
+    NODES.forEach(function(n){ if(!done[n] && dist[n]<best){best=dist[n];u=n;} });
+    if(u===null) break;
+    done[u]=true;
+    var relaxed=[];
+    Object.keys(adj[u]).forEach(function(v){
+      if(!done[v]){ var nd=dist[u]+adj[u][v];
+        if(nd<dist[v]){dist[v]=nd;prev[v]=u;relaxed.push(v);} }
+    });
+    steps.push({added:u,dist:copy(dist),prev:copy(prev),done:copy(done),relaxed:relaxed});
+  }
+  return {steps:steps};
+}
+var DJ=dijkstra(), lsI=0, lsTimer=null;
+
+function nextHop(prev,dest){
+  if(dest===SRC) return "—";
+  if(prev[dest]==null) return "—";
+  var u=dest, guard=0;
+  while(prev[u]!==SRC){ u=prev[u]; if(u==null||++guard>20) return "—"; }
+  return u;
+}
+function renderLsGraph(){
+  var st=DJ.steps[lsI]; var s="";
+  LSE.forEach(function(e){
+    var a=LSN[e[0]],b=LSN[e[1]];
+    var tree=(st.prev[e[1]]===e[0]&&st.done[e[1]])||(st.prev[e[0]]===e[1]&&st.done[e[0]]);
+    var col=tree?"var(--accent)":"var(--edge)", w=tree?4:2;
+    s+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="round"/>';
+    var mx=(a[0]+b[0])/2, my=(a[1]+b[1])/2;
+    s+='<rect x="'+(mx-11)+'" y="'+(my-11)+'" width="22" height="18" rx="5" fill="var(--surface)" stroke="var(--border)"/>';
+    s+='<text x="'+mx+'" y="'+(my+2)+'" text-anchor="middle" dominant-baseline="middle" font-family="var(--mono)" font-size="12" fill="var(--muted)">'+e[2]+'</text>';
+  });
+  NODES.forEach(function(n){
+    var p=LSN[n], isDone=st.done[n], isAdded=(st.added===n);
+    var fill=isDone?"var(--accent)":"var(--surface)";
+    var stroke=isAdded?"var(--current)":(isDone?"var(--accent)":"var(--edge)");
+    var txt=isDone?"#fff":"var(--ink)";
+    if(isAdded){ s+='<circle class="ring" cx="'+p[0]+'" cy="'+p[1]+'" r="27" fill="none" stroke="var(--current)" stroke-width="3" opacity=".55"/>'; }
+    s+='<circle class="node-circ" cx="'+p[0]+'" cy="'+p[1]+'" r="20" fill="'+fill+'" stroke="'+stroke+'" stroke-width="3"/>';
+    s+='<text x="'+p[0]+'" y="'+(p[1]+1)+'" text-anchor="middle" dominant-baseline="middle" font-family="var(--sans)" font-weight="700" font-size="16" fill="'+txt+'">'+n+'</text>';
+    s+='<text x="'+p[0]+'" y="'+(p[1]-30)+'" text-anchor="middle" font-family="var(--mono)" font-size="12.5" font-weight="700" fill="'+(isDone?"var(--accent-ink)":"var(--muted)")+'">'+fmt(st.dist[n])+'</text>';
+  });
+  document.getElementById("lsSvg").innerHTML=s;
+}
+function renderLsTable(){
+  var others=NODES.filter(function(n){return n!==SRC;});
+  var h="<thead><tr><th>step</th><th>N′</th>";
+  others.forEach(function(n){h+="<th>D("+n+"),p("+n+")</th>";});
+  h+="</tr></thead><tbody>";
+  for(var i=0;i<=lsI;i++){
+    var st=DJ.steps[i];
+    var nprime=NODES.filter(function(n){return st.done[n];}).join("");
+    h+="<tr><td>"+i+"</td><td><b>"+nprime+"</b></td>";
+    others.forEach(function(n){
+      var cls="";
+      if(st.added===n) cls="added";
+      else if(st.relaxed.indexOf(n)>=0) cls="changed";
+      else if(st.done[n]) cls="settled";
+      var val=st.dist[n]===INF?"∞":(st.dist[n]+","+(st.prev[n]||"–"));
+      h+='<td class="'+cls+'">'+val+"</td>";
+    });
+    h+="</tr>";
+  }
+  h+="</tbody>";
+  document.getElementById("lsTable").innerHTML=h;
+}
+function renderLsFwd(){
+  var st=DJ.steps[lsI];
+  var others=NODES.filter(function(n){return n!==SRC;});
+  var h="<thead><tr><th>dest</th>";
+  others.forEach(function(n){h+="<th>"+n+"</th>";});
+  h+="</tr></thead><tbody><tr><th>next hop</th>";
+  others.forEach(function(n){
+    var nh=st.done[n]?nextHop(st.prev,n):"?";
+    h+='<td class="'+(st.done[n]?"settled":"")+'">'+nh+"</td>";
+  });
+  h+="</tr></tbody>";
+  document.getElementById("lsFwd").innerHTML=h;
+}
+function renderLs(){
+  renderLsGraph(); renderLsTable(); renderLsFwd();
+  var st=DJ.steps[lsI], last=lsI===DJ.steps.length-1;
+  var pill=document.getElementById("lsPill");
+  pill.className="pill "+(last?"done":"run");
+  pill.textContent=last?"complete":("step "+lsI);
+  document.getElementById("lsMsg").textContent = last
+    ? "All nodes finalised — the forwarding table at A is complete."
+    : "Added "+st.added+" to N′ at distance "+st.dist[st.added]+(st.relaxed.length?"; relaxed "+st.relaxed.join(", ")+".":"; no neighbours improved.");
+  document.getElementById("lsPrev").disabled=lsI===0;
+  document.getElementById("lsNext").disabled=last;
+}
+function lsStop(){ if(lsTimer){clearInterval(lsTimer);lsTimer=null;document.getElementById("lsPlay").textContent="▶ Play";} }
+document.getElementById("lsNext").addEventListener("click",function(){ if(lsI<DJ.steps.length-1){lsI++;renderLs();} });
+document.getElementById("lsPrev").addEventListener("click",function(){ if(lsI>0){lsI--;renderLs();} });
+document.getElementById("lsReset").addEventListener("click",function(){ lsStop(); lsI=0; renderLs(); });
+document.getElementById("lsPlay").addEventListener("click",function(){
+  if(lsTimer){ lsStop(); return; }
+  if(lsI===DJ.steps.length-1) lsI=0;
+  this.textContent="⏸ Pause";
+  lsTimer=setInterval(function(){ if(lsI<DJ.steps.length-1){lsI++;renderLs();} else lsStop(); }, reduce?950:850);
+  renderLs();
+});
+
+/* ================= DISTANCE-VECTOR + count-to-infinity ================= */
+var DVN=["X","Y","Z"];
+var DVPOS={X:[110,120],Y:[320,120],Z:[530,120]};
+var DVINF=16;              // RIP-style infinity
+function lkey(a,b){return [a,b].sort().join("-");}
+function cost(links,a,b){ if(a===b) return 0; var v=links[lkey(a,b)]; return v==null?INF:v; }
+var dv={};
+
+function directTables(links){
+  var t={dv:{},via:{}};
+  DVN.forEach(function(a){ t.dv[a]={};t.via[a]={};
+    DVN.forEach(function(b){ var c=cost(links,a,b);
+      t.dv[a][b]=(a===b)?0:(isFinite(c)?c:DVINF); t.via[a][b]=(a===b)?a:(isFinite(c)?b:null); });
+  });
+  return t;
+}
+function computeRound(tables,links,sh){
+  var out={dv:{},via:{},changed:[]};
+  DVN.forEach(function(a){ out.dv[a]={};out.via[a]={};
+    DVN.forEach(function(dest){
+      if(a===dest){out.dv[a][dest]=0;out.via[a][dest]=a;return;}
+      var dc=cost(links,a,dest);
+      var best=isFinite(dc)?dc:DVINF, bvia=isFinite(dc)?dest:null;
+      DVN.forEach(function(nb){
+        if(nb===a) return; var lc=cost(links,a,nb); if(!isFinite(lc)) return;
+        var adv=tables.dv[nb][dest];
+        if(sh && tables.via[nb][dest]===a) adv=DVINF;   // poison reverse
+        var c=lc+adv; if(c<best){best=c;bvia=nb;}
+      });
+      if(best>=DVINF){best=DVINF;bvia=null;}
+      out.dv[a][dest]=best; out.via[a][dest]=bvia;
+      if(best!==tables.dv[a][dest]) out.changed.push(a+dest);
+    });
+  });
+  return out;
+}
+function converge(links,sh){
+  var t=directTables(links);
+  for(var i=0;i<25;i++){ var r=computeRound(t,links,sh); t={dv:r.dv,via:r.via}; if(r.changed.length===0) break; }
+  return t;
+}
+function dvReset(){
+  dv={ links:{"X-Y":1,"Y-Z":1}, split:document.getElementById("dvSplit").checked,
+       round:0, broken:false, converged:true, counting:false, changed:[] };
+  dv.tables=converge(dv.links, dv.split);
+  renderDv();
+}
+function renderDvGraph(){
+  var s=""; var pairs=[["X","Y"],["Y","Z"]];
+  pairs.forEach(function(p){
+    var a=DVPOS[p[0]],b=DVPOS[p[1]];
+    var brk=(lkey(p[0],p[1])==="X-Y" && dv.broken);
+    var lab=brk?"✕":dv.links[lkey(p[0],p[1])];
+    var col=brk?"var(--bad)":"var(--edge)", w=brk?4:2.5;
+    s+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+b[0]+'" y2="'+b[1]+'" stroke="'+col+'" stroke-width="'+w+'" stroke-linecap="round"'+(brk?' stroke-dasharray="7 6"':'')+'/>';
+    var mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;
+    s+='<rect x="'+(mx-13)+'" y="'+(my-12)+'" width="26" height="20" rx="6" fill="var(--surface)" stroke="'+(brk?"var(--bad)":"var(--border)")+'"/>';
+    s+='<text x="'+mx+'" y="'+(my-1)+'" text-anchor="middle" dominant-baseline="middle" font-family="var(--mono)" font-size="12.5" font-weight="700" fill="'+(brk?"var(--bad)":"var(--muted)")+'">'+lab+'</text>';
+  });
+  DVN.forEach(function(n){
+    var p=DVPOS[n];
+    var iso=(n==="X"&&dv.broken);
+    s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="22" fill="var(--surface)" stroke="'+(iso?"var(--bad)":"var(--accent)")+'" stroke-width="3"/>';
+    s+='<text x="'+p[0]+'" y="'+(p[1]+1)+'" text-anchor="middle" dominant-baseline="middle" font-family="var(--sans)" font-weight="700" font-size="17" fill="var(--ink)">'+n+'</text>';
+  });
+  document.getElementById("dvSvg").innerHTML=s;
+}
+function renderDvTables(){
+  var h="";
+  DVN.forEach(function(a){
+    h+='<div class="dvtbl"><h3>node '+a+'</h3><table><thead><tr><th>to</th><th>cost</th><th>via</th></tr></thead><tbody>';
+    DVN.forEach(function(dest){
+      var val=dv.tables.dv[a][dest], via=dv.tables.via[a][dest];
+      var isInf=val>=DVINF;
+      var cls = (a===dest)?"settled":(dv.changed.indexOf(a+dest)>=0?"changed":(isInf?"inf":""));
+      h+='<tr><th>'+dest+'</th><td class="'+cls+'">'+(isInf?"∞":val)+'</td><td class="via">'+(a===dest?"–":(via||"–"))+'</td></tr>';
+    });
+    h+='</tbody></table></div>';
+  });
+  document.getElementById("dvTables").innerHTML=h;
+}
+function renderDv(){
+  renderDvGraph(); renderDvTables();
+  var pill=document.getElementById("dvPill"), msg=document.getElementById("dvMsg");
+  pill.className="pill "+(dv.counting?"inf":(dv.converged?"done":"run"));
+  pill.textContent="round "+dv.round;
+  var yx=dv.tables.dv.Y.X;
+  if(!dv.broken){
+    msg.textContent = dv.round===0
+      ? "Converged baseline — every node knows its shortest path. Now fail the X–Y link."
+      : "Recomputed round "+dv.round+".";
+  } else if(dv.converged){
+    msg.textContent = dv.split
+      ? "Split horizon (poison reverse) killed the loop — X was marked unreachable almost immediately."
+      : "Re-converged: X is now correctly unreachable (∞ = 16, the RIP hop limit). Notice how many rounds “bad news” took.";
+  } else if(dv.counting){
+    msg.textContent = "Counting to infinity — Y and Z keep bumping their cost to X via each other (Y→X now "+(yx>=DVINF?"∞":yx)+"). Reset with split horizon on to compare.";
+  } else {
+    msg.textContent = "Reacting to the failed link …";
+  }
+  document.getElementById("dvNext").disabled = dv.converged;
+  document.getElementById("dvBreak").disabled = dv.broken;
+  document.getElementById("dvSplit").disabled = dv.broken;
+}
+document.getElementById("dvNext").addEventListener("click",function(){
+  var r=computeRound(dv.tables,dv.links,dv.split);
+  dv.tables={dv:r.dv,via:r.via}; dv.changed=r.changed; dv.round++;
+  if(r.changed.length===0){ dv.converged=true; dv.counting=false; }
+  else { dv.converged=false; dv.counting=dv.broken && !dv.split; }
+  renderDv();
+});
+document.getElementById("dvBreak").addEventListener("click",function(){
+  if(dv.broken) return;
+  delete dv.links["X-Y"];
+  dv.broken=true; dv.converged=false; dv.counting=false; dv.changed=[];
+  dv.split=document.getElementById("dvSplit").checked;
+  renderDv();
+  document.getElementById("dvMsg").textContent="X–Y link failed — X is cut off. Click “Next round” to watch Y and Z react"+(dv.split?" (split horizon on).":".");
+});
+document.getElementById("dvSplit").addEventListener("change",dvReset);
+document.getElementById("dvReset").addEventListener("click",dvReset);
+
+/* ---------- init ---------- */
+renderLs();
+dvReset();
+})();
+</script>
+</body>
+</html>
