@@ -2017,6 +2017,189 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
+  <div class="kicker">Recall</div>
+  <h2>The distance-vector approach</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
+    <p class="frag" style="font-size:22px;margin:0">In Lecture 2 we saw the <b>distance-vector protocol</b> &mdash; Bellman-Ford, distributed.</p>
+    <p class="frag" style="font-size:22px;margin:0">Key property: each router only talks to its <b>direct neighbours</b>. No router needs the global topology &mdash; each one performs relaxation using its own link costs and the distance vectors it receives.</p>
+  </div>
+  <aside class="notes"><span class="timing">1 min</span> Quick recall of DV from Lecture 2. Emphasise local-only nature.</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
+  <div class="kicker">Recall</div>
+  <h2>DV limitations</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
+    <div class="frag" style="margin:0">
+      <p style="font-size:22px;margin:0 0 10px"><b>Slow convergence</b></p>
+      <p style="font-size:19px;margin:0;color:var(--muted)">As we saw in Lecture 2, after a link change, updated distance vectors ripple outward one hop at a time; each router must receive its neighbours&#8217; new vectors before it can recompute its own.</p>
+    </div>
+    <div class="frag" style="margin:0">
+      <p style="font-size:22px;margin:0 0 10px"><b>Count-to-infinity</b></p>
+      <p style="font-size:19px;margin:0;color:var(--muted)">Under the <b style="color:var(--ink)">race condition</b>, stale distance vectors create <b style="color:var(--ink)">routing loops</b> that are slow to resolve. Poison reverse helps but does not completely solve it (3+ node loops).</p>
+    </div>
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px;margin-top:4px">
+      <p style="margin:0;font-size:22px;color:var(--accent)"><b>Can a different routing approach avoid these problems?</b></p>
+    </div>
+  </div>
+  <aside class="notes"><span class="timing">1 min</span> Two key DV limitations: slow hop-by-hop convergence and count-to-infinity from stale vectors. Set up the motivation for link-state.</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
+  <div class="kicker">A different approach</div>
+  <h2>What if every router had the full map?</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
+    <p class="frag" style="font-size:22px;margin:0">A simple idea: what if every router knew the <b>complete network topology</b>? Then each router could compute its shortest paths to all destinations <b>directly</b>.</p>
+    <div class="frag" style="margin:0">
+      <p style="font-size:22px;margin:0 0 10px">This avoids the key weaknesses of DV:</p>
+      <ul style="font-size:20px;margin:0">
+        <li style="margin-bottom:8px"><b>Faster convergence</b> &mdash; each router computes independently once it has the full map</li>
+        <li><b>No count-to-infinity</b> &mdash; all routers share the same topology, so there is no mismatch in their views and therefore no routing loops</li>
+      </ul>
+    </div>
+    <p class="frag" style="font-size:22px;margin:0;color:var(--accent)">This is the idea behind <b>link-state routing</b>.</p>
+  </div>
+  <aside class="notes"><span class="timing">5 min</span> Motivate link-state: full topology means no DV exchange, faster convergence, no routing loops. Then raise the algorithm question.</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
+  <div class="kicker">The algorithm question</div>
+  <h2>What algorithm do we need?</h2>
+  <div style="display:flex;flex-direction:column;gap:18px;flex:1;justify-content:center;max-width:820px">
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
+      <p style="margin:0;font-size:22px"><b style="color:var(--accent)">Goal:</b> given the full topology, a source node <b>s</b> needs to find the shortest-path distance d<sub>s</sub>(v) to every other node <b>v</b> &mdash; the <b>single-source</b> shortest-paths problem.</p>
+    </div>
+    <p class="frag" style="font-size:22px;margin:0">Bellman-Ford solves this, but it is overkill &mdash; it computes <b>all-pairs</b> shortest paths (every node to every other node), which is more work than any single router needs.</p>
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
+      <p style="margin:0;font-size:22px">In this lecture we will learn a different algorithm: <b style="color:var(--accent)">Dijkstra&rsquo;s algorithm</b> &mdash; designed specifically for single-source shortest paths, and more efficient than Bellman-Ford.</p>
+    </div>
+  </div>
+  <aside class="notes"><span class="timing">3 min</span> State the goal: single-source shortest paths. BF is overkill (all-pairs). Introduce Dijkstra as the right tool.</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-desc-slide">
+  <div class="kicker">Dijkstra&rsquo;s algorithm</div>
+  <h2>How it works</h2>
+  <div class="cols" style="align-items:flex-start;gap:20px">
+    <div class="col" style="flex:1">
+      <div class="card mono" style="padding:18px 22px;font-size:15px;line-height:2;background:var(--surface);border:1px solid var(--border)">
+        <div id="dj-line-1" style="opacity:0.3;transition:all 0.3s">initialise d<sub>s</sub>(s) = 0, d<sub>s</sub>(v) = &#x221E; for all other v</div>
+        <div id="dj-line-2" style="opacity:0.3;transition:all 0.3s">S = {} <span style="color:var(--muted)">(settled set)</span></div>
+        <div id="dj-line-3" style="opacity:0.3;transition:all 0.3s;margin-top:8px"><b>repeat:</b></div>
+        <div id="dj-line-4" style="opacity:0.3;transition:all 0.3s;padding-left:24px">u = unsettled node with smallest d<sub>s</sub>(u)</div>
+        <div id="dj-line-5" style="opacity:0.3;transition:all 0.3s;padding-left:24px">add u to S</div>
+        <div id="dj-line-6" style="opacity:0.3;transition:all 0.3s;padding-left:24px">for each neighbour w of u:</div>
+        <div id="dj-line-7" style="opacity:0.3;transition:all 0.3s;padding-left:48px">if d<sub>s</sub>(u) + c(u,w) &lt; d<sub>s</sub>(w): <span id="dj-question" style="color:var(--accent)">&#x2190; ???</span></div>
+        <div id="dj-line-8" style="opacity:0.3;transition:all 0.3s;padding-left:72px">d<sub>s</sub>(w) = d<sub>s</sub>(u) + c(u,w)</div>
+        <div id="dj-line-9" style="opacity:0.3;transition:all 0.3s;padding-left:72px">p<sub>s</sub>(w) = u</div>
+        <div id="dj-line-10" style="opacity:0.3;transition:all 0.3s"><b>until</b> all nodes settled</div>
+      </div>
+    </div>
+    <div class="col" style="flex:1">
+      <div class="frag" style="font-size:18px;margin:0 0 14px"><p style="margin:0 0 8px"><b>Start:</b> set d<sub>s</sub>(s) = 0, all others to &#x221E;.</p><p id="dj-settled-explain" style="margin:0 0 8px">We also initialise a <b>settled set</b> S &mdash; S tracks the nodes whose shortest-path distance has been <b>finalised</b>. Once a node u is in S, we have d<sub>s</sub>(u) = d<sub>s</sub>*(u), the optimal (least-cost) distance.</p><p id="dj-settled-init" style="margin:0">Initially, S is empty.</p></div>
+      <p class="frag" style="font-size:18px;margin:0 0 14px">Pick the unsettled node with the <b>smallest tentative distance</b>.</p>
+      <p class="frag" style="font-size:18px;margin:0 0 14px">Settle it &mdash; this distance is <b>final</b>.</p>
+      <p class="frag" style="font-size:18px;margin:0 0 14px;color:var(--accent)"><b>Do you recognise this operation?</b></p>
+      <p class="frag" style="font-size:18px;margin:0 0 14px">This is <b>relaxation</b> &mdash; the same core operation from Lecture 2. If the path through u is cheaper, update the tentative distance and predecessor.</p>
+      <p class="frag" style="font-size:18px;margin:0">Repeat: pick next minimum, settle, relax outward. Continue until all nodes are settled.</p>
+    </div>
+  </div>
+  <aside class="notes"><span class="timing">15 min</span> Walk through pseudocode step by step. Each fragment highlights corresponding lines. Fragment 4 asks students to recognise relaxation. Fragment 5 reveals the answer.</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
+  <div class="kicker">Dijkstra's algorithm</div>
+  <h2>Step-by-step walkthrough</h2>
+  <div class="cols" style="align-items:flex-start;gap:12px">
+    <div class="col" style="flex:0.9">
+      <svg id="dijk-svg" viewBox="0 0 580 380" style="width:100%;max-width:480px" aria-label="Dijkstra walkthrough on 6-node graph A-F">
+        <!-- Edges -->
+        <line id="dk-e-AB" x1="80" y1="190" x2="215" y2="74" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-AC" x1="80" y1="190" x2="440" y2="80" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-AD" x1="80" y1="190" x2="230" y2="310" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-BD" x1="215" y1="74" x2="230" y2="310" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-DC" x1="230" y1="310" x2="440" y2="80" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-DE" x1="230" y1="310" x2="410" y2="300" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-CE" x1="440" y1="80" x2="410" y2="300" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-CF" x1="440" y1="80" x2="540" y2="190" stroke="var(--edge)" stroke-width="3"/>
+        <line id="dk-e-EF" x1="410" y1="300" x2="540" y2="190" stroke="var(--edge)" stroke-width="3"/>
+        <!-- Edge weights -->
+        <rect x="134" y="117" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="147" y="133" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
+        <rect x="247" y="120" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="260" y="136" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">5</text>
+        <rect x="140" y="254" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="153" y="270" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
+        <rect x="207" y="182" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="220" y="198" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
+        <rect x="322" y="186" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="335" y="202" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">3</text>
+        <rect x="307" y="310" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="320" y="326" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
+        <rect x="412" y="182" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="425" y="198" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
+        <rect x="493" y="120" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="506" y="136" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">5</text>
+        <rect x="483" y="250" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="496" y="266" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
+        <!-- Nodes -->
+        <circle id="dk-n-A" cx="80" cy="190" r="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
+        <text x="80" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
+        <circle id="dk-n-B" cx="215" cy="74" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+        <text x="215" y="80" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
+        <circle id="dk-n-C" cx="440" cy="80" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+        <text x="440" y="86" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
+        <circle id="dk-n-D" cx="230" cy="310" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+        <text x="230" y="316" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">D</text>
+        <circle id="dk-n-E" cx="410" cy="300" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+        <text x="410" y="306" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">E</text>
+        <circle id="dk-n-F" cx="540" cy="190" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+        <text x="540" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">F</text>
+      </svg>
+      <p class="mono small" style="margin:8px 0 0;text-align:center" id="dk-step-label">Click &#x2192; to step through</p>
+    </div>
+    <div class="col" style="flex:1.1;overflow-x:auto;min-width:0">
+      <table class="ft" style="font-size:11px" id="dk-table">
+        <thead><tr><th>Step</th><th>S</th><th style="white-space:nowrap">A<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">B<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">C<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">D<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">E<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">F<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th></tr></thead>
+        <tbody id="dk-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <p class="frag" id="dk-f1"></p><p class="frag" id="dk-f2"></p><p class="frag" id="dk-f3"></p>
+  <p class="frag" id="dk-f4"></p><p class="frag" id="dk-f5"></p><p class="frag" id="dk-f6"></p>
+  <p class="frag" id="dk-f7"></p><p class="frag" id="dk-f8"></p><p class="frag" id="dk-f9"></p>
+  <div id="dk-relax-detail" style="display:none;margin-top:4px">
+    <div class="card mono" style="padding:10px 14px;font-size:13px;line-height:2;border-left:3px solid var(--accent)">
+      <div id="dk-relax-content"></div>
+    </div>
+  </div>
+  <div id="dk-fwd-wrap" style="display:none;margin-top:4px">
+    <p class="mono small" style="margin:0 0 6px;color:var(--accent)">&#x2192; A's forwarding table (trace predecessors back to A):</p>
+    <div style="display:flex;gap:24px;align-items:flex-start">
+      <table class="ft" style="font-size:12px" id="dk-fwd-table">
+        <thead><tr><th>Dest</th><th>Next hop</th></tr></thead>
+        <tbody>
+          <tr><td>B</td><td class="accent"><b>B</b></td></tr>
+          <tr><td>C</td><td class="accent"><b>D</b></td></tr>
+          <tr><td>D</td><td class="accent"><b>D</b></td></tr>
+          <tr><td>E</td><td class="accent"><b>D</b></td></tr>
+          <tr><td>F</td><td class="accent"><b>D</b></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:14px;margin:0;color:var(--muted)">The router only stores <b>destination + next hop</b>, not the full path.</p>
+    </div>
+  </div>
+  <p class="frag" id="dk-f10"></p>
+  <p class="frag" id="dk-f11"></p>
+  <div id="dk-transition" style="display:none;margin-top:4px">
+    <div class="card" style="border-left:4px solid var(--accent);padding:14px 20px">
+      <p style="margin:0;font-size:19px">To pick the node with the smallest tentative distance, Dijkstra needs to see <b>all</b> tentative distances at once &mdash; it needs the <b>complete network topology</b>. How does each router get it?</p>
+    </div>
+  </div>
+  <aside class="notes"><span class="timing">30 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
   <div class="kicker">The link-state idea</div>
   <h2>How link-state routing works</h2>
   <div style="display:flex;flex-direction:column;align-items:center;gap:20px;flex:1;justify-content:center">
@@ -2033,7 +2216,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       Every router now has the <b>same complete map</b>. Each independently runs a <b>shortest-path / least-cost algorithm</b> to build its forwarding table.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">3 min</span> Three steps. Say "shortest-path algorithm" generically here — Dijkstra comes later. The key insight: after flooding, every router has the same picture, so forwarding is consistent everywhere.</aside>
+  <aside class="notes"><span class="timing">33 min</span> Three steps. Say "shortest-path algorithm" generically here — Dijkstra comes later. The key insight: after flooding, every router has the same picture, so forwarding is consistent everywhere.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="flood-slide">
@@ -2110,7 +2293,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">5 min</span> Four fragments showing hop-by-hop flooding. Focus on A's LSA first: hop 1 reaches B, C; hop 2 reaches D, E. Then quickly say B–E flood the same way. Mini-graphs track what each router knows — by the end all five are identical.</aside>
+  <aside class="notes"><span class="timing">36 min</span> Four fragments showing hop-by-hop flooding. Focus on A's LSA first: hop 1 reaches B, C; hop 2 reaches D, E. Then quickly say B–E flood the same way. Mini-graphs track what each router knows — by the end all five are identical.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="reflood-slide">
@@ -2165,280 +2348,53 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">10 min</span> Flooding isn't a one-time event. The graph on the left shows the converged topology. Fragment 1 shows a link failure (C-D goes down), fragment 2 shows a cost change (A-B from 2 to 7), fragment 3 shows the periodic timer. Each triggers a new round of flooding.</aside>
-</section>
-
-<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="insight-slide">
-  <div class="kicker">Dijkstra's algorithm</div>
-  <h2>The key insight</h2>
-  <div class="cols" style="align-items:flex-start;gap:16px">
-    <div class="col" style="flex:1.1">
-      <svg id="insight-svg" viewBox="0 0 460 260" style="width:100%;max-width:460px" aria-label="Dijkstra insight: settling outward from s">
-        <defs><filter id="cblur3"><feGaussianBlur stdDeviation="4"/></filter></defs>
-        <!-- Solid edges: s to neighbours -->
-        <line x1="55" y1="130" x2="195" y2="130" stroke="var(--edge)" stroke-width="2.5"/>
-        <line x1="55" y1="130" x2="195" y2="40" stroke="var(--edge)" stroke-width="2.5"/>
-        <line id="ins-e-su" x1="55" y1="130" x2="195" y2="220" stroke="var(--edge)" stroke-width="2.5"/>
-        <!-- Dashed paths: neighbours to v -->
-        <line x1="211" y1="130" x2="385" y2="130" stroke="var(--edge)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.35"/>
-        <line x1="205" y1="30" x2="393" y2="120" stroke="var(--edge)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.35"/>
-        <line id="ins-p-uv" x1="205" y1="230" x2="393" y2="140" stroke="var(--edge)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.35"/>
-        <!-- Cloud blobs -->
-        <ellipse cx="298" cy="130" rx="22" ry="10" fill="var(--edge)" opacity="0.08" filter="url(#cblur3)"/>
-        <text x="298" y="134" text-anchor="middle" font-size="16" fill="var(--muted)" opacity="0.4">&#xB7;&#xB7;&#xB7;</text>
-        <ellipse cx="298" cy="78" rx="22" ry="10" fill="var(--edge)" opacity="0.08" filter="url(#cblur3)"/>
-        <text x="298" y="82" text-anchor="middle" font-size="16" fill="var(--muted)" opacity="0.4">&#xB7;&#xB7;&#xB7;</text>
-        <ellipse cx="298" cy="182" rx="22" ry="10" fill="var(--edge)" opacity="0.08" filter="url(#cblur3)"/>
-        <text x="298" y="186" text-anchor="middle" font-size="16" fill="var(--muted)" opacity="0.4">&#xB7;&#xB7;&#xB7;</text>
-        <!-- Tentative cost labels (shown at frag 1+) -->
-        <g id="ins-costs" opacity="0">
-          <text x="125" y="122" text-anchor="middle" font-size="14" font-weight="700" fill="var(--muted)">20</text>
-          <text x="112" y="75" text-anchor="middle" font-size="14" font-weight="700" fill="var(--muted)">10</text>
-          <text x="112" y="190" text-anchor="middle" font-size="14" font-weight="700" fill="var(--accent)">5</text>
-        </g>
-        <!-- u settled highlight (shown at frag 2+) -->
-        <g id="ins-u-settle" opacity="0">
-          <line x1="55" y1="130" x2="195" y2="220" stroke="var(--accent)" stroke-width="4"/>
-          <line x1="205" y1="230" x2="393" y2="140" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 4" opacity="0.7"/>
-          <text x="300" y="210" text-anchor="middle" font-size="13" font-weight="600" fill="var(--accent)">d<tspan baseline-shift="sub" font-size="10">s</tspan>(u) + c(u,&#x2026;)</text>
-        </g>
-        <!-- Nodes -->
-        <circle cx="55" cy="130" r="20" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="55" y="136" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">s</text>
-        <circle cx="195" cy="40" r="16" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
-        <text x="195" y="45" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--ink)">w</text>
-        <circle cx="195" cy="130" r="16" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
-        <text x="195" y="135" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--ink)">x</text>
-        <circle id="ins-n-u" cx="195" cy="220" r="16" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
-        <text x="195" y="225" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--ink)">u</text>
-        <circle cx="405" cy="130" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="405" y="136" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">v</text>
-      </svg>
-    </div>
-    <div class="col" style="flex:1">
-      <p class="frag" id="ins-f1" style="font-size:18px;margin:0 0 14px">Start: only <b>s</b> is settled. Compute <b>tentative distances</b> to every neighbour: 20, 10, 5.</p>
-      <p class="frag" id="ins-f2" style="font-size:18px;margin:0 0 14px">The <b>closest</b> neighbour (<b>u</b>, cost 5) — no cheaper path exists through unsettled nodes, so <span style="color:var(--accent)"><b>d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b></span>. Settle it, then relax outward using this exact cost.</p>
-      <p class="frag" id="ins-f3" style="font-size:18px;margin:0;color:var(--accent)">No dependency problem: each settled distance is <b>final</b>. The settled region grows outward, one node at a time, in order of increasing cost.</p>
-    </div>
-  </div>
-  <aside class="notes"><span class="timing">14 min</span> Same graph as relaxation/dependency slides. Frag 1: s settled, tentative costs shown. Frag 2: u (cost 5, closest) turns teal — its distance is final because no unsettled path through another node could be cheaper (non-negative weights). Relax outward using d_s(u)+c(u,·). Frag 3: the key point — no dependency needed, the settled region expands like a wavefront.</aside>
-</section>
-
-<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
-  <div class="kicker">Dijkstra's algorithm</div>
-  <h2>Step-by-step walkthrough</h2>
-  <div class="cols" style="align-items:flex-start;gap:12px">
-    <div class="col" style="flex:0.9">
-      <svg id="dijk-svg" viewBox="0 0 580 380" style="width:100%;max-width:480px" aria-label="Dijkstra walkthrough on 6-node graph A-F">
-        <!-- Edges -->
-        <line id="dk-e-AB" x1="80" y1="190" x2="215" y2="74" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-AC" x1="80" y1="190" x2="440" y2="80" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-AD" x1="80" y1="190" x2="230" y2="310" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-BD" x1="215" y1="74" x2="230" y2="310" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-DC" x1="230" y1="310" x2="440" y2="80" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-DE" x1="230" y1="310" x2="410" y2="300" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-CE" x1="440" y1="80" x2="410" y2="300" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-CF" x1="440" y1="80" x2="540" y2="190" stroke="var(--edge)" stroke-width="3"/>
-        <line id="dk-e-EF" x1="410" y1="300" x2="540" y2="190" stroke="var(--edge)" stroke-width="3"/>
-        <!-- Edge weights -->
-        <rect x="134" y="117" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="147" y="133" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
-        <rect x="247" y="120" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="260" y="136" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">5</text>
-        <rect x="140" y="254" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="153" y="270" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
-        <rect x="207" y="182" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="220" y="198" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
-        <rect x="322" y="186" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="335" y="202" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">3</text>
-        <rect x="307" y="310" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="320" y="326" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
-        <rect x="412" y="182" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="425" y="198" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
-        <rect x="493" y="120" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="506" y="136" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">5</text>
-        <rect x="483" y="250" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="496" y="266" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
-        <!-- Nodes -->
-        <circle id="dk-n-A" cx="80" cy="190" r="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="80" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-        <circle id="dk-n-B" cx="215" cy="74" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="215" y="80" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
-        <circle id="dk-n-C" cx="440" cy="80" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="440" y="86" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
-        <circle id="dk-n-D" cx="230" cy="310" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="230" y="316" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">D</text>
-        <circle id="dk-n-E" cx="410" cy="300" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="410" y="306" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">E</text>
-        <circle id="dk-n-F" cx="540" cy="190" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="540" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">F</text>
-      </svg>
-      <p class="mono small" style="margin:8px 0 0;text-align:center" id="dk-step-label">Click &#x2192; to step through</p>
-    </div>
-    <div class="col" style="flex:1.1;overflow-x:auto;min-width:0">
-      <table class="ft" style="font-size:13px" id="dk-table">
-        <thead><tr><th>Step</th><th>S</th><th>d<sub>s</sub>(B), p<sub>s</sub></th><th>d<sub>s</sub>(C), p<sub>s</sub></th><th>d<sub>s</sub>(D), p<sub>s</sub></th><th>d<sub>s</sub>(E), p<sub>s</sub></th><th>d<sub>s</sub>(F), p<sub>s</sub></th></tr></thead>
-        <tbody id="dk-tbody"></tbody>
-      </table>
-    </div>
-  </div>
-  <p class="frag" id="dk-f1"></p><p class="frag" id="dk-f2"></p><p class="frag" id="dk-f3"></p>
-  <p class="frag" id="dk-f4"></p><p class="frag" id="dk-f5"></p><p class="frag" id="dk-f6"></p>
-  <p class="frag" id="dk-f7"></p>
-  <div id="dk-fwd-wrap" style="display:none;margin-top:4px">
-    <p class="mono small" style="margin:0 0 6px;color:var(--accent)">&#x2192; A's forwarding table (trace predecessors back to A):</p>
-    <div style="display:flex;gap:24px;align-items:flex-start">
-      <table class="ft" style="font-size:12px" id="dk-fwd-table">
-        <thead><tr><th>Dest</th><th>Cost</th><th>Next hop</th></tr></thead>
-        <tbody>
-          <tr><td>B</td><td class="mono">2</td><td class="accent"><b>B</b></td></tr>
-          <tr><td>C</td><td class="mono">3</td><td class="accent"><b>D</b></td></tr>
-          <tr><td>D</td><td class="mono">1</td><td class="accent"><b>D</b></td></tr>
-          <tr><td>E</td><td class="mono">2</td><td class="accent"><b>D</b></td></tr>
-          <tr><td>F</td><td class="mono">4</td><td class="accent"><b>D</b></td></tr>
-        </tbody>
-      </table>
-      <p style="font-size:14px;margin:0;color:var(--muted)">The router only stores <b>destination + next hop</b>, not the full path.</p>
-    </div>
-  </div>
-  <aside class="notes"><span class="timing">20 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
-</section>
-
-<!-- Dijkstra pseudocode slide DELETED — walkthrough already teaches the algorithm step by step -->
-
-<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
-  <div class="kicker">Dijkstra's invariant: label-setting</div>
-  <h2>Finalise once, never revise</h2>
-  <div class="cols" style="align-items:flex-start">
-    <div class="col" style="flex:1.2">
-      <svg viewBox="0 0 440 300" style="width:100%;max-width:440px" aria-label="Dijkstra needs a global view to pick the minimum">
-        <line x1="80" y1="150" x2="220" y2="70" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="80" y1="150" x2="220" y2="230" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="220" y1="70" x2="360" y2="150" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="220" y1="230" x2="360" y2="150" stroke="var(--edge)" stroke-width="3"/>
-        <text x="140" y="96" font-size="16" font-weight="700" fill="var(--current)">3</text>
-        <text x="140" y="208" font-size="16" font-weight="700" fill="var(--current)">1</text>
-        <text x="300" y="96" font-size="16" font-weight="700" fill="var(--current)">1</text>
-        <text x="300" y="208" font-size="16" font-weight="700" fill="var(--current)">10</text>
-        <circle cx="80" cy="150" r="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="80" y="156" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-        <circle cx="220" cy="70" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="220" y="76" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
-        <text x="220" y="40" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)">D(B)=3</text>
-        <circle cx="220" cy="230" r="26" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="220" y="236" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">C</text>
-        <text x="220" y="270" text-anchor="middle" font-size="14" class="svgmono" fill="var(--accent)">D(C)=1 &#x2190; min</text>
-        <circle cx="360" cy="150" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="360" y="156" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">D</text>
-        <g id="dijk-eye" opacity="0.15">
-          <ellipse cx="220" cy="148" rx="160" ry="110" fill="none" stroke="var(--current)" stroke-width="2" stroke-dasharray="6,4"/>
-          <text x="220" y="15" text-anchor="middle" font-size="13" class="svgmono" fill="var(--current)">must see ALL D(v) values</text>
-        </g>
-      </svg>
-    </div>
-    <div class="col">
-      <p class="frag" style="font-size:19px;margin:0 0 12px">Dijkstra picks the unsettled node with the <b>smallest D(v) across the entire graph</b>, then <b>permanently settles</b> it.</p>
-      <p class="frag" style="font-size:19px;margin:0 0 12px">Once a node is settled, its distance is <b>final</b> — it is never revised. This is the <b>label-setting</b> property.</p>
-      <p class="frag" style="font-size:19px;margin:0 0 12px">This works because all edge weights are non-negative: no unseen edge can produce a cheaper path to an already-settled node.</p>
-      <p class="frag card" style="font-size:17px;margin:0;padding:12px 16px;border-left:4px solid var(--bad)">The global minimum selection requires seeing <b>all D(v) values at once</b> — one router alone cannot do this. That is why Dijkstra needs link-state flooding first.</p>
-    </div>
-  </div>
-  <aside class="notes"><span class="timing">41 min</span> Key slide. Label-setting = once a node enters S, its D(v) is permanently optimal. This is what makes Dijkstra greedy and fast, but also what makes it impossible to distribute: the global-minimum selection requires knowledge of all tentative distances, which means the full topology must be available. Example: A must know D(C)=1 before settling; otherwise it might settle B at 3, missing A&#x2192;C&#x2192;B=2.</aside>
+  <aside class="notes"><span class="timing">39 min</span> Flooding isn't a one-time event. The graph on the left shows the converged topology. Fragment 1 shows a link failure (C-D goes down), fragment 2 shows a cost change (A-B from 2 to 7), fragment 3 shows the periodic timer. Each triggers a new round of flooding.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
-  <div class="kicker">Bellman-Ford's invariant: label-correcting</div>
-  <h2>Improve until stable</h2>
-  <div class="cols" style="align-items:flex-start">
-    <div class="col" style="flex:1.2">
-      <svg viewBox="0 0 440 300" style="width:100%;max-width:440px" aria-label="Bellman-Ford only needs local neighbour info">
-        <line x1="80" y1="150" x2="220" y2="70" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="80" y1="150" x2="220" y2="230" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="220" y1="70" x2="360" y2="150" stroke="var(--edge)" stroke-width="3" opacity="0.2"/>
-        <line x1="220" y1="230" x2="360" y2="150" stroke="var(--edge)" stroke-width="3" opacity="0.2"/>
-        <text x="140" y="96" font-size="16" font-weight="700" fill="var(--current)">3</text>
-        <text x="140" y="208" font-size="16" font-weight="700" fill="var(--current)">1</text>
-        <circle cx="80" cy="150" r="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="80" y="156" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-        <circle cx="220" cy="70" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="220" y="76" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
-        <circle cx="220" cy="230" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="220" y="236" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
-        <circle cx="360" cy="150" r="26" fill="var(--surface)" stroke="var(--muted)" stroke-width="2" opacity="0.25"/>
-        <text x="360" y="156" text-anchor="middle" font-size="15" class="svgmono" fill="var(--muted)" opacity="0.25">D</text>
-        <ellipse cx="150" cy="150" rx="120" ry="110" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6,4"/>
-        <text x="150" y="285" text-anchor="middle" font-size="13" class="svgmono" fill="var(--accent)">A's local knowledge</text>
-      </svg>
-    </div>
-    <div class="col">
-      <p class="frag" style="font-size:19px;margin:0 0 12px">Bellman-Ford never permanently settles a node. Instead, every estimate can be <b>revised</b> whenever a neighbour reports a cheaper path. This is the <b>label-correcting</b> property.</p>
-      <p class="frag" style="font-size:19px;margin:0 0 12px">After <i>k</i> iterations, all shortest paths using <b>&le; k edges</b> are correct. After N&minus;1 iterations, <b>all</b> shortest paths are correct.</p>
-      <p class="frag" style="font-size:19px;margin:0 0 12px">Each update needs only: (a)&nbsp;<b>own link costs</b>, (b)&nbsp;<b>neighbours' current estimates</b>. No global view required.</p>
-      <p class="frag card" style="font-size:17px;margin:0;padding:12px 16px;border-left:4px solid var(--accent)">Because each node can relax independently using local info, Bellman-Ford is naturally <b>distributable</b> — and that is exactly what distance-vector protocols do.</p>
-    </div>
-  </div>
-  <aside class="notes"><span class="timing">44 min</span> Label-correcting = estimates are always upper bounds that get tightened. After k rounds, all k-hop-or-less shortest paths are optimal. This is slower than Dijkstra (up to N-1 rounds vs one pass), but the tradeoff is that no global view is needed — each router only talks to its neighbours. This is also why BF handles negative edges: it never commits irrevocably, so a late-discovered negative edge just triggers another correction.</aside>
-</section>
-
-<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="compare-slide">
-  <div class="kicker">Side by side</div>
-  <h2>The orchestration difference</h2>
-  <div class="cols" style="align-items:flex-start;gap:16px">
-    <div class="col card" style="flex:1;border-top:4px solid var(--current);padding:14px 20px">
-      <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">Dijkstra — centralised</p>
-      <svg viewBox="0 0 280 170" style="width:100%;max-width:320px" aria-label="Dijkstra: central eye picks global minimum">
-        <line x1="140" y1="40" x2="60" y2="110" stroke="var(--edge)" stroke-width="2"/>
-        <line x1="140" y1="40" x2="220" y2="110" stroke="var(--edge)" stroke-width="2"/>
-        <line x1="60" y1="110" x2="220" y2="110" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="60" cy="110" r="16" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="140" cy="40" r="16" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="220" cy="110" r="16" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
-        <ellipse cx="140" cy="82" rx="100" ry="52" fill="none" stroke="var(--current)" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <text x="140" y="158" text-anchor="middle" font-size="12" class="svgmono" fill="var(--current)">sees all D(v), picks min</text>
-      </svg>
-      <p class="frag" style="font-size:16px;margin:6px 0 0">One entity sees everything, makes sequential greedy decisions</p>
-    </div>
-    <div class="col card" style="flex:1;border-top:4px solid var(--accent);padding:14px 20px">
-      <p class="mono accent" style="margin:0 0 8px;font-size:15px">Bellman-Ford — distributed</p>
-      <svg viewBox="0 0 280 170" style="width:100%;max-width:320px" aria-label="Bellman-Ford: each node updates independently from neighbours">
-        <line x1="140" y1="40" x2="60" y2="110" stroke="var(--edge)" stroke-width="2"/>
-        <line x1="140" y1="40" x2="220" y2="110" stroke="var(--edge)" stroke-width="2"/>
-        <line x1="60" y1="110" x2="220" y2="110" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="60" cy="110" r="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
-        <circle cx="140" cy="40" r="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
-        <circle cx="220" cy="110" r="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
-        <path d="M76,100 L124,52" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#cmpA)"><animate attributeName="stroke-dashoffset" values="16;0" dur="1s" repeatCount="indefinite"/></path>
-        <path d="M156,50 L204,98" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#cmpA)"><animate attributeName="stroke-dashoffset" values="16;0" dur="1s" repeatCount="indefinite"/></path>
-        <path d="M78,116 L202,116" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#cmpA)"><animate attributeName="stroke-dashoffset" values="16;0" dur="1s" repeatCount="indefinite"/></path>
-        <defs><marker id="cmpA" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="var(--accent)"/></marker></defs>
-        <text x="140" y="158" text-anchor="middle" font-size="12" class="svgmono" fill="var(--accent)">each node updates from neighbours</text>
-      </svg>
-      <p class="frag" style="font-size:16px;margin:6px 0 0">Each node independently updates from neighbours — asynchronous</p>
-    </div>
-  </div>
-  <p class="frag lead" style="text-align:center;margin-top:16px">Both converge to the <b>same shortest-path tree</b>.</p>
-  <aside class="notes"><span class="timing">47 min</span> The visual summary. Left: Dijkstra needs a central eye (the full LSDB). Right: B-F nodes exchange messages independently. Both algorithms produce the same result — the difference is how they get there, and what information they need.</aside>
-</section>
-
-<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
-  <div class="kicker">Formal comparison</div>
-  <h2>Dijkstra vs Bellman-Ford</h2>
+  <div class="kicker">The two families</div>
+  <h2>Distance-vector vs Link-state</h2>
   <div class="tblwrap">
     <table class="ft" style="font-size:15px;width:100%;table-layout:fixed">
       <colgroup><col style="width:18%"><col style="width:41%"><col style="width:41%"></colgroup>
-      <thead><tr><th></th><th style="border-top:4px solid var(--current)">Dijkstra</th><th style="border-top:4px solid var(--accent)">Bellman-Ford</th></tr></thead>
+      <thead><tr><th></th><th style="border-top:4px solid var(--current)">Distance-vector</th><th style="border-top:4px solid var(--accent)">Link-state</th></tr></thead>
       <tbody>
-        <tr class="frag"><td class="muted small">Invariant</td><td><b>Label-setting</b> — finalise once, never revise</td><td><b>Label-correcting</b> — improve until stable</td></tr>
-        <tr class="frag"><td class="muted small">Info needed</td><td>Global topology (full graph)</td><td>Own link costs + neighbours' estimates</td></tr>
-        <tr class="frag"><td class="muted small">Computation</td><td>Greedy, centralised</td><td>Iterative, distributable</td></tr>
-        <tr class="frag"><td class="muted small">Convergence</td><td>One pass (N steps)</td><td>Up to N&#x2212;1 iterations</td></tr>
-        <tr class="frag"><td class="muted small">Complexity</td><td class="mono">O((N+E) log N)</td><td class="mono">O(N &#xB7; E)</td></tr>
-        <tr class="frag"><td class="muted small">Neg. edges</td><td><span class="warn">Fails</span> — commits irrevocable</td><td><span class="accent">Handles correctly</span></td></tr>
-        <tr class="frag"><td class="muted small">Protocol</td><td><b>Link-state</b> (OSPF, IS-IS)</td><td><b>Distance-vector</b> (RIP, BGP)</td></tr>
+        <tr class="frag"><td class="muted small">Information</td><td>Neighbours&rsquo; DVs only</td><td>Full topology (LSDB)</td></tr>
+        <tr class="frag"><td class="muted small">Computation</td><td>Iterative, distributed</td><td>Local, centralised (per-router)</td></tr>
+        <tr class="frag"><td class="muted small">Convergence</td><td>Slow (iterative rounds)</td><td>Fast (independent computation)</td></tr>
+        <tr class="frag"><td class="muted small">Routing loops</td><td><span class="warn">Prone</span> (count-to-infinity)</td><td><span class="accent">Loop-free</span> (consistent topology)</td></tr>
+        <tr class="frag"><td class="muted small">Memory</td><td>Small (only distance vectors)</td><td>Large (full topology database / LSDB)</td></tr>
+        <tr class="frag"><td class="muted small">Examples</td><td><b>RIP</b>, <b>BGP</b></td><td><b>OSPF</b>, <b>IS-IS</b></td></tr>
       </tbody>
     </table>
   </div>
-  <aside class="notes"><span class="timing">50 min</span> Exam material. The last row connects algorithms to protocols: Dijkstra &#x2192; link-state (needs flooding to get the full graph), B-F &#x2192; distance-vector (each router only needs local info). The resource-constrained point covers quiz Q16: DV for low-CPU/memory routers because they don't need to store the entire topology database.</aside>
+  <aside class="notes"><span class="timing">44 min</span> Protocol-level comparison. Memory row: DV stores only distance vectors (small), LS stores full topology database (large). Examples: RIP/BGP = DV, OSPF/IS-IS = LS.</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
+  <div class="kicker">Recap</div>
+  <h2>What we covered</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
+    <div class="frag" style="margin:0">
+      <p style="font-size:22px;margin:0 0 10px"><b>Lecture 3:</b></p>
+      <p style="font-size:19px;margin:0 0 6px"><b>Dijkstra&rsquo;s algorithm</b> &mdash; settle the closest unsettled node, relax outward; one pass gives every node its shortest path from the source.</p>
+      <p style="font-size:19px;margin:0"><b>Link-state routing</b> &mdash; flood LSAs so every router has the same map, then run Dijkstra locally.</p>
+    </div>
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
+      <p style="font-size:20px;margin:0 0 10px"><b>Week 7 &mdash; The two routing families:</b></p>
+      <div style="display:flex;gap:20px">
+        <div style="flex:1">
+          <p style="font-size:17px;margin:0 0 6px"><b style="color:var(--current)">Distance-vector</b> <span class="muted">(Lecture 2)</span></p>
+          <p style="font-size:15px;margin:0;color:var(--muted)">Bellman-Ford distributed &mdash; each node exchanges vectors with neighbours. Simple but has count-to-infinity. Used in RIP, BGP.</p>
+        </div>
+        <div style="flex:1">
+          <p style="font-size:17px;margin:0 0 6px"><b style="color:var(--accent)">Link-state</b> <span class="muted">(Lecture 3)</span></p>
+          <p style="font-size:15px;margin:0;color:var(--muted)">Flood topology, run Dijkstra locally. Faster convergence, loop-free. Used in OSPF, IS-IS.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes"><span class="timing">48 min</span> Final recap: Lecture 3 + full Week 7 summary. Two families: DV (distributed BF, count-to-infinity) vs LS (flood topology, Dijkstra, loop-free).</aside>
 </section>
 
 
@@ -2522,16 +2478,16 @@ function goto_(i,revealAll){
   cur=i;
   if(revealAll) showAllFrags(slides[cur]); else hideAllFrags(slides[cur]);
   sync();
-  updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateInsightSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();resetASP();
+  updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();resetASP();
 }
 function next(){
   var f=frags(slides[cur]).filter(function(x){return !x.classList.contains('on');});
-  if(f.length){f[0].classList.add('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateInsightSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(f.length){f[0].classList.add('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur+1,false);
 }
 function prev(){
   var on=frags(slides[cur]).filter(function(x){return x.classList.contains('on');});
-  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateInsightSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur-1,true);
 }
 
@@ -3147,17 +3103,25 @@ function updateSplitHorizonSlide(){
   if(tby) tby.innerHTML='<tr'+(n>=5&&n<=7?' style="color:var(--bad);font-weight:700"':(n>=8?' style="color:var(--accent);font-weight:700"':''))+'><td>z</td><td class="mono">'+(n>=5&&n<=7?'∞':(n>=8?'52':'1'))+'</td><td class="mono">'+(n>=5&&n<=7?'—':(n>=8?'x':'z'))+'</td></tr>';
 }
 /* ---------- Dijkstra insight animation ---------- */
-function updateInsightSlide(){
-  var s=document.getElementById('insight-slide');if(!s)return;
+function updateDijkstraDescSlide(){
+  var s=document.getElementById('dijkstra-desc-slide');if(!s)return;
   var n=fragCount(s);
-  function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
-  setOp('ins-costs',n>=1?1:0);
-  setOp('ins-u-settle',n>=2?1:0);
-  var uNode=document.getElementById('ins-n-u');
-  if(uNode){
-    uNode.setAttribute('fill',n>=2?'var(--accent-soft)':'var(--surface)');
-    uNode.setAttribute('stroke',n>=2?'var(--accent)':'var(--edge)');
-  }
+  var allLines=[1,2,3,4,5,6,7,8,9,10];
+  var hlSets=[[],[1,2],[4],[5],[6,7,8,9],[6,7,8,9],[3,10]];
+  var active=n<hlSets.length?hlSets[n]:[];
+  allLines.forEach(function(ln){
+    var el=document.getElementById('dj-line-'+ln);
+    if(!el)return;
+    if(n===0){el.style.opacity='0.3';el.style.color='';el.style.fontWeight='';}
+    else if(active.indexOf(ln)>=0){el.style.opacity='1';el.style.color='var(--accent)';el.style.fontWeight='700';}
+    else{el.style.opacity='0.4';el.style.color='';el.style.fontWeight='';}
+  });
+  var q=document.getElementById('dj-question');
+  if(q){q.innerHTML=n>=5?'&#x2190; <b>relaxation!</b>':'&#x2190; ???';}
+  var se=document.getElementById('dj-settled-explain');
+  var si=document.getElementById('dj-settled-init');
+  if(se) se.style.display=n>=2?'none':'';
+  if(si) si.style.display=n>=2?'none':'';
 }
 
 /* ---------- Flooding animation (Lecture 2 · slide 37-38) ---------- */
@@ -3260,14 +3224,15 @@ function updateFloodingSlide(){
 
 /* ---------- Dijkstra walkthrough animation (Lecture 2 · slides 46-47) ---------- */
 var dkSteps=[
-  {settled:'A',S:'{A}',vals:['2,A','5,A','1,A','∞','∞'],relaxed:['AB','AC','AD'],picked:null},
-  {settled:'D',S:'{A,D}',vals:['2,A','4,D','—','2,D','∞'],relaxed:['DC','DE'],picked:'D'},
-  {settled:'E',S:'{A,D,E}',vals:['2,A','3,E','—','—','4,E'],relaxed:['EC','EF'],picked:'E'},
-  {settled:'B',S:'{A,D,E,B}',vals:['—','3,E','—','—','4,E'],relaxed:[],picked:'B'},
-  {settled:'C',S:'{A,D,E,B,C}',vals:['—','—','—','—','4,E'],relaxed:[],picked:'C'},
-  {settled:'F',S:'{A,D,E,B,C,F}',vals:['—','—','—','—','—'],relaxed:[],picked:'F'}
+  {settled:null,S:'{}',vals:['0,—','∞','∞','∞','∞','∞'],relaxed:[],picked:null},
+  {settled:'A',S:'{A}',vals:['—','2,A','5,A','1,A','∞','∞'],relaxed:['AB','AC','AD'],picked:'A'},
+  {settled:'D',S:'{A,D}',vals:['—','2,A','4,D','—','2,D','∞'],relaxed:['DC','DE'],picked:'D'},
+  {settled:'E',S:'{A,D,E}',vals:['—','2,A','3,E','—','—','4,E'],relaxed:['EC','EF'],picked:'E'},
+  {settled:'B',S:'{A,D,E,B}',vals:['—','—','3,E','—','—','4,E'],relaxed:[],picked:'B'},
+  {settled:'C',S:'{A,D,E,B,C}',vals:['—','—','—','—','—','4,E'],relaxed:[],picked:'C'},
+  {settled:'F',S:'{A,D,E,B,C,F}',vals:['—','—','—','—','—','—'],relaxed:[],picked:'F'}
 ];
-var dkNodeOrder=['B','C','D','E','F'];
+var dkNodeOrder=['A','B','C','D','E','F'];
 var dkEdgeMap={AB:'dk-e-AB',AC:'dk-e-AC',AD:'dk-e-AD',BD:'dk-e-BD',DC:'dk-e-DC',DE:'dk-e-DE',CE:'dk-e-CE',CF:'dk-e-CF',EF:'dk-e-EF'};
 
 function updateDijkstraSlide(){
@@ -3277,18 +3242,21 @@ function updateDijkstraSlide(){
   var label=document.getElementById('dk-step-label');
   if(!tbody)return;
 
+  var fragToRows=[0,1,1,2,2,3,4,5,6,7,7,7];
+  var rowsToShow=n<fragToRows.length?fragToRows[n]:7;
+
   var html='';
   var settledSet=[];
-  for(var i=0;i<Math.min(n,dkSteps.length);i++){
+  for(var i=0;i<Math.min(rowsToShow,dkSteps.length);i++){
     var step=dkSteps[i];
-    settledSet.push(step.settled);
-    var row='<tr'+(i===n-1?' style="background:var(--accent-soft)"':'')+'>';
+    if(step.settled)settledSet.push(step.settled);
+    var row='<tr'+(i===rowsToShow-1?' style="background:var(--accent-soft)"':'')+'>';
     row+='<td class="mono">'+(i===0?'init':''+i)+'</td>';
-    row+='<td class="mono" style="font-size:13px">'+step.S+'</td>';
+    row+='<td class="mono">'+step.S+'</td>';
     for(var j=0;j<step.vals.length;j++){
       var val=step.vals[j];
       var changed=i>0&&dkSteps[i-1].vals[j]!==val&&val!=='—';
-      row+='<td class="mono" style="font-size:13px'+(changed?';color:var(--accent);font-weight:700':'')+'">'+(val==='—'?'<span style="color:var(--faint)">—</span>':val)+'</td>';
+      row+='<td class="mono" style="font-size:11px'+(changed?';color:var(--accent);font-weight:700':'')+'">'+(val==='—'?'<span style="color:var(--faint)">—</span>':val)+'</td>';
     }
     row+='</tr>';
     html+=row;
@@ -3297,18 +3265,54 @@ function updateDijkstraSlide(){
 
   if(label){
     if(n===0)label.textContent='Click → to step through';
-    else if(n<dkSteps.length)label.textContent='Step '+n+' of '+dkSteps.length;
-    else label.textContent='Done — shortest-path tree complete';
+    else if(n===2)label.textContent='Step 1 — relaxation';
+    else if(n===4)label.textContent='Step 2 — relaxation';
+    else if(rowsToShow>0&&rowsToShow<=dkSteps.length){
+      var stepNum=rowsToShow-1;
+      if(stepNum===0)label.textContent='Initialisation';
+      else if(stepNum<dkSteps.length)label.textContent='Step '+stepNum+' of '+(dkSteps.length-1);
+      else label.textContent='Done — shortest-path tree complete';
+    }
+    if(rowsToShow>=dkSteps.length&&n<10)label.textContent='Done — shortest-path tree complete';
   }
+
+  var relaxDiv=document.getElementById('dk-relax-detail');
+  var relaxContent=document.getElementById('dk-relax-content');
+  if(relaxDiv&&relaxContent){
+    if(n===2){
+      relaxDiv.style.display='block';
+      relaxContent.innerHTML='<div style="margin-bottom:8px"><b>Settle:</b> A has the smallest tentative distance: d<sub>s</sub>(A)&nbsp;=&nbsp;0. Add A to S \u2192 d<sub>s</sub>*(A)&nbsp;=&nbsp;0.</div>'
+        +'<div style="margin-bottom:4px;color:var(--accent);font-weight:700">Relax A’s neighbours:</div>'
+        +'d<sub>s</sub>(A) + c(A,B) = 0 + 2 = 2 &lt; ∞ → d<sub>s</sub>(B) = 2, p<sub>s</sub>(B) = A<br>'
+        +'d<sub>s</sub>(A) + c(A,C) = 0 + 5 = 5 &lt; ∞ → d<sub>s</sub>(C) = 5, p<sub>s</sub>(C) = A<br>'
+        +'d<sub>s</sub>(A) + c(A,D) = 0 + 1 = 1 &lt; ∞ → d<sub>s</sub>(D) = 1, p<sub>s</sub>(D) = A';
+    } else if(n===4){
+      relaxDiv.style.display='block';
+      relaxContent.innerHTML='<div style="margin-bottom:8px"><b>Settle:</b> D has the smallest tentative distance: d<sub>s</sub>(D)&nbsp;=&nbsp;1. Add D to S \u2192 d<sub>s</sub>*(D)&nbsp;=&nbsp;1.</div>'
+        +'<div style="margin-bottom:4px;color:var(--accent);font-weight:700">Relax D’s neighbours:</div>'
+        +'d<sub>s</sub>(D) + c(D,C) = 1 + 3 = 4 &lt; 5 → d<sub>s</sub>(C) = 4, p<sub>s</sub>(C) = D<br>'
+        +'d<sub>s</sub>(D) + c(D,E) = 1 + 1 = 2 &lt; ∞ → d<sub>s</sub>(E) = 2, p<sub>s</sub>(E) = D';
+    } else {
+      relaxDiv.style.display='none';
+    }
+  }
+
+  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,6,6,6];
+  var stepIdx=n<fragToStepIdx.length?fragToStepIdx[n]:-1;
 
   var allNodes=['A','B','C','D','E','F'];
   allNodes.forEach(function(nd){
     var circle=document.getElementById('dk-n-'+nd);
     if(!circle)return;
-    if(nd==='A'){circle.setAttribute('fill','var(--accent-soft)');circle.setAttribute('stroke','var(--accent)');return;}
+    if(nd==='A'){
+      if(stepIdx>=1){circle.setAttribute('fill','var(--accent-soft)');circle.setAttribute('stroke','var(--accent)');}
+      else if(stepIdx===0){circle.setAttribute('fill','var(--current-soft)');circle.setAttribute('stroke','var(--current)');}
+      else{circle.setAttribute('fill','var(--surface)');circle.setAttribute('stroke','var(--edge)');}
+      return;
+    }
     if(settledSet.indexOf(nd)>=0){
       circle.setAttribute('fill','var(--accent-soft)');circle.setAttribute('stroke','var(--accent)');
-    } else if(n>0&&n<=dkSteps.length&&dkSteps[n-1].settled===nd){
+    } else if(stepIdx>=0&&stepIdx<dkSteps.length&&dkSteps[stepIdx].settled===nd){
       circle.setAttribute('fill','var(--current-soft)');circle.setAttribute('stroke','var(--current)');
     } else {
       circle.setAttribute('fill','var(--surface)');circle.setAttribute('stroke','var(--edge)');
@@ -3319,24 +3323,23 @@ function updateDijkstraSlide(){
     var el=document.getElementById(dkEdgeMap[ek]);
     if(el){el.setAttribute('stroke','var(--edge)');el.setAttribute('stroke-width','3');}
   });
-  if(n>0&&n<=dkSteps.length){
-    var step=dkSteps[n-1];
+  if(stepIdx>=0&&stepIdx<dkSteps.length){
+    var step=dkSteps[stepIdx];
     step.relaxed.forEach(function(ek){
       var el=document.getElementById(dkEdgeMap[ek]);
       if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}
     });
   }
-  if(n>=dkSteps.length){
+  if(rowsToShow>=dkSteps.length){
     ['AD','DE','EF','AB','EC'].forEach(function(ek){
       var el=document.getElementById(dkEdgeMap[ek]);
       if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}
     });
   }
   var fwdWrap=document.getElementById('dk-fwd-wrap');
-  if(fwdWrap){
-    var f7=document.getElementById('dk-f7');
-    fwdWrap.style.display=(f7&&f7.classList.contains('on'))?'block':'none';
-  }
+  var transWrap=document.getElementById('dk-transition');
+  if(fwdWrap) fwdWrap.style.display=(n===10)?'block':'none';
+  if(transWrap) transWrap.style.display=(n>=11)?'block':'none';
 }
 
 var uniform=false;
