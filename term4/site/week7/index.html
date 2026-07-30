@@ -2068,6 +2068,32 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <aside class="notes"><span class="timing">5 min</span> Motivate link-state: full topology means no DV exchange, faster convergence, no routing loops. Then raise the algorithm question.</aside>
 </section>
 
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="ls-steps-slide">
+  <div class="kicker">The link-state idea</div>
+  <h2>How link-state routing works</h2>
+  <div style="display:flex;align-items:center;gap:26px;flex:1;justify-content:center">
+    <div style="display:flex;flex-direction:column;gap:16px;flex:0 1 620px;min-width:0">
+      <div class="frag card ls-step" id="ls-step-1" style="border-left:4px solid var(--accent);padding:16px 24px">
+        <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 1 &middot; discover</span><br>
+        Each router discovers its <b>neighbours</b> and measures its <b>link costs</b>.</p>
+      </div>
+      <div class="frag card ls-step" id="ls-step-2" style="border-left:4px solid var(--accent);padding:16px 24px">
+        <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 2 &middot; flood</span><br>
+        Each router broadcasts its local link information &mdash; a <b>link-state advertisement</b> (LSA) &mdash; to <b>every other router</b>. This process is called <b>flooding</b>.</p>
+      </div>
+      <div class="frag card ls-step" id="ls-step-3" style="border-left:4px solid var(--accent);padding:16px 24px">
+        <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 3 &middot; compute</span><br>
+        Every router now assembles all LSAs into the <b>same complete map</b>. Each runs <b>Dijkstra</b> to build its forwarding table.</p>
+      </div>
+    </div>
+    <div class="frag" id="ls-note" style="flex:0 0 300px;font-size:17px">
+      <p style="margin:0 0 10px">Steps <b>1</b> and <b>2</b> are what build each router&rsquo;s <b>link-state database</b> (LSDB) &mdash; its own copy of the full topology.</p>
+      <p style="margin:0;color:var(--accent)"><b>We cover step 3 (the algorithm) next, then come back to fill the LSDB.</b></p>
+    </div>
+  </div>
+  <aside class="notes"><span class="timing">7 min</span> Three-step roadmap for link-state. The closing fragment names the LSDB and signals the lecture plan: Dijkstra first (step 3), then flooding (steps 1-2).</aside>
+</section>
+
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
   <div class="kicker">The algorithm question</div>
   <h2>What algorithm do we need?</h2>
@@ -2210,32 +2236,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" id="dk-f14"></p>
 
   <aside class="notes"><span class="timing">30 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
-</section>
-
-<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="ls-steps-slide">
-  <div class="kicker">The link-state idea</div>
-  <h2>How link-state routing works</h2>
-  <div style="display:flex;align-items:center;gap:26px;flex:1;justify-content:center">
-    <div style="display:flex;flex-direction:column;gap:16px;flex:0 1 620px;min-width:0">
-      <div class="frag card ls-step" id="ls-step-1" style="border-left:4px solid var(--accent);padding:16px 24px">
-        <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 1 &middot; discover</span><br>
-        Each router discovers its <b>neighbours</b> and measures its <b>link costs</b>.</p>
-      </div>
-      <div class="frag card ls-step" id="ls-step-2" style="border-left:4px solid var(--accent);padding:16px 24px">
-        <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 2 &middot; flood</span><br>
-        Each router broadcasts its local link information &mdash; a <b>link-state advertisement</b> (LSA) &mdash; to <b>every other router</b>. This process is called <b>flooding</b>.</p>
-      </div>
-      <div class="frag card ls-step" id="ls-step-3" style="border-left:4px solid var(--accent);padding:16px 24px">
-        <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 3 &middot; compute</span><br>
-        Every router now assembles all LSAs into the <b>same complete map</b>. Each runs <b>Dijkstra</b> to build its forwarding table.</p>
-      </div>
-    </div>
-    <div class="frag" id="ls-note" style="flex:0 0 300px;font-size:17px">
-      <p style="margin:0 0 10px">Steps <b>1</b> and <b>2</b> are what build each router&rsquo;s <b>link-state database</b> (LSDB) &mdash; its own copy of the full topology.</p>
-      <p style="margin:0;color:var(--accent)"><b>Next: how flooding fills the LSDB.</b></p>
-    </div>
-  </div>
-  <aside class="notes"><span class="timing">33 min</span> Three steps. The key insight: after flooding, every router has the same picture, so forwarding is consistent everywhere. Final fragment sets up the flooding slide: steps 1-2 build the LSDB.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="flood-slide">
