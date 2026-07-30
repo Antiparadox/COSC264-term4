@@ -2243,6 +2243,22 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <aside class="notes"><span class="timing">30 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
 </section>
 
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="lsdb-overview-slide">
+  <div class="kicker">Link-state flooding</div>
+  <h2>How every router builds its map</h2>
+  <div style="display:flex;flex-direction:column;gap:20px;flex:1;justify-content:center;max-width:820px">
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:18px 24px">
+      <p style="margin:0;font-size:22px">Each router starts with only what it can observe directly: its <b>neighbours</b> and <b>link costs</b>. It packages this as a <b>Link-State Advertisement (LSA)</b>.</p>
+    </div>
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:18px 24px">
+      <p style="margin:0;font-size:22px">Each router <b>floods</b> its LSA &mdash; it sends the LSA to all its neighbours, who forward it to their neighbours, and so on until every router in the network has received it.</p>
+    </div>
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:18px 24px">
+      <p style="margin:0;font-size:22px">Each router stores all incoming LSAs in its <b>Link-State Database (LSDB)</b>. Once all LSAs have propagated, every router&rsquo;s LSDB is <b>identical</b> &mdash; they all share the same complete topology.</p>
+    </div>
+  </div>
+</section>
+
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="flood-slide">
   <div class="kicker">Link-state flooding</div>
   <h2>Building the global picture</h2>
@@ -3202,9 +3218,9 @@ function updateFloodingSlide(){
 
   routers.forEach(function(r){initMiniGraph('fl-mini-'+r,r);});
 
-  var knE={A:[],B:[],C:[],D:[],E:[]};
-  if(n>=1){knE.A=['AB','AC'];knE.B=['AB','AC'];knE.C=['AB','AC'];}
-  if(n>=2){knE.D=['AB','AC'];knE.E=['AB','AC'];}
+  var knE={A:['AB','AC'],B:['AB','BD'],C:['AC','CD','CE'],D:['BD','CD','DE'],E:['CE','DE']};
+  if(n>=1){knE.B=['AB','AC','BD'];knE.C=['AB','AC','CD','CE'];}
+  if(n>=2){knE.D=['AB','AC','BD','CD','DE'];knE.E=['AB','AC','CE','DE'];}
   if(n>=3){routers.forEach(function(r){knE[r]=allEdgeKeys.slice();});}
 
   var lsaA=document.getElementById('fl-lsa-A');
@@ -3226,7 +3242,7 @@ function updateFloodingSlide(){
 
   routers.forEach(function(r){
     var wrap=document.getElementById('fl-mini-wrap-'+r);
-    if(wrap)wrap.style.opacity=n>=4?'1':'0';
+    if(wrap)wrap.style.opacity='1';
     var known=knE[r];
     var knownNodes=[r];
     known.forEach(function(e){
