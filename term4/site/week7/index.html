@@ -2193,14 +2193,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" id="dk-f11"></p>
   <p class="frag" id="dk-f12"></p>
   <p class="frag" id="dk-f13"></p>
-  <p class="frag" id="dk-f14"></p>
   <div id="dk-transition" style="display:none;margin-top:4px">
-    <div style="font-size:20px;font-weight:700;margin-bottom:12px;color:var(--accent)">Why does Dijkstra need the full topology?</div>
-    <div id="dk-why-1" style="display:none;margin-bottom:10px;font-size:18px"><b>1.</b> Each step picks the unsettled node with the <b>smallest</b> tentative distance &mdash; this requires comparing d<sub>s</sub> values of <b>all</b> unsettled nodes, not just neighbours.</div>
-    <div id="dk-why-2" style="display:none;margin-bottom:10px;font-size:18px"><b>2.</b> When relaxing from a settled node u, the algorithm needs the edge weight c(u,w) for every neighbour of u &mdash; even when u is far from the source and its links are not locally known.</div>
-    <div id="dk-why-3" style="display:none;margin-bottom:10px;font-size:18px"><b>3.</b> Unlike Bellman-Ford, where each node relaxes using only its own local links, Dijkstra runs entirely at <b>one node</b> &mdash; that single node must see the <b>complete graph</b>.</div>
-    <div id="dk-why-card" class="card" style="display:none;border-left:4px solid var(--accent);padding:14px 20px;margin-top:8px">
-      <p style="margin:0;font-size:19px">Dijkstra requires the <b>complete network topology</b>. How does each router get it?</p>
+    <div style="font-size:20px;font-weight:700;margin-bottom:14px;color:var(--accent)">Why does running Dijkstra require every node to know the full network topology?</div>
+    <div id="dk-why-1" style="display:none;margin-bottom:12px;font-size:18px"><b>1.</b> Each step picks the unsettled node with the <b>smallest</b> tentative distance &mdash; so the algorithm must know <b>which nodes exist</b> in the network.</div>
+    <div id="dk-why-2" style="display:none;margin-bottom:12px;font-size:18px"><b>2.</b> When relaxing from a settled node u, the algorithm needs the edge weight c(u,w) for each of u&rsquo;s neighbours. Since every node is eventually settled, this means it needs <b>every edge weight</b> in the graph.</div>
+    <div id="dk-why-card" class="card" style="display:none;border-left:4px solid var(--accent);padding:14px 20px;margin-top:14px">
+      <p style="margin:0;font-size:19px">Together, Dijkstra needs all nodes and all edges &mdash; the <b>complete network topology</b>. Unlike Bellman-Ford, where each node only uses its local links and exchanges distance vectors with neighbours, Dijkstra cannot run with local information alone.</p>
+      <p style="margin:10px 0 0;font-size:19px;color:var(--accent)"><b>How does each router learn the entire graph?</b></p>
     </div>
   </div>
   <aside class="notes"><span class="timing">30 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
@@ -3249,7 +3248,7 @@ function updateDijkstraSlide(){
   var label=document.getElementById('dk-step-label');
   if(!tbody)return;
 
-  var fragToRows=[0,1,1,2,2,3,4,5,6,7,7,7,7,7,7];
+  var fragToRows=[0,1,1,2,2,3,4,5,6,7,7,7,7,7];
   var rowsToShow=n<fragToRows.length?fragToRows[n]:7;
 
   var html='';
@@ -3304,7 +3303,7 @@ function updateDijkstraSlide(){
     }
   }
 
-  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,6,6,6,6,6,6];
+  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,6,6,6,6,6];
   var stepIdx=n<fragToStepIdx.length?fragToStepIdx[n]:-1;
 
   var allNodes=['A','B','C','D','E','F'];
@@ -3354,12 +3353,10 @@ function updateDijkstraSlide(){
   s.querySelectorAll('p.frag').forEach(function(p){p.style.display='none';});
   var w1=document.getElementById('dk-why-1');
   var w2=document.getElementById('dk-why-2');
-  var w3=document.getElementById('dk-why-3');
   var wc=document.getElementById('dk-why-card');
   if(w1) w1.style.display=(n>=11)?'':'none';
   if(w2) w2.style.display=(n>=12)?'':'none';
-  if(w3) w3.style.display=(n>=13)?'':'none';
-  if(wc) wc.style.display=(n>=14)?'':'none';
+  if(wc) wc.style.display=(n>=13)?'':'none';
 }
 
 var uniform=false;
