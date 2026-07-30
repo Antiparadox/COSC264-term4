@@ -2163,6 +2163,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <thead><tr><th>Step</th><th>S</th><th style="white-space:nowrap">A<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">B<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">C<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">D<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">E<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">F<br><span style="font-weight:400;font-size:10px">d<sub>s</sub>, p<sub>s</sub></span></th></tr></thead>
         <tbody id="dk-tbody"></tbody>
       </table>
+      <div id="dk-transition" style="display:none">
+        <div id="dk-why-1" style="display:none;margin-bottom:12px;font-size:17px"><b>1.</b> Each step picks the unsettled node with the <b>smallest</b> tentative distance &mdash; so the algorithm must know <b>which nodes exist</b> in the network.</div>
+        <div id="dk-why-2" style="display:none;margin-bottom:12px;font-size:17px"><b>2.</b> When relaxing from a settled node u, the algorithm needs the edge weight c(u,w) for each of u&rsquo;s neighbours. Since every node is eventually settled, this means it needs <b>every edge weight</b> in the graph.</div>
+        <div id="dk-why-card" class="card" style="display:none;border-left:4px solid var(--accent);padding:14px 20px;margin-top:14px">
+          <p style="margin:0;font-size:18px">Together, Dijkstra needs all nodes and all edges &mdash; the <b>complete network topology</b>.</p>
+        </div>
+      </div>
     </div>
   </div>
   <p class="frag" id="dk-f1"></p><p class="frag" id="dk-f2"></p><p class="frag" id="dk-f3"></p>
@@ -2193,24 +2200,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" id="dk-f11"></p>
   <p class="frag" id="dk-f12"></p>
   <p class="frag" id="dk-f13"></p>
-  <p class="frag" id="dk-f14"></p>
-  <div id="dk-transition" style="display:none;margin-top:4px">
-    <div id="dk-why-1" style="display:none;margin-bottom:12px;font-size:18px"><b>1.</b> Each step picks the unsettled node with the <b>smallest</b> tentative distance &mdash; so the algorithm must know <b>which nodes exist</b> in the network.</div>
-    <div id="dk-why-2" style="display:none;margin-bottom:12px;font-size:18px"><b>2.</b> When relaxing from a settled node u, the algorithm needs the edge weight c(u,w) for each of u&rsquo;s neighbours. Since every node is eventually settled, this means it needs <b>every edge weight</b> in the graph.</div>
-    <div id="dk-why-card" class="card" style="display:none;border-left:4px solid var(--accent);padding:14px 20px;margin-top:14px">
-      <p style="margin:0;font-size:19px">Together, Dijkstra needs all nodes and all edges &mdash; the <b>complete network topology</b>.</p>
-      <p style="margin:10px 0 0;font-size:19px">Unlike Bellman-Ford, where each node only uses its local links and exchanges distance vectors with neighbours, Dijkstra cannot run with local information alone.</p>
-      <p style="margin:10px 0 0;font-size:19px;color:var(--accent)"><b>How does each router learn the entire graph?</b></p>
-    </div>
-    <div id="dk-why-answer" style="display:none;margin-top:14px;font-size:19px">Each router <b>floods</b> its local link information &mdash; a <b>link-state advertisement</b> (LSA) &mdash; to every other router. Once all LSAs arrive, every router has the same complete map and can run Dijkstra independently.</div>
-  </div>
+
   <aside class="notes"><span class="timing">30 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
   <div class="kicker">The link-state idea</div>
   <h2>How link-state routing works</h2>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;flex:1;justify-content:center">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:16px;flex:1;justify-content:center">
+    <div class="frag" style="max-width:780px;font-size:20px;text-align:center">
+      Unlike Bellman-Ford, Dijkstra cannot run with local information alone &mdash; it needs the <b>complete network topology</b>. How does each router get it?</div>
     <div class="frag card" style="border-left:4px solid var(--accent);max-width:780px;padding:20px 28px">
       <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 1 · discover</span><br>
       Each router discovers its <b>neighbours</b> and measures its <b>link costs</b>.</p>
@@ -2223,6 +2222,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 3 · compute</span><br>
       Every router now has the <b>same complete map</b>. Each independently runs a <b>shortest-path / least-cost algorithm</b> to build its forwarding table.</p>
     </div>
+    <div class="frag" style="max-width:780px;font-size:18px;text-align:center;color:var(--muted)">
+      The local information each router broadcasts is called a <b style="color:var(--accent)">link-state advertisement</b> (LSA).</div>
   </div>
   <aside class="notes"><span class="timing">33 min</span> Three steps. Say "shortest-path algorithm" generically here — Dijkstra comes later. The key insight: after flooding, every router has the same picture, so forwarding is consistent everywhere.</aside>
 </section>
@@ -3250,7 +3251,7 @@ function updateDijkstraSlide(){
   var label=document.getElementById('dk-step-label');
   if(!tbody)return;
 
-  var fragToRows=[0,1,1,2,2,3,4,5,6,7,7,7,7,7,7];
+  var fragToRows=[0,1,1,2,2,3,4,5,6,7,7,7,7,7];
   var rowsToShow=n<fragToRows.length?fragToRows[n]:7;
 
   var html='';
@@ -3305,7 +3306,7 @@ function updateDijkstraSlide(){
     }
   }
 
-  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,6,6,6,6,6,6];
+  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,6,6,6,6,6];
   var stepIdx=n<fragToStepIdx.length?fragToStepIdx[n]:-1;
 
   var allNodes=['A','B','C','D','E','F'];
@@ -3347,24 +3348,29 @@ function updateDijkstraSlide(){
   var fwdWrap=document.getElementById('dk-fwd-wrap');
   var transWrap=document.getElementById('dk-transition');
   if(fwdWrap) fwdWrap.style.display=(n===10)?'block':'none';
-  if(transWrap) transWrap.style.display=(n>=11)?'block':'none';
   var whyMode=n>=11;
-  var colsDiv=s.querySelector('.cols');
-  if(colsDiv) colsDiv.style.display=whyMode?'none':'';
+  var dkTable=document.getElementById('dk-table');
+  if(dkTable) dkTable.style.display=whyMode?'none':'';
+  if(label) label.style.display=whyMode?'none':'';
+  if(transWrap) transWrap.style.display=whyMode?'block':'none';
   var h2=s.querySelector('h2');
   var kicker=s.querySelector('.kicker');
-  if(h2) h2.textContent=whyMode?'Why does running Dijkstra require every node to know the full network topology?':'Step-by-step walkthrough';
+  if(h2) h2.textContent=whyMode?'Why does Dijkstra need the full topology?':'Step-by-step walkthrough';
   if(kicker) kicker.style.display=whyMode?'none':'';
   if(relaxDiv) relaxDiv.style.display=(n===2||n===4)?'block':'none';
   s.querySelectorAll('p.frag').forEach(function(p){p.style.display='none';});
+  if(whyMode){
+    Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--edge)');el.setAttribute('stroke-width','3');}});
+    allNodes.forEach(function(nd){var c=document.getElementById('dk-n-'+nd);if(c){c.setAttribute('fill','var(--accent-soft)');c.setAttribute('stroke','var(--accent)');}
+    });
+    if(n>=12){Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}});}
+  }
   var w1=document.getElementById('dk-why-1');
   var w2=document.getElementById('dk-why-2');
   var wc=document.getElementById('dk-why-card');
   if(w1) w1.style.display=(n>=11)?'':'none';
   if(w2) w2.style.display=(n>=12)?'':'none';
   if(wc) wc.style.display=(n>=13)?'':'none';
-  var wa=document.getElementById('dk-why-answer');
-  if(wa) wa.style.display=(n>=14)?'':'none';
 }
 
 var uniform=false;
