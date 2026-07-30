@@ -2169,6 +2169,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div id="dk-why-card" class="card" style="display:none;border-left:4px solid var(--accent);padding:14px 20px;margin-top:14px">
           <p style="margin:0;font-size:18px">Together, Dijkstra needs all nodes and all edges &mdash; the <b>complete network topology</b>.</p>
         </div>
+        <div id="dk-why-q" style="display:none;margin-top:14px;font-size:18px;color:var(--accent)"><b>Unlike Bellman-Ford, where each router only needs information from its direct neighbours, Dijkstra requires the complete topology. How does each router obtain it?</b></div>
       </div>
     </div>
   </div>
@@ -2200,6 +2201,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" id="dk-f11"></p>
   <p class="frag" id="dk-f12"></p>
   <p class="frag" id="dk-f13"></p>
+  <p class="frag" id="dk-f14"></p>
 
   <aside class="notes"><span class="timing">30 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
 </section>
@@ -2207,25 +2209,21 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
   <div class="kicker">The link-state idea</div>
   <h2>How link-state routing works</h2>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:16px;flex:1;justify-content:center">
-    <div class="frag" style="max-width:780px;font-size:20px;text-align:center">
-      Unlike Bellman-Ford, Dijkstra cannot run with local information alone &mdash; it needs the <b>complete network topology</b>. How does each router get it?</div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;flex:1;justify-content:center">
     <div class="frag card" style="border-left:4px solid var(--accent);max-width:780px;padding:20px 28px">
-      <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 1 · discover</span><br>
+      <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 1 &middot; discover</span><br>
       Each router discovers its <b>neighbours</b> and measures its <b>link costs</b>.</p>
     </div>
     <div class="frag card" style="border-left:4px solid var(--accent);max-width:780px;padding:20px 28px">
-      <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 2 · flood</span><br>
-      Each router broadcasts this local information to <b>every other router</b> in the network — a process called <b>flooding</b>.</p>
+      <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 2 &middot; flood</span><br>
+      Each router broadcasts its local link information &mdash; a <b>link-state advertisement</b> (LSA) &mdash; to <b>every other router</b>. This process is called <b>flooding</b>.</p>
     </div>
     <div class="frag card" style="border-left:4px solid var(--accent);max-width:780px;padding:20px 28px">
-      <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 3 · compute</span><br>
-      Every router now has the <b>same complete map</b>. Each independently runs a <b>shortest-path / least-cost algorithm</b> to build its forwarding table.</p>
+      <p style="margin:0;font-size:24px"><span class="mono accent" style="font-size:18px">Step 3 &middot; compute</span><br>
+      Every router now assembles all LSAs into the <b>same complete map</b>. Each runs <b>Dijkstra</b> to build its forwarding table.</p>
     </div>
-    <div class="frag" style="max-width:780px;font-size:18px;text-align:center;color:var(--muted)">
-      The local information each router broadcasts is called a <b style="color:var(--accent)">link-state advertisement</b> (LSA).</div>
   </div>
-  <aside class="notes"><span class="timing">33 min</span> Three steps. Say "shortest-path algorithm" generically here — Dijkstra comes later. The key insight: after flooding, every router has the same picture, so forwarding is consistent everywhere.</aside>
+  <aside class="notes"><span class="timing">33 min</span> Three steps. The key insight: after flooding, every router has the same picture, so forwarding is consistent everywhere.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="flood-slide">
@@ -2381,16 +2379,23 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
-  <div class="kicker">Recap</div>
-  <h2>What we covered</h2>
+  <div class="kicker">Lecture 3 recap</div>
+  <h2>What we covered in this lecture</h2>
   <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
     <div class="frag" style="margin:0">
-      <p style="font-size:22px;margin:0 0 10px"><b>Lecture 3:</b></p>
       <p style="font-size:19px;margin:0 0 6px"><b>Dijkstra&rsquo;s algorithm</b> &mdash; settle the closest unsettled node, relax outward; one pass gives every node its shortest path from the source.</p>
-      <p style="font-size:19px;margin:0"><b>Link-state routing</b> &mdash; flood LSAs so every router has the same map, then run Dijkstra locally.</p>
+      <p style="font-size:19px;margin:0"><b>Link-state routing</b> &mdash; flood LSAs so every router has the same map, then run Dijkstra locally to build its forwarding table.</p>
     </div>
+  </div>
+  <aside class="notes"><span class="timing">48 min</span> Lecture 3 recap: Dijkstra + link-state routing.</aside>
+</section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
+  <div class="kicker">Week 7 recap</div>
+  <h2>What we covered this week</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
     <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
-      <p style="font-size:20px;margin:0 0 10px"><b>Week 7 &mdash; The two routing families:</b></p>
+      <p style="font-size:20px;margin:0 0 10px"><b>The two routing families:</b></p>
       <div style="display:flex;gap:20px">
         <div style="flex:1">
           <p style="font-size:17px;margin:0 0 6px"><b style="color:var(--current)">Distance-vector</b> <span class="muted">(Lecture 2)</span></p>
@@ -2403,7 +2408,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">48 min</span> Final recap: Lecture 3 + full Week 7 summary. Two families: DV (distributed BF, count-to-infinity) vs LS (flood topology, Dijkstra, loop-free).</aside>
+  <aside class="notes"><span class="timing">48 min</span> Week 7 summary: DV (distributed BF, count-to-infinity) vs LS (flood topology, Dijkstra, loop-free).</aside>
 </section>
 
 
@@ -3251,7 +3256,7 @@ function updateDijkstraSlide(){
   var label=document.getElementById('dk-step-label');
   if(!tbody)return;
 
-  var fragToRows=[0,1,1,2,2,3,4,5,6,7,7,7,7,7];
+  var fragToRows=[0,1,1,2,2,3,4,5,6,7,7,7,7,7,7];
   var rowsToShow=n<fragToRows.length?fragToRows[n]:7;
 
   var html='';
@@ -3306,7 +3311,7 @@ function updateDijkstraSlide(){
     }
   }
 
-  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,6,6,6,6,6];
+  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,6,6,6,6,6,6];
   var stepIdx=n<fragToStepIdx.length?fragToStepIdx[n]:-1;
 
   var allNodes=['A','B','C','D','E','F'];
@@ -3371,6 +3376,8 @@ function updateDijkstraSlide(){
   if(w1) w1.style.display=(n>=11)?'':'none';
   if(w2) w2.style.display=(n>=12)?'':'none';
   if(wc) wc.style.display=(n>=13)?'':'none';
+  var wq=document.getElementById('dk-why-q');
+  if(wq) wq.style.display=(n>=14)?'':'none';
 }
 
 var uniform=false;
