@@ -232,9 +232,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 }
 /* ---------- link-state 3-step slide: spotlight steps 1-2 on the closing fragment ---------- */
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
+#ls-steps-slide:has(#ls-note.on) #ls-step-3{background:var(--accent-soft);border-color:var(--accent)}
 #ls-steps-slide:has(#ls-note.on) #ls-step-1,
-#ls-steps-slide:has(#ls-note.on) #ls-step-2{background:var(--accent-soft);border-color:var(--accent)}
-#ls-steps-slide:has(#ls-note.on) #ls-step-3{opacity:.42}
+#ls-steps-slide:has(#ls-note.on) #ls-step-2,
+#ls-steps-slide:has(#ls-note.on) #ls-step-4{opacity:.42}
 
 </style>
 </head>
@@ -2083,15 +2084,19 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
       <div class="frag card ls-step" id="ls-step-3" style="border-left:4px solid var(--accent);padding:16px 24px">
         <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 3 &middot; compute</span><br>
-        Every router now assembles all LSAs into the <b>same complete map</b>. Each runs <b>Dijkstra</b> to build its forwarding table.</p>
+        Every router assembles all LSAs into the <b>same complete map</b> and runs a <b>shortest-path algorithm</b> to build its forwarding table.</p>
+      </div>
+      <div class="frag card ls-step" id="ls-step-4" style="border-left:4px solid var(--accent);padding:16px 24px">
+        <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 4 &middot; re-flood</span><br>
+        When a link cost changes or a link fails, the affected router floods a <b>new LSA</b>. Every router updates its map and reruns the algorithm.</p>
       </div>
     </div>
     <div class="frag" id="ls-note" style="flex:0 0 300px;font-size:17px">
-      <p style="margin:0 0 10px">Steps <b>1</b> and <b>2</b> are what build each router&rsquo;s <b>link-state database</b> (LSDB) &mdash; its own copy of the full topology.</p>
-      <p style="margin:0;color:var(--accent)"><b>We cover step 3 (the algorithm) next, then come back to fill the LSDB.</b></p>
+      <p style="margin:0 0 12px"><b>Next:</b> Step 3 &mdash; the shortest-path algorithm.</p>
+      <p style="margin:0;color:var(--muted)"><b>Later:</b> Steps 1, 2 &amp; 4 &mdash; how routers build and maintain the <b>link-state database</b> (LSDB).</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">7 min</span> Three-step roadmap for link-state. The closing fragment names the LSDB and signals the lecture plan: Dijkstra first (step 3), then flooding (steps 1-2).</aside>
+  <aside class="notes"><span class="timing">7 min</span> Four-step roadmap. Step 3 spotlit: algorithm is next. Steps 1, 2, 4 (flooding + re-flooding) covered later.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
