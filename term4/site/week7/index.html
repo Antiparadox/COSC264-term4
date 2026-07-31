@@ -2305,35 +2305,31 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <defs><marker id="flarr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="var(--accent)"/></marker></defs>
         </svg>
       </div>
-      <div style="flex:0.6;display:flex;flex-direction:column;gap:5px">
-        <p class="frag" id="fl-f1" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 1</span><br>Each router discovers its local neighbours and link costs. Below: the initial LSDB for every router.</p>
-        <p class="frag" id="fl-f2" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 2</span><br>A packages its local view into <b>LSA<sub>A</sub></b> and sends it to its neighbours B and C.</p>
-        <p class="frag" id="fl-f3" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 3</span><br>B and C receive <b>LSA<sub>A</sub></b> and update their LSDB &mdash; their view now includes A&rsquo;s links.</p>
-        <p class="frag" id="fl-f4" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 4</span><br>B and C forward <b>LSA<sub>A</sub></b> onward: B &rarr; D, and C &rarr; D and E.</p>
-        <p class="frag" id="fl-f5" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 5</span><br>D and E receive <b>LSA<sub>A</sub></b> and update their LSDB.</p>
-        <p class="frag" id="fl-f6" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 6</span><br>This is all happening in parallel: B, C, D, E simultaneously advertise their own LSAs.</p>
-        <p class="frag" id="fl-f7" style="font-size:14px;margin:0;color:var(--accent)"><span class="mono accent" style="font-size:11px;font-weight:700">Step 7</span><br>After all LSAs propagate, every router&rsquo;s LSDB is <b>identical</b> &mdash; they all share the same complete topology.</p>
+      <div style="flex:0.6;display:flex;flex-direction:column;gap:12px">
+        <p class="frag" id="fl-f1" style="font-size:17px;margin:0"><span class="mono accent" style="font-size:12px;font-weight:700">Step 1</span><br>Each router discovers its local neighbours and link costs. Below: the initial <b>Link-State Database (LSDB)</b> for every router.</p>
+        <p class="frag" id="fl-f2" style="font-size:17px;margin:0"><span class="mono accent" style="font-size:12px;font-weight:700">Step 2</span><br>A packages its local view into <b>LSA<sub>A</sub></b> and sends it to its neighbours B and C.</p>
+        <p class="frag" id="fl-f3" style="font-size:17px;margin:0"><span class="mono accent" style="font-size:12px;font-weight:700">Step 3</span><br>B and C receive <b>LSA<sub>A</sub></b> and update their LSDB &mdash; their view now includes A&rsquo;s links.</p>
       </div>
     </div>
     <!-- Per-router mini-graph panels (each shows growing local topology) -->
     <div style="display:flex;gap:6px;justify-content:center;padding:0 4px" id="fl-minis">
-      <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-A">
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl-mini-wrap-A">
         <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">A's LSDB</p>
         <svg id="fl-mini-A" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
-      <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-B">
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl-mini-wrap-B">
         <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">B's LSDB</p>
         <svg id="fl-mini-B" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
-      <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-C">
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl-mini-wrap-C">
         <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">C's LSDB</p>
         <svg id="fl-mini-C" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
-      <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-D">
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl-mini-wrap-D">
         <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">D's LSDB</p>
         <svg id="fl-mini-D" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
-      <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-E">
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl-mini-wrap-E">
         <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">E's LSDB</p>
         <svg id="fl-mini-E" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
@@ -2341,6 +2337,84 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
   <aside class="notes"><span class="timing">36 min</span> Four fragments showing hop-by-hop flooding. Focus on A's LSA first: hop 1 reaches B, C; hop 2 reaches D, E. Then quickly say B–E flood the same way. Mini-graphs track what each router knows — by the end all five are identical.</aside>
 </section>
+
+<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="flood-slide-2">
+  <div class="kicker">Link-state flooding</div>
+  <h2>Building the global picture</h2>
+  <div style="display:flex;flex-direction:column;flex:1;gap:2px;min-height:0">
+    <div style="display:flex;align-items:flex-start;gap:12px;flex:1">
+      <div style="flex:1.1">
+        <svg id="flood-svg-2" viewBox="0 0 640 210" style="width:100%;max-width:640px" aria-label="Flooding continued">
+          <line x1="100" y1="65" x2="260" y2="28" stroke="var(--edge)" stroke-width="2.5"/>
+          <line x1="100" y1="65" x2="180" y2="170" stroke="var(--edge)" stroke-width="2.5"/>
+          <line x1="260" y1="28" x2="420" y2="65" stroke="var(--edge)" stroke-width="2.5"/>
+          <line x1="180" y1="170" x2="420" y2="65" stroke="var(--edge)" stroke-width="2.5"/>
+          <line x1="180" y1="170" x2="340" y2="185" stroke="var(--edge)" stroke-width="2.5"/>
+          <line x1="420" y1="65" x2="340" y2="185" stroke="var(--edge)" stroke-width="2.5"/>
+          <text x="175" y="38" font-size="13" font-weight="700" fill="var(--current)">2</text>
+          <text x="125" y="125" font-size="13" font-weight="700" fill="var(--current)">5</text>
+          <text x="340" y="38" font-size="13" font-weight="700" fill="var(--current)">3</text>
+          <text x="310" y="110" font-size="13" font-weight="700" fill="var(--current)">4</text>
+          <text x="250" y="188" font-size="13" font-weight="700" fill="var(--current)">1</text>
+          <text x="395" y="135" font-size="13" font-weight="700" fill="var(--current)">2</text>
+          <circle id="fl2-n-A" cx="100" cy="65" r="20" fill="var(--current-soft)" stroke="var(--current)" stroke-width="3"/>
+          <text x="100" y="71" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">A</text>
+          <circle id="fl2-n-B" cx="260" cy="28" r="20" fill="var(--current-soft)" stroke="var(--current)" stroke-width="3"/>
+          <text x="260" y="34" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
+          <circle id="fl2-n-C" cx="180" cy="170" r="20" fill="var(--current-soft)" stroke="var(--current)" stroke-width="3"/>
+          <text x="180" y="176" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
+          <circle id="fl2-n-D" cx="420" cy="65" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+          <text x="420" y="71" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">D</text>
+          <circle id="fl2-n-E" cx="340" cy="185" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+          <text x="340" y="191" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">E</text>
+          <g id="fl2-lsa-A" opacity="0">
+            <path d="M120,60 L240,34" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <path d="M108,84 L172,152" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <text x="155" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" class="svgmono">LSAₐ</text>
+          </g>
+          <g id="fl2-lsa-B" opacity="0">
+            <path d="M280,32 L400,60" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <text x="332" y="56" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" class="svgmono">LSAₐ</text>
+          </g>
+          <g id="fl2-lsa-C" opacity="0">
+            <path d="M198,162 L402,72" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <path d="M198,178 L322,184" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <text x="262" y="148" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" class="svgmono">LSAₐ</text>
+          </g>
+        </svg>
+      </div>
+      <div style="flex:0.6;display:flex;flex-direction:column;gap:12px">
+        <p class="frag" id="fl2-f1" style="font-size:17px;margin:0"><span class="mono accent" style="font-size:12px;font-weight:700">Step 4</span><br>B and C forward <b>LSA<sub>A</sub></b> onward: B &rarr; D, and C &rarr; D and E.</p>
+        <p class="frag" id="fl2-f2" style="font-size:17px;margin:0"><span class="mono accent" style="font-size:12px;font-weight:700">Step 5</span><br>D and E receive <b>LSA<sub>A</sub></b> and update their LSDB.</p>
+        <p class="frag" id="fl2-f3" style="font-size:17px;margin:0"><span class="mono accent" style="font-size:12px;font-weight:700">Step 6</span><br>This all happens in parallel: B, C, D, E simultaneously advertise their own LSAs.</p>
+        <p class="frag" id="fl2-f4" style="font-size:17px;margin:0;color:var(--accent)"><span class="mono accent" style="font-size:12px;font-weight:700">Step 7</span><br>After all LSAs propagate, every router&rsquo;s LSDB is <b>identical</b> &mdash; they all share the same complete topology.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;justify-content:center;padding:0 4px" id="fl2-minis">
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl2-mini-wrap-A">
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">A&rsquo;s LSDB</p>
+        <svg id="fl2-mini-A" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
+      </div>
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl2-mini-wrap-B">
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">B&rsquo;s LSDB</p>
+        <svg id="fl2-mini-B" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
+      </div>
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl2-mini-wrap-C">
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">C&rsquo;s LSDB</p>
+        <svg id="fl2-mini-C" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
+      </div>
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl2-mini-wrap-D">
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">D&rsquo;s LSDB</p>
+        <svg id="fl2-mini-D" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
+      </div>
+      <div style="flex:1;max-width:195px;text-align:center;opacity:0" id="fl2-mini-wrap-E">
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">E&rsquo;s LSDB</p>
+        <svg id="fl2-mini-E" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="reflood-slide">
   <div class="kicker">When the map changes</div>
@@ -2531,16 +2605,16 @@ function goto_(i,revealAll){
   cur=i;
   if(revealAll) showAllFrags(slides[cur]); else hideAllFrags(slides[cur]);
   sync();
-  updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();resetASP();
+  updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
 }
 function next(){
   var f=frags(slides[cur]).filter(function(x){return !x.classList.contains('on');});
-  if(f.length){f[0].classList.add('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(f.length){f[0].classList.add('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur+1,false);
 }
 function prev(){
   var on=frags(slides[cur]).filter(function(x){return x.classList.contains('on');});
-  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur-1,true);
 }
 
@@ -3270,6 +3344,70 @@ function updateFloodingSlide(){
       var vis=knownNodes.indexOf(nd)>=0;
       var nc=document.getElementById('fl-mini-'+r+'-n-'+nd);
       var nt=document.getElementById('fl-mini-'+r+'-t-'+nd);
+      if(nc){
+        nc.setAttribute('opacity',vis?'1':'0.12');
+        if(nd!==r){
+          nc.setAttribute('fill',vis&&fullAt?'var(--accent-soft)':'var(--surface)');
+          nc.setAttribute('stroke',vis?'var(--edge)':'var(--muted)');
+        } else if(fullAt){nc.setAttribute('fill','var(--accent)');}
+      }
+      if(nt)nt.setAttribute('opacity',vis?'1':'0.12');
+    });
+  });
+}
+
+function updateFloodingSlide2(){
+  var s=document.getElementById('flood-slide-2');if(!s)return;
+  var n=fragCount(s);
+  var routers=['A','B','C','D','E'];
+  var allEdgeKeys=['AB','AC','BD','CD','CE','DE'];
+
+  routers.forEach(function(r){initMiniGraph('fl2-mini-'+r,r);});
+
+  /* knE: start from end of Step 3 (B, C already have A's links) */
+  var knE={A:['AB','AC'],B:['AB','AC','BD'],C:['AB','AC','CD','CE'],D:['BD','CD','DE'],E:['CE','DE']};
+  if(n>=2){knE.D=['AB','AC','BD','CD','DE'];knE.E=['AB','AC','CE','DE'];}
+  if(n>=4){routers.forEach(function(r){knE[r]=allEdgeKeys.slice();});}
+
+  var lsaA=document.getElementById('fl2-lsa-A');
+  var lsaB=document.getElementById('fl2-lsa-B');
+  var lsaC=document.getElementById('fl2-lsa-C');
+  if(lsaA)lsaA.setAttribute('opacity',n===3?'1':'0');
+  if(lsaB)lsaB.setAttribute('opacity',(n===1||n===3)?'1':'0');
+  if(lsaC)lsaC.setAttribute('opacity',(n===1||n===3)?'1':'0');
+
+  routers.forEach(function(r){
+    var circle=document.getElementById('fl2-n-'+r);
+    if(!circle)return;
+    var accentAt={B:[1],C:[1],D:[2],E:[2]};
+    var isAccent=(n>=3)||(accentAt[r]&&accentAt[r].indexOf(n)>=0);
+    if(isAccent){
+      circle.setAttribute('fill','var(--accent-soft)');circle.setAttribute('stroke','var(--accent)');
+    } else if(knE[r].length>0){
+      circle.setAttribute('fill','var(--current-soft)');circle.setAttribute('stroke','var(--current)');
+    } else {
+      circle.setAttribute('fill','var(--surface)');circle.setAttribute('stroke','var(--edge)');
+    }
+  });
+
+  routers.forEach(function(r){
+    var wrap=document.getElementById('fl2-mini-wrap-'+r);
+    if(wrap)wrap.style.opacity='1';
+    var known=knE[r];
+    var knownNodes=[r];
+    known.forEach(function(e){
+      if(knownNodes.indexOf(e[0])<0)knownNodes.push(e[0]);
+      if(knownNodes.indexOf(e[1])<0)knownNodes.push(e[1]);
+    });
+    allEdgeKeys.forEach(function(e){
+      var el=document.getElementById('fl2-mini-'+r+'-e-'+e);
+      if(el)el.setAttribute('opacity',known.indexOf(e)>=0?'1':'0');
+    });
+    var fullAt=n>=4;
+    routers.forEach(function(nd){
+      var vis=knownNodes.indexOf(nd)>=0;
+      var nc=document.getElementById('fl2-mini-'+r+'-n-'+nd);
+      var nt=document.getElementById('fl2-mini-'+r+'-t-'+nd);
       if(nc){
         nc.setAttribute('opacity',vis?'1':'0.12');
         if(nd!==r){
