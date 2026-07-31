@@ -2291,44 +2291,50 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <g id="fl-lsa-A" opacity="0">
             <path d="M120,60 L240,34" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
             <path d="M108,84 L172,152" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <text x="155" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" class="svgmono">LSAₐ</text>
           </g>
           <g id="fl-lsa-B" opacity="0">
             <path d="M280,32 L400,60" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <text x="332" y="56" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" class="svgmono">LSAₐ</text>
           </g>
           <g id="fl-lsa-C" opacity="0">
             <path d="M198,162 L402,72" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
             <path d="M198,178 L322,184" stroke="var(--accent)" stroke-width="2" fill="none" stroke-dasharray="5,3" marker-end="url(#flarr)"><animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></path>
+            <text x="262" y="148" text-anchor="middle" font-size="11" font-weight="700" fill="var(--accent)" class="svgmono">LSAₐ</text>
           </g>
           <defs><marker id="flarr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="var(--accent)"/></marker></defs>
         </svg>
       </div>
-      <div style="flex:0.6;display:flex;flex-direction:column;gap:6px">
-        <p class="frag" id="fl-f1" style="font-size:17px;margin:0"><b>A</b> discovers links A–B, A–C and sends this as a <b>Link-State Advertisement (LSA)</b> to B and C</p>
-        <p class="frag" id="fl-f2" style="font-size:17px;margin:0">B and C <b>forward</b> A's LSA onward — after two hops, every router knows A's links</p>
-        <p class="frag" id="fl-f3" style="font-size:17px;margin:0">B, C, D, E each flood their own LSA the same way</p>
-        <p class="frag" id="fl-f4" style="font-size:17px;margin:0;color:var(--accent)">Since the network is connected, every LSA eventually reaches every router — <b>every router now has the identical complete map</b></p>
+      <div style="flex:0.6;display:flex;flex-direction:column;gap:5px">
+        <p class="frag" id="fl-f1" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 1</span><br>Each router discovers its local neighbours and link costs. Below: the initial LSDB for every router.</p>
+        <p class="frag" id="fl-f2" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 2</span><br>A packages its local view into <b>LSA<sub>A</sub></b> and sends it to its neighbours B and C.</p>
+        <p class="frag" id="fl-f3" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 3</span><br>B and C receive <b>LSA<sub>A</sub></b> and update their LSDB &mdash; their view now includes A&rsquo;s links.</p>
+        <p class="frag" id="fl-f4" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 4</span><br>B and C forward <b>LSA<sub>A</sub></b> onward: B &rarr; D, and C &rarr; D and E.</p>
+        <p class="frag" id="fl-f5" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 5</span><br>D and E receive <b>LSA<sub>A</sub></b> and update their LSDB.</p>
+        <p class="frag" id="fl-f6" style="font-size:14px;margin:0"><span class="mono accent" style="font-size:11px;font-weight:700">Step 6</span><br>This is all happening in parallel: B, C, D, E simultaneously advertise their own LSAs.</p>
+        <p class="frag" id="fl-f7" style="font-size:14px;margin:0;color:var(--accent)"><span class="mono accent" style="font-size:11px;font-weight:700">Step 7</span><br>After all LSAs propagate, every router&rsquo;s LSDB is <b>identical</b> &mdash; they all share the same complete topology.</p>
       </div>
     </div>
     <!-- Per-router mini-graph panels (each shows growing local topology) -->
     <div style="display:flex;gap:6px;justify-content:center;padding:0 4px" id="fl-minis">
       <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-A">
-        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">A's view</p>
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">A's LSDB</p>
         <svg id="fl-mini-A" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
       <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-B">
-        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">B's view</p>
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">B's LSDB</p>
         <svg id="fl-mini-B" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
       <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-C">
-        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">C's view</p>
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">C's LSDB</p>
         <svg id="fl-mini-C" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
       <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-D">
-        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">D's view</p>
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">D's LSDB</p>
         <svg id="fl-mini-D" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
       <div style="flex:1;max-width:148px;text-align:center;opacity:0" id="fl-mini-wrap-E">
-        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">E's view</p>
+        <p class="mono" style="margin:0 0 1px;font-size:10px;color:var(--accent);font-weight:700">E's LSDB</p>
         <svg id="fl-mini-E" viewBox="0 0 110 75" style="width:100%;border:1px solid var(--border);border-radius:6px;background:var(--surface)"></svg>
       </div>
     </div>
@@ -3218,31 +3224,37 @@ function updateFloodingSlide(){
 
   routers.forEach(function(r){initMiniGraph('fl-mini-'+r,r);});
 
+  /* knE: each router's LSDB content per step */
   var knE={A:['AB','AC'],B:['AB','BD'],C:['AC','CD','CE'],D:['BD','CD','DE'],E:['CE','DE']};
-  if(n>=1){knE.B=['AB','AC','BD'];knE.C=['AB','AC','CD','CE'];}
-  if(n>=2){knE.D=['AB','AC','BD','CD','DE'];knE.E=['AB','AC','CE','DE'];}
-  if(n>=3){routers.forEach(function(r){knE[r]=allEdgeKeys.slice();});}
+  if(n<1){knE={A:[],B:[],C:[],D:[],E:[]};}
+  if(n>=3){knE.B=['AB','AC','BD'];knE.C=['AB','AC','CD','CE'];}
+  if(n>=5){knE.D=['AB','AC','BD','CD','DE'];knE.E=['AB','AC','CE','DE'];}
+  if(n>=7){routers.forEach(function(r){knE[r]=allEdgeKeys.slice();});}
 
   var lsaA=document.getElementById('fl-lsa-A');
   var lsaB=document.getElementById('fl-lsa-B');
   var lsaC=document.getElementById('fl-lsa-C');
-  if(lsaA)lsaA.setAttribute('opacity',n===1?'1':'0');
-  if(lsaB)lsaB.setAttribute('opacity',n===2?'1':'0');
-  if(lsaC)lsaC.setAttribute('opacity',n===2?'1':'0');
+  if(lsaA)lsaA.setAttribute('opacity',(n===2||n===6)?'1':'0');
+  if(lsaB)lsaB.setAttribute('opacity',(n===4||n===6)?'1':'0');
+  if(lsaC)lsaC.setAttribute('opacity',(n===4||n===6)?'1':'0');
 
   routers.forEach(function(r){
     var circle=document.getElementById('fl-n-'+r);
-    if(circle){
-      if(n>=3){circle.setAttribute('fill','var(--accent-soft)');circle.setAttribute('stroke','var(--accent)');}
-      else if(r==='A'&&n>=1){circle.setAttribute('fill','var(--accent-soft)');circle.setAttribute('stroke','var(--accent)');}
-      else if(knE[r].length>0){circle.setAttribute('fill','var(--current-soft)');circle.setAttribute('stroke','var(--current)');}
-      else{circle.setAttribute('fill','var(--surface)');circle.setAttribute('stroke','var(--edge)');}
+    if(!circle)return;
+    var accentAt={A:[2],B:[3,4],C:[3,4],D:[5],E:[5]};
+    var isAccent=(n>=6)||(accentAt[r]&&accentAt[r].indexOf(n)>=0);
+    if(isAccent){
+      circle.setAttribute('fill','var(--accent-soft)');circle.setAttribute('stroke','var(--accent)');
+    } else if(n>=1&&knE[r].length>0){
+      circle.setAttribute('fill','var(--current-soft)');circle.setAttribute('stroke','var(--current)');
+    } else {
+      circle.setAttribute('fill','var(--surface)');circle.setAttribute('stroke','var(--edge)');
     }
   });
 
   routers.forEach(function(r){
     var wrap=document.getElementById('fl-mini-wrap-'+r);
-    if(wrap)wrap.style.opacity='1';
+    if(wrap)wrap.style.opacity=n>=1?'1':'0';
     var known=knE[r];
     var knownNodes=[r];
     known.forEach(function(e){
@@ -3253,6 +3265,7 @@ function updateFloodingSlide(){
       var el=document.getElementById('fl-mini-'+r+'-e-'+e);
       if(el)el.setAttribute('opacity',known.indexOf(e)>=0?'1':'0');
     });
+    var fullAt=n>=7;
     routers.forEach(function(nd){
       var vis=knownNodes.indexOf(nd)>=0;
       var nc=document.getElementById('fl-mini-'+r+'-n-'+nd);
@@ -3260,9 +3273,9 @@ function updateFloodingSlide(){
       if(nc){
         nc.setAttribute('opacity',vis?'1':'0.12');
         if(nd!==r){
-          nc.setAttribute('fill',vis&&n>=3?'var(--accent-soft)':'var(--surface)');
+          nc.setAttribute('fill',vis&&fullAt?'var(--accent-soft)':'var(--surface)');
           nc.setAttribute('stroke',vis?'var(--edge)':'var(--muted)');
-        } else if(n>=3){nc.setAttribute('fill','var(--accent)');}
+        } else if(fullAt){nc.setAttribute('fill','var(--accent)');}
       }
       if(nt)nt.setAttribute('opacity',vis?'1':'0.12');
     });
