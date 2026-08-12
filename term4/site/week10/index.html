@@ -1910,10 +1910,10 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
   <h2>The cost of the receiver&rsquo;s rule</h2>
   <div style="display:flex;gap:48px;align-items:flex-start;max-width:1100px">
     <div style="display:flex;flex-direction:column;gap:18px;flex:1">
-      <p style="margin:0;font-size:18px;line-height:1.6">Go-back-N wastes the network whenever a single packet is lost &mdash; a direct consequence of the receiver&rsquo;s rule: accept only the next expected packet and discard everything else.</p>
+      <p style="margin:0;font-size:18px;line-height:1.6">Go-back-N wastes network capacity whenever packets arrive out of order.</p>
       <p class="frag f1" style="margin:0;font-size:17px;line-height:1.6">Suppose pkt&nbsp;0 is lost in transit. The receiver&rsquo;s <span style="font-family:var(--mono)">expectedseqnum</span> stays at&nbsp;0.</p>
       <div class="frag f2 card" style="padding:12px 17px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:17px;line-height:1.6">pkt&nbsp;1 and pkt&nbsp;2 arrive correctly &mdash; but because <span style="font-family:var(--mono)">expectedseqnum</span>&nbsp;=&nbsp;0, both are <b>discarded</b>. Two correctly received packets are wasted.</p>
+        <p style="margin:0;font-size:17px;line-height:1.6">pkt&nbsp;1 and pkt&nbsp;2 arrive correctly &mdash; but because <span style="font-family:var(--mono)">expectedseqnum</span>&nbsp;=&nbsp;0, both are <b>discarded</b>.</p>
       </div>
     </div>
     <div style="flex:0 0 370px;display:flex;justify-content:center">
