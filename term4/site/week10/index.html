@@ -1993,7 +1993,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet usable</span></div>
     </div>
     <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">In Selective Repeat, packets can be <b>ACKed individually</b> &mdash; each ACK names exactly one packet.</p>
-    <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">Notice those two teal slots: they are acknowledged, yet the packet before them is not. <b>Some slots within the window can be acknowledged while earlier ones are not</b> &mdash; the window can have holes.</p>
+    <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">Therefore, <b>some slots within the window can be acknowledged while earlier ones are not</b> &mdash; the window can have holes.</p>
     <div class="frag f3 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
       <p style="margin:0;font-size:16.5px;line-height:1.6">In Go-back-N this was impossible &mdash; a cumulative ACK can never skip over an unacknowledged packet, so there could never be a hole inside the window.</p>
     </div>
