@@ -1974,9 +1974,9 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
     #sw-slide .g-acked{opacity:0;transition:opacity .4s}
     #sw-slide .g-highlight{opacity:0}
     #sw-slide .g-invalid{opacity:0;transition:opacity .4s}
-    #sw-slide:has(.f1.on) .g-acked{opacity:1}
-    #sw-slide:has(.f3.on) .g-highlight{animation:sw-pulse 1.3s ease-in-out infinite}
-    #sw-slide:has(.f4.on) .g-invalid{opacity:1}
+    #sw-slide:has(.f2.on) .g-acked{opacity:1}
+    #sw-slide:has(.f4.on) .g-highlight{animation:sw-pulse 1.3s ease-in-out infinite}
+    #sw-slide:has(.f5.on) .g-invalid{opacity:1}
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>The sender&rsquo;s window in Selective Repeat</h2>
@@ -1992,14 +1992,15 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid #7cb342;background:rgba(124,179,66,0.42);flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">usable, not yet sent</span></div>
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet usable</span></div>
     </div>
-    <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">Due to individual ACKs in SR, some slots within the window can be <b>acknowledged</b> while earlier ones are not &mdash; the window can have holes.</p>
-    <div class="frag f2 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
+    <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">In Selective Repeat, packets can be <b>ACKed individually</b> &mdash; each ACK names exactly one packet.</p>
+    <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">Notice those two teal slots: they are acknowledged, yet the packet before them is not. <b>Some slots within the window can be acknowledged while earlier ones are not</b> &mdash; the window can have holes.</p>
+    <div class="frag f3 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
       <p style="margin:0;font-size:16.5px;line-height:1.6">In Go-back-N this was impossible &mdash; a cumulative ACK can never skip over an unacknowledged packet, so there could never be a hole inside the window.</p>
     </div>
-    <div class="frag f3 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
+    <div class="frag f4 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
       <p style="margin:0;font-size:16.5px;line-height:1.6"><span style="font-family:var(--mono)">send_base</span> always points to the <b>oldest unacknowledged</b> packet. The window always starts from <span style="font-family:var(--mono)">send_base</span>.</p>
     </div>
-    <div class="frag f4 card" style="padding:12px 18px;border-left:3px solid #cf5c36;max-width:1000px;align-self:center">
+    <div class="frag f5 card" style="padding:12px 18px;border-left:3px solid #cf5c36;max-width:1000px;align-self:center">
       <p style="margin:0 0 6px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#cf5c36">A common confusion</p>
       <p style="margin:0;font-size:16.5px;line-height:1.6">Two packets beyond <span style="font-family:var(--mono)">send_base</span> are acknowledged &mdash; could the window extend by two? <b>No.</b> The window cannot advance until <span style="font-family:var(--mono)">send_base</span> itself is acknowledged.</p>
     </div>
