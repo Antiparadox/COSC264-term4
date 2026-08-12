@@ -2055,7 +2055,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet acceptable</span></div>
     </div>
     <div class="frag f1 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
-      <p style="margin:0 0 6px;font-size:16.5px;line-height:1.6"><span style="font-family:var(--mono)">rcv_base</span> is the <b>lowest undelivered</b> sequence number.</p>
+      <p style="margin:0 0 6px;font-size:16.5px;line-height:1.6"><span style="font-family:var(--mono)">rcv_base</span> is the sequence number of the <b>first packet not yet received and delivered</b> &mdash; all packets below it have been received in order and passed to the application.</p>
       <p style="margin:0;font-size:16.5px;line-height:1.6">The receiver window is also of size <em>N</em> &mdash; the same as the sender&rsquo;s window.</p>
     </div>
     <div class="frag f2 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
