@@ -62,7 +62,7 @@ button{font:inherit;cursor:pointer}
 /* ============ stage & slides ============ */
 #stage{position:absolute;top:50%;left:50%;width:1280px;height:720px;
   transform-origin:center;transform:translate(-50%,-50%) scale(1)}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
   padding:64px 92px 76px;background:var(--bg)}
 .slide.active{display:flex}
 .kicker{font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
@@ -257,7 +257,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Recall &middot; Week 9</div>
   <h2>A quick recap</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
     <ul style="margin:0;padding-left:26px;font-size:19px;line-height:1.9">
       <li class="frag">Datagrams can get <b>corrupted</b> as they travel through the network.</li>
       <li class="frag"><b>Error detection codes</b> &mdash; parity check, Internet checksum, CRC &mdash; let the receiver detect whether a packet has been corrupted.</li>
@@ -270,7 +270,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">The bigger picture</div>
   <h2>What error correction cannot solve</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:24px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:24px;max-width:1040px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">A packet arrives corrupted. The receiver detects the error and discards it &mdash; but the sender receives no signal. As far as the sender is concerned, the packet was delivered. <b>It has no idea anything went wrong.</b></p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">A packet never arrives at all. There is nothing to detect an error in. Error correction is completely silent &mdash; and again, <b>the sender has no idea.</b></p>
     <div class="frag card accent" style="padding:16px 22px">
@@ -283,7 +283,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">This week</div>
   <h2>Reliable Data Transfer (RDT)</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:24px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:24px;max-width:1040px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6"><b>Reliable Data Transfer (RDT)</b> is the goal: deliver data correctly, completely, and in order to the layer above (typically the application) &mdash; no matter what the underlying channel does to it.</p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">For example, suppose the underlying channel is <b>IP</b>. IP is only <b>best-effort</b>: packets might be lost, might arrive corrupted, or might arrive out of order.</p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">If we run an RDT protocol on top of IP, it compensates for all of those risks and still provides correct, complete, in-order delivery.</p>
@@ -294,7 +294,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer" data-anchor="outline">
   <div class="kicker">Week 10</div>
   <h2>Outline</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
     <p style="margin:0;font-size:19px">We build up <b>reliable data transfer (RDT)</b> protocols one channel assumption at a time:</p>
     <div class="frag card" style="padding:13px 20px;border-left:3px solid var(--accent)">
       <p style="margin:0;font-size:18px;line-height:1.6"><b>rdt 1.0</b> &mdash; over a perfectly reliable channel</p>
@@ -315,7 +315,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">ARQ</div>
   <h2>ARQ &mdash; Automatic Repeat reQuest</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:20px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:20px;max-width:1040px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">Most RDT protocols are built on a core idea: if the sender does not hear back, it <b>retransmits</b>. Protocols following this pattern are called <b>ARQ</b> (Automatic Repeat reQuest) protocols.</p>
     <div class="frag" style="display:flex;flex-direction:column;gap:11px">
       <p style="margin:0;font-size:19px">By the end of this lecture, we will learn three ARQ protocols, in increasing sophistication:</p>
@@ -450,7 +450,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">rdt 2.0</div>
   <h2>What each side does</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:1040px">
 
     <div style="display:flex;gap:26px;align-items:flex-start">
 
@@ -493,7 +493,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </style>
   <div class="kicker">rdt 2.0</div>
   <h2>The same protocol as a state machine</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+  <div style="display:flex;flex-direction:column;gap:10px">
 
     <p class="frag q1" style="margin:0;font-size:17px;line-height:1.55">A <b>finite-state machine</b> says the same thing more precisely: each circle is a <b>state</b> the protocol can sit in, and each arrow is a <b>transition</b> labelled with the event that triggers it and the action taken.</p>
 
@@ -672,7 +672,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" id="rdt21" data-sec="Reliable Data Transfer">
   <div class="kicker">rdt 2.1</div>
   <h2>The fix: a 1-bit sequence number</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1000px">
+  <div style="display:flex;flex-direction:column;gap:22px;max-width:1000px">
     <p class="frag" style="margin:0;font-size:17px;line-height:1.55">Every packet is tagged with a <b>sequence number</b>. For stop-and-wait, a <b>single bit</b> is enough &mdash; the sender alternates <b>0</b> and <b>1</b>.</p>
     <div style="display:flex;gap:28px;align-items:flex-start">
       <div class="frag" style="flex:1">
@@ -859,7 +859,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" id="rdt2x-recap" data-sec="Reliable Data Transfer" data-anchor="rdt30">
   <div class="kicker">Recap</div>
   <h2>Quick recap: rdt 2.x</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:820px">
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:820px">
     <ul style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:14px">
       <li class="frag" style="font-size:18px;line-height:1.6">rdt 2.x assumes a channel that is prone to <b>bit errors</b>.</li>
       <li class="frag" style="font-size:18px;line-height:1.6">Every packet carries a <b>sequence number</b> and a <b>checksum</b>; the receiver ACKs each packet with the same number so the sender knows exactly what got through.</li>
@@ -875,7 +875,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" id="lossy3" data-sec="Reliable Data Transfer">
   <div class="kicker">rdt 3.0</div>
   <h2>Four new ways to fail</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+  <div style="display:flex;flex-direction:column;gap:8px">
 
     <p style="margin:0;font-size:17px;line-height:1.55">Packets can now be <b>lost</b> or badly <b>delayed</b>, not merely corrupted. Four things can happen:</p>
 
@@ -906,7 +906,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">rdt 3.0</div>
   <h2>How can the sender detect a loss or delay?</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1030px">
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:1030px">
 
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">The sender uses a <b>timer</b>: send the packet, start a clock, and if nothing comes back, assume the worst and resend.</p>
 
@@ -980,7 +980,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">rdt 3.0</div>
   <h2>The timer applies to all other cases too</h2>
   <p style="margin:0 0 4px;font-size:17px;line-height:1.55;font-weight:700;color:var(--accent)">If the expected ACK does not arrive before the timer expires, the sender retransmits &mdash; regardless of why.</p>
-  <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+  <div style="display:flex;flex-direction:column;gap:7px">
 
     <div style="display:flex;gap:16px;align-items:flex-start">
       <div class="frag q1" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
@@ -1114,7 +1114,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Performance</div>
   <h2>How bad is it? A worked example</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
 
     <p class="frag" style="margin:0;font-size:18px">Take a 1&nbsp;Gbps link, an RTT of 30&nbsp;ms, and 1&nbsp;KB packets.</p>
 
@@ -1136,7 +1136,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Recap &middot; Lecture 1</div>
   <h2>What we covered</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:1040px">
     <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
       <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 1.0</b> &mdash; over a perfectly reliable channel. No error handling needed: just send and forget.</p>
     </div>
@@ -1167,7 +1167,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" id="pipe1" data-sec="Reliable Data Transfer">
   <div class="kicker">Pipelining</div>
   <h2>Stop waiting: send several at once</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+  <div style="display:flex;flex-direction:column;gap:8px">
     <div style="display:flex;gap:30px;align-items:flex-start">
       <div class="frag" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
         <p style="margin:0;font-size:15px;font-weight:700;color:#cf5c36">Stop-and-wait &mdash; one at a time</p>
@@ -1212,7 +1212,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Pipelining</div>
   <h2>What pipelining demands in return</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1030px">
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:1030px">
 
     <p class="frag" style="margin:0;font-size:18px;line-height:1.6">Pipelining is not free. Two things have to grow.</p>
 
@@ -1235,7 +1235,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Go-back-N</div>
   <h2>Go-back-N</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
     <ul style="margin:0;padding-left:26px;font-size:18.5px;line-height:1.8">
       <li class="frag">The sender keeps a <b>window</b> of up to <em>N</em> unacknowledged packets in flight at once.</li>
       <li class="frag">If any packet is lost or corrupted, the sender resets its progress &mdash; it <b>goes back</b> to that packet and retransmits it along with everything that follows &mdash; hence the name.</li>
@@ -1361,7 +1361,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Go-back-N</div>
   <h2>The window in motion</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+  <div style="display:flex;flex-direction:column;gap:4px">
 
     <div class="frag" style="display:flex;gap:20px;align-items:center">
       <div style="flex:0 0 460px"><svg viewBox="0 0 500 122" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px"><defs><marker id="s1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="18" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="47" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="76" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="105" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="134" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="163" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="192" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="221" y="42" width="24" height="32" rx="2.5" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="250" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="279" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="308" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="337" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="366" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="395" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="424" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="453" y="42" width="24" height="32" rx="2.5" fill="none" stroke="var(--muted)" stroke-width="1.5"/><text x="18" y="18" text-anchor="start" font-size="10.5" fill="#7cb342" font-weight="700">base = nextseqnum</text><line x1="30.0" y1="24" x2="30.0" y2="38" stroke="#7cb342" stroke-width="1.4" marker-end="url(#s1)"/><path d="M18.0,80 L18.0,88 L245.0,88 L245.0,80" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="131.5" y="106" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.85">window, <tspan font-style="italic">N</tspan> = 8</text></svg></div>
@@ -1453,7 +1453,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Go-back-N</div>
   <h2>The receiver&rsquo;s rule in Go-back-N, informally</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:880px">
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:880px">
     <div class="frag f1 card" style="padding:16px 22px;border-left:3px solid var(--accent)">
       <p style="margin:0;font-size:18.5px;line-height:1.65">&bull;&ensp;The receiver keeps a <b>state</b>: a single number, <span style="font-family:var(--mono)">expectedseqnum</span> &mdash; the sequence number of the <b>next in-order</b> packet it expects. <span style="color:var(--muted);font-size:16px">(e.g. if it has delivered 4, 5, 6 &rarr; <span style="font-family:var(--mono)">expectedseqnum = 7</span>)</span></p>
     </div>
@@ -1719,7 +1719,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Go-back-N</div>
   <h2>The sender&rsquo;s rule in Go-back-N, informally</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:880px">
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:880px">
 
     <!-- f1: window state -->
     <div class="frag f1 card" style="padding:16px 22px;border-left:3px solid var(--accent)">
@@ -1874,7 +1874,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Recap &middot; Lecture 2</div>
   <h2>What we covered</h2>
-  <ul style="flex:1;margin:0;padding-left:28px;font-size:16.5px;line-height:1.7;max-width:1020px">
+  <ul style="margin:0;padding-left:28px;font-size:16.5px;line-height:1.7;max-width:1020px">
     <li class="frag"><b>Sliding window</b> &mdash; the sender keeps at most <em>N</em> unacknowledged packets in flight; <span style="font-family:var(--mono)">base</span> and <span style="font-family:var(--mono)">nextseqnum</span> mark the window boundaries, and a <span style="font-family:var(--mono)">pkt_buffer</span> holds every sent-but-unACK&rsquo;d packet.</li>
     <li class="frag"><b>Receiver rule</b> &mdash; the receiver accepts only the next expected packet (<span style="font-family:var(--mono)">expectedseqnum</span>); anything out of order or corrupted is discarded and the last ACK is re-sent.</li>
     <li class="frag"><b>Timeout</b> &mdash; one timer covers the entire window; when it fires, the sender restarts the timer and retransmits every buffered packet in <span style="font-family:var(--mono)">[base,&thinsp;nextseqnum)</span>.</li>
@@ -1893,7 +1893,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>Selective repeat: resend only what was lost</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:1040px">
 
     <p class="frag" style="margin:0;font-size:18px;line-height:1.6">Go-back-N wastes the network whenever a single packet is lost. <b>Selective repeat</b> fixes that by making the receiver do more work.</p>
 
@@ -1926,7 +1926,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>The sender&rsquo;s window</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+  <div style="display:flex;flex-direction:column;gap:14px">
     <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px"><defs><marker id="w1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><line x1="161.0" y1="32" x2="161.0" y2="48" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#w1)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="var(--accent)" font-family="var(--mono)" font-weight="700">send_base</text><line x1="321.0" y1="32" x2="321.0" y2="48" stroke="#7cb342" stroke-width="1.4" marker-end="url(#w1)"/><text x="310.0" y="26" text-anchor="start" font-size="11.5" fill="#7cb342" font-family="var(--mono)" font-weight="700">nextseqnum</text><path d="M148.0,97 L148.0,105 L398.0,105 L398.0,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="123" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text></svg></div>
     <div style="display:flex;gap:34px;justify-content:center;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--accent);background:rgba(0,200,180,0.55);flex-shrink:0"></span><span style="font-size:14.5px;line-height:1.4">acknowledged</span></div>
@@ -1943,7 +1943,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s window</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+  <div style="display:flex;flex-direction:column;gap:14px">
     <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
       <!-- delivered (below window) -->
       <rect x="20"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
@@ -1989,7 +1989,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>What an individual ACK does</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+  <div style="display:flex;flex-direction:column;gap:8px">
     <div class="frag" style="display:flex;gap:20px;align-items:center">
       <div style="flex:0 0 520px"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px"><defs><marker id="w3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><line x1="161.0" y1="32" x2="161.0" y2="48" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#w3)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="var(--accent)" font-family="var(--mono)" font-weight="700">send_base</text><line x1="321.0" y1="32" x2="321.0" y2="48" stroke="#7cb342" stroke-width="1.4" marker-end="url(#w3)"/><text x="310.0" y="26" text-anchor="start" font-size="11.5" fill="#7cb342" font-family="var(--mono)" font-weight="700">nextseqnum</text><path d="M148.0,97 L148.0,105 L398.0,105 L398.0,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="123" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text></svg></div>
       <p style="margin:0;font-size:16px;line-height:1.55"><b>Before.</b> Five packets are outstanding, none acknowledged yet.</p>
@@ -2007,7 +2007,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>Timeout: resend just the one</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+  <div style="display:flex;flex-direction:column;gap:16px">
     <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px"><defs><marker id="t1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="208" y="47" width="34" height="48" rx="4" fill="none" stroke="#cf5c36" stroke-width="2.4"/><line x1="161.0" y1="32" x2="161.0" y2="44" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#t1)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="var(--accent)" font-family="var(--mono)" font-weight="700">send_base</text><line x1="321.0" y1="32" x2="321.0" y2="44" stroke="#7cb342" stroke-width="1.4" marker-end="url(#t1)"/><text x="310.0" y="26" text-anchor="start" font-size="11.5" fill="#7cb342" font-family="var(--mono)" font-weight="700">nextseqnum</text><path d="M148.0,99 L148.0,107 L398.0,107 L398.0,99" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="125" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text></svg></div>
     <div class="frag card" style="padding:13px 18px;border-left:3px solid #cf5c36;max-width:1000px;align-self:center">
       <p style="margin:0;font-size:17px;line-height:1.6">Each outstanding packet has <b>its own timer</b>. When one expires, the sender resends <b>that packet only</b> and restarts <b>that</b> timer. Everything else in the window is untouched.</p>
@@ -2019,7 +2019,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>The sender&rsquo;s rules</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:15px;max-width:1030px">
+  <div style="display:flex;flex-direction:column;gap:15px;max-width:1030px">
 
     <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 5px;font-size:17px;font-weight:700;font-family:var(--mono)">data received from above</p>
@@ -2045,7 +2045,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>When the expected packet finally arrives</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+  <div style="display:flex;flex-direction:column;gap:8px">
 
     <p style="margin:0;font-size:16.5px;line-height:1.5">The receiver sends a <b>selective ACK</b> for it, then delivers upward every packet it now holds <b>consecutively</b> from <span style="font-family:var(--mono)">rcv_base</span>.</p>
 
@@ -2072,7 +2072,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>Two things that can arrive inside the window</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+  <div style="display:flex;flex-direction:column;gap:8px">
 
     <div class="frag" style="display:flex;gap:20px;align-items:center">
       <div style="flex:0 0 480px"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px"><defs><marker id="n1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(217,164,31,0.55)" stroke="#d9a41f" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(179,118,58,0.50)" stroke="#b3763a" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(179,118,58,0.50)" stroke="#b3763a" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="208" y="47" width="34" height="48" rx="4" fill="none" stroke="#b3763a" stroke-width="2.4"/><line x1="161.0" y1="32" x2="161.0" y2="44" stroke="#d9a41f" stroke-width="1.4" marker-end="url(#n1)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="#d9a41f" font-family="var(--mono)" font-weight="700">rcv_base</text><path d="M148.0,99 L148.0,107 L398.0,107 L398.0,99" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="125" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text></svg></div>
@@ -2129,7 +2129,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s rules</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1030px">
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:1030px">
 
     <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 6px;font-size:17px;font-weight:700;font-family:var(--mono)">seq# in [rcv_base, rcv_base+N&minus;1]</p>
@@ -2172,7 +2172,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>A dilemma when the window is too big</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:9px">
+  <div style="display:flex;flex-direction:column;gap:9px">
     <p style="margin:0;font-size:16.5px;line-height:1.5">Suppose the sequence numbers are just <b>0, 1, 2, 3</b> and the window size is <b>3</b>. Consider two different histories.</p>
     <div style="display:flex;gap:26px;align-items:flex-start">
       <div class="frag" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
@@ -2193,7 +2193,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>How big may the window be?</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:24px;max-width:1000px;justify-content:center">
+  <div style="display:flex;flex-direction:column;gap:24px;max-width:1000px;justify-content:center">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">The dilemma arises because the sender&rsquo;s window and the receiver&rsquo;s window can drift far enough apart to <b>overlap after wrap-around</b>. Keeping the window small enough prevents it:</p>
     <div class="frag card" style="padding:24px 30px;border-left:4px solid var(--accent)">
       <p style="margin:0;font-size:26px;text-align:center;line-height:1.5">window size &nbsp;&le;&nbsp; &frac12; &times; (size of the sequence-number space)</p>
@@ -2205,7 +2205,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Summary</div>
   <h2>The mechanisms we assembled</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:1040px">
     <table style="border-collapse:collapse;width:100%"><tr><td style="border-bottom:1px solid var(--border);padding:9px 16px 9px 0;font-weight:700;font-size:16.5px;white-space:nowrap;vertical-align:top">Checksum</td><td style="border-bottom:1px solid var(--border);padding:9px 0;font-size:16px;line-height:1.5">Detect bit errors in a packet.</td></tr><tr><td style="border-bottom:1px solid var(--border);padding:9px 16px 9px 0;font-weight:700;font-size:16.5px;white-space:nowrap;vertical-align:top">Timer</td><td style="border-bottom:1px solid var(--border);padding:9px 0;font-size:16px;line-height:1.5">Detect a loss and trigger a retransmission &mdash; also fires on a merely slow packet.</td></tr><tr><td style="border-bottom:1px solid var(--border);padding:9px 16px 9px 0;font-weight:700;font-size:16.5px;white-space:nowrap;vertical-align:top">Sequence number</td><td style="border-bottom:1px solid var(--border);padding:9px 0;font-size:16px;line-height:1.5">Detect a <b>gap</b> (a lost packet) and detect a <b>duplicate</b>.</td></tr><tr><td style="border-bottom:1px solid var(--border);padding:9px 16px 9px 0;font-weight:700;font-size:16.5px;white-space:nowrap;vertical-align:top">Acknowledgement</td><td style="border-bottom:1px solid var(--border);padding:9px 0;font-size:16px;line-height:1.5">Report successful receipt &mdash; individually, or cumulatively.</td></tr><tr><td style="border-bottom:1px solid var(--border);padding:9px 16px 9px 0;font-weight:700;font-size:16.5px;white-space:nowrap;vertical-align:top">Negative ACK</td><td style="border-bottom:1px solid var(--border);padding:9px 0;font-size:16px;line-height:1.5">Report unsuccessful receipt. Dropped once ACKs carry sequence numbers.</td></tr><tr><td style="border-bottom:1px solid var(--border);padding:9px 16px 9px 0;font-weight:700;font-size:16.5px;white-space:nowrap;vertical-align:top">Window, pipelining</td><td style="border-bottom:1px solid var(--border);padding:9px 0;font-size:16px;line-height:1.5">Keep several packets in flight, to stop the sender idling.</td></tr></table>
     <p class="frag" style="margin:0;font-size:16px;color:var(--muted);line-height:1.5">After Kurose &amp; Ross, Table 3.1.</p>
   </div>
@@ -2214,7 +2214,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Recap</div>
   <h2>Week 10 &mdash; what we covered</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:20px;max-width:1030px">
+  <div style="display:flex;flex-direction:column;gap:20px;max-width:1030px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">We built a reliable protocol one channel assumption at a time: <b>rdt 1.0</b> assumes nothing goes wrong; <b>rdt 2.x</b> adds checksums, ACKs and a <b>sequence number</b> to survive bit errors; <b>rdt 3.0</b> adds a <b>timer</b> to survive loss.</p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">Stop-and-wait is correct but wastes almost all of a fast link, so we <b>pipelined</b> &mdash; several packets in flight, bounded by a <b>window</b>.</p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6"><b>Go-back-N</b> keeps the receiver trivial by discarding anything out of order, and pays for it by resending the whole window. <b>Selective repeat</b> buffers and acknowledges individually, resending only what was lost.</p>
@@ -2224,7 +2224,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 
 <section class="slide" data-sec="Reliable Data Transfer">
   <h2>References</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1000px">
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:1000px">
     <div><p style="margin:0;font-size:18px;line-height:1.5"><b>James F. Kurose &amp; Keith W. Ross</b>, <em>Computer Networking: a Top-Down Approach Featuring the Internet</em>, Addison Wesley, 3rd edition, 2005.</p>
       <p style="margin:4px 0 0;font-size:16px;color:var(--muted)">Chapter 3 &mdash; The Transport Layer (&sect;3.4)</p></div>
     <div><p style="margin:0;font-size:18px;line-height:1.5"><b>William Stallings</b>, <em>Data and Computer Communications</em>, Pearson, 10th edition, 2013.</p>
@@ -2236,7 +2236,7 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 
 <section class="slide" data-sec="Reliable Data Transfer">
   <h2>Acknowledgements</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1000px">
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1000px">
     <p style="margin:0;font-size:18px">These lecture notes are developed based on slides from the following sources:</p>
     <ul style="margin:0;padding-left:26px;font-size:17px;line-height:1.9">
       <li><b>Dr Barry Wu</b>&rsquo;s slides for COSC264, University of Canterbury, 2024&ndash;25</li>
