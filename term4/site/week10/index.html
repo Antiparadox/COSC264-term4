@@ -1898,36 +1898,73 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
 
 
 
+<!-- ══ GBN inefficiency ══ -->
+<section class="slide" id="gbn-cost" data-sec="Reliable Data Transfer">
+  <style>
+    #gbn-cost .g-pkt1{opacity:0;transition:opacity .35s}
+    #gbn-cost .g-pkt2{opacity:0;transition:opacity .35s}
+    #gbn-cost:has(.f1.on) .g-pkt1{opacity:1}
+    #gbn-cost:has(.f2.on) .g-pkt2{opacity:1}
+  </style>
+  <div class="kicker">Go-back-N</div>
+  <h2>The cost of the receiver&rsquo;s rule</h2>
+  <div style="display:flex;gap:48px;align-items:flex-start;max-width:1100px">
+    <div style="display:flex;flex-direction:column;gap:18px;flex:1">
+      <p style="margin:0;font-size:18px;line-height:1.6">Go-back-N wastes the network whenever a single packet is lost &mdash; a direct consequence of the receiver&rsquo;s rule: accept only the next expected packet and discard everything else.</p>
+      <p class="frag f1" style="margin:0;font-size:17px;line-height:1.6">Suppose pkt&nbsp;0 is lost in transit. The receiver&rsquo;s <span style="font-family:var(--mono)">expectedseqnum</span> stays at&nbsp;0.</p>
+      <div class="frag f2 card" style="padding:12px 17px;border-left:3px solid var(--accent)">
+        <p style="margin:0;font-size:17px;line-height:1.6">pkt&nbsp;1 and pkt&nbsp;2 arrive correctly &mdash; but because <span style="font-family:var(--mono)">expectedseqnum</span>&nbsp;=&nbsp;0, both are <b>discarded</b>. Two correctly received packets are wasted.</p>
+      </div>
+    </div>
+    <div style="flex:0 0 370px;display:flex;justify-content:center">
+      <svg viewBox="0 0 380 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:370px">
+        <defs>
+          <marker id="gc-arr" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/>
+          </marker>
+        </defs>
+        <text x="70" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
+        <text x="310" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
+        <text x="310" y="33" text-anchor="middle" font-size="11" fill="var(--muted)">esn&nbsp;=&nbsp;0</text>
+        <line x1="70" y1="40" x2="70" y2="260" stroke="currentColor" stroke-width="1.3" opacity="0.35"/>
+        <line x1="310" y1="40" x2="310" y2="260" stroke="currentColor" stroke-width="1.3" opacity="0.35"/>
+        <!-- pkt 0: sent, lost -->
+        <text x="128" y="62" text-anchor="middle" font-size="12" fill="currentColor" font-weight="600">pkt&nbsp;0</text>
+        <line x1="70" y1="67" x2="186" y2="90" stroke="#cf5c36" stroke-width="2"/>
+        <line x1="178" y1="84" x2="194" y2="98" stroke="#cf5c36" stroke-width="2.5"/>
+        <line x1="194" y1="84" x2="178" y2="98" stroke="#cf5c36" stroke-width="2.5"/>
+        <text x="197" y="112" font-size="11" fill="#cf5c36" font-style="italic">lost</text>
+        <!-- pkt 1: arrives, dropped -->
+        <g class="g-pkt1">
+          <text x="187" y="128" text-anchor="middle" font-size="12" fill="currentColor" font-weight="600">pkt&nbsp;1</text>
+          <line x1="70" y1="133" x2="303" y2="158" stroke="currentColor" stroke-width="2" marker-end="url(#gc-arr)"/>
+          <text x="314" y="157" font-size="11" fill="#cf5c36" font-weight="600">dropped</text>
+        </g>
+        <!-- pkt 2: arrives, dropped -->
+        <g class="g-pkt2">
+          <text x="187" y="200" text-anchor="middle" font-size="12" fill="currentColor" font-weight="600">pkt&nbsp;2</text>
+          <line x1="70" y1="205" x2="303" y2="230" stroke="currentColor" stroke-width="2" marker-end="url(#gc-arr)"/>
+          <text x="314" y="229" font-size="11" fill="#cf5c36" font-weight="600">dropped</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Selective Repeat overview ══ -->
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Selective repeat</div>
   <h2>Selective repeat: resend only what was lost</h2>
-  <div style="display:flex;flex-direction:column;gap:14px;max-width:1040px">
-
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">Go-back-N wastes the network whenever a single packet is lost. <b>Selective repeat</b> fixes that by making the receiver do more work.</p>
-
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
     <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 5px;font-size:17px;font-weight:700">The receiver acknowledges every packet <em>individually</em></p>
+      <p style="margin:0 0 5px;font-size:17px;font-weight:700">The receiver buffers and ACKs every packet individually</p>
       <p style="margin:0;font-size:16px;line-height:1.6">Not cumulatively &mdash; each ACK names exactly one packet. Out-of-order packets are <b>buffered</b>, not discarded, and delivered upward once the gap is filled.</p>
     </div>
-
     <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 5px;font-size:17px;font-weight:700">The sender resends only the packets it has no ACK for</p>
       <p style="margin:0;font-size:16px;line-height:1.6">Which means it needs a <b>separate timer for each unacknowledged packet</b>, not one timer for the whole window.</p>
     </div>
-
-    <div class="frag" style="display:flex;gap:18px">
-      <div class="card" style="flex:1;padding:12px 17px">
-        <p style="margin:0 0 4px;font-size:16.5px;font-weight:700">Sender window</p>
-        <p style="margin:0;font-size:15.5px;line-height:1.55"><em>N</em> consecutive sequence numbers &mdash; still limiting how many sent-but-unacknowledged packets may exist.</p>
-      </div>
-      <div class="card" style="flex:1;padding:12px 17px">
-        <p style="margin:0 0 4px;font-size:16.5px;font-weight:700">Receiver window</p>
-        <p style="margin:0;font-size:15.5px;line-height:1.55"><em>N</em> consecutive sequence numbers &mdash; the range the receiver is currently willing to <b>accept and buffer</b>.</p>
-      </div>
-    </div>
-
-    <p class="frag" style="margin:0;font-size:16.5px;line-height:1.55">That second window is new: in go-back-N the receiver had no window at all, just <span style="font-family:var(--mono)">expectedseqnum</span>.</p>
-
+    <p class="frag" style="margin:0;font-size:17px;line-height:1.6">For this purpose, the receiver also keeps a <b>window</b> of packets it is waiting to accept and buffer.</p>
   </div>
 </section>
 
