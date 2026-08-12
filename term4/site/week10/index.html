@@ -1958,12 +1958,12 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
     <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 5px;font-size:17px;font-weight:700">The receiver buffers and ACKs every packet individually</p>
-      <p style="margin:0;font-size:16px;line-height:1.6">Not cumulatively &mdash; each ACK names exactly one packet. Out-of-order packets are <b>buffered</b>, not discarded, and delivered upward once the gap is filled.</p>
+      <p style="margin:0 0 8px;font-size:16px;line-height:1.6">Not cumulatively &mdash; each ACK names exactly one packet. Out-of-order packets are <b>buffered</b>, not discarded, and delivered upward once the gap is filled.</p>
+      <p style="margin:0;font-size:16px;line-height:1.6">For this purpose, the receiver also keeps a <b>window</b> of packets it is waiting to accept and buffer.</p>
     </div>
     <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 5px;font-size:17px;font-weight:700">The sender resends only the packets it has no ACK for</p>
-      <p style="margin:0 0 8px;font-size:16px;line-height:1.6">Which means it needs a <b>separate timer for each unacknowledged packet</b>.</p>
-      <p style="margin:0;font-size:16px;line-height:1.6">For this purpose, the receiver also keeps a <b>window</b> of packets it is waiting to accept and buffer.</p>
+      <p style="margin:0;font-size:16px;line-height:1.6">Which means it needs a <b>separate timer for each unacknowledged packet</b>.</p>
     </div>
   </div>
 </section>
