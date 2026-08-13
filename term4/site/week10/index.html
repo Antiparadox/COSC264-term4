@@ -1973,10 +1973,8 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
     @keyframes sw-pulse{0%,100%{opacity:1}50%{opacity:0.25}}
     #sw-slide .g-acked{opacity:0;transition:opacity .4s}
     #sw-slide .g-highlight{opacity:0}
-    #sw-slide .g-invalid{opacity:0;transition:opacity .4s}
     #sw-slide:has(.f2.on) .g-acked{opacity:1}
-    #sw-slide:has(.f4.on) .g-highlight{animation:sw-pulse 1.3s ease-in-out infinite}
-    #sw-slide:has(.f5.on) .g-invalid{opacity:1}
+    #sw-slide:has(.f1.on) .g-highlight{animation:sw-pulse 1.3s ease-in-out infinite}
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>The sender&rsquo;s window in Selective Repeat</h2>
@@ -1984,7 +1982,6 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
     <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px"><defs><marker id="w1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><line x1="161.0" y1="32" x2="161.0" y2="48" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#w1)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="var(--accent)" font-family="var(--mono)" font-weight="700">send_base</text><line x1="321.0" y1="32" x2="321.0" y2="48" stroke="#7cb342" stroke-width="1.4" marker-end="url(#w1)"/><text x="310.0" y="26" text-anchor="start" font-size="11.5" fill="#7cb342" font-family="var(--mono)" font-weight="700">nextseqnum</text><path d="M148.0,97 L148.0,105 L398.0,105 L398.0,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="123" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text>
       <g class="g-acked"><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/></g>
       <g class="g-highlight"><rect x="145" y="49" width="32" height="44" rx="5" fill="none" stroke="var(--accent)" stroke-width="3"/></g>
-      <g class="g-invalid"><rect x="404" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.22)" stroke="#7cb342" stroke-width="2" stroke-dasharray="5,3"/><rect x="436" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.22)" stroke="#7cb342" stroke-width="2" stroke-dasharray="5,3"/><path d="M398,105 L398,114 L466,114 L466,105" fill="none" stroke="#cf5c36" stroke-width="1.5" stroke-dasharray="6,3"/><line x1="402" y1="50" x2="464" y2="91" stroke="#cf5c36" stroke-width="3.5" stroke-linecap="round"/><line x1="402" y1="91" x2="464" y2="50" stroke="#cf5c36" stroke-width="3.5" stroke-linecap="round"/></g>
     </svg></div>
     <div style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--accent);background:rgba(0,200,180,0.55);flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">acknowledged</span></div>
@@ -1992,17 +1989,12 @@ lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid #7cb342;background:rgba(124,179,66,0.42);flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">usable, not yet sent</span></div>
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet usable</span></div>
     </div>
-    <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">In Selective Repeat, packets can be <b>ACKed individually</b> &mdash; each ACK names exactly one packet.</p>
-    <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">Therefore, <b>some slots within the window can be acknowledged while earlier ones are not</b> &mdash; the window can have holes.</p>
-    <div class="frag f3 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
-      <p style="margin:0;font-size:16.5px;line-height:1.6">In Go-back-N this was impossible &mdash; a cumulative ACK can never skip over an unacknowledged packet, so there could never be a hole inside the window.</p>
-    </div>
-    <div class="frag f4 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
+    <div class="frag f1 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
       <p style="margin:0;font-size:16.5px;line-height:1.6"><span style="font-family:var(--mono)">send_base</span> always points to the <b>oldest unacknowledged</b> packet. The window always starts from <span style="font-family:var(--mono)">send_base</span>.</p>
     </div>
-    <div class="frag f5 card" style="padding:12px 18px;border-left:3px solid #cf5c36;max-width:1000px;align-self:center">
-      <p style="margin:0 0 6px;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#cf5c36">A common confusion</p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">Two packets beyond <span style="font-family:var(--mono)">send_base</span> are acknowledged &mdash; could the window extend by two? <b>No.</b> The window cannot advance until <span style="font-family:var(--mono)">send_base</span> itself is acknowledged.</p>
+    <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.6;max-width:1000px;align-self:center">In Selective Repeat, since packets can be ACKed individually &mdash; <b>some slots within the window can be acknowledged while earlier ones are not</b> &mdash; the window can have holes.</p>
+    <div class="frag f3 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
+      <p style="margin:0;font-size:16.5px;line-height:1.6">In Go-back-N this was impossible &mdash; a cumulative ACK can never skip over an unacknowledged packet, so there could never be a hole inside the window.</p>
     </div>
   </div>
 </section>
