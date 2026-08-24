@@ -1,0 +1,7 @@
+# Only public/, server.js and package.json are needed to run the site.
+# Course source material is large and must never reach the web server.
+term3/
+term4/
+docs/
+.claude/
+*.bak_*
