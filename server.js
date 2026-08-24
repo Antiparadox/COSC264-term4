@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { WebSocketServer } from 'ws';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -33,4 +34,135 @@ app.use((_req, res) => {
   );
 });
 
-app.listen(PORT, () => console.log(`COSC264 site listening on :${PORT}`));
+const server = app.listen(PORT, () => console.log(`COSC264 site listening on :${PORT}`));
+
+/* ------------------------------------------------------------------ *
+ * Slide remote relay
+ *
+ * Deliberately a dumb pipe: it pairs two sockets by code and forwards
+ * bytes between them. It holds no sequence numbers and no slide state,
+ * so a server restart (every deploy does one) costs nothing but a
+ * reconnect -- both ends resume exactly where they were.
+ * ------------------------------------------------------------------ */
+
+// No I/O/0/1: these get misread off a projector.
+const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const CODE_LEN = 4;
+const GRACE_MS = 5 * 60 * 1000;   // keep a session alive across an iPad reload
+const HEARTBEAT_MS = 30 * 1000;
+
+/** code -> { presenter: ws|null, remotes: Set<ws>, reaper: Timeout|null } */
+const sessions = new Map();
+
+const newCode = () => {
+  let code;
+  do {
+    code = Array.from({ length: CODE_LEN },
+      () => ALPHABET[Math.floor(Math.random() * ALPHABET.length)]).join('');
+  } while (sessions.has(code));
+  return code;
+};
+
+const send = (ws, obj) => {
+  if (ws && ws.readyState === ws.OPEN) ws.send(JSON.stringify(obj));
+};
+
+function cancelReaper(session) {
+  if (session.reaper) { clearTimeout(session.reaper); session.reaper = null; }
+}
+
+function scheduleReaper(code, session) {
+  cancelReaper(session);
+  session.reaper = setTimeout(() => {
+    if (!session.presenter && session.remotes.size === 0) sessions.delete(code);
+  }, GRACE_MS);
+}
+
+const wss = new WebSocketServer({ server, path: '/rc' });
+
+wss.on('connection', (ws) => {
+  ws.isAlive = true;
+  ws.on('pong', () => { ws.isAlive = true; });
+
+  ws.role = null;
+  ws.code = null;
+
+  ws.on('message', (raw) => {
+    let msg;
+    try { msg = JSON.parse(raw.toString()); } catch { return; }
+
+    // --- registration ------------------------------------------------
+    if (msg.role === 'presenter') {
+      // Reuse the requested code when possible so an iPad reload rejoins the
+      // same session and any paired phone stays paired.
+      let code = typeof msg.code === 'string' ? msg.code.toUpperCase() : null;
+      let session = code ? sessions.get(code) : null;
+
+      if (session && session.presenter && session.presenter !== ws) {
+        code = null; session = null;          // someone else holds it
+      }
+      if (!code || !session) {
+        if (!code) code = newCode();
+        session = sessions.get(code) ?? { presenter: null, remotes: new Set(), reaper: null };
+        sessions.set(code, session);
+      }
+
+      cancelReaper(session);
+      session.presenter = ws;
+      ws.role = 'presenter';
+      ws.code = code;
+
+      send(ws, { type: 'ready', code, remotes: session.remotes.size });
+      for (const r of session.remotes) send(r, { type: 'presenter', connected: true });
+      return;
+    }
+
+    if (msg.role === 'remote') {
+      const code = typeof msg.code === 'string' ? msg.code.toUpperCase().trim() : '';
+      const session = sessions.get(code);
+      if (!session) { send(ws, { type: 'nosession' }); return; }
+
+      cancelReaper(session);
+      session.remotes.add(ws);
+      ws.role = 'remote';
+      ws.code = code;
+
+      send(ws, { type: 'joined', code, presenter: !!session.presenter });
+      send(session.presenter, { type: 'remote', connected: true, count: session.remotes.size });
+      return;
+    }
+
+    // --- the only command that matters -------------------------------
+    if (msg.type === 'cmd' && ws.role === 'remote') {
+      const session = sessions.get(ws.code);
+      if (!session) return;
+      // Forwarded verbatim, seq included. The deck decides whether to act.
+      send(session.presenter, { type: 'cmd', cmd: msg.cmd, seq: msg.seq });
+    }
+  });
+
+  ws.on('close', () => {
+    const session = ws.code && sessions.get(ws.code);
+    if (!session) return;
+
+    if (ws.role === 'presenter' && session.presenter === ws) {
+      session.presenter = null;
+      for (const r of session.remotes) send(r, { type: 'presenter', connected: false });
+      scheduleReaper(ws.code, session);
+    } else if (ws.role === 'remote') {
+      session.remotes.delete(ws);
+      send(session.presenter, { type: 'remote', connected: session.remotes.size > 0, count: session.remotes.size });
+      if (!session.presenter && session.remotes.size === 0) scheduleReaper(ws.code, session);
+    }
+  });
+});
+
+// Mobile networks drop sockets without a close frame; ping to notice.
+const heartbeat = setInterval(() => {
+  for (const ws of wss.clients) {
+    if (ws.isAlive === false) { ws.terminate(); continue; }
+    ws.isAlive = false;
+    ws.ping();
+  }
+}, HEARTBEAT_MS);
+wss.on('close', () => clearInterval(heartbeat));

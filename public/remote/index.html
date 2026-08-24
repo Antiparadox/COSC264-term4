@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="robots" content="noindex">
+<title>Slide remote · COSC264</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0d151b">
+<style>
+  :root{
+    --bg:#0d151b; --panel:#141f27; --line:#24333d;
+    --ink:#e6edf2; --muted:#9aabb6; --faint:#6e808c;
+    --accent:#3fb8aa; --accent-ink:#08251f;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    display:flex;flex-direction:column;overflow:hidden;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right)
+            env(safe-area-inset-bottom) env(safe-area-inset-left);
+    -webkit-user-select:none;user-select:none;
+  }
+
+  /* ---------- pairing ---------- */
+  #pair{flex:1;display:flex;flex-direction:column;justify-content:center;
+    align-items:center;gap:20px;padding:28px}
+  #pair h1{font-size:19px;font-weight:600;margin:0;color:var(--muted);
+    letter-spacing:.02em;text-align:center}
+  #code{
+    width:100%;max-width:320px;font-family:var(--mono);font-size:44px;
+    font-weight:700;letter-spacing:.22em;text-align:center;text-indent:.22em;
+    background:var(--panel);color:var(--accent);
+    border:2px solid var(--line);border-radius:16px;padding:18px 10px;
+    text-transform:uppercase;outline:none;
+  }
+  #code:focus{border-color:var(--accent)}
+  #go{
+    width:100%;max-width:320px;font-size:19px;font-weight:600;
+    background:var(--accent);color:var(--accent-ink);border:0;
+    border-radius:16px;padding:17px;cursor:pointer;
+  }
+  #go:disabled{opacity:.45}
+  #msg{margin:0;font-size:15px;color:var(--faint);min-height:1.4em;text-align:center}
+
+  /* ---------- the remote itself ---------- */
+  #pad{flex:1;display:none;flex-direction:column}
+  #pad.on{display:flex}
+  #bar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 18px;font-size:13px;color:var(--faint);
+    font-family:var(--mono);letter-spacing:.06em;
+  }
+  #dot{width:9px;height:9px;border-radius:50%;background:var(--faint);
+    display:inline-block;margin-right:7px;vertical-align:middle}
+  #dot.live{background:var(--accent)}
+  #bar button{background:none;border:0;color:var(--faint);font:inherit;
+    text-decoration:underline;cursor:pointer;padding:4px}
+
+  #buttons{flex:1;display:grid;grid-template-rows:1fr 2fr;gap:12px;padding:0 12px 12px}
+  .key{
+    border:2px solid var(--line);background:var(--panel);color:var(--ink);
+    border-radius:22px;font-family:var(--sans);font-weight:600;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;cursor:pointer;touch-action:manipulation;
+    transition:background .06s ease,border-color .06s ease,transform .06s ease;
+  }
+  .key .glyph{font-size:44px;line-height:1}
+  .key .label{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  #next{border-color:var(--accent);background:#12332f}
+  #next .glyph{color:var(--accent)}
+  #next .label{color:var(--accent)}
+  .key:active{transform:scale(.985);background:#1b2a34}
+  #next:active{background:#17453e}
+  .key[disabled]{opacity:.4}
+</style>
+</head>
+<body>
+
+  <section id="pair">
+    <h1>Slide remote</h1>
+    <input id="code" inputmode="latin" autocomplete="off" autocapitalize="characters"
+           spellcheck="false" maxlength="4" placeholder="····" aria-label="Session code">
+    <button id="go" disabled>Connect</button>
+    <p id="msg">Enter the code shown on the slide.</p>
+  </section>
+
+  <section id="pad">
+    <div id="bar">
+      <span><span id="dot"></span><span id="state">connecting</span></span>
+      <button id="leave">disconnect</button>
+    </div>
+    <div id="buttons">
+      <button class="key" id="prev"><span class="glyph">↑</span><span class="label">Back</span></button>
+      <button class="key" id="next"><span class="glyph">↓</span><span class="label">Next</span></button>
+    </div>
+  </section>
+
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const STORE = 'cosc264-remote-last-code';
+
+  let ws = null, code = '', seq = 0, retry = 1000, retryTimer = null, quit = false;
+
+  /* ---------- connection ---------- */
+  function connect() {
+    if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+    const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const sock = new WebSocket(`${proto}//${location.host}/rc`);
+    ws = sock;
+
+    sock.addEventListener('open', () => {
+      retry = 1000;
+      sock.send(JSON.stringify({ role: 'remote', code }));
+    });
+
+    sock.addEventListener('message', ev => {
+      let m; try { m = JSON.parse(ev.data); } catch { return; }
+
+      if (m.type === 'nosession') {
+        quit = true;
+        try { sock.close(); } catch {}
+        showPair('No session with that code. Check the slide and try again.');
+        return;
+      }
+      if (m.type === 'joined') {
+        try { localStorage.setItem(STORE, code); } catch {}
+        showPad();
+        setState(m.presenter);
+        return;
+      }
+      if (m.type === 'presenter') setState(m.connected);
+    });
+
+    sock.addEventListener('close', () => {
+      ws = null;
+      if (quit) return;
+      setState(false, 'reconnecting');
+      clearTimeout(retryTimer);
+      retryTimer = setTimeout(connect, retry);
+      retry = Math.min(retry * 2, 15000);
+    });
+    sock.addEventListener('error', () => { try { sock.close(); } catch {} });
+  }
+
+  /* ---------- sending ---------- */
+  // Only ever "next" or "prev". The sequence number rises monotonically and
+  // the deck ignores anything it has already seen, so a double-tap or a
+  // delayed packet cannot advance two slides. Nothing here knows or cares
+  // what is on the screen.
+  function press(cmd, btn) {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    ws.send(JSON.stringify({ type: 'cmd', cmd, seq: ++seq }));
+    if (navigator.vibrate) navigator.vibrate(12);
+    btn.style.transform = 'scale(.985)';
+    setTimeout(() => { btn.style.transform = ''; }, 70);
+  }
+
+  /* ---------- views ---------- */
+  function showPad() { $('pair').style.display = 'none'; $('pad').classList.add('on'); }
+  function showPair(message) {
+    $('pad').classList.remove('on');
+    $('pair').style.display = 'flex';
+    $('msg').textContent = message || 'Enter the code shown on the slide.';
+  }
+  function setState(live, word) {
+    $('dot').classList.toggle('live', !!live);
+    $('state').textContent = word || (live ? 'connected' : 'waiting for slides');
+    for (const id of ['next', 'prev']) $(id).disabled = !live;
+  }
+
+  /* ---------- wiring ---------- */
+  const input = $('code');
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
+    $('go').disabled = input.value.length !== 4;
+  });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter' && !$('go').disabled) $('go').click(); });
+
+  $('go').addEventListener('click', () => {
+    code = input.value;
+    quit = false;
+    $('msg').textContent = 'Connecting…';
+    connect();
+  });
+
+  $('leave').addEventListener('click', () => {
+    quit = true;
+    try { ws && ws.close(); } catch {}
+    try { localStorage.removeItem(STORE); } catch {}
+    showPair();
+  });
+
+  $('next').addEventListener('click', e => press('next', e.currentTarget));
+  $('prev').addEventListener('click', e => press('prev', e.currentTarget));
+
+  // Volume-style hardware keys aren't reachable from a web page, but a
+  // paired keyboard is, and costs nothing to support.
+  document.addEventListener('keydown', e => {
+    if ($('pad').classList.contains('on')) {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); press('next', $('next')); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); press('prev', $('prev')); }
+    }
+  });
+
+  // Offer the last code back, but never auto-join: rejoining a stale session
+  // silently would be worse than one extra tap.
+  try {
+    const last = localStorage.getItem(STORE);
+    if (last) { input.value = last; $('go').disabled = false; }
+  } catch {}
+})();
+</script>
+</body>
+</html>
