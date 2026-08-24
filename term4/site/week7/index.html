@@ -128,12 +128,6 @@ p,li{font-size:26px;line-height:1.5}
 #jump a.here{background:var(--accent);color:#fff;border-color:var(--accent)}
 #jump .close{float:right;font-size:14px}
 
-/* notes panel */
-#notesbar{position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;z-index:50;
-  background:var(--surface);border-top:2px solid var(--accent);padding:12px 22px;display:none;
-  font-size:15px;line-height:1.55;color:var(--ink);box-shadow:0 -8px 24px rgba(0,0,0,.15)}
-body.notes #notesbar{display:block}
-.notes{display:none}
 .timing{font-family:var(--mono);font-size:12px;color:var(--current);font-weight:700;
   background:var(--current-soft);border-radius:6px;padding:1px 7px;margin-right:8px}
 
@@ -205,10 +199,6 @@ body.scroll .prow .q{font-size:16.5px}
 body.scroll .term{font-size:14px}
 body.scroll table.ft{font-size:15px}
 body.scroll .footnote{position:static;margin-top:14px;font-size:12.5px}
-body.scroll .notes{display:block;margin-top:18px;padding:14px 18px;border-left:3px solid var(--accent);
-  background:var(--surface);border-radius:0 12px 12px 0;font-size:15px;line-height:1.55;color:var(--muted)}
-body.scroll .notes::before{content:"Lecturer's commentary";display:block;font-family:var(--mono);
-  font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:6px}
 body.scroll .navzone{display:none}
 body.scroll #counter,body.scroll #seclabel{display:none}
 
@@ -216,7 +206,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 @page{size:A4 landscape;margin:10mm}
 @media print{
   body{overflow:visible;background:#fff}
-  #hud,#progress,#counter,#seclabel,.navzone,#notesbar,#jump{display:none!important}
+  #hud,#progress,#counter,#seclabel,.navzone,#jump{display:none!important}
   #stage{position:static;width:auto;height:auto;transform:none!important}
   .slide{position:static;display:flex!important;height:auto;min-height:430px;page-break-after:always;
     border-bottom:none;padding:30px 48px}
@@ -225,13 +215,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   .term{font-size:14px;min-height:0} table.ft{font-size:14px}
   .footnote{position:static;margin-top:12px}
   .frag{opacity:1;transform:none}
-  .notes{display:block;margin-top:16px;padding:12px 16px;border-left:3px solid var(--accent);
-    font-size:13px;color:#333}
   .stack-layer{opacity:0.3;transition:opacity 200ms ease}
   .stack-layer.hl{opacity:1}
 }
 /* ---------- link-state 3-step slide: spotlight steps 1-2 on the closing fragment ---------- */
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
+@media (max-height:800px){#ls-steps-slide .ls-step{padding:10px 24px!important}#ls-steps-slide .ls-step p{font-size:17px!important}}
 #ls-steps-slide:has(#ls-note.on) #ls-step-3{background:var(--accent-soft);border-color:var(--accent)}
 #ls-steps-slide:has(#ls-note.on) #ls-step-1,
 #ls-steps-slide:has(#ls-note.on) #ls-step-2,
@@ -244,7 +233,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div id="progress"></div>
 <div id="hud">
   <button id="b-mode" title="Stage / scroll mode">⇕ view</button>
-  <button id="b-notes" title="Speaker notes (S)">☰ notes</button>
   <button id="b-jump" title="Contents (Esc)">⌗ contents</button>
   <button id="b-theme" title="Theme (T)">◐</button>
 </div>
@@ -253,7 +241,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div class="navzone left" aria-hidden="true"></div>
 <div class="navzone right" aria-hidden="true"></div>
 <div id="jump" role="dialog" aria-label="Contents"></div>
-<div id="notesbar" aria-live="polite"></div>
 
 <div id="stage">
 
@@ -266,10 +253,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span>University of Canterbury · Yinuo Zhang · yinuo.zhang@canterbury.ac.nz</span>
     <span class="qrbox">QR + short link — added when hosted</span>
   </div>
-  <aside class="notes"><span class="timing">0:00</span> Welcome to Term 4. This web page <em>is</em>
-  the slide deck: same link on your laptop, works on anything. Three lectures this week take us from
-  "what is routing?" to the algorithms running inside every router. House style: I'll ask quick
-  questions as we go — answer on your device or just think; they're anonymous and ungraded.</aside>
 </section>
 
 <section class="slide" data-sec="Recap and overview" data-anchor="lec1">
@@ -288,11 +271,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag lead" style="margin:0"><b>Transport</b>, <b>Application</b> — coming weeks</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">1 min</span> One slide, one click. The diagram itself is
-  the recap — Physical, Link, and IP addressing are the settled teal bands; don't re-derive them,
-  just name them as you point. This is the same five-layer model from Architectures &amp; Basics, not
-  a new framework — say so explicitly. The single reveal ties it together: everything below the line
-  is established; the amber cell is the whole reason we're here today.</aside>
 </section>
 
 <section class="slide sec-title" data-sec="Lecture 1 · The Routing Problem">
@@ -301,9 +279,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h1>The Routing Problem</h1>
   <div class="rule"></div>
   <p class="sub">How does a network of independent routers figure out where to send each packet?</p>
-  <aside class="notes"><span class="timing">3 min</span> Today's title card — just the name and the
-  one-line definition. Lecture 2 and Lecture 3 get their own moment at the very end of today's
-  material, not here.</aside>
 </section>
 
 <!-- ====== Slide 4: The goal ====== -->
@@ -333,8 +308,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </svg>
   </div>
   <p class="frag lead" style="text-align:center;margin-top:8px">But A has no idea what the network looks like</p>
-  <aside class="notes"><span class="timing">4 min</span> Set the stage: A wants to send packets to F,
-  but the network between them is unknown. This motivates the three requirements that follow.</aside>
 </section>
 
 <!-- ====== Slide 5: Requirement 1 — Discover ====== -->
@@ -347,8 +320,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="margin:0;font-size:26px;line-height:1.5">Learn who is out there and what each link costs — without being told.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">5 min</span> First requirement: discover. The router
-  must find its neighbours and link costs on its own.</aside>
 </section>
 
 <!-- ====== Slide 6: Discover deep-dive ====== -->
@@ -389,9 +360,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <p class="frag lead" style="margin:0;font-size:24px">A learns link costs: <span style="color:var(--current)"><b>A–B = 2</b></span>, <span style="color:var(--current)"><b>A–C = 4</b></span></p>
     <p class="frag lead" style="margin:0;font-size:24px;color:var(--muted)">A only has a local view — it still cannot see F</p>
   </div>
-  <aside class="notes"><span class="timing">6 min</span> Three fragments: (1) neighbours B and C appear,
-  (2) link costs appear on A-B and A-C, (3) stress that A only sees its direct neighbours — it has
-  no idea where F is yet. No one told A any of this.</aside>
 </section>
 
 <!-- ====== Slide 7: Requirement 2 — Integrate local views ====== -->
@@ -404,8 +372,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="margin:0;font-size:26px;line-height:1.5">Propagate local knowledge to neighbours so that every router can assemble a global view of the network.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">6 min</span> Second requirement: integrate local views.
-  Each router shares what it knows with its neighbours; through propagation, a global view emerges.</aside>
 </section>
 
 <!-- ====== Slide 8: Integrate — A's local view ====== -->
@@ -445,9 +411,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <p class="frag lead" style="margin:0;font-size:24px">A only knows its direct neighbours</p>
     <p class="frag lead" style="margin:0;font-size:24px">A needs its neighbours to <b>share their knowledge</b></p>
   </div>
-  <aside class="notes"><span class="timing">7 min</span> A's local view is limited — it knows B and C,
-  but has no idea how to reach F. The rest of the network is invisible to A. It needs its neighbours
-  to share what they know.</aside>
 </section>
 
 <!-- ====== Slide 9: Integrate — Propagation ====== -->
@@ -496,10 +459,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <p class="frag lead" style="margin:0;font-size:24px">B <b>propagates</b> its local view to neighbour A</p>
     <p class="frag lead" style="margin:0;font-size:24px">Through propagation, A assembles a <b>global view</b> — it can now reach F</p>
   </div>
-  <aside class="notes"><span class="timing">8 min</span> Every router shares its local view with its
-  neighbours. Through this distributed propagation, each router gradually assembles a global view
-  of the network. A learns from B that it can reach D (cost 3) and that D can reach F (cost 1).
-  No central authority — the global view emerges from local exchanges.</aside>
 </section>
 
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
@@ -552,9 +511,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="small muted" style="margin-top:14px">To reach F, A sends to <b>B</b> (next hop). The full path A→B→D→F costs 2+3+1 = <b>6</b>.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">10 min</span> The forwarding table is storage for the global
-  view A assembled through propagation. Each row says: "to reach this destination, hand the packet
-  to this next hop." A doesn't need to know the full path — just the next hop.</aside>
 </section>
 
 <!-- ====== Slide 11: Routing vs Forwarding — section title ====== -->
@@ -563,8 +519,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h1>Routing and forwarding:<br>two different jobs</h1>
   <div class="rule"></div>
   <p class="sub">One happens before, network-wide, slowly. The other happens per packet, locally, in nanoseconds.</p>
-  <aside class="notes"><span class="timing">11 min</span> The single most-confused pair of words in
-  this course. Spend the analogy properly.</aside>
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
@@ -599,10 +553,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="small muted" style="margin:6px 0 0">No alternatives weighed · looks at one sign · at full speed</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">13 min</span> The sign doesn't know your journey — it
-  only maps destinations to exits. That's precisely a forwarding table. And someone had to decide,
-  earlier and centrally-ish, what to paint on every sign so journeys work end-to-end — that's
-  routing.</aside>
 </section>
 
 <!-- ====== Slide 13: Control plane / data plane ====== -->
@@ -655,9 +605,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="small" style="margin:8px 0 0">A datagram arrives at a router, the router <b>looks up</b> the destination in its forwarding table, and sends the packet to the <b>next router</b>.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">15 min</span> Two fragments: (1) control plane — the router's
-  perspective, building the table. (2) data plane — the datagram's perspective, being forwarded hop by hop.
-  Two timescales, two silicon budgets. Routing tolerates being slow; forwarding cannot.</aside>
 </section>
 
 <!-- ====== Slide 14: Routing or forwarding? quiz ====== -->
@@ -673,9 +620,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <i>reads</i> it per packet is forwarding.</p>
     <div class="pfoot"><button class="btn preveal">Reveal</button><span class="qrbox">QR / poll link placeholder</span></div>
   </div>
-  <aside class="notes"><span class="timing">17 min</span> ~60 seconds. Item 2 is the trap worth
-  discussing: manually writing a route *is* routing — static routing. The plane is defined by the
-  job, not by who does it.</aside>
 </section>
 
 <!-- ====== Slide 15: Requirement 3 — React ====== -->
@@ -689,9 +633,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag small" style="margin:0;line-height:1.6;color:var(--muted)">Networks don't stay the same: the topology changes due to failures, servers go offline, new links appear. We cannot build a forwarding table once and leave it — it must be <b style="color:var(--current)">continuously maintained</b>.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">18 min</span> Third requirement: react. Motivate it: networks
-  change — failures, outages, new links. A forwarding table built once goes stale. It must be
-  continuously maintained.</aside>
 </section>
 
 <!-- ====== Slide 16: React deep-dive ====== -->
@@ -754,9 +695,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <p class="frag lead" style="margin:0;font-size:22px"><span style="color:var(--accent)"><b>A reroutes F via C (cost 4+2 = 6)</b></span></p>
     <p class="frag lead" style="margin:0;font-size:22px">The <b>forwarding table updates automatically</b></p>
   </div>
-  <aside class="notes"><span class="timing">20 min</span> Three fragments: (1) B goes offline — coral X, node fades,
-  (2) A's forwarding table rewrites: F -> next hop: C, cost 6 via the C-F direct link. Animated reroute
-  path A→C→F. (3) The forwarding table must be updated automatically, in real time.</aside>
 </section>
 
 <!-- ====== Slide 17: The solution ====== -->
@@ -765,9 +703,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>A routing protocol</h2>
   <p class="lead" style="font-size:32px;line-height:1.5;max-width:900px">A <b>routing protocol</b> is an
     <span class="accent">automatic process</span> that fulfils all three requirements — discover, integrate local views, and react — with the goal of <b>building and maintaining the forwarding table</b> at every router.</p>
-  <aside class="notes"><span class="timing">22 min</span> The whole purpose of a routing protocol
-  is to build the forwarding table. A routing protocol implements a routing algorithm (e.g. Dijkstra,
-  Bellman-Ford) plus the message formats and procedures to exchange information between routers.</aside>
 </section>
 
 <section class="slide" data-sec="Two families">
@@ -821,9 +756,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="small frag" style="margin:10px 0 0;color:var(--bad)">✕ guaranteed delivery — but explosive duplication</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">15 min</span> Play it as an elimination game. Reveal each
-  limitation one by one: static can’t react, random wastes time, flooding explodes in volume.
-  The implicit conclusion: we need an adaptive approach.</aside>
 </section>
 
 <section class="slide sec-title" data-sec="Two families">
@@ -838,7 +770,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="mono" style="margin:0;font-size:22px;color:var(--current)">distance-vector</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">17 min</span> Transition: we’ve eliminated naive strategies, now preview the two real solutions — link-state and distance-vector. These are overviews only; detailed algorithms come in later lectures.</aside>
 </section>
 
 <section class="slide" data-sec="Two families">
@@ -878,9 +809,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="margin-top:16px">Each router then uses a <b>routing algorithm</b> to derive its forwarding table locally <span class="small muted">(more about this next lecture)</span>.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">20 min</span> High-level only: link-state = global knowledge,
-  local computation. Every router has the same complete picture, then each one independently computes
-  its own forwarding table. Details (Dijkstra, flooding mechanism) come in later lectures.</aside>
 </section>
 
 <section class="slide" data-sec="Two families">
@@ -959,10 +887,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" id="dv-frag8" style="margin-top:14px;font-size:20px">The forwarding table is built from <b>local exchanges</b> — no router ever sees the full topology.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">22 min</span> Eight fragments walk through the DV process:
-  (1) no global view, (2) ask neighbours, (3) A unreachable — table shows F/∞,
-  (4) C reports 4, (5) table updates to via C cost 5, (6) B reports 1, (7) table updates to via B cost 4,
-  (8) summary. The blurred nodes beyond A/B/C reinforce that R cannot see the full topology.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -981,10 +905,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="frag" id="non-answer">
     <p class="lead" style="font-size:28px;line-height:1.6;max-width:900px;margin-top:20px">Neither is strictly better — the right choice depends on <b>which part of the network</b>.</p>
   </div>
-  <aside class="notes"><span class="timing">24 min</span> DV wins on simplicity: a small campus with
-  a handful of routers doesn't need Dijkstra. LS wins on correctness and speed: an ISP backbone with
-  thousands of routers needs loop-free paths and sub-second convergence after a link failure. Neither
-  dominates — it depends on scale, budget, and failure-recovery requirements.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1034,9 +954,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <line x1="540" y1="100" x2="700" y2="175" stroke="var(--current)" stroke-width="3" stroke-dasharray="8,5"/>
       <line x1="400" y1="235" x2="700" y2="175" stroke="var(--current)" stroke-width="3" stroke-dasharray="8,5"/>
     </svg>
-  <aside class="notes"><span class="timing">26 min</span> The Internet is a network of networks. Each
-  one is independently operated and chooses its own routing protocol internally. This structure is
-  what we explore next — autonomous systems.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1093,10 +1010,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </ul>
     </div>
   </div>
-  <aside class="notes"><span class="timing">37 min</span> "Autonomous" is the operative word: inside
-  its borders an organisation answers to nobody — its network, its rules, its choice of protocol.
-  AS 1 is highlighted to ground the definition visually. The three criteria appear as bullet points.
-  Next slide makes the AS concept concrete with the one they're sitting in.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1127,10 +1040,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">39 min</span> If the venue network allows, do the lookup
-  live (asnlookup.com or bgp.he.net → AS9432); the table is the recorded fallback. Students enjoy
-  discovering the university is a first-class citizen of the Internet with its own /16. Keep this
-  slide purely factual — the autonomy point was already made on the previous slide.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1169,11 +1078,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="card frag" data-mark="transit" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Transit</b> — connects ASes and <span class="accent">carries others’ traffic</span>. That service is the product. <span class="small muted">(e.g. One NZ, Verizon)</span></p></div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">42 min</span> As each card reveals, only that AS type's
-  blobs tint — the previous card's highlight clears. Say the AS numbers as you point (AS1 &amp; AS5 are
-  stubs, AS2 is multi-homed, AS3 &amp; AS4 are transit) rather than reading it off the card; the diagram
-  is the labelling now. The Netflix contrast prevents the common "big company = transit" error. Money
-  defines the categories: stubs pay, transit gets paid, multi-homed pays twice for insurance.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1212,9 +1116,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">45 min</span> Hands up or tap. On reveal the AS2 links
-  cross out and the transit path lights teal. This is the single most important inter-AS idea:
-  topology permits, policy decides. BGP &mdash; next week's territory &mdash; exists to express exactly this.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1235,9 +1136,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       transit business.</p>
     <div class="pfoot"><button class="btn preveal">Reveal</button></div>
   </div>
-  <aside class="notes"><span class="timing">47 min</span> Distractor A is the common miscue &mdash; two
-  connections, so it can't be a stub, but it also isn't selling transit. Do this one before the
-  intra-/inter-routing distinction, purely on AS classification.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1297,10 +1195,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">49 min</span> Two routing problems illustrated on the same
-  network-of-networks SVG. Click 1: intra-AS — a packet moving within AS 1, protocol chosen by AS 1.
-  Click 2: inter-AS — a packet crossing from AS 1 into AS 2 via the dashed inter-AS link.
-  Emphasise the autonomy: each AS picks its own interior protocol.</aside>
 </section>
 
 <section class="slide" data-sec="A network of networks">
@@ -1330,10 +1224,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">51 min</span> RIP suits small networks with weak routers
-  (quiz Q16). OSPF suits large networks — hierarchy creates smaller routing domains (quiz Q17).
-  OSPF runs Dijkstra (Q22). BGP is inter-AS (Q23). RIP's 15-hop limit and slow convergence are
-  named limitations (Q19) — covered in detail in the DV lecture. Foreshadow BGP for next week.</aside>
 </section>
 
 
@@ -1357,10 +1247,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="rmi here">2 · Shortest Paths &amp; Distance-Vector</span>
     <span class="rmi">3 · Dijkstra &amp; Link-State Routing</span>
   </div>
-  <aside class="notes"><span class="timing">0:00</span> Title card. Today: the shortest-path problem,
-  relaxation as the core idea, then Bellman-Ford — the brute-force approach. From BF we build
-  the distance-vector protocol with a concrete step-by-step example. We finish with count-to-infinity
-  and its mitigations.</aside>
 </section>
 
 <!-- ====== Slide 35: Networks as graphs ====== -->
@@ -1399,7 +1285,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="font-size:22px;margin:0 0 16px">Link metrics are <b>weights / costs</b> — can represent inverse bandwidth, delay, or admin-assigned cost. We use these terms interchangeably: <i>least-cost path</i> = shortest path by total weight.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">1 min</span> Everything in routing starts here: the network is a graph. Weights are abstract — could be anything the admin chooses. The goal: find least-cost paths through this graph.</aside>
 </section>
 
 <!-- ====== Motivation: why shortest paths? ====== -->
@@ -1460,7 +1345,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="font-size:22px;margin:0;color:var(--accent)">Every routing protocol needs an efficient way to find these paths. This is the <b>shortest-path problem</b>.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">2 min</span> Concrete motivation before the formal definition. Two paths from R1 to R4: the direct route via R2 costs 5, the longer route via R3-R5 costs 10. The cost could be delay, monetary cost, or any metric. Routing protocols always want the cheapest path — that's why we study shortest-path algorithms.</aside>
 </section>
 
 <!-- ====== Transition: the shortest-path problem ====== -->
@@ -1498,7 +1382,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="font-size:22px;margin:0;color:var(--accent);font-weight:600">We need a systematic algorithm. The core building block is a procedure called <b>relaxation</b>.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">1 min</span> Bridge from the motivation to algorithms. Small graph: easy. Real networks: need an algorithm. Transition to relaxation as the fundamental operation.</aside>
 </section>
 
 <!-- ====== Notation + Relaxation (rebuilt) ====== -->
@@ -1550,7 +1433,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         </tr>
         <tr>
           <td class="mono" style="padding:3px 12px">v</td>
-          <td class="mono" id="rlx-tbl-next" style="padding:3px 12px;text-align:center">—</td>
+          <td class="mono" id="rlx-tbl-next" style="padding:3px 12px;text-align:center">nil</td>
           <td class="mono" id="rlx-tbl-cost" style="padding:3px 12px;text-align:center">∞</td>
         </tr>
       </table>
@@ -1562,7 +1445,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="font-size:18px;margin:0 0 10px">Through <b>u</b>: c(s,u) + d<sub>u</sub>(v) = 5 + 13 = <span class="mono" style="color:var(--accent)">18 &lt; 25</span> — <b>relax again!</b></p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">12 min</span> Set the goal: shortest path from s to v. Three rounds of relaxation: 35→25→18. Each round updates the forwarding table. Notation key below diagram defines d_s(v), c(s,w), p_s(v).</aside>
 </section>
 
 <!-- ====== Relaxation: formal rule + convergence ====== -->
@@ -1623,7 +1505,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">13 min</span> Same graph in final state (u path highlighted). Frag 1: pseudocode for relaxation rule. Frag 2: two key observations — d_s(v) ≥ d_s*(v) always, and relaxation can only decrease. Intuitive convergence: with enough rounds, d_s(v) → d_s*(v).</aside>
 </section>
 
 <!-- ====== Bellman-Ford: centralised → distributed ====== -->
@@ -1633,42 +1514,68 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="cols" style="align-items:flex-start">
     <div class="col" style="flex:1.2">
       <!-- Centralised all-pairs pseudocode (shown at n<3) -->
-      <div id="bf-central" class="term" style="font-size:15px;line-height:1.55;min-height:0">
-<span class="dim"> 1</span>  <span class="p">Initialisation:</span>
-<span class="dim"> 2</span>    d<sub>s</sub>(s) = 0  <span class="p">for every node</span> s
-<span class="dim"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every</span> s, <span class="p">every other</span> u
-<span class="dim"> 4</span>
-<span class="dim"> 5</span>  <span class="p">repeat:</span>
-<span id="bfln6" class="dim"> 6</span>    <span id="bfln6-text" class="p">for each</span> node s:<span id="bfln6-arrow" style="display:none;color:#e07850;font-size:12px;font-style:italic">  &larr; distribute this loop</span>
-<span id="bfln7" class="dim"> 7</span>      <span class="p">for each</span> neighbour w <span class="p">of</span> s:
-<span id="bfln8" class="dim"> 8</span>        <span class="p">for each</span> destination u:
-<span id="bfln9" class="dim"> 9</span>          <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span>
-<span id="bfln10" class="dim">10</span>            <span id="bf-ds-hi">d<sub>s</sub>(u)</span> = c(s,w) + d<sub>w</sub>(u)
-<span id="bfln11" class="dim">11</span>            <span id="bf-ps-hi">p<sub>s</sub>(u)</span> = w
-<span class="dim">12</span>    <span class="p">if</span> no changes: <span class="p">stop</span></div>
+      <p id="bf-central-label" style="font-size:14px;font-weight:bold;color:var(--accent);margin:0 0 4px;letter-spacing:0.05em">BELLMAN-FORD</p>
+      <div id="bf-central" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:flex;flex-direction:column">
+<div id="bfrow1"><span class="dim"> 1</span>  <span class="p">Initialisation:</span></div>
+<div id="bfrow2"><span class="dim"> 2</span>    d<sub>s</sub>(s) = 0  <span class="p">for every node</span> s</div>
+<div id="bfrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every</span> s, <span class="p">every other</span> u</div>
+<div id="bfrow4"><span class="dim"> 4</span></div>
+<div id="bfrow5"><span class="dim"> 5</span>  <span class="p">repeat:</span></div>
+<div id="bfrow6"><span class="dim"> 6</span>    <span id="bfln6-text" class="p">for each</span> node s:<span id="bfln6-arrow" style="display:none;color:#e07850;font-size:12px;font-style:italic">  &larr; distribute this loop</span></div>
+<div id="bfrow7"><span class="dim"> 7</span>      <span class="p">for each</span> neighbour w <span class="p">of</span> s:</div>
+<div id="bfrow8"><span class="dim"> 8</span>        <span class="p">for each</span> destination u:</div>
+<div id="bfrow9"><span class="dim"> 9</span>          <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span></div>
+<div id="bfrow10"><span class="dim">10</span>            <span id="bf-ds-hi">d<sub>s</sub>(u)</span> = c(s,w) + d<sub>w</sub>(u)</div>
+<div id="bfrow11"><span class="dim">11</span>            <span id="bf-ps-hi">p<sub>s</sub>(u)</span> = w</div>
+<div id="bfrow12"><span class="dim">12</span>    <span class="p">if</span> no changes: <span class="p">stop</span></div></div>
       <!-- Distributed pseudocode (shown at n>=3) -->
       <p id="bf-distrib-label" style="font-size:14px;font-weight:bold;color:var(--accent);margin:0 0 4px;letter-spacing:0.05em;display:none">DISTRIBUTED BELLMAN-FORD</p>
-      <div id="bf-distrib" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:none">
-<span class="dim"> 1</span>  <span class="p">Initialisation (at node s):</span>
-<span class="dim"> 2</span>    d<sub>s</sub>(s) = 0
-<span class="dim"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every other node</span> u
-<span class="dim"> 4</span>
-<span class="dim"> 5</span>  <span class="p">repeat:</span>
-<span class="dim"> 6</span>    <span class="p">for each</span> neighbour w <span class="p">of</span> s:
-<span class="dim"> 7</span>      <span class="p">for each</span> destination u:
-<span class="dim"> 8</span>        <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span>
-<span class="dim"> 9</span>          d<sub>s</sub>(u) = c(s,w) + d<sub>w</sub>(u)
-<span class="dim">10</span>          p<sub>s</sub>(u) = w
-<span class="dim">11</span>    <span class="hi" style="color:var(--accent)">if any d<sub>s</sub>(u) changed:</span>
-<span class="dim">12</span>      <span class="hi" style="color:var(--accent)">send d<sub>s</sub>(*) to all neighbours</span></div>
+      <div id="bf-distrib" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:none;flex-direction:column">
+<div id="bfdrow1"><span class="dim"> 1</span>  <span class="p">Initialisation (at node s):</span></div>
+<div id="bfdrow2"><span class="dim"> 2</span>    d<sub>s</sub>(s) = 0</div>
+<div id="bfdrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every other node</span> u</div>
+<div id="bfdrow4"><span class="dim"> 4</span></div>
+<div id="bfdrow5"><span class="dim"> 5</span>  <span class="p">repeat:</span></div>
+<div id="bfdrow6"><span class="dim"> 6</span>    <span class="p">for each</span> neighbour w <span class="p">of</span> s:</div>
+<div id="bfdrow7"><span class="dim"> 7</span>      <span class="p">for each</span> destination u:</div>
+<div id="bfdrow8"><span class="dim"> 8</span>        <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span></div>
+<div id="bfdrow9"><span class="dim"> 9</span>          d<sub>s</sub>(u) = c(s,w) + d<sub>w</sub>(u)</div>
+<div id="bfdrow10"><span class="dim">10</span>          p<sub>s</sub>(u) = w</div>
+<div id="bfdrow11"><span class="dim">11</span>    <span class="hi" style="color:var(--accent)">if any d<sub>s</sub>(u) changed:</span></div>
+<div id="bfdrow12"><span class="dim">12</span>      <span class="hi" style="color:var(--accent)">send d<sub>s</sub>(u) to all neighbours</span></div></div>
     </div>
     <div class="col" style="flex:1">
+      <div id="bf-init" style="display:none">
+        <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Initialisation</p>
+        <p style="font-size:18px;margin:0">Every node starts knowing only itself: cost <b>0</b> to itself, <b>&infin;</b> to everyone else.</p>
+      </div>
+      <div id="bf-loop" style="display:none;margin-bottom:14px">
+        <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Relax, and repeat</p>
+        <p style="font-size:18px;margin:0">Every node s performs <b>relaxation</b> for every destination u, through every neighbour w.</p>
+        <p style="font-size:18px;margin:10px 0 0">They keep doing this until the network <b>converges</b> &mdash; a full pass where nothing changes.</p>
+      </div>
       <div id="bf-converge" style="display:none">
         <p style="font-size:18px;margin:0">After convergence, every node s finds the shortest distance <b style="color:var(--accent)">d<sub>s</sub>(u)</b> and next hop <b style="color:var(--accent)">p<sub>s</sub>(u)</b> to every other node u.</p>
       </div>
-      <div id="bf-observe" style="display:none;margin-top:14px">
-        <p style="font-size:18px;margin:0">Each node s only needs its <b>own link costs</b> c(s,w) and its <b>neighbours' distance vectors</b> d<sub>w</sub>(u).</p>
-        <p style="font-size:17px;margin:8px 0 0;color:var(--accent)">We can <b>distribute</b> the outer loop <span style="font-size:14px">(line 6)</span>: each node s runs the inner relaxation independently.</p>
+      <div id="bf-observe" style="display:none">
+        <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
+          <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Important observation</p>
+          <p style="font-size:17px;margin:0">To run the inner relaxation <span style="font-size:14px">(lines 7&ndash;11)</span> for itself, node s only needs its <b>own link costs</b> c(s,w) and its <b>neighbours' distance vectors</b> d<sub>w</sub>(u) &mdash; purely <b>local</b>, neighbourhood information. <b style="color:var(--accent)">No full topology required!</b></p>
+        </div>
+      </div>
+      <div id="bf-distribute" style="display:none;margin-top:12px">
+        <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
+          <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Distributing the loop</p>
+          <p style="font-size:17px;margin:0">We can <b>distribute</b> the outer loop <span style="font-size:14px">(line 6)</span>: each node s runs the inner relaxation independently.</p>
+        </div>
+      </div>
+      <div id="bf-send" style="display:none">
+        <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
+          <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">What distribution adds: lines 11&ndash;12</p>
+          <p style="font-size:17px;margin:0">In the centralised version, one algorithm held every node's estimates in a single shared table.</p>
+          <p style="font-size:17px;margin:10px 0 0">However, when distributed, node s can no longer <em>read</em> its neighbours' estimates &mdash; d<sub>w</sub>(u) now lives in w's own memory.</p>
+          <p style="font-size:17px;margin:10px 0 0">Therefore, whenever its own estimates change, s must <b>send</b> them to its neighbours.</p>
+        </div>
       </div>
       <div id="bf-dv-card" class="card" style="border-left:4px solid var(--accent);padding:10px 16px;margin:14px 0 0;display:none">
         <p style="margin:0;font-size:17px">This is the bare-bone algorithm of the <b style="color:var(--accent)">distance-vector protocol</b>.</p>
@@ -1680,7 +1587,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <aside class="notes"><span class="timing">14 min</span> Merged BF slide. Frag 1: convergence text + highlight d_s(u), p_s(u). Frag 2: highlight line 6 (coral arrow: "distribute this loop") + inner loops (7-11 accent) + local info observation. Frag 3: swap to distributed pseudocode (titled "Distributed Bellman-Ford") with broadcast. Frag 4: this is the DV protocol.</aside>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
 <!-- ====== Distance-vector protocol ====== -->
@@ -1688,34 +1598,55 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Distance-vector protocol</div>
   <h2>The distance-vector protocol</h2>
   <div class="cols" style="align-items:flex-start">
-    <div class="col" style="flex:1.2">
-      <div id="dvp-code" class="term" style="font-size:15px;line-height:1.55;min-height:0">
-<div id="dvprow1"><span class="dim"> 1</span>  <span class="p">Initialisation (at node s):</span></div>
-<div id="dvprow2"><span class="dim"> 2</span>    d<sub>s</sub>(s) = 0</div>
-<div id="dvprow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every other node</span> u</div>
-<div id="dvprow4"><span class="dim"> 4</span>    p<sub>s</sub>(u) = &mdash;  <span class="p">for every other node</span> u</div>
-<div><span class="dim"> 5</span></div>
-<div><span class="dim"> 6</span>  <span class="p">repeat:</span></div>
-<div id="dvprow7"><span class="dim"> 7</span>    <span class="p">for each</span> neighbour w <span class="p">of</span> s:</div>
-<div id="dvprow8"><span class="dim"> 8</span>      <span class="p">for each</span> destination u:</div>
-<div id="dvprow9"><span class="dim"> 9</span>        <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span></div>
-<div id="dvprow10"><span class="dim">10</span>          d<sub>s</sub>(u) = c(s,w) + d<sub>w</sub>(u)</div>
-<div id="dvprow11"><span class="dim">11</span>          p<sub>s</sub>(u) = w</div>
-<div id="dvprow12"><span class="dim">12</span>    <span class="hi" style="color:var(--accent)">if any d<sub>s</sub>(u) changed:</span></div>
-<div id="dvprow13"><span class="dim">13</span>      <span class="hi" style="color:var(--accent)">send d<sub>s</sub>(*) to all neighbours</span></div></div>
+    <div class="col" style="flex:1.2;align-self:flex-start;width:100%">
+      <div id="dvp-code" class="term" style="font-size:15px;line-height:1.4;min-height:0;overflow:hidden;display:flex;flex-direction:column">
+<div id="dvprow1"><span class="dim lnum"> 1</span>  <span class="p">Initialisation (at node s):</span></div>
+<div id="dvprow2"><span class="dim lnum"> 2</span>    d<sub>s</sub>(s) = 0</div>
+<div id="dvprow3"><span class="dim lnum"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every other node</span> u</div>
+<div id="dvprow4"><span class="dim lnum"> 4</span>    p<sub>s</sub>(u) = nil  <span class="p">for every other node</span> u</div>
+<div id="dvprow5"><span class="dim lnum"> 5</span>    d<sub>w</sub>(u) = &infin;  <span class="p">for every neighbour</span> w, <span class="p">every destination</span> u</div>
+<div id="dvprow5c"><span class="dim lnum"></span>        <span class="dim" style="font-size:12px;font-style:italic">&larr; the last vector received from w, stored at s</span></div>
+<div id="dvprow6"><span class="dim lnum"> 6</span></div>
+<div id="dvprow7"><span class="dim lnum"> 7</span>  <span class="p">on receiving a vector, or a link cost change:</span></div>
+<div id="dvprow8"><span class="dim lnum"> 8</span>    <span class="p">for each</span> destination u:</div>
+<div id="dvpfa1" style="display:none"><span class="dim lnum"></span>      q = p<sub>s</sub>(u)</div>
+<div id="dvpfa2" style="display:none"><span class="dim lnum"></span>      <span class="err">if c(s,q) + d<sub>q</sub>(u) &gt; d<sub>s</sub>(u):</span>  <span class="err" style="font-size:12px;font-style:italic">&larr; forced accept</span></div>
+<div id="dvpfa3" style="display:none"><span class="dim lnum"></span>        <span class="err">d<sub>s</sub>(u) = c(s,q) + d<sub>q</sub>(u)</span></div>
+<div id="dvprow9"><span class="dim lnum"> 9</span>      <span class="p">for each</span> neighbour w <span class="p">of</span> s:</div>
+<div id="dvprow10"><span class="dim lnum">10</span>        <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span></div>
+<div id="dvprow11"><span class="dim lnum">11</span>          d<sub>s</sub>(u) = c(s,w) + d<sub>w</sub>(u)</div>
+<div id="dvprow12"><span class="dim lnum">12</span>          p<sub>s</sub>(u) = w</div>
+<div id="dvprow13"><span class="dim lnum">13</span>    <span class="hi" style="color:var(--accent)">if any d<sub>s</sub>(u) changed:</span></div>
+<div id="dvprow14"><span class="dim lnum">14</span>      <span class="hi" style="color:var(--accent)">send d<sub>s</sub>(u) to all neighbours</span></div></div>
     </div>
     <div class="col" style="flex:1">
       <div id="dvp-f1" style="display:none">
-        <p style="font-size:18px;margin:0">Each router s maintains a <b>distance vector</b> &mdash; its estimates d<sub>s</sub>(v) for every destination v.</p>
+        <p style="font-size:18px;margin:0">For each destination u, router s keeps three things:</p>
+        <ul style="margin:10px 0 0;padding-left:22px;font-size:17px;line-height:1.6">
+          <li>its <b>distance vector</b> entry d<sub>s</sub>(u) &mdash; the current cost estimate</li>
+          <li>the <b>next hop</b> p<sub>s</sub>(u) on that path</li>
+          <li>each neighbour's <b>last advertised cost</b> to that destination, d<sub>w</sub>(u)</li>
+        </ul>
       </div>
-      <div id="dvp-f2" style="display:none;margin-top:14px">
-        <p style="font-size:18px;margin:0">On receiving a vector, apply <b>relaxation</b>: for each destination, check if the neighbour offers a cheaper path.</p>
+      <div id="dvp-f2" style="display:none">
+        <p style="font-size:18px;margin:0">Recompute whenever a <b>vector arrives</b> from a neighbour, or a <b>local link cost changes</b>.</p>
+        <p style="font-size:18px;margin:10px 0 0">Then apply <b>relaxation</b>: for each destination, check if a neighbour offers a cheaper path.</p>
       </div>
-      <div id="dvp-f3" style="display:none;margin-top:14px">
-        <p style="font-size:18px;margin:0;color:var(--accent)">If any entry improved, send the updated vector to neighbours. Repeat until <b>converged</b> &mdash; no changes.</p>
+      <div id="dvp-f3" style="display:none">
+        <p style="font-size:18px;margin:0;color:var(--accent)">If any entry improved, send the updated vector to neighbours.</p>
       </div>
-      <div id="dvp-f4" class="card" style="display:none;margin-top:14px;border-left:4px solid var(--bad);padding:12px 16px">
-        <p style="font-size:17px;margin:0"><b>Important rule:</b> if the update comes from your <b>current next-hop</b> for a destination, accept unconditionally &mdash; even if the cost is <em>worse</em>. Your route depends on theirs.</p>
+      <div id="dvp-f4" class="card" style="display:none;border-left:4px solid var(--bad);padding:12px 16px">
+        <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--bad);text-transform:uppercase;letter-spacing:1px">Forced-accept rule</p>
+        <p style="font-size:17px;margin:0">If the update comes from your <b>current next-hop</b> for a destination, accept unconditionally &mdash; even if the cost is <em>worse</em>.</p>
+        <p style="font-size:17px;margin:10px 0 0;font-weight:700;color:var(--bad)">Why?</p>
+        <p style="font-size:17px;margin:4px 0 0">Your route to that destination runs <b>through</b> that neighbour. If their cost changes, yours changes with it &mdash; your old estimate is simply no longer true.</p>
+      </div>
+      <div id="dvp-f5" style="display:none">
+        <p style="font-size:18px;margin:0">Lines 9&ndash;15 can be simplified into the following two lines of code:</p>
+        <div class="card" style="border-left:4px solid var(--accent);padding:10px 16px;margin:10px 0 0">
+          <p class="mono" style="margin:0;font-size:16px">d<sub>s</sub>(u) = min<sub>w</sub> { c(s,w) + d<sub>w</sub>(u) }<br>p<sub>s</sub>(u) = the w achieving the min</p>
+        </div>
+        <p style="font-size:17px;margin:10px 0 0;color:var(--muted)">This is the form the textbook uses. We spelled it out to make the rule visible.</p>
       </div>
     </div>
   </div>
@@ -1724,7 +1655,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <aside class="notes"><span class="timing">18 min</span> DV protocol with pseudocode on left. Frag 1: distance vector = init (highlight lines 1-3). Frag 2: relaxation (highlight lines 6-10). Frag 3: broadcast + converge (highlight lines 11-12). Frag 4: forced-accept rule for current next-hop.</aside>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
 <!-- ====== DV step-by-step example ====== -->
@@ -1807,21 +1738,20 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <aside class="notes"><span class="timing">20 min</span> DV example with 10 states (0–9). (1) initial tables (x-z=50), (2) exchange arrows, (3) receive vectors, (4) relaxation card, (5) tables update, (6) round 2 exchange, (7) x checks — no change, (8) converged, (9) forwarding table.</aside>
 </section>
 
 
 <!-- ====== Count-to-infinity ====== -->
 <section class="slide" data-sec="Lecture 2 · Shortest Paths &amp; Distance-Vector" id="ctinf-slide">
-  <div class="kicker">Distance-vector issues</div>
-  <h2>The count-to-infinity problem</h2>
+  <div class="kicker">Distance-vector under failure</div>
+  <h2 id="ctinf-title">The count-to-infinity problem</h2>
   <div class="cols" style="align-items:flex-start;gap:16px">
     <div class="col" style="flex:1.1">
       <!-- y's table (above graph, centred) -->
       <div style="display:flex;justify-content:center;margin-bottom:2px">
         <div>
           <p class="mono small" style="margin:0 0 2px;font-weight:700;color:var(--ink)">y</p>
-          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>y</sub>(&middot;)</th><th>p<sub>y</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-y"></tbody></table>
+          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>y</sub>(&middot;)</th><th>p<sub>y</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-y"><tr><td>z</td><td class="mono">1</td><td class="mono">z</td></tr></tbody></table>
         </div>
       </div>
       <!-- Graph -->
@@ -1869,7 +1799,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div style="margin-top:2px;max-width:380px;margin-left:auto;margin-right:auto">
         <div style="display:inline-block">
           <p class="mono small accent" style="margin:0 0 2px;font-weight:700">x</p>
-          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(&middot;)</th><th>p<sub>x</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-x"></tbody></table>
+          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(&middot;)</th><th>p<sub>x</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-x"><tr><td>z</td><td class="mono">3</td><td class="mono">y</td></tr></tbody></table>
         </div>
       </div>
     </div>
@@ -1882,7 +1812,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <!-- 7 hidden fragment triggers -->
+  <!-- 8 hidden fragment triggers (n=1..8) -->
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
@@ -1891,10 +1821,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <aside class="notes"><span class="timing">26 min</span> Count-to-infinity: x and y tables only (z-dest row). 9 fragments: (0) converged state, (1) tables shown, (2) link fails, (3) y detects, (4) race condition x sends stale 3, (5) y relaxes to 5, (6) x relaxes to 7, (7) x sends 7 to y / y relaxes to 9, (8) loop continues 5,7,9...50, (9) infinity case / how to fix.</aside>
-</section>
 </section>
 
 <!-- ====== Poison reverse ====== -->
@@ -1985,7 +1911,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <aside class="notes"><span class="timing">30 min</span> Poison reverse: (1) rule, (2) y advertises 1 to x, (3) x relaxes to 3/y, (4) poison reverse: x lies to y, (5) y-z fails, (6) y sends inf / forced-accept / relaxation to 50, (7) question: should x advertise?, (8) answer: yes, y relaxes to 52, (9) convergence, (10) question: completely solved?, (11) no - 3+ nodes; still used in RIP.</aside>
 </section>
 <!-- ====== Lecture 2 recap ====== -->
 <section class="slide" data-sec="Lecture 2 · Shortest Paths &amp; Distance-Vector">
@@ -2006,7 +1931,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="margin:0;font-size:20px"><b>Next lecture:</b> A faster algorithm &mdash; Dijkstra&rsquo;s. But it needs the full topology. How does each router get it? <b>Link-state flooding.</b></p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">32 min</span> Recap: (1) relaxation + BF, (2) DV protocol properties + count-to-infinity + poison reverse limitation + RIP max cost 15, (3) teaser: Dijkstra + link-state flooding.</aside>
 </section>
 
 <section class="slide sec-title" data-sec="Lecture 3 · Dijkstra &amp; Link-State" data-anchor="lec3">
@@ -2020,7 +1944,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="rmi">2 · Shortest Paths &amp; Distance-Vector</span>
     <span class="rmi here">3 · Dijkstra &amp; Link-State Routing</span>
   </div>
-  <aside class="notes"><span class="timing">0:00</span> Title card for Lecture 3. Today: Dijkstra's algorithm as a faster alternative to BF, then link-state routing — how flooding gives every router the full topology that Dijkstra needs.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
@@ -2030,7 +1953,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <p class="frag" style="font-size:22px;margin:0">In Lecture 2 we saw the <b>distance-vector protocol</b> &mdash; Bellman-Ford, distributed.</p>
     <p class="frag" style="font-size:22px;margin:0">Key property: each router only talks to its <b>direct neighbours</b>. No router needs the global topology &mdash; each one performs relaxation using its own link costs and the distance vectors it receives.</p>
   </div>
-  <aside class="notes"><span class="timing">1 min</span> Quick recall of DV from Lecture 2. Emphasise local-only nature.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
@@ -2049,7 +1971,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="margin:0;font-size:22px;color:var(--accent)"><b>Can a different routing approach avoid these problems?</b></p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">1 min</span> Two key DV limitations: slow hop-by-hop convergence and count-to-infinity from stale vectors. Set up the motivation for link-state.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
@@ -2066,14 +1987,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
     <p class="frag" style="font-size:22px;margin:0;color:var(--accent)">This is the idea behind <b>link-state routing</b>.</p>
   </div>
-  <aside class="notes"><span class="timing">5 min</span> Motivate link-state: full topology means no DV exchange, faster convergence, no routing loops. Then raise the algorithm question.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="ls-steps-slide">
   <div class="kicker">The link-state idea</div>
   <h2>How link-state routing works</h2>
   <div style="display:flex;align-items:center;gap:26px;flex:1;justify-content:center">
-    <div style="display:flex;flex-direction:column;gap:16px;flex:0 1 620px;min-width:0">
+    <div style="display:flex;flex-direction:column;gap:10px;flex:0 1 620px;min-width:0">
       <div class="frag card ls-step" id="ls-step-1" style="border-left:4px solid var(--accent);padding:16px 24px">
         <p style="margin:0;font-size:21px"><span class="mono accent" style="font-size:17px">Step 1 &middot; discover</span><br>
         Each router discovers its <b>neighbours</b> and measures its <b>link costs</b>.</p>
@@ -2096,7 +2016,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="margin:0;color:var(--muted)"><b>Later:</b> Steps 1, 2 &amp; 4.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">7 min</span> Four-step roadmap. Step 3 spotlit: algorithm is next. Steps 1, 2, 4 (flooding + re-flooding) covered later.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
@@ -2106,12 +2025,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
       <p style="margin:0;font-size:22px"><b style="color:var(--accent)">Goal:</b> given the full topology, a source node <b>s</b> needs to find the shortest-path distance d<sub>s</sub>(v) to every other node <b>v</b> &mdash; the <b>single-source</b> shortest-paths problem.</p>
     </div>
-    <p class="frag" style="font-size:22px;margin:0">Bellman-Ford solves this, but it is overkill &mdash; it computes <b>all-pairs</b> shortest paths (every node to every other node), which is more work than any single router needs.</p>
+    <p class="frag" style="font-size:22px;margin:0">Bellman-Ford also computes single-source shortest paths &mdash; but it is less efficient: <b>O(VE)</b> per source versus Dijkstra&rsquo;s <b>O(E&thinsp;log&thinsp;V)</b>. Since link costs are always positive, we can use the faster algorithm.</p>
     <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
       <p style="margin:0;font-size:22px">In this lecture we will learn a different algorithm: <b style="color:var(--accent)">Dijkstra&rsquo;s algorithm</b> &mdash; designed specifically for single-source shortest paths, and more efficient than Bellman-Ford.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">3 min</span> State the goal: single-source shortest paths. BF is overkill (all-pairs). Introduce Dijkstra as the right tool.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-desc-slide">
@@ -2141,7 +2059,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="font-size:18px;margin:0">Repeat: pick next minimum, settle, relax outward. Continue until all nodes are settled.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">15 min</span> Walk through pseudocode step by step. Each fragment highlights corresponding lines. Fragment 4 asks students to recognise relaxation. Fragment 5 reveals the answer.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
@@ -2239,8 +2156,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" id="dk-f12"></p>
   <p class="frag" id="dk-f13"></p>
   <p class="frag" id="dk-f14"></p>
-
-  <aside class="notes"><span class="timing">30 min</span> The centrepiece animation. Graph: A-B:2, A-C:5, A-D:1, B-D:2, D-C:3, D-E:1, C-E:1, C-F:5, E-F:2. Each fragment = one Dijkstra step. The table fills in row by row. Settled nodes turn teal. This is exactly the format of quiz Q1 (14 marks). Final fragment shows the forwarding table derived from the predecessor chain — quiz Q2 (6 marks).</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="lsdb-overview-slide">
@@ -2335,7 +2250,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">36 min</span> Four fragments showing hop-by-hop flooding. Focus on A's LSA first: hop 1 reaches B, C; hop 2 reaches D, E. Then quickly say B–E flood the same way. Mini-graphs track what each router knows — by the end all five are identical.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="flood-slide-2">
@@ -2471,7 +2385,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <aside class="notes"><span class="timing">39 min</span> Flooding isn't a one-time event. The graph on the left shows the converged topology. Fragment 1 shows a link failure (C-D goes down), fragment 2 shows a cost change (A-B from 2 to 7), fragment 3 shows the periodic timer. Each triggers a new round of flooding.</aside>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
@@ -2482,16 +2395,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <colgroup><col style="width:18%"><col style="width:41%"><col style="width:41%"></colgroup>
       <thead><tr><th></th><th style="border-top:4px solid var(--current)">Distance-vector <span class="muted" style="font-weight:400;font-size:13px">(Lecture 2)</span></th><th style="border-top:4px solid var(--accent)">Link-state <span class="muted" style="font-weight:400;font-size:13px">(Lecture 3)</span></th></tr></thead>
       <tbody>
+        <tr class="frag"><td class="muted small">Algorithm type</td><td>Decentralized</td><td>Global (centralized)</td></tr>
         <tr class="frag"><td class="muted small">Information</td><td>Neighbours&rsquo; DVs only</td><td>Full topology (LSDB)</td></tr>
         <tr class="frag"><td class="muted small">Computation</td><td>Iterative, distributed</td><td>Local, centralised (per-router)</td></tr>
-        <tr class="frag"><td class="muted small">Convergence</td><td>Slow (iterative rounds)</td><td>Fast (independent computation)</td></tr>
+<tr class="frag"><td class="muted small">Convergence</td><td>Slow (iterative rounds)</td><td>Fast (independent computation)</td></tr>
         <tr class="frag"><td class="muted small">Routing loops</td><td><span class="warn">Prone</span> (count-to-infinity)</td><td><span class="accent">Loop-free</span> (consistent topology)</td></tr>
         <tr class="frag"><td class="muted small">Memory</td><td>Small (only distance vectors)</td><td>Large (full topology database / LSDB)</td></tr>
-        <tr class="frag"><td class="muted small">Examples</td><td><b>RIP</b></td><td><b>OSPF</b>, <b>IS-IS</b></td></tr>
+        <tr class="frag"><td class="muted small">Examples</td><td><b>RIP</b>, <b>BGP</b></td><td><b>OSPF</b>, <b>IS-IS</b></td></tr>
       </tbody>
     </table>
   </div>
-  <aside class="notes"><span class="timing">44 min</span> Protocol-level comparison. Memory row: DV stores only distance vectors (small), LS stores full topology database (large). Examples: RIP/BGP = DV, OSPF/IS-IS = LS.</aside>
 </section>
 
 
@@ -2512,7 +2425,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="font-size:15px;margin:0;color:var(--muted)">Dijkstra&rsquo;s algorithm: settle the closest unsettled node, relax outward. Routers flood <b>LSAs</b> so every router builds an identical <b>LSDB</b>, then runs Dijkstra locally. Examples: <b>OSPF</b>, <b>IS-IS</b>.</p>
     </div>
   </div>
-  <aside class="notes"><span class="timing">48 min</span> Week 7 recap: three cards, one per lecture. Lecture 1: routing vs forwarding, three requirements, intra/inter-AS. Lecture 2: DV, Bellman-Ford, count-to-infinity, RIP. Lecture 3: Dijkstra, LSA flooding, LSDB, OSPF/IS-IS.</aside>
 </section>
 
 
@@ -2523,10 +2435,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <b>Dr&nbsp;Barry Wu</b> (2024–25), building on notes by <b>Dr&nbsp;Mengmeng Ge</b> (2023) and
     <b>Assoc&nbsp;Prof&nbsp;Dan Kim</b> (2017), University of Canterbury, and lecture notes by
     <b>Prof&nbsp;Aleksandar Kuzmanovic</b> (CS340, Northwestern University, 2005).</p>
-  <p class="muted" style="max-width:900px">Refreshed 2026 · Yinuo Zhang. Built as a self-contained
-    web page — no trackers, no external requests; works offline. Figures original unless noted;
-    definitions follow Kurose&nbsp;&amp;&nbsp;Ross (8e) and Stallings (10e).</p>
-  <aside class="notes">End of file. These notes continue to grow in place — same URL all term.</aside>
 </section>
 </div><!-- /stage -->
 
@@ -2579,15 +2487,13 @@ function hideAllFrags(s){frags(s).forEach(function(f){f.classList.remove('on');}
 
 /* ---------- navigation ---------- */
 var seclabel=document.getElementById('seclabel'),counter=document.getElementById('counter'),
-    progress=document.getElementById('progress'),notesbar=document.getElementById('notesbar');
+    progress=document.getElementById('progress');
 function sync(){
   slides.forEach(function(s,i){s.classList.toggle('active',i===cur);});
   var s=slides[cur];
   seclabel.textContent='Week 7  ·  '+(s.getAttribute('data-sec')||'');
   counter.textContent=(cur+1)+' / '+slides.length;
   progress.style.width=((cur+1)/slides.length*100)+'%';
-  var n=s.querySelector('.notes');
-  notesbar.innerHTML=n?n.innerHTML:'<span class="muted">no notes</span>';
   if(history.replaceState) history.replaceState(null,'','#/'+(cur+1));
   try{localStorage.setItem(KEY+'-pos',String(cur));}catch(e){}
 }
@@ -2631,12 +2537,10 @@ addEventListener('keydown',function(e){
     case 'Home': goto_(0,false); break;
     case 'End': goto_(slides.length-1,true); break;
     case 't': case 'T': toggleTheme(); break;
-    case 's': case 'S': case 'n': case 'N': document.body.classList.toggle('notes'); break;
     case 'Escape': case 'o': case 'O': toggleJump(); break;
   }
 });
 document.getElementById('b-theme').addEventListener('click',toggleTheme);
-document.getElementById('b-notes').addEventListener('click',function(){document.body.classList.toggle('notes');});
 
 /* ---------- click zones & swipe ---------- */
 document.querySelector('.navzone.left').addEventListener('click',prev);
@@ -2975,7 +2879,7 @@ function updateRelaxSlide(){
     if(n>=4){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
     else if(n>=3){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
     else if(n>=2){tN.textContent='x';tC.textContent='35';tC.style.color='';}
-    else{tN.textContent='—';tC.textContent='∞';tC.style.color='';}
+    else{tN.textContent='nil';tC.textContent='∞';tC.style.color='';}
   }
 }
 
@@ -3013,24 +2917,57 @@ function updateBFFullSlide(){
   var s=document.getElementById('bf-full-slide');if(!s)return;
   var n=fragCount(s);
   var central=document.getElementById('bf-central');
+  var centralLabel=document.getElementById('bf-central-label');
   var distrib=document.getElementById('bf-distrib');
+  var distribLabel=document.getElementById('bf-distrib-label');
+  var init=document.getElementById('bf-init');
+  var loop=document.getElementById('bf-loop');
   var converge=document.getElementById('bf-converge');
   var observe=document.getElementById('bf-observe');
+  var distribute=document.getElementById('bf-distribute');
+  var send=document.getElementById('bf-send');
   var dvCard=document.getElementById('bf-dv-card');
   var dsHi=document.getElementById('bf-ds-hi');
   var psHi=document.getElementById('bf-ps-hi');
-  var distribLabel=document.getElementById('bf-distrib-label');
-  if(central)central.style.display=(n<3)?'':'none';
-  if(distrib)distrib.style.display=(n>=3)?'':'none';
-  if(distribLabel)distribLabel.style.display=(n>=3)?'':'none';
-  if(converge)converge.style.display=(n>=1)?'':'none';
-  if(dsHi){dsHi.style.color=(n>=1&&n<3)?'var(--accent)':'';dsHi.style.fontWeight=(n>=1&&n<3)?'bold':'';}
-  if(psHi){psHi.style.color=(n>=1&&n<3)?'var(--accent)':'';psHi.style.fontWeight=(n>=1&&n<3)?'bold':'';}
-  var ln6=document.getElementById('bfln6');if(ln6){ln6.style.color=(n>=2&&n<3)?'#e07850':'';ln6.style.fontWeight=(n>=2&&n<3)?'bold':'';}
-  var ln6arrow=document.getElementById('bfln6-arrow');if(ln6arrow)ln6arrow.style.display=(n>=2&&n<3)?'inline':'none';
-  for(var i=7;i<=11;i++){var ln=document.getElementById('bfln'+i);if(ln)ln.style.color=(n>=2&&n<3)?'var(--accent)':'';}
-  if(observe)observe.style.display=(n>=2)?'':'none';
-  if(dvCard)dvCard.style.display=(n>=4)?'':'none';
+  if(central)central.style.display=(n<6)?'flex':'none';  /* keep the flex column: '' would wipe it */
+  if(centralLabel)centralLabel.style.display=(n<6)?'':'none';
+  if(distrib)distrib.style.display=(n>=6)?'flex':'none';
+  if(distribLabel)distribLabel.style.display=(n>=6)?'':'none';
+  /* the two code-walk frags hot-swap; the argument after them builds up */
+  if(init)init.style.display=(n===1)?'':'none';
+  if(loop)loop.style.display=(n===2||n===3)?'':'none';
+  if(converge)converge.style.display=(n===3)?'':'none';
+  if(observe)observe.style.display=(n>=4&&n<=6)?'':'none';
+  if(distribute)distribute.style.display=(n>=5&&n<=6)?'':'none';
+  if(send)send.style.display=(n>=7)?'':'none';
+  if(dvCard)dvCard.style.display=(n>=8)?'':'none';
+  if(dsHi){dsHi.style.color=(n===3)?'var(--accent)':'';dsHi.style.fontWeight=(n===3)?'bold':'';}
+  if(psHi){psHi.style.color=(n===3)?'var(--accent)':'';psHi.style.fontWeight=(n===3)?'bold':'';}
+  var ln6arrow=document.getElementById('bfln6-arrow');
+  if(ln6arrow)ln6arrow.style.display=(n===5)?'inline':'none';
+  var initRows=['bfrow1','bfrow2','bfrow3'];
+  var loopRows=['bfrow5','bfrow6','bfrow7','bfrow8','bfrow9','bfrow10','bfrow11','bfrow12'];
+  var obsRows=['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11'];
+  var distRows=['bfrow6'];
+  for(var i=1;i<=12;i++){
+    var row=document.getElementById('bfrow'+i);if(!row)continue;
+    var id='bfrow'+i;
+    var active=(n===1&&initRows.indexOf(id)>=0)||(n===2&&loopRows.indexOf(id)>=0)
+             ||(n===4&&obsRows.indexOf(id)>=0)||(n===5&&distRows.indexOf(id)>=0);
+    row.style.backgroundColor=active?'rgba(224,120,80,0.15)':'';
+    row.style.borderLeft=active?'3px solid #e07850':'';
+    row.style.paddingLeft=active?'4px':'';
+    row.style.marginLeft=active?'-7px':'';
+  }
+  /* distributed code: spotlight the two lines distribution introduces */
+  for(var k=1;k<=12;k++){
+    var drow=document.getElementById('bfdrow'+k);if(!drow)continue;
+    var dActive=(n===7&&(k===11||k===12));
+    drow.style.backgroundColor=dActive?'rgba(224,120,80,0.15)':'';
+    drow.style.borderLeft=dActive?'3px solid #e07850':'';
+    drow.style.paddingLeft=dActive?'4px':'';
+    drow.style.marginLeft=dActive?'-7px':'';
+  }
 }
 
 function updateDVProtoSlide(){
@@ -3040,18 +2977,39 @@ function updateDVProtoSlide(){
   var f2=document.getElementById('dvp-f2');
   var f3=document.getElementById('dvp-f3');
   var f4=document.getElementById('dvp-f4');
-  if(f1)f1.style.display=(n>=1)?'':'none';
-  if(f2)f2.style.display=(n>=2)?'':'none';
-  if(f3)f3.style.display=(n>=3)?'':'none';
-  if(f4)f4.style.display=(n>=4)?'':'none';
-  var initRows=[1,2,3,4],relaxRows=[7,8,9,10,11],bcastRows=[12,13];
-  for(var i=1;i<=13;i++){var row=document.getElementById('dvprow'+i);if(!row)continue;
-    var active=(n===1&&initRows.indexOf(i)>=0)||(n===2&&relaxRows.indexOf(i)>=0)||(n>=3&&n<=3&&bcastRows.indexOf(i)>=0);
+  var f5=document.getElementById('dvp-f5');
+  // hot-swap: each frag replaces the previous one
+  if(f1)f1.style.display=(n===1)?'':'none';
+  if(f2)f2.style.display=(n===2)?'':'none';
+  if(f3)f3.style.display=(n===3)?'':'none';
+  if(f4)f4.style.display=(n===4)?'':'none';
+  if(f5)f5.style.display=(n>=5)?'':'none';
+  // Forced-accept block only appears once the "accept unconditionally" rule is on screen
+  var faIds=['dvpfa1','dvpfa2','dvpfa3'];
+  faIds.forEach(function(id){var r=document.getElementById(id);if(r)r.style.display=(n>=4)?'':'none';});
+  // Ordered list of code rows; line numbers are recomputed over the visible ones
+  var order=['dvprow1','dvprow2','dvprow3','dvprow4','dvprow5','dvprow5c','dvprow6','dvprow7','dvprow8',
+             'dvpfa1','dvpfa2','dvpfa3',
+             'dvprow9','dvprow10','dvprow11','dvprow12','dvprow13','dvprow14'];
+  var noNum=['dvprow5c'];  // continuation comment — carries no line number
+  var initRows=['dvprow1','dvprow2','dvprow3','dvprow4','dvprow5','dvprow5c'];
+  var relaxRows=['dvprow8','dvprow9','dvprow10','dvprow11','dvprow12'];
+  var bcastRows=['dvprow13','dvprow14'];
+  var minRows=['dvpfa1','dvpfa2','dvpfa3','dvprow9','dvprow10','dvprow11','dvprow12'];
+  var ln=0;
+  order.forEach(function(id){
+    var row=document.getElementById(id);if(!row)return;
+    var num=row.querySelector('.lnum');
+    if(row.style.display==='none'||noNum.indexOf(id)>=0){if(num)num.textContent='';}
+    else{ln++;if(num)num.textContent=(ln<10?' ':'')+ln;}
+    var active=(n===1&&initRows.indexOf(id)>=0)||(n===2&&relaxRows.indexOf(id)>=0)
+             ||(n===3&&bcastRows.indexOf(id)>=0)||(n===4&&faIds.indexOf(id)>=0)
+             ||(n>=5&&minRows.indexOf(id)>=0);
     row.style.backgroundColor=active?'rgba(224,120,80,0.15)':'';
     row.style.borderLeft=active?'3px solid #e07850':'';
     row.style.paddingLeft=active?'4px':'';
     row.style.marginLeft=active?'-7px':'';
-  }
+  });
 }
 
 function updateDVExampleSlide(){
@@ -3119,58 +3077,53 @@ function updateDVExampleSlide(){
   }
 }
 
-/* ---------- Count-to-infinity animation (9 fragments, 0–9) ---------- */
+/* ---------- Count-to-infinity animation (8 fragments, 0–8) ---------- */
 function updateCountInfSlide(){
   var s=document.getElementById('ctinf-slide');if(!s)return;
   var n=fragCount(s);
   function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
-  /* SVG overlays */
-  setOp('ctinf-fail',n>=2?1:0);
+  setOp('ctinf-fail',n>=1?1:0);
   var yzLine=document.getElementById('ctinf-yz');
   var yzCost=document.getElementById('ctinf-yzcost');
-  if(yzLine)yzLine.setAttribute('opacity',n>=2?'0.15':'1');
-  if(yzCost)yzCost.setAttribute('opacity',n>=2?'0.15':'1');
-  setOp('ctinf-x-to-y',n>=4&&n<=5?1:0);
-  setOp('ctinf-y-to-x',n===6?1:0);
-  setOp('ctinf-x-to-y-2',n===7?1:0);
-  /* x-z link: fade at frag 9 (infinity case) */
+  if(yzLine)yzLine.setAttribute('opacity',n>=1?'0.15':'1');
+  if(yzCost)yzCost.setAttribute('opacity',n>=1?'0.15':'1');
+  setOp('ctinf-x-to-y',(n>=2&&n<=3)?1:0);
+  setOp('ctinf-y-to-x',n===4?1:0);
+  setOp('ctinf-x-to-y-2',n===5?1:0);
   var xzLine=document.getElementById('ctinf-xz');
   var xzCost=document.getElementById('ctinf-xzcost');
-  if(xzLine)xzLine.setAttribute('opacity',n>=10?'0':'1');
-  if(xzCost){xzCost.setAttribute('opacity',n>=10?'0':'1');}
-  /* Card */
+  if(xzLine)xzLine.setAttribute('opacity',n>=8?'0':'1');
+  if(xzCost)xzCost.setAttribute('opacity',n>=8?'0':'1');
   var card1=document.getElementById('ctinf-card1');
   var c1=document.getElementById('ctinf-content1');
   var card2=document.getElementById('ctinf-card2');
   if(card2)card2.style.display='none';
   if(n>=1){
     if(card1)card1.style.display='';
+    if(card1)card1.style.borderLeftColor='var(--bad)';
     if(c1){
-      if(n===1) c1.innerHTML='These are the <b>converged forwarding tables</b> after running the distance-vector protocol. Every router has found its shortest path to every destination.';
-      else if(n===2) c1.innerHTML='The <b style="color:var(--bad)">y–z link fails</b>. The link cost becomes <b>∞</b>.';
-      else if(n===3) c1.innerHTML='y detects the failure. y’s next hop to z was <b>z directly</b> — via the y–z link. Since that link is now ∞:<div style="margin-top:8px"><b style="color:var(--bad)">d<sub>y</sub>(z) = ∞, p<sub>y</sub>(z) = —</b></div>';
-      else if(n===4) c1.innerHTML='<b style="font-size:14px;color:var(--bad);text-transform:uppercase;letter-spacing:1px">⚠ Race condition</b><div style="margin-top:8px;font-size:16px"><b>Before y can tell x</b> about the failure, x sends its periodic update. x still believes d<sub>x</sub>(z) = 3 and propagates this <b style="color:var(--bad)">stale</b> distance vector to y.</div>';
-      else if(n===5) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">y performs relaxation</b><div style="margin:8px 0;padding:10px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 3 = <b>5</b><br>direct to z: <b>∞</b></div><div>5 &lt; ∞ → update: <b style="color:var(--bad)">d<sub>y</sub>(z) = 5, p<sub>y</sub>(z) = x</b></div><div style="margin-top:10px;font-size:15px">y honestly follows the protocol. Due to the <b style="color:var(--bad)">race condition</b>, the distance vector y advertises to x is not d<sub>y</sub>(z) = ∞ but is <b>superseded</b> by the new value: <b style="color:var(--bad)">d<sub>y</sub>(z) = 5</b>.</div>';
-      else if(n===6) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">x receives d<sub>y</sub>(z) = 5 from y</b><div style="margin:8px 0;font-size:16px">Recall the <b>forced-accept rule</b>: y is x’s current next-hop to z, so x <b>must accept</b> this update unconditionally:</div><div style="padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>x</sub>(z) = c(x,y) + d<sub>y</sub>(z) = 2 + 5 = <b>7</b></div><div style="margin-top:8px;font-size:16px">x then checks: could a direct link to z do better?<br>Direct to z: <b>50</b>. Since 50 &gt; 7, no improvement.</div><div style="margin-top:6px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7, p<sub>x</sub>(z) = y</b></div>';
-      else if(n===7) c1.innerHTML='x advertises its updated distance vector to y:<div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7</b></div><div style="margin-top:8px">x is y’s current next-hop to z, so y must accept (<b>forced-accept rule</b>):</div><div style="margin:6px 0;padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>y</sub>(z) = c(y,x) + d<sub>x</sub>(z) = 2 + 7 = <b>9</b></div><div style="margin-top:4px"><b style="color:var(--bad)">d<sub>y</sub>(z) = 9, p<sub>y</sub>(z) = x</b></div>';
-      else if(n===8) c1.innerHTML='The loop continues: y propagates 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …<div style="margin-top:14px;padding:12px 16px;border:2px solid var(--accent);border-radius:6px;font-size:18px;color:var(--accent)"><b>Will this loop continue forever?</b></div>';
-      else if(n===9) c1.innerHTML='<b>No</b> — the direct x–z link costs <b>50</b>. Once the bouncing costs exceed 50, both routers switch to the direct route and converge.<div style="margin-top:6px;font-size:16px;color:var(--muted)">Costs bounce: 5, 7, 9, 11, … → 50 (~22 rounds).</div>';
-      else if(n===10) c1.innerHTML='But what if there were <b>no direct link</b> between x and z?<div style="margin-top:10px">The costs would never stop growing — they would count all the way to <b>∞</b>.</div><div style="margin-top:10px">This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a race condition causes stale information to poison the network, and failures can take <b>forever</b> to propagate.</div><div style="margin-top:10px;font-size:17px;color:var(--accent)">How do we address this?</div>';
+      if(n===1) c1.innerHTML='Suppose x has just computed d<sub>x</sub>(z) = 3 (via y) and broadcast its distance vector. At the same moment, the y–z link fails. x’s update reaches y <em>before</em> y’s failure notification reaches x — a <b style="color:var(--bad)">message-ordering race</b>.';
+      else if(n===2) c1.innerHTML='<b style="font-size:14px;color:var(--bad);text-transform:uppercase;letter-spacing:1px">⚠ Race condition</b><div style="margin-top:8px;font-size:16px"><b>Before y can tell x</b> about the failure, x sends its update. x still believes d<sub>x</sub>(z) = 3 and propagates this <b style="color:var(--bad)">stale</b> distance vector to y.</div>';
+      else if(n===3) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">y performs relaxation</b><div style="margin:8px 0;padding:10px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 3 = <b>5</b><br>direct to z: <b>∞</b></div><div>5 &lt; ∞ → update: <b style="color:var(--bad)">d<sub>y</sub>(z) = 5, p<sub>y</sub>(z) = x</b></div><div style="margin-top:10px;font-size:15px">y honestly follows the protocol. Due to the <b style="color:var(--bad)">race condition</b>, the failure never reached x and the good news is <b>superseded</b> by the stale value: <b style="color:var(--bad)">d<sub>y</sub>(z) = 5</b>.</div>';
+      else if(n===4) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">x receives d<sub>y</sub>(z) = 5 from y</b><div style="margin:8px 0;font-size:16px">Recall the <b>forced-accept rule</b>: y is x’s current next-hop to z, so x <b>must accept</b> this update unconditionally:</div><div style="padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>x</sub>(z) = c(x,y) + d<sub>y</sub>(z) = 2 + 5 = <b>7</b></div><div style="margin-top:8px;font-size:16px">x then checks: could a direct link to z do better?<br>Direct to z: <b>50</b>. Since 50 &gt; 7, no improvement.</div><div style="margin-top:6px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7, p<sub>x</sub>(z) = y</b></div>';
+      else if(n===5) c1.innerHTML='x advertises its updated distance vector to y:<div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7</b></div><div style="margin-top:8px">x is y’s current next-hop to z, so y must accept (<b>forced-accept rule</b>):</div><div style="margin:6px 0;padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>y</sub>(z) = c(y,x) + d<sub>x</sub>(z) = 2 + 7 = <b>9</b></div><div style="margin-top:4px"><b style="color:var(--bad)">d<sub>y</sub>(z) = 9, p<sub>y</sub>(z) = x</b></div>';
+      else if(n===6) c1.innerHTML='The loop continues: y propagates 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …<div style="margin-top:14px;padding:12px 16px;border:2px solid var(--accent);border-radius:6px;font-size:18px;color:var(--accent)"><b>Will this loop continue forever?</b></div>';
+      else if(n===7) c1.innerHTML='<b>No</b> — the direct x–z link costs <b>50</b>. Once the bouncing costs exceed 50, both routers switch to the direct route and converge.<div style="margin-top:6px;font-size:16px;color:var(--muted)">Costs bounce: 5, 7, 9, 11, … → 50 (~22 rounds).</div>';
+      else if(n===8) c1.innerHTML='But what if there were <b>no direct link</b> between x and z?<div style="margin-top:10px">The costs would never stop growing — they would count all the way to <b>∞</b>.</div><div style="margin-top:10px">This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a race condition causes stale information to poison the network, and failures can take <b>forever</b> to propagate.</div><div style="margin-top:10px;font-size:17px;color:var(--accent)">How do we address this?</div>';
     }
   } else {
     if(card1)card1.style.display='none';
   }
-  /* Tables */
   var tbx=document.getElementById('ctinf-tbody-x');
   var tby=document.getElementById('ctinf-tbody-y');
-  var xzC='3',xzS='';
-  if(n>=6){xzC='7';xzS=' style="color:var(--bad);font-weight:700"';}
-  if(tbx) tbx.innerHTML='<tr'+xzS+'><td>z</td><td class="mono">'+xzC+'</td><td class="mono">y</td></tr>';
+  var xzC='3',xzP='y',xzS='';
+  if(n>=4){xzC='7';xzP='y';xzS=' style="color:var(--bad);font-weight:700"';}
+  if(tbx)tbx.innerHTML='<tr'+xzS+'><td>z</td><td class="mono">'+xzC+'</td><td class="mono">'+xzP+'</td></tr>';
   var yzC='1',yzH='z',yzS='';
-  if(n>=3&&n<=4){yzC='∞';yzH='—';yzS=' style="color:var(--bad);font-weight:700"';}
-  else if(n>=5&&n<=6){yzC='5';yzH='x';yzS=' style="color:var(--bad);font-weight:700"';}
-  else if(n>=7){yzC='9';yzH='x';yzS=' style="color:var(--bad);font-weight:700"';}
-  if(tby) tby.innerHTML='<tr'+yzS+'><td>z</td><td class="mono">'+yzC+'</td><td class="mono">'+yzH+'</td></tr>';
+  if(n>=1&&n<=2){yzC='∞';yzH='nil';yzS=' style="color:var(--bad);font-weight:700"';}
+  else if(n>=3&&n<=4){yzC='5';yzH='x';yzS=' style="color:var(--bad);font-weight:700"';}
+  else if(n>=5){yzC='9';yzH='x';yzS=' style="color:var(--bad);font-weight:700"';}
+  if(tby)tby.innerHTML='<tr'+yzS+'><td>z</td><td class="mono">'+yzC+'</td><td class="mono">'+yzH+'</td></tr>';
 }
 
 
@@ -3218,7 +3171,7 @@ function updateSplitHorizonSlide(){
     else if(n<6) tbx.innerHTML='<tr style="color:var(--accent);font-weight:700"><td>z</td><td class="mono">3</td><td class="mono">y</td></tr>';
     else tbx.innerHTML='<tr style="color:var(--accent);font-weight:700"><td>z</td><td class="mono">50</td><td class="mono">z</td></tr>';
   }
-  if(tby) tby.innerHTML='<tr'+(n>=5&&n<=7?' style="color:var(--bad);font-weight:700"':(n>=8?' style="color:var(--accent);font-weight:700"':''))+'><td>z</td><td class="mono">'+(n>=5&&n<=7?'∞':(n>=8?'52':'1'))+'</td><td class="mono">'+(n>=5&&n<=7?'—':(n>=8?'x':'z'))+'</td></tr>';
+  if(tby) tby.innerHTML='<tr'+(n>=5&&n<=7?' style="color:var(--bad);font-weight:700"':(n>=8?' style="color:var(--accent);font-weight:700"':''))+'><td>z</td><td class="mono">'+(n>=5&&n<=7?'∞':(n>=8?'52':'1'))+'</td><td class="mono">'+(n>=5&&n<=7?'nil':(n>=8?'x':'z'))+'</td></tr>';
 }
 /* ---------- Dijkstra insight animation ---------- */
 function updateDijkstraDescSlide(){
