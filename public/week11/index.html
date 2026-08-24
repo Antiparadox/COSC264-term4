@@ -1993,6 +1993,7 @@
           <h1>Transport Layer Protocols</h1>
           <div class="rule"></div>
           <p class="subtitle">TCP and UDP</p>
+          <p class="course-url"><a href="../">cosc264-term4.up.railway.app</a></p>
         </div>
       </section>
 
@@ -4535,6 +4536,7 @@
   <div id="chrome" aria-hidden="true">
     <div id="progress"></div>
     <div id="hud">
+      <a class="hud-button" id="home-button" href="../" title="Course home" aria-label="Course home">⌂</a>
       <button class="hud-button" id="theme-button" title="Toggle theme (T)" aria-label="Toggle theme">◐</button>
       <button class="hud-button" id="view-button" title="Toggle scroll view (V)" aria-label="Toggle scroll view">↕</button>
       <button class="hud-button" id="outline-button" title="Open slide outline (O)" aria-label="Open slide outline">☰</button>
@@ -4746,6 +4748,14 @@
     font-size: .88rem;
     text-align: center;
   }
+
+/* ---- course home link (added for hosting) ---- */
+a.hud-button{display:grid;place-items:center;text-decoration:none;font-size:17px}
+.course-url{margin:30px 0 0}
+.course-url a{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--teal);
+  text-decoration:none;border:2px solid var(--teal);border-radius:10px;padding:9px 16px;
+  display:inline-block;background:var(--surface);letter-spacing:.01em}
+.course-url a:hover{background:var(--teal);color:var(--bg)}
 </style>
 <script>
   (() => {

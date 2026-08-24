@@ -232,6 +232,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <div id="progress"></div>
 <div id="hud">
+  <a id="b-home" href="../" title="Course home">⌂ home</a>
   <button id="b-mode" title="Stage / scroll mode">⇕ view</button>
   <button id="b-jump" title="Contents (Esc)">⌗ contents</button>
   <button id="b-theme" title="Theme (T)">◐</button>
@@ -251,6 +252,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="kicker">COSC264 · Introduction to Computer Networks and the Internet · Term 4</div>
     <h1>Week 9<br>Error Detection and Correction</h1>
   </div>
+  <div class="courseurl"><a href="../">cosc264-term4.up.railway.app</a></div>
 </section>
 
 <!-- ── Slide: Learning objectives & lecture plan (merged) ── -->
@@ -2779,7 +2781,20 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <style>
     #ddetect .gWalk { opacity:0; transition:opacity 0.35s }
     #ddetect:has(.n2.on) .gWalk { opacity:1 }
-  </style>
+  
+/* ---- course home link (added for hosting) ---- */
+#hud a{background:var(--surface);border:1px solid var(--border);color:var(--muted);
+  border-radius:8px;padding:6px 10px;font-size:13px;line-height:normal;box-shadow:var(--shadow);
+  text-decoration:none;display:inline-flex;align-items:center;font-family:inherit}
+#hud a:hover{color:var(--ink);border-color:var(--accent)}
+.courseurl{position:absolute;bottom:24px;right:92px;z-index:6}
+.courseurl a{font-family:var(--mono);font-size:17px;font-weight:700;color:var(--accent);
+  text-decoration:none;border:2px solid var(--accent);border-radius:10px;padding:9px 16px;
+  display:inline-block;background:var(--surface);letter-spacing:.01em}
+.courseurl a:hover{background:var(--accent);color:var(--bg)}
+@media (max-width:900px){.courseurl{right:24px;bottom:18px}
+  .courseurl a{font-size:14px;padding:7px 12px}}
+</style>
   <div class="kicker">FEC</div>
   <h2>Past halfway, we can still detect</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:9px">
