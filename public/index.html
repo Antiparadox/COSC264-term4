@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COSC264 · Term 4 — Lecture Slides</title>
-<meta name="description" content="Lecture slide decks for COSC264 Term 4, Weeks 7–12.">
+<title>COSC264 · Introduction to Computer Networks and the Internet</title>
+<meta name="description" content="COSC264 Term 4 — lecture slides, announcements and contact details.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -35,66 +35,112 @@
     font-family:var(--sans); font-size:17px; line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:1080px; margin:0 auto; padding:56px 24px 72px}
-  header{margin-bottom:40px}
+  .wrap{max-width:1140px; margin:0 auto; padding:52px 24px 64px}
+
+  /* ---------- masthead ---------- */
+  .masthead{border-bottom:1px solid var(--border); padding-bottom:26px; margin-bottom:34px}
   .kicker{
     font-family:var(--mono); font-size:13px; letter-spacing:.14em;
     text-transform:uppercase; color:var(--accent); margin:0 0 10px;
   }
   h1{
-    font-family:var(--serif); font-weight:700; font-size:clamp(34px,5.5vw,52px);
-    line-height:1.12; margin:0 0 14px; letter-spacing:-.01em;
+    font-family:var(--serif); font-weight:700; font-size:clamp(30px,4.4vw,44px);
+    line-height:1.14; margin:0 0 10px; letter-spacing:-.01em; max-width:22ch;
   }
-  .lede{margin:0; font-size:19px; color:var(--muted); max-width:60ch}
+  .term{margin:0; color:var(--muted); font-size:17px}
 
-  .grid{
-    display:grid; gap:18px; margin-top:8px;
-    grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  /* ---------- layout ---------- */
+  .layout{display:grid; gap:34px; grid-template-columns:minmax(0,1fr) 296px; align-items:start}
+  section+section{margin-top:34px}
+  h2{
+    font-family:var(--serif); font-weight:600; font-size:23px;
+    margin:0 0 14px; letter-spacing:-.005em;
   }
+
+  /* ---------- bulletin board ---------- */
+  .board{
+    background:var(--surface-2); border:1px solid var(--border);
+    border-radius:14px; padding:20px 22px;
+  }
+  .board h2{margin-bottom:10px}
+  .board-empty{
+    margin:0; color:var(--faint); font-size:16px;
+    border-left:3px solid var(--border); padding-left:14px;
+  }
+  .notice{
+    background:var(--surface); border:1px solid var(--border);
+    border-left:4px solid var(--accent); border-radius:10px;
+    padding:14px 18px; margin:0 0 12px;
+  }
+  .notice:last-child{margin-bottom:0}
+  .notice time{
+    display:block; font-family:var(--mono); font-size:12px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:5px;
+  }
+  .notice p{margin:0; font-size:16px}
+
+  /* ---------- deck cards ---------- */
+  .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(258px,1fr))}
   .card{
-    display:flex; flex-direction:column; gap:10px;
+    display:flex; flex-direction:column; gap:9px;
     background:var(--surface); border:1px solid var(--border); border-radius:14px;
-    padding:22px 24px 20px; box-shadow:var(--shadow);
+    padding:20px 22px 18px; box-shadow:var(--shadow);
     text-decoration:none; color:inherit;
     transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
   }
   .card:hover,.card:focus-visible{
-    transform:translateY(-3px); box-shadow:var(--shadow-lift);
-    border-color:var(--accent); outline:none;
+    transform:translateY(-3px); box-shadow:var(--shadow-lift); border-color:var(--accent);
   }
   .card:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
   .wk{
     font-family:var(--mono); font-size:12px; letter-spacing:.12em;
     text-transform:uppercase; color:var(--accent); font-weight:600;
   }
-  .card h2{
-    font-family:var(--serif); font-weight:600; font-size:24px;
-    line-height:1.25; margin:0; letter-spacing:-.005em;
+  .card h3{
+    font-family:var(--serif); font-weight:600; font-size:21px;
+    line-height:1.26; margin:0; letter-spacing:-.005em;
   }
-  .card ul{margin:2px 0 0; padding-left:18px; color:var(--muted); font-size:15.5px; line-height:1.55}
+  .card ul{margin:2px 0 0; padding-left:17px; color:var(--muted); font-size:15px; line-height:1.5}
   .card li{margin:2px 0}
   .meta{
-    margin-top:auto; padding-top:14px; display:flex; align-items:center;
+    margin-top:auto; padding-top:13px; display:flex; align-items:center;
     justify-content:space-between; gap:12px;
     font-family:var(--mono); font-size:12.5px; color:var(--faint);
     border-top:1px solid var(--border);
   }
   .go{color:var(--accent); font-weight:600}
-  .card:hover .go::after,.card:focus-visible .go::after{transform:translateX(3px)}
   .go::after{content:' →'; display:inline-block; transition:transform .16s ease}
+  .card:hover .go::after,.card:focus-visible .go::after{transform:translateX(3px)}
+
+  /* ---------- instructor ---------- */
+  aside .panel{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:14px; padding:20px 22px; box-shadow:var(--shadow);
+  }
+  aside h2{font-size:19px; margin-bottom:12px}
+  .name{font-family:var(--serif); font-size:20px; font-weight:600; margin:0}
+  .role{margin:1px 0 10px; color:var(--muted); font-size:15px}
+  a.mail{color:var(--accent); text-decoration:none; word-break:break-all; font-size:15.5px}
+  a.mail:hover{text-decoration:underline}
+  dl{margin:14px 0 0; padding-top:14px; border-top:1px solid var(--border)}
+  dt{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--faint); margin-top:11px;
+  }
+  dt:first-child{margin-top:0}
+  dd{margin:2px 0 0; font-size:16px}
 
   footer{
-    margin-top:44px; padding-top:22px; border-top:1px solid var(--border);
+    margin-top:44px; padding-top:20px; border-top:1px solid var(--border);
     color:var(--faint); font-size:14.5px;
   }
-  footer p{margin:0 0 6px}
-  kbd{
-    font-family:var(--mono); font-size:12px; background:var(--surface-2);
-    border:1px solid var(--border); border-bottom-width:2px; border-radius:5px;
-    padding:1px 6px; color:var(--muted);
+  footer p{margin:0}
+
+  @media (max-width:880px){
+    .layout{grid-template-columns:1fr; gap:30px}
   }
   @media (max-width:520px){
-    .wrap{padding:36px 18px 56px}
+    .wrap{padding:34px 18px 52px}
     .grid{grid-template-columns:1fr}
   }
 </style>
@@ -102,84 +148,123 @@
 <body>
 <div class="wrap">
 
-  <header>
-    <p class="kicker">COSC264 · Computer Networks</p>
-    <h1>Term 4 lecture slides</h1>
-    <p class="lede">Weeks 7–12. Pick a week to open its deck — it runs in the browser on a laptop, tablet or phone, and works offline once loaded.</p>
-  </header>
+  <div class="masthead">
+    <p class="kicker">COSC264 · Term 4</p>
+    <h1>Introduction to Computer Networks and the Internet</h1>
+    <p class="term">Weeks 7–12 · University of Canterbury</p>
+  </div>
 
-  <main class="grid">
+  <div class="layout">
 
-    <a class="card" href="week7/">
-      <span class="wk">Week 7</span>
-      <h2>Introduction to Routing</h2>
-      <ul>
-        <li>The routing problem</li>
-        <li>Shortest paths &amp; distance-vector routing</li>
-        <li>Dijkstra’s algorithm &amp; link-state routing</li>
-      </ul>
-      <span class="meta"><span>57 slides</span><span class="go">Open deck</span></span>
-    </a>
+    <main>
 
-    <a class="card" href="week8/">
-      <span class="wk">Week 8</span>
-      <h2>Real Internet Routing and Addressing</h2>
-      <ul>
-        <li>Inter-AS routing and BGP</li>
-        <li>Intra-AS protocols: RIP and OSPF</li>
-        <li>IPv4, NAT and IPv6 addressing</li>
-      </ul>
-      <span class="meta"><span>52 slides</span><span class="go">Open deck</span></span>
-    </a>
+      <section class="board">
+        <h2>What’s new this week</h2>
+        <!--
+          To post a notice, add a block like this directly below,
+          newest first, and delete the .board-empty paragraph:
 
-    <a class="card" href="week9/">
-      <span class="wk">Week 9</span>
-      <h2>Error Detection and Correction</h2>
-      <ul>
-        <li>Error detection and checksums</li>
-        <li>Cyclic redundancy check</li>
-        <li>Error correction</li>
-      </ul>
-      <span class="meta"><span>57 slides</span><span class="go">Open deck</span></span>
-    </a>
+          <div class="notice">
+            <time datetime="2026-08-25">25 August</time>
+            <p>Week 8 slides are now available.</p>
+          </div>
+        -->
+        <p class="board-empty">No notices posted.</p>
+      </section>
 
-    <a class="card" href="week10/">
-      <span class="wk">Week 10</span>
-      <h2>Reliable Data Transfer: ARQ Protocols</h2>
-      <ul>
-        <li>Reliable transfer over an unreliable channel</li>
-        <li>Stop-and-wait and sequence numbers</li>
-        <li>Pipelining and selective repeat</li>
-      </ul>
-      <span class="meta"><span>60 slides</span><span class="go">Open deck</span></span>
-    </a>
+      <section>
+        <h2>Lecture slides</h2>
+        <div class="grid">
 
-    <a class="card" href="week11/">
-      <span class="wk">Week 11</span>
-      <h2>Network Transport Layer Protocols</h2>
-      <ul>
-        <li>Transport services, multiplexing, UDP</li>
-        <li>TCP and reliable delivery</li>
-        <li>Flow control and congestion control</li>
-      </ul>
-      <span class="meta"><span>47 slides</span><span class="go">Open deck</span></span>
-    </a>
+          <a class="card" href="week7/">
+            <span class="wk">Week 7</span>
+            <h3>Introduction to Routing</h3>
+            <ul>
+              <li>The routing problem</li>
+              <li>Shortest paths &amp; distance-vector routing</li>
+              <li>Dijkstra’s algorithm &amp; link-state routing</li>
+            </ul>
+            <span class="meta"><span>57 slides</span><span class="go">Open deck</span></span>
+          </a>
 
-    <a class="card" href="week12/">
-      <span class="wk">Week 12</span>
-      <h2>Network Applications</h2>
-      <ul>
-        <li>The Web and HTTP</li>
-        <li>Email</li>
-        <li>DNS</li>
-      </ul>
-      <span class="meta"><span>46 slides</span><span class="go">Open deck</span></span>
-    </a>
+          <a class="card" href="week8/">
+            <span class="wk">Week 8</span>
+            <h3>Real Internet Routing and Addressing</h3>
+            <ul>
+              <li>Inter-AS routing and BGP</li>
+              <li>Intra-AS protocols: RIP and OSPF</li>
+              <li>IPv4, NAT and IPv6 addressing</li>
+            </ul>
+            <span class="meta"><span>52 slides</span><span class="go">Open deck</span></span>
+          </a>
 
-  </main>
+          <a class="card" href="week9/">
+            <span class="wk">Week 9</span>
+            <h3>Error Detection and Correction</h3>
+            <ul>
+              <li>Error detection and checksums</li>
+              <li>Cyclic redundancy check</li>
+              <li>Error correction</li>
+            </ul>
+            <span class="meta"><span>57 slides</span><span class="go">Open deck</span></span>
+          </a>
+
+          <a class="card" href="week10/">
+            <span class="wk">Week 10</span>
+            <h3>Reliable Data Transfer: ARQ Protocols</h3>
+            <ul>
+              <li>Reliable transfer over an unreliable channel</li>
+              <li>Stop-and-wait and sequence numbers</li>
+              <li>Pipelining and selective repeat</li>
+            </ul>
+            <span class="meta"><span>60 slides</span><span class="go">Open deck</span></span>
+          </a>
+
+          <a class="card" href="week11/">
+            <span class="wk">Week 11</span>
+            <h3>Network Transport Layer Protocols</h3>
+            <ul>
+              <li>Transport services, multiplexing, UDP</li>
+              <li>TCP and reliable delivery</li>
+              <li>Flow control and congestion control</li>
+            </ul>
+            <span class="meta"><span>47 slides</span><span class="go">Open deck</span></span>
+          </a>
+
+          <a class="card" href="week12/">
+            <span class="wk">Week 12</span>
+            <h3>Network Applications</h3>
+            <ul>
+              <li>The Web and HTTP</li>
+              <li>Email</li>
+              <li>DNS</li>
+            </ul>
+            <span class="meta"><span>46 slides</span><span class="go">Open deck</span></span>
+          </a>
+
+        </div>
+      </section>
+
+    </main>
+
+    <aside>
+      <div class="panel">
+        <h2>Instructor</h2>
+        <p class="name">Yinuo Zhang</p>
+        <p class="role">Pūkenga | Lecturer (Second term)</p>
+        <a class="mail" href="mailto:yinuo.zhang@canterbury.ac.nz">yinuo.zhang@canterbury.ac.nz</a>
+        <dl>
+          <dt>Office</dt>
+          <dd>Jack Erskine 321</dd>
+          <dt>Office hours</dt>
+          <dd>Tuesday &amp; Thursday, 2pm</dd>
+        </dl>
+      </div>
+    </aside>
+
+  </div>
 
   <footer>
-    <p>Navigate a deck with <kbd>→</kbd> <kbd>←</kbd>, <kbd>space</kbd>, or by tapping the left and right edges of the screen. Press <kbd>o</kbd> for the contents, <kbd>v</kbd> to switch between slide and scrolling view, and <kbd>t</kbd> for light or dark theme.</p>
     <p>University of Canterbury · Department of Computer Science and Software Engineering</p>
   </footer>
 
