@@ -1835,6 +1835,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
 <!-- ====== Poison reverse ====== -->
@@ -3101,13 +3110,13 @@ function updateCountInfSlide(){
   var yzCost=document.getElementById('ctinf-yzcost');
   if(yzLine)yzLine.setAttribute('opacity',n>=2?'0.15':'1');
   if(yzCost)yzCost.setAttribute('opacity',n>=2?'0.15':'1');
-  setOp('ctinf-x-to-y',n===3?1:0);
-  setOp('ctinf-y-to-x',n===4?1:0);
-  setOp('ctinf-x-to-y-2',n===5?1:0);
+  setOp('ctinf-x-to-y',n===5?1:0);      // the stored d_x(z)=3 y is relaxing against
+  setOp('ctinf-y-to-x',n===7?1:0);      // y broadcasts 5
+  setOp('ctinf-x-to-y-2',n===10?1:0);   // x broadcasts 7
   var xzLine=document.getElementById('ctinf-xz');
   var xzCost=document.getElementById('ctinf-xzcost');
-  if(xzLine)xzLine.setAttribute('opacity',n>=8?'0':'1');
-  if(xzCost)xzCost.setAttribute('opacity',n>=8?'0':'1');
+  if(xzLine)xzLine.setAttribute('opacity',n>=14?'0':'1');
+  if(xzCost)xzCost.setAttribute('opacity',n>=14?'0':'1');
   var card1=document.getElementById('ctinf-card1');
   var c1=document.getElementById('ctinf-content1');
   var card2=document.getElementById('ctinf-card2');
@@ -3116,14 +3125,63 @@ function updateCountInfSlide(){
     if(card1)card1.style.display='';
     if(card1)card1.style.borderLeftColor='var(--bad)';
     if(c1){
-      if(n===1) c1.innerHTML='These are the <b>converged</b> forwarding tables, reached by running the protocol to completion. x reaches z through y at cost 3; y reaches z directly at cost 1.<div style="margin-top:10px;font-size:15px;color:var(--muted)">Nothing is in flight, nothing has been lost, and every router agrees.</div>';
-      else if(n===2) c1.innerHTML='The <b style="color:var(--bad)">y–z link fails</b>.<div style="margin-top:8px">y sees c(y,z) = ∞ and has to recompute its own route to z, using the last distance vector it heard from each neighbour.</div>';
-      else if(n===3) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">y recomputes</b><div style="margin:8px 0;padding:10px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 3 = <b>5</b><br>direct to z: <b>∞</b></div><div>5 &lt; ∞ → <b style="color:var(--bad)">d<sub>y</sub>(z) = 5, p<sub>y</sub>(z) = x</b></div><div style="margin-top:12px;padding:10px 14px;border-left:3px solid var(--bad);font-size:15.5px">x’s cost of 3 was measured <b>through y</b>. A distance vector carries only <b>distances, never paths</b>, so y cannot see that the route it just adopted comes straight back to itself.</div>';
-      else if(n===4) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">x receives d<sub>y</sub>(z) = 5 from y</b><div style="margin:8px 0;font-size:16px">Recall the <b>forced-accept rule</b>: y is x’s current next-hop to z, so x <b>must accept</b> this update unconditionally:</div><div style="padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>x</sub>(z) = c(x,y) + d<sub>y</sub>(z) = 2 + 5 = <b>7</b></div><div style="margin-top:8px;font-size:16px">x then checks: could a direct link to z do better?<br>Direct to z: <b>50</b>. Since 50 &gt; 7, no improvement.</div><div style="margin-top:6px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7, p<sub>x</sub>(z) = y</b></div>';
-      else if(n===5) c1.innerHTML='x advertises its updated distance vector to y:<div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7</b></div><div style="margin-top:8px">x is y’s current next-hop to z, so y must accept (<b>forced-accept rule</b>):</div><div style="margin:6px 0;padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>y</sub>(z) = c(y,x) + d<sub>x</sub>(z) = 2 + 7 = <b>9</b></div><div style="margin-top:4px"><b style="color:var(--bad)">d<sub>y</sub>(z) = 9, p<sub>y</sub>(z) = x</b></div>';
-      else if(n===6) c1.innerHTML='The loop continues: y propagates 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …<div style="margin-top:14px;padding:12px 16px;border:2px solid var(--accent);border-radius:6px;font-size:18px;color:var(--accent)"><b>Will this loop continue forever?</b></div>';
-      else if(n===7) c1.innerHTML='<b>No</b> — the direct x–z link costs <b>50</b>. Once the bouncing costs exceed 50, both routers switch to the direct route and converge.<div style="margin-top:6px;font-size:16px;color:var(--muted)">Costs bounce: 5, 7, 9, 11, … → 50 (~22 rounds).</div>';
-      else if(n===8) c1.innerHTML='But what if there were <b>no direct link</b> between x and z?<div style="margin-top:10px">The costs would never stop growing — they would count all the way to <b>∞</b>.</div><div style="margin-top:10px">This is the <b style="color:var(--bad)">count-to-infinity problem</b>. It needs no lost message and no unlucky timing: because a distance vector reports distances and not paths, a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.</div><div style="margin-top:10px;font-size:17px;color:var(--accent)">How do we address this?</div>';
+  var K={
+    head:function(t){return '<b style="font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">'+t+'</b>';},
+    calc:function(s){return '<div style="margin:7px 0;padding:8px 13px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:15.5px">'+s+'</div>';},
+    line:function(s){return '<div style="margin-top:7px;font-size:15.5px">'+s+'</div>';},
+    res :function(s){return '<div style="margin-top:6px;font-size:16px"><b style="color:var(--bad)">'+s+'</b></div>';},
+    note:function(s){return '<div style="margin-top:10px;padding:9px 13px;border-left:3px solid var(--bad);font-size:15px">'+s+'</div>';},
+    ok  :function(s){return '<div style="margin-top:10px;padding:9px 13px;border-left:3px solid var(--current);font-size:15.5px">'+s+'</div>';}
+  };
+
+  /* Each card builds up across several fragments rather than appearing whole,
+     so the class watches one relaxation happen at a time. */
+  var yRecompute = K.head('y recomputes d<sub>y</sub>(z)')
+    + K.line('y relaxes through every neighbour, using the last vector it has stored from each.');
+  var yThroughZ = K.calc('through z: c(y,z) + d<sub>z</sub>(z) = ∞ + 0 = <b>∞</b>')
+    + K.line('No better than what y already has. Nothing changes.');
+  var yThroughX = K.calc('through x: c(y,x) + d<sub>x</sub>(z) = 2 + <b>3</b> = <b>5</b>')
+    + K.line('d<sub>x</sub>(z) = 3 is simply looked up — it is the vector x advertised earlier, stored at y.')
+    + K.res('5 &lt; ∞ → d<sub>y</sub>(z) = 5, p<sub>y</sub>(z) = x');
+
+  var xBroadcast = K.head('y’s vector changed, so y broadcasts it')
+    + K.line('The protocol sends the vector to all neighbours whenever an entry changes. x is y’s neighbour, so x receives d<sub>y</sub>(z) = 5.');
+  var xForced = K.line('A vector arriving <b>triggers relaxation at x</b>. y is x’s current next hop to z, so x must <b>forced-accept</b> it, worse or not:')
+    + K.calc('d<sub>x</sub>(z) = c(x,y) + d<sub>y</sub>(z) = 2 + 5 = <b>7</b>');
+  var xThroughZ = K.calc('through z: c(x,z) + d<sub>z</sub>(z) = 50 + 0 = <b>50</b>')
+    + K.line('50 is not better than 7, so the direct link does not win.')
+    + K.res('d<sub>x</sub>(z) = 7, p<sub>x</sub>(z) = y');
+
+  var yBroadcast = K.head('x’s vector changed, so x broadcasts it')
+    + K.line('y receives d<sub>x</sub>(z) = 7, which <b>triggers relaxation at y</b>.');
+  var yForced = K.line('x is now y’s current next hop to z, so y must <b>forced-accept</b> in turn:')
+    + K.calc('d<sub>y</sub>(z) = c(y,x) + d<sub>x</sub>(z) = 2 + 7 = <b>9</b>');
+  var yThroughZ2 = K.calc('through z: c(y,z) + d<sub>z</sub>(z) = ∞ + 0 = <b>∞</b>')
+    + K.line('Still nothing better.')
+    + K.res('d<sub>y</sub>(z) = 9, p<sub>y</sub>(z) = x');
+
+  var STEP = {};
+  STEP[1] = 'The <b>converged</b> tables from the previous slide, after the protocol has run to completion.';
+  STEP[2] = K.head('the y–z link fails') + K.line('c(y,z) becomes <b>∞</b>.');
+  STEP[3] = K.head('this triggers relaxation') + K.line('The protocol reruns whenever a vector arrives <b>or a link cost changes</b>. y’s own link just changed, so y redoes its relaxation for z through every neighbour.');
+  STEP[4] = yRecompute + yThroughZ;
+  STEP[5] = yRecompute + yThroughZ + yThroughX;
+  STEP[6] = yRecompute + yThroughZ + yThroughX + K.note('y has no idea it just created a <b>loop</b>. x’s route to z runs through y itself, and y cannot see that.');
+  STEP[7]  = xBroadcast;
+  STEP[8]  = xBroadcast + xForced;
+  STEP[9]  = xBroadcast + xForced + xThroughZ;
+  STEP[10] = yBroadcast;
+  STEP[11] = yBroadcast + yForced;
+  STEP[12] = yBroadcast + yForced + yThroughZ2;
+  STEP[13] = K.head('the loop keeps going') + K.line('y sends 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …')
+    + K.line('The climb only stops when going via the other router costs more than the <b>direct x–z link of 50</b>.')
+    + K.ok('x switches to the direct link at <b>d<sub>x</sub>(z) = 50</b>, and y follows at <b>d<sub>y</sub>(z) = 52</b>. The network is stable again.');
+  STEP[14] = 'But what if there were <b>no direct link</b> between x and z?';
+  STEP[15] = 'But what if there were <b>no direct link</b> between x and z?' + K.line('The costs would never stop growing — they would count all the way to <b>∞</b>.');
+  STEP[16] = 'But what if there were <b>no direct link</b> between x and z?' + K.line('The costs would never stop growing — they would count all the way to <b>∞</b>.')
+    + K.note('This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.');
+  STEP[17] = STEP[16] + '<div style="margin-top:11px;font-size:17px;color:var(--accent)">How do we address this?</div>';
+      if(STEP[n]) c1.innerHTML=STEP[n];
     }
   } else {
     if(card1)card1.style.display='none';
@@ -3138,14 +3196,19 @@ function updateCountInfSlide(){
            '</td><td class="mono">'+hop+'</td></tr>';
   };
 
+  var good=' style="color:var(--current);font-weight:700"';
   var xzC='3',xzP='y',xzS='';
-  if(n>=4){xzC='7';xzP='y';xzS=hot;}
+  if(n>=8&&n<=12){xzC='7';xzP='y';xzS=hot;}
+  else if(n===13){xzC='50';xzP='z';xzS=good;}          // settles on the direct link
+  else if(n>=14){xzC='…';xzP='y';xzS=hot;}             // no direct link: unbounded
   if(tbx)tbx.innerHTML=row('y','2','y')+row('z',xzC,xzP,xzS);
 
   var yzC='1',yzH='z',yzS='';
-  if(n===2){yzC='∞';yzH='nil';yzS=hot;}
-  else if(n>=3&&n<=4){yzC='5';yzH='x';yzS=hot;}
-  else if(n>=5){yzC='9';yzH='x';yzS=hot;}
+  if(n>=2&&n<=4){yzC='∞';yzH='nil';yzS=hot;}
+  else if(n>=5&&n<=10){yzC='5';yzH='x';yzS=hot;}
+  else if(n>=11&&n<=12){yzC='9';yzH='x';yzS=hot;}
+  else if(n===13){yzC='52';yzH='x';yzS=good;}
+  else if(n>=14){yzC='…';yzH='x';yzS=hot;}
   if(tby)tby.innerHTML=row('x','2','x')+row('z',yzC,yzH,yzS);
 }
 
