@@ -1765,7 +1765,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div style="display:flex;justify-content:center;margin-bottom:2px">
         <div>
           <p class="mono small" style="margin:0 0 2px;font-weight:700;color:var(--ink)">y</p>
-          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>y</sub>(&middot;)</th><th>p<sub>y</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-y"><tr><td>z</td><td class="mono">1</td><td class="mono">z</td></tr></tbody></table>
+          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>y</sub>(&middot;)</th><th>p<sub>y</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-y"><tr><td>x</td><td class="mono">2</td><td class="mono">x</td></tr><tr><td>z</td><td class="mono">1</td><td class="mono">z</td></tr></tbody></table>
         </div>
       </div>
       <!-- Graph -->
@@ -1813,7 +1813,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div style="margin-top:2px;max-width:380px;margin-left:auto;margin-right:auto">
         <div style="display:inline-block">
           <p class="mono small accent" style="margin:0 0 2px;font-weight:700">x</p>
-          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(&middot;)</th><th>p<sub>x</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-x"><tr><td>z</td><td class="mono">3</td><td class="mono">y</td></tr></tbody></table>
+          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(&middot;)</th><th>p<sub>x</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-x"><tr><td>y</td><td class="mono">2</td><td class="mono">y</td></tr><tr><td>z</td><td class="mono">3</td><td class="mono">y</td></tr></tbody></table>
         </div>
       </div>
     </div>
@@ -3096,12 +3096,12 @@ function updateCountInfSlide(){
   var s=document.getElementById('ctinf-slide');if(!s)return;
   var n=fragCount(s);
   function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
-  setOp('ctinf-fail',n>=1?1:0);
+  setOp('ctinf-fail',n>=2?1:0);
   var yzLine=document.getElementById('ctinf-yz');
   var yzCost=document.getElementById('ctinf-yzcost');
-  if(yzLine)yzLine.setAttribute('opacity',n>=1?'0.15':'1');
-  if(yzCost)yzCost.setAttribute('opacity',n>=1?'0.15':'1');
-  setOp('ctinf-x-to-y',(n>=2&&n<=3)?1:0);
+  if(yzLine)yzLine.setAttribute('opacity',n>=2?'0.15':'1');
+  if(yzCost)yzCost.setAttribute('opacity',n>=2?'0.15':'1');
+  setOp('ctinf-x-to-y',n===3?1:0);
   setOp('ctinf-y-to-x',n===4?1:0);
   setOp('ctinf-x-to-y-2',n===5?1:0);
   var xzLine=document.getElementById('ctinf-xz');
@@ -3116,28 +3116,37 @@ function updateCountInfSlide(){
     if(card1)card1.style.display='';
     if(card1)card1.style.borderLeftColor='var(--bad)';
     if(c1){
-      if(n===1) c1.innerHTML='Suppose x has just computed d<sub>x</sub>(z) = 3 (via y) and broadcast its distance vector. At the same moment, the y–z link fails. x’s update reaches y <em>before</em> y’s failure notification reaches x — a <b style="color:var(--bad)">message-ordering race</b>.';
-      else if(n===2) c1.innerHTML='<b style="font-size:14px;color:var(--bad);text-transform:uppercase;letter-spacing:1px">⚠ Race condition</b><div style="margin-top:8px;font-size:16px"><b>Before y can tell x</b> about the failure, x sends its update. x still believes d<sub>x</sub>(z) = 3 and propagates this <b style="color:var(--bad)">stale</b> distance vector to y.</div>';
-      else if(n===3) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">y performs relaxation</b><div style="margin:8px 0;padding:10px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 3 = <b>5</b><br>direct to z: <b>∞</b></div><div>5 &lt; ∞ → update: <b style="color:var(--bad)">d<sub>y</sub>(z) = 5, p<sub>y</sub>(z) = x</b></div><div style="margin-top:10px;font-size:15px">y honestly follows the protocol. Due to the <b style="color:var(--bad)">race condition</b>, the failure never reached x and the good news is <b>superseded</b> by the stale value: <b style="color:var(--bad)">d<sub>y</sub>(z) = 5</b>.</div>';
+      if(n===1) c1.innerHTML='These are the <b>converged</b> forwarding tables, reached by running the protocol to completion. x reaches z through y at cost 3; y reaches z directly at cost 1.<div style="margin-top:10px;font-size:15px;color:var(--muted)">Nothing is in flight, nothing has been lost, and every router agrees.</div>';
+      else if(n===2) c1.innerHTML='The <b style="color:var(--bad)">y–z link fails</b>.<div style="margin-top:8px">y sees c(y,z) = ∞ and has to recompute its own route to z, using the last distance vector it heard from each neighbour.</div>';
+      else if(n===3) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">y recomputes</b><div style="margin:8px 0;padding:10px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 3 = <b>5</b><br>direct to z: <b>∞</b></div><div>5 &lt; ∞ → <b style="color:var(--bad)">d<sub>y</sub>(z) = 5, p<sub>y</sub>(z) = x</b></div><div style="margin-top:12px;padding:10px 14px;border-left:3px solid var(--bad);font-size:15.5px">x’s cost of 3 was measured <b>through y</b>. A distance vector carries only <b>distances, never paths</b>, so y cannot see that the route it just adopted comes straight back to itself.</div>';
       else if(n===4) c1.innerHTML='<b style="font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">x receives d<sub>y</sub>(z) = 5 from y</b><div style="margin:8px 0;font-size:16px">Recall the <b>forced-accept rule</b>: y is x’s current next-hop to z, so x <b>must accept</b> this update unconditionally:</div><div style="padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>x</sub>(z) = c(x,y) + d<sub>y</sub>(z) = 2 + 5 = <b>7</b></div><div style="margin-top:8px;font-size:16px">x then checks: could a direct link to z do better?<br>Direct to z: <b>50</b>. Since 50 &gt; 7, no improvement.</div><div style="margin-top:6px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7, p<sub>x</sub>(z) = y</b></div>';
       else if(n===5) c1.innerHTML='x advertises its updated distance vector to y:<div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px"><b style="color:var(--bad)">d<sub>x</sub>(z) = 7</b></div><div style="margin-top:8px">x is y’s current next-hop to z, so y must accept (<b>forced-accept rule</b>):</div><div style="margin:6px 0;padding:8px 14px;background:rgba(224,120,80,0.08);border-radius:6px;font-size:16px">d<sub>y</sub>(z) = c(y,x) + d<sub>x</sub>(z) = 2 + 7 = <b>9</b></div><div style="margin-top:4px"><b style="color:var(--bad)">d<sub>y</sub>(z) = 9, p<sub>y</sub>(z) = x</b></div>';
       else if(n===6) c1.innerHTML='The loop continues: y propagates 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …<div style="margin-top:14px;padding:12px 16px;border:2px solid var(--accent);border-radius:6px;font-size:18px;color:var(--accent)"><b>Will this loop continue forever?</b></div>';
       else if(n===7) c1.innerHTML='<b>No</b> — the direct x–z link costs <b>50</b>. Once the bouncing costs exceed 50, both routers switch to the direct route and converge.<div style="margin-top:6px;font-size:16px;color:var(--muted)">Costs bounce: 5, 7, 9, 11, … → 50 (~22 rounds).</div>';
-      else if(n===8) c1.innerHTML='But what if there were <b>no direct link</b> between x and z?<div style="margin-top:10px">The costs would never stop growing — they would count all the way to <b>∞</b>.</div><div style="margin-top:10px">This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a race condition causes stale information to poison the network, and failures can take <b>forever</b> to propagate.</div><div style="margin-top:10px;font-size:17px;color:var(--accent)">How do we address this?</div>';
+      else if(n===8) c1.innerHTML='But what if there were <b>no direct link</b> between x and z?<div style="margin-top:10px">The costs would never stop growing — they would count all the way to <b>∞</b>.</div><div style="margin-top:10px">This is the <b style="color:var(--bad)">count-to-infinity problem</b>. It needs no lost message and no unlucky timing: because a distance vector reports distances and not paths, a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.</div><div style="margin-top:10px;font-size:17px;color:var(--accent)">How do we address this?</div>';
     }
   } else {
     if(card1)card1.style.display='none';
   }
   var tbx=document.getElementById('ctinf-tbody-x');
   var tby=document.getElementById('ctinf-tbody-y');
+  // Both destinations are shown, not just z. The y and x rows never move,
+  // which is the point: it makes visible that only the z entries are churning.
+  var hot=' style="color:var(--bad);font-weight:700"';
+  var row=function(dest,cost,hop,style){
+    return '<tr'+(style||'')+'><td>'+dest+'</td><td class="mono">'+cost+
+           '</td><td class="mono">'+hop+'</td></tr>';
+  };
+
   var xzC='3',xzP='y',xzS='';
-  if(n>=4){xzC='7';xzP='y';xzS=' style="color:var(--bad);font-weight:700"';}
-  if(tbx)tbx.innerHTML='<tr'+xzS+'><td>z</td><td class="mono">'+xzC+'</td><td class="mono">'+xzP+'</td></tr>';
+  if(n>=4){xzC='7';xzP='y';xzS=hot;}
+  if(tbx)tbx.innerHTML=row('y','2','y')+row('z',xzC,xzP,xzS);
+
   var yzC='1',yzH='z',yzS='';
-  if(n>=1&&n<=2){yzC='∞';yzH='nil';yzS=' style="color:var(--bad);font-weight:700"';}
-  else if(n>=3&&n<=4){yzC='5';yzH='x';yzS=' style="color:var(--bad);font-weight:700"';}
-  else if(n>=5){yzC='9';yzH='x';yzS=' style="color:var(--bad);font-weight:700"';}
-  if(tby)tby.innerHTML='<tr'+yzS+'><td>z</td><td class="mono">'+yzC+'</td><td class="mono">'+yzH+'</td></tr>';
+  if(n===2){yzC='∞';yzH='nil';yzS=hot;}
+  else if(n>=3&&n<=4){yzC='5';yzH='x';yzS=hot;}
+  else if(n>=5){yzC='9';yzH='x';yzS=hot;}
+  if(tby)tby.innerHTML=row('x','2','x')+row('z',yzC,yzH,yzS);
 }
 
 
