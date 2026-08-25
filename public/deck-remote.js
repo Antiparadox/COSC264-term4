@@ -31,6 +31,7 @@
   let retryTimer = null;
   let wakeLock = null;
   let wantOpen = false;     // has the user actually started a session?
+  let capWords = [];        // trailing window of finalised caption words
 
   /* ---------- drive the deck ---------- */
 
@@ -78,6 +79,11 @@
       <p id="rc-status">Connecting…</p>
     </div>`;
 
+  const capBand = el('div', { id: 'rc-cap' });
+  capBand.innerHTML =
+    '<span id="rc-cap-cc">CC</span>' +
+    '<span id="rc-cap-final"></span> <span id="rc-cap-interim"></span>';
+
   const pill = el('button', {
     id: 'b-remote',
     className: 'hud-button',
@@ -108,8 +114,33 @@
       letter-spacing:.18em;color:var(--accent,#0f8f83);margin:10px 0 14px;
       text-indent:.18em}
     #rc-status{margin:0;font-size:14px;color:var(--faint,#84939d)}
+    /* Caption band. Sized for the back of a lecture theatre and painted on
+       its own dark ground so it stays legible over any slide, in either
+       deck theme. Two lines maximum; older text is trimmed away in JS
+       rather than scrolled, so the newest words are always the visible ones. */
+    #rc-cap{position:fixed;left:0;right:0;bottom:0;z-index:800;display:none;
+      background:rgba(8,14,18,.9);color:#fff;text-align:center;
+      font-family:var(--sans,system-ui,sans-serif);
+      font-size:clamp(21px,2.5vw,33px);line-height:1.34;
+      padding:16px 5vw;padding-bottom:calc(16px + env(safe-area-inset-bottom));
+      text-wrap:balance}
+    #rc-cap.on{display:block}
+    #rc-cap-interim{color:#9fb4bd}
+    #rc-cap-cc{position:absolute;left:14px;top:10px;font-family:var(--mono,monospace);
+      font-size:11px;letter-spacing:.14em;color:#5f7681;border:1px solid #35505c;
+      border-radius:4px;padding:1px 5px}
+    /* the deck's own footer furniture would sit underneath the band */
+    body.rc-captioning #counter,body.rc-captioning #seclabel,
+    body.rc-captioning #section-label{display:none}
     @media (max-width:600px){#rc-card{min-width:0;width:86vw;padding:26px 22px 22px}
       #rc-code{font-size:42px}}`;
+
+  function setCap(final, interim) {
+    const f = document.getElementById('rc-cap-final');
+    const i = document.getElementById('rc-cap-interim');
+    if (f) f.textContent = final;
+    if (i) i.textContent = interim;
+  }
 
   function paint(text, live) {
     const s = document.getElementById('rc-status');
@@ -169,6 +200,31 @@
         return;
       }
 
+      if (m.type === 'captions') {
+        capBand.classList.toggle('on', m.on);
+        document.body.classList.toggle('rc-captioning', m.on);
+        if (!m.on) { capWords = []; setCap('', ''); }
+        return;
+      }
+
+      if (m.type === 'caption') {
+        // Corrected here rather than on the phone: this is the machine doing
+        // the projecting, so it guarantees what goes on screen regardless of
+        // what reached it, and the table can be updated without the phone
+        // reloading anything.
+        const text = window.fixCaption ? window.fixCaption(String(m.text)) : String(m.text);
+        if (m.final) {
+          capWords = capWords.concat(text.split(/\s+/).filter(Boolean));
+          // Keep only what can fit two lines; the newest words are the
+          // point, and an unbounded string would grow all lecture.
+          if (capWords.length > 26) capWords = capWords.slice(-26);
+          setCap(capWords.join(' '), '');
+        } else {
+          setCap(capWords.join(' '), text);
+        }
+        return;
+      }
+
       if (m.type === 'cmd') {
         // Absolute sequence guard: a duplicated or delayed tap cannot
         // advance the deck twice.
@@ -225,6 +281,7 @@
     if (!hud) return;                       // unknown deck shell: do nothing
     document.head.appendChild(style);
     document.body.appendChild(panel);
+    document.body.appendChild(capBand);
     hud.appendChild(pill);
 
     const url = document.getElementById('rc-url');

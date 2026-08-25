@@ -59,6 +59,10 @@
   #dot.live{background:var(--accent)}
   #bar button{background:none;border:0;color:var(--faint);font:inherit;
     text-decoration:underline;cursor:pointer;padding:4px}
+  #cc{text-decoration:none;border:1px solid var(--line);border-radius:7px;
+    padding:5px 9px;margin-right:8px}
+  #cc.on{color:var(--accent);border-color:var(--accent)}
+  #cc:disabled{opacity:.4}
 
   #buttons{flex:1;display:grid;grid-template-rows:1fr 2fr;gap:12px;padding:0 12px 12px}
   .key{
@@ -91,7 +95,8 @@
   <section id="pad">
     <div id="bar">
       <span><span id="dot"></span><span id="state">connecting</span></span>
-      <button id="leave">disconnect</button>
+      <span><button id="cc">captions off</button>
+      <button id="leave">disconnect</button></span>
     </div>
     <div id="buttons">
       <button class="key" id="prev"><span class="glyph">↑</span><span class="label">Back</span></button>
@@ -161,6 +166,68 @@
     setTimeout(() => { btn.style.transform = ''; }, 70);
   }
 
+  /* ---------- live captions ----------
+   *
+   * Speech is recognised by the phone's own browser and only the resulting
+   * TEXT is sent. No audio ever reaches the server.
+   */
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let rec = null, capOn = false, capWake = null;
+
+  function sendCaption(text, final) {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    // Sent raw. The deck owns terminology correction, since the deck is what
+    // ends up on the projector.
+    ws.send(JSON.stringify({ type: 'caption', text: trimmed, final }));
+  }
+
+  function startCaptions() {
+    if (!SR) return;
+    rec = new SR();
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.lang = 'en-NZ';
+    rec.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const chunk = e.results[i][0].transcript;
+        if (e.results[i].isFinal) sendCaption(chunk, true);
+        else interim += chunk;
+      }
+      if (interim) sendCaption(interim, false);
+    };
+    // The probe ran 3m45s unbroken on iOS, but if recognition ever does stop
+    // itself mid-lecture this quietly puts it back rather than going silent.
+    rec.onend = () => { if (capOn) { try { rec.start(); } catch {} } };
+    rec.onerror = e => {
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        setCaptions(false, 'mic blocked');
+      }
+    };
+    try { rec.start(); } catch {}
+    try { if ('wakeLock' in navigator) navigator.wakeLock.request('screen').then(l => capWake = l); } catch {}
+  }
+
+  function stopCaptions() {
+    capOn = false;
+    try { rec && rec.stop(); } catch {}
+    rec = null;
+    try { capWake && capWake.release(); } catch {}
+    capWake = null;
+  }
+
+  function setCaptions(on, note) {
+    capOn = on;
+    $('cc').classList.toggle('on', on);
+    $('cc').textContent = note || (on ? 'captions on' : 'captions off');
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: 'captions', on }));
+    }
+    if (on) startCaptions(); else stopCaptions();
+  }
+
   /* ---------- views ---------- */
   function showPad() { $('pair').style.display = 'none'; $('pad').classList.add('on'); }
   function showPair(message) {
@@ -190,11 +257,15 @@
   });
 
   $('leave').addEventListener('click', () => {
+    if (capOn) setCaptions(false);
     quit = true;
     try { ws && ws.close(); } catch {}
     try { localStorage.removeItem(STORE); } catch {}
     showPair();
   });
+
+  $('cc').addEventListener('click', () => setCaptions(!capOn));
+  if (!SR) { $('cc').disabled = true; $('cc').textContent = 'no captions'; }
 
   $('next').addEventListener('click', e => press('next', e.currentTarget));
   $('prev').addEventListener('click', e => press('prev', e.currentTarget));

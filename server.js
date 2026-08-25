@@ -132,12 +132,20 @@ wss.on('connection', (ws) => {
       return;
     }
 
-    // --- the only command that matters -------------------------------
-    if (msg.type === 'cmd' && ws.role === 'remote') {
-      const session = sessions.get(ws.code);
-      if (!session) return;
+    // --- phone -> deck ------------------------------------------------
+    if (ws.role !== 'remote') return;
+    const session = sessions.get(ws.code);
+    if (!session) return;
+
+    if (msg.type === 'cmd') {
       // Forwarded verbatim, seq included. The deck decides whether to act.
       send(session.presenter, { type: 'cmd', cmd: msg.cmd, seq: msg.seq });
+    } else if (msg.type === 'caption') {
+      // Speech is recognised on the phone; only text crosses this server.
+      // No audio is ever received, buffered or stored here.
+      send(session.presenter, { type: 'caption', text: String(msg.text ?? ''), final: !!msg.final });
+    } else if (msg.type === 'captions') {
+      send(session.presenter, { type: 'captions', on: !!msg.on });
     }
   });
 
