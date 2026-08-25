@@ -1844,6 +1844,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
 <!-- ====== Poison reverse ====== -->
@@ -3111,12 +3112,12 @@ function updateCountInfSlide(){
   if(yzLine)yzLine.setAttribute('opacity',n>=2?'0.15':'1');
   if(yzCost)yzCost.setAttribute('opacity',n>=2?'0.15':'1');
   setOp('ctinf-x-to-y',n===5?1:0);      // the stored d_x(z)=3 y is relaxing against
-  setOp('ctinf-y-to-x',n===7?1:0);      // y broadcasts 5
-  setOp('ctinf-x-to-y-2',n===10?1:0);   // x broadcasts 7
+  setOp('ctinf-y-to-x',n===8?1:0);      // y broadcasts 5
+  setOp('ctinf-x-to-y-2',n===11?1:0);   // x broadcasts 7
   var xzLine=document.getElementById('ctinf-xz');
   var xzCost=document.getElementById('ctinf-xzcost');
-  if(xzLine)xzLine.setAttribute('opacity',n>=14?'0':'1');
-  if(xzCost)xzCost.setAttribute('opacity',n>=14?'0':'1');
+  if(xzLine)xzLine.setAttribute('opacity',n>=15?'0':'1');
+  if(xzCost)xzCost.setAttribute('opacity',n>=15?'0':'1');
   var card1=document.getElementById('ctinf-card1');
   var c1=document.getElementById('ctinf-content1');
   var card2=document.getElementById('ctinf-card2');
@@ -3136,13 +3137,18 @@ function updateCountInfSlide(){
 
   /* Each card builds up across several fragments rather than appearing whole,
      so the class watches one relaxation happen at a time. */
-  var yRecompute = K.head('y recomputes d<sub>y</sub>(z)')
-    + K.line('y relaxes through every neighbour, using the last vector it has stored from each.');
-  var yThroughZ = K.calc('through z: c(y,z) + d<sub>z</sub>(z) = ∞ + 0 = <b>∞</b>')
-    + K.line('No better than what y already has. Nothing changes.');
-  var yThroughX = K.calc('through x: c(y,x) + d<sub>x</sub>(z) = 2 + <b>3</b> = <b>5</b>')
-    + K.line('d<sub>x</sub>(z) = 3 is simply looked up — it is the vector x advertised earlier, stored at y.')
+  var yRecompute = K.head('y recomputes d<sub>y</sub>(z)');
+  var yForcedZ = K.line('The pseudocode looks at y’s <b>current next hop</b> first: q = p<sub>y</sub>(z) = z.')
+    + K.calc('c(y,z) + d<sub>z</sub>(z) = ∞ + 0 = <b>∞</b>,&nbsp; which is <b>&gt;</b> d<sub>y</sub>(z) = 1')
+    + K.line('The <b>forced-accept</b> rule fires. y’s route runs through z, so y must take z’s cost even though it is far worse.')
+    + K.res('d<sub>y</sub>(z) = ∞')
+    + K.line('Only the distance is assigned here — p<sub>y</sub>(z) is still z.');
+  var yThroughX = K.line('Now the relaxation loop runs over every neighbour.')
+    + K.calc('through x: c(y,x) + d<sub>x</sub>(z) = 2 + <b>3</b> = <b>5</b>')
+    + K.line('d<sub>x</sub>(z) = 3 is simply looked up — the vector x advertised earlier, stored at y.')
     + K.res('5 &lt; ∞ → d<sub>y</sub>(z) = 5, p<sub>y</sub>(z) = x');
+  var yThroughZ = K.calc('through z: c(y,z) + d<sub>z</sub>(z) = <b>∞</b>')
+    + K.line('Not better than 5, so nothing more changes. The pass is done.');
 
   var xBroadcast = K.head('y’s vector changed, so y broadcasts it')
     + K.line('The protocol sends the vector to all neighbours whenever an entry changes. x is y’s neighbour, so x receives d<sub>y</sub>(z) = 5.');
@@ -3164,23 +3170,25 @@ function updateCountInfSlide(){
   STEP[1] = 'The <b>converged</b> tables from the previous slide, after the protocol has run to completion.';
   STEP[2] = K.head('the y–z link fails') + K.line('c(y,z) becomes <b>∞</b>.');
   STEP[3] = K.head('this triggers relaxation') + K.line('The protocol reruns whenever a vector arrives <b>or a link cost changes</b>. y’s own link just changed, so y redoes its relaxation for z through every neighbour.');
-  STEP[4] = yRecompute + yThroughZ;
-  STEP[5] = yRecompute + yThroughZ + yThroughX;
-  STEP[6] = yRecompute + yThroughZ + yThroughX + K.note('y has no idea it just created a <b>loop</b>. x’s route to z runs through y itself, and y cannot see that.');
+  STEP[4] = yRecompute + yForcedZ;
+  STEP[5] = yRecompute + yForcedZ + yThroughX;
+  STEP[6] = yRecompute + yForcedZ + yThroughX + yThroughZ;
+  STEP[8] = yRecompute + yForcedZ + yThroughX + yThroughZ
+    + K.note('y has no idea it just created a <b>loop</b>. x’s route to z runs through y itself, and y cannot see that.');
   STEP[7]  = xBroadcast;
   STEP[8]  = xBroadcast + xForced;
   STEP[9]  = xBroadcast + xForced + xThroughZ;
-  STEP[10] = yBroadcast;
-  STEP[11] = yBroadcast + yForced;
-  STEP[12] = yBroadcast + yForced + yThroughZ2;
-  STEP[13] = K.head('the loop keeps going') + K.line('y sends 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …')
+  STEP[11] = yBroadcast;
+  STEP[12] = yBroadcast + yForced;
+  STEP[13] = yBroadcast + yForced + yThroughZ2;
+  STEP[14] = K.head('the loop keeps going') + K.line('y sends 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …')
     + K.line('The climb only stops when going via the other router costs more than the <b>direct x–z link of 50</b>.')
     + K.ok('x switches to the direct link at <b>d<sub>x</sub>(z) = 50</b>, and y follows at <b>d<sub>y</sub>(z) = 52</b>. The network is stable again.');
-  STEP[14] = 'But what if there were <b>no direct link</b> between x and z?';
-  STEP[15] = 'But what if there were <b>no direct link</b> between x and z?' + K.line('The costs would never stop growing — they would count all the way to <b>∞</b>.');
-  STEP[16] = 'But what if there were <b>no direct link</b> between x and z?' + K.line('The costs would never stop growing — they would count all the way to <b>∞</b>.')
+  STEP[15] = 'But what if there were <b>no direct link</b> between x and z?';
+  STEP[16] = 'But what if there were <b>no direct link</b> between x and z?' + K.line('The costs would never stop growing — they would count all the way to <b>∞</b>.');
+  STEP[17] = 'But what if there were <b>no direct link</b> between x and z?' + K.line('The costs would never stop growing — they would count all the way to <b>∞</b>.')
     + K.note('This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.');
-  STEP[17] = STEP[16] + '<div style="margin-top:11px;font-size:17px;color:var(--accent)">How do we address this?</div>';
+  STEP[18] = STEP[17] + '<div style="margin-top:11px;font-size:17px;color:var(--accent)">How do we address this?</div>';
       if(STEP[n]) c1.innerHTML=STEP[n];
     }
   } else {
@@ -3198,17 +3206,21 @@ function updateCountInfSlide(){
 
   var good=' style="color:var(--current);font-weight:700"';
   var xzC='3',xzP='y',xzS='';
-  if(n>=8&&n<=12){xzC='7';xzP='y';xzS=hot;}
-  else if(n===13){xzC='50';xzP='z';xzS=good;}          // settles on the direct link
-  else if(n>=14){xzC='…';xzP='y';xzS=hot;}             // no direct link: unbounded
+  if(n>=10&&n<=13){xzC='7';xzP='y';xzS=hot;}
+  else if(n===14){xzC='50';xzP='z';xzS=good;}          // settles on the direct link
+  else if(n>=15){xzC='…';xzP='y';xzS=hot;}             // no direct link: unbounded
   if(tbx)tbx.innerHTML=row('y','2','y')+row('z',xzC,xzP,xzS);
 
+  // The failure alone changes nothing: y's table only moves once y actually
+  // runs a relaxation pass. The infinity at step 4 is the forced accept, and
+  // the next hop is still z at that point -- line 11 assigns only the
+  // distance, so p_y(z) does not become x until the relax loop at line 15.
   var yzC='1',yzH='z',yzS='';
-  if(n>=2&&n<=4){yzC='∞';yzH='nil';yzS=hot;}
-  else if(n>=5&&n<=10){yzC='5';yzH='x';yzS=hot;}
-  else if(n>=11&&n<=12){yzC='9';yzH='x';yzS=hot;}
-  else if(n===13){yzC='52';yzH='x';yzS=good;}
-  else if(n>=14){yzC='…';yzH='x';yzS=hot;}
+  if(n===4){yzC='∞';yzH='z';yzS=hot;}
+  else if(n>=5&&n<=11){yzC='5';yzH='x';yzS=hot;}
+  else if(n>=12&&n<=13){yzC='9';yzH='x';yzS=hot;}
+  else if(n===14){yzC='52';yzH='x';yzS=good;}
+  else if(n>=15){yzC='…';yzH='x';yzS=hot;}
   if(tby)tby.innerHTML=row('x','2','x')+row('z',yzC,yzH,yzS);
 }
 
