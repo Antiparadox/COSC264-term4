@@ -21,6 +21,7 @@
   const WS_PATH = '/rc';
   const STORE_KEY = 'cosc264-remote-code';
   const HIDE_KEY = 'cosc264-hide-remote';
+  const CAP_WORDS = 24;     // roughly two projected lines
   const RETRY_MIN = 1000;
   const RETRY_MAX = 15000;
 
@@ -84,7 +85,9 @@
   const capBand = el('div', { id: 'rc-cap' });
   capBand.innerHTML =
     '<span id="rc-cap-cc">CC</span>' +
-    '<span id="rc-cap-final"></span> <span id="rc-cap-interim"></span>';
+    '<div id="rc-cap-clip"><div id="rc-cap-text">' +
+    '<span id="rc-cap-final"></span> <span id="rc-cap-interim"></span>' +
+    '</div></div>';
 
   const pill = el('button', {
     id: 'b-remote',
@@ -123,9 +126,15 @@
     #rc-cap{position:fixed;left:0;right:0;bottom:0;z-index:800;display:none;
       background:rgba(8,14,18,.9);color:#fff;text-align:center;
       font-family:var(--sans,system-ui,sans-serif);
-      font-size:clamp(21px,2.5vw,33px);line-height:1.34;
-      padding:16px 5vw;padding-bottom:calc(16px + env(safe-area-inset-bottom));
+      font-size:clamp(20px,2.3vw,31px);line-height:1.34;
+      padding:14px 5vw;padding-bottom:calc(14px + env(safe-area-inset-bottom));
       text-wrap:balance}
+    /* Exactly two lines, always. The text is pinned to the BOTTOM of the
+       window so anything over-long spills off the top and the newest words
+       stay on screen -- the opposite of normal overflow, and the only
+       behaviour that makes sense for live speech. */
+    #rc-cap-clip{height:2.68em;overflow:hidden;position:relative}
+    #rc-cap-text{position:absolute;left:0;right:0;bottom:0}
     #rc-cap.on{display:block}
     #rc-cap-interim{color:#9fb4bd}
     #rc-cap-cc{position:absolute;left:14px;top:10px;font-family:var(--mono,monospace);
@@ -234,12 +243,17 @@
         const text = window.fixCaption ? window.fixCaption(String(m.text)) : String(m.text);
         if (m.final) {
           capWords = capWords.concat(text.split(/\s+/).filter(Boolean));
-          // Keep only what can fit two lines; the newest words are the
-          // point, and an unbounded string would grow all lecture.
-          if (capWords.length > 26) capWords = capWords.slice(-26);
+          if (capWords.length > CAP_WORDS) capWords = capWords.slice(-CAP_WORDS);
           setCap(capWords.join(' '), '');
         } else {
-          setCap(capWords.join(' '), text);
+          // iOS can hold a very long interim result before finalising it, so
+          // the two have to share one budget. Trimming only the final text
+          // let the interim grow without limit and swallow the slide.
+          const iw = text.split(/\s+/).filter(Boolean);
+          const room = Math.max(0, CAP_WORDS - iw.length);
+          // slice(-0) is slice(0), which returns the whole array rather
+          // than none, so the zero case has to be handled explicitly.
+          setCap(room ? capWords.slice(-room).join(' ') : '', iw.slice(-CAP_WORDS).join(' '));
         }
         return;
       }
