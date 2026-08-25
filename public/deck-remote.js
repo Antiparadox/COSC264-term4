@@ -20,7 +20,7 @@
 
   const WS_PATH = '/rc';
   const STORE_KEY = 'cosc264-remote-code';
-  const PRESENT_KEY = 'cosc264-presenter';
+  const HIDE_KEY = 'cosc264-hide-remote';
   const RETRY_MIN = 1000;
   const RETRY_MAX = 15000;
 
@@ -267,35 +267,35 @@
 
   /* ---------- mount ---------- */
 
-  /* ---------- presenter mode ----------
+  /* ---------- who sees the remote ----------
    *
-   * Students should never see the remote control: it is clutter on a page
-   * they are reading, and an invitation to poke at something irrelevant to
-   * them. So the pill only exists on a device that has opted in.
+   * Shown by default. Gating it behind an opt-in flag meant that any device
+   * which lost its localStorage -- Private Browsing, cleared storage, a
+   * different browser -- silently got no remote and no captions at all, with
+   * nothing on screen to say why. A visible control that students ignore is
+   * better than an invisible one that strands the presenter.
    *
-   * This is NOT a security boundary and is not meant to be one. A student
-   * who found the flag could only ever open a session for their own screen,
-   * because driving a deck requires that deck's own 4-character code. The
-   * code is the protection; this is just tidiness.
+   * Students seeing it costs nothing: pressing it opens a session for their
+   * own screen only. Driving a deck needs that deck's 4-character code.
    *
-   *   ?present    turn this device into a presenter (remembered afterwards)
-   *   ?present=0  turn it back off
+   *   ?present=0  hide it on this device (remembered)
+   *   ?present    show it again
    */
-  function presenterMode() {
+  function remoteVisible() {
     let q;
-    try { q = new URLSearchParams(location.search); } catch { return false; }
+    try { q = new URLSearchParams(location.search); } catch { return true; }
     if (q.has('present')) {
-      const on = q.get('present') !== '0';
-      // Remembered per-device and per-origin, so you set it once on the iPad
-      // and every week's deck has it from then on.
-      try { on ? localStorage.setItem(PRESENT_KEY, '1') : localStorage.removeItem(PRESENT_KEY); } catch {}
-      return on;
+      const show = q.get('present') !== '0';
+      try {
+        show ? localStorage.removeItem(HIDE_KEY) : localStorage.setItem(HIDE_KEY, '1');
+      } catch {}
+      return show;
     }
-    try { return localStorage.getItem(PRESENT_KEY) === '1'; } catch { return false; }
+    try { return localStorage.getItem(HIDE_KEY) !== '1'; } catch { return true; }
   }
 
   function mount() {
-    if (!presenterMode()) return;           // student device: no pill, no socket
+    if (!remoteVisible()) return;           // explicitly hidden on this device
     const hud = document.getElementById('hud');
     if (!hud) return;                       // unknown deck shell: do nothing
     document.head.appendChild(style);
