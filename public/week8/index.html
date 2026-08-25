@@ -3042,12 +3042,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="rip-count-recap" aria-label="Three-sentence recap of count to infinity">
     <div class="frag rip-count-sentence">
       <span class="rip-count-index">1</span>
-      <span>A router or link fails, but neighbouring routers still advertise their <b>old routes</b>
-      to one another.</span>
+      <span>A link fails, or its cost rises. Each router recomputes using the last distance
+      vector it heard from every neighbour.</span>
     </div>
     <div class="frag rip-count-sentence">
       <span class="rip-count-index">2</span>
-      <span>They do not realise that those routes point through one another, so they create a
+      <span>A distance vector reports <b>distances, not paths</b>, so a router cannot tell that
+      the route it just adopted runs back through itself. The two ends point at each other &mdash; a
       <b>routing loop</b>.</span>
     </div>
     <div class="frag rip-count-sentence">

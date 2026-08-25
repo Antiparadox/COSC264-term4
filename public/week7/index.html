@@ -1800,6 +1800,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <rect x="56" y="46" width="76" height="20" rx="4" fill="var(--surface)" stroke="#e07850" stroke-width="1"/>
           <text x="94" y="60" text-anchor="middle" font-size="11" font-weight="600" fill="#e07850">d<tspan baseline-shift="sub" font-size="8">x</tspan>(z) = 7</text>
         </g>
+        <!-- the routing loop itself: x forwards to y, y forwards back to x -->
+        <g id="ctinf-loop" opacity="0">
+          <path d="M75,91 L133,51" stroke="var(--bad)" stroke-width="2.4" fill="none"
+                marker-end="url(#ctinfloop)"/>
+          <path d="M125,39 L67,79" stroke="var(--bad)" stroke-width="2.4" fill="none"
+                marker-end="url(#ctinfloop)"/>
+          <text x="112" y="92" font-size="12" font-weight="700" fill="var(--bad)">loop</text>
+        </g>
         <!-- Nodes -->
         <circle cx="50" cy="100" r="24" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
         <text x="50" y="106" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">x</text>
@@ -1807,7 +1815,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <text x="150" y="36" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">y</text>
         <circle cx="250" cy="100" r="24" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
         <text x="250" y="106" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">z</text>
-        <defs><marker id="ctinfarr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="#e07850"/></marker></defs>
+        <defs><marker id="ctinfarr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="#e07850"/></marker><marker id="ctinfloop" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="var(--bad)"/></marker></defs>
       </svg>
       <!-- x's table (below graph, left-aligned near x node) -->
       <div style="margin-top:2px;max-width:380px;margin-left:auto;margin-right:auto">
@@ -1827,6 +1835,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
   <!-- 8 hidden fragment triggers (n=1..8) -->
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
@@ -3115,10 +3124,11 @@ function updateCountInfSlide(){
   setOp('ctinf-x-to-y',n===7?1:0);      // the stored d_x(z)=3 y is relaxing against
   setOp('ctinf-y-to-x',n===9?1:0);      // y broadcasts 5
   setOp('ctinf-x-to-y-2',n===12?1:0);   // x broadcasts 7
+  setOp('ctinf-loop',n===8?1:0);        // both ends now point at each other
   var xzLine=document.getElementById('ctinf-xz');
   var xzCost=document.getElementById('ctinf-xzcost');
-  if(xzLine)xzLine.setAttribute('opacity',n>=16?'0':'1');
-  if(xzCost)xzCost.setAttribute('opacity',n>=16?'0':'1');
+  if(xzLine)xzLine.setAttribute('opacity',n>=17?'0':'1');
+  if(xzCost)xzCost.setAttribute('opacity',n>=17?'0':'1');
   var card1=document.getElementById('ctinf-card1');
   var c1=document.getElementById('ctinf-content1');
   var card2=document.getElementById('ctinf-card2');
@@ -3170,7 +3180,8 @@ function updateCountInfSlide(){
     + K.line('The protocol sends the vector to all neighbours whenever an entry changes. x is y’s neighbour, so x receives d<sub>y</sub>(z) = 5.');
   var xForced = K.line('A vector arriving <b>triggers relaxation at x</b>. y is x’s current next hop to z, so x must <b>forced-accept</b> it, worse or not:')
     + K.calc('d<sub>x</sub>(z) = c(x,y) + d<sub>y</sub>(z) = 2 + 5 = <b>7</b>');
-  var xThroughZ = K.calc('through z: c(x,z) + d<sub>z</sub>(z) = 50 + 0 = <b>50</b>')
+  var xThroughZ = K.line('x then runs the <b>relaxation loop</b> over its neighbours.')
+    + K.calc('through z: c(x,z) + d<sub>z</sub>(z) = 50 + 0 = <b>50</b>')
     + K.line('50 is not better than 7, so the direct link does not win.')
     + K.res('d<sub>x</sub>(z) = 7, p<sub>x</sub>(z) = y');
 
@@ -3178,7 +3189,8 @@ function updateCountInfSlide(){
     + K.line('y receives d<sub>x</sub>(z) = 7, which <b>triggers relaxation at y</b>.');
   var yForced = K.line('x is now y’s current next hop to z, so y must <b>forced-accept</b> in turn:')
     + K.calc('d<sub>y</sub>(z) = c(y,x) + d<sub>x</sub>(z) = 2 + 7 = <b>9</b>');
-  var yThroughZ2 = K.calc('through z: c(y,z) + d<sub>z</sub>(z) = ∞ + 0 = <b>∞</b>')
+  var yThroughZ2 = K.line('y then runs the <b>relaxation loop</b> over its neighbours.')
+    + K.calc('through z: c(y,z) + d<sub>z</sub>(z) = ∞ + 0 = <b>∞</b>')
     + K.line('Still nothing better.')
     + K.res('d<sub>y</sub>(z) = 9, p<sub>y</sub>(z) = x');
 
@@ -3194,7 +3206,7 @@ function updateCountInfSlide(){
   STEP[6]  = yRelaxHead;
   STEP[7]  = yRelaxHead + yThroughX;
   STEP[8]  = yRelaxHead + yThroughX
-    + K.note('y has no idea it just created a <b>loop</b>. x’s route to z runs through y itself, and y cannot see that.');
+    + K.note('y has no idea it just created a <b>loop</b>. x’s route to z runs through y, and y’s route to z now runs through x, so the two of them will hand the same packet back and forth. Neither can see it: each only ever sees a cost, never the path behind it.');
   STEP[9]  = xBroadcast;
   STEP[10] = xBroadcast + xForced;
   STEP[11] = xBroadcast + xForced + xThroughZ;
@@ -3204,10 +3216,11 @@ function updateCountInfSlide(){
   STEP[15] = K.head('the loop keeps going') + K.line('y sends 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …')
     + K.line('The climb only stops when going via the other router costs more than the <b>direct x–z link of 50</b>.')
     + K.ok('x switches to the direct link at <b>d<sub>x</sub>(z) = 50</b>, and y follows at <b>d<sub>y</sub>(z) = 52</b>. The network is stable again.');
-  STEP[16] = noLink;
-  STEP[17] = noLink2;
-  STEP[18] = noLink2 + K.note('This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.');
-  STEP[19] = STEP[18] + '<div style="margin-top:11px;font-size:17px;color:var(--accent)">How do we address this?</div>';
+  STEP[16] = STEP[15] + K.note('And it is <b>slow</b>. The cost only climbs two at a time, so it takes roughly <b>22 rounds</b> of exchanges before the direct link finally wins. For all of that time x and y are still handing the same packets back and forth.');
+  STEP[17] = noLink;
+  STEP[18] = noLink2;
+  STEP[19] = noLink2 + K.note('This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.');
+  STEP[20] = STEP[19] + '<div style="margin-top:11px;font-size:17px;color:var(--accent)">How do we address this?</div>';
       if(STEP[n]) c1.innerHTML=STEP[n];
     }
   } else {
@@ -3226,8 +3239,8 @@ function updateCountInfSlide(){
   var good=' style="color:var(--current);font-weight:700"';
   var xzC='3',xzP='y',xzS='';
   if(n>=11&&n<=14){xzC='7';xzP='y';xzS=hot;}
-  else if(n===15){xzC='50';xzP='z';xzS=good;}          // settles on the direct link
-  else if(n>=16){xzC='…';xzP='y';xzS=hot;}             // no direct link: unbounded
+  else if(n>=15&&n<=16){xzC='50';xzP='z';xzS=good;}    // settles on the direct link
+  else if(n>=17){xzC='…';xzP='y';xzS=hot;}             // no direct link: unbounded
   if(tbx)tbx.innerHTML=row('y','2','y')+row('z',xzC,xzP,xzS);
 
   // The failure alone changes nothing: y's table only moves once y actually
@@ -3238,8 +3251,8 @@ function updateCountInfSlide(){
   if(n>=5&&n<=6){yzC='∞';yzH='z';yzS=hot;}
   else if(n>=7&&n<=12){yzC='5';yzH='x';yzS=hot;}
   else if(n>=13&&n<=14){yzC='9';yzH='x';yzS=hot;}
-  else if(n===15){yzC='52';yzH='x';yzS=good;}
-  else if(n>=16){yzC='…';yzH='x';yzS=hot;}
+  else if(n>=15&&n<=16){yzC='52';yzH='x';yzS=good;}
+  else if(n>=17){yzC='…';yzH='x';yzS=hot;}
   if(tby)tby.innerHTML=row('x','2','x')+row('z',yzC,yzH,yzS);
 }
 
