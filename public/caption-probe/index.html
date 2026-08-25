@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Caption probe · COSC264</title>
+<style>
+  :root{
+    --bg:#0d151b; --panel:#141f27; --line:#24333d;
+    --ink:#e6edf2; --muted:#9aabb6; --faint:#6e808c;
+    --accent:#3fb8aa; --warn:#e0a33f; --bad:#e0685a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.5;padding:16px 14px 40px;
+    padding-bottom:calc(40px + env(safe-area-inset-bottom));-webkit-text-size-adjust:100%}
+  h1{font-size:19px;margin:0 0 3px}
+  .sub{color:var(--faint);font-size:14px;margin:0 0 16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;margin-bottom:12px}
+  h2{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);
+    margin:0 0 10px;font-family:var(--mono);font-weight:600}
+  button{font:inherit;font-weight:600;border:0;border-radius:12px;padding:15px;
+    width:100%;cursor:pointer;background:var(--accent);color:#08251f}
+  button.stop{background:var(--bad);color:#2a0d09}
+  button:disabled{opacity:.4}
+  select{font:inherit;background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:9px;padding:9px 10px;width:100%;margin-top:8px}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;
+    border-bottom:1px solid var(--line);font-size:14px}
+  .row:last-child{border-bottom:0}
+  .row span:first-child{color:var(--muted)}
+  .row span:last-child{font-family:var(--mono);text-align:right}
+  .ok{color:var(--accent)} .no{color:var(--bad)} .warn{color:var(--warn)}
+  #live{min-height:110px;font-size:19px;line-height:1.45}
+  #final{color:var(--ink)} #interim{color:var(--faint)}
+  #log{font-family:var(--mono);font-size:12px;color:var(--muted);
+    max-height:190px;overflow:auto;white-space:pre-wrap;margin:0}
+  .terms{display:flex;flex-wrap:wrap;gap:7px}
+  .terms span{background:#0f2a26;color:var(--accent);border:1px solid #1d4b44;
+    border-radius:7px;padding:5px 9px;font-size:14px;font-family:var(--mono)}
+  .note{font-size:13px;color:var(--faint);margin:9px 0 0}
+</style>
+</head>
+<body>
+
+<h1>Live-caption probe</h1>
+<p class="sub">Does speech recognition survive a lecture on this phone?</p>
+
+<div class="card">
+  <h2>Support</h2>
+  <div id="support"></div>
+  <select id="lang">
+    <option value="en-NZ">en-NZ · New Zealand English</option>
+    <option value="en-AU">en-AU · Australian English</option>
+    <option value="en-GB">en-GB · British English</option>
+    <option value="en-US">en-US · US English</option>
+  </select>
+</div>
+
+<div class="card">
+  <button id="go">Start listening</button>
+  <p class="note">Keep this page open and the screen on. Talk normally,
+     then leave it running for a few minutes to see if it survives.</p>
+</div>
+
+<div class="card">
+  <h2>Heard</h2>
+  <div id="live"><span id="final"></span> <span id="interim"></span></div>
+</div>
+
+<div class="card">
+  <h2>Read these aloud</h2>
+  <div class="terms">
+    <span>Bellman-Ford</span><span>distance vector</span><span>Dijkstra</span>
+    <span>iBGP</span><span>eBGP</span><span>autonomous system</span>
+    <span>CIDR</span><span>NAPT</span><span>OSPF</span>
+    <span>count to infinity</span><span>poison reverse</span>
+    <span>Go-Back-N</span><span>selective repeat</span>
+    <span>cyclic redundancy check</span><span>congestion control</span>
+  </div>
+  <p class="note">Compare what appears above. Whatever it mangles becomes an
+     entry in the correction table.</p>
+</div>
+
+<div class="card">
+  <h2>Behaviour</h2>
+  <div class="row"><span>listening for</span><span id="elapsed">–</span></div>
+  <div class="row"><span>longest unbroken run</span><span id="longest">–</span></div>
+  <div class="row"><span>times it stopped itself</span><span id="stops">0</span></div>
+  <div class="row"><span>auto-restarts</span><span id="restarts">0</span></div>
+  <div class="row"><span>last error</span><span id="err">–</span></div>
+  <div class="row"><span>words transcribed</span><span id="words">0</span></div>
+</div>
+
+<div class="card">
+  <h2>Event log</h2>
+  <p id="log">waiting…</p>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  /* ---------- capability report ---------- */
+  const yes = t => `<span class="ok">✓ ${t}</span>`;
+  const no  = t => `<span class="no">✗ ${t}</span>`;
+  const rows = [];
+  rows.push(['SpeechRecognition', SR ? yes(window.SpeechRecognition ? 'standard' : 'webkit-prefixed') : no('missing')]);
+  rows.push(['secure context', isSecureContext ? yes('yes') : no('no — mic blocked')]);
+  rows.push(['wake lock', ('wakeLock' in navigator) ? yes('yes') : `<span class="warn">✗ screen may sleep</span>`]);
+  $('support').innerHTML = rows.map(([k, v]) =>
+    `<div class="row"><span>${k}</span><span>${v}</span></div>`).join('');
+
+  if (!SR) {
+    $('go').disabled = true;
+    $('go').textContent = 'Not supported on this browser';
+    $('log').textContent = 'This browser has no SpeechRecognition. ' +
+      'The caption feature would need server-side transcription instead.';
+    return;
+  }
+
+  /* ---------- state ---------- */
+  let rec = null, running = false, wakeLock = null;
+  let t0 = 0, runStart = 0, longest = 0, stops = 0, restarts = 0, words = 0;
+  let finalText = '';
+
+  const log = msg => {
+    const t = t0 ? ((Date.now() - t0) / 1000).toFixed(1).padStart(6) : '   0.0';
+    $('log').textContent = `${t}s  ${msg}\n` + $('log').textContent;
+  };
+  const fmt = ms => {
+    const s = Math.round(ms / 1000);
+    return s < 60 ? `${s}s` : `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, '0')}s`;
+  };
+
+  setInterval(() => {
+    if (!running) return;
+    $('elapsed').textContent = fmt(Date.now() - t0);
+    const cur = Date.now() - runStart;
+    $('longest').textContent = fmt(Math.max(longest, cur));
+  }, 500);
+
+  /* ---------- recognition ---------- */
+  function build() {
+    const r = new SR();
+    r.continuous = true;        // ask for long-form; iOS may ignore this
+    r.interimResults = true;
+    r.lang = $('lang').value;
+    r.maxAlternatives = 1;
+
+    r.onstart = () => { runStart = Date.now(); log('onstart — listening'); };
+    r.onaudiostart = () => log('onaudiostart — mic live');
+    r.onspeechend = () => log('onspeechend — speech stopped');
+
+    r.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const chunk = e.results[i][0].transcript;
+        if (e.results[i].isFinal) {
+          finalText = (finalText + ' ' + chunk).trim();
+          words = finalText.split(/\s+/).filter(Boolean).length;
+          $('words').textContent = words;
+        } else {
+          interim += chunk;
+        }
+      }
+      // keep the tail so the page doesn't grow unbounded
+      $('final').textContent = finalText.split(/\s+/).slice(-45).join(' ');
+      $('interim').textContent = interim;
+    };
+
+    r.onerror = e => {
+      $('err').textContent = e.error;
+      log(`onerror — ${e.error}`);
+      // 'no-speech' and 'aborted' are routine; the rest are the interesting ones
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        running = false;
+        $('go').textContent = 'Start listening';
+        $('go').classList.remove('stop');
+      }
+    };
+
+    r.onend = () => {
+      const ran = Date.now() - runStart;
+      longest = Math.max(longest, ran);
+      stops++; $('stops').textContent = stops;
+      log(`onend — stopped itself after ${fmt(ran)}`);
+      if (running) {
+        // This restart loop IS the mitigation. If it holds, long-form works.
+        restarts++; $('restarts').textContent = restarts;
+        setTimeout(() => { if (running) { try { r.start(); } catch (err) { log('restart failed: ' + err.message); } } }, 250);
+      }
+    };
+    return r;
+  }
+
+  async function keepAwake() {
+    try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); }
+    catch (e) { log('wake lock refused: ' + e.message); }
+  }
+
+  $('go').addEventListener('click', () => {
+    if (running) {
+      running = false;
+      try { rec.stop(); } catch {}
+      try { wakeLock && wakeLock.release(); } catch {}
+      $('go').textContent = 'Start listening';
+      $('go').classList.remove('stop');
+      log('stopped by you');
+      return;
+    }
+    finalText = ''; words = 0; stops = 0; restarts = 0; longest = 0;
+    $('stops').textContent = 0; $('restarts').textContent = 0;
+    $('words').textContent = 0; $('err').textContent = '–';
+    $('log').textContent = '';
+    t0 = Date.now();
+    running = true;
+    rec = build();
+    keepAwake();
+    try { rec.start(); } catch (e) { log('start failed: ' + e.message); running = false; return; }
+    $('go').textContent = 'Stop';
+    $('go').classList.add('stop');
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    log(`page ${document.visibilityState}`);
+    if (document.visibilityState === 'visible' && running) keepAwake();
+  });
+})();
+</script>
+</body>
+</html>
