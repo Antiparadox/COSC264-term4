@@ -1532,7 +1532,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div id="bf-central" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:flex;flex-direction:column">
 <div id="bfrow1"><span class="dim"> 1</span>  <span class="p">Initialisation:</span></div>
 <div id="bfrow2"><span class="dim"> 2</span>    d<sub>s</sub>(s) = 0  <span class="p">for every node</span> s</div>
-<div id="bfrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every</span> s, <span class="p">every other</span> u</div>
+<div id="bfrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = c(s,u)  <span class="p">if u is a neighbour of s, else</span> &infin;</div>
 <div id="bfrow4"><span class="dim"> 4</span></div>
 <div id="bfrow5"><span class="dim"> 5</span>  <span class="p">repeat:</span></div>
 <div id="bfrow6"><span class="dim"> 6</span>    <span id="bfln6-text" class="p">for each</span> node s:<span id="bfln6-arrow" style="display:none;color:#e07850;font-size:12px;font-style:italic">  &larr; distribute this loop</span></div>
@@ -1547,7 +1547,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div id="bf-distrib" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:none;flex-direction:column">
 <div id="bfdrow1"><span class="dim"> 1</span>  <span class="p">Initialisation (at node s):</span></div>
 <div id="bfdrow2"><span class="dim"> 2</span>    d<sub>s</sub>(s) = 0</div>
-<div id="bfdrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every other node</span> u</div>
+<div id="bfdrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = c(s,u)  <span class="p">if u is a neighbour, else</span> &infin;</div>
 <div id="bfdrow4"><span class="dim"> 4</span></div>
 <div id="bfdrow5"><span class="dim"> 5</span>  <span class="p">repeat:</span></div>
 <div id="bfdrow6"><span class="dim"> 6</span>    <span class="p">for each</span> neighbour w <span class="p">of</span> s:</div>
@@ -1561,7 +1561,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="col" style="flex:1">
       <div id="bf-init" style="display:none">
         <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Initialisation</p>
-        <p style="font-size:18px;margin:0">Every node starts knowing only itself: cost <b>0</b> to itself, <b>&infin;</b> to everyone else.</p>
+        <p style="font-size:18px;margin:0">Every node starts with what it can see for itself: cost <b>0</b> to itself, the <b>link cost</b> to each direct neighbour, and <b>&infin;</b> to everyone it has not heard of yet.</p>
       </div>
       <div id="bf-loop" style="display:none;margin-bottom:14px">
         <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Relax, and repeat</p>
@@ -1616,8 +1616,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div id="dvp-code" class="term" style="font-size:15px;line-height:1.4;min-height:0;overflow:hidden;display:flex;flex-direction:column">
 <div id="dvprow1"><span class="dim lnum"> 1</span>  <span class="p">Initialisation (at node s):</span></div>
 <div id="dvprow2"><span class="dim lnum"> 2</span>    d<sub>s</sub>(s) = 0</div>
-<div id="dvprow3"><span class="dim lnum"> 3</span>    d<sub>s</sub>(u) = &infin;  <span class="p">for every other node</span> u</div>
-<div id="dvprow4"><span class="dim lnum"> 4</span>    p<sub>s</sub>(u) = nil  <span class="p">for every other node</span> u</div>
+<div id="dvprow3"><span class="dim lnum"> 3</span>    d<sub>s</sub>(u) = c(s,u)  <span class="p">if u is a neighbour, else</span> &infin;</div>
+<div id="dvprow4"><span class="dim lnum"> 4</span>    p<sub>s</sub>(u) = u       <span class="p">if u is a neighbour, else</span> nil</div>
 <div id="dvprow5"><span class="dim lnum"> 5</span>    d<sub>w</sub>(u) = &infin;  <span class="p">for every neighbour</span> w, <span class="p">every destination</span> u</div>
 <div id="dvprow5c"><span class="dim lnum"></span>        <span class="dim" style="font-size:12px;font-style:italic">&larr; the last vector received from w, stored at s</span></div>
 <div id="dvprow6"><span class="dim lnum"> 6</span></div>
