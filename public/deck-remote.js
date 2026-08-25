@@ -32,6 +32,8 @@
   let wakeLock = null;
   let wantOpen = false;     // has the user actually started a session?
   let capWords = [];        // trailing window of finalised caption words
+  let capOn = false;        // has the phone asked for captions?
+  let capCount = 0;         // caption messages received, for diagnosis
 
   /* ---------- drive the deck ---------- */
 
@@ -142,6 +144,13 @@
     if (i) i.textContent = interim;
   }
 
+  function statusLine() {
+    if (!capOn) return 'Phone connected.';
+    return capCount
+      ? `Phone connected · captions on · ${capCount} received`
+      : 'Phone connected · captions on · nothing heard yet';
+  }
+
   function paint(text, live) {
     const s = document.getElementById('rc-status');
     if (s) s.textContent = text;
@@ -194,16 +203,25 @@
         // pairing therefore begins a fresh command stream. The guard still
         // does its real job -- rejecting duplicates *within* a stream.
         if (m.connected) lastSeq = 0;
-        paint(m.connected ? 'Phone connected.' : 'Waiting for your phone…', m.connected);
+        paint(m.connected ? statusLine() : 'Waiting for your phone…', m.connected);
         // Hide the code once paired: it is on a projector in front of a class.
         if (m.connected) setTimeout(closePanel, 900);
         return;
       }
 
       if (m.type === 'captions') {
+        capOn = m.on;
         capBand.classList.toggle('on', m.on);
         document.body.classList.toggle('rc-captioning', m.on);
-        if (!m.on) { capWords = []; setCap('', ''); }
+        if (m.on) {
+          // Show something immediately. Otherwise "captions on but nothing
+          // heard yet" and "captions never switched on" look identical, and
+          // there is no way to tell which is broken.
+          if (!capWords.length) setCap('', 'listening…');
+        } else {
+          capWords = []; capCount = 0; setCap('', '');
+        }
+        paint(statusLine(), true);
         return;
       }
 
@@ -212,6 +230,7 @@
         // the projecting, so it guarantees what goes on screen regardless of
         // what reached it, and the table can be updated without the phone
         // reloading anything.
+        capCount++;
         const text = window.fixCaption ? window.fixCaption(String(m.text)) : String(m.text);
         if (m.final) {
           capWords = capWords.concat(text.split(/\s+/).filter(Boolean));

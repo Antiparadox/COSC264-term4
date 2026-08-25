@@ -17,7 +17,10 @@ app.use(express.static(PUBLIC, {
   setHeaders(res, filePath) {
     // Decks are large but change often while they're being written, so let
     // the browser cache them and revalidate via ETag rather than refetch.
-    if (filePath.endsWith('.html')) res.setHeader('Cache-Control', 'no-cache');
+    // The decks and the scripts that drive them change together; a stale
+    // cached deck-remote.js on the iPad would silently disable features that
+    // the deck HTML expects to be there.
+    if (/\.(html|js)$/.test(filePath)) res.setHeader('Cache-Control', 'no-cache');
   },
 }));
 
