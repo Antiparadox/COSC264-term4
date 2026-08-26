@@ -1388,32 +1388,40 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div id="rlx-say" style="min-height:104px;margin:0 0 14px"></div>
 
       <div id="rlx-sums">
-        <p class="rlxsum" id="rlx-sum-x" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0">
-          through <b>x</b>: &nbsp;<span class="mono">c(s,x) + d<sub>x</sub>(v) = 20 + 15 =</span>
-          <b class="mono">35</b></p>
-        <p class="rlxupd" id="rlx-upd-x" style="opacity:0;transition:opacity .3s">Set s's next hop to x
-          for now &mdash; <span class="mono">p<sub>s</sub>(v) = x</span> &mdash; and record
-          <span class="mono">d<sub>s</sub>(v) = 35</span> as the best known cost to v.</p>
+        <div id="rlx-x-block">
+          <p class="rlxsum" id="rlx-sum-x" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0">
+            through <b>x</b>: &nbsp;<span class="mono">c(s,x) + d<sub>x</sub>(v) = 20 + 15 =</span>
+            <b class="mono">35</b></p>
+          <p class="rlxupd" id="rlx-upd-x" style="opacity:0;transition:opacity .3s">Set s's next hop to x
+            for now &mdash; <span class="mono">p<sub>s</sub>(v) = x</span> &mdash; and record
+            <span class="mono">d<sub>s</sub>(v) = 35</span> as the best known cost to v.</p>
+        </div>
+
+        <div id="rlx-sofar" style="display:none">
+          <p style="font-size:18px;margin:0">So far the best known cost to v is
+            <b class="mono">35</b>, with next hop <b class="mono">x</b>.</p>
+          <p style="font-size:18px;margin:14px 0 0">Now on to the next neighbour, <b>w</b>.</p>
+        </div>
 
         <p class="rlxsum" id="rlx-sum-w" style="opacity:0;transition:opacity .3s;font-size:18px;margin:14px 0 0">
-          through <b>w</b>: &nbsp;<span class="mono">c(s,w) + d<sub>w</sub>(v) = 10 + 15 =</span>
+          take <b>w</b> as the next hop: &nbsp;<span class="mono">c(s,w) + d<sub>w</sub>(v) = 10 + 15 =</span>
           <b class="mono" style="color:var(--current)">25</b><br>
-          <span style="font-size:17px;color:var(--muted)">25 &lt; 35, so take <b>w</b> instead of x.</span>
+          <span style="font-size:17px;color:var(--muted)">25 &lt; 35 &mdash; better, so take it.</span>
           <span class="rlxstamp">relaxation</span></p>
         <p class="rlxupd" id="rlx-upd-w" style="opacity:0;transition:opacity .3s">So update both:
           <span class="mono">p<sub>s</sub>(v) = w</span>, <span class="mono">d<sub>s</sub>(v) = 25</span>.</p>
 
         <p class="rlxsum" id="rlx-sum-u" style="opacity:0;transition:opacity .3s;font-size:18px;margin:14px 0 0">
-          through <b>u</b>: &nbsp;<span class="mono">c(s,u) + d<sub>u</sub>(v) = 5 + 13 =</span>
+          and the other neighbour <b>u</b>: &nbsp;<span class="mono">c(s,u) + d<sub>u</sub>(v) = 5 + 13 =</span>
           <b class="mono" style="color:var(--accent)">18</b><br>
-          <span style="font-size:17px;color:var(--muted)">18 &lt; 25, so relax again and take <b>u</b>.</span>
+          <span style="font-size:17px;color:var(--muted)">18 &lt; 25 &mdash; better still, so relax again.</span>
           <span class="rlxstamp">relaxation</span></p>
         <p class="rlxupd" id="rlx-upd-u" style="opacity:0;transition:opacity .3s">And update both again:
           <span class="mono">p<sub>s</sub>(v) = u</span>, <span class="mono">d<sub>s</sub>(v) = 18</span>.</p>
       </div>
     </div>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== Relaxation: formal rule + convergence ====== -->
@@ -3020,18 +3028,23 @@ function updateRelaxSlide(){
   if(leg){ leg.style.opacity = n>=4?'1':'0'; leg.classList.toggle('lit', n>=4); }
   if(tbl) tbl.style.opacity = n>=4?'1':'0';
 
-  // each sum, then the table update it causes: x at 6/7, w at 8/9, u at 10/11
-  fade('rlx-sum-x', n>=6); fade('rlx-upd-x', n>=7);
-  fade('rlx-sum-w', n>=8); fade('rlx-upd-w', n>=9);
-  fade('rlx-sum-u', n>=10); fade('rlx-upd-u', n>=11);
+  // Beat 8 retires the x working entirely and replaces it with one line of
+  // state, so the column never carries more than one neighbour's arithmetic.
+  var xb=document.getElementById('rlx-x-block'), sf=document.getElementById('rlx-sofar');
+  if(xb) xb.style.display = n>=8?'none':'';
+  if(sf) sf.style.display = n>=8?'':'none';
 
-  var xAct=n>=2&&n<=7,xFade=n>=8,wAct=n>=8&&n<=9,wFade=n>=10,uAct=n>=10;
+  fade('rlx-sum-x', n>=6); fade('rlx-upd-x', n>=7);
+  fade('rlx-sum-w', n>=9); fade('rlx-upd-w', n>=10);
+  fade('rlx-sum-u', n>=11); fade('rlx-upd-u', n>=12);
+
+  var xAct=n>=2&&n<=7,xFade=n>=8,wAct=n>=9&&n<=10,wFade=n>=11,uAct=n>=11;
   setOp('rlx-c-sx',n>=6?(xFade?0.25:1):0);
   setOp('rlx-d-xv',n>=6?(xFade?0.25:1):0);
   setLine('rlx-e-sx',xAct?'var(--current)':'var(--edge)',xAct?3:2.5,xFade?0.25:1);
   setLine('rlx-p-xv',xAct?'var(--current)':'var(--edge)',xAct?2:1.5,xAct?0.7:(xFade?0.1:0.35));
-  setOp('rlx-c-sw',n>=8?(wFade?0.25:1):0);
-  setOp('rlx-d-wv',n>=8?(wFade?0.25:1):0);
+  setOp('rlx-c-sw',n>=9?(wFade?0.25:1):0);
+  setOp('rlx-d-wv',n>=9?(wFade?0.25:1):0);
   setLine('rlx-e-sw',wAct?'var(--current)':'var(--edge)',wAct?3:2.5,wFade?0.25:1);
   setLine('rlx-p-wv',wAct?'var(--current)':'var(--edge)',wAct?2:1.5,wAct?0.7:(wFade?0.1:0.35));
   setOp('rlx-c-su',uAct?1:0);
@@ -3042,8 +3055,8 @@ function updateRelaxSlide(){
   // The table only moves on the beats that say it moves.
   var tN=document.getElementById('rlx-tbl-next'),tC=document.getElementById('rlx-tbl-cost');
   if(tN&&tC){
-    if(n>=11){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
-    else if(n>=9){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
+    if(n>=12){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
+    else if(n>=10){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
     else if(n>=7){tN.textContent='x';tC.textContent='35';tC.style.color='';}
     else{tN.textContent='nil';tC.textContent='∞';tC.style.color='';}
   }
