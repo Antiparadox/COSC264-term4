@@ -1361,8 +1361,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <p id="rlx-legend-hd" style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:1px;
            text-transform:uppercase;color:var(--muted);transition:color .3s">Notation</p>
         <p style="margin:0;font-size:16px;line-height:1.65">
-          <b class="mono" style="color:var(--accent)">c(s,w)</b> &mdash; cost of the link s&nbsp;&rarr;&nbsp;w<br>
-          <b class="mono" style="color:var(--accent)">d<sub>w</sub>(v)</b> &mdash; the <b>least</b> known cost from w onward to v<br>
+          <b class="mono" style="color:var(--accent)">c(s,x)</b> &mdash; cost of the link s&nbsp;&rarr;&nbsp;x<br>
+          <b class="mono" style="color:var(--accent)">d<sub>x</sub>(v)</b> &mdash; the <b>least</b> known cost from x onward to v<br>
           <b class="mono" style="color:var(--accent)">p<sub>s</sub>(v)</b> &mdash; s's next hop towards v
         </p>
       </div>
@@ -2980,20 +2980,20 @@ function updateRelaxSlide(){
   // Beats 2-5 hot-swap through one card: question, answer, notation, formula.
   // From beat 6 the formula stays put while the sums accumulate under it.
   var S=[];
-  S[2]='<div class="scard sq">To reach v, s has to go through <b>one of its neighbours</b>. '
-     + 'What we care about is the cost of each path, so we ask: what is the '
+  S[2]='<div class="scard sq">To reach v, s has to go through <b>one of its neighbours</b> '
+     + '&mdash; say <b>x</b>. What we care about is the cost of each path, so we ask: what is the '
      + '<b style="color:var(--accent)">least possible cost</b> of a path whose <b>first hop</b> '
-     + 'is that neighbour?</div>';
+     + 'is <b>x</b>?</div>';
   S[3]='<div class="scard sa"><p style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:1px;'
-     + 'text-transform:uppercase;color:var(--accent)">Least cost through that neighbour</p>'
-     + 'It has to be the cost of the <b>link to that neighbour</b>, plus the '
-     + '<b style="color:var(--accent)">least possible cost</b> from that neighbour onward to v.</div>';
+     + 'text-transform:uppercase;color:var(--accent)">Least cost through x</p>'
+     + 'It has to be the cost of the <b>link to x</b>, plus the '
+     + '<b style="color:var(--accent)">least possible cost</b> from <b>x</b> onward to v.</div>';
   S[4]='<div class="scard sa">From here on we write these the way the <b>notation</b> under the '
      + 'graph does.</div>';
   S[5]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
-     + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop w</p>'
+     + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop x</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
-     + 'c(s,w) + d<sub>w</sub>(v)</p></div>';
+     + 'c(s,x) + d<sub>x</sub>(v)</p></div>';
   S[6]=S[7]=S[8]=S[5];
   var say=document.getElementById('rlx-say');
   if(say) say.innerHTML = S[n] || '';
@@ -3009,7 +3009,7 @@ function updateRelaxSlide(){
     if(el) el.style.opacity = n>=i+6?'1':'0';
   });
 
-  var xAct=n===6,xFade=n>=7,wAct=n===7,wFade=n>=8,uAct=n>=8;
+  var xAct=n>=2&&n<=6,xFade=n>=7,wAct=n===7,wFade=n>=8,uAct=n>=8;
   setOp('rlx-c-sx',n>=6?(xFade?0.25:1):0);
   setOp('rlx-d-xv',n>=6?(xFade?0.25:1):0);
   setLine('rlx-e-sx',xAct?'var(--current)':'var(--edge)',xAct?3:2.5,xFade?0.25:1);
