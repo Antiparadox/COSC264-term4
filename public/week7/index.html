@@ -239,6 +239,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 .courseurl a:hover,.courseurl-inline a:hover{background:var(--accent);color:var(--bg)}
 @media (max-width:900px){.courseurl{right:24px;bottom:18px}
   .courseurl a{font-size:14px;padding:7px 12px}}
+
+/* slide 5: the class gets to see the network that A cannot */
+#goal-hidden{transition:opacity .4s ease}
+.slide:has(#goal-reveal.on) #goal-hidden{opacity:1}
 </style>
 </head>
 <body>
@@ -349,15 +353,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="lecbadge">Lecture 1 of 3</div>
   <h1>The Routing Problem</h1>
   <div class="rule"></div>
-  <p class="sub">How does a network of independent routers figure out where to send each packet?</p>
 </section>
 
 <!-- ====== Slide 4: The goal ====== -->
 <section class="slide" data-sec="What routing is">
   <div class="kicker">The problem</div>
-  <h2>Router A wants to reach router F</h2>
-  <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0">
-    <svg id="goal-svg" viewBox="0 0 880 360" style="width:100%;max-width:880px" xmlns="http://www.w3.org/2000/svg">
+  <h2>A wants to send a packet to F</h2>
+  <div style="display:flex;align-items:center;justify-content:center;flex:0 1 auto;min-height:0;margin-top:2px">
+    <svg id="goal-svg" viewBox="0 0 880 360" style="width:100%;max-width:760px" xmlns="http://www.w3.org/2000/svg">
       <g id="goal-hidden" opacity="0.06">
         <line x1="160" y1="180" x2="400" y2="110" stroke="var(--edge)" stroke-width="3"/>
         <line x1="160" y1="180" x2="400" y2="260" stroke="var(--edge)" stroke-width="3"/>
@@ -378,7 +381,17 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <text x="450" y="185" text-anchor="middle" font-size="22" fill="var(--muted)">?</text>
     </svg>
   </div>
-  <p class="frag lead" style="text-align:center;margin-top:8px">But A has no idea what the network looks like</p>
+  <div style="display:flex;flex-direction:column;gap:11px;align-items:center;margin-top:10px">
+    <p class="frag lead" style="margin:0;font-size:20px">A knows only the links it is plugged into. It has never seen the rest.</p>
+    <p class="frag lead" id="goal-reveal" style="margin:0;font-size:20px">Here is what is actually out there &mdash; and there is usually
+      <b>more than one</b> way through.</p>
+    <div class="frag" style="max-width:74ch;border-left:3px solid var(--accent);padding:8px 16px;font-size:19px">
+      How does the network work out a path from A to F <b>at all</b>, when no single router can see this picture?
+    </div>
+    <div class="frag" style="max-width:74ch;border-left:3px solid var(--current);padding:8px 16px;font-size:19px">
+      And when several paths exist, <b>which one</b> should they settle on? Fewest hops? Lowest delay? Cheapest to run?
+    </div>
+  </div>
 </section>
 
 <!-- ====== What routing has to do ====== -->
@@ -413,6 +426,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
+  <p class="frag" style="margin:22px 0 0;font-size:19px;color:var(--accent);max-width:96ch">
+    And not just <em>a</em> path &mdash; the one with the lowest total <b>cost</b>. Cost is whatever the
+    operator decides it means: hop count, delay, spare bandwidth, money. Computing it is the next lecture.</p>
 </section>
 
 
@@ -477,50 +493,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<!-- ====== Which path counts as the best one ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">What routing optimises</div>
-  <h2>Which path? Routing needs a rule</h2>
-  <div class="cols" style="align-items:center;gap:38px">
-    <div class="col" style="flex:1">
-      <svg viewBox="0 0 290 160" style="width:100%;max-width:330px" aria-label="Two paths from A to F with different total costs">
-        <line x1="53" y1="67" x2="122" y2="36" stroke="var(--accent)" stroke-width="3.5"/>
-        <line x1="158" y1="36" x2="227" y2="67" stroke="var(--accent)" stroke-width="3.5"/>
-        <line x1="53" y1="83" x2="122" y2="114" stroke="var(--edge)" stroke-width="2.5"/>
-        <line x1="158" y1="114" x2="227" y2="83" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="84" y="38" font-size="14" font-weight="700" fill="var(--accent)">2</text>
-        <text x="192" y="38" font-size="14" font-weight="700" fill="var(--accent)">3</text>
-        <text x="84" y="118" font-size="14" font-weight="700" fill="var(--muted)">4</text>
-        <text x="192" y="118" font-size="14" font-weight="700" fill="var(--muted)">2</text>
-        <circle cx="35" cy="75" r="20" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="35" y="81" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-        <circle cx="140" cy="28" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="140" y="34" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
-        <circle cx="140" cy="122" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="140" y="128" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
-        <circle cx="245" cy="75" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="245" y="81" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">F</text>
-      </svg>
-      <div style="text-align:center;font-family:var(--mono);font-size:14px;margin-top:6px">
-        <span style="color:var(--accent);font-weight:700">A&rarr;B&rarr;F = 5</span>
-        &nbsp;&nbsp;<span style="color:var(--muted)">A&rarr;C&rarr;F = 6</span>
-      </div>
-    </div>
-    <div class="col" style="flex:1.15">
-      <p class="frag lead" style="margin:0 0 16px;font-size:21px">Between any two routers there is usually
-      more than one path. Routing has to pick one, so it needs a <b>criterion</b>.</p>
-      <div class="frag card" style="border-left:4px solid var(--accent);padding:14px 18px;margin:0 0 12px">
-        <p style="margin:0;font-size:17px">Every link carries a <b>cost</b>. Routing chooses the path whose
-        costs add up to the smallest total &mdash; the <span class="accent">least-cost</span>, or shortest,
-        path.</p>
-      </div>
-      <p class="frag" style="margin:0 0 14px;font-size:17px;color:var(--muted)">Cost is whatever the operator
-      decides it means: hop count, latency, spare bandwidth, or money. The algorithm never needs to know.</p>
-      <p class="frag" style="margin:0;font-size:18px;color:var(--accent)">Least-cost is the constraint for
-      the rest of this week. How to actually compute it is the next lecture.</p>
-    </div>
-  </div>
-</section>
+
 
 
 
