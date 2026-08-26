@@ -700,8 +700,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="card" style="border-left:4px solid var(--current);padding:16px 20px;margin:0">
         <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">a routing algorithm</p>
         <p style="margin:0;font-size:18px">Solves the routing problem under
-        <b style="color:var(--current)">ideal assumptions</b> &mdash; one computation, with the whole
-        network laid out in front of it.</p>
+        <b style="color:var(--current)">ideal assumptions</b>.</p>
       </div>
     </div>
     <div class="col frag" style="flex:1.25">
@@ -745,7 +744,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>Link-state: get the whole map</h2>
   <div class="cols" style="align-items:center">
     <div class="col" style="flex:1.15">
-      <svg id="ls-svg" viewBox="0 0 440 260" aria-label="Link-state: every router learns the full topology">
+      <svg id="ls-svg" viewBox="0 0 440 260" style="width:100%;max-width:440px;display:block" aria-label="Link-state: every router learns the full topology">
         <circle cx="90" cy="190" r="34" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="3"/>
         <g id="ls-bubble" opacity="0" style="transition:opacity .4s">
           <path d="M124,160 Q160,80 250,64 L390,64 Q414,64 414,88 L414,150 Q414,174 390,174 L245,174 Q205,174 178,198" fill="var(--surface-2)" stroke="var(--border)"/>
@@ -765,16 +764,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
             <circle cx="120" cy="130" r="14" fill="var(--accent)"/><circle cx="230" cy="30" r="14" fill="var(--accent)"/>
             <circle cx="250" cy="120" r="14" fill="var(--accent)"/>
           </g>
-          <text x="300" y="240" text-anchor="middle" font-size="15" class="svgmono" fill="var(--muted)">the entire topology, copied into R</text>
         </g>
         <text x="90" y="197" text-anchor="middle" font-size="17" font-weight="700" fill="var(--ink)">R</text>
         <text x="90" y="240" text-anchor="middle" font-size="15" class="svgmono" fill="var(--muted)">one router</text>
       </svg>
     </div>
     <div class="col">
-      <p class="lead">Every router learns the <b>entire topology</b>.</p>
-      <p class="frag" style="margin-top:22px">Each router has a <b>global view</b> of the network — it knows every node and every link cost.</p>
-      <p class="frag" style="margin-top:16px">Each router then uses a <b>routing algorithm</b> to derive its forwarding table locally <span class="small muted">(more about this next lecture)</span>.</p>
+      <p class="frag" style="font-size:22px;margin:0">The routers <b>talk to each other</b>.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">They keep at it until every router holds a
+      <b>global view</b> of the network &mdash; every node, and every link cost.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">With that whole map in hand, each router
+      then works out its own forwarding table <b>locally</b>
+      <span class="small muted">(next lecture)</span>.</p>
     </div>
   </div>
 </section>
@@ -825,34 +826,25 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <text x="112" y="248" font-size="13" class="svgmono" fill="var(--current)">&ldquo;F? — 4 for me&rdquo;</text>
         </g>
         <g id="dv-quote-b" opacity="0">
-          <text x="310" y="38" font-size="13" class="svgmono" fill="var(--current)">&ldquo;F? — 1 for me&rdquo;</text>
+          <text x="366" y="26" text-anchor="end" font-size="13" class="svgmono" fill="var(--current)">&ldquo;F? — 1 for me&rdquo;</text>
         </g>
       </svg>
       <!-- forwarding table (HTML, fragment-controlled via JS) -->
-      <div style="position:relative;margin-top:8px;max-width:340px;min-height:60px">
-        <div id="dv-table-0" class="card" style="opacity:0;padding:10px 16px;transition:opacity .3s">
-          <p class="mono small muted" style="margin:0 0 4px">R's forwarding table</p>
-          <p class="mono muted" style="margin:0;font-size:17px">F → via — &nbsp; cost &infin;</p>
-        </div>
-        <div id="dv-table-1" class="card" style="opacity:0;padding:10px 16px;border-color:var(--accent);transition:opacity .3s;position:absolute;top:0;left:0;right:0">
+      <div style="margin-top:10px;max-width:340px;min-height:60px">
+        <div id="dv-table" class="card" style="opacity:0;padding:10px 16px;border-color:var(--accent);transition:opacity .3s">
           <p class="mono small accent" style="margin:0 0 4px">R's forwarding table</p>
-          <p class="mono" style="margin:0;font-size:17px"><span class="accent">F → via C &nbsp; cost 1+4 = <b>5</b></span></p>
-        </div>
-        <div id="dv-table-2" class="card" style="opacity:0;padding:10px 16px;border-color:var(--accent);transition:opacity .3s;position:absolute;top:0;left:0;right:0">
-          <p class="mono small accent" style="margin:0 0 4px">R's forwarding table (updated)</p>
-          <p class="mono" style="margin:0;font-size:17px"><span class="accent">F → via B &nbsp; cost 3+1 = <b>4</b></span> <span class="small muted">(4 &lt; 5, switch to B)</span></p>
+          <p class="mono accent" style="margin:0;font-size:18px">F &rarr; via B</p>
         </div>
       </div>
     </div>
     <div class="col">
-      <p class="frag" id="dv-frag1" style="font-size:22px;margin:0"><b>No global view.</b> Each router only knows what its <b>direct neighbours</b> report.</p>
-      <p class="frag" id="dv-frag2" style="margin-top:16px;font-size:20px">Ask each neighbour: <i>&ldquo;how far is F from you?&rdquo;</i></p>
-      <p class="frag small" id="dv-frag3" style="margin-top:14px;color:var(--muted)">A reports: <b>unreachable</b> (&infin;)</p>
-      <p class="frag small" id="dv-frag4" style="margin-top:6px;color:var(--accent)">C reports: cost 4 &rarr; total 1+4 = <b>5</b></p>
-      <p class="frag small" id="dv-frag5" style="margin-top:2px;color:var(--accent);font-size:15px">&rarr; update table: F via C, cost 5</p>
-      <p class="frag small" id="dv-frag6" style="margin-top:6px;color:var(--accent)">B reports: cost 1 &rarr; total 3+1 = <b>4</b> &lt; 5</p>
-      <p class="frag small" id="dv-frag7" style="margin-top:2px;color:var(--accent);font-size:15px">&rarr; update table: F via B, cost 4</p>
-      <p class="frag" id="dv-frag8" style="margin-top:14px;font-size:20px">The forwarding table is built from <b>local exchanges</b> — no router ever sees the full topology.</p>
+      <p class="frag" style="font-size:22px;margin:0">The routers talk only to their
+      <b>direct neighbours</b>. There is no global view, and there never will be.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">Each neighbour reports
+      <b>how far it is</b> from a destination &mdash; a distance, not a map.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">R adds its own link cost to each report,
+      keeps the <b>best</b>, and that is its forwarding table
+      <span class="small muted">(next lecture)</span>.</p>
     </div>
   </div>
 </section>
@@ -2897,7 +2889,7 @@ function updateLSSlide(){
   var s=findSlideWith('ls-svg');if(!s)return;
   var n=fragCount(s);
   var b=document.getElementById('ls-bubble');
-  if(b)b.setAttribute('opacity',n>=1?'1':'0');
+  if(b)b.setAttribute('opacity',n>=2?'1':'0');   // the map arrives with beat 2
 }
 
 function updateIntraInterSlide(){
@@ -2915,15 +2907,11 @@ function updateDVSlide(){
   var qa=document.getElementById('dv-quote-a');
   var qc=document.getElementById('dv-quote-c');
   var qb=document.getElementById('dv-quote-b');
-  var t0=document.getElementById('dv-table-0');
-  var t1=document.getElementById('dv-table-1');
-  var t2=document.getElementById('dv-table-2');
-  if(qa)qa.setAttribute('opacity',n>=3?'1':'0');
-  if(qc)qc.setAttribute('opacity',n>=4?'1':'0');
-  if(qb)qb.setAttribute('opacity',n>=6?'1':'0');
-  if(t0)t0.style.opacity=n>=3&&n<5?'1':'0';
-  if(t1)t1.style.opacity=n>=5&&n<7?'1':'0';
-  if(t2)t2.style.opacity=n>=7?'1':'0';
+  var t=document.getElementById('dv-table');
+  // All three reports land together: the point is that neighbours report
+  // distances, not which one wins. The arithmetic is Lecture 2's job.
+  [qa,qc,qb].forEach(function(q){if(q)q.setAttribute('opacity',n>=2?'1':'0');});
+  if(t)t.style.opacity=n>=3?'1':'0';
 }
 
 /* ---------- Relaxation animation (Lecture 2) ---------- */
