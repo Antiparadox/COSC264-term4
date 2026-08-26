@@ -510,9 +510,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">What routing produces</div>
   <h2>How is the path information stored? <span style="color:var(--muted);font-weight:400">&mdash; the forwarding table</span></h2>
   <div id="fw-card" style="min-height:82px;display:flex;align-items:center;margin:2px 0 14px"></div>
-  <div class="cols" style="align-items:flex-start;gap:26px">
+  <div class="cols" style="align-items:flex-start;gap:26px;flex:0 0 auto">
     <div class="col" style="flex:1.15">
-    <svg id="fw-svg" viewBox="0 0 480 272" style="width:100%" aria-label="Five-router network; the message travels A to B to D to F">
+    <svg id="fw-svg" viewBox="0 0 480 272" style="width:100%;max-width:430px;display:block" aria-label="Five-router network; the message travels A to B to D to F">
       <defs><marker id="fwarr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0.6 L10,5 L0,9.4 z" fill="var(--accent)"/></marker></defs>
       <line class="fwe" x1="58" y1="128" x2="190" y2="72"/>
       <line class="fwe" x1="58" y1="128" x2="190" y2="192"/>
@@ -559,7 +559,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p id="fw-next" style="opacity:0;transition:opacity .3s;margin:20px 0 0;padding-top:13px;
+     border-top:1px solid var(--border);font-size:19px;color:var(--muted)">Building those tables is
+     <b class="accent">routing</b>. Reading one row and passing the message on &mdash; what we just did
+     &mdash; is <b style="color:var(--current)">forwarding</b>. Two different jobs, and that is next.</p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 
@@ -571,10 +575,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <!-- ====== Slide 13: Control plane / data plane ====== -->
 <section class="slide" data-sec="What does routing do?">
   <div class="kicker">Control plane vs. data plane</div>
-  <h2>Routing and forwarding: two different jobs</h2>
+  <h2>Routing vs. forwarding</h2>
   <p class="lead" style="margin:-2px 0 20px;font-size:19px;color:var(--muted);max-width:78ch">One happens
   <b>before</b>, network-wide and slowly. The other happens <b>per packet</b>, locally, in nanoseconds.</p>
-  <div class="cols" style="align-items:stretch;gap:24px">
+  <div class="cols" style="align-items:stretch;gap:24px;flex:0 0 auto">
     <div class="col card frag" style="border-top:4px solid var(--accent);flex:1">
       <p class="mono accent" style="margin:0 0 10px;font-size:18px">Control plane · routing</p>
       <p style="margin:0 0 12px;font-size:22px">The view of the <b>router</b>.</p>
@@ -617,9 +621,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <text x="200" y="180" text-anchor="middle" font-size="13" class="svgmono" fill="var(--muted)">the packet to the next hop</text>
         <defs><marker id="dparr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 z" fill="var(--current)"/></marker></defs>
       </svg>
-      <p class="small" style="margin:8px 0 0">A datagram arrives at a router, the router <b>looks up</b> the destination in its forwarding table, and sends the packet to the <b>next router</b>.</p>
+      <p class="small" style="margin:8px 0 0">A datagram arrives at a router, the router <b>looks up</b> its destination in the forwarding table, and sends it straight out to the <b>next hop</b>.</p>
     </div>
   </div>
+  <p class="frag" style="margin:22px 0 0;padding-top:14px;border-top:1px solid var(--border);
+     font-size:20px;color:var(--muted)">We have already seen both. Working out that
+     <b>A &#8594; B &#8594; D &#8594; F</b> was the path, and filling in the tables, was
+     <b class="accent">routing</b>. Walking the message across those tables, one lookup per router, was
+     <b style="color:var(--current)">forwarding</b>.</p>
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
@@ -2656,6 +2665,7 @@ function updateFwdSlide(){
   C[6]='<div class="fcard fa">Notice that each router holds only a <b>local</b> decision &mdash; '
      + 'none of them has the global path. Put those local decisions together and you get '
      + '<b>A &#8594; B &#8594; D &#8594; F</b>.</div>';
+  C[7]=C[6];                       // beat 7 adds the hand-over line; the card stays put
   if(card) card.innerHTML = C[n] || '';
 
   // Each table appears exactly when its router has to make its decision.
@@ -2672,6 +2682,8 @@ function updateFwdSlide(){
   s.querySelectorAll('.fwe').forEach(function(l){l.classList.toggle('dim', n>=3);});
   var pl=document.getElementById('fw-path');
   if(pl) pl.setAttribute('opacity', n>=6?'1':'0');
+  var nx=document.getElementById('fw-next');
+  if(nx) nx.style.opacity = n>=7?'1':'0';
 }
 
 /* ---------- slide 5: the diagram tracks the story, one card at a time ---------- */
