@@ -900,8 +900,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="margin-top:18px;font-size:21px">So <b>who decides</b> which routing
       protocol runs? Nobody is in charge of the Internet, so nobody gets to impose one answer.</p>
       <p class="frag" style="margin-top:18px;font-size:21px">The way out is to stop asking about the
-      Internet as a whole, and find the smallest piece that <b>can</b> decide for itself. That piece
-      has a name &mdash; and it is next.</p>
+      Internet as a whole, and find the smallest piece that <b>can</b> decide for itself.</p>
     </div>
   </div>
 </section>
@@ -1022,7 +1021,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="card frag" data-mark="stub" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Stub</b> — one connection to one <b>provider</b> (an AS that sells connectivity to other ASes).</p>
         <p style="margin:6px 0 0;font-size:16px;color:var(--muted)">e.g. AS&nbsp;3 is the provider to
         AS&nbsp;1, which is a stub.</p></div>
-      <div class="card frag" data-mark="multi" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Multi-homed</b> — several providers, but carries <span class="warn">no through-traffic</span>.</p></div>
+      <div class="card frag" data-mark="multi" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Multi-homed</b> — several providers, but carries <span class="warn">no through-traffic</span>.</p>
+        <p style="margin:6px 0 0;font-size:16px;color:var(--muted)">e.g. a datagram may not go from
+        AS&nbsp;3 through AS&nbsp;2 to AS&nbsp;4.</p></div>
       <div class="card frag" data-mark="transit" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Transit</b> — connects ASes and <span class="accent">carries others’ traffic</span>. That service is the product. <span class="small muted">(e.g. One NZ, Verizon)</span></p></div>
     </div>
   </div>
@@ -1104,6 +1105,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="frag" id="inter-block" style="margin-top:24px">
         <p class="mono" style="margin:0 0 6px;font-size:16px;color:var(--current)">inter-AS · EGP <span class="small muted">(Exterior Gateway Protocol)</span></p>
         <p style="margin:0;font-size:20px">Routing <b>between</b> autonomous systems — a packet crossing from one AS to another.</p>
+        <p style="margin:8px 0 0;font-size:17px;color:var(--muted)">No autonomy here: every AS has to
+        speak the same one, and in practice that is <b>BGP</b>.</p>
       </div>
     </div>
   </div>
