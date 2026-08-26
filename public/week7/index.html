@@ -692,32 +692,36 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="How do we do routing?">
   <div class="kicker">Question 3 of 4</div>
   <h2>How do we do routing?</h2>
-  <p class="lead" style="margin:0 0 24px;font-size:22px;max-width:70ch">Back to the first question: no
-  router can see the whole network. Each one knows only the links it is plugged into &mdash; so the only
-  way to find a path across the network is for routers to <b>tell each other what they know</b>.</p>
+  <p class="lead" style="margin:0 0 26px;font-size:22px;max-width:74ch">Easier to state than to do. Every
+  router knows only the links it is plugged into &mdash; <b>none of them can see the whole network</b>
+  &mdash; and yet a path has to be found across all of it.</p>
   <div class="cols" style="gap:22px;align-items:flex-start">
     <div class="col frag" style="flex:1">
-      <div class="card" style="border-left:4px solid var(--accent);padding:16px 20px;margin:0">
-        <p class="mono accent" style="margin:0 0 8px;font-size:15px">the routing protocol</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">The <b>conversation</b>. What each router
-        sends, to whom, in what format, and how often &mdash; plus what to do when a message is late or
-        lost. Written down precisely enough that routers from different vendors can talk.</p>
-      </div>
-    </div>
-    <div class="col frag" style="flex:1">
       <div class="card" style="border-left:4px solid var(--current);padding:16px 20px;margin:0">
-        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">the routing algorithm</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">The <b>computation</b>. What a router does
-        with what arrives: work out the least-cost path to every destination, and write the next hop into
-        its forwarding table.</p>
+        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">a routing algorithm</p>
+        <p style="margin:0;font-size:18px">Solves the routing problem under
+        <b style="color:var(--current)">ideal assumptions</b> &mdash; one computation, with the whole
+        network laid out in front of it.</p>
+      </div>
+    </div>
+    <div class="col frag" style="flex:1.25">
+      <div class="card" style="border-left:4px solid var(--accent);padding:16px 20px;margin:0">
+        <p class="mono accent" style="margin:0 0 8px;font-size:15px">a routing protocol</p>
+        <p style="margin:0 0 8px;font-size:18px">Embeds a routing algorithm into
+        <b class="accent">a real networking context</b>:</p>
+        <ul style="margin:0;padding-left:20px;color:var(--muted)">
+          <li style="font-size:17px;margin:3px 0">it operates in a <b>distributed</b> environment;</li>
+          <li style="font-size:17px;margin:3px 0">it carries <b>explicit information exchange</b> between
+          the routers;</li>
+          <li style="font-size:17px;margin:3px 0">that exchange <b>takes time and can fail</b>, and the
+          protocol has to allow for it.</li>
+        </ul>
       </div>
     </div>
   </div>
-  <div class="frag card" style="border-left:4px solid var(--edge);padding:14px 20px;margin:22px 0 0">
-    <p style="margin:0;font-size:17.5px">The two are not the same thing, and the difference matters.
-    <b>RIP, OSPF, IS-IS and BGP</b> are protocols. <b>Distance-vector, link-state and path-vector</b> are
-    the algorithm families those protocols are built on &mdash; and that is what we look at next.</p>
-  </div>
+  <p class="frag" style="margin:22px 0 0;font-size:18px;color:var(--muted)"><b>RIP, OSPF, IS-IS and
+  BGP</b> are protocols. <b>Distance-vector, link-state and path-vector</b> are the algorithm families
+  they are built on &mdash; and that is what we look at next.</p>
 </section>
 
 
