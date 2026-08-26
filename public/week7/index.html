@@ -269,16 +269,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #rf-tabs table.ft th,#rf-tabs table.ft td{padding:5px 8px;transition:background .3s}
 #rf-tabs table.ft tr.wrote td{background:var(--accent-soft);color:var(--accent-ink)}
 #rf-tabs table.ft tr.reads td{background:var(--current-soft);color:var(--current);font-weight:700}
-#rf-cmptab th,#rf-cmptab td{padding:6px 12px}
+#rf-cmptab th,#rf-cmptab td{padding:7px 14px;white-space:normal}
+#rf-cmptab tr.rfrow{display:none}
+#rf-cmptab tr.rfrow.on{display:table-row;animation:wfade .28s ease}
 #fw-svg .fwe{stroke:var(--edge);stroke-width:3;transition:opacity .3s}
 #fw-svg .fwe.dim{opacity:.32}
 #fw-svg .fwhop{stroke:var(--accent);stroke-width:4.5;opacity:0;transition:opacity .3s}
 #fw-svg .fwhop.on{opacity:1}
 #fw-svg #fw-path{transition:opacity .3s}
-#fw-card .fcard,#rf-card .fcard{border-radius:12px;padding:12px 18px;font-size:19px;line-height:1.5;
+#fw-card .fcard{border-radius:12px;padding:12px 18px;font-size:19px;line-height:1.5;
   background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
-#fw-card .fq,#rf-card .fq{border-left:4px solid var(--muted)}
-#fw-card .fa,#rf-card .fa{border-left:4px solid var(--accent)}
+#fw-card .fq{border-left:4px solid var(--muted)}
+#fw-card .fa{border-left:4px solid var(--accent)}
 .fwtab{flex:1;opacity:0;transition:opacity .3s}
 .fwtab.show{opacity:1}
 .fwtab table.ft tr.fwhit td{background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
@@ -586,8 +588,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="What does routing do?">
   <div class="kicker">Control plane vs. data plane</div>
   <h2>Routing vs. forwarding</h2>
-  <div id="rf-card" style="min-height:64px;display:flex;align-items:center;margin:0 0 12px"></div>
-  <div class="cols" style="align-items:center;gap:12px;flex:0 0 auto">
+  <div class="cols" style="align-items:center;gap:22px;flex:0 0 auto;margin-top:6px">
     <div class="col" style="flex:0 0 430px">
     <svg id="rf-svg" viewBox="0 0 480 268" style="width:100%;display:block"
          aria-label="The same five-router network as the previous slide">
@@ -613,22 +614,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <text id="rf-path" x="250" y="252" text-anchor="middle" font-size="18" font-weight="700" fill="var(--current)" opacity="0">A &#8594; B &#8594; D &#8594; F</text>
     </svg>
     </div>
-    <div class="col" style="flex:0 0 120px;display:flex;flex-direction:column;gap:20px">
-      <div id="rf-write" style="opacity:0;transition:opacity .3s;text-align:center">
-        <svg viewBox="0 0 104 22" style="width:100%;display:block">
-          <defs><marker id="rfaw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0.6 L10,5 L0,9.4 z" fill="var(--accent)"/></marker></defs>
-          <line x1="2" y1="11" x2="88" y2="11" stroke="var(--accent)" stroke-width="7" marker-end="url(#rfaw)"/>
-        </svg>
-        <p class="mono" style="margin:3px 0 0;font-size:13px;color:var(--accent);line-height:1.3">routing<br>writes</p>
-      </div>
-      <div id="rf-read" style="opacity:0;transition:opacity .3s;text-align:center">
-        <svg viewBox="0 0 104 22" style="width:100%;display:block">
-          <defs><marker id="rfar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0.6 L10,5 L0,9.4 z" fill="var(--current)"/></marker></defs>
-          <line x1="102" y1="11" x2="16" y2="11" stroke="var(--current)" stroke-width="2.5" marker-end="url(#rfar)"/>
-        </svg>
-        <p class="mono" style="margin:3px 0 0;font-size:13px;color:var(--current);line-height:1.3">forwarding<br>reads</p>
-      </div>
-    </div>
     <div class="col" id="rf-tabs" style="flex:1;display:flex;gap:9px;align-items:flex-start">
       <div id="rftab-A" style="flex:1">
         <p class="mono" style="margin:0 0 6px;font-size:14px;color:var(--muted)">A’s table</p>
@@ -653,17 +638,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <div id="rf-cmp" style="opacity:0;transition:opacity .3s;margin-top:14px">
-    <table class="ft" id="rf-cmptab" style="font-size:15px;width:100%">
-      <thead><tr><th></th><th style="color:var(--accent)">routing</th><th style="color:var(--current)">forwarding</th></tr></thead>
+  <div id="rf-cmp" style="margin-top:18px">
+    <table class="ft" id="rf-cmptab" style="font-size:17px;width:100%">
+      <thead><tr><th style="width:11%"></th><th style="color:var(--accent);width:33%">routing</th><th style="color:var(--current)">forwarding</th></tr></thead>
       <tbody>
-        <tr><td style="color:var(--muted)">when</td><td>before &mdash; <span style="color:var(--muted)">offline phase</span></td><td>when a datagram arrives &mdash; <span style="color:var(--muted)">online phase</span></td></tr>
-        <tr><td style="color:var(--muted)">speed</td><td>slower</td><td>faster &mdash; <span style="color:var(--muted)">nanoseconds</span></td></tr>
-        <tr><td style="color:var(--muted)">plane</td><td>control plane &middot; <span style="color:var(--muted)">software</span></td><td>data plane &middot; <span style="color:var(--muted)">hardware</span></td></tr>
+        <tr class="rfrow"><td style="color:var(--muted)">job</td><td>produces the tables</td><td>uses the tables</td></tr>
+        <tr class="rfrow"><td style="color:var(--muted)">when</td><td>before &mdash; <span style="color:var(--muted)">offline phase</span></td><td>when a datagram arrives &mdash; <span style="color:var(--muted)">online phase</span></td></tr>
+        <tr class="rfrow"><td style="color:var(--muted)">speed</td><td>slower</td><td>faster &mdash; <span style="color:var(--muted)">nanoseconds</span></td></tr>
+        <tr class="rfrow"><td style="color:var(--muted)">plane</td><td>control plane</td><td>data plane</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
@@ -2684,23 +2670,10 @@ drawStack();
 function updateRFSlide(){
   var s=document.getElementById('rf-svg');if(!s)return;
   var n=fragCount(s.closest('.slide'));
-  var card=document.getElementById('rf-card');
 
-  var C=[];
-  C[1]='<div class="fcard fa"><b class="accent">Routing</b> <b>produces</b> the tables, and it happens '
-     + '<b>offline</b>. It is what filled in A’s, B’s and D’s tables, before any datagram existed.</div>';
-  C[2]='<div class="fcard fa"><b style="color:var(--current)">Forwarding</b> <b>uses</b> them, and it '
-     + 'happens <b>online</b>. A datagram for F turns up, and each router in turn looks F up in its own '
-     + 'table and sends it on.</div>';
-  C[3]=C[2];                       // beat 3 just brings up the comparison
-  if(card) card.innerHTML = C[n] || '';
-
-  var w=document.getElementById('rf-write'), r=document.getElementById('rf-read');
-  if(w) w.style.opacity = n>=1?'1':'0';
-  if(r) r.style.opacity = n>=2?'1':'0';
-
-  // Beat 1 lights the whole network at once, because that is routing's scope;
-  // beat 2 dims it to the hops one datagram actually takes.
+  // The picture tracks the first two rows only: row 1 is the tables being
+  // produced, row 2 is a datagram arriving and using them. Rows 3 and 4 add
+  // detail to a state the picture has already settled into.
   s.querySelectorAll('.rfe').forEach(function(l){
     l.classList.toggle('lit', n===1);
     l.classList.toggle('dim', n>=2);
@@ -2720,8 +2693,8 @@ function updateRFSlide(){
     });
   });
 
-  var cmp=document.getElementById('rf-cmp');
-  if(cmp) cmp.style.opacity = n>=3?'1':'0';
+  var rows=document.querySelectorAll('#rf-cmptab tr.rfrow');
+  for(var r=0;r<rows.length;r++) rows[r].classList.toggle('on', n>=r+1);
 }
 
 /* ---------- slide 7: three local tables assemble one global path ---------- */
