@@ -252,6 +252,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #why-svg .whye.p3{stroke:#7b61b5;stroke-width:4}
 #why-svg .dim{opacity:.28}
 #why-svg #why-tables,#why-svg #why-q{transition:opacity .35s}
+#why-svg #why-a,#why-svg #why-f{transition:r .3s,fill .3s,stroke .3s}
+#why-svg #why-a-t,#why-svg #why-f-t{transition:opacity .25s}
 #why-card .wdef{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:4px;
   padding:1px 6px;margin-right:9px;vertical-align:2px}
@@ -2640,17 +2642,24 @@ function updateWhySlide(){
   s.querySelectorAll('.whyn').forEach(function(c){
     c.classList.toggle('dim', lit.length>0 && !onNode[c.getAttribute('data-n')]);});
 
+  // Until beat 2 picks them out, A and F are indistinguishable from every
+  // other router -- no letters, no colour, same radius. Naming them before
+  // the card introduces them would give the game away.
   var picked=n>=2;
   var a=document.getElementById('why-a'), f=document.getElementById('why-f');
   var at=document.getElementById('why-a-t'), ft=document.getElementById('why-f-t');
-  if(a){a.setAttribute('fill',picked?'var(--accent-soft)':'var(--surface)');
+  if(a){a.setAttribute('r',picked?'24':'15');
+        a.setAttribute('fill',picked?'var(--accent-soft)':'var(--surface)');
         a.setAttribute('stroke',picked?'var(--accent)':'var(--edge)');
-        a.setAttribute('stroke-width',picked?'3':'2.5');}
-  if(at)at.setAttribute('fill',picked?'var(--accent-ink)':'var(--muted)');
-  if(f){f.setAttribute('fill',picked?'var(--current-soft)':'var(--surface)');
+        a.setAttribute('stroke-width',picked?'3':'2');}
+  if(at){at.setAttribute('fill','var(--accent-ink)');
+         at.setAttribute('opacity',picked?'1':'0');}
+  if(f){f.setAttribute('r',picked?'24':'15');
+        f.setAttribute('fill',picked?'var(--current-soft)':'var(--surface)');
         f.setAttribute('stroke',picked?'var(--current)':'var(--edge)');
-        f.setAttribute('stroke-width',picked?'3':'2.5');}
-  if(ft)ft.setAttribute('fill',picked?'var(--current)':'var(--muted)');
+        f.setAttribute('stroke-width',picked?'3':'2');}
+  if(ft){ft.setAttribute('fill','var(--current)');
+         ft.setAttribute('opacity',picked?'1':'0');}
 
   var q=document.getElementById('why-q');
   if(q)q.setAttribute('opacity',(n===4||n===5)?'1':'0');
@@ -2658,7 +2667,7 @@ function updateWhySlide(){
   if(tb)tb.setAttribute('opacity','0');
 
   var W=[];
-  W[1]='An <b>incomplete</b> picture of a network. A real one has far more routers and links than will fit on a slide &mdash; assume plenty more in the middle.';
+  W[1]='Suppose we have a large network. The diagram above shows part of it &mdash; there are many more routers and links in the middle.';
   W[2]='Pick any two of them. <b>A</b> has a message to deliver to <b>F</b>. It will not get there by magic. It needs a <b>path</b>.';
   W[3]='<span class="wdef">definition</span> A <b>path</b> from A to F is a sequence of routers R<sub>0</sub>, R<sub>1</sub>, &#8230;, R<sub>k</sub> with R<sub>0</sub>&nbsp;=&nbsp;A and R<sub>k</sub>&nbsp;=&nbsp;F, where every consecutive pair is joined by a link. The message is handed along the whole sequence.';
   W[4]='So &mdash; how does the network <b>come up with</b> such a path, for this source and this destination, in a network of that size?';
