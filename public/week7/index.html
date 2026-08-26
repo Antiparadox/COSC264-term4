@@ -1482,16 +1482,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
             <li style="font-size:17px;margin:0 0 5px">Write <b>d<sub>s</sub>*(v)</b> for the <b>optimal</b> cost from s to v &mdash; the cost of a genuinely shortest path.</li>
             <li style="font-size:17px;margin:0 0 5px">Clearly <b>d<sub>s</sub>(v) &ge; d<sub>s</sub>*(v)</b>: the estimate is always <b>at least</b> the optimal cost.</li>
             <li style="font-size:17px;margin:0 0 5px">Each relaxation can only ever <b>decrease</b> d<sub>s</sub>(v).</li>
-            <li style="font-size:17px;margin:0;color:var(--accent)">So for this one pair, d<sub>s</sub>(v) can only fall and can never fall below d<sub>s</sub>*(v) &mdash; it has to <b>settle</b>.</li>
+            <li style="font-size:17px;margin:0;color:var(--accent)">So intuitively, keep relaxing for long enough and d<sub>s</sub>(v) should end up at d<sub>s</sub>*(v).</li>
           </ul>
         </div>
       </div>
-      <p class="frag" style="margin-top:13px;font-size:18px">But s can only improve d<sub>s</sub>(v)
-      using its neighbours' d<sub>w</sub>(v) &mdash; and those are estimates too. So it has to be
-      happening <b>everywhere at once</b>: every node, over every neighbour, for every destination.</p>
-      <p class="frag" style="margin-top:11px;font-size:18px">Each such round carries correct costs
-      <b>one hop further</b> through the network. Run enough rounds and every d<sub>s</sub>(v) reaches
-      d<sub>s</sub>*(v) &mdash; and that is the <b>Bellman&ndash;Ford algorithm</b>.</p>
+
     </div>
   </div>
 </section>
@@ -1500,6 +1495,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 2 · Shortest Paths &amp; Distance-Vector" id="bf-full-slide">
   <div class="kicker">Shortest-path algorithms</div>
   <h2>Bellman-Ford</h2>
+  <p class="lead" style="margin:0 0 12px;font-size:18px;max-width:96ch">Bellman&ndash;Ford is exactly that
+  idea, with one caveat: <b>every node</b> has to keep relaxing, and pass what it learns on to its
+  neighbours. Do that, and for <b>every</b> node s and <b>every</b> destination u, d<sub>s</sub>(u) ends
+  up at d<sub>s</sub>*(u).</p>
   <div class="cols" style="align-items:flex-start">
     <div class="col" style="flex:1.2">
       <!-- Centralised all-pairs pseudocode (shown at n<3) -->
