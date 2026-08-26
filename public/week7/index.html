@@ -243,6 +243,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 /* slide 5: the class gets to see the network that A cannot */
 #goal-hidden{transition:opacity .4s ease}
 .slide:has(#goal-reveal.on) #goal-hidden{opacity:1}
+
+/* ---- slide 5: why do we need routing ---- */
+#why-svg .whye{stroke:var(--edge);stroke-width:2;transition:stroke .3s,stroke-width .3s,opacity .3s}
+#why-svg .whyn{fill:var(--surface);stroke:var(--edge);stroke-width:2;transition:opacity .3s}
+#why-svg .whye.p1{stroke:var(--accent);stroke-width:4}
+#why-svg .whye.p2{stroke:var(--current);stroke-width:4}
+#why-svg .whye.p3{stroke:#7b61b5;stroke-width:4}
+#why-svg .dim{opacity:.28}
+#why-svg #why-tables,#why-svg #why-q{transition:opacity .35s}
+#why-card .wcard{max-width:82ch;border-radius:12px;padding:13px 20px;font-size:19px;line-height:1.5;
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
+@keyframes wfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -359,40 +371,87 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Why do we need routing?">
   <div class="kicker">Question 1 of 4</div>
   <h2>Why do we need routing?</h2>
-  <p class="lead" style="margin:0 0 2px;font-size:20px;color:var(--muted)">A wants to send a packet to F.</p>
-  <div style="display:flex;align-items:center;justify-content:center;flex:0 1 auto;min-height:0;margin-top:2px">
-    <svg id="goal-svg" viewBox="0 0 880 360" style="width:100%;max-width:760px" xmlns="http://www.w3.org/2000/svg">
-      <g id="goal-hidden" opacity="0.06">
-        <line x1="160" y1="180" x2="400" y2="110" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="160" y1="180" x2="400" y2="260" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="400" y1="110" x2="580" y2="110" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="580" y1="110" x2="740" y2="180" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="400" y1="260" x2="740" y2="180" stroke="var(--edge)" stroke-width="3"/>
-        <circle cx="400" cy="110" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
-        <text x="400" y="116" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)">?</text>
-        <circle cx="400" cy="260" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
-        <text x="400" y="266" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)">?</text>
-        <circle cx="580" cy="110" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
-        <text x="580" y="116" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)">?</text>
+  <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0;margin-top:-4px">
+    <svg id="why-svg" viewBox="0 0 900 380" style="width:100%;max-width:900px" aria-label="Part of a large network of routers, with A on the left and F on the right">
+      <defs>
+        <linearGradient id="why-fade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <mask id="why-mask"><rect x="735" y="0" width="165" height="380" fill="url(#why-fade)"/></mask>
+      </defs>
+
+      <!-- the network keeps going past the edge of the slide -->
+      <g mask="url(#why-mask)">
+        <line class="whye" data-e="F-q1" x1="730" y1="190" x2="815" y2="70" />
+        <line class="whye" data-e="F-q2" x1="730" y1="190" x2="838" y2="190" />
+        <line class="whye" data-e="F-q3" x1="730" y1="190" x2="820" y2="310" />
+        <line class="whye" data-e="q1-q2" x1="815" y1="70" x2="838" y2="190" />
+        <line class="whye" data-e="q2-q3" x1="838" y1="190" x2="820" y2="310" />
+        <circle class="whyn" data-n="q1" cx="815" cy="70" r="12"/>
+        <circle class="whyn" data-n="q2" cx="838" cy="190" r="12"/>
+        <circle class="whyn" data-n="q3" cx="820" cy="310" r="12"/>
       </g>
-      <circle cx="160" cy="180" r="30" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-      <text x="160" y="186" text-anchor="middle" font-size="17" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-      <circle cx="740" cy="180" r="30" fill="var(--current-soft)" stroke="var(--current)" stroke-width="3"/>
-      <text x="740" y="186" text-anchor="middle" font-size="17" font-weight="700" class="svgmono" fill="var(--current)">F</text>
-      <text x="450" y="185" text-anchor="middle" font-size="22" fill="var(--muted)">?</text>
+      <text x="866" y="197" font-size="26" fill="var(--faint)" opacity="0.5">&#8230;</text>
+
+      <g id="why-edges">
+        <line class="whye" data-e="A-n1" x1="70" y1="190" x2="165" y2="105" />
+        <line class="whye" data-e="A-n2" x1="70" y1="190" x2="165" y2="275" />
+        <line class="whye" data-e="A-n4" x1="70" y1="190" x2="275" y2="190" />
+        <line class="whye" data-e="n1-n3" x1="165" y1="105" x2="265" y2="55" />
+        <line class="whye" data-e="n1-n4" x1="165" y1="105" x2="275" y2="190" />
+        <line class="whye" data-e="n2-n5" x1="165" y1="275" x2="270" y2="325" />
+        <line class="whye" data-e="n2-n4" x1="165" y1="275" x2="275" y2="190" />
+        <line class="whye" data-e="n3-n6" x1="265" y1="55" x2="385" y2="110" />
+        <line class="whye" data-e="n4-n6" x1="275" y1="190" x2="385" y2="110" />
+        <line class="whye" data-e="n4-n7" x1="275" y1="190" x2="390" y2="265" />
+        <line class="whye" data-e="n4-n9" x1="275" y1="190" x2="505" y2="190" />
+        <line class="whye" data-e="n5-n7" x1="270" y1="325" x2="390" y2="265" />
+        <line class="whye" data-e="n6-n8" x1="385" y1="110" x2="500" y2="55" />
+        <line class="whye" data-e="n6-n9" x1="385" y1="110" x2="505" y2="190" />
+        <line class="whye" data-e="n7-n9" x1="390" y1="265" x2="505" y2="190" />
+        <line class="whye" data-e="n7-n10" x1="390" y1="265" x2="495" y2="325" />
+        <line class="whye" data-e="n8-n11" x1="500" y1="55" x2="615" y2="110" />
+        <line class="whye" data-e="n8-n9" x1="500" y1="55" x2="505" y2="190" />
+        <line class="whye" data-e="n9-n11" x1="505" y1="190" x2="615" y2="110" />
+        <line class="whye" data-e="n9-n12" x1="505" y1="190" x2="620" y2="265" />
+        <line class="whye" data-e="n9-F" x1="505" y1="190" x2="730" y2="190" />
+        <line class="whye" data-e="n10-n12" x1="495" y1="325" x2="620" y2="265" />
+        <line class="whye" data-e="n11-F" x1="615" y1="110" x2="730" y2="190" />
+        <line class="whye" data-e="n12-F" x1="620" y1="265" x2="730" y2="190" />
+      </g>
+      <g id="why-nodes">
+        <circle class="whyn" data-n="n1" cx="165" cy="105" r="15"/>
+        <circle class="whyn" data-n="n2" cx="165" cy="275" r="15"/>
+        <circle class="whyn" data-n="n3" cx="265" cy="55" r="15"/>
+        <circle class="whyn" data-n="n4" cx="275" cy="190" r="15"/>
+        <circle class="whyn" data-n="n5" cx="270" cy="325" r="15"/>
+        <circle class="whyn" data-n="n6" cx="385" cy="110" r="15"/>
+        <circle class="whyn" data-n="n7" cx="390" cy="265" r="15"/>
+        <circle class="whyn" data-n="n8" cx="500" cy="55" r="15"/>
+        <circle class="whyn" data-n="n9" cx="505" cy="190" r="15"/>
+        <circle class="whyn" data-n="n10" cx="495" cy="325" r="15"/>
+        <circle class="whyn" data-n="n11" cx="615" cy="110" r="15"/>
+        <circle class="whyn" data-n="n12" cx="620" cy="265" r="15"/>
+      </g>
+
+      <!-- little tables: every router already knows where to send things -->
+      <g id="why-tables" opacity="0">
+        <rect x="152" y="123" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="152" y1="127" x2="178" y2="127" stroke="var(--accent)" stroke-width="1"/><rect x="262" y="208" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="262" y1="212" x2="288" y2="212" stroke="var(--accent)" stroke-width="1"/><rect x="377" y="283" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="377" y1="287" x2="403" y2="287" stroke="var(--accent)" stroke-width="1"/><rect x="492" y="208" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="492" y1="212" x2="518" y2="212" stroke="var(--accent)" stroke-width="1"/><rect x="602" y="128" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="602" y1="132" x2="628" y2="132" stroke="var(--accent)" stroke-width="1"/>
+      </g>
+
+      <circle id="why-a" cx="70" cy="190" r="24" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+      <text id="why-a-t" x="70" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--muted)">A</text>
+      <circle id="why-f" cx="730" cy="190" r="24" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+      <text id="why-f-t" x="730" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--muted)">F</text>
+
+      <text id="why-q" x="400" y="205" text-anchor="middle" font-size="46" font-weight="700" fill="var(--muted)" stroke="var(--bg)" stroke-width="7" paint-order="stroke" opacity="0">?</text>
     </svg>
   </div>
-  <div style="display:flex;flex-direction:column;gap:11px;align-items:center;margin-top:10px">
-    <p class="frag lead" style="margin:0;font-size:20px">A knows only the links it is plugged into. It has never seen the rest.</p>
-    <p class="frag lead" id="goal-reveal" style="margin:0;font-size:20px">Here is what is actually out there &mdash; and there is usually
-      <b>more than one</b> way through.</p>
-    <div class="frag" style="max-width:74ch;border-left:3px solid var(--accent);padding:8px 16px;font-size:19px">
-      How does the network work out a path from A to F <b>at all</b>, when no single router can see this picture?
-    </div>
-    <div class="frag" style="max-width:74ch;border-left:3px solid var(--current);padding:8px 16px;font-size:19px">
-      And when several paths exist, <b>which one</b> should they settle on? Fewest hops? Lowest delay? Cheapest to run?
-    </div>
-  </div>
+  <div id="why-card" style="min-height:96px;display:flex;align-items:center;justify-content:center"></div>
+  <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== What routing has to do ====== -->
@@ -2352,16 +2411,16 @@ function goto_(i,revealAll){
   cur=i;
   if(revealAll) showAllFrags(slides[cur]); else hideAllFrags(slides[cur]);
   sync();
-  updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
+  updateStackHighlight();updateWhySlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
 }
 function next(){
   var f=frags(slides[cur]).filter(function(x){return !x.classList.contains('on');});
-  if(f.length){f[0].classList.add('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(f.length){f[0].classList.add('on');updateStackHighlight();updateWhySlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur+1,false);
 }
 function prev(){
   var on=frags(slides[cur]).filter(function(x){return x.classList.contains('on');});
-  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateWhySlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur-1,true);
 }
 
@@ -2564,6 +2623,64 @@ function drawStack(){
 drawStack();
 
 // Stack layer highlighting for recap slide
+
+/* ---------- slide 5: the diagram tracks the story, one card at a time ---------- */
+function updateWhySlide(){
+  var s=document.getElementById('why-svg');if(!s)return;
+  var slide=s.closest('.slide');
+  var n=fragCount(slide);
+  var card=document.getElementById('why-card');
+
+  var P1=['A-n1','n1-n3','n3-n6','n6-n8','n8-n11','n11-F'];
+  var P2=['A-n4','n4-n9','n9-F'];
+  var P3=['A-n2','n2-n5','n5-n7','n7-n10','n10-n12','n12-F'];
+  var lit=[];
+  if(n===3) lit=[[P1,'p1']];
+  if(n===6) lit=[[P1,'p1'],[P2,'p2'],[P3,'p3']];
+  var on={};
+  lit.forEach(function(pair){pair[0].forEach(function(e){on[e]=pair[1];});});
+
+  s.querySelectorAll('.whye').forEach(function(l){
+    var k=l.getAttribute('data-e');
+    l.classList.remove('p1','p2','p3');
+    if(k&&on[k]) l.classList.add(on[k]);
+    // dim the rest of the mesh only while a path is being traced
+    l.classList.toggle('dim', lit.length>0 && !(k&&on[k]));
+  });
+  // routers ON a highlighted path are part of that path -- keep them lit
+  var onNode={};
+  Object.keys(on).forEach(function(e){e.split('-').forEach(function(k){onNode[k]=1;});});
+  s.querySelectorAll('.whyn').forEach(function(c){
+    c.classList.toggle('dim', lit.length>0 && !onNode[c.getAttribute('data-n')]);});
+
+  // A and F are just two routers until we pick them out
+  var picked=n>=2;
+  var a=document.getElementById('why-a'), f=document.getElementById('why-f');
+  var at=document.getElementById('why-a-t'), ft=document.getElementById('why-f-t');
+  if(a){a.setAttribute('fill',picked?'var(--accent-soft)':'var(--surface)');
+        a.setAttribute('stroke',picked?'var(--accent)':'var(--edge)');
+        a.setAttribute('stroke-width',picked?'3':'2.5');}
+  if(at)at.setAttribute('fill',picked?'var(--accent-ink)':'var(--muted)');
+  if(f){f.setAttribute('fill',picked?'var(--current-soft)':'var(--surface)');
+        f.setAttribute('stroke',picked?'var(--current)':'var(--edge)');
+        f.setAttribute('stroke-width',picked?'3':'2.5');}
+  if(ft)ft.setAttribute('fill',picked?'var(--current)':'var(--muted)');
+
+  var q=document.getElementById('why-q');
+  if(q)q.setAttribute('opacity',(n===4||n===6)?'1':'0');
+  var tb=document.getElementById('why-tables');
+  if(tb)tb.setAttribute('opacity',n===5?'1':'0');
+
+  var W=[];
+  W[1]='Here is part of a network. Many routers, many links &mdash; and it carries on past the edge of this slide.';
+  W[2]='Pick any two. <b>A</b> has a message for <b>F</b>.';
+  W[3]='The message cannot jump. It needs a <b>path</b>: a sequence of routers, each joined to the next by a link, starting at A and ending at F. The message is handed along the whole chain.';
+  W[4]='So who works that path out? Nothing in this picture knows it. A can see only the links it is plugged into &mdash; and no router anywhere holds the whole map.';
+  W[5]='And it cannot be worked out per message &mdash; that would be far too slow. It has to be settled <b>in advance</b>, so that every router already knows where to send anything addressed to F before the first packet arrives.';
+  W[6]='There is rarely just one path. When several will do, the network still has to agree on <b>one</b> &mdash; and preferably the best one. So whatever does this has to choose, too.';
+  card.innerHTML = W[n] ? '<div class="wcard">'+W[n]+'</div>' : '';
+}
+
 function updateStackHighlight(){
   var slides=document.querySelectorAll('.slide');
   var slide2=slides[1];
