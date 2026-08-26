@@ -1495,12 +1495,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 2 · Shortest Paths &amp; Distance-Vector" id="bf-full-slide">
   <div class="kicker">Shortest-path algorithms</div>
   <h2>Bellman-Ford</h2>
-  <p class="lead" style="margin:0 0 3px;font-size:18px;max-width:96ch">Bellman&ndash;Ford uses exactly
-  that idea, run over <b>every pair of nodes</b>: for each node s and each destination u, s keeps
-  relaxing over its neighbours &mdash; until d<sub>s</sub>(u) = d<sub>s</sub>*(u) for <b>all</b> s and
-  <b>all</b> u.</p>
-  <p class="small muted" style="margin:0 0 11px;font-size:16px">Here s and u mean <i>any</i> node and
-  <i>any</i> destination &mdash; not the particular pair from the last slide.</p>
   <div class="cols" style="align-items:flex-start">
     <div class="col" style="flex:1.2">
       <!-- Centralised all-pairs pseudocode (shown at n<3) -->
@@ -1535,6 +1529,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div id="bfdrow12"><span class="dim">12</span>      <span class="hi" style="color:var(--accent)">send d<sub>s</sub>(u) to all neighbours</span></div></div>
     </div>
     <div class="col" style="flex:1">
+      <div id="bf-intro" style="display:none">
+        <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
+          <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">The idea</p>
+          <p style="margin:0;font-size:17px">Bellman&ndash;Ford uses exactly that idea, run over
+          <b>every pair of nodes</b>: for each node s and each destination u, s keeps relaxing over its
+          neighbours &mdash; until d<sub>s</sub>(u) = d<sub>s</sub>*(u) for <b>all</b> s and <b>all</b> u.</p>
+          <p style="margin:10px 0 0;font-size:17px;color:var(--muted)">Here s and u mean <i>any</i> node
+          and <i>any</i> destination &mdash; not the particular pair from the last slide.</p>
+        </div>
+      </div>
       <div id="bf-init" style="display:none">
         <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Initialisation</p>
         <p style="font-size:18px;margin:0">Every node starts with what it can see for itself: cost <b>0</b> to itself, the <b>link cost</b> to each direct neighbour, and <b>&infin;</b> to everyone it has not heard of yet.</p>
@@ -1580,7 +1584,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p><p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
 <!-- ====== Distance-vector protocol ====== -->
@@ -3113,24 +3117,26 @@ function updateBFFullSlide(){
   var distribute=document.getElementById('bf-distribute');
   var send=document.getElementById('bf-send');
   var dvCard=document.getElementById('bf-dv-card');
+  var intro=document.getElementById('bf-intro');
   var dsHi=document.getElementById('bf-ds-hi');
   var psHi=document.getElementById('bf-ps-hi');
-  if(central)central.style.display=(n<6)?'flex':'none';  /* keep the flex column: '' would wipe it */
-  if(centralLabel)centralLabel.style.display=(n<6)?'':'none';
-  if(distrib)distrib.style.display=(n>=6)?'flex':'none';
-  if(distribLabel)distribLabel.style.display=(n>=6)?'':'none';
+  if(intro)intro.style.display=(n===1)?'':'none';
+  if(central)central.style.display=(n<7)?'flex':'none';  /* keep the flex column: '' would wipe it */
+  if(centralLabel)centralLabel.style.display=(n<7)?'':'none';
+  if(distrib)distrib.style.display=(n>=7)?'flex':'none';
+  if(distribLabel)distribLabel.style.display=(n>=7)?'':'none';
   /* the two code-walk frags hot-swap; the argument after them builds up */
-  if(init)init.style.display=(n===1)?'':'none';
-  if(loop)loop.style.display=(n===2||n===3)?'':'none';
-  if(converge)converge.style.display=(n===3)?'':'none';
-  if(observe)observe.style.display=(n>=4&&n<=6)?'':'none';
-  if(distribute)distribute.style.display=(n>=5&&n<=6)?'':'none';
-  if(send)send.style.display=(n>=7)?'':'none';
-  if(dvCard)dvCard.style.display=(n>=8)?'':'none';
-  if(dsHi){dsHi.style.color=(n===3)?'var(--accent)':'';dsHi.style.fontWeight=(n===3)?'bold':'';}
-  if(psHi){psHi.style.color=(n===3)?'var(--accent)':'';psHi.style.fontWeight=(n===3)?'bold':'';}
+  if(init)init.style.display=(n===2)?'':'none';
+  if(loop)loop.style.display=(n===3||n===4)?'':'none';
+  if(converge)converge.style.display=(n===4)?'':'none';
+  if(observe)observe.style.display=(n>=5&&n<=7)?'':'none';
+  if(distribute)distribute.style.display=(n>=6&&n<=7)?'':'none';
+  if(send)send.style.display=(n>=8)?'':'none';
+  if(dvCard)dvCard.style.display=(n>=9)?'':'none';
+  if(dsHi){dsHi.style.color=(n===4)?'var(--accent)':'';dsHi.style.fontWeight=(n===4)?'bold':'';}
+  if(psHi){psHi.style.color=(n===4)?'var(--accent)':'';psHi.style.fontWeight=(n===4)?'bold':'';}
   var ln6arrow=document.getElementById('bfln6-arrow');
-  if(ln6arrow)ln6arrow.style.display=(n===5)?'inline':'none';
+  if(ln6arrow)ln6arrow.style.display=(n===6)?'inline':'none';
   var initRows=['bfrow1','bfrow2','bfrow3'];
   var loopRows=['bfrow5','bfrow6','bfrow7','bfrow8','bfrow9','bfrow10','bfrow11','bfrow12'];
   var obsRows=['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11'];
@@ -3138,8 +3144,8 @@ function updateBFFullSlide(){
   for(var i=1;i<=12;i++){
     var row=document.getElementById('bfrow'+i);if(!row)continue;
     var id='bfrow'+i;
-    var active=(n===1&&initRows.indexOf(id)>=0)||(n===2&&loopRows.indexOf(id)>=0)
-             ||(n===4&&obsRows.indexOf(id)>=0)||(n===5&&distRows.indexOf(id)>=0);
+    var active=(n===2&&initRows.indexOf(id)>=0)||(n===3&&loopRows.indexOf(id)>=0)
+             ||(n===5&&obsRows.indexOf(id)>=0)||(n===6&&distRows.indexOf(id)>=0);
     row.style.backgroundColor=active?'rgba(224,120,80,0.15)':'';
     row.style.borderLeft=active?'3px solid #e07850':'';
     row.style.paddingLeft=active?'4px':'';
@@ -3148,7 +3154,7 @@ function updateBFFullSlide(){
   /* distributed code: spotlight the two lines distribution introduces */
   for(var k=1;k<=12;k++){
     var drow=document.getElementById('bfdrow'+k);if(!drow)continue;
-    var dActive=(n===7&&(k===11||k===12));
+    var dActive=(n===8&&(k===11||k===12));
     drow.style.backgroundColor=dActive?'rgba(224,120,80,0.15)':'';
     drow.style.borderLeft=dActive?'3px solid #e07850':'';
     drow.style.paddingLeft=dActive?'4px':'';
