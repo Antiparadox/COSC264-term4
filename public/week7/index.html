@@ -850,53 +850,60 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <section class="slide" data-sec="Who runs it?">
   <div class="kicker">Question 4 of 4</div>
-  <h2>Who runs all this?</h2>
-  <p class="lead" style="margin-bottom:18px">Nobody runs the Internet. It is a network <em>of networks</em>,
-  each independently operated — and each free to choose its own routing protocol. That freedom is what
-  splits routing into <b>two problems</b>: inside one network, and between them.</p>
-    <svg viewBox="0 0 900 300" style="width:100%;max-width:900px" aria-label="The Internet as a network of networks">
-      <!-- AS 1 cluster (top-left) -->
-      <ellipse cx="160" cy="120" rx="120" ry="75" fill="var(--surface)" stroke="var(--border)" stroke-width="2" stroke-dasharray="6,4"/>
-      <line x1="110" y1="100" x2="160" y2="80" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="110" y1="100" x2="140" y2="140" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="160" y1="80" x2="200" y2="110" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="140" y1="140" x2="200" y2="110" stroke="var(--edge)" stroke-width="2"/>
-      <circle cx="110" cy="100" r="8" fill="var(--accent)"/><circle cx="160" cy="80" r="8" fill="var(--accent)"/>
-      <circle cx="140" cy="140" r="8" fill="var(--accent)"/><circle cx="200" cy="110" r="8" fill="var(--accent)"/>
-      <text x="160" y="175" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">AS 1</text>
-      <!-- AS 2 cluster (top-right) -->
-      <ellipse cx="500" cy="100" rx="110" ry="70" fill="var(--surface)" stroke="var(--border)" stroke-width="2" stroke-dasharray="6,4"/>
-      <line x1="460" y1="80" x2="510" y2="70" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="460" y1="80" x2="480" y2="120" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="510" y1="70" x2="540" y2="100" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="480" y1="120" x2="540" y2="100" stroke="var(--edge)" stroke-width="2"/>
-      <circle cx="460" cy="80" r="8" fill="var(--accent)"/><circle cx="510" cy="70" r="8" fill="var(--accent)"/>
-      <circle cx="480" cy="120" r="8" fill="var(--accent)"/><circle cx="540" cy="100" r="8" fill="var(--accent)"/>
-      <text x="500" y="155" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">AS 2</text>
-      <!-- AS 3 cluster (bottom-center) -->
-      <ellipse cx="360" cy="240" rx="130" ry="55" fill="var(--surface)" stroke="var(--border)" stroke-width="2" stroke-dasharray="6,4"/>
-      <line x1="300" y1="230" x2="350" y2="220" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="350" y1="220" x2="400" y2="235" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="300" y1="230" x2="340" y2="260" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="340" y1="260" x2="400" y2="235" stroke="var(--edge)" stroke-width="2"/>
-      <circle cx="300" cy="230" r="8" fill="var(--accent)"/><circle cx="350" cy="220" r="8" fill="var(--accent)"/>
-      <circle cx="400" cy="235" r="8" fill="var(--accent)"/><circle cx="340" cy="260" r="8" fill="var(--accent)"/>
-      <text x="360" y="285" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">AS 3</text>
-      <!-- AS 4 cluster (right) -->
-      <ellipse cx="740" cy="190" rx="120" ry="70" fill="var(--surface)" stroke="var(--border)" stroke-width="2" stroke-dasharray="6,4"/>
-      <line x1="700" y1="175" x2="740" y2="165" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="740" y1="165" x2="780" y2="185" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="700" y1="175" x2="720" y2="210" stroke="var(--edge)" stroke-width="2"/>
-      <line x1="720" y1="210" x2="780" y2="185" stroke="var(--edge)" stroke-width="2"/>
-      <circle cx="700" cy="175" r="8" fill="var(--accent)"/><circle cx="740" cy="165" r="8" fill="var(--accent)"/>
-      <circle cx="780" cy="185" r="8" fill="var(--accent)"/><circle cx="720" cy="210" r="8" fill="var(--accent)"/>
-      <text x="740" y="245" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">AS 4</text>
-      <!-- inter-AS links -->
-      <line x1="200" y1="110" x2="460" y2="80" stroke="var(--current)" stroke-width="3" stroke-dasharray="8,5"/>
-      <line x1="140" y1="140" x2="300" y2="230" stroke="var(--current)" stroke-width="3" stroke-dasharray="8,5"/>
-      <line x1="540" y1="100" x2="700" y2="175" stroke="var(--current)" stroke-width="3" stroke-dasharray="8,5"/>
-      <line x1="400" y1="235" x2="700" y2="175" stroke="var(--current)" stroke-width="3" stroke-dasharray="8,5"/>
-    </svg>
+  <h2>Who runs the routing protocol?</h2>
+  <p class="lead" style="margin:0 0 16px;font-size:22px;max-width:78ch">A network is a great many
+  routers &mdash; and they are not all run by the same people.</p>
+  <div class="cols" style="align-items:center;gap:26px;flex:0 0 auto">
+    <div class="col" style="flex:1.05">
+      <svg id="who-svg" viewBox="0 0 450 300" style="width:100%;max-width:450px;display:block"
+           aria-label="Routers across one network, coloured by the organisation that operates them">
+        <line x1="58" y1="82" x2="122" y2="48" stroke="var(--accent)" stroke-width="2.5" opacity=".55"/>
+        <line x1="58" y1="82" x2="108" y2="122" stroke="var(--accent)" stroke-width="2.5" opacity=".55"/>
+        <line x1="122" y1="48" x2="108" y2="122" stroke="var(--accent)" stroke-width="2.5" opacity=".55"/>
+        <line x1="108" y1="122" x2="52" y2="164" stroke="var(--accent)" stroke-width="2.5" opacity=".55"/>
+        <line x1="300" y1="58" x2="362" y2="38" stroke="var(--current)" stroke-width="2.5" opacity=".55"/>
+        <line x1="362" y1="38" x2="392" y2="96" stroke="var(--current)" stroke-width="2.5" opacity=".55"/>
+        <line x1="392" y1="96" x2="324" y2="122" stroke="var(--current)" stroke-width="2.5" opacity=".55"/>
+        <line x1="300" y1="58" x2="324" y2="122" stroke="var(--current)" stroke-width="2.5" opacity=".55"/>
+        <line x1="248" y1="222" x2="300" y2="182" stroke="#7b61b5" stroke-width="2.5" opacity=".55"/>
+        <line x1="300" y1="182" x2="376" y2="216" stroke="#7b61b5" stroke-width="2.5" opacity=".55"/>
+        <line x1="376" y1="216" x2="314" y2="250" stroke="#7b61b5" stroke-width="2.5" opacity=".55"/>
+        <line x1="248" y1="222" x2="314" y2="250" stroke="#7b61b5" stroke-width="2.5" opacity=".55"/>
+        <line x1="122" y1="48" x2="300" y2="58" stroke="var(--edge)" stroke-width="2.5" stroke-dasharray="7,5"/>
+        <line x1="108" y1="122" x2="300" y2="182" stroke="var(--edge)" stroke-width="2.5" stroke-dasharray="7,5"/>
+        <line x1="324" y1="122" x2="300" y2="182" stroke="var(--edge)" stroke-width="2.5" stroke-dasharray="7,5"/>
+        <circle cx="58" cy="82" r="10" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="122" cy="48" r="10" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="108" cy="122" r="10" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="52" cy="164" r="10" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="300" cy="58" r="10" fill="var(--current)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="362" cy="38" r="10" fill="var(--current)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="392" cy="96" r="10" fill="var(--current)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="324" cy="122" r="10" fill="var(--current)" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="248" cy="222" r="10" fill="#7b61b5" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="300" cy="182" r="10" fill="#7b61b5" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="376" cy="216" r="10" fill="#7b61b5" stroke="var(--bg)" stroke-width="2"/>
+        <circle cx="314" cy="250" r="10" fill="#7b61b5" stroke="var(--bg)" stroke-width="2"/>
+        <g id="who-ask" opacity="0" style="transition:opacity .3s">
+          <text x="86" y="196" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent)">link-state?</text>
+          <text x="346" y="18" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--current)">distance-vector?</text>
+          <text x="312" y="286" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="#7b61b5">something else?</text>
+        </g>
+      </svg>
+      <p class="small muted" style="margin:6px 0 0;text-align:center">colour = the organisation that
+      operates the router</p>
+    </div>
+    <div class="col">
+      <p class="frag" style="margin:0;font-size:21px">One operator may want <b>link-state</b>. Another
+      may prefer <b>distance-vector</b>. A third may not want to publish how its network is wired at
+      all.</p>
+      <p class="frag" style="margin-top:18px;font-size:21px">So <b>who decides</b> which routing
+      protocol runs? Nobody is in charge of the Internet, so nobody gets to impose one answer.</p>
+      <p class="frag" style="margin-top:18px;font-size:21px">The way out is to stop asking about the
+      Internet as a whole, and find the smallest piece that <b>can</b> decide for itself. That piece
+      has a name &mdash; and it is next.</p>
+    </div>
+  </div>
 </section>
 
 <section class="slide" data-sec="Who runs it?">
@@ -2429,16 +2436,16 @@ function goto_(i,revealAll){
   cur=i;
   if(revealAll) showAllFrags(slides[cur]); else hideAllFrags(slides[cur]);
   sync();
-  updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
+  updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateWhoSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
 }
 function next(){
   var f=frags(slides[cur]).filter(function(x){return !x.classList.contains('on');});
-  if(f.length){f[0].classList.add('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(f.length){f[0].classList.add('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateWhoSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur+1,false);
 }
 function prev(){
   var on=frags(slides[cur]).filter(function(x){return x.classList.contains('on');});
-  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateWhoSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur-1,true);
 }
 
@@ -2641,6 +2648,13 @@ function drawStack(){
 drawStack();
 
 // Stack layer highlighting for recap slide
+
+/* ---------- slide 14: three operators, three answers, nobody to arbitrate ---------- */
+function updateWhoSlide(){
+  var s=document.getElementById('who-svg');if(!s)return;
+  var a=document.getElementById('who-ask');
+  if(a)a.setAttribute('opacity', fragCount(s.closest('.slide'))>=1?'1':'0');
+}
 
 /* ---------- slide 8: the same tables, written by one job and read by the other ---------- */
 function updateRFSlide(){
