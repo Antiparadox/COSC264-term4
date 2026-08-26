@@ -657,14 +657,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <table class="ft" id="rf-cmptab" style="font-size:15px;width:100%">
       <thead><tr><th></th><th style="color:var(--accent)">routing</th><th style="color:var(--current)">forwarding</th></tr></thead>
       <tbody>
-        <tr><td style="color:var(--muted)">scope</td><td>the whole network</td><td>one router</td></tr>
-        <tr><td style="color:var(--muted)">when</td><td>before, and on change</td><td>per datagram</td></tr>
-        <tr><td style="color:var(--muted)">speed</td><td>seconds</td><td>nanoseconds</td></tr>
-        <tr><td style="color:var(--muted)">runs in</td><td>software · control plane</td><td>hardware · data plane</td></tr>
+        <tr><td style="color:var(--muted)">when</td><td>before &mdash; <span style="color:var(--muted)">offline phase</span></td><td>when a datagram arrives &mdash; <span style="color:var(--muted)">online phase</span></td></tr>
+        <tr><td style="color:var(--muted)">speed</td><td>slower</td><td>faster &mdash; <span style="color:var(--muted)">nanoseconds</span></td></tr>
+        <tr><td style="color:var(--muted)">plane</td><td>control plane &middot; <span style="color:var(--muted)">software</span></td><td>data plane &middot; <span style="color:var(--muted)">hardware</span></td></tr>
       </tbody>
     </table>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
@@ -2688,49 +2687,41 @@ function updateRFSlide(){
   var card=document.getElementById('rf-card');
 
   var C=[];
-  C[1]='<div class="fcard fq">Two different jobs went on here. One <b>built</b> these tables. '
-     + 'The other <b>used</b> them.</div>';
-  C[2]='<div class="fcard fa"><b class="accent">Routing</b> produced them &mdash; working over the '
-     + '<b>whole network</b>, before any datagram exists, with every router taking part.</div>';
-  C[3]='<div class="fcard fa"><b style="color:var(--current)">Forwarding</b> is one datagram, at one '
-     + 'router, reading <b>one row</b>. A reads its <b>F</b> row and sends the datagram out to B.</div>';
-  C[4]='<div class="fcard fa">Then again at B: same job, different router, different row. Nothing was '
-     + 'recomputed &mdash; B simply read its own <b>F</b> row.</div>';
-  C[5]='<div class="fcard fa">Same tables. One job <b class="accent">writes</b> them, once and for the '
-     + 'whole network; the other <b style="color:var(--current)">reads</b> them, a row at a time.</div>';
+  C[1]='<div class="fcard fa"><b class="accent">Routing</b> <b>produces</b> the tables, and it happens '
+     + '<b>offline</b>. It is what filled in A’s, B’s and D’s tables, before any datagram existed.</div>';
+  C[2]='<div class="fcard fa"><b style="color:var(--current)">Forwarding</b> <b>uses</b> them, and it '
+     + 'happens <b>online</b>. A datagram for F turns up, and each router in turn looks F up in its own '
+     + 'table and sends it on.</div>';
+  C[3]=C[2];                       // beat 3 just brings up the comparison
   if(card) card.innerHTML = C[n] || '';
 
   var w=document.getElementById('rf-write'), r=document.getElementById('rf-read');
-  if(w) w.style.opacity = n>=2?'1':'0';
-  if(r) r.style.opacity = n>=3?'1':'0';
+  if(w) w.style.opacity = n>=1?'1':'0';
+  if(r) r.style.opacity = n>=2?'1':'0';
 
-  // Beat 2 lights the whole network at once, because that is routing's scope.
-  // From beat 3 the network dims and only the hop being taken is drawn.
+  // Beat 1 lights the whole network at once, because that is routing's scope;
+  // beat 2 dims it to the hops one datagram actually takes.
   s.querySelectorAll('.rfe').forEach(function(l){
-    l.classList.toggle('lit', n===2);
-    l.classList.toggle('dim', n>=3);
+    l.classList.toggle('lit', n===1);
+    l.classList.toggle('dim', n>=2);
   });
   for(var i=1;i<=3;i++){
     var hop=document.getElementById('rfh'+i);
-    if(hop) hop.classList.toggle('on', n>=i+2);
+    if(hop) hop.classList.toggle('on', n>=2);
   }
   var pl=document.getElementById('rf-path');
-  if(pl) pl.setAttribute('opacity', n>=5?'1':'0');
+  if(pl) pl.setAttribute('opacity', n>=2?'1':'0');
 
-  // Every row glows while routing is writing; afterwards only the row the
-  // current router is actually reading.
-  var reading = n===3 ? 'A' : n===4 ? 'B' : n>=5 ? '*' : null;
   ['A','B','D'].forEach(function(k){
     var t=document.getElementById('rftab-'+k);if(!t)return;
     t.querySelectorAll('tbody tr').forEach(function(tr){
-      var isF = tr.getAttribute('data-d')==='F';
-      tr.classList.toggle('wrote', n===2);
-      tr.classList.toggle('reads', isF && (reading==='*' || reading===k));
+      tr.classList.toggle('wrote', n===1);
+      tr.classList.toggle('reads', n>=2 && tr.getAttribute('data-d')==='F');
     });
   });
 
   var cmp=document.getElementById('rf-cmp');
-  if(cmp) cmp.style.opacity = n>=5?'1':'0';
+  if(cmp) cmp.style.opacity = n>=3?'1':'0';
 }
 
 /* ---------- slide 7: three local tables assemble one global path ---------- */
