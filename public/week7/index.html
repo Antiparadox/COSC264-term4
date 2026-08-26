@@ -272,6 +272,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #rf-cmptab th,#rf-cmptab td{padding:7px 14px;white-space:normal}
 #rf-cmptab tr.rfrow{display:none}
 #rf-cmptab tr.rfrow.on{display:table-row;animation:wfade .28s ease}
+#dv-svg .dvtalk{stroke:var(--accent);stroke-width:3.5}
 #fw-svg .fwe{stroke:var(--edge);stroke-width:3;transition:opacity .3s}
 #fw-svg .fwe.dim{opacity:.32}
 #fw-svg .fwhop{stroke:var(--accent);stroke-width:4.5;opacity:0;transition:opacity .3s}
@@ -781,66 +782,67 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">The two families &middot; distance-vector</div>
   <h2>Distance-vector: ask your neighbours</h2>
   <div class="cols">
-    <div class="col" style="flex:1.15;padding-top:20px">
-      <svg id="dv-svg" viewBox="0 0 480 260" style="width:100%;max-width:440px" aria-label="Distance vector: forwarding table builds from neighbour reports">
-        <!-- blurred beyond-neighbor nodes (unknown territory) -->
-        <g opacity="0.5">
-          <line x1="80" y1="40" x2="10" y2="10" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <circle cx="10" cy="10" r="14" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="10" y="15" text-anchor="middle" font-size="11" fill="var(--muted)">?</text>
-          <line x1="80" y1="220" x2="20" y2="250" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <circle cx="20" cy="250" r="14" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="20" y="255" text-anchor="middle" font-size="11" fill="var(--muted)">?</text>
-          <line x1="400" y1="56" x2="460" y2="20" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <circle cx="460" cy="20" r="14" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="460" y="25" text-anchor="middle" font-size="11" fill="var(--muted)">?</text>
-          <line x1="400" y1="56" x2="470" y2="90" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <circle cx="470" cy="90" r="14" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
-          <text x="470" y="95" text-anchor="middle" font-size="11" fill="var(--muted)">?</text>
+    <div class="col" style="flex:1.15;padding-top:8px">
+      <svg id="dv-svg" viewBox="0 0 480 268" style="width:100%;max-width:460px;display:block"
+           aria-label="R talks to neighbours A, B and C; D, F and G lie beyond them, unseen">
+        <defs><marker id="dvA" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="4.5" markerHeight="4.5"
+          orient="auto-start-reverse"><path d="M0,0.8 L10,5 L0,9.2 z" fill="var(--accent)"/></marker></defs>
+
+        <!-- the rest of the network: real, but R cannot see any of it -->
+        <g opacity=".55">
+          <line x1="107.0" y1="43.0" x2="54.3" y2="26.9" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
+          <line x1="396.0" y1="130.0" x2="435.0" y2="130.0" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
+          <line x1="107.0" y1="219.0" x2="54.3" y2="235.1" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5,4"/>
+        <circle cx="38" cy="22" r="17" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-dasharray="5,4"/>
+        <text x="38" y="27" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--muted)">D</text>
+        <circle cx="452" cy="130" r="17" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-dasharray="5,4"/>
+        <text x="452" y="135" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--muted)">F</text>
+        <circle cx="38" cy="240" r="17" fill="none" stroke="var(--muted)" stroke-width="2.5" stroke-dasharray="5,4"/>
+        <text x="38" y="245" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--muted)">G</text>
         </g>
-        <!-- edges with link costs -->
-        <line x1="200" y1="108" x2="100" y2="52" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="200" y1="148" x2="100" y2="210" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="258" y1="118" x2="380" y2="68" stroke="var(--edge)" stroke-width="3"/>
-        <text x="138" y="66" font-size="14" font-weight="700" fill="var(--current)">2</text>
-        <text x="136" y="194" font-size="14" font-weight="700" fill="var(--current)">1</text>
-        <text x="330" y="82" font-size="14" font-weight="700" fill="var(--current)">3</text>
-        <!-- neighbour nodes -->
-        <circle cx="80" cy="40" r="22" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="80" y="46" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">A</text>
-        <circle cx="80" cy="220" r="22" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="80" y="226" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
-        <circle cx="400" cy="56" r="22" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2.5"/>
-        <text x="400" y="62" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
-        <!-- central router R -->
-        <circle cx="228" cy="128" r="30" fill="var(--surface-2)" stroke="var(--current)" stroke-width="3"/>
-        <text x="228" y="135" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">R</text>
-        <!-- neighbour quotes (fragment-controlled via JS) -->
-        <g id="dv-quote-a" opacity="0">
-          <text x="112" y="22" font-size="13" class="svgmono" fill="var(--muted)">&ldquo;F? — unreachable&rdquo;</text>
+
+        <line x1="212.5" y1="110.0" x2="149.4" y2="64.1" stroke="var(--edge)" stroke-width="3"/>
+        <line x1="274.0" y1="130.0" x2="348.0" y2="130.0" stroke="var(--edge)" stroke-width="3"/>
+        <line x1="212.7" y1="150.3" x2="149.2" y2="197.7" stroke="var(--edge)" stroke-width="3"/>
+
+        <g id="dv-talk" opacity="0" style="transition:opacity .3s">
+        <line class="dvtalk" x1="212.5" y1="110.0" x2="149.4" y2="64.1" marker-start="url(#dvA)" marker-end="url(#dvA)"/>
+        <line class="dvtalk" x1="274.0" y1="130.0" x2="348.0" y2="130.0" marker-start="url(#dvA)" marker-end="url(#dvA)"/>
+        <line class="dvtalk" x1="212.7" y1="150.3" x2="149.2" y2="197.7" marker-start="url(#dvA)" marker-end="url(#dvA)"/>
         </g>
-        <g id="dv-quote-c" opacity="0">
-          <text x="112" y="248" font-size="13" class="svgmono" fill="var(--current)">&ldquo;F? — 4 for me&rdquo;</text>
-        </g>
-        <g id="dv-quote-b" opacity="0">
-          <text x="366" y="26" text-anchor="end" font-size="13" class="svgmono" fill="var(--current)">&ldquo;F? — 1 for me&rdquo;</text>
+
+        <circle cx="130" cy="50" r="24" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2.5"/>
+        <text x="130" y="55" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">A</text>
+        <circle cx="372" cy="130" r="24" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2.5"/>
+        <text x="372" y="135" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
+        <circle cx="130" cy="212" r="24" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2.5"/>
+        <text x="130" y="217" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
+        <circle cx="240" cy="130" r="34" fill="var(--surface-2)" stroke="var(--current)" stroke-width="2.5"/>
+        <text x="240" y="135" text-anchor="middle" font-size="17" font-weight="700" class="svgmono" fill="var(--ink)">R</text>
+
+        <g id="dv-says" opacity="0" style="transition:opacity .3s">
+          <text x="168" y="17" text-anchor="middle" font-size="14" class="svgmono" fill="var(--accent)">&ldquo;I can reach D&rdquo;</text>
+          <text x="372" y="96" text-anchor="middle" font-size="14" class="svgmono" fill="var(--accent)">&ldquo;I can reach F&rdquo;</text>
+          <text x="168" y="258" text-anchor="middle" font-size="14" class="svgmono" fill="var(--accent)">&ldquo;I can reach G&rdquo;</text>
         </g>
       </svg>
-      <!-- forwarding table (HTML, fragment-controlled via JS) -->
-      <div style="margin-top:10px;max-width:340px;min-height:60px">
-        <div id="dv-table" class="card" style="opacity:0;padding:10px 16px;border-color:var(--accent);transition:opacity .3s">
-          <p class="mono small accent" style="margin:0 0 4px">R's forwarding table</p>
-          <p class="mono accent" style="margin:0;font-size:18px">F &rarr; via B</p>
-        </div>
+      <div id="dv-table" style="opacity:0;transition:opacity .3s;margin-top:12px;max-width:252px">
+        <p class="mono small accent" style="margin:0 0 5px;white-space:nowrap">R's forwarding table</p>
+        <table class="ft" style="font-size:16px;width:100%">
+          <thead><tr><th>dest</th><th>next hop</th></tr></thead>
+          <tbody><tr><td>D</td><td>A</td></tr><tr><td>F</td><td>B</td></tr>
+          <tr><td>G</td><td>C</td></tr></tbody>
+        </table>
       </div>
     </div>
     <div class="col">
-      <p class="frag" style="font-size:22px;margin:0">The routers talk only to their
-      <b>direct neighbours</b>. There is no global view, and there never will be.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">Each neighbour reports
-      <b>how far it is</b> from a destination &mdash; a distance, not a map.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">R adds its own link cost to each report,
-      keeps the <b>best</b>, and that is its forwarding table
+      <p class="frag" style="font-size:22px;margin:0">The routers talk to their
+      <b>direct neighbours</b> &mdash; and that is all any of them ever sees of the network.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">But this time they are not trying to
+      assemble a map. Each router learns, straight from those conversations,
+      <b>which neighbour to use for each destination</b>.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">Destination by destination, that fills in
+      the forwarding table &mdash; and R still has no idea what the network looks like
       <span class="small muted">(next lecture)</span>.</p>
     </div>
   </div>
@@ -2901,14 +2903,12 @@ function updateIntraInterSlide(){
 function updateDVSlide(){
   var s=findSlideWith('dv-svg');if(!s)return;
   var n=fragCount(s);
-  var qa=document.getElementById('dv-quote-a');
-  var qc=document.getElementById('dv-quote-c');
-  var qb=document.getElementById('dv-quote-b');
+  var talk=document.getElementById('dv-talk');
+  var says=document.getElementById('dv-says');
   var t=document.getElementById('dv-table');
-  // All three reports land together: the point is that neighbours report
-  // distances, not which one wins. The arithmetic is Lecture 2's job.
-  [qa,qc,qb].forEach(function(q){if(q)q.setAttribute('opacity',n>=2?'1':'0');});
-  if(t)t.style.opacity=n>=3?'1':'0';
+  if(talk)talk.setAttribute('opacity',n>=1?'1':'0');   // beat 1: the conversations
+  if(says)says.setAttribute('opacity',n>=2?'1':'0');   // beat 2: what comes back
+  if(t)t.style.opacity=n>=3?'1':'0';                   // beat 3: the table it fills
 }
 
 /* ---------- Relaxation animation (Lecture 2) ---------- */
