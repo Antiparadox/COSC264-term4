@@ -1495,10 +1495,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 2 · Shortest Paths &amp; Distance-Vector" id="bf-full-slide">
   <div class="kicker">Shortest-path algorithms</div>
   <h2>Bellman-Ford</h2>
-  <p class="lead" style="margin:0 0 12px;font-size:18px;max-width:96ch">Bellman&ndash;Ford is exactly that
-  idea, with one caveat: <b>every node</b> has to keep relaxing, and pass what it learns on to its
-  neighbours. Do that, and for <b>every</b> node s and <b>every</b> destination u, d<sub>s</sub>(u) ends
-  up at d<sub>s</sub>*(u).</p>
+  <p class="lead" style="margin:0 0 3px;font-size:18px;max-width:96ch">Bellman&ndash;Ford uses exactly
+  that idea, run over <b>every pair of nodes</b>: for each node s and each destination u, s keeps
+  relaxing over its neighbours &mdash; until d<sub>s</sub>(u) = d<sub>s</sub>*(u) for <b>all</b> s and
+  <b>all</b> u.</p>
+  <p class="small muted" style="margin:0 0 11px;font-size:16px">Here s and u mean <i>any</i> node and
+  <i>any</i> destination &mdash; not the particular pair from the last slide.</p>
   <div class="cols" style="align-items:flex-start">
     <div class="col" style="flex:1.2">
       <!-- Centralised all-pairs pseudocode (shown at n<3) -->
