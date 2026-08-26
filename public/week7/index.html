@@ -273,6 +273,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #rf-cmptab tr.rfrow{display:none}
 #rf-cmptab tr.rfrow.on{display:table-row;animation:wfade .28s ease}
 #dv-svg .dvtalk{stroke:var(--accent);stroke-width:3.5}
+.rlxupd{font-size:16.5px;color:var(--accent);margin:5px 0 0;padding-left:15px;
+  border-left:2px solid var(--accent-soft)}
 .rlxstamp{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1px;
   text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:4px;
   padding:1px 7px;margin-left:7px;vertical-align:1px}
@@ -1386,23 +1388,32 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div id="rlx-say" style="min-height:104px;margin:0 0 14px"></div>
 
       <div id="rlx-sums">
-        <p class="rlxsum" id="rlx-sum-x" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0 0 9px">
+        <p class="rlxsum" id="rlx-sum-x" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0">
           through <b>x</b>: &nbsp;<span class="mono">c(s,x) + d<sub>x</sub>(v) = 20 + 15 =</span>
           <b class="mono">35</b></p>
-        <p class="rlxsum" id="rlx-sum-w" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0 0 9px">
+        <p class="rlxupd" id="rlx-upd-x" style="opacity:0;transition:opacity .3s">Set s's next hop to x
+          for now &mdash; <span class="mono">p<sub>s</sub>(v) = x</span> &mdash; and record
+          <span class="mono">d<sub>s</sub>(v) = 35</span> as the best known cost to v.</p>
+
+        <p class="rlxsum" id="rlx-sum-w" style="opacity:0;transition:opacity .3s;font-size:18px;margin:14px 0 0">
           through <b>w</b>: &nbsp;<span class="mono">c(s,w) + d<sub>w</sub>(v) = 10 + 15 =</span>
           <b class="mono" style="color:var(--current)">25</b><br>
           <span style="font-size:17px;color:var(--muted)">25 &lt; 35, so take <b>w</b> instead of x.</span>
           <span class="rlxstamp">relaxation</span></p>
-        <p class="rlxsum" id="rlx-sum-u" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0">
+        <p class="rlxupd" id="rlx-upd-w" style="opacity:0;transition:opacity .3s">So update both:
+          <span class="mono">p<sub>s</sub>(v) = w</span>, <span class="mono">d<sub>s</sub>(v) = 25</span>.</p>
+
+        <p class="rlxsum" id="rlx-sum-u" style="opacity:0;transition:opacity .3s;font-size:18px;margin:14px 0 0">
           through <b>u</b>: &nbsp;<span class="mono">c(s,u) + d<sub>u</sub>(v) = 5 + 13 =</span>
           <b class="mono" style="color:var(--accent)">18</b><br>
           <span style="font-size:17px;color:var(--muted)">18 &lt; 25, so relax again and take <b>u</b>.</span>
           <span class="rlxstamp">relaxation</span></p>
+        <p class="rlxupd" id="rlx-upd-u" style="opacity:0;transition:opacity .3s">And update both again:
+          <span class="mono">p<sub>s</sub>(v) = u</span>, <span class="mono">d<sub>s</sub>(v) = 18</span>.</p>
       </div>
     </div>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== Relaxation: formal rule + convergence ====== -->
@@ -2973,49 +2984,48 @@ function updateRelaxSlide(){
   var n=fragCount(s);
   function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
   function setLine(id,c,w,op){var el=document.getElementById(id);if(el){el.setAttribute('stroke',c);el.setAttribute('stroke-width',String(w));el.setAttribute('opacity',String(op));}}
+  function fade(id,on){var el=document.getElementById(id);if(el)el.style.opacity=on?'1':'0';}
 
-  var g=document.getElementById('rlx-goal');
-  if(g) g.style.opacity = n>=1?'1':'0';
+  fade('rlx-goal', n>=1);
 
-  // Beats 2-5 hot-swap through one card: question, answer, notation, formula.
-  // From beat 6 the formula stays put while the sums accumulate under it.
+  // Beats 2-5 hot-swap through one card; it holds the formula through beat 7
+  // and is then retracted, because from beat 8 the sums are doing the talking.
   var S=[];
   S[2]='<div class="scard sq">To reach v, s has to go through <b>one of its neighbours</b> '
-     + '&mdash; say <b>x</b>. What we care about is the cost of each path, so we ask: what is the '
-     + '<b style="color:var(--accent)">least possible cost</b> of a path whose <b>first hop</b> '
-     + 'is <b>x</b>?</div>';
+     + '&mdash; say <b>x</b>. What we care about is the cost of each path, so we ask: '
+     + '<b>if we pick the first hop to be x</b>, what would be the '
+     + '<b class="accent">least possible cost</b> of the path?</div>';
   S[3]='<div class="scard sa"><p style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">Least cost through x</p>'
-     + 'It has to be the cost of the <b>link to x</b>, plus the '
-     + '<b style="color:var(--accent)">least possible cost</b> from <b>x</b> onward to v.</div>';
+     + 'The answer is quite simple: that least cost must be the <b>cost of the link to x</b>, plus the '
+     + '<b class="accent">least possible cost</b> from x onward to v.</div>';
   S[4]='<div class="scard sa">From here on we write these the way the <b>notation</b> under the '
      + 'graph does.</div>';
   S[5]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop x</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
      + 'c(s,x) + d<sub>x</sub>(v)</p></div>';
-  S[6]=S[7]=S[8]=S[5];
+  S[6]=S[7]=S[5];
   var say=document.getElementById('rlx-say');
-  if(say) say.innerHTML = S[n] || '';
+  if(say){ say.innerHTML = S[n] || ''; say.style.minHeight = S[n] ? '104px' : '0';
+           say.style.marginBottom = S[n] ? '14px' : '0'; }
 
-  // Notation and the table it fills in are both held back until beat 4, the
-  // moment the slide starts depending on them.
   var leg=document.getElementById('rlx-legend'), tbl=document.getElementById('rlx-table');
   if(leg){ leg.style.opacity = n>=4?'1':'0'; leg.classList.toggle('lit', n>=4); }
   if(tbl) tbl.style.opacity = n>=4?'1':'0';
 
-  ['x','w','u'].forEach(function(k,i){
-    var el=document.getElementById('rlx-sum-'+k);
-    if(el) el.style.opacity = n>=i+6?'1':'0';
-  });
+  // each sum, then the table update it causes: x at 6/7, w at 8/9, u at 10/11
+  fade('rlx-sum-x', n>=6); fade('rlx-upd-x', n>=7);
+  fade('rlx-sum-w', n>=8); fade('rlx-upd-w', n>=9);
+  fade('rlx-sum-u', n>=10); fade('rlx-upd-u', n>=11);
 
-  var xAct=n>=2&&n<=6,xFade=n>=7,wAct=n===7,wFade=n>=8,uAct=n>=8;
+  var xAct=n>=2&&n<=7,xFade=n>=8,wAct=n>=8&&n<=9,wFade=n>=10,uAct=n>=10;
   setOp('rlx-c-sx',n>=6?(xFade?0.25:1):0);
   setOp('rlx-d-xv',n>=6?(xFade?0.25:1):0);
   setLine('rlx-e-sx',xAct?'var(--current)':'var(--edge)',xAct?3:2.5,xFade?0.25:1);
   setLine('rlx-p-xv',xAct?'var(--current)':'var(--edge)',xAct?2:1.5,xAct?0.7:(xFade?0.1:0.35));
-  setOp('rlx-c-sw',n>=7?(wFade?0.25:1):0);
-  setOp('rlx-d-wv',n>=7?(wFade?0.25:1):0);
+  setOp('rlx-c-sw',n>=8?(wFade?0.25:1):0);
+  setOp('rlx-d-wv',n>=8?(wFade?0.25:1):0);
   setLine('rlx-e-sw',wAct?'var(--current)':'var(--edge)',wAct?3:2.5,wFade?0.25:1);
   setLine('rlx-p-wv',wAct?'var(--current)':'var(--edge)',wAct?2:1.5,wAct?0.7:(wFade?0.1:0.35));
   setOp('rlx-c-su',uAct?1:0);
@@ -3023,11 +3033,12 @@ function updateRelaxSlide(){
   setLine('rlx-e-su',uAct?'var(--accent)':'var(--edge)',uAct?3:2.5,1);
   setLine('rlx-p-uv',uAct?'var(--accent)':'var(--edge)',uAct?2:1.5,uAct?0.7:0.35);
 
+  // The table only moves on the beats that say it moves.
   var tN=document.getElementById('rlx-tbl-next'),tC=document.getElementById('rlx-tbl-cost');
   if(tN&&tC){
-    if(n>=8){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
-    else if(n>=7){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
-    else if(n>=6){tN.textContent='x';tC.textContent='35';tC.style.color='';}
+    if(n>=11){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
+    else if(n>=9){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
+    else if(n>=7){tN.textContent='x';tC.textContent='35';tC.style.color='';}
     else{tN.textContent='nil';tC.textContent='∞';tC.style.color='';}
   }
 }
