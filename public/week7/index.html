@@ -254,6 +254,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #why-svg #why-tables,#why-svg #why-q{transition:opacity .35s}
 #why-svg #why-a,#why-svg #why-f{transition:r .3s,fill .3s,stroke .3s}
 #why-svg #why-a-t,#why-svg #why-f-t{transition:opacity .25s}
+#why-card .wans{display:inline-block;font-weight:700;color:var(--accent);margin-left:4px}
 #why-card .wdef{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:4px;
   padding:1px 6px;margin-right:9px;vertical-align:2px}
@@ -459,10 +460,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="col frag" style="flex:1">
       <div class="card" style="border-left:4px solid var(--current);padding:17px 22px;margin:0">
         <p class="mono" style="margin:0 0 9px;font-size:15px;color:var(--current)">which path counts as best</p>
-        <p style="margin:0 0 9px;font-size:17.5px">Routing does not hand out just <em>any</em> path. Every
-        link is given a <b>cost</b>, and routing picks the path whose costs add up to the <b>least</b>.</p>
+        <p style="margin:0 0 9px;font-size:17.5px">Routing does not hand out just <em>any</em> path. It defines a
+        <b>cost metric</b>, so that every path has a cost &mdash; and then picks the path with the
+        <b>least</b> cost.</p>
         <p style="margin:0;font-size:16.5px;color:var(--muted)">What cost <em>means</em> is the operator's
-        choice &mdash; hop count, delay, spare bandwidth, money. The routing itself does not care.</p>
+        choice &mdash; hop count, delay, spare bandwidth, money.</p>
       </div>
     </div>
     <div class="col frag" style="flex:1">
@@ -473,7 +475,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           on the fly, would be far too slow &mdash; the answer has to be ready and waiting by the time a
           message turns up.</li>
           <li style="font-size:17px;line-height:1.5"><b>And again whenever the network changes.</b> Links fail and costs change, so a path that
-          was best a moment ago may not even exist now. Routing never really stops.</li>
+          was best a moment ago may not even exist now. Routing is therefore always running.</li>
         </ul>
       </div>
     </div>
@@ -496,7 +498,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>The forwarding table</h2>
   <div class="cols" style="align-items:flex-start;gap:28px">
     <div class="col" style="flex:1">
-      <p class="frag lead" style="margin:0 0 16px;font-size:24px">Whatever algorithm a router runs, the result is the same artifact. The <b>forwarding table</b> records, for each destination, the <span class="accent">next hop</span> to send to and the total <span style="color:var(--current)">cost</span> of getting there.</p>
+      <p class="frag lead" style="margin:0 0 16px;font-size:24px">Whatever algorithm a router runs, the result is the same artifact. The <b>forwarding table</b> records, for each destination, which <span class="accent">next hop</span> to send it to.</p>
       <div class="frag" style="margin-top:8px">
         <svg viewBox="0 0 440 310" style="width:100%;max-width:440px" xmlns="http://www.w3.org/2000/svg">
           <line x1="60" y1="120" x2="180" y2="60" stroke="var(--accent)" stroke-width="3"/>
@@ -504,11 +506,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <line x1="180" y1="60" x2="300" y2="60" stroke="var(--accent)" stroke-width="3"/>
           <line x1="300" y1="60" x2="400" y2="120" stroke="var(--accent)" stroke-width="3"/>
           <line x1="180" y1="190" x2="400" y2="120" stroke="var(--edge)" stroke-width="3"/>
-          <text x="110" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">2</text>
-          <text x="110" y="170" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">4</text>
-          <text x="240" y="50" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">3</text>
-          <text x="360" y="78" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">1</text>
-          <text x="310" y="170" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">2</text>
+          
+          
+          
+          
+          
           <circle cx="60" cy="120" r="22" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
           <text x="60" y="126" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
           <circle cx="180" cy="60" r="20" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
@@ -519,7 +521,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <text x="300" y="66" text-anchor="middle" font-size="13" font-weight="700" class="svgmono" fill="var(--accent-ink)">D</text>
           <circle cx="400" cy="120" r="22" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/>
           <text x="400" y="126" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--current)">F</text>
-          <text x="230" y="240" text-anchor="middle" font-size="15" fill="var(--accent)" font-weight="700">best path: A -> B -> D -> F (cost 6)</text>
+          <text x="230" y="240" text-anchor="middle" font-size="15" fill="var(--accent)" font-weight="700">path chosen: A → B → D → F</text>
           <line x1="82" y1="118" x2="160" y2="66" stroke="var(--accent)" stroke-width="5" opacity="0.25"/>
           <line x1="200" y1="60" x2="280" y2="60" stroke="var(--accent)" stroke-width="5" opacity="0.25"/>
           <line x1="318" y1="68" x2="382" y2="112" stroke="var(--accent)" stroke-width="5" opacity="0.25"/>
@@ -529,15 +531,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="col frag" style="flex:1.1">
       <p class="mono" style="margin:0 0 14px;font-size:18px;color:var(--current)">A's forwarding table</p>
       <table class="ft" style="font-size:20px">
-        <thead><tr><th>destination</th><th>next hop</th><th>cost</th></tr></thead>
+        <thead><tr><th>destination</th><th>next hop</th></tr></thead>
         <tbody>
-          <tr><td>B</td><td>B</td><td class="mono">2</td></tr>
-          <tr><td>C</td><td>C</td><td class="mono">4</td></tr>
-          <tr><td>D</td><td>B</td><td class="mono">5</td></tr>
-          <tr><td class="accent"><b>F</b></td><td class="accent"><b>B</b></td><td class="mono accent"><b>6</b></td></tr>
+          <tr><td>B</td><td>B</td></tr>
+          <tr><td>C</td><td>C</td></tr>
+          <tr><td>D</td><td>B</td></tr>
+          <tr><td class="accent"><b>F</b></td><td class="accent"><b>B</b></td></tr>
         </tbody>
       </table>
-      <p class="small muted" style="margin-top:14px">To reach F, A sends to <b>B</b> (next hop). The full path A→B→D→F costs 2+3+1 = <b>6</b>.</p>
+      <p class="small muted" style="margin-top:14px">To reach F, A sends to <b>B</b> &mdash; and B does the same thing again. No router holds the whole path; each holds one hop of it.</p>
     </div>
   </div>
 </section>
@@ -2668,10 +2670,10 @@ function updateWhySlide(){
 
   var W=[];
   W[1]='Suppose we have a large network. The diagram above shows part of it &mdash; there are many more routers and links in the middle.';
-  W[2]='Pick any two of them. <b>A</b> has a message to deliver to <b>F</b>. It will not get there by magic. It needs a <b>path</b>.';
+  W[2]='Pick any two of them. <b>A</b> has a message to deliver to <b>F</b>.<br>It will not get there by magic. It needs a <b>path</b>.';
   W[3]='<span class="wdef">definition</span> A <b>path</b> from A to F is a sequence of routers R<sub>0</sub>, R<sub>1</sub>, &#8230;, R<sub>k</sub> with R<sub>0</sub>&nbsp;=&nbsp;A and R<sub>k</sub>&nbsp;=&nbsp;F, where every consecutive pair is joined by a link. The message is handed along the whole sequence.';
-  W[4]='So &mdash; how does the network <b>come up with</b> such a path, for this source and this destination, in a network of that size?';
-  W[5]='And there is rarely just one. When several paths would do, the network still has to settle on <b>one</b>, and preferably the best one. Something has to choose.';
+  W[4]='How does the network know <b>which path to use</b> for this source and this destination? <span class="wans">routing!</span>';
+  W[5]='Furthermore, it is often the case that <b>more than one path exists</b>. When several would do, how does the network know <b>which is the best one</b> to use? <span class="wans">routing!</span>';
   card.innerHTML = W[n] ? '<div class="wcard">'+W[n]+'</div>' : '';
 }
 
