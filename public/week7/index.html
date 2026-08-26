@@ -1482,10 +1482,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
             <li style="font-size:17px;margin:0 0 5px">Write <b>d<sub>s</sub>*(v)</b> for the <b>optimal</b> cost from s to v &mdash; the cost of a genuinely shortest path.</li>
             <li style="font-size:17px;margin:0 0 5px">Clearly <b>d<sub>s</sub>(v) &ge; d<sub>s</sub>*(v)</b>: the estimate is always <b>at least</b> the optimal cost.</li>
             <li style="font-size:17px;margin:0 0 5px">Each relaxation can only ever <b>decrease</b> d<sub>s</sub>(v).</li>
-            <li style="font-size:17px;margin:0;color:var(--accent)">So intuitively, with enough rounds of relaxation, d<sub>s</sub>(v) &rarr; d<sub>s</sub>*(v).</li>
+            <li style="font-size:17px;margin:0;color:var(--accent)">So intuitively: if <b>every node</b> keeps running relaxation for enough rounds, then for <b>every destination</b>, d<sub>s</sub>(v) &rarr; d<sub>s</sub>*(v).</li>
           </ul>
         </div>
       </div>
+      <p class="frag" style="margin-top:14px;font-size:19px">And that is the key idea behind the
+      <b>Bellman&ndash;Ford algorithm</b>.</p>
     </div>
   </div>
 </section>
