@@ -2653,8 +2653,9 @@ function updateFwdSlide(){
      + '<b>F</b>, next hop is <b>D</b>. So B hands it to D.</div>';
   C[5]='<div class="fcard fa">And D’s table: for destination <b>F</b>, next hop is <b>F</b> itself. '
      + 'D is directly attached, so the message arrives.</div>';
-  C[6]='<div class="fcard fa">Not one of them knew the whole path. Put the three <b>local</b> decisions '
-     + 'end to end and the global path <b>A &#8594; B &#8594; D &#8594; F</b> falls out of them.</div>';
+  C[6]='<div class="fcard fa">Notice that each router holds only a <b>local</b> decision &mdash; '
+     + 'none of them has the global path. Put those local decisions together and you get '
+     + '<b>A &#8594; B &#8594; D &#8594; F</b>.</div>';
   if(card) card.innerHTML = C[n] || '';
 
   // Each table appears exactly when its router has to make its decision.
