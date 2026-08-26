@@ -1659,7 +1659,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>Distance-vector step-by-step</h2>
   <div class="cols" style="align-items:flex-start;gap:16px">
     <div class="col" style="flex:1.4">
-      <svg id="dve-svg" viewBox="0 0 300 200" style="width:100%;max-width:420px" aria-label="DV example: x-y-z triangle">
+      <svg id="dve-svg" viewBox="0 0 300 176" style="width:100%;max-width:420px" aria-label="DV example: x-y-z triangle">
         <line x1="50" y1="100" x2="150" y2="30" stroke="var(--edge)" stroke-width="3"/>
         <line x1="150" y1="30" x2="250" y2="100" stroke="var(--edge)" stroke-width="3"/>
         <line id="dve-xz" x1="50" y1="100" x2="250" y2="100" stroke="var(--edge)" stroke-width="3"/>
@@ -1683,12 +1683,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         </g>
         <!-- Received-vector labels near nodes -->
         <g id="dve-vec-x" opacity="0">
-          <rect x="2" y="136" width="96" height="22" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
-          <text x="50" y="151" text-anchor="middle" font-size="13" font-weight="600" fill="var(--accent)">d<tspan baseline-shift="sub" font-size="9">y</tspan>(z) = 1</text>
+          <rect x="0" y="130" width="114" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="57" y="145" text-anchor="middle" font-size="11" font-weight="600" fill="var(--accent)">from y: d<tspan baseline-shift="sub" font-size="8">y</tspan>(z) = 1</text>
+          <text x="57" y="161" text-anchor="middle" font-size="11" font-weight="600" fill="var(--accent)">from z: d<tspan baseline-shift="sub" font-size="8">z</tspan>(y) = 1</text>
         </g>
         <g id="dve-vec-z" opacity="0">
-          <rect x="202" y="136" width="96" height="22" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
-          <text x="250" y="151" text-anchor="middle" font-size="13" font-weight="600" fill="var(--accent)">d<tspan baseline-shift="sub" font-size="9">y</tspan>(x) = 2</text>
+          <rect x="186" y="130" width="114" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="243" y="145" text-anchor="middle" font-size="11" font-weight="600" fill="var(--accent)">from y: d<tspan baseline-shift="sub" font-size="8">y</tspan>(x) = 2</text>
+          <text x="243" y="161" text-anchor="middle" font-size="11" font-weight="600" fill="var(--accent)">from x: d<tspan baseline-shift="sub" font-size="8">x</tspan>(y) = 2</text>
         </g>
         <defs><marker id="dvearr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="var(--accent)"/></marker></defs>
       </svg>
@@ -1724,6 +1726,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
   <!-- 9 hidden fragment triggers (states 0–9) -->
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
@@ -3209,22 +3212,39 @@ function updateDVExampleSlide(){
   var s=document.getElementById('dv-example-slide');if(!s)return;
   var n=fragCount(s);
   function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
-  setOp('dve-arrows',(n===2||n===6)?1:0);
-  setOp('dve-vec-x',n>=3&&n<=5?1:0);
-  setOp('dve-vec-z',n>=3&&n<=5?1:0);
+  setOp('dve-arrows',(n===2||n===8)?1:0);
+  setOp('dve-vec-x',n>=3&&n<=7?1:0);
+  setOp('dve-vec-z',n>=3&&n<=7?1:0);
+  var HD='<b style="font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">';
   var card=document.getElementById('dve-step-card');
   var content=document.getElementById('dve-step-content');
-  if(n>=1&&n<=9){
+  if(n>=1&&n<=10){
     if(card)card.style.display='';
     if(content){
-      if(n===1) content.innerHTML='<b>Initial:</b> each router knows only its direct link costs';
-      else if(n===2) content.innerHTML='<b>Round 1:</b> routers exchange distance vectors';
-      else if(n===3) content.innerHTML='<div style="display:flex;gap:16px"><div style="flex:1;text-align:center"><b>x</b> receives y&#39;s vector:<br>d<sub>y</sub>(z) = 1</div><div style="flex:1;text-align:center"><b>z</b> receives y&#39;s vector:<br>d<sub>y</sub>(x) = 2</div></div>';
-      else if(n===4||n===5) content.innerHTML='<b style="font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Each node performs relaxation</b><div style="display:flex;gap:16px;margin-top:6px"><div style="flex:1;text-align:center"><b>x</b>: c(x,y) + d<sub>y</sub>(z) = 2+1 = 3 &lt; 50<br><b style="color:var(--accent)">d<sub>x</sub>(z) = 3, p<sub>x</sub>(z) = y</b></div><div style="flex:1;text-align:center"><b>z</b>: c(z,y) + d<sub>y</sub>(x) = 1+2 = 3 &lt; 50<br><b style="color:var(--accent)">d<sub>z</sub>(x) = 3, p<sub>z</sub>(x) = y</b></div></div>';
-      else if(n===6) content.innerHTML='<b>Round 2:</b> routers exchange updated vectors';
-      else if(n===7) content.innerHTML='<b style="font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Each node performs relaxation</b><div style="margin-top:6px"><b>x</b>: c(x,y) + d<sub>y</sub>(z) = 2+1 = 3 = d<sub>x</sub>(z) — <span style="color:var(--accent)">no improvement</span></div>';
-      else if(n===8) content.innerHTML='No changes — x stops. y and z also observe no improvement. The DV protocol has <b style="color:var(--accent)">converged</b>.';
-      else if(n===9) content.innerHTML='Each router reads <b style="color:var(--accent)">p<sub>s</sub>(u)</b> — the next-hop column — as its <b>forwarding table</b>.';
+      if(n===1) content.innerHTML='<b>Initial:</b> each router knows only its own direct link costs.';
+      else if(n===2) content.innerHTML='<b>Round 1:</b> every router sends its distance vector to '
+        + 'each of its neighbours.';
+      else if(n===3) content.innerHTML='So each router receives <b>one vector per neighbour</b>: '
+        + 'x gets one from y and one from z, z gets one from y and one from x, y gets one from x '
+        + 'and one from z.';
+      else if(n===4) content.innerHTML=HD+'x relaxes for destination z</b>'
+        + '<div style="margin-top:5px">via y: c(x,y) + d<sub>y</sub>(z) = 2 + 1 = <b>3</b>, and 3 &lt; 50 '
+        + '&mdash; so <b class="accent">relax</b>: d<sub>x</sub>(z) = 3, p<sub>x</sub>(z) = y.</div>';
+      else if(n===5) content.innerHTML=HD+'x relaxes for destination y</b>'
+        + '<div style="margin-top:5px">via z: c(x,z) + d<sub>z</sub>(y) = 50 + 1 = 51, worse than the '
+        + '<b>2</b> x already has &mdash; <b>no change</b>.</div>';
+      else if(n===6) content.innerHTML=HD+'z relaxes for destination x</b>'
+        + '<div style="margin-top:5px">via y: c(z,y) + d<sub>y</sub>(x) = 1 + 2 = <b>3</b>, and 3 &lt; 50 '
+        + '&mdash; so <b class="accent">relax</b>: d<sub>z</sub>(x) = 3, p<sub>z</sub>(x) = y.</div>';
+      else if(n===7) content.innerHTML=HD+'z relaxes for destination y</b>'
+        + '<div style="margin-top:5px">via x: c(z,x) + d<sub>x</sub>(y) = 50 + 2 = 52, worse than the '
+        + '<b>1</b> it already has &mdash; <b>no change</b>. y is already direct to both, so it changes '
+        + 'nothing either.</div>';
+      else if(n===8) content.innerHTML='<b>Round 2:</b> everyone sends their updated vectors again.';
+      else if(n===9) content.innerHTML='This time <b>nothing improves anywhere</b> &mdash; a full round '
+        + 'with no change. The protocol has <b class="accent">converged</b>.';
+      else if(n===10) content.innerHTML='Each router reads <b class="accent">p<sub>s</sub>(u)</b> '
+        + '&mdash; the next-hop column &mdash; as its <b>forwarding table</b>.';
     }
   } else {
     if(card)card.style.display='none';
@@ -3232,10 +3252,10 @@ function updateDVExampleSlide(){
   var lx=document.getElementById('dve-label-x');
   var ly=document.getElementById('dve-label-y');
   var lz=document.getElementById('dve-label-z');
-  var fwd=n>=9;
-  if(lx)lx.innerHTML=fwd?'x&#39;s forwarding table':n>=8?'x&#39;s table <span style="color:var(--accent)">✓</span>':'x&#39;s table';
-  if(ly)ly.innerHTML=fwd?'y&#39;s forwarding table':n>=8?'y&#39;s table <span style="color:var(--accent)">✓</span>':'y&#39;s table';
-  if(lz)lz.innerHTML=fwd?'z&#39;s forwarding table':n>=8?'z&#39;s table <span style="color:var(--accent)">✓</span>':'z&#39;s table';
+  var fwd=n>=10, tick=n>=9;
+  function lab(k){return fwd?(k+'&#39;s forwarding table')
+    :tick?(k+'&#39;s table <span style="color:var(--accent)">✓</span>'):(k+'&#39;s table');}
+  if(lx)lx.innerHTML=lab('x'); if(ly)ly.innerHTML=lab('y'); if(lz)lz.innerHTML=lab('z');
   var thx=document.getElementById('dve-thead-x');
   var thy=document.getElementById('dve-thead-y');
   var thz=document.getElementById('dve-thead-z');
@@ -3247,7 +3267,8 @@ function updateDVExampleSlide(){
     if(fwd){
       tbx.innerHTML='<tr><td>y</td><td class="mono">y</td></tr><tr><td>z</td><td class="mono">y</td></tr>';
     } else if(n>=1){
-      var zC=n>=5?'3':'50',zH=n>=5?'y':'z',zS=n>=5?' style="color:var(--accent);font-weight:700"':'';
+      // x's z-row turns over on the beat that relaxes it, beat 4
+      var zC=n>=4?'3':'50',zH=n>=4?'y':'z',zS=n>=4?' style="color:var(--accent);font-weight:700"':'';
       tbx.innerHTML='<tr><td>y</td><td class="mono">2</td><td class="mono">y</td></tr><tr'+zS+'><td>z</td><td class="mono">'+zC+'</td><td class="mono">'+zH+'</td></tr>';
     } else tbx.innerHTML='';
   }
@@ -3264,7 +3285,7 @@ function updateDVExampleSlide(){
     if(fwd){
       tbz.innerHTML='<tr><td>x</td><td class="mono">y</td></tr><tr><td>y</td><td class="mono">y</td></tr>';
     } else if(n>=1){
-      var xC=n>=5?'3':'50',xH=n>=5?'y':'x',xS=n>=5?' style="color:var(--accent);font-weight:700"':'';
+      var xC=n>=6?'3':'50',xH=n>=6?'y':'x',xS=n>=6?' style="color:var(--accent);font-weight:700"':'';
       tbz.innerHTML='<tr'+xS+'><td>x</td><td class="mono">'+xC+'</td><td class="mono">'+xH+'</td></tr><tr><td>y</td><td class="mono">1</td><td class="mono">y</td></tr>';
     } else tbz.innerHTML='';
   }
