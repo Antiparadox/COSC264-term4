@@ -273,6 +273,17 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #rf-cmptab tr.rfrow{display:none}
 #rf-cmptab tr.rfrow.on{display:table-row;animation:wfade .28s ease}
 #dv-svg .dvtalk{stroke:var(--accent);stroke-width:3.5}
+.rlxstamp{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:4px;
+  padding:1px 7px;margin-left:7px;vertical-align:1px}
+#rlx-legend{margin:8px 0 6px;padding:9px 14px;border:2px solid var(--border);border-radius:10px;
+  background:var(--surface);transition:border-color .3s,box-shadow .3s}
+#rlx-legend.lit{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+#rlx-legend.lit #rlx-legend-hd{color:var(--accent)}
+#rlx-say .scard{border-radius:12px;padding:12px 16px;font-size:18px;line-height:1.5;
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
+#rlx-say .sq{border-left:4px solid var(--muted)}
+#rlx-say .sa{border-left:4px solid var(--accent)}
 #fw-svg .fwe{stroke:var(--edge);stroke-width:3;transition:opacity .3s}
 #fw-svg .fwe.dim{opacity:.32}
 #fw-svg .fwhop{stroke:var(--accent);stroke-width:4.5;opacity:0;transition:opacity .3s}
@@ -1345,8 +1356,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <circle cx="405" cy="130" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
         <text x="405" y="136" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">v</text>
       </svg>
-      <div style="font-size:15px;text-align:center;margin:6px 0 4px">
-        <b>d<sub>s</sub>(v)</b> = best known cost s→v &nbsp;·&nbsp; <b>c(s,w)</b> = link cost &nbsp;·&nbsp; <b>p<sub>s</sub>(v)</b> = next hop
+      <div id="rlx-legend">
+        <p id="rlx-legend-hd" style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:1px;
+           text-transform:uppercase;color:var(--muted);transition:color .3s">Notation</p>
+        <p style="margin:0;font-size:16px;line-height:1.65">
+          <b class="mono" style="color:var(--accent)">c(s,w)</b> &mdash; cost of the link s&nbsp;&rarr;&nbsp;w<br>
+          <b class="mono" style="color:var(--accent)">d<sub>w</sub>(v)</b> &mdash; w's best known cost onward to v<br>
+          <b class="mono" style="color:var(--accent)">p<sub>s</sub>(v)</b> &mdash; s's next hop towards v
+        </p>
       </div>
       <table id="rlx-table" style="margin:2px auto 0;border-collapse:collapse;font-size:15px">
         <tr style="border-bottom:2px solid var(--edge)">
@@ -1362,12 +1379,29 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </table>
     </div>
     <div class="col" style="flex:1">
-      <p class="frag" style="font-size:18px;margin:0 0 12px"><b>Goal:</b> find the shortest path from <b>s</b> to <b>v</b>. To reach v, s must go through one of its neighbours — the total cost is the link cost to that neighbour plus its best cost onward to v.</p>
-      <p class="frag" style="font-size:18px;margin:0 0 10px">First neighbour discovered — <b>x</b>: c(s,x) + d<sub>x</sub>(v) = 20 + 15 = <b>35</b></p>
-      <p class="frag" style="font-size:18px;margin:0 0 10px">Through <b>w</b>: c(s,w) + d<sub>w</sub>(v) = 10 + 15 = <span class="mono" style="color:var(--current)">25 &lt; 35</span> — <b>relax!</b></p>
-      <p class="frag" style="font-size:18px;margin:0 0 10px">Through <b>u</b>: c(s,u) + d<sub>u</sub>(v) = 5 + 13 = <span class="mono" style="color:var(--accent)">18 &lt; 25</span> — <b>relax again!</b></p>
+      <p id="rlx-goal" style="opacity:0;transition:opacity .3s;font-size:19px;margin:0 0 14px"><b>Goal:</b>
+      find the shortest path from <b>s</b> to <b>v</b>.</p>
+
+      <div id="rlx-say" style="min-height:104px;margin:0 0 14px"></div>
+
+      <div id="rlx-sums">
+        <p class="rlxsum" id="rlx-sum-x" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0 0 9px">
+          through <b>x</b>: &nbsp;<span class="mono">c(s,x) + d<sub>x</sub>(v) = 20 + 15 =</span>
+          <b class="mono">35</b></p>
+        <p class="rlxsum" id="rlx-sum-w" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0 0 9px">
+          through <b>w</b>: &nbsp;<span class="mono">c(s,w) + d<sub>w</sub>(v) = 10 + 15 =</span>
+          <b class="mono" style="color:var(--current)">25</b><br>
+          <span style="font-size:17px;color:var(--muted)">25 &lt; 35, so take <b>w</b> instead of x.</span>
+          <span class="rlxstamp">relaxation</span></p>
+        <p class="rlxsum" id="rlx-sum-u" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0">
+          through <b>u</b>: &nbsp;<span class="mono">c(s,u) + d<sub>u</sub>(v) = 5 + 13 =</span>
+          <b class="mono" style="color:var(--accent)">18</b><br>
+          <span style="font-size:17px;color:var(--muted)">18 &lt; 25, so relax again and take <b>u</b>.</span>
+          <span class="rlxstamp">relaxation</span></p>
+      </div>
     </div>
   </div>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== Relaxation: formal rule + convergence ====== -->
@@ -2938,24 +2972,56 @@ function updateRelaxSlide(){
   var n=fragCount(s);
   function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
   function setLine(id,c,w,op){var el=document.getElementById(id);if(el){el.setAttribute('stroke',c);el.setAttribute('stroke-width',String(w));el.setAttribute('opacity',String(op));}}
-  var xAct=n===2,xFade=n>=3,wAct=n===3,wFade=n>=4,uAct=n>=4;
-  setOp('rlx-c-sx',n>=2?(xFade?0.25:1):0);
-  setOp('rlx-d-xv',n>=2?(xFade?0.25:1):0);
+
+  var g=document.getElementById('rlx-goal');
+  if(g) g.style.opacity = n>=1?'1':'0';
+
+  // Beats 2-5 hot-swap through one card: question, answer, notation, formula.
+  // From beat 6 the formula stays put while the sums accumulate under it.
+  var S=[];
+  S[2]='<div class="scard sq">To reach v, s has to go through <b>one of its neighbours</b>. '
+     + 'What is the <b>total cost</b> of going that way?</div>';
+  S[3]='<div class="scard sa"><p style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--accent)">Total cost</p>The <b>cost of the link</b> to that '
+     + 'neighbour, plus that neighbour\'s <b>best cost onward</b> to v.</div>';
+  S[4]='<div class="scard sa">Both quantities have a name. From here on we write them the way the '
+     + '<b>notation</b> under the graph does.</div>';
+  S[5]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--accent)">Total cost through neighbour w</p>'
+     + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
+     + 'c(s,w) + d<sub>w</sub>(v)</p></div>';
+  S[6]=S[7]=S[8]=S[5];
+  var say=document.getElementById('rlx-say');
+  if(say) say.innerHTML = S[n] || '';
+
+  // The notation block lights up when we start using it, and stays lit.
+  var leg=document.getElementById('rlx-legend');
+  if(leg) leg.classList.toggle('lit', n>=4);
+
+  ['x','w','u'].forEach(function(k,i){
+    var el=document.getElementById('rlx-sum-'+k);
+    if(el) el.style.opacity = n>=i+6?'1':'0';
+  });
+
+  var xAct=n===6,xFade=n>=7,wAct=n===7,wFade=n>=8,uAct=n>=8;
+  setOp('rlx-c-sx',n>=6?(xFade?0.25:1):0);
+  setOp('rlx-d-xv',n>=6?(xFade?0.25:1):0);
   setLine('rlx-e-sx',xAct?'var(--current)':'var(--edge)',xAct?3:2.5,xFade?0.25:1);
   setLine('rlx-p-xv',xAct?'var(--current)':'var(--edge)',xAct?2:1.5,xAct?0.7:(xFade?0.1:0.35));
-  setOp('rlx-c-sw',n>=3?(wFade?0.25:1):0);
-  setOp('rlx-d-wv',n>=3?(wFade?0.25:1):0);
+  setOp('rlx-c-sw',n>=7?(wFade?0.25:1):0);
+  setOp('rlx-d-wv',n>=7?(wFade?0.25:1):0);
   setLine('rlx-e-sw',wAct?'var(--current)':'var(--edge)',wAct?3:2.5,wFade?0.25:1);
   setLine('rlx-p-wv',wAct?'var(--current)':'var(--edge)',wAct?2:1.5,wAct?0.7:(wFade?0.1:0.35));
   setOp('rlx-c-su',uAct?1:0);
   setOp('rlx-d-uv',uAct?1:0);
   setLine('rlx-e-su',uAct?'var(--accent)':'var(--edge)',uAct?3:2.5,1);
   setLine('rlx-p-uv',uAct?'var(--accent)':'var(--edge)',uAct?2:1.5,uAct?0.7:0.35);
+
   var tN=document.getElementById('rlx-tbl-next'),tC=document.getElementById('rlx-tbl-cost');
   if(tN&&tC){
-    if(n>=4){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
-    else if(n>=3){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
-    else if(n>=2){tN.textContent='x';tC.textContent='35';tC.style.color='';}
+    if(n>=8){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
+    else if(n>=7){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
+    else if(n>=6){tN.textContent='x';tC.textContent='35';tC.style.color='';}
     else{tN.textContent='nil';tC.textContent='∞';tC.style.color='';}
   }
 }
