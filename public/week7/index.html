@@ -453,32 +453,29 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>What does routing do?</h2>
   <p class="lead" style="margin:0 0 26px;font-size:23px;max-width:60ch">Routing is how a network decides,
   <b>automatically</b>, which path packets take from each source to each destination.</p>
-  <div class="cols" style="gap:20px;align-items:flex-start">
+  <div class="cols" style="gap:24px;align-items:flex-start">
     <div class="col frag" style="flex:1">
-      <div class="card" style="border-left:4px solid var(--accent);padding:16px 20px;margin:0">
-        <p class="mono accent" style="margin:0 0 8px;font-size:15px">what it decides</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">For every source and destination, which
-        <b>path</b> the packets follow &mdash; the sequence of routers they pass through on the way.</p>
+      <div class="card" style="border-left:4px solid var(--current);padding:17px 22px;margin:0">
+        <p class="mono" style="margin:0 0 9px;font-size:15px;color:var(--current)">which path counts as best</p>
+        <p style="margin:0 0 9px;font-size:17.5px">Routing does not hand out just <em>any</em> path. Every
+        link is given a <b>cost</b>, and routing picks the path whose costs add up to the <b>least</b>.</p>
+        <p style="margin:0;font-size:16.5px;color:var(--muted)">What cost <em>means</em> is the operator's
+        choice &mdash; hop count, delay, spare bandwidth, money. The routing itself does not care.</p>
       </div>
     </div>
     <div class="col frag" style="flex:1">
-      <div class="card" style="border-left:4px solid var(--current);padding:16px 20px;margin:0">
-        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">which path counts as best</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">Not just <em>a</em> path &mdash; the one with
-        the lowest total <b>cost</b>. Cost is whatever the operator decides it means: hop count, delay,
-        spare bandwidth, money.</p>
-      </div>
-    </div>
-    <div class="col frag" style="flex:1">
-      <div class="card" style="border-left:4px solid var(--edge);padding:16px 20px;margin:0">
-        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--muted)">when it happens</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">Before any packet arrives &mdash; and again
-        whenever the network changes. Working a path out per message would be far too slow, so the
-        answer is ready and waiting in a table each router consults later.</p>
+      <div class="card" style="border-left:4px solid var(--accent);padding:17px 22px;margin:0">
+        <p class="mono accent" style="margin:0 0 9px;font-size:15px">when it happens</p>
+        <ul style="margin:0;padding-left:19px">
+          <li style="margin-bottom:10px;font-size:17px;line-height:1.5"><b>Before any packet arrives.</b> Working a path out per message,
+          on the fly, would be far too slow &mdash; the answer has to be ready and waiting by the time a
+          message turns up.</li>
+          <li style="font-size:17px;line-height:1.5"><b>And again whenever the network changes.</b> Links fail and costs change, so a path that
+          was best a moment ago may not even exist now. Routing never really stops.</li>
+        </ul>
       </div>
     </div>
   </div>
-  
 </section>
 
 
