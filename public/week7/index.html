@@ -252,6 +252,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #why-svg .whye.p3{stroke:#7b61b5;stroke-width:4}
 #why-svg .dim{opacity:.28}
 #why-svg #why-tables,#why-svg #why-q{transition:opacity .35s}
+#why-card .wdef{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:4px;
+  padding:1px 6px;margin-right:9px;vertical-align:2px}
 #why-card .wcard{max-width:82ch;border-radius:12px;padding:13px 20px;font-size:19px;line-height:1.5;
   background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
 @keyframes wfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
@@ -372,92 +375,82 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Question 1 of 4</div>
   <h2>Why do we need routing?</h2>
   <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0;margin-top:-4px">
-    <svg id="why-svg" viewBox="0 0 900 380" style="width:100%;max-width:900px" aria-label="Part of a large network of routers, with A on the left and F on the right">
-      <defs>
-        <linearGradient id="why-fade" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stop-color="#fff" stop-opacity="1"/>
-          <stop offset="1" stop-color="#fff" stop-opacity="0"/>
-        </linearGradient>
-        <mask id="why-mask"><rect x="735" y="0" width="165" height="380" fill="url(#why-fade)"/></mask>
-      </defs>
-
-      <!-- the network keeps going past the edge of the slide -->
-      <g mask="url(#why-mask)">
-        <line class="whye" data-e="F-q1" x1="730" y1="190" x2="815" y2="70" />
-        <line class="whye" data-e="F-q2" x1="730" y1="190" x2="838" y2="190" />
-        <line class="whye" data-e="F-q3" x1="730" y1="190" x2="820" y2="310" />
-        <line class="whye" data-e="q1-q2" x1="815" y1="70" x2="838" y2="190" />
-        <line class="whye" data-e="q2-q3" x1="838" y1="190" x2="820" y2="310" />
-        <circle class="whyn" data-n="q1" cx="815" cy="70" r="12"/>
-        <circle class="whyn" data-n="q2" cx="838" cy="190" r="12"/>
-        <circle class="whyn" data-n="q3" cx="820" cy="310" r="12"/>
-      </g>
-      <text x="866" y="197" font-size="26" fill="var(--faint)" opacity="0.5">&#8230;</text>
-
+    <svg id="why-svg" viewBox="0 0 880 380" style="width:100%;max-width:880px" aria-label="Part of a large network of routers; the middle is elided">
       <g id="why-edges">
-        <line class="whye" data-e="A-n1" x1="70" y1="190" x2="165" y2="105" />
-        <line class="whye" data-e="A-n2" x1="70" y1="190" x2="165" y2="275" />
-        <line class="whye" data-e="A-n4" x1="70" y1="190" x2="275" y2="190" />
-        <line class="whye" data-e="n1-n3" x1="165" y1="105" x2="265" y2="55" />
-        <line class="whye" data-e="n1-n4" x1="165" y1="105" x2="275" y2="190" />
-        <line class="whye" data-e="n2-n5" x1="165" y1="275" x2="270" y2="325" />
-        <line class="whye" data-e="n2-n4" x1="165" y1="275" x2="275" y2="190" />
-        <line class="whye" data-e="n3-n6" x1="265" y1="55" x2="385" y2="110" />
-        <line class="whye" data-e="n4-n6" x1="275" y1="190" x2="385" y2="110" />
-        <line class="whye" data-e="n4-n7" x1="275" y1="190" x2="390" y2="265" />
-        <line class="whye" data-e="n4-n9" x1="275" y1="190" x2="505" y2="190" />
-        <line class="whye" data-e="n5-n7" x1="270" y1="325" x2="390" y2="265" />
-        <line class="whye" data-e="n6-n8" x1="385" y1="110" x2="500" y2="55" />
-        <line class="whye" data-e="n6-n9" x1="385" y1="110" x2="505" y2="190" />
-        <line class="whye" data-e="n7-n9" x1="390" y1="265" x2="505" y2="190" />
-        <line class="whye" data-e="n7-n10" x1="390" y1="265" x2="495" y2="325" />
-        <line class="whye" data-e="n8-n11" x1="500" y1="55" x2="615" y2="110" />
-        <line class="whye" data-e="n8-n9" x1="500" y1="55" x2="505" y2="190" />
-        <line class="whye" data-e="n9-n11" x1="505" y1="190" x2="615" y2="110" />
-        <line class="whye" data-e="n9-n12" x1="505" y1="190" x2="620" y2="265" />
-        <line class="whye" data-e="n9-F" x1="505" y1="190" x2="730" y2="190" />
-        <line class="whye" data-e="n10-n12" x1="495" y1="325" x2="620" y2="265" />
-        <line class="whye" data-e="n11-F" x1="615" y1="110" x2="730" y2="190" />
-        <line class="whye" data-e="n12-F" x1="620" y1="265" x2="730" y2="190" />
+        <line class="whye" data-e="A-L1" x1="150" y1="190" x2="60" y2="120"/>
+        <line class="whye" data-e="A-L2" x1="150" y1="190" x2="65" y2="265"/>
+        <line class="whye" data-e="A-L3" x1="150" y1="190" x2="150" y2="58"/>
+        <line class="whye" data-e="A-L4" x1="150" y1="190" x2="155" y2="322"/>
+        <line class="whye" data-e="A-L5" x1="150" y1="190" x2="250" y2="120"/>
+        <line class="whye" data-e="A-L6" x1="150" y1="190" x2="250" y2="262"/>
+        <line class="whye" data-e="A-L7" x1="150" y1="190" x2="305" y2="190"/>
+        <line class="whye" data-e="L1-L3" x1="60" y1="120" x2="150" y2="58"/>
+        <line class="whye" data-e="L1-L5" x1="60" y1="120" x2="250" y2="120"/>
+        <line class="whye" data-e="L2-L4" x1="65" y1="265" x2="155" y2="322"/>
+        <line class="whye" data-e="L2-L6" x1="65" y1="265" x2="250" y2="262"/>
+        <line class="whye" data-e="L3-L5" x1="150" y1="58" x2="250" y2="120"/>
+        <line class="whye" data-e="L4-L6" x1="155" y1="322" x2="250" y2="262"/>
+        <line class="whye" data-e="L5-L7" x1="250" y1="120" x2="305" y2="190"/>
+        <line class="whye" data-e="L6-L7" x1="250" y1="262" x2="305" y2="190"/>
+        <line class="whye" data-e="R1-R3" x1="505" y1="120" x2="560" y2="58"/>
+        <line class="whye" data-e="R1-R4" x1="505" y1="120" x2="565" y2="190"/>
+        <line class="whye" data-e="R2-R4" x1="505" y1="262" x2="565" y2="190"/>
+        <line class="whye" data-e="R2-R5" x1="505" y1="262" x2="555" y2="322"/>
+        <line class="whye" data-e="R3-F" x1="560" y1="58" x2="650" y2="190"/>
+        <line class="whye" data-e="R4-F" x1="565" y1="190" x2="650" y2="190"/>
+        <line class="whye" data-e="R5-F" x1="555" y1="322" x2="650" y2="190"/>
+        <line class="whye" data-e="F-R6" x1="650" y1="190" x2="745" y2="120"/>
+        <line class="whye" data-e="F-R7" x1="650" y1="190" x2="750" y2="265"/>
+        <line class="whye" data-e="R6-R8" x1="745" y1="120" x2="812" y2="190"/>
+        <line class="whye" data-e="R7-R8" x1="750" y1="265" x2="812" y2="190"/>
+        <line class="whye" data-e="R6-R3" x1="745" y1="120" x2="560" y2="58"/>
+        <line class="whye" data-e="R7-R5" x1="750" y1="265" x2="555" y2="322"/>
+        <line class="whye" data-e="L5-R1" x1="250" y1="120" x2="348" y2="120"/><line class="whye" data-e="L5-R1" x1="462" y1="120" x2="505" y2="120"/>
+        <line class="whye" data-e="L7-R4" x1="305" y1="190" x2="348" y2="190"/><line class="whye" data-e="L7-R4" x1="462" y1="190" x2="565" y2="190"/>
+        <line class="whye" data-e="L6-R2" x1="250" y1="262" x2="348" y2="262"/><line class="whye" data-e="L6-R2" x1="462" y1="262" x2="505" y2="262"/>
       </g>
       <g id="why-nodes">
-        <circle class="whyn" data-n="n1" cx="165" cy="105" r="15"/>
-        <circle class="whyn" data-n="n2" cx="165" cy="275" r="15"/>
-        <circle class="whyn" data-n="n3" cx="265" cy="55" r="15"/>
-        <circle class="whyn" data-n="n4" cx="275" cy="190" r="15"/>
-        <circle class="whyn" data-n="n5" cx="270" cy="325" r="15"/>
-        <circle class="whyn" data-n="n6" cx="385" cy="110" r="15"/>
-        <circle class="whyn" data-n="n7" cx="390" cy="265" r="15"/>
-        <circle class="whyn" data-n="n8" cx="500" cy="55" r="15"/>
-        <circle class="whyn" data-n="n9" cx="505" cy="190" r="15"/>
-        <circle class="whyn" data-n="n10" cx="495" cy="325" r="15"/>
-        <circle class="whyn" data-n="n11" cx="615" cy="110" r="15"/>
-        <circle class="whyn" data-n="n12" cx="620" cy="265" r="15"/>
+        <circle class="whyn" data-n="L1" cx="60" cy="120" r="15"/>
+        <circle class="whyn" data-n="L2" cx="65" cy="265" r="15"/>
+        <circle class="whyn" data-n="L3" cx="150" cy="58" r="15"/>
+        <circle class="whyn" data-n="L4" cx="155" cy="322" r="15"/>
+        <circle class="whyn" data-n="L5" cx="250" cy="120" r="15"/>
+        <circle class="whyn" data-n="L6" cx="250" cy="262" r="15"/>
+        <circle class="whyn" data-n="L7" cx="305" cy="190" r="15"/>
+        <circle class="whyn" data-n="R1" cx="505" cy="120" r="15"/>
+        <circle class="whyn" data-n="R2" cx="505" cy="262" r="15"/>
+        <circle class="whyn" data-n="R3" cx="560" cy="58" r="15"/>
+        <circle class="whyn" data-n="R4" cx="565" cy="190" r="15"/>
+        <circle class="whyn" data-n="R5" cx="555" cy="322" r="15"/>
+        <circle class="whyn" data-n="R6" cx="745" cy="120" r="15"/>
+        <circle class="whyn" data-n="R7" cx="750" cy="265" r="15"/>
+        <circle class="whyn" data-n="R8" cx="812" cy="190" r="15"/>
       </g>
+      <g id="why-tables" opacity="0"><rect x="237" y="138" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><rect x="292" y="208" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><rect x="457" y="280" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><rect x="552" y="208" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><rect x="732" y="138" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/></g>
 
-      <!-- little tables: every router already knows where to send things -->
-      <g id="why-tables" opacity="0">
-        <rect x="152" y="123" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="152" y1="127" x2="178" y2="127" stroke="var(--accent)" stroke-width="1"/><rect x="262" y="208" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="262" y1="212" x2="288" y2="212" stroke="var(--accent)" stroke-width="1"/><rect x="377" y="283" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="377" y1="287" x2="403" y2="287" stroke="var(--accent)" stroke-width="1"/><rect x="492" y="208" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="492" y1="212" x2="518" y2="212" stroke="var(--accent)" stroke-width="1"/><rect x="602" y="128" width="26" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/><line x1="602" y1="132" x2="628" y2="132" stroke="var(--accent)" stroke-width="1"/>
-      </g>
+      <!-- the middle is not drawn: many more routers and links live in here -->
+      <text x="405" y="150" text-anchor="middle" font-size="30" letter-spacing="5" fill="var(--faint)">&#183;&#183;&#183;</text>
+      <text x="405" y="200" text-anchor="middle" font-size="30" letter-spacing="5" fill="var(--faint)">&#183;&#183;&#183;</text>
+      <text x="405" y="292" text-anchor="middle" font-size="30" letter-spacing="5" fill="var(--faint)">&#183;&#183;&#183;</text>
 
-      <circle id="why-a" cx="70" cy="190" r="24" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-      <text id="why-a-t" x="70" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--muted)">A</text>
-      <circle id="why-f" cx="730" cy="190" r="24" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
-      <text id="why-f-t" x="730" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--muted)">F</text>
+      <circle id="why-a" cx="150" cy="190" r="24" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+      <text id="why-a-t" x="150" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--muted)">A</text>
+      <circle id="why-f" cx="650" cy="190" r="24" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+      <text id="why-f-t" x="650" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--muted)">F</text>
 
-      <text id="why-q" x="400" y="205" text-anchor="middle" font-size="46" font-weight="700" fill="var(--muted)" stroke="var(--bg)" stroke-width="7" paint-order="stroke" opacity="0">?</text>
+      <text id="why-q" x="405" y="252" text-anchor="middle" font-size="44" font-weight="700" fill="var(--muted)" stroke="var(--bg)" stroke-width="7" paint-order="stroke" opacity="0">?</text>
     </svg>
   </div>
-  <div id="why-card" style="min-height:96px;display:flex;align-items:center;justify-content:center"></div>
+  <div id="why-card" style="min-height:104px;display:flex;align-items:center;justify-content:center"></div>
   <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
   <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
-  <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== What routing has to do ====== -->
-<section class="slide" data-sec="What is routing?">
+<section class="slide" data-sec="What does routing do?">
   <div class="kicker">Question 2 of 4</div>
-  <h2>What is routing?</h2>
+  <h2>What does routing do?</h2>
   <p class="lead" style="margin:0 0 26px;font-size:23px;max-width:60ch">Routing is how a network decides,
   <b>automatically</b>, which path packets take from each source to each destination.</p>
   <div class="cols" style="gap:20px;align-items:flex-start">
@@ -480,12 +473,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="card" style="border-left:4px solid var(--edge);padding:16px 20px;margin:0">
         <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--muted)">when it happens</p>
         <p style="margin:0;font-size:17px;color:var(--muted)">Before any packet arrives &mdash; and again
-        whenever the network changes. The result is a table each router consults later.</p>
+        whenever the network changes. Working a path out per message would be far too slow, so the
+        answer is ready and waiting in a table each router consults later.</p>
       </div>
     </div>
   </div>
-  <p class="frag" style="margin:24px 0 0;font-size:19px;color:var(--muted)">That is <em>what</em> routing
-  does. <b>How</b> the routers actually pull it off is the next question.</p>
+  
 </section>
 
 
@@ -499,7 +492,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
-<section class="slide" data-sec="What is routing?">
+<section class="slide" data-sec="What does routing do?">
   <div class="kicker">What routing produces</div>
   <h2>The forwarding table</h2>
   <div class="cols" style="align-items:flex-start;gap:28px">
@@ -557,7 +550,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ====== Slide 13: Control plane / data plane ====== -->
-<section class="slide" data-sec="What is routing?">
+<section class="slide" data-sec="What does routing do?">
   <div class="kicker">Control plane vs. data plane</div>
   <h2>Routing and forwarding: two different jobs</h2>
   <p class="lead" style="margin:-2px 0 20px;font-size:19px;color:var(--muted);max-width:78ch">One happens
@@ -611,7 +604,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
-<section class="slide" data-sec="What is routing?">
+<section class="slide" data-sec="What does routing do?">
   <div class="kicker">Analogy</div>
   <h2>Planning the trip vs. reading the signs</h2>
   <div class="cols">
@@ -645,7 +638,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ====== Slide 14: Routing or forwarding? quiz ====== -->
-<section class="slide" data-sec="What is routing?">
+<section class="slide" data-sec="What does routing do?">
   <div class="kicker">Quick question · 1</div>
   <h2>Routing or forwarding?</h2>
   <div class="poll" id="poll1">
@@ -2627,16 +2620,15 @@ drawStack();
 /* ---------- slide 5: the diagram tracks the story, one card at a time ---------- */
 function updateWhySlide(){
   var s=document.getElementById('why-svg');if(!s)return;
-  var slide=s.closest('.slide');
-  var n=fragCount(slide);
+  var n=fragCount(s.closest('.slide'));
   var card=document.getElementById('why-card');
 
-  var P1=['A-n1','n1-n3','n3-n6','n6-n8','n8-n11','n11-F'];
-  var P2=['A-n4','n4-n9','n9-F'];
-  var P3=['A-n2','n2-n5','n5-n7','n7-n10','n10-n12','n12-F'];
+  var P1=['A-L5','L5-R1','R1-R3','R3-F'];
+  var P2=['A-L7','L7-R4','R4-F'];
+  var P3=['A-L6','L6-R2','R2-R5','R5-F'];
   var lit=[];
   if(n===3) lit=[[P1,'p1']];
-  if(n===6) lit=[[P1,'p1'],[P2,'p2'],[P3,'p3']];
+  if(n===5) lit=[[P1,'p1'],[P2,'p2'],[P3,'p3']];
   var on={};
   lit.forEach(function(pair){pair[0].forEach(function(e){on[e]=pair[1];});});
 
@@ -2644,16 +2636,13 @@ function updateWhySlide(){
     var k=l.getAttribute('data-e');
     l.classList.remove('p1','p2','p3');
     if(k&&on[k]) l.classList.add(on[k]);
-    // dim the rest of the mesh only while a path is being traced
     l.classList.toggle('dim', lit.length>0 && !(k&&on[k]));
   });
-  // routers ON a highlighted path are part of that path -- keep them lit
   var onNode={};
   Object.keys(on).forEach(function(e){e.split('-').forEach(function(k){onNode[k]=1;});});
   s.querySelectorAll('.whyn').forEach(function(c){
     c.classList.toggle('dim', lit.length>0 && !onNode[c.getAttribute('data-n')]);});
 
-  // A and F are just two routers until we pick them out
   var picked=n>=2;
   var a=document.getElementById('why-a'), f=document.getElementById('why-f');
   var at=document.getElementById('why-a-t'), ft=document.getElementById('why-f-t');
@@ -2667,19 +2656,19 @@ function updateWhySlide(){
   if(ft)ft.setAttribute('fill',picked?'var(--current)':'var(--muted)');
 
   var q=document.getElementById('why-q');
-  if(q)q.setAttribute('opacity',(n===4||n===6)?'1':'0');
+  if(q)q.setAttribute('opacity',(n===4||n===5)?'1':'0');
   var tb=document.getElementById('why-tables');
-  if(tb)tb.setAttribute('opacity',n===5?'1':'0');
+  if(tb)tb.setAttribute('opacity','0');
 
   var W=[];
-  W[1]='Here is part of a network. Many routers, many links &mdash; and it carries on past the edge of this slide.';
-  W[2]='Pick any two. <b>A</b> has a message for <b>F</b>.';
-  W[3]='The message cannot jump. It needs a <b>path</b>: a sequence of routers, each joined to the next by a link, starting at A and ending at F. The message is handed along the whole chain.';
-  W[4]='So who works that path out? Nothing in this picture knows it. A can see only the links it is plugged into &mdash; and no router anywhere holds the whole map.';
-  W[5]='And it cannot be worked out per message &mdash; that would be far too slow. It has to be settled <b>in advance</b>, so that every router already knows where to send anything addressed to F before the first packet arrives.';
-  W[6]='There is rarely just one path. When several will do, the network still has to agree on <b>one</b> &mdash; and preferably the best one. So whatever does this has to choose, too.';
+  W[1]='An <b>incomplete</b> picture of a network. A real one has far more routers and links than will fit on a slide &mdash; assume plenty more in the middle.';
+  W[2]='Pick any two of them. <b>A</b> has a message to deliver to <b>F</b>. It will not get there by magic. It needs a <b>path</b>.';
+  W[3]='<span class="wdef">definition</span> A <b>path</b> from A to F is a sequence of routers R<sub>0</sub>, R<sub>1</sub>, &#8230;, R<sub>k</sub> with R<sub>0</sub>&nbsp;=&nbsp;A and R<sub>k</sub>&nbsp;=&nbsp;F, where every consecutive pair is joined by a link. The message is handed along the whole sequence.';
+  W[4]='So &mdash; how does the network <b>come up with</b> such a path, for this source and this destination, in a network of that size?';
+  W[5]='And there is rarely just one. When several paths would do, the network still has to settle on <b>one</b>, and preferably the best one. Something has to choose.';
   card.innerHTML = W[n] ? '<div class="wcard">'+W[n]+'</div>' : '';
 }
+
 
 function updateStackHighlight(){
   var slides=document.querySelectorAll('.slide');
