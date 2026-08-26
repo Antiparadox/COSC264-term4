@@ -260,6 +260,19 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   padding:1px 6px;margin-right:9px;vertical-align:2px}
 #why-card .wcard{max-width:82ch;border-radius:12px;padding:13px 20px;font-size:19px;line-height:1.5;
   background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
+#fw-svg .fwe{stroke:var(--edge);stroke-width:3;transition:opacity .3s}
+#fw-svg .fwe.dim{opacity:.32}
+#fw-svg .fwhop{stroke:var(--accent);stroke-width:4.5;opacity:0;transition:opacity .3s}
+#fw-svg .fwhop.on{opacity:1}
+#fw-svg #fw-path{transition:opacity .3s}
+#fw-card .fcard{border-radius:12px;padding:12px 18px;font-size:19px;line-height:1.5;
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
+#fw-card .fq{border-left:4px solid var(--muted)}
+#fw-card .fa{border-left:4px solid var(--accent)}
+.fwtab{flex:1;opacity:0;transition:opacity .3s}
+.fwtab.show{opacity:1}
+.fwtab table.ft tr.fwhit td{background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
+.fwtab table.ft th,.fwtab table.ft td{padding:8px 11px}
 @keyframes wfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 </style>
 </head>
@@ -495,53 +508,58 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
 <section class="slide" data-sec="What does routing do?">
   <div class="kicker">What routing produces</div>
-  <h2>The forwarding table</h2>
-  <div class="cols" style="align-items:flex-start;gap:28px">
-    <div class="col" style="flex:1">
-      <p class="frag lead" style="margin:0 0 16px;font-size:24px">Whatever algorithm a router runs, the result is the same artifact. The <b>forwarding table</b> records, for each destination, which <span class="accent">next hop</span> to send it to.</p>
-      <div class="frag" style="margin-top:8px">
-        <svg viewBox="0 0 440 310" style="width:100%;max-width:440px" xmlns="http://www.w3.org/2000/svg">
-          <line x1="60" y1="120" x2="180" y2="60" stroke="var(--accent)" stroke-width="3"/>
-          <line x1="60" y1="120" x2="180" y2="190" stroke="var(--edge)" stroke-width="3"/>
-          <line x1="180" y1="60" x2="300" y2="60" stroke="var(--accent)" stroke-width="3"/>
-          <line x1="300" y1="60" x2="400" y2="120" stroke="var(--accent)" stroke-width="3"/>
-          <line x1="180" y1="190" x2="400" y2="120" stroke="var(--edge)" stroke-width="3"/>
-          
-          
-          
-          
-          
-          <circle cx="60" cy="120" r="22" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
-          <text x="60" y="126" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-          <circle cx="180" cy="60" r="20" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
-          <text x="180" y="66" text-anchor="middle" font-size="13" font-weight="700" class="svgmono" fill="var(--accent-ink)">B</text>
-          <circle cx="180" cy="190" r="20" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
-          <text x="180" y="196" text-anchor="middle" font-size="13" font-weight="700" class="svgmono" fill="var(--accent-ink)">C</text>
-          <circle cx="300" cy="60" r="20" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
-          <text x="300" y="66" text-anchor="middle" font-size="13" font-weight="700" class="svgmono" fill="var(--accent-ink)">D</text>
-          <circle cx="400" cy="120" r="22" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/>
-          <text x="400" y="126" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--current)">F</text>
-          <text x="230" y="240" text-anchor="middle" font-size="15" fill="var(--accent)" font-weight="700">path chosen: A → B → D → F</text>
-          <line x1="82" y1="118" x2="160" y2="66" stroke="var(--accent)" stroke-width="5" opacity="0.25"/>
-          <line x1="200" y1="60" x2="280" y2="60" stroke="var(--accent)" stroke-width="5" opacity="0.25"/>
-          <line x1="318" y1="68" x2="382" y2="112" stroke="var(--accent)" stroke-width="5" opacity="0.25"/>
-        </svg>
+  <h2>How is the path information stored? <span style="color:var(--muted);font-weight:400">&mdash; the forwarding table</span></h2>
+  <div id="fw-card" style="min-height:82px;display:flex;align-items:center;margin:2px 0 14px"></div>
+  <div class="cols" style="align-items:flex-start;gap:26px">
+    <div class="col" style="flex:1.15">
+    <svg id="fw-svg" viewBox="0 0 480 272" style="width:100%" aria-label="Five-router network; the message travels A to B to D to F">
+      <defs><marker id="fwarr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0.6 L10,5 L0,9.4 z" fill="var(--accent)"/></marker></defs>
+      <line class="fwe" x1="58" y1="128" x2="190" y2="72"/>
+      <line class="fwe" x1="58" y1="128" x2="190" y2="192"/>
+      <line class="fwe" x1="190" y1="192" x2="190" y2="72"/>
+      <line class="fwe" x1="190" y1="72" x2="322" y2="72"/>
+      <line class="fwe" x1="322" y1="72" x2="424" y2="128"/>
+      <line class="fwhop" id="fwh1" x1="81.0" y1="118.2" x2="167.9" y2="81.4" marker-end="url(#fwarr)"/>
+      <line class="fwhop" id="fwh2" x1="212" y1="72" x2="300" y2="72" marker-end="url(#fwarr)"/>
+      <line class="fwhop" id="fwh3" x1="341.3" y1="82.6" x2="401.2" y2="115.5" marker-end="url(#fwarr)"/>
+      <circle cx="190" cy="72" r="21" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+      <text x="190" y="77" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
+      <circle cx="190" cy="192" r="21" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+      <text x="190" y="197" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
+      <circle cx="322" cy="72" r="22" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+      <text x="322" y="77" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--ink)">D</text>
+      <circle cx="58" cy="128" r="25" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
+      <text x="58" y="133" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
+      <circle cx="424" cy="128" r="26" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/>
+      <text x="424" y="133" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--current)">F</text>
+      <text id="fw-path" x="250" y="256" text-anchor="middle" font-size="19" font-weight="700" fill="var(--accent)" opacity="0">A &#8594; B &#8594; D &#8594; F</text>
+    </svg>
+    </div>
+    <div class="col" style="flex:1;display:flex;gap:10px;align-items:flex-start">
+      <div class="fwtab" id="fwtab-A">
+        <p class="mono" style="margin:0 0 7px;font-size:15px;color:var(--current)">A’s table</p>
+        <table class="ft" style="font-size:17px;width:100%">
+          <thead><tr><th>dest</th><th>next hop</th></tr></thead>
+          <tbody><tr><td>B</td><td>B</td></tr><tr><td>C</td><td>C</td></tr><tr><td>D</td><td>B</td></tr><tr class="fwhit"><td>F</td><td>B</td></tr></tbody>
+        </table>
+      </div>
+      <div class="fwtab" id="fwtab-B">
+        <p class="mono" style="margin:0 0 7px;font-size:15px;color:var(--current)">B’s table</p>
+        <table class="ft" style="font-size:17px;width:100%">
+          <thead><tr><th>dest</th><th>next hop</th></tr></thead>
+          <tbody><tr><td>A</td><td>A</td></tr><tr><td>C</td><td>C</td></tr><tr><td>D</td><td>D</td></tr><tr class="fwhit"><td>F</td><td>D</td></tr></tbody>
+        </table>
+      </div>
+      <div class="fwtab" id="fwtab-D">
+        <p class="mono" style="margin:0 0 7px;font-size:15px;color:var(--current)">D’s table</p>
+        <table class="ft" style="font-size:17px;width:100%">
+          <thead><tr><th>dest</th><th>next hop</th></tr></thead>
+          <tbody><tr><td>A</td><td>B</td></tr><tr><td>B</td><td>B</td></tr><tr><td>C</td><td>B</td></tr><tr class="fwhit"><td>F</td><td>F</td></tr></tbody>
+        </table>
       </div>
     </div>
-    <div class="col frag" style="flex:1.1">
-      <p class="mono" style="margin:0 0 14px;font-size:18px;color:var(--current)">A's forwarding table</p>
-      <table class="ft" style="font-size:20px">
-        <thead><tr><th>destination</th><th>next hop</th></tr></thead>
-        <tbody>
-          <tr><td>B</td><td>B</td></tr>
-          <tr><td>C</td><td>C</td></tr>
-          <tr><td>D</td><td>B</td></tr>
-          <tr><td class="accent"><b>F</b></td><td class="accent"><b>B</b></td></tr>
-        </tbody>
-      </table>
-      <p class="small muted" style="margin-top:14px">To reach F, A sends to <b>B</b> &mdash; and B does the same thing again. No router holds the whole path; each holds one hop of it.</p>
-    </div>
   </div>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 
@@ -2405,16 +2423,16 @@ function goto_(i,revealAll){
   cur=i;
   if(revealAll) showAllFrags(slides[cur]); else hideAllFrags(slides[cur]);
   sync();
-  updateStackHighlight();updateWhySlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
+  updateStackHighlight();updateWhySlide();updateFwdSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
 }
 function next(){
   var f=frags(slides[cur]).filter(function(x){return !x.classList.contains('on');});
-  if(f.length){f[0].classList.add('on');updateStackHighlight();updateWhySlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(f.length){f[0].classList.add('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur+1,false);
 }
 function prev(){
   var on=frags(slides[cur]).filter(function(x){return x.classList.contains('on');});
-  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateWhySlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
   goto_(cur-1,true);
 }
 
@@ -2617,6 +2635,43 @@ function drawStack(){
 drawStack();
 
 // Stack layer highlighting for recap slide
+
+/* ---------- slide 7: three local tables assemble one global path ---------- */
+function updateFwdSlide(){
+  var s=document.getElementById('fw-svg');if(!s)return;
+  var n=fragCount(s.closest('.slide'));
+  var card=document.getElementById('fw-card');
+
+  var C=[];
+  C[1]='<div class="fcard fq">Routing works out a path from <b>every source to every destination</b>. '
+     + 'But where does that information actually <b>live</b> once it has been worked out?</div>';
+  C[2]='<div class="fcard fa">In a <b>forwarding table</b>, and every router keeps one. It records, for each '
+     + 'destination, which <span class="accent">next hop</span> to send it to &mdash; and nothing more.</div>';
+  C[3]='<div class="fcard fa">A has a message for F. A’s table says: for destination <b>F</b>, next hop is '
+     + '<b>B</b>. So A hands the message to B.</div>';
+  C[4]='<div class="fcard fa">B now does exactly the same thing with <i>its own</i> table: for destination '
+     + '<b>F</b>, next hop is <b>D</b>. So B hands it to D.</div>';
+  C[5]='<div class="fcard fa">And D’s table: for destination <b>F</b>, next hop is <b>F</b> itself. '
+     + 'D is directly attached, so the message arrives.</div>';
+  C[6]='<div class="fcard fa">Not one of them knew the whole path. Put the three <b>local</b> decisions '
+     + 'end to end and the global path <b>A &#8594; B &#8594; D &#8594; F</b> falls out of them.</div>';
+  if(card) card.innerHTML = C[n] || '';
+
+  // Each table appears exactly when its router has to make its decision.
+  ['A','B','D'].forEach(function(r,k){
+    var t=document.getElementById('fwtab-'+r);
+    if(t) t.classList.toggle('show', n >= (k===0?2:k+3));
+  });
+
+  // One arrow per hop, and the base edges fade so the chosen path stands out.
+  for(var i=1;i<=3;i++){
+    var hop=document.getElementById('fwh'+i);
+    if(hop) hop.classList.toggle('on', n >= i+2);
+  }
+  s.querySelectorAll('.fwe').forEach(function(l){l.classList.toggle('dim', n>=3);});
+  var pl=document.getElementById('fw-path');
+  if(pl) pl.setAttribute('opacity', n>=6?'1':'0');
+}
 
 /* ---------- slide 5: the diagram tracks the story, one card at a time ---------- */
 function updateWhySlide(){
