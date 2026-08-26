@@ -1937,16 +1937,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Lecture 2 recap</div>
   <h2>What we covered</h2>
   <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
-    <div class="frag" style="margin:0">
-      <p style="font-size:22px;margin:0 0 10px"><b>Relaxation</b>: the core operation &mdash; if c(s,w) + d<sub>w</sub>(v) &lt; d<sub>s</sub>(v), update</p>
-      <p style="font-size:22px;margin:0"><b>Bellman-Ford</b>: relax every edge, repeat N&minus;1 times &mdash; every node gets shortest paths</p>
-    </div>
-    <div class="frag" style="margin:0">
-      <p style="font-size:22px;margin:0 0 8px"><b>Distance-vector protocol</b>: Bellman-Ford, distributed</p>
-      <p style="font-size:19px;margin:0 0 6px;color:var(--muted)">Each node independently performs relaxation, repeatedly &mdash; triggered by receiving a new DV message from a neighbour. After relaxation, advertise the updated DV to all neighbours.</p>
-      <p style="font-size:19px;margin:0 0 6px;color:var(--muted)"><b>Forced-accept rule:</b> if the DV message comes from the current next-hop, accept unconditionally</p>
-      <p style="font-size:19px;margin:0">DV has the <b>count-to-infinity</b> problem &mdash; poison reverse is a heuristic to mitigate it, but does not completely solve it</p>
-    </div>
+    <p class="frag" style="font-size:22px;margin:0"><b>The goal</b>: routing favours the
+    <b>least-cost path</b> &mdash; which is the shortest-path problem.</p>
+    <p class="frag" style="font-size:22px;margin:0"><b>Relaxation</b>: the core mechanism in
+    shortest-path algorithms &mdash; if a neighbour offers a cheaper cost, take it, and make that
+    neighbour your next hop.</p>
+    <p class="frag" style="font-size:22px;margin:0"><b>The distance-vector protocol</b>: a
+    <b>distributed</b> Bellman&ndash;Ford. Every node performs relaxation independently and repeatedly,
+    and passes the result on to its neighbours.</p>
+    <p class="frag" style="font-size:22px;margin:0"><b>Its limitation</b>: <b>count-to-infinity</b>.
+    Poison reverse is a heuristic that mitigates it, but does not completely solve it.</p>
     <div class="frag card" style="border-left:4px solid var(--current);padding:16px 22px;margin-top:4px">
       <p style="margin:0;font-size:20px"><b>Next lecture:</b> A faster algorithm &mdash; Dijkstra&rsquo;s. But it needs the full topology. How does each router get it? <b>Link-state flooding.</b></p>
     </div>
