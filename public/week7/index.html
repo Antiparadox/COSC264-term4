@@ -1929,6 +1929,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 <!-- ====== Lecture 2 recap ====== -->
 <section class="slide" data-sec="Lecture 2 · Shortest Paths &amp; Distance-Vector">
@@ -3468,7 +3470,9 @@ function updateSplitHorizonSlide(){
       else if(n===8) c.innerHTML='<b>Yes</b> — x’s next-hop to z is now <b>z</b>, not y. Poison reverse does not apply, so x honestly advertises:<div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px"><b style="color:var(--accent)">d<sub>x</sub>(z) = 50</b></div><div style="margin-top:8px">y performs relaxation:</div><div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 50 = <b>52</b><br>direct to z: ∞</div><div style="margin-top:4px">52 &lt; ∞ → update: <b style="color:var(--accent)">d<sub>y</sub>(z) = 52, p<sub>y</sub>(z) = x</b></div>';
       else if(n===9) c.innerHTML='<b style="color:var(--accent);font-size:20px">The network converges correctly.</b><div style="margin-top:10px">Poison reverse prevents 2-node loops.</div>';
       else if(n===10) c.innerHTML='<div style="padding:12px 16px;border:2px solid var(--accent);border-radius:6px;color:var(--accent)"><b>But does poison reverse completely solve the count-to-infinity problem?</b></div>';
-      else if(n===11) c.innerHTML='<b>No.</b> Loops involving <b>three or more nodes</b> will not be detected by poison reverse.<div style="margin-top:12px;padding:10px 14px;border-radius:6px;background:rgba(224,120,80,0.08)">Despite this limitation, poison reverse is still used as a heuristic in distance-vector routing protocols such as <b>RIP</b>.</div>';
+      else if(n===11) c.innerHTML='<b style="color:var(--accent);font-size:20px">No.</b><div style="margin-top:10px">Can you think of a case where it fails?</div>';
+      else if(n===12) c.innerHTML='Loops involving <b>three or more nodes</b> will not be detected by poison reverse.';
+      else if(n===13) c.innerHTML='<div style="padding:10px 14px;border-radius:6px;background:rgba(224,120,80,0.08)">Despite this limitation, poison reverse is still used as a heuristic in distance-vector routing protocols such as <b>RIP</b>.</div>';
     }
   } else {
     if(card)card.style.display='none';
