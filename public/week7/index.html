@@ -768,9 +768,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col">
-      <p class="frag" style="font-size:22px;margin:0">The routers <b>talk to each other</b>.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">They keep at it until every router holds a
-      <b>global view</b> of the network &mdash; every node, and every link cost.</p>
+      <p class="frag" style="font-size:22px;margin:0">The routers talk to each of their
+      <b>neighbours</b>.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">What each one sends is a description of
+      <b>its own links</b> &mdash; and every router passes that on <b>unchanged</b>, until it has reached
+      everyone. So every router ends up with a <b>global view</b>: every node, every link cost.</p>
       <p class="frag" style="margin-top:20px;font-size:22px">With that whole map in hand, each router
       then works out its own forwarding table <b>locally</b>
       <span class="small muted">(next lecture)</span>.</p>
@@ -836,11 +838,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
     <div class="col">
-      <p class="frag" style="font-size:22px;margin:0">The routers talk to their
-      <b>direct neighbours</b> &mdash; and that is all any of them ever sees of the network.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">But this time they are not trying to
-      assemble a map. Each router learns, straight from those conversations,
-      <b>which neighbour to use for each destination</b>.</p>
+      <p class="frag" style="font-size:22px;margin:0">The routers talk to each of their
+      <b>neighbours</b> &mdash; exactly as before.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">But nothing is passed on unchanged here.
+      Each router folds what it hears into a summary of <b>its own</b>, so no map is ever assembled
+      &mdash; what a router learns instead is <b>which neighbour to use for each destination</b>.</p>
       <p class="frag" style="margin-top:20px;font-size:22px">Destination by destination, that fills in
       the forwarding table &mdash; and R still has no idea what the network looks like
       <span class="small muted">(next lecture)</span>.</p>
