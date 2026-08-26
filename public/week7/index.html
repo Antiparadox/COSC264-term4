@@ -965,29 +965,25 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Who runs it?">
   <div class="kicker">Concretely</div>
   <h2>The AS you are inside right now</h2>
-  <div class="cols" style="align-items:center">
+  <div class="cols" style="align-items:center;gap:30px">
     <div class="col">
-      <table class="ft" style="font-size:19px">
+      <table class="ft" style="font-size:17px;max-width:100%">
         <tbody>
         <tr><td class="muted small">AS handle</td><td><b>AS9432</b></td></tr>
         <tr><td class="muted small">ASN name</td><td>CANTERBURY-AS</td></tr>
         <tr><td class="muted small">organisation</td><td>University of Canterbury</td></tr>
         <tr><td class="muted small">registry</td><td>APNIC (Asia-Pacific)</td></tr>
-        <tr><td class="muted small">IPv4 prefixes</td><td>132.181.0.0/16 · 202.36.178.0/23</td></tr>
+        <tr><td class="muted small">IPv4 prefixes</td><td style="white-space:normal">132.181.0.0/16<br>202.36.178.0/23</td></tr>
         </tbody>
       </table>
       <p class="small muted" style="margin-top:12px">asnlookup.com, retrieved July 2026</p>
     </div>
     <div class="col">
-      <div class="poll frag" id="poll-prefix">
-        <p style="font-size:20px;margin:0 0 10px">Quick recall — does the IP address <span class="mono accent">132.181.92.12</span> belong to UC's <span class="mono">132.181.0.0/16</span> prefix?</p>
-        <div class="prow" data-a="A" style="flex-direction:column;align-items:stretch;gap:10px">
-          <button class="popt correct" data-v="A" style="text-align:left">A — Yes: the first 16 bits match</button>
-          <button class="popt" data-v="B" style="text-align:left">B — No: 92 is outside the range</button>
-        </div>
-        <p class="pwhy">A /16 mask means the first 16 bits (132.181) identify the network. Any address 132.181.x.x belongs to this prefix — the last two octets can be anything.</p>
-        <div class="pfoot"><button class="btn preveal">Reveal</button></div>
-      </div>
+      <p class="frag" style="margin:0;font-size:21px"><b class="accent">AS9432</b> is the
+      <b>AS number</b> &mdash; the handle every other AS on the Internet uses to refer to this one.</p>
+      <p class="frag" style="margin-top:20px;font-size:21px">The <b class="accent">/16</b> is the
+      <b>subnet mask</b>: the first 16 bits name the network, so every <span class="mono">132.181.x.x</span>
+      address sits inside it.</p>
     </div>
   </div>
 </section>
@@ -1023,7 +1019,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col" style="display:flex;flex-direction:column;gap:11px;justify-content:flex-start;min-height:0">
-      <div class="card frag" data-mark="stub" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Stub</b> — one connection to one <b>provider</b> (an AS that sells connectivity to other ASes).</p></div>
+      <div class="card frag" data-mark="stub" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Stub</b> — one connection to one <b>provider</b> (an AS that sells connectivity to other ASes).</p>
+        <p style="margin:6px 0 0;font-size:16px;color:var(--muted)">e.g. AS&nbsp;3 is the provider to
+        AS&nbsp;1, which is a stub.</p></div>
       <div class="card frag" data-mark="multi" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Multi-homed</b> — several providers, but carries <span class="warn">no through-traffic</span>.</p></div>
       <div class="card frag" data-mark="transit" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Transit</b> — connects ASes and <span class="accent">carries others’ traffic</span>. That service is the product. <span class="small muted">(e.g. One NZ, Verizon)</span></p></div>
     </div>
