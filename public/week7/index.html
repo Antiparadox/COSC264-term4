@@ -1362,7 +1362,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
            text-transform:uppercase;color:var(--muted);transition:color .3s">Notation</p>
         <p style="margin:0;font-size:16px;line-height:1.65">
           <b class="mono" style="color:var(--accent)">c(s,w)</b> &mdash; cost of the link s&nbsp;&rarr;&nbsp;w<br>
-          <b class="mono" style="color:var(--accent)">d<sub>w</sub>(v)</b> &mdash; w's best known cost onward to v<br>
+          <b class="mono" style="color:var(--accent)">d<sub>w</sub>(v)</b> &mdash; the <b>least</b> known cost from w onward to v<br>
           <b class="mono" style="color:var(--accent)">p<sub>s</sub>(v)</b> &mdash; s's next hop towards v
         </p>
       </div>
@@ -2981,15 +2981,17 @@ function updateRelaxSlide(){
   // From beat 6 the formula stays put while the sums accumulate under it.
   var S=[];
   S[2]='<div class="scard sq">To reach v, s has to go through <b>one of its neighbours</b>. '
-     + 'Since it is the <b>shortest</b> path we are after, we ask: what is the <b>total cost</b> '
-     + 'of going that way?</div>';
+     + 'What we care about is the cost of each path, so we ask: what is the '
+     + '<b style="color:var(--accent)">least possible cost</b> of a path whose <b>first hop</b> '
+     + 'is that neighbour?</div>';
   S[3]='<div class="scard sa"><p style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:1px;'
-     + 'text-transform:uppercase;color:var(--accent)">Total cost</p>The <b>cost of the link</b> to that '
-     + 'neighbour, plus that neighbour\'s <b>best cost onward</b> to v.</div>';
+     + 'text-transform:uppercase;color:var(--accent)">Least cost through that neighbour</p>'
+     + 'It has to be the cost of the <b>link to that neighbour</b>, plus the '
+     + '<b style="color:var(--accent)">least possible cost</b> from that neighbour onward to v.</div>';
   S[4]='<div class="scard sa">From here on we write these the way the <b>notation</b> under the '
      + 'graph does.</div>';
   S[5]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
-     + 'text-transform:uppercase;color:var(--accent)">Total cost through neighbour w</p>'
+     + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop w</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
      + 'c(s,w) + d<sub>w</sub>(v)</p></div>';
   S[6]=S[7]=S[8]=S[5];
