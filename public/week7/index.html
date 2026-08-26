@@ -770,12 +770,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="col">
       <p class="frag" style="font-size:22px;margin:0">The routers talk to each of their
       <b>neighbours</b>.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">What each one sends is a description of
-      <b>its own links</b> &mdash; and every router passes that on <b>unchanged</b>, until it has reached
-      everyone. So every router ends up with a <b>global view</b>: every node, every link cost.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">With that whole map in hand, each router
-      then works out its own forwarding table <b>locally</b>
-      <span class="small muted">(next lecture)</span>.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">What they send travels on
+      <b>unchanged</b>, so every router ends up holding a <b>global view</b> of the network.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">With that map in hand, each router works out
+      its own forwarding table <b>locally</b> <span class="small muted">(next lecture)</span>.</p>
     </div>
   </div>
 </section>
@@ -840,11 +838,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="col">
       <p class="frag" style="font-size:22px;margin:0">The routers talk to each of their
       <b>neighbours</b> &mdash; exactly as before.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">But nothing is passed on unchanged here.
-      Each router folds what it hears into a summary of <b>its own</b>, so no map is ever assembled
-      &mdash; what a router learns instead is <b>which neighbour to use for each destination</b>.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">Destination by destination, that fills in
-      the forwarding table &mdash; and R still has no idea what the network looks like
+      <p class="frag" style="margin-top:20px;font-size:22px">But here nothing travels on unchanged.
+      What a router learns is just <b>which neighbour to use for each destination</b>.</p>
+      <p class="frag" style="margin-top:20px;font-size:22px">Eventually each router builds its forwarding
+      table out of that &mdash; without ever seeing the network
       <span class="small muted">(next lecture)</span>.</p>
     </div>
   </div>
