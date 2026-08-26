@@ -381,164 +381,23 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag lead" style="text-align:center;margin-top:8px">But A has no idea what the network looks like</p>
 </section>
 
-<!-- ====== Slide 5: Requirement 1 — Discover ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">Requirement 1</div>
-  <h2 style="margin-bottom:24px">Discover</h2>
-  <div style="display:flex;justify-content:center">
-    <div class="card" style="border-top:4px solid var(--accent);max-width:560px;padding:28px 36px">
-      <p class="mono accent" style="margin:0 0 12px;font-size:20px">1 · discover</p>
-      <p style="margin:0;font-size:26px;line-height:1.5">Learn who is out there and what each link costs — without being told.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ====== Slide 6: Discover deep-dive ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">Discover</div>
-  <h2>A learns its local neighbourhood</h2>
-  <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0">
-    <svg id="disc-svg" viewBox="0 0 880 340" style="width:100%;max-width:880px" xmlns="http://www.w3.org/2000/svg">
-      <g id="disc-far" opacity="0.06">
-        <line x1="400" y1="100" x2="580" y2="100" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="580" y1="100" x2="740" y2="170" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="400" y1="250" x2="740" y2="170" stroke="var(--edge)" stroke-width="3"/>
-        <circle cx="580" cy="100" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
-        <text x="580" y="106" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)">D</text>
-        <circle cx="740" cy="170" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
-        <text x="740" y="176" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)">F</text>
-      </g>
-      <g id="disc-near-links" opacity="0.06">
-        <line x1="160" y1="170" x2="400" y2="100" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="160" y1="170" x2="400" y2="250" stroke="var(--edge)" stroke-width="3"/>
-      </g>
-      <g id="disc-near-nodes" opacity="0.06">
-        <circle cx="400" cy="100" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-        <text x="400" y="106" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">B</text>
-        <circle cx="400" cy="250" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-        <text x="400" y="256" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">C</text>
-      </g>
-      <g id="disc-costs" opacity="0">
-        <text x="265" y="122" text-anchor="middle" font-size="18" font-weight="700" fill="var(--current)">2</text>
-        <text x="265" y="228" text-anchor="middle" font-size="18" font-weight="700" fill="var(--current)">4</text>
-      </g>
-      <circle cx="160" cy="170" r="30" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-      <text x="160" y="176" text-anchor="middle" font-size="17" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-    </svg>
-  </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:8px">
-    <p class="frag lead" style="margin:0;font-size:24px">A discovers direct neighbours: <b>B</b> and <b>C</b></p>
-    <p class="frag lead" style="margin:0;font-size:24px">A learns link costs: <span style="color:var(--current)"><b>A–B = 2</b></span>, <span style="color:var(--current)"><b>A–C = 4</b></span></p>
-    <p class="frag lead" style="margin:0;font-size:24px;color:var(--muted)">A only has a local view — it still cannot see F</p>
-  </div>
-</section>
 
-<!-- ====== Slide 7: Requirement 2 — Integrate local views ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">Requirement 2</div>
-  <h2 style="margin-bottom:24px">Integrate local views</h2>
-  <div style="display:flex;justify-content:center">
-    <div class="card" style="border-top:4px solid var(--accent);max-width:620px;padding:28px 36px">
-      <p class="mono accent" style="margin:0 0 12px;font-size:20px">2 · integrate</p>
-      <p style="margin:0;font-size:26px;line-height:1.5">Propagate local knowledge to neighbours so that every router can assemble a global view of the network.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ====== Slide 8: Integrate — A's local view ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">Integrate · step 1</div>
-  <h2>What does A know?</h2>
-  <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0">
-    <svg id="compA-svg" viewBox="0 0 880 380" style="width:100%;max-width:880px" xmlns="http://www.w3.org/2000/svg">
-      <line x1="160" y1="170" x2="400" y2="100" stroke="var(--accent)" stroke-width="3"/>
-      <line x1="160" y1="170" x2="400" y2="250" stroke="var(--accent)" stroke-width="3"/>
-      <g opacity="0.12">
-        <line x1="400" y1="100" x2="580" y2="100" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="580" y1="100" x2="740" y2="170" stroke="var(--edge)" stroke-width="3"/>
-        <line x1="400" y1="250" x2="740" y2="170" stroke="var(--edge)" stroke-width="3"/>
-      </g>
-      <text x="265" y="122" text-anchor="middle" font-size="18" font-weight="700" fill="var(--current)">2</text>
-      <text x="265" y="228" text-anchor="middle" font-size="18" font-weight="700" fill="var(--current)">4</text>
-      <circle cx="160" cy="170" r="28" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-      <text x="160" y="176" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-      <circle cx="400" cy="100" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-      <text x="400" y="106" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">B</text>
-      <circle cx="400" cy="250" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-      <text x="400" y="256" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">C</text>
-      <circle cx="580" cy="100" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2" opacity="0.25"/>
-      <text x="580" y="106" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)" opacity="0.25">D</text>
-      <circle cx="740" cy="170" r="24" fill="var(--surface)" stroke="var(--current)" stroke-width="2.5" opacity="0.35"/>
-      <text x="740" y="176" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--current)" opacity="0.35">F</text>
-      <g id="compA-card" opacity="0">
-        <rect x="60" y="280" width="300" height="90" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
-        <text x="82" y="310" font-size="16" class="svgmono" fill="var(--accent)">A's local view</text>
-        <text x="82" y="336" font-size="15" class="svgmono" fill="var(--ink)">neighbours: B (cost 2), C (cost 4)</text>
-        <text x="82" y="358" font-size="15" class="svgmono" fill="var(--bad)">cannot reach F</text>
-      </g>
-    </svg>
-  </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:8px">
-    <p class="frag lead" style="margin:0;font-size:24px">A only knows its direct neighbours</p>
-    <p class="frag lead" style="margin:0;font-size:24px">A needs its neighbours to <b>share their knowledge</b></p>
-  </div>
-</section>
 
-<!-- ====== Slide 9: Integrate — Propagation ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">Integrate · step 2</div>
-  <h2>Neighbours share what they know</h2>
-  <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0">
-    <svg id="compB-svg" viewBox="0 0 880 380" style="width:100%;max-width:880px" xmlns="http://www.w3.org/2000/svg">
-      <line x1="160" y1="170" x2="400" y2="100" stroke="var(--accent)" stroke-width="3"/>
-      <line x1="160" y1="170" x2="400" y2="250" stroke="var(--edge)" stroke-width="3" opacity="0.2"/>
-      <line x1="400" y1="100" x2="580" y2="100" stroke="var(--accent)" stroke-width="3"/>
-      <line x1="580" y1="100" x2="740" y2="170" stroke="var(--edge)" stroke-width="3" opacity="0.15"/>
-      <line x1="400" y1="250" x2="740" y2="170" stroke="var(--edge)" stroke-width="3" opacity="0.15"/>
-      <text x="265" y="122" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">2</text>
-      <text x="485" y="90" text-anchor="middle" font-size="18" font-weight="700" fill="var(--current)">3</text>
-      <circle cx="160" cy="170" r="28" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-      <text x="160" y="176" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-      <circle cx="400" cy="100" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-      <text x="400" y="106" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">B</text>
-      <circle cx="400" cy="250" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2" opacity="0.2"/>
-      <text x="400" y="256" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)" opacity="0.2">C</text>
-      <circle cx="580" cy="100" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-      <text x="580" y="106" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">D</text>
-      <circle cx="740" cy="170" r="24" fill="var(--surface)" stroke="var(--current)" stroke-width="2.5" opacity="0.35"/>
-      <text x="740" y="176" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--current)" opacity="0.35">F</text>
-      <g id="compB-card" opacity="0">
-        <rect x="40" y="250" width="380" height="110" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
-        <text x="62" y="278" font-size="16" class="svgmono" fill="var(--accent)">B propagates to A:</text>
-        <text x="62" y="304" font-size="15" class="svgmono" fill="var(--ink)">"I can reach D (cost 3)"</text>
-        <text x="62" y="328" font-size="15" class="svgmono" fill="var(--ink)">"D can reach F (cost 1)"</text>
-        <text x="62" y="350" font-size="14" class="svgmono" fill="var(--good)">→ A now knows a path to F via B!</text>
-      </g>
-      <g id="compB-arrow" opacity="0">
-        <path d="M380,108 L190,162" stroke="var(--accent)" stroke-width="3" fill="none" stroke-dasharray="7,4" marker-end="url(#proparr)">
-          <animate attributeName="stroke-dashoffset" values="22;0" dur="1s" repeatCount="indefinite"/>
-        </path>
-        <defs><marker id="proparr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 z" fill="var(--accent)"/></marker></defs>
-      </g>
-      <g id="compB-df" opacity="0">
-        <line x1="580" y1="112" x2="740" y2="160" stroke="var(--accent)" stroke-width="3"/>
-        <text x="670" y="120" text-anchor="middle" font-size="18" font-weight="700" fill="var(--current)">1</text>
-      </g>
-    </svg>
-  </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:8px">
-    <p class="frag lead" style="margin:0;font-size:24px">B <b>propagates</b> its local view to neighbour A</p>
-    <p class="frag lead" style="margin:0;font-size:24px">Through propagation, A assembles a <b>global view</b> — it can now reach F</p>
-  </div>
-</section>
+
+
+
+
+
 
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
 <section class="slide" data-sec="What routing is">
-  <div class="kicker">Integrate · step 3</div>
-  <h2>Storing what A learned</h2>
+  <div class="kicker">What routing produces</div>
+  <h2>The forwarding table</h2>
   <div class="cols" style="align-items:flex-start;gap:28px">
     <div class="col" style="flex:1">
-      <p class="frag lead" style="margin:0 0 16px;font-size:24px">A needs to <b>store</b> everything it learned from its neighbours. The <b>forwarding table</b> records, for each destination, the best <span class="accent">next hop</span> and total <span style="color:var(--current)">cost</span>.</p>
+      <p class="frag lead" style="margin:0 0 16px;font-size:24px">Whatever algorithm a router runs, the result is the same artifact. The <b>forwarding table</b> records, for each destination, the <span class="accent">next hop</span> to send to and the total <span style="color:var(--current)">cost</span> of getting there.</p>
       <div class="frag" style="margin-top:8px">
         <svg viewBox="0 0 440 310" style="width:100%;max-width:440px" xmlns="http://www.w3.org/2000/svg">
           <line x1="60" y1="120" x2="180" y2="60" stroke="var(--accent)" stroke-width="3"/>
@@ -693,80 +552,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<!-- ====== Slide 15: Requirement 3 — React ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">Requirement 3</div>
-  <h2 style="margin-bottom:24px">React</h2>
-  <div style="display:flex;justify-content:center">
-    <div class="card" style="border-top:4px solid var(--current);max-width:620px;padding:28px 36px">
-      <p class="mono" style="margin:0 0 12px;font-size:20px;color:var(--current)">3 · react</p>
-      <p style="margin:0 0 16px;font-size:26px;line-height:1.5">React to network failures and changes by <b>updating the forwarding table</b> — automatically, quickly.</p>
-      <p class="frag small" style="margin:0;line-height:1.6;color:var(--muted)">Networks don't stay the same: the topology changes due to failures, servers go offline, new links appear. We cannot build a forwarding table once and leave it — it must be <b style="color:var(--current)">continuously maintained</b>.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ====== Slide 16: React deep-dive ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">React</div>
-  <h2>When the network changes</h2>
-  <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0">
-    <svg id="react-svg" viewBox="0 0 880 380" style="width:100%;max-width:880px" xmlns="http://www.w3.org/2000/svg">
-      <line x1="160" y1="170" x2="400" y2="100" stroke="var(--edge)" stroke-width="3" id="react-link-ab"/>
-      <line x1="160" y1="170" x2="400" y2="250" stroke="var(--edge)" stroke-width="3"/>
-      <line x1="400" y1="100" x2="580" y2="100" stroke="var(--edge)" stroke-width="3"/>
-      <line x1="580" y1="100" x2="740" y2="170" stroke="var(--edge)" stroke-width="3"/>
-      <line x1="400" y1="250" x2="740" y2="170" stroke="var(--edge)" stroke-width="3"/>
-      <text x="265" y="122" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">2</text>
-      <text x="265" y="228" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">4</text>
-      <text x="485" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">3</text>
-      <text x="670" y="122" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">1</text>
-      <text x="590" y="224" text-anchor="middle" font-size="16" font-weight="700" fill="var(--current)">2</text>
-      <g id="react-fail" opacity="0">
-        <line x1="250" y1="112" x2="300" y2="162" stroke="var(--bad)" stroke-width="5" stroke-linecap="round"/>
-        <line x1="300" y1="112" x2="250" y2="162" stroke="var(--bad)" stroke-width="5" stroke-linecap="round"/>
-      </g>
-      <g id="react-b-dead" opacity="0">
-        <circle cx="400" cy="100" r="24" fill="var(--bad-soft)" stroke="var(--bad)" stroke-width="2.5" stroke-dasharray="6,4"/>
-      </g>
-      <g id="react-reroute" opacity="0">
-        <path d="M184,178 L376,242" stroke="var(--accent)" stroke-width="4" fill="none" stroke-dasharray="8,5">
-          <animate attributeName="stroke-dashoffset" values="26;0" dur="1s" repeatCount="indefinite"/>
-        </path>
-        <path d="M424,242 L716,178" stroke="var(--accent)" stroke-width="4" fill="none" stroke-dasharray="8,5">
-          <animate attributeName="stroke-dashoffset" values="26;0" dur="1s" repeatCount="indefinite"/>
-        </path>
-      </g>
-      <circle cx="160" cy="170" r="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
-      <text x="160" y="176" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
-      <circle cx="400" cy="100" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5" id="react-node-b"/>
-      <text x="400" y="106" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)" id="react-label-b">B</text>
-      <circle cx="400" cy="250" r="24" fill="var(--surface)" stroke="var(--accent)" stroke-width="2.5"/>
-      <text x="400" y="256" text-anchor="middle" font-size="14" font-weight="700" class="svgmono" fill="var(--accent-ink)">C</text>
-      <circle cx="580" cy="100" r="24" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
-      <text x="580" y="106" text-anchor="middle" font-size="14" class="svgmono" fill="var(--muted)">D</text>
-      <circle cx="740" cy="170" r="24" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/>
-      <text x="740" y="176" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--current)">F</text>
-      <g id="react-table-before" opacity="1">
-        <rect x="50" y="290" width="270" height="80" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5"/>
-        <text x="70" y="314" font-size="14" class="svgmono" fill="var(--muted)">A's forwarding table</text>
-        <text x="70" y="338" font-size="15" class="svgmono" fill="var(--ink)">F -> next hop: B   cost: 6</text>
-        <text x="70" y="358" font-size="15" class="svgmono" fill="var(--ink)">C -> next hop: C   cost: 4</text>
-      </g>
-      <g id="react-table-after" opacity="0">
-        <rect x="540" y="290" width="310" height="80" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
-        <text x="560" y="314" font-size="14" class="svgmono" fill="var(--accent)">A's forwarding table (updated)</text>
-        <text x="560" y="338" font-size="15" class="svgmono" fill="var(--accent-ink)">F -> next hop: C   cost: 6  <tspan fill="var(--current)">(changed!)</tspan></text>
-        <text x="560" y="358" font-size="15" class="svgmono" fill="var(--ink)">C -> next hop: C   cost: 4</text>
-      </g>
-    </svg>
-  </div>
-  <div style="display:flex;gap:28px;justify-content:center;margin-top:8px">
-    <p class="frag lead" style="margin:0;font-size:22px"><span style="color:var(--bad)"><b>B goes offline</b></span></p>
-    <p class="frag lead" style="margin:0;font-size:22px"><span style="color:var(--accent)"><b>A reroutes F via C (cost 4+2 = 6)</b></span></p>
-    <p class="frag lead" style="margin:0;font-size:22px">The <b>forwarding table updates automatically</b></p>
-  </div>
-</section>
+
+
 
 <!-- ====== Slide 17: The solution ====== -->
 <section class="slide" data-sec="What routing is">
@@ -776,62 +564,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="accent">automatic process</span> that fulfils all three requirements — discover, integrate local views, and react — with the goal of <b>building and maintaining the forwarding table</b> at every router.</p>
 </section>
 
-<section class="slide" data-sec="Two families">
-  <div class="kicker">Strategies</div>
-  <h2>Naive strategies for building a routing protocol</h2>
-  <div class="cols" style="align-items:stretch">
-    <div class="col card">
-      <p class="mono small muted" style="margin:0 0 6px">static</p>
-      <p style="margin:0;font-size:21px">A human writes the routes by hand.</p>
-      <p class="small frag" style="margin:10px 0 0;color:var(--bad)">✕ blind to change — cannot react to failures</p>
-    </div>
-    <div class="col card">
-      <p class="mono small muted" style="margin:0 0 6px">random</p>
-      <svg viewBox="0 0 220 100" style="width:100%;max-width:220px;margin:6px auto 4px;display:block" aria-label="Random forwarding: packet bounces unpredictably">
-        <circle cx="30" cy="50" r="14" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="110" cy="24" r="14" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="110" cy="76" r="14" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="190" cy="50" r="14" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2"/>
-        <text x="190" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="var(--current)">dst</text>
-        <line x1="44" y1="44" x2="96" y2="30" stroke="var(--edge)" stroke-width="1.5"/>
-        <line x1="44" y1="56" x2="96" y2="70" stroke="var(--edge)" stroke-width="1.5"/>
-        <line x1="124" y1="30" x2="176" y2="44" stroke="var(--edge)" stroke-width="1.5"/>
-        <line x1="124" y1="70" x2="176" y2="56" stroke="var(--edge)" stroke-width="1.5"/>
-        <line x1="110" y1="38" x2="110" y2="62" stroke="var(--edge)" stroke-width="1.5"/>
-        <path d="M42,44 L98,28 L108,60 L98,28 L170,46" fill="none" stroke="var(--bad)" stroke-width="2" stroke-dasharray="5,3">
-          <animate attributeName="stroke-dashoffset" values="16;0" dur="1.2s" repeatCount="indefinite"/>
-        </path>
-      </svg>
-      <p style="margin:0;font-size:21px">Forward each packet to a random neighbour.</p>
-      <p class="small frag" style="margin:10px 0 0;color:var(--bad)">✕ takes time — wildly wasteful</p>
-    </div>
-    <div class="col card">
-      <p class="mono small muted" style="margin:0 0 6px">flooding</p>
-      <svg viewBox="0 0 220 100" style="width:100%;max-width:220px;margin:6px auto 4px;display:block" aria-label="Flooding: packet sent to every neighbour">
-        <circle cx="110" cy="50" r="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
-        <text x="110" y="55" text-anchor="middle" font-size="10" font-weight="700" fill="var(--accent-ink)">src</text>
-        <circle cx="30" cy="24" r="12" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="30" cy="76" r="12" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="190" cy="24" r="12" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2"/>
-        <circle cx="190" cy="76" r="12" fill="var(--surface-2)" stroke="var(--edge)" stroke-width="2"/>
-        <line x1="96" y1="42" x2="42" y2="28" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5,3">
-          <animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></line>
-        <line x1="96" y1="58" x2="42" y2="72" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5,3">
-          <animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></line>
-        <line x1="124" y1="42" x2="178" y2="28" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5,3">
-          <animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></line>
-        <line x1="124" y1="58" x2="178" y2="72" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5,3">
-          <animate attributeName="stroke-dashoffset" values="16;0" dur="0.8s" repeatCount="indefinite"/></line>
-      </svg>
-      <p style="margin:0;font-size:21px">Send every packet to <i>every</i> neighbour.</p>
-      <p class="small frag" style="margin:10px 0 0;color:var(--bad)">✕ guaranteed delivery — but explosive duplication</p>
-    </div>
-  </div>
-</section>
+
 
 <section class="slide sec-title" data-sec="Two families">
   <div class="kicker">Week 7 · The Routing Problem</div>
-  <h1>Two families of<br>routing protocols</h1>
+  <h1>Two families of<br>routing algorithms</h1>
   <div class="rule"></div>
   <div style="display:flex;gap:36px;justify-content:center;margin-top:32px">
     <div class="card" style="border-top:4px solid var(--accent);max-width:260px;padding:24px 28px;text-align:center">
@@ -960,23 +697,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="A network of networks">
-  <div class="kicker">So which family is better?</div>
-  <h2>Which family is better?</h2>
-  <div style="display:flex;gap:36px;justify-content:center;margin-top:24px">
-    <div class="card frag" style="border-top:4px solid var(--current);max-width:380px;padding:20px 24px">
-      <p class="mono" style="margin:0 0 8px;font-size:16px;color:var(--current)">distance-vector</p>
-      <p style="margin:0;font-size:19px">Low CPU, memory, and bandwidth — each router only stores its own distance table. Ideal for <b>small campus or branch networks</b> with inexpensive routers.</p>
-    </div>
-    <div class="card frag" style="border-top:4px solid var(--accent);max-width:380px;padding:20px 24px">
-      <p class="mono accent" style="margin:0 0 8px;font-size:16px">link-state</p>
-      <p style="margin:0;font-size:19px">Fast convergence — every router computes from the same complete map, so failures are detected and routed around quickly. Ideal for <b>large networks</b> with many routers.</p>
-    </div>
-  </div>
-  <div class="frag" id="non-answer">
-    <p class="lead" style="font-size:28px;line-height:1.6;max-width:900px;margin-top:20px">Neither is strictly better — the right choice depends on <b>which part of the network</b>.</p>
-  </div>
-</section>
+
 
 <section class="slide" data-sec="A network of networks">
   <div class="kicker">A network of networks</div>
@@ -1151,43 +872,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="A network of networks">
-  <div class="kicker">Predict</div>
-  <h2>May AS 1’s traffic to AS 5 pass <em>through</em> AS 2?</h2>
-  <div class="cols">
-    <div class="col" style="flex:1.5">
-      <svg viewBox="0 0 620 420" id="assvg2" aria-label="Path prediction on the five AS diagram">
-        <line x1="150" y1="105" x2="235" y2="180" stroke="var(--edge)" stroke-width="3.5" class="p-good"/>
-        <line x1="470" y1="105" x2="330" y2="180" stroke="var(--edge)" stroke-width="3.5" class="p-no1"/>
-        <line x1="470" y1="105" x2="430" y2="180" stroke="var(--edge)" stroke-width="3.5" class="p-no2"/>
-        <line x1="330" y1="215" x2="400" y2="215" stroke="var(--edge)" stroke-width="3.5" class="p-good"/>
-        <line x1="460" y1="250" x2="480" y2="320" stroke="var(--edge)" stroke-width="3.5" class="p-good"/>
-        <ellipse cx="120" cy="80" rx="85" ry="52" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="120" y="86" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">AS 1</text>
-        <ellipse cx="500" cy="80" rx="85" ry="52" fill="var(--surface)" stroke="var(--current)" stroke-width="3"/>
-        <text x="500" y="76" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">AS 2</text>
-        <text x="500" y="100" text-anchor="middle" font-size="15" fill="var(--muted)">multi-homed</text>
-        <ellipse cx="280" cy="215" rx="90" ry="54" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="280" y="221" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">AS 3</text>
-        <ellipse cx="455" cy="215" rx="70" ry="48" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
-        <text x="455" y="221" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">AS 4</text>
-        <ellipse cx="490" cy="355" rx="85" ry="52" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
-        <text x="490" y="361" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink)">AS 5</text>
-      </svg>
-    </div>
-    <div class="col" style="display:flex;flex-direction:column;gap:16px;justify-content:center">
-      <div class="pillrow"><button class="btn" id="asp-yes" style="font-size:20px;padding:12px 30px">Yes</button>
-        <button class="btn" id="asp-no" style="font-size:20px;padding:12px 30px">No</button></div>
-      <div id="asp-out" style="display:none">
-        <p style="font-size:22px;margin:0"><b class="accent">No.</b> AS 2 is <b>multi-homed</b> — by definition,
-          a multi-homed AS does <b>not carry through-traffic</b>. It bought connectivity for its own use,
-          not to forward packets between other networks.</p>
-        <p style="font-size:22px;margin:12px 0 0">The traffic flows <span class="mono accent">AS1 → AS3 → AS4 → AS5</span>,
-          through the transit ASes that <i>do</i> carry others’ traffic.</p>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <section class="slide" data-sec="A network of networks">
   <div class="kicker">Quick question</div>
