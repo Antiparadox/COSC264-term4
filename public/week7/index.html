@@ -381,6 +381,40 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag lead" style="text-align:center;margin-top:8px">But A has no idea what the network looks like</p>
 </section>
 
+<!-- ====== What routing has to do ====== -->
+<section class="slide" data-sec="What routing is">
+  <div class="kicker">What routing is</div>
+  <h2>What routing has to do</h2>
+  <p class="lead" style="margin:0 0 28px;font-size:24px;max-width:52ch">Routing is how a network works
+  out &mdash; <b>automatically</b>, and for <b>every</b> source and destination &mdash; which path a
+  packet should take.</p>
+  <div class="cols" style="gap:20px;align-items:flex-start">
+    <div class="col frag" style="flex:1">
+      <div class="card" style="border-left:4px solid var(--accent);padding:16px 20px;margin:0">
+        <p class="mono accent" style="margin:0 0 8px;font-size:15px">automatically</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">A network has thousands of routers, and the
+        right answer changes the moment a link fails. Nobody writes these paths out by hand.</p>
+      </div>
+    </div>
+    <div class="col frag" style="flex:1">
+      <div class="card" style="border-left:4px solid var(--current);padding:16px 20px;margin:0">
+        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">by cooperating</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">No router can see the whole network &mdash;
+        each knows only its own links. Routers have to exchange what they know, and that exchange is the
+        <b>protocol</b>.</p>
+      </div>
+    </div>
+    <div class="col frag" style="flex:1">
+      <div class="card" style="border-left:4px solid var(--edge);padding:16px 20px;margin:0">
+        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--muted)">in advance</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">All of this happens <b>before</b> any packet
+        arrives. What it produces is a table each router will consult later &mdash; one entry per
+        destination.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -443,52 +477,61 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<!-- ====== Slide 11: Routing vs Forwarding — section title ====== -->
-<section class="slide sec-title" data-sec="What routing is">
-  <div class="kicker">Week 7 · The Routing Problem</div>
-  <h1>Routing and forwarding:<br>two different jobs</h1>
-  <div class="rule"></div>
-  <p class="sub">One happens before, network-wide, slowly. The other happens per packet, locally, in nanoseconds.</p>
-</section>
-
-<!-- ====== Slide 12: Road trip analogy ====== -->
+<!-- ====== Which path counts as the best one ====== -->
 <section class="slide" data-sec="What routing is">
-  <div class="kicker">Analogy</div>
-  <h2>Planning the trip vs. reading the signs</h2>
-  <div class="cols">
-    <div class="col card" style="display:flex;flex-direction:column">
-      <svg viewBox="0 0 440 250" aria-label="Route planning on a map">
-        <rect x="10" y="10" width="420" height="230" rx="14" fill="var(--surface-2)" stroke="var(--border)"/>
-        <path d="M60,210 C130,180 120,120 190,110 S330,80 380,45" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 0"/>
-        <path d="M60,210 C110,230 220,205 260,160 S350,120 380,45" fill="none" stroke="var(--edge)" stroke-width="3" stroke-dasharray="7 7" opacity=".7"/>
-        <circle cx="60" cy="210" r="9" fill="var(--current)"/>
-        <text x="78" y="228" font-size="16" fill="var(--muted)">Queenstown</text>
-        <circle cx="380" cy="45" r="9" fill="var(--accent)"/>
-        <text x="285" y="36" font-size="16" fill="var(--muted)">Christchurch</text>
+  <div class="kicker">What routing optimises</div>
+  <h2>Which path? Routing needs a rule</h2>
+  <div class="cols" style="align-items:center;gap:38px">
+    <div class="col" style="flex:1">
+      <svg viewBox="0 0 290 160" style="width:100%;max-width:330px" aria-label="Two paths from A to F with different total costs">
+        <line x1="53" y1="67" x2="122" y2="36" stroke="var(--accent)" stroke-width="3.5"/>
+        <line x1="158" y1="36" x2="227" y2="67" stroke="var(--accent)" stroke-width="3.5"/>
+        <line x1="53" y1="83" x2="122" y2="114" stroke="var(--edge)" stroke-width="2.5"/>
+        <line x1="158" y1="114" x2="227" y2="83" stroke="var(--edge)" stroke-width="2.5"/>
+        <text x="84" y="38" font-size="14" font-weight="700" fill="var(--accent)">2</text>
+        <text x="192" y="38" font-size="14" font-weight="700" fill="var(--accent)">3</text>
+        <text x="84" y="118" font-size="14" font-weight="700" fill="var(--muted)">4</text>
+        <text x="192" y="118" font-size="14" font-weight="700" fill="var(--muted)">2</text>
+        <circle cx="35" cy="75" r="20" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
+        <text x="35" y="81" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
+        <circle cx="140" cy="28" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+        <text x="140" y="34" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">B</text>
+        <circle cx="140" cy="122" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+        <text x="140" y="128" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">C</text>
+        <circle cx="245" cy="75" r="20" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
+        <text x="245" y="81" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">F</text>
       </svg>
-      <p style="margin:16px 0 0"><b>Routing</b> — plan the whole path, <i>before</i> the trip.</p>
-      <p class="small muted" style="margin:6px 0 0">Compares alternatives · has the full map · unhurried</p>
+      <div style="text-align:center;font-family:var(--mono);font-size:14px;margin-top:6px">
+        <span style="color:var(--accent);font-weight:700">A&rarr;B&rarr;F = 5</span>
+        &nbsp;&nbsp;<span style="color:var(--muted)">A&rarr;C&rarr;F = 6</span>
+      </div>
     </div>
-    <div class="col card" style="display:flex;flex-direction:column">
-      <svg viewBox="0 0 440 250" aria-label="Motorway exit sign">
-        <rect x="40" y="26" width="360" height="150" rx="12" fill="var(--sign)"/>
-        <rect x="40" y="26" width="360" height="150" rx="12" fill="none" stroke="#fff" stroke-width="3" opacity=".85"/>
-        <text x="70" y="70" font-size="24" fill="#fff" font-weight="700">⬉ Ōtira / SH 73</text>
-        <text x="70" y="112" font-size="24" fill="#fff" font-weight="700">⬆ Timaru / SH 1</text>
-        <text x="70" y="154" font-size="24" fill="#fff" font-weight="700">⬈ Akaroa exit 14</text>
-        <rect x="180" y="176" width="16" height="60" fill="var(--edge)"/>
-        <rect x="244" y="176" width="16" height="60" fill="var(--edge)"/>
-      </svg>
-      <p style="margin:16px 0 0"><b>Forwarding</b> — one decision per junction, <i>during</i> the trip.</p>
-      <p class="small muted" style="margin:6px 0 0">No alternatives weighed · looks at one sign · at full speed</p>
+    <div class="col" style="flex:1.15">
+      <p class="frag lead" style="margin:0 0 16px;font-size:21px">Between any two routers there is usually
+      more than one path. Routing has to pick one, so it needs a <b>criterion</b>.</p>
+      <div class="frag card" style="border-left:4px solid var(--accent);padding:14px 18px;margin:0 0 12px">
+        <p style="margin:0;font-size:17px">Every link carries a <b>cost</b>. Routing chooses the path whose
+        costs add up to the smallest total &mdash; the <span class="accent">least-cost</span>, or shortest,
+        path.</p>
+      </div>
+      <p class="frag" style="margin:0 0 14px;font-size:17px;color:var(--muted)">Cost is whatever the operator
+      decides it means: hop count, latency, spare bandwidth, or money. The algorithm never needs to know.</p>
+      <p class="frag" style="margin:0;font-size:18px;color:var(--accent)">Least-cost is the constraint for
+      the rest of this week. How to actually compute it is the next lecture.</p>
     </div>
   </div>
 </section>
 
+
+
+
+
 <!-- ====== Slide 13: Control plane / data plane ====== -->
 <section class="slide" data-sec="What routing is">
-  <div class="kicker">Formally</div>
-  <h2>Control plane vs. data plane</h2>
+  <div class="kicker">Control plane vs. data plane</div>
+  <h2>Routing and forwarding: two different jobs</h2>
+  <p class="lead" style="margin:-2px 0 20px;font-size:19px;color:var(--muted);max-width:78ch">One happens
+  <b>before</b>, network-wide and slowly. The other happens <b>per packet</b>, locally, in nanoseconds.</p>
   <div class="cols" style="align-items:stretch;gap:24px">
     <div class="col card frag" style="border-top:4px solid var(--accent);flex:1">
       <p class="mono accent" style="margin:0 0 10px;font-size:18px">Control plane · routing</p>
@@ -533,6 +576,40 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <defs><marker id="dparr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L7,4 L0,8 z" fill="var(--current)"/></marker></defs>
       </svg>
       <p class="small" style="margin:8px 0 0">A datagram arrives at a router, the router <b>looks up</b> the destination in its forwarding table, and sends the packet to the <b>next router</b>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Slide 12: Road trip analogy ====== -->
+<section class="slide" data-sec="What routing is">
+  <div class="kicker">Analogy</div>
+  <h2>Planning the trip vs. reading the signs</h2>
+  <div class="cols">
+    <div class="col card" style="display:flex;flex-direction:column">
+      <svg viewBox="0 0 440 250" aria-label="Route planning on a map">
+        <rect x="10" y="10" width="420" height="230" rx="14" fill="var(--surface-2)" stroke="var(--border)"/>
+        <path d="M60,210 C130,180 120,120 190,110 S330,80 380,45" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 0"/>
+        <path d="M60,210 C110,230 220,205 260,160 S350,120 380,45" fill="none" stroke="var(--edge)" stroke-width="3" stroke-dasharray="7 7" opacity=".7"/>
+        <circle cx="60" cy="210" r="9" fill="var(--current)"/>
+        <text x="78" y="228" font-size="16" fill="var(--muted)">Queenstown</text>
+        <circle cx="380" cy="45" r="9" fill="var(--accent)"/>
+        <text x="285" y="36" font-size="16" fill="var(--muted)">Christchurch</text>
+      </svg>
+      <p style="margin:16px 0 0"><b>Routing</b> — plan the whole path, <i>before</i> the trip.</p>
+      <p class="small muted" style="margin:6px 0 0">Compares alternatives · has the full map · unhurried</p>
+    </div>
+    <div class="col card" style="display:flex;flex-direction:column">
+      <svg viewBox="0 0 440 250" aria-label="Motorway exit sign">
+        <rect x="40" y="26" width="360" height="150" rx="12" fill="var(--sign)"/>
+        <rect x="40" y="26" width="360" height="150" rx="12" fill="none" stroke="#fff" stroke-width="3" opacity=".85"/>
+        <text x="70" y="70" font-size="24" fill="#fff" font-weight="700">⬉ Ōtira / SH 73</text>
+        <text x="70" y="112" font-size="24" fill="#fff" font-weight="700">⬆ Timaru / SH 1</text>
+        <text x="70" y="154" font-size="24" fill="#fff" font-weight="700">⬈ Akaroa exit 14</text>
+        <rect x="180" y="176" width="16" height="60" fill="var(--edge)"/>
+        <rect x="244" y="176" width="16" height="60" fill="var(--edge)"/>
+      </svg>
+      <p style="margin:16px 0 0"><b>Forwarding</b> — one decision per junction, <i>during</i> the trip.</p>
+      <p class="small muted" style="margin:6px 0 0">No alternatives weighed · looks at one sign · at full speed</p>
     </div>
   </div>
 </section>
