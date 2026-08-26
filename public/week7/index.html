@@ -356,9 +356,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ====== Slide 4: The goal ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">The problem</div>
-  <h2>A wants to send a packet to F</h2>
+<section class="slide" data-sec="Why do we need routing?">
+  <div class="kicker">Question 1 of 4</div>
+  <h2>Why do we need routing?</h2>
+  <p class="lead" style="margin:0 0 2px;font-size:20px;color:var(--muted)">A wants to send a packet to F.</p>
   <div style="display:flex;align-items:center;justify-content:center;flex:0 1 auto;min-height:0;margin-top:2px">
     <svg id="goal-svg" viewBox="0 0 880 360" style="width:100%;max-width:760px" xmlns="http://www.w3.org/2000/svg">
       <g id="goal-hidden" opacity="0.06">
@@ -395,40 +396,37 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ====== What routing has to do ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">What routing is</div>
-  <h2>What routing has to do</h2>
-  <p class="lead" style="margin:0 0 28px;font-size:24px;max-width:52ch">Routing is how a network works
-  out &mdash; <b>automatically</b>, and for <b>every</b> source and destination &mdash; which path a
-  packet should take.</p>
+<section class="slide" data-sec="What is routing?">
+  <div class="kicker">Question 2 of 4</div>
+  <h2>What is routing?</h2>
+  <p class="lead" style="margin:0 0 26px;font-size:23px;max-width:60ch">Routing is how a network decides,
+  <b>automatically</b>, which path packets take from each source to each destination.</p>
   <div class="cols" style="gap:20px;align-items:flex-start">
     <div class="col frag" style="flex:1">
       <div class="card" style="border-left:4px solid var(--accent);padding:16px 20px;margin:0">
-        <p class="mono accent" style="margin:0 0 8px;font-size:15px">automatically</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">A network has thousands of routers, and the
-        right answer changes the moment a link fails. Nobody writes these paths out by hand.</p>
+        <p class="mono accent" style="margin:0 0 8px;font-size:15px">what it decides</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">For every source and destination, which
+        <b>path</b> the packets follow &mdash; the sequence of routers they pass through on the way.</p>
       </div>
     </div>
     <div class="col frag" style="flex:1">
       <div class="card" style="border-left:4px solid var(--current);padding:16px 20px;margin:0">
-        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">by cooperating</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">No router can see the whole network &mdash;
-        each knows only its own links. Routers have to exchange what they know, and that exchange is the
-        <b>protocol</b>.</p>
+        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">which path counts as best</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">Not just <em>a</em> path &mdash; the one with
+        the lowest total <b>cost</b>. Cost is whatever the operator decides it means: hop count, delay,
+        spare bandwidth, money.</p>
       </div>
     </div>
     <div class="col frag" style="flex:1">
       <div class="card" style="border-left:4px solid var(--edge);padding:16px 20px;margin:0">
-        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--muted)">in advance</p>
-        <p style="margin:0;font-size:17px;color:var(--muted)">All of this happens <b>before</b> any packet
-        arrives. What it produces is a table each router will consult later &mdash; one entry per
-        destination.</p>
+        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--muted)">when it happens</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">Before any packet arrives &mdash; and again
+        whenever the network changes. The result is a table each router consults later.</p>
       </div>
     </div>
   </div>
-  <p class="frag" style="margin:22px 0 0;font-size:19px;color:var(--accent);max-width:96ch">
-    And not just <em>a</em> path &mdash; the one with the lowest total <b>cost</b>. Cost is whatever the
-    operator decides it means: hop count, delay, spare bandwidth, money. Computing it is the next lecture.</p>
+  <p class="frag" style="margin:24px 0 0;font-size:19px;color:var(--muted)">That is <em>what</em> routing
+  does. <b>How</b> the routers actually pull it off is the next question.</p>
 </section>
 
 
@@ -442,7 +440,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
-<section class="slide" data-sec="What routing is">
+<section class="slide" data-sec="What is routing?">
   <div class="kicker">What routing produces</div>
   <h2>The forwarding table</h2>
   <div class="cols" style="align-items:flex-start;gap:28px">
@@ -500,7 +498,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ====== Slide 13: Control plane / data plane ====== -->
-<section class="slide" data-sec="What routing is">
+<section class="slide" data-sec="What is routing?">
   <div class="kicker">Control plane vs. data plane</div>
   <h2>Routing and forwarding: two different jobs</h2>
   <p class="lead" style="margin:-2px 0 20px;font-size:19px;color:var(--muted);max-width:78ch">One happens
@@ -554,7 +552,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
-<section class="slide" data-sec="What routing is">
+<section class="slide" data-sec="What is routing?">
   <div class="kicker">Analogy</div>
   <h2>Planning the trip vs. reading the signs</h2>
   <div class="cols">
@@ -588,7 +586,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ====== Slide 14: Routing or forwarding? quiz ====== -->
-<section class="slide" data-sec="What routing is">
+<section class="slide" data-sec="What is routing?">
   <div class="kicker">Quick question · 1</div>
   <h2>Routing or forwarding?</h2>
   <div class="poll" id="poll1">
@@ -607,16 +605,40 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ====== Slide 17: The solution ====== -->
-<section class="slide" data-sec="What routing is">
-  <div class="kicker">The solution</div>
-  <h2>A routing protocol</h2>
-  <p class="lead" style="font-size:32px;line-height:1.5;max-width:900px">A <b>routing protocol</b> is an
-    <span class="accent">automatic process</span> that fulfils all three requirements — discover, integrate local views, and react — with the goal of <b>building and maintaining the forwarding table</b> at every router.</p>
+<section class="slide" data-sec="How do we do routing?">
+  <div class="kicker">Question 3 of 4</div>
+  <h2>How do we do routing?</h2>
+  <p class="lead" style="margin:0 0 24px;font-size:22px;max-width:70ch">Back to the first question: no
+  router can see the whole network. Each one knows only the links it is plugged into &mdash; so the only
+  way to find a path across the network is for routers to <b>tell each other what they know</b>.</p>
+  <div class="cols" style="gap:22px;align-items:flex-start">
+    <div class="col frag" style="flex:1">
+      <div class="card" style="border-left:4px solid var(--accent);padding:16px 20px;margin:0">
+        <p class="mono accent" style="margin:0 0 8px;font-size:15px">the routing protocol</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">The <b>conversation</b>. What each router
+        sends, to whom, in what format, and how often &mdash; plus what to do when a message is late or
+        lost. Written down precisely enough that routers from different vendors can talk.</p>
+      </div>
+    </div>
+    <div class="col frag" style="flex:1">
+      <div class="card" style="border-left:4px solid var(--current);padding:16px 20px;margin:0">
+        <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">the routing algorithm</p>
+        <p style="margin:0;font-size:17px;color:var(--muted)">The <b>computation</b>. What a router does
+        with what arrives: work out the least-cost path to every destination, and write the next hop into
+        its forwarding table.</p>
+      </div>
+    </div>
+  </div>
+  <div class="frag card" style="border-left:4px solid var(--edge);padding:14px 20px;margin:22px 0 0">
+    <p style="margin:0;font-size:17.5px">The two are not the same thing, and the difference matters.
+    <b>RIP, OSPF, IS-IS and BGP</b> are protocols. <b>Distance-vector, link-state and path-vector</b> are
+    the algorithm families those protocols are built on &mdash; and that is what we look at next.</p>
+  </div>
 </section>
 
 
 
-<section class="slide sec-title" data-sec="Two families">
+<section class="slide sec-title" data-sec="How do we do routing?">
   <div class="kicker">Week 7 · The Routing Problem</div>
   <h1>Two families of<br>routing algorithms</h1>
   <div class="rule"></div>
@@ -630,7 +652,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Two families">
+<section class="slide" data-sec="How do we do routing?">
   <div class="kicker">The two families &middot; link-state</div>
   <h2>Link-state: get the whole map</h2>
   <div class="cols" style="align-items:center">
@@ -669,7 +691,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Two families">
+<section class="slide" data-sec="How do we do routing?">
   <div class="kicker">The two families &middot; distance-vector</div>
   <h2>Distance-vector: ask your neighbours</h2>
   <div class="cols">
@@ -749,10 +771,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 
-<section class="slide" data-sec="A network of networks">
-  <div class="kicker">A network of networks</div>
-  <h2>The Internet is a network of networks</h2>
-  <p class="lead" style="margin-bottom:20px">Each network is independently operated — and each chooses its own routing protocol.</p>
+<section class="slide" data-sec="Who runs it?">
+  <div class="kicker">Question 4 of 4</div>
+  <h2>Who runs all this?</h2>
+  <p class="lead" style="margin-bottom:18px">Nobody runs the Internet. It is a network <em>of networks</em>,
+  each independently operated — and each free to choose its own routing protocol. That freedom is what
+  splits routing into <b>two problems</b>: inside one network, and between them.</p>
     <svg viewBox="0 0 900 300" style="width:100%;max-width:900px" aria-label="The Internet as a network of networks">
       <!-- AS 1 cluster (top-left) -->
       <ellipse cx="160" cy="120" rx="120" ry="75" fill="var(--surface)" stroke="var(--border)" stroke-width="2" stroke-dasharray="6,4"/>
@@ -798,7 +822,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </svg>
 </section>
 
-<section class="slide" data-sec="A network of networks">
+<section class="slide" data-sec="Who runs it?">
   <div class="kicker">Autonomous systems</div>
   <h2>The unit of the Internet: the AS</h2>
   <div class="cols" style="align-items:center">
@@ -854,7 +878,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="A network of networks">
+<section class="slide" data-sec="Who runs it?">
   <div class="kicker">Concretely</div>
   <h2>The AS you are inside right now</h2>
   <div class="cols" style="align-items:center">
@@ -884,7 +908,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="A network of networks">
+<section class="slide" data-sec="Who runs it?">
   <div class="kicker">Taxonomy</div>
   <h2>Three kinds of AS — by how traffic may flow</h2>
   <div class="cols">
@@ -924,7 +948,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 
-<section class="slide" data-sec="A network of networks">
+<section class="slide" data-sec="Who runs it?">
   <div class="kicker">Quick question</div>
   <h2>What kind of AS?</h2>
   <div class="poll" id="poll2">
@@ -944,7 +968,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="A network of networks">
+<section class="slide" data-sec="Who runs it?">
   <div class="kicker">Two routing problems</div>
   <h2>Intra-AS routing vs Inter-AS routing</h2>
   <div class="cols" style="align-items:center">
@@ -1003,7 +1027,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="A network of networks">
+<section class="slide" data-sec="Who runs it?">
   <div class="kicker">Real protocols</div>
   <h2>Intra-AS and Inter-AS protocols</h2>
   <div class="cols">
