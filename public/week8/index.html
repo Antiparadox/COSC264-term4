@@ -235,8 +235,24 @@ svg text{font-family:var(--sans)}
 .proto-matrix td small{display:block;font-family:var(--sans);font-size:12.5px;font-weight:400;
   color:var(--muted);margin-top:3px;letter-spacing:0}
 .proto-matrix td.pm-empty{background:var(--surface)}
+.pm-domain,.pm-c-dom,.pm-fill{transition:opacity .25s}
+.matrix-slide[data-step="1"] .pm-domain,
+.matrix-slide[data-step="1"] .pm-c-dom{display:none}
+.matrix-slide[data-step="1"] .pm-fill,
+.matrix-slide[data-step="2"] .pm-fill{opacity:0}
 .pm-pvrow{display:none}
-.matrix-slide[data-step="3"] .pm-pvrow{display:table-row}
+.matrix-slide[data-step="5"] .pm-pvrow{display:table-row}
+.matrix-slide[data-step="4"] .pm-rip,
+.matrix-slide[data-step="4"] .pm-ospf,
+.matrix-slide[data-step="5"] .pm-bgp{background:var(--accent-soft);
+  box-shadow:inset 0 0 0 2px var(--accent)}
+.pm-msg-wrap{position:relative;height:66px;width:100%;max-width:720px;margin:20px auto 0;flex:0 0 auto}
+.pm-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:11px;padding:0 22px;white-space:nowrap;
+  border-left:4px solid var(--current);background:var(--current-soft);border-radius:10px;
+  font-size:19px;opacity:0;transition:opacity .3s}
+.pm-msg b{font-family:var(--serif);font-size:22px}
+.matrix-slide[data-step="4"] .pm-msg[data-msg="4"],
+.matrix-slide[data-step="5"] .pm-msg[data-msg="5"]{opacity:1}
 .pm-hit{background:var(--accent-soft);border-color:var(--accent)!important;
   box-shadow:inset 0 0 0 2px var(--accent)}
 .roadmap-slide[data-step="1"] .pm-bgp,
@@ -2182,60 +2198,31 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide stateful matrix-slide" data-sec="Lecture 1 · Recap: routing" data-anchor="lec1">
   <div class="kicker">Recap · Week 7</div>
   <h2>A quick recap of routing protocols</h2>
-  <p style="margin:0 0 20px;font-size:20px;max-width:88ch">Last week gave us two ways to sort a
-  routing protocol: by the <b>domain</b> it runs in, and by the <b>algorithm</b> underneath it.</p>
-  <table class="proto-matrix ">
+  <table class="proto-matrix">
     <thead>
       <tr>
-        <th class="pm-corner">algorithm&nbsp;&darr;<br>domain&nbsp;&rarr;</th>
-        <th>Intra-AS<small>within one autonomous system</small></th>
-        <th>Inter-AS<small>between autonomous systems</small></th>
+        <th class="pm-corner">algorithm&nbsp;&darr;<span class="pm-c-dom"><br>domain&nbsp;&rarr;</span></th>
+        <th class="pm-domain">Intra-AS<small>within one autonomous system</small></th>
+        <th class="pm-domain">Inter-AS<small>between autonomous systems</small></th>
       </tr>
     </thead>
     <tbody>
       <tr><th>distance vector</th>
-        <td class="pm-rip"><span class="frag">RIP<small>Routing Information Protocol</small></span></td>
-        <td class="pm-empty"></td></tr>
+        <td class="pm-domain pm-rip"><span class="pm-fill">RIP<small>Routing Information Protocol</small></span></td>
+        <td class="pm-domain pm-empty"></td></tr>
       <tr><th>link state</th>
-        <td class="pm-ospf"><span class="frag">OSPF<small>Open Shortest Path First</small></span></td>
-        <td class="pm-empty"></td></tr>
+        <td class="pm-domain pm-ospf"><span class="pm-fill">OSPF<small>Open Shortest Path First</small></span></td>
+        <td class="pm-domain pm-empty"></td></tr>
       <tr class="pm-pvrow"><th>path vector<small>a close relative of distance vector</small></th>
-        <td class="pm-empty"></td>
-        <td class="pm-bgp">BGP<small>Border Gateway Protocol</small></td></tr>
+        <td class="pm-domain pm-empty"></td>
+        <td class="pm-domain pm-bgp">BGP<small>Border Gateway Protocol</small></td></tr>
     </tbody>
   </table>
-  <p class="frag" style="display:none"></p>
-</section>
-
-<section class="slide stateful roadmap-slide" data-sec="Lecture 1 · Week 8 map">
-  <div class="kicker">Week 8 · From families to concrete protocols</div>
-  <h2>Where we are going this week</h2>
-  <table class="proto-matrix ">
-    <thead>
-      <tr>
-        <th class="pm-corner">algorithm&nbsp;&darr;<br>domain&nbsp;&rarr;</th>
-        <th>Intra-AS<small>within one autonomous system</small></th>
-        <th>Inter-AS<small>between autonomous systems</small></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><th>distance vector</th>
-        <td class="pm-rip">RIP<small>Routing Information Protocol</small></td>
-        <td class="pm-empty"></td></tr>
-      <tr><th>link state</th>
-        <td class="pm-ospf">OSPF<small>Open Shortest Path First</small></td>
-        <td class="pm-empty"></td></tr>
-      <tr class=""><th>path vector<small>a close relative of distance vector</small></th>
-        <td class="pm-empty"></td>
-        <td class="pm-bgp">BGP<small>Border Gateway Protocol</small></td></tr>
-    </tbody>
-  </table>
-  <div class="roadmap-message-wrap">
-    <div class="frag roadmap-message"><b>Lecture 1 · Today</b> BGP</div>
-    <div class="frag roadmap-message"><b>Lecture 2 · Next</b> RIP and OSPF</div>
-    <div class="frag roadmap-message addressing"><b>Lecture 3</b> Addressing and internetwork
-    scaling</div>
+  <div class="pm-msg-wrap">
+    <div class="pm-msg" data-msg="4"><b>Lecture 2 &middot; next</b> RIP and OSPF</div>
+    <div class="pm-msg" data-msg="5"><b>Lecture 1 &middot; today</b> BGP</div>
   </div>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide stateful as-intro-slide" data-sec="Lecture 1 · The inter-AS problem">
