@@ -2201,11 +2201,17 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
   <div id="dk-traceblock" style="display:none;margin-top:16px">
     <div style="display:flex;gap:26px;align-items:flex-start">
+      <div id="dk-trace-q" style="display:none;flex:1.3;min-width:0">
+        <div class="card" style="border-left:4px solid var(--muted);padding:14px 18px;margin:0">
+          <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)">What is the next hop?</p>
+          <p style="margin:0;font-size:18px">We already know the least cost from A to F is <b class="mono">4</b>. But which <b>neighbour</b> should A hand the packet to?</p>
+        </div>
+      </div>
       <div id="dk-trace" style="display:none;flex:1.3;min-width:0">
         <div class="card" style="border-left:4px solid var(--accent);padding:14px 18px;margin:0">
-          <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)">Tracing one destination: F</p>
+          <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)">Tracing F&rsquo;s predecessors</p>
           <p class="mono" style="margin:0;font-size:17px;line-height:1.9">p<sub>s</sub>(F) = E &nbsp;&rarr;&nbsp; p<sub>s</sub>(E) = D &nbsp;&rarr;&nbsp; p<sub>s</sub>(D) = A</p>
-          <p style="margin:8px 0 0;font-size:17px">So the path is <b class="mono">A &rarr; D &rarr; E &rarr; F</b>, and the first hop out of A is <b>D</b>. That is F&rsquo;s next hop.</p>
+          <p style="margin:8px 0 0;font-size:17px">So the path is <b class="mono">A &rarr; D &rarr; E &rarr; F</b>. The first hop out of A is <b>D</b> &mdash; that is F&rsquo;s next hop.</p>
         </div>
       </div>
       <div id="dk-fwd-wrap" style="display:none;flex:1;min-width:0">
@@ -2225,7 +2231,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
     </div>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="lsdb-overview-slide">
@@ -3812,7 +3818,7 @@ function updateDijkstraSlide(){
   var label=document.getElementById('dk-step-label');
   if(!tbody)return;
 
-  var fragToRows=[0,1,1,1,2,2,2,3,4,5,6,6,6,6,6,6,6];
+  var fragToRows=[0,1,1,1,2,2,2,3,4,5,6,6,6,6,6,6,6,6];
   var rowsToShow=n<fragToRows.length?fragToRows[n]:7;
 
   var html='';
@@ -3828,7 +3834,7 @@ function updateDijkstraSlide(){
       var changed=i>0&&dkSteps[i-1].vals[j]!==val&&val!=='—';
       // tracing F: light the last real entry for F, E and D -- the three the
       // predecessor chain actually reads
-      var traced=n>=11&&((i===2&&j===5)||(i===1&&j===4)||(i===0&&j===3));
+      var traced=(n>=11&&i===2&&j===5)||(n>=12&&((i===1&&j===4)||(i===0&&j===3)));
       row+='<td class="mono" style="font-size:18px'+(traced?';background:var(--accent-soft);color:var(--accent-ink);font-weight:700':(changed?';color:var(--accent);font-weight:700':''))+'">'+(val==='—'?'<span style="color:var(--faint)">—</span>':val)+'</td>';
     }
     row+='</tr>';
@@ -3865,7 +3871,7 @@ function updateDijkstraSlide(){
     else { relaxDiv.style.display='none'; }
   }
 
-  var fragToStepIdx=[-1,0,1,1,1,2,2,2,3,4,5,5,5,5,5,5,5];
+  var fragToStepIdx=[-1,0,1,1,1,2,2,2,3,4,5,5,5,5,5,5,5,5];
   var stepIdx=n<fragToStepIdx.length?fragToStepIdx[n]:-1;
 
   var allNodes=['A','B','C','D','E','F'];
@@ -3907,11 +3913,13 @@ function updateDijkstraSlide(){
     });
   }
   var trace=document.getElementById('dk-trace');
-  if(trace) trace.style.display=(n>=11)?'':'none';
+  var traceQ=document.getElementById('dk-trace-q');
+  if(traceQ) traceQ.style.display=(n===11)?'':'none';
+  if(trace) trace.style.display=(n>=12)?'':'none';
   var tblock=document.getElementById('dk-traceblock');
   var graphRow=document.getElementById('dk-graphrow');
-  if(tblock) tblock.style.display=(n>=11&&n<13)?'':'none';
-  if(graphRow) graphRow.style.display=(n>=11&&n<13)?'none':'';
+  if(tblock) tblock.style.display=(n>=11&&n<14)?'':'none';
+  if(graphRow) graphRow.style.display=(n>=11&&n<14)?'none':'';
   // The graph gives up width as the table gains rows: early beats are about the
   // picture, later ones about the numbers.
   var wrap=document.getElementById('dk-svgwrap');
@@ -3919,8 +3927,8 @@ function updateDijkstraSlide(){
   if(wrap) wrap.style.maxWidth = n>=11?'100%':(rowsToShow>=6?'64%':(rowsToShow>=4?'80%':'100%'));
   var fwdWrap=document.getElementById('dk-fwd-wrap');
   var transWrap=document.getElementById('dk-transition');
-  if(fwdWrap) fwdWrap.style.display=(n>=12)?'block':'none';
-  var whyMode=n>=13;
+  if(fwdWrap) fwdWrap.style.display=(n>=13)?'block':'none';
+  var whyMode=n>=14;
   var tableOff=whyMode;   // the table stays up while we trace through it
   var dkTable=document.getElementById('dk-tablewrap');
   if(dkTable) dkTable.style.display=tableOff?'none':'';
@@ -3928,7 +3936,8 @@ function updateDijkstraSlide(){
   if(transWrap) transWrap.style.display=whyMode?'block':'none';
   var h2=s.querySelector('h2');
   var kicker=s.querySelector('.kicker');
-  if(h2) h2.textContent=whyMode?'Why does Dijkstra need the full topology?':'Step-by-step walkthrough';
+  if(h2) h2.textContent=whyMode?'Why does Dijkstra need the full topology?'
+    :((n>=11)?'How do we build the forwarding table from this?':'Step-by-step walkthrough');
   if(kicker) kicker.style.display=whyMode?'none':'';
 
   s.querySelectorAll('p.frag').forEach(function(p){p.style.display='none';});
@@ -3936,16 +3945,16 @@ function updateDijkstraSlide(){
     Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--edge)');el.setAttribute('stroke-width','3');}});
     allNodes.forEach(function(nd){var c=document.getElementById('dk-n-'+nd);if(c){c.setAttribute('fill','var(--accent-soft)');c.setAttribute('stroke','var(--accent)');}
     });
-    if(n>=14){Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}});}
+    if(n>=15){Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}});}
   }
   var w1=document.getElementById('dk-why-1');
   var w2=document.getElementById('dk-why-2');
   var wc=document.getElementById('dk-why-card');
-  if(w1) w1.style.display=(n>=13)?'':'none';
-  if(w2) w2.style.display=(n>=14)?'':'none';
-  if(wc) wc.style.display=(n>=15)?'':'none';
+  if(w1) w1.style.display=(n>=14)?'':'none';
+  if(w2) w2.style.display=(n>=15)?'':'none';
+  if(wc) wc.style.display=(n>=16)?'':'none';
   var wq=document.getElementById('dk-why-q');
-  if(wq) wq.style.display=(n>=16)?'':'none';
+  if(wq) wq.style.display=(n>=17)?'':'none';
 }
 
 var uniform=false;
