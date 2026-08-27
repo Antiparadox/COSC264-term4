@@ -214,6 +214,36 @@ svg text{font-family:var(--sans)}
 .roadmap-tree .tree-node strong{font-size:19px}
 .roadmap-tree .tree-node .expansion{font-size:12px}
 .roadmap-tree .tree-leaf{font-size:19px;transition:background .2s,border-color .2s,color .2s}
+
+/* ---------- protocol matrix: algorithm (rows) x routing domain (columns) ---------- */
+.proto-matrix{border-collapse:collapse;margin:0 auto;background:var(--surface);
+  box-shadow:var(--shadow);border-radius:12px;overflow:hidden}
+.proto-matrix th,.proto-matrix td{border:1px solid var(--border);padding:13px 20px;text-align:left;
+  vertical-align:middle}
+.proto-matrix thead th{background:var(--surface-2);font-family:var(--serif);font-size:22px;
+  font-weight:700;white-space:nowrap}
+.proto-matrix thead th small{display:block;font-family:var(--sans);font-size:13px;font-weight:400;
+  color:var(--muted);margin-top:2px}
+.proto-matrix tbody th{font-family:var(--mono);font-size:16px;font-weight:700;color:var(--ink);
+  background:var(--surface-2);white-space:nowrap}
+.proto-matrix tbody th small{display:block;font-family:var(--sans);font-size:12.5px;font-weight:400;
+  color:var(--muted);margin-top:3px;white-space:normal;max-width:24ch}
+.proto-matrix .pm-corner{background:var(--surface-2);font-family:var(--mono);font-size:12.5px;
+  font-weight:400;color:var(--muted);line-height:1.5;white-space:nowrap}
+.proto-matrix td{font-family:var(--mono);font-size:23px;font-weight:800;color:var(--accent-ink);
+  text-align:center}
+.proto-matrix td small{display:block;font-family:var(--sans);font-size:12.5px;font-weight:400;
+  color:var(--muted);margin-top:3px;letter-spacing:0}
+.proto-matrix td.pm-empty{background:var(--surface)}
+.pm-pvrow{display:none}
+.matrix-slide[data-step="3"] .pm-pvrow{display:table-row}
+.pm-hit{background:var(--accent-soft);border-color:var(--accent)!important;
+  box-shadow:inset 0 0 0 2px var(--accent)}
+.roadmap-slide[data-step="1"] .pm-bgp,
+.roadmap-slide[data-step="2"] .pm-rip,
+.roadmap-slide[data-step="2"] .pm-ospf{background:var(--accent-soft);
+  box-shadow:inset 0 0 0 2px var(--accent)}
+
 .roadmap-slide[data-step="1"] .roadmap-bgp,
 .roadmap-slide[data-step="2"] .roadmap-rip,
 .roadmap-slide[data-step="2"] .roadmap-ospf{
@@ -2149,76 +2179,60 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="courseurl"><a href="../">cosc264.up.railway.app</a></div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 · Recap: routing" data-anchor="lec1">
+<section class="slide stateful matrix-slide" data-sec="Lecture 1 · Recap: routing" data-anchor="lec1">
   <div class="kicker">Recap · Week 7</div>
   <h2>A quick recap of routing protocols</h2>
-  <div class="protocol-tree" aria-label="Hierarchy of intra-AS and inter-AS routing protocols">
-    <div class="tree-root">Routing protocols</div>
-    <div class="tree-level frag">
-      <div class="tree-node"><strong>Intra-AS routing</strong>within one autonomous system</div>
-      <div class="tree-node"><strong>Inter-AS routing</strong>between autonomous systems</div>
-    </div>
-    <div class="tree-level frag">
-      <div class="tree-node"><span class="mono">IGP</span>
-        <span class="expansion">Interior Gateway Protocol</span></div>
-      <div class="tree-node"><span class="mono">EGP</span>
-        <span class="expansion">Exterior Gateway Protocol</span></div>
-    </div>
-    <div class="tree-level frag">
-      <div class="tree-pair">
-        <div class="tree-node tree-family">distance vector</div>
-        <div class="tree-node tree-family">link state</div>
-      </div>
-      <div class="tree-node tree-family">path vector
-        <span class="expansion">close relative of distance vector: neighbours exchange routes,
-        while BGP also carries the route's AS path</span>
-      </div>
-    </div>
-    <div class="tree-level frag">
-      <div class="tree-pair">
-        <div class="tree-node tree-leaf">RIP</div>
-        <div class="tree-node tree-leaf">OSPF</div>
-      </div>
-      <div class="tree-node tree-leaf bgp">BGP</div>
-    </div>
-  </div>
-  <div class="source">Continuity: Week 7 protocol map · BGP terminology: RFC 4271</div>
+  <p style="margin:0 0 20px;font-size:20px;max-width:88ch">Last week gave us two ways to sort a
+  routing protocol: by the <b>domain</b> it runs in, and by the <b>algorithm</b> underneath it.</p>
+  <table class="proto-matrix ">
+    <thead>
+      <tr>
+        <th class="pm-corner">algorithm&nbsp;&darr;<br>domain&nbsp;&rarr;</th>
+        <th>Intra-AS<small>within one autonomous system</small></th>
+        <th>Inter-AS<small>between autonomous systems</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>distance vector</th>
+        <td class="pm-rip"><span class="frag">RIP<small>Routing Information Protocol</small></span></td>
+        <td class="pm-empty"></td></tr>
+      <tr><th>link state</th>
+        <td class="pm-ospf"><span class="frag">OSPF<small>Open Shortest Path First</small></span></td>
+        <td class="pm-empty"></td></tr>
+      <tr class="pm-pvrow"><th>path vector<small>a close relative of distance vector</small></th>
+        <td class="pm-empty"></td>
+        <td class="pm-bgp">BGP<small>Border Gateway Protocol</small></td></tr>
+    </tbody>
+  </table>
+  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide stateful roadmap-slide" data-sec="Lecture 1 · Week 8 map">
   <div class="kicker">Week 8 · From families to concrete protocols</div>
   <h2>Where we are going this week</h2>
-  <div class="protocol-tree roadmap-tree" aria-label="Week 8 routing protocol roadmap">
-    <div class="tree-root">Routing protocols</div>
-    <div class="tree-level">
-      <div class="tree-node"><strong>Intra-AS routing</strong>
-        <span class="mono">IGP</span> · Interior Gateway Protocol</div>
-      <div class="tree-node"><strong>Inter-AS routing</strong>
-        <span class="mono">EGP</span> · Exterior Gateway Protocol</div>
-    </div>
-    <div class="tree-level">
-      <div class="tree-pair">
-        <div class="tree-node tree-family">distance vector</div>
-        <div class="tree-node tree-family">link state</div>
-      </div>
-      <div class="tree-node tree-family">path vector
-        <span class="expansion">close relative of distance vector: neighbours exchange routes,
-        while BGP also carries the route's AS path</span>
-      </div>
-    </div>
-    <div class="tree-level">
-      <div class="tree-pair">
-        <div class="tree-node tree-leaf roadmap-rip">RIP</div>
-        <div class="tree-node tree-leaf roadmap-ospf">OSPF</div>
-      </div>
-      <div class="tree-node tree-leaf roadmap-bgp">BGP</div>
-    </div>
-  </div>
+  <table class="proto-matrix ">
+    <thead>
+      <tr>
+        <th class="pm-corner">algorithm&nbsp;&darr;<br>domain&nbsp;&rarr;</th>
+        <th>Intra-AS<small>within one autonomous system</small></th>
+        <th>Inter-AS<small>between autonomous systems</small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>distance vector</th>
+        <td class="pm-rip">RIP<small>Routing Information Protocol</small></td>
+        <td class="pm-empty"></td></tr>
+      <tr><th>link state</th>
+        <td class="pm-ospf">OSPF<small>Open Shortest Path First</small></td>
+        <td class="pm-empty"></td></tr>
+      <tr class=""><th>path vector<small>a close relative of distance vector</small></th>
+        <td class="pm-empty"></td>
+        <td class="pm-bgp">BGP<small>Border Gateway Protocol</small></td></tr>
+    </tbody>
+  </table>
   <div class="roadmap-message-wrap">
-    <div class="frag roadmap-message"><b>Lecture 1 · Today</b> BGP, eBGP/iBGP, route selection,
-    and policy</div>
-    <div class="frag roadmap-message"><b>Lecture 2 · Next</b> RIP and OSPF as concrete intra-AS
-    protocols</div>
+    <div class="frag roadmap-message"><b>Lecture 1 · Today</b> BGP</div>
+    <div class="frag roadmap-message"><b>Lecture 2 · Next</b> RIP and OSPF</div>
     <div class="frag roadmap-message addressing"><b>Lecture 3</b> Addressing and internetwork
     scaling</div>
   </div>
