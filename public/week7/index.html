@@ -2090,10 +2090,36 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="col" style="flex:1">
       <div id="dj-say" style="min-height:132px"></div>
       <div id="dj-sub" style="margin-top:12px"></div>
+      <div id="dj-diagram" style="display:none;margin-top:12px">
+        <svg viewBox="0 0 330 168" style="width:100%;max-width:330px;display:block"
+             aria-label="u sits at the edge of the settled region; w, x and y are its neighbours">
+          <line x1="43" y1="82" x2="116" y2="82" stroke="var(--edge)" stroke-width="2" stroke-dasharray="5,4"/>
+          <text x="79" y="66" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--muted)">d<tspan baseline-shift="sub" font-size="9">s</tspan>(u)</text>
+          <text x="79" y="98" text-anchor="middle" font-size="14" fill="var(--muted)">&middot;&middot;&middot;</text>
+
+          <line x1="152.6" y1="74.9" x2="240.1" y2="39.9" stroke="var(--accent)" stroke-width="3.5"/>
+          <text x="196" y="44" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--accent)">c(u,w)</text>
+          <line x1="154" y1="82" x2="247" y2="84" stroke="var(--edge)" stroke-width="2.5"/>
+          <line x1="152.4" y1="89.7" x2="236.3" y2="127.9" stroke="var(--edge)" stroke-width="2.5"/>
+
+          <circle cx="26" cy="82" r="17" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>
+          <text x="26" y="87" text-anchor="middle" font-size="13" font-weight="700" class="svgmono" fill="var(--accent-ink)">s</text>
+          <circle cx="135" cy="82" r="19" fill="var(--accent)" stroke="var(--accent)" stroke-width="2.5"/>
+          <text x="135" y="87" text-anchor="middle" font-size="13" font-weight="700" class="svgmono" fill="var(--bg)">u</text>
+          <circle cx="255" cy="34" r="16" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
+          <text x="255" y="39" text-anchor="middle" font-size="13" font-weight="700" class="svgmono" fill="var(--accent-ink)">w</text>
+          <circle cx="262" cy="84" r="15" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
+          <text x="262" y="89" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--muted)">x</text>
+          <circle cx="250" cy="133" r="15" fill="var(--surface)" stroke="var(--edge)" stroke-width="2"/>
+          <text x="250" y="138" text-anchor="middle" font-size="12" font-weight="700" class="svgmono" fill="var(--muted)">y</text>
+          <text x="296" y="119" text-anchor="middle" font-size="14" fill="var(--muted)">&middot;&middot;&middot;</text>
+          <text x="135" y="130" text-anchor="middle" font-size="11" class="svgmono" fill="var(--muted)">just settled</text>
+        </svg>
+      </div>
     </div>
   </div>
 
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
@@ -3508,7 +3534,7 @@ function updateDijkstraDescSlide(){
   var n=fragCount(s);
   var allLines=[1,2,3,4,5,6,7,8,9,10,11,12];
   // which pseudocode lines each beat is about
-  var hlSets=[[],[],[1,2,3],[4],[6,7],[6,7],[8,9,10,11],[8,9,10,11],[5,12]];
+  var hlSets=[[],[],[1,2,3],[4],[6,7],[6,7],[8,9,10,11],[8,9,10,11],[8,9,10,11],[5,12]];
   var active=n<hlSets.length?hlSets[n]:[];
   allLines.forEach(function(ln){
     var el=document.getElementById('dj-line-'+ln);
@@ -3558,15 +3584,15 @@ function updateDijkstraDescSlide(){
   C[6]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
      + 'operation?</b></p></div>';
   C[7]='<div class="djcard">'+HD+'Relaxation</p>'
-     + '<p style="margin:0">The same core operation as Lecture 2. Hold <b>u</b> fixed and take each '
-     + 'neighbour <b>w</b> of u in turn.</p>'
-     + '<p style="margin:9px 0 0">Links here are <b>undirected</b>, so the least cost from s to w is the '
-     + 'same as from w to s &mdash; we may just as well ask how <b>w reaches s</b>.</p>'
-     + '<p style="margin:9px 0 0">If w&rsquo;s route to s <b>through u</b> is cheaper than what it had, '
-     + 'take it. Then u is w&rsquo;s <b>next hop</b> towards s &mdash; which is the same as saying that '
-     + 'on the least-cost path from s to w, w&rsquo;s <b>predecessor</b> is u. Hence '
+     + '<p style="margin:0">The same core operation as Lecture 2. Hold <b>u</b> fixed, and take each '
+     + 'neighbour <b>w</b> of u in turn: what is the <b>least cost from s to w</b>?</p></div>';
+  C[8]='<div class="djcard">'+HD+'Relaxation</p>'
+     + '<p style="margin:0">By <b>symmetry</b>, asking for the least cost from s to w is the same as '
+     + 'asking how <b>w reaches s</b>. If w&rsquo;s route through <b>u</b> is cheaper than what it had, '
+     + 'take it &mdash; u becomes w&rsquo;s <b>next hop</b> to s. Read the other way round, on the path '
+     + 'from s to w that makes u the <b>predecessor</b> of w. Hence '
      + '<b class="mono">p<sub>s</sub>(w) = u</b>.</p></div>';
-  C[8]='<div class="djcard">'+HD+'Repeat</p>'
+  C[9]='<div class="djcard">'+HD+'Repeat</p>'
       + '<p style="margin:0">Pick the next minimum, settle it, relax outward &mdash; until every node '
       + 'is settled.</p></div>';
   var B=[];
@@ -3578,6 +3604,8 @@ function updateDijkstraDescSlide(){
   if(say) say.innerHTML = C[n] || '';
   var subEl=document.getElementById('dj-sub');
   if(subEl) subEl.innerHTML = B[n] || '';
+  var dg=document.getElementById('dj-diagram');
+  if(dg) dg.style.display = (n===7||n===8)?'':'none';
 }
 
 /* ---------- Flooding animation (Lecture 2 · slide 37-38) ---------- */
