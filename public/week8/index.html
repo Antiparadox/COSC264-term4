@@ -2493,9 +2493,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="bgp-scope-row">
     <div class="bgp-scope-card ebgp-card"><b>External BGP (eBGP)</b>
       <span class="scope-does">this is how an AS <b>learns external reachability</b></span>
-      <span class="scope-body">A session between BGP speakers in <b>different ASes</b> &mdash;
-      usually the border routers either side of an AS boundary. Routes cross from one AS into the
-      next here.</span></div>
+      <span class="scope-body">Sessions between BGP speakers in <b>different ASes</b>, usually the
+      border speakers each side of the boundary. Across these, an AS learns <b>AS-level paths</b> to
+      destinations outside itself.</span></div>
     <div class="bgp-scope-card ibgp-card"><b>Internal BGP (iBGP)</b>
       <span class="scope-does">this is how the AS <b>distributes it inside</b></span>
       <span class="scope-body">A session between BGP speakers in the <b>same AS</b>. What eBGP
