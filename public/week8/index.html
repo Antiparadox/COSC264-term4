@@ -259,14 +259,14 @@ svg text{font-family:var(--sans)}
   box-shadow:inset 0 0 0 2px var(--accent)}
 .pm-lead{min-height:70px;max-width:840px;margin:0 0 18px}
 .pml{margin:0 0 6px;font-size:20px}
-.pm-msg-wrap{position:relative;height:66px;width:100%;max-width:720px;margin:20px auto 0;flex:0 0 auto}
-.pm-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:11px;
-  padding:0 22px;white-space:nowrap;
-  border-left:4px solid var(--current);background:var(--current-soft);border-radius:10px;
-  font-size:19px;opacity:0;transition:opacity .3s}
-.pm-msg b{font-family:var(--serif);font-size:22px}
-.matrix-slide[data-step="4"] .pm-msg[data-msg="4"],
-.matrix-slide[data-step="5"] .pm-msg[data-msg="5"]{opacity:1}
+.pm-tag{display:block;margin:6px auto 0;width:fit-content;font-family:var(--mono);
+  font-size:12.5px;font-weight:600;letter-spacing:.04em;padding:2px 9px;border-radius:20px;
+  opacity:0;transition:opacity .3s}
+.pm-tag2{color:var(--muted);background:var(--surface-2);border:1px solid var(--border)}
+.pm-tag1{color:var(--current);background:var(--current-soft);border:1px solid var(--current)}
+.matrix-slide[data-step="4"] .pm-tag2,
+.matrix-slide[data-step="5"] .pm-tag2,
+.matrix-slide[data-step="5"] .pm-tag1{opacity:1}
 .pm-hit{background:var(--accent-soft);border-color:var(--accent)!important;
   box-shadow:inset 0 0 0 2px var(--accent)}
 .roadmap-slide[data-step="1"] .pm-bgp,
@@ -2213,9 +2213,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Recap · Week 7</div>
   <h2>A quick recap of routing protocols</h2>
   <div class="pm-lead">
-    <p class="pml pml1">Last week we met two ways to build a routing algorithm:
-    <b>distance vector</b> and <b>link state</b>.</p>
-    <p class="pml pml2">We can also sort a protocol by <b>where it runs</b>: inside one
+    <p class="pml pml1">We can categorise a routing protocol by the <b>algorithm</b> underneath it
+    &mdash; last week we met <b>distance vector</b> and <b>link state</b>.</p>
+    <p class="pml pml2">We can also categorise it by <b>where it runs</b> &mdash; inside one
     autonomous system, or between them.</p>
   </div>
   <table class="proto-matrix">
@@ -2230,20 +2230,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </thead>
     <tbody>
       <tr><th>distance vector</th>
-        <td class="pm-domain pm-rip"><span class="pm-fill">RIP<small>Routing Information Protocol</small></span></td>
+        <td class="pm-domain pm-rip"><span class="pm-fill">RIP<small>Routing Information Protocol</small></span><span class="pm-tag pm-tag2">Lecture 2</span></td>
         <td class="pm-domain pm-empty"></td></tr>
       <tr><th>link state</th>
-        <td class="pm-domain pm-ospf"><span class="pm-fill">OSPF<small>Open Shortest Path First</small></span></td>
+        <td class="pm-domain pm-ospf"><span class="pm-fill">OSPF<small>Open Shortest Path First</small></span><span class="pm-tag pm-tag2">Lecture 2</span></td>
         <td class="pm-domain pm-empty"></td></tr>
       <tr class="pm-pvrow"><th>path vector<small>a close relative of distance vector</small></th>
         <td class="pm-domain pm-empty"></td>
-        <td class="pm-domain pm-bgp">BGP<small>Border Gateway Protocol</small></td></tr>
+        <td class="pm-domain pm-bgp">BGP<small>Border Gateway Protocol</small><span class="pm-tag pm-tag1">this lecture</span></td></tr>
     </tbody>
   </table>
-  <div class="pm-msg-wrap">
-    <div class="pm-msg" data-msg="4"><b>Lecture 2 &middot; next</b> RIP and OSPF</div>
-    <div class="pm-msg" data-msg="5"><b>Lecture 1 &middot; today</b> BGP</div>
-  </div>
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
