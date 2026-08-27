@@ -421,7 +421,8 @@ svg text{font-family:var(--sans)}
 .bgp-lead{font-family:var(--serif);font-size:22px;line-height:1.4;margin:0 0 16px;flex:0 0 auto;opacity:0;
   transition:opacity .28s}
 .bgp-jobs-slide[data-step="1"] .bgp-lead,.bgp-jobs-slide[data-step="2"] .bgp-lead,
-.bgp-jobs-slide[data-step="3"] .bgp-lead,.bgp-jobs-slide[data-step="4"] .bgp-lead{opacity:1}
+.bgp-jobs-slide[data-step="3"] .bgp-lead,.bgp-jobs-slide[data-step="4"] .bgp-lead,
+.bgp-jobs-slide[data-step="5"] .bgp-lead{opacity:1}
 .jobcard{display:grid;grid-template-columns:255px 1fr;gap:20px;align-items:center;min-height:74px;
   padding:13px 18px;border-left:5px solid var(--accent);border-radius:0 12px 12px 0;
   background:var(--surface);box-shadow:var(--shadow);margin-bottom:13px;max-width:1040px;
@@ -432,21 +433,25 @@ svg text{font-family:var(--sans)}
 .jobcard ul{margin:0;padding-left:19px;display:grid;gap:6px}
 .jobcard li{font-size:17.5px;line-height:1.4}
 .bgp-jobs-slide[data-step="2"] .j1,.bgp-jobs-slide[data-step="3"] .j1,
-.bgp-jobs-slide[data-step="4"] .j1,
-.bgp-jobs-slide[data-step="3"] .j2,.bgp-jobs-slide[data-step="4"] .j2,
-.bgp-jobs-slide[data-step="4"] .j3{opacity:1}
-.jobcard li.jobeg{list-style:none;margin-left:-19px;color:var(--accent-ink);font-size:16.5px}
+.bgp-jobs-slide[data-step="4"] .j1,.bgp-jobs-slide[data-step="5"] .j1,
+.bgp-jobs-slide[data-step="4"] .j2,.bgp-jobs-slide[data-step="5"] .j2,
+.bgp-jobs-slide[data-step="5"] .j3{opacity:1}
+.jobcard li.jobeg{list-style:none;margin-left:-19px;color:var(--accent-ink);font-size:16.5px;
+  opacity:0;transition:opacity .28s}
+.bgp-jobs-slide[data-step="3"] .jobeg,.bgp-jobs-slide[data-step="4"] .jobeg,
+.bgp-jobs-slide[data-step="5"] .jobeg{opacity:1}
 .jobcard li.jobeg .mono{font-weight:700;color:var(--accent)}
 /* light the example path A-B-E-D while the map is up */
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-edge.ab,
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-edge.be,
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-edge.ed{background:var(--accent);height:7px}
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.a,
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.b,
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.e,
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.d{border-color:var(--accent);background:var(--accent-soft)}
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-edge.ab,
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-edge.be,
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-edge.ed{background:var(--accent);height:7px}
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-as.a,
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-as.b,
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-as.e,
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-as.d{border-color:var(--accent);background:var(--accent-soft)}
 .bgp-mapwrap{display:none;transform:scale(.78);transform-origin:top left;flex:0 0 auto;margin:2px 0 0}
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap{display:block}
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap,
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap{display:block}
 .bgp-job-list{margin:0;padding-left:22px;display:grid;gap:5px}
 .bgp-job-list li{margin:0;padding:0;border:0;border-radius:0;background:transparent;
   box-shadow:none;font-size:18px;line-height:1.28}
@@ -2377,7 +2382,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   each exit, and further tie-breaks all count.</span></div>
 
   <div class="source">BGP purpose and operation: RFC 4271 §§1, 3, 9.1</div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide stateful bgp-speakers-slide" data-sec="Lecture 1 · BGP speakers">
