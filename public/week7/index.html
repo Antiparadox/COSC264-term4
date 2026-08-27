@@ -3558,8 +3558,14 @@ function updateDijkstraDescSlide(){
   C[6]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
      + 'operation?</b></p></div>';
   C[7]='<div class="djcard">'+HD+'Relaxation</p>'
-     + '<p style="margin:0">The same core operation as Lecture 2. If the path through u is cheaper, '
-     + 'update the distance and the predecessor.</p></div>';
+     + '<p style="margin:0">The same core operation as Lecture 2. Hold <b>u</b> fixed and take each '
+     + 'neighbour <b>w</b> of u in turn.</p>'
+     + '<p style="margin:9px 0 0">Links here are <b>undirected</b>, so the least cost from s to w is the '
+     + 'same as from w to s &mdash; we may just as well ask how <b>w reaches s</b>.</p>'
+     + '<p style="margin:9px 0 0">If w&rsquo;s route to s <b>through u</b> is cheaper than what it had, '
+     + 'take it. Then u is w&rsquo;s <b>next hop</b> towards s &mdash; which is the same as saying that '
+     + 'on the least-cost path from s to w, w&rsquo;s <b>predecessor</b> is u. Hence '
+     + '<b class="mono">p<sub>s</sub>(w) = u</b>.</p></div>';
   C[8]='<div class="djcard">'+HD+'Repeat</p>'
       + '<p style="margin:0">Pick the next minimum, settle it, relax outward &mdash; until every node '
       + 'is settled.</p></div>';
