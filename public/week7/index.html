@@ -3584,8 +3584,11 @@ function updateDijkstraDescSlide(){
   C[6]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
      + 'operation?</b></p></div>';
   C[7]='<div class="djcard">'+HD+'Relaxation</p>'
-     + '<p style="margin:0">The same core operation as Lecture 2. Hold <b>u</b> fixed, and take each '
-     + 'neighbour <b>w</b> of u in turn: what is the <b>least cost from s to w</b>?</p></div>';
+     + '<p style="margin:0">The same core operation as Lecture 2 &mdash; but with the roles swapped. '
+     + 'There a node asked <i>&ldquo;can <b>I</b> do better through one of my neighbours?&rdquo;</i>; '
+     + 'here we ask <i>&ldquo;can one of my <b>neighbours</b> do better through <b>me</b>?&rdquo;</i></p>'
+     + '<p style="margin:9px 0 0">So: hold <b>u</b> fixed, and take each neighbour <b>w</b> of u in '
+     + 'turn &mdash; what is the <b>least cost from s to w</b>?</p></div>';
   C[8]='<div class="djcard">'+HD+'Relaxation</p>'
      + '<p style="margin:0">By <b>symmetry</b>, asking for the least cost from s to w is the same as '
      + 'asking how <b>w reaches s</b>. If w&rsquo;s route through <b>u</b> is cheaper than what it had, '
