@@ -417,28 +417,26 @@ svg text{font-family:var(--sans)}
   background:var(--surface);box-shadow:var(--shadow);font-size:21px;line-height:1.35}
 .bgp-overview-list > li > b{font-family:var(--mono);font-size:14px;color:var(--accent-ink);
   text-transform:uppercase;letter-spacing:.04em}
-/* BGP overview: framing over the AS map, then the three jobs */
-.bgp-idea-stage{position:relative;height:104px;max-width:1040px;margin:0 0 14px}
-.bgp-idea{position:absolute;inset:0;display:flex;align-items:center;
-  font-family:var(--serif);font-size:22px;line-height:1.4;opacity:0;transition:opacity .28s}
-.bgp-jobs-slide[data-step="1"] .bgp-idea[data-idea="1"],
-.bgp-jobs-slide[data-step="2"] .bgp-idea[data-idea="2"],
-.bgp-jobs-slide[data-step="3"] .bgp-idea[data-idea="3"],
-.bgp-jobs-slide[data-step="4"] .bgp-idea[data-idea="3"],
-.bgp-jobs-slide[data-step="5"] .bgp-idea[data-idea="3"],
-.bgp-jobs-slide[data-step="6"] .bgp-idea[data-idea="3"]{opacity:1}
-.bgp-mapwrap{display:none;transform:scale(.82);transform-origin:top left}
-.bgp-jobs-slide[data-step="2"] .bgp-mapwrap{display:block}
-.bgp-jobswrap{display:none}
-.bgp-jobs-slide[data-step="3"] .bgp-jobswrap,
-.bgp-jobs-slide[data-step="4"] .bgp-jobswrap,
-.bgp-jobs-slide[data-step="5"] .bgp-jobswrap,
-.bgp-jobs-slide[data-step="6"] .bgp-jobswrap{display:grid}
-.bgp-job{opacity:0;transition:opacity .28s}
+/* BGP overview: the AS map rides with the first job, then steps aside */
+.bgp-lead{font-family:var(--serif);font-size:22px;line-height:1.4;margin:0 0 16px;flex:0 0 auto;opacity:0;
+  transition:opacity .28s}
+.bgp-jobs-slide[data-step="1"] .bgp-lead,.bgp-jobs-slide[data-step="2"] .bgp-lead,
+.bgp-jobs-slide[data-step="3"] .bgp-lead,.bgp-jobs-slide[data-step="4"] .bgp-lead{opacity:1}
+.jobcard{display:grid;grid-template-columns:255px 1fr;gap:20px;align-items:center;min-height:74px;
+  padding:13px 18px;border-left:5px solid var(--accent);border-radius:0 12px 12px 0;
+  background:var(--surface);box-shadow:var(--shadow);margin-bottom:13px;max-width:1040px;
+  flex:0 0 auto;opacity:0;transition:opacity .28s}
+.jobcard > b{font-family:var(--mono);font-size:15px;line-height:1.3;color:var(--accent-ink);
+  text-transform:uppercase;letter-spacing:.04em}
+.jobcard > span{font-size:17.5px;line-height:1.45}
+.jobcard ul{margin:0;padding-left:19px;display:grid;gap:6px}
+.jobcard li{font-size:17.5px;line-height:1.4}
+.bgp-jobs-slide[data-step="2"] .j1,.bgp-jobs-slide[data-step="3"] .j1,
 .bgp-jobs-slide[data-step="4"] .j1,
-.bgp-jobs-slide[data-step="5"] .j1,.bgp-jobs-slide[data-step="5"] .j2,
-.bgp-jobs-slide[data-step="6"] .j1,.bgp-jobs-slide[data-step="6"] .j2,
-.bgp-jobs-slide[data-step="6"] .j3{opacity:1}
+.bgp-jobs-slide[data-step="3"] .j2,.bgp-jobs-slide[data-step="4"] .j2,
+.bgp-jobs-slide[data-step="4"] .j3{opacity:1}
+.bgp-mapwrap{display:none;transform:scale(.78);transform-origin:top left;flex:0 0 auto;margin:2px 0 0}
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap{display:block}
 .bgp-job-list{margin:0;padding-left:22px;display:grid;gap:5px}
 .bgp-job-list li{margin:0;padding:0;border:0;border-radius:0;background:transparent;
   box-shadow:none;font-size:18px;line-height:1.28}
@@ -2327,14 +2325,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">A systematic solution to the inter-AS problem</div>
   <h2>BGP is the Internet's inter-AS routing protocol</h2>
 
-  <div class="bgp-idea-stage">
-    <div class="bgp-idea" data-idea="1"><span>The <b>Border Gateway Protocol (BGP)</b> is the
-    Internet's answer to that problem. It is still a routing protocol, like the ones from last week
-    &mdash; what changes is the <b>level</b> it runs at.</span></div>
-    <div class="bgp-idea" data-idea="2"><span>Last week every node in the graph was a <b>router</b>.
-    Here every node is a whole <b>autonomous system</b>, holding one or more <b>CIDR prefixes</b>
-    &mdash; the same problem, find a path over a graph, but the graph is a map of ASes.</span></div>
-    <div class="bgp-idea" data-idea="3"><span>To do that, BGP works in the following way.</span></div>
+  <p class="bgp-lead"><b>BGP</b> is the Internet's answer to that problem. Here is how it does it.</p>
+
+  <div class="jobcard j1"><b>Learn external reachability</b>
+    <ul>
+      <li>Route-finding, just as last week &mdash; except a node is no longer a router but a whole
+      <b>autonomous system</b>, holding one or more subnets.</li>
+      <li>For every destination prefix, find a path across the <b>AS-level graph</b>: a path made of
+      several ASes.</li>
+    </ul>
   </div>
 
   <div class="bgp-mapwrap">
@@ -2356,19 +2355,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
 
-  <ul class="bgp-overview-list bgp-jobswrap">
-    <li class="bgp-job j1"><b>Learn external reachability</b><span>For each destination prefix,
-    learn which path across the AS graph reaches the AS holding it &mdash; path-finding again, one
-    level up.</span></li>
-    <li class="bgp-job j2"><b>Distribute it inside the AS</b><span>New in BGP: once the AS has
-    learned those external paths, its own routers must be told, so they know how to forward packets
-    leaving the AS.</span></li>
-    <li class="bgp-job j3"><b>Select a preferred route</b><span>Where several paths exist, choose.
-    But the cost is no longer one number: the AS's <b>routing policy</b>, the interior cost of
-    reaching each exit, and further tie-breaks all count.</span></li>
-  </ul>
+  <div class="jobcard j2"><b>Distribute it inside the AS</b><span>Once those external paths are
+  known, the AS's own routers must be told, so they know how to forward packets leaving the
+  AS.</span></div>
+
+  <div class="jobcard j3"><b>Select a preferred route</b><span>Where several paths exist, choose.
+  The cost is no longer one number: the AS's <b>routing policy</b>, the interior cost of reaching
+  each exit, and further tie-breaks all count.</span></div>
+
   <div class="source">BGP purpose and operation: RFC 4271 §§1, 3, 9.1</div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide stateful bgp-speakers-slide" data-sec="Lecture 1 · BGP speakers">
