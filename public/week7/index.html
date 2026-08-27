@@ -2244,10 +2244,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>How every router builds its map</h2>
   <div style="display:flex;flex-direction:column;gap:20px;flex:1;justify-content:center;max-width:820px">
     <div class="frag card" style="border-left:4px solid var(--accent);padding:18px 24px">
-      <p style="margin:0;font-size:22px">Each router starts with only what it can observe directly: its <b>neighbours</b> and <b>link costs</b>. It packages this as a <b>Link-State Advertisement (LSA)</b>.</p>
+      <p style="margin:0;font-size:22px">Each router starts with only what it knows locally: its <b>neighbours</b> and the cost of <b>its own links</b>. It packages this as a <b>Link-State Advertisement (LSA)</b>.</p>
     </div>
     <div class="frag card" style="border-left:4px solid var(--accent);padding:18px 24px">
-      <p style="margin:0;font-size:22px">Each router <b>floods</b> its LSA &mdash; it sends the LSA to all its neighbours, who forward it to their neighbours, and so on until every router in the network has received it.</p>
+      <p style="margin:0;font-size:22px">Each router <b>floods</b> its LSA &mdash; it sends the LSA to all its neighbours, who forward it to their neighbours, and so on until every other router has received it.</p>
     </div>
     <div class="frag card" style="border-left:4px solid var(--accent);padding:18px 24px">
       <p style="margin:0;font-size:22px">Each router stores all incoming LSAs in its <b>Link-State Database (LSDB)</b>. Once all LSAs have propagated, every router&rsquo;s LSDB is <b>identical</b> &mdash; they all share the same complete topology.</p>
