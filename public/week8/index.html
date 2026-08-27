@@ -2520,7 +2520,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="conversation-message keepalive reverse">← KEEPALIVE</span>
     <span class="conversation-message update forward">UPDATE →</span>
     <span class="conversation-message update reverse">← UPDATE</span>
-    <span class="conversation-payload"><b>some routing information</b>
+    <span class="conversation-payload"><b>a path vector</b>
       Prefix 203.0.113.0/24 · AS_PATH C D</span>
     <span class="frag session-trigger" aria-hidden="true"></span>
     <span class="frag session-trigger" aria-hidden="true"></span>
@@ -2533,8 +2533,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       establish the BGP relationship.</span></div>
     <div class="session-card keepalive"><b>KEEPALIVE · maintain</b><span>KEEPALIVE acknowledges
       OPEN and later confirms that the session remains active.</span></div>
-    <div class="session-card update"><b>UPDATE · exchange routes</b><span>UPDATE messages carry
-      routing information: they advertise reachable prefixes and withdraw unavailable routes.</span></div>
+    <div class="session-card update"><b>UPDATE · exchange routes</b><span>An UPDATE
+      <b>advertises</b> one or more destination prefixes together with the <b>AS-level path</b> to
+      them &mdash; that pairing is the <b>path vector</b>, which we open up next. An UPDATE can also
+      <b>withdraw</b> prefixes that are no longer reachable.</span></div>
   </div>
   <div class="source">BGP transport and messages: RFC 4271 §§4.1-4.4, 8</div>
 </section>
