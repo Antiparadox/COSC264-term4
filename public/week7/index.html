@@ -229,7 +229,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 .djcard.djbig p{font-size:20px}
 .djcard.djq{border-left-color:var(--muted)}
 #dk-table thead th{font-size:15.5px;text-transform:none;letter-spacing:0;line-height:1.4}
-#dk-table th,#dk-table td{padding:8px 10px}
+#dk-table th,#dk-table td{padding:5px 10px}
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
 #ls-steps-slide:has(#ls-note.on) #ls-step-3{background:var(--accent-soft);border-color:var(--accent)}
 #ls-steps-slide:has(#ls-note.on) #ls-step-1,
@@ -2129,6 +2129,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>Step-by-step walkthrough</h2>
   <div class="cols" style="align-items:flex-start;gap:20px;flex:0 0 auto">
     <div class="col" style="flex:1.15;min-width:0">
+      <div id="dk-svgwrap" style="transition:max-width .3s;margin:0 auto">
       <svg id="dijk-svg" viewBox="0 0 580 380" style="width:100%;display:block" aria-label="Dijkstra walkthrough on 6-node graph A-F">
         <!-- Edges -->
         <line id="dk-e-AB" x1="80" y1="190" x2="215" y2="74" stroke="var(--edge)" stroke-width="3"/>
@@ -2173,6 +2174,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <circle id="dk-n-F" cx="540" cy="190" r="26" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
         <text x="540" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--ink)">F</text>
       </svg>
+      </div>
       <p class="mono" style="margin:8px 0 0;text-align:center;font-size:16px" id="dk-step-label">Click &#x2192; to step through</p>
     </div>
     <div class="col" style="flex:1;min-width:0">
@@ -2188,6 +2190,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <p style="margin:0;font-size:18px">Together, Dijkstra needs all nodes and all edges &mdash; the <b>complete network topology</b>.</p>
         </div>
         <div id="dk-why-q" style="display:none;margin-top:14px;font-size:18px;color:var(--accent)"><b>Unlike Bellman-Ford, where each router only needs information from its direct neighbours, Dijkstra requires the complete topology. How does each router obtain it?</b></div>
+      </div>
+      <div id="dk-trace" style="display:none;margin-bottom:14px">
+        <div class="card" style="border-left:4px solid var(--accent);padding:14px 18px;margin:0">
+          <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)">Tracing one destination: F</p>
+          <p class="mono" style="margin:0;font-size:17px;line-height:1.9">p<sub>s</sub>(F) = E &nbsp;&rarr;&nbsp; p<sub>s</sub>(E) = D &nbsp;&rarr;&nbsp; p<sub>s</sub>(D) = A</p>
+          <p style="margin:8px 0 0;font-size:17px">So the path is <b class="mono">A &rarr; D &rarr; E &rarr; F</b>, and the first hop out of A is <b>D</b>. That is F&rsquo;s next hop.</p>
+        </div>
       </div>
       <div id="dk-fwd-wrap" style="display:none">
     <p class="mono small" style="margin:0 0 6px;color:var(--accent)">&#x2192; A's forwarding table (trace predecessors back to A):</p>
@@ -2213,7 +2222,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <tbody id="dk-tbody"></tbody>
     </table>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="lsdb-overview-slide">
@@ -3800,7 +3809,7 @@ function updateDijkstraSlide(){
   var label=document.getElementById('dk-step-label');
   if(!tbody)return;
 
-  var fragToRows=[0,1,1,2,2,3,4,5,6,6,6,6,6];
+  var fragToRows=[0,1,1,2,2,3,4,5,6,6,6,6,6,6];
   var rowsToShow=n<fragToRows.length?fragToRows[n]:7;
 
   var html='';
@@ -3854,7 +3863,7 @@ function updateDijkstraSlide(){
     }
   }
 
-  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,5,5,5,5];
+  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,5,5,5,5,5];
   var stepIdx=n<fragToStepIdx.length?fragToStepIdx[n]:-1;
 
   var allNodes=['A','B','C','D','E','F'];
@@ -3893,11 +3902,17 @@ function updateDijkstraSlide(){
       if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}
     });
   }
+  var trace=document.getElementById('dk-trace');
+  if(trace) trace.style.display=(n>=9&&n<11)?'':'none';
+  // The graph gives up width as the table gains rows: early beats are about the
+  // picture, later ones about the numbers.
+  var wrap=document.getElementById('dk-svgwrap');
+  if(wrap) wrap.style.maxWidth = n>=9?'100%':(rowsToShow>=6?'64%':(rowsToShow>=4?'80%':'100%'));
   var fwdWrap=document.getElementById('dk-fwd-wrap');
   var transWrap=document.getElementById('dk-transition');
-  if(fwdWrap) fwdWrap.style.display=(n===9)?'block':'none';
-  var whyMode=n>=10;
-  var tableOff=n>=9;   // the forwarding table replaces it from beat 9
+  if(fwdWrap) fwdWrap.style.display=(n>=10)?'block':'none';
+  var whyMode=n>=11;
+  var tableOff=n>=9;   // the trace and its table replace it from beat 9
   var dkTable=document.getElementById('dk-tablewrap');
   if(dkTable) dkTable.style.display=tableOff?'none':'';
   if(label) label.style.display=whyMode?'none':'';
@@ -3912,16 +3927,16 @@ function updateDijkstraSlide(){
     Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--edge)');el.setAttribute('stroke-width','3');}});
     allNodes.forEach(function(nd){var c=document.getElementById('dk-n-'+nd);if(c){c.setAttribute('fill','var(--accent-soft)');c.setAttribute('stroke','var(--accent)');}
     });
-    if(n>=11){Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}});}
+    if(n>=12){Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}});}
   }
   var w1=document.getElementById('dk-why-1');
   var w2=document.getElementById('dk-why-2');
   var wc=document.getElementById('dk-why-card');
-  if(w1) w1.style.display=(n>=10)?'':'none';
-  if(w2) w2.style.display=(n>=11)?'':'none';
-  if(wc) wc.style.display=(n>=12)?'':'none';
+  if(w1) w1.style.display=(n>=11)?'':'none';
+  if(w2) w2.style.display=(n>=12)?'':'none';
+  if(wc) wc.style.display=(n>=13)?'':'none';
   var wq=document.getElementById('dk-why-q');
-  if(wq) wq.style.display=(n>=13)?'':'none';
+  if(wq) wq.style.display=(n>=14)?'':'none';
 }
 
 var uniform=false;
