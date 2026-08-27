@@ -2047,9 +2047,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       node <b>v</b>, and the next hop to reach it &mdash; the <b>single-source</b> shortest-paths
       problem.</p>
     </div>
-    <p class="frag" style="font-size:22px;margin:0">Bellman&ndash;Ford already solves this. But it was
-      built for routers that can see <b>only their neighbours</b>, so it has to relax every link over and
-      over until a whole round passes with nothing changing.</p>
+    <div class="frag">
+      <p style="font-size:22px;margin:0">Bellman&ndash;Ford already solves this. But it was built for
+      routers that can see <b>only their neighbours</b>, so it has to relax every link over and over
+      until a whole round passes with nothing changing.</p>
+      <p class="small muted" style="margin:8px 0 0;font-size:17px">In Lecture 2 we ran it for
+      <i>every</i> source at once &mdash; all-pairs. Distributing that outer loop is what leaves each
+      router computing its own row.</p>
+    </div>
     <p class="frag" style="font-size:22px;margin:0">Now that every router holds the <b>whole map</b>, it
       can do better. At each step, take the <b>nearest node not yet settled</b>. Since link costs are
       never negative, going further can never get cheaper &mdash; so that node&rsquo;s distance is
