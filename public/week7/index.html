@@ -2048,11 +2048,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       and the <b>next hop</b> to reach it.</p>
     </div>
     <p class="frag" style="font-size:22px;margin:0">Bellman&ndash;Ford would do the job perfectly well
-      &mdash; it is a shortest-path algorithm, and we already have it.</p>
+      &mdash; we have already seen it work, and it does not even need the full topology: the routers
+      only ever talk to their neighbours.</p>
     <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
-      <p style="margin:0;font-size:22px">But now that every router holds the <b>full topology</b>, there
-      is a better-suited choice: <b style="color:var(--accent)">Dijkstra&rsquo;s algorithm</b>. That is
-      what the rest of this lecture is about.</p>
+      <p style="margin:0;font-size:22px">But now every router <i>does</i> know the
+      <b>full topology</b> &mdash; and in that setting there is a better-suited choice:
+      <b style="color:var(--accent)">Dijkstra&rsquo;s algorithm</b>.</p>
     </div>
   </div>
 </section>
