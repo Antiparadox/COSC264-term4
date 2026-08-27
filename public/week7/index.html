@@ -3553,7 +3553,8 @@ function updateDijkstraDescSlide(){
      + 'final.</p></div>';
   C[4]=C[5]='<div class="djcard djbig">'+HD+'Pick and settle</p>'
      + '<p style="margin:0">Take the unsettled node with the <b>smallest current distance</b>.</p>'
-     + '<p style="margin:8px 0 0">Move it into S. Its distance will <b>never change again</b>.</p></div>';
+     + '<p style="margin:8px 0 0">Move it into S &mdash; its distance must <b>already be optimal</b>: '
+     + '<b class="mono">d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b>.</p></div>';
   C[6]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
      + 'operation?</b></p></div>';
   C[7]='<div class="djcard">'+HD+'Relaxation</p>'
@@ -3566,8 +3567,7 @@ function updateDijkstraDescSlide(){
   B[5]='<div class="djcard djbig djq">'
      + '<p style="margin:0 0 6px;font-size:13px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--muted)">Exercise</p>'
-     + '<p style="margin:0"><b>But why is the smallest one already final?</b> Could some longer way '
-     + 'round not turn out cheaper?</p></div>';
+     + '<p style="margin:0"><b>Why is this the case?</b> Have a think about it offline.</p></div>';
   var say=document.getElementById('dj-say');
   if(say) say.innerHTML = C[n] || '';
   var subEl=document.getElementById('dj-sub');
