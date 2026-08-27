@@ -435,6 +435,16 @@ svg text{font-family:var(--sans)}
 .bgp-jobs-slide[data-step="4"] .j1,
 .bgp-jobs-slide[data-step="3"] .j2,.bgp-jobs-slide[data-step="4"] .j2,
 .bgp-jobs-slide[data-step="4"] .j3{opacity:1}
+.jobcard li.jobeg{list-style:none;margin-left:-19px;color:var(--accent-ink);font-size:16.5px}
+.jobcard li.jobeg .mono{font-weight:700;color:var(--accent)}
+/* light the example path A-B-E-D while the map is up */
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-edge.ab,
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-edge.be,
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-edge.ed{background:var(--accent);height:7px}
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.a,
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.b,
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.e,
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap .pv-as.d{border-color:var(--accent);background:var(--accent-soft)}
 .bgp-mapwrap{display:none;transform:scale(.78);transform-origin:top left;flex:0 0 auto;margin:2px 0 0}
 .bgp-jobs-slide[data-step="2"] .bgp-mapwrap{display:block}
 .bgp-job-list{margin:0;padding-left:22px;display:grid;gap:5px}
@@ -2334,6 +2344,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       subnets.</li>
       <li>For every <b>source</b> and <b>destination</b>, find a path across that graph &mdash; a
       path made of several ASes.</li>
+      <li class="jobeg">e.g. a path from AS&nbsp;A to AS&nbsp;D:
+      <span class="mono">AS A &rarr; AS B &rarr; AS E &rarr; AS D</span></li>
     </ul>
   </div>
 
