@@ -3587,13 +3587,13 @@ function updateDijkstraDescSlide(){
      + '<p style="margin:0">The same core operation as Lecture 2 &mdash; but with the roles swapped. '
      + 'There a node asked <i>&ldquo;can <b>I</b> do better through one of my neighbours?&rdquo;</i>; '
      + 'here we ask <i>&ldquo;can one of my <b>neighbours</b> do better through <b>me</b>?&rdquo;</i></p>'
-     + '<p style="margin:9px 0 0">So: hold <b>u</b> fixed, and take each neighbour <b>w</b> of u in '
-     + 'turn &mdash; what is the <b>least cost from s to w</b>?</p></div>';
+     + '<p style="margin:9px 0 0">By <b>symmetry</b>, the least cost from s to w is the same as from w '
+     + 'to s, so we may speak from w&rsquo;s side. Hold <b>u</b> fixed and go through its neighbours in '
+     + 'turn &mdash; say <b>w</b> first &mdash; and ask: <b>can w use u as its next hop and get a '
+     + 'smaller distance to s?</b></p></div>';
   C[8]='<div class="djcard">'+HD+'Relaxation</p>'
-     + '<p style="margin:0">By <b>symmetry</b>, asking for the least cost from s to w is the same as '
-     + 'asking how <b>w reaches s</b>. If w&rsquo;s route through <b>u</b> is cheaper than what it had, '
-     + 'take it &mdash; u becomes w&rsquo;s <b>next hop</b> to s. Read the other way round, on the path '
-     + 'from s to w that makes u the <b>predecessor</b> of w. Hence '
+     + '<p style="margin:0">If it can, take it &mdash; u becomes w&rsquo;s <b>next hop</b> to s. Read '
+     + 'the other way round, on the path from s to w that makes u the <b>predecessor</b> of w. Hence '
      + '<b class="mono">p<sub>s</sub>(w) = u</b>.</p></div>';
   C[9]='<div class="djcard">'+HD+'Repeat</p>'
       + '<p style="margin:0">Pick the next minimum, settle it, relax outward &mdash; until every node '
