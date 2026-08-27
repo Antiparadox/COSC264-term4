@@ -2072,16 +2072,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="cols" style="align-items:flex-start;gap:20px">
     <div class="col" style="flex:1">
       <div class="card mono" style="padding:18px 22px;font-size:15px;line-height:2;background:var(--surface);border:1px solid var(--border)">
-        <div id="dj-line-1" style="opacity:0.3;transition:all 0.3s">initialise d<sub>s</sub>(s) = 0, d<sub>s</sub>(v) = &#x221E; for all other v</div>
-        <div id="dj-line-2" style="opacity:0.3;transition:all 0.3s">S = {} <span style="color:var(--muted)">(settled set)</span></div>
-        <div id="dj-line-3" style="opacity:0.3;transition:all 0.3s;margin-top:8px"><b>repeat:</b></div>
-        <div id="dj-line-4" style="opacity:0.3;transition:all 0.3s;padding-left:24px">u = unsettled node with smallest d<sub>s</sub>(u)</div>
-        <div id="dj-line-5" style="opacity:0.3;transition:all 0.3s;padding-left:24px">add u to S</div>
-        <div id="dj-line-6" style="opacity:0.3;transition:all 0.3s;padding-left:24px">for each neighbour w of u:</div>
-        <div id="dj-line-7" style="opacity:0.3;transition:all 0.3s;padding-left:48px">if d<sub>s</sub>(u) + c(u,w) &lt; d<sub>s</sub>(w): <span id="dj-question" style="color:var(--accent)">&#x2190; ???</span></div>
-        <div id="dj-line-8" style="opacity:0.3;transition:all 0.3s;padding-left:72px">d<sub>s</sub>(w) = d<sub>s</sub>(u) + c(u,w)</div>
-        <div id="dj-line-9" style="opacity:0.3;transition:all 0.3s;padding-left:72px">p<sub>s</sub>(w) = u</div>
-        <div id="dj-line-10" style="opacity:0.3;transition:all 0.3s"><b>until</b> all nodes settled</div>
+        <div id="dj-line-1" style="opacity:0.3;transition:all 0.3s">initialise d<sub>s</sub>(s) = 0</div>
+        <div id="dj-line-2" style="opacity:0.3;transition:all 0.3s;padding-left:24px">d<sub>s</sub>(v) = c(s,v)  <span style="color:var(--muted)">if v is a neighbour of s, else</span> &#x221E;</div>
+        <div id="dj-line-3" style="opacity:0.3;transition:all 0.3s;padding-left:24px">p<sub>s</sub>(v) = s      <span style="color:var(--muted)">if v is a neighbour of s, else</span> nil</div>
+        <div id="dj-line-4" style="opacity:0.3;transition:all 0.3s">S = {s} <span style="color:var(--muted)">(settled set)</span></div>
+        <div id="dj-line-5" style="opacity:0.3;transition:all 0.3s;margin-top:8px"><b>repeat:</b></div>
+        <div id="dj-line-6" style="opacity:0.3;transition:all 0.3s;padding-left:24px">u = unsettled node with smallest d<sub>s</sub>(u)</div>
+        <div id="dj-line-7" style="opacity:0.3;transition:all 0.3s;padding-left:24px">add u to S</div>
+        <div id="dj-line-8" style="opacity:0.3;transition:all 0.3s;padding-left:24px">for each neighbour w of u:</div>
+        <div id="dj-line-9" style="opacity:0.3;transition:all 0.3s;padding-left:48px">if d<sub>s</sub>(u) + c(u,w) &lt; d<sub>s</sub>(w): <span id="dj-question" style="color:var(--accent)">&#x2190; ???</span></div>
+        <div id="dj-line-10" style="opacity:0.3;transition:all 0.3s;padding-left:72px">d<sub>s</sub>(w) = d<sub>s</sub>(u) + c(u,w)</div>
+        <div id="dj-line-11" style="opacity:0.3;transition:all 0.3s;padding-left:72px">p<sub>s</sub>(w) = u</div>
+        <div id="dj-line-12" style="opacity:0.3;transition:all 0.3s"><b>until</b> all nodes settled</div>
       </div>
     </div>
     <div class="col" style="flex:1">
@@ -3502,9 +3504,9 @@ function updateSplitHorizonSlide(){
 function updateDijkstraDescSlide(){
   var s=document.getElementById('dijkstra-desc-slide');if(!s)return;
   var n=fragCount(s);
-  var allLines=[1,2,3,4,5,6,7,8,9,10];
+  var allLines=[1,2,3,4,5,6,7,8,9,10,11,12];
   // which pseudocode lines each beat is about
-  var hlSets=[[],[],[1],[2],[4],[5],[4,5],[4,5],[6,7,8,9],[6,7,8,9],[3,10]];
+  var hlSets=[[],[],[1,2,3],[4],[6],[7],[6,7],[6,7],[8,9,10,11],[8,9,10,11],[5,12]];
   var active=n<hlSets.length?hlSets[n]:[];
   allLines.forEach(function(ln){
     var el=document.getElementById('dj-line-'+ln);
@@ -3535,13 +3537,14 @@ function updateDijkstraDescSlide(){
      + '</span><br><span class="mono" style="font-size:17px;color:var(--accent-ink)">'
      + 'p<sub>s</sub>(v) = b &nbsp; p<sub>s</sub>(b) = a &nbsp; p<sub>s</sub>(a) = s</span></div></div>';
   C[2]='<div class="djcard">'+HD+'Start</div>'.replace('</div>','</p>')
-     + '<p style="margin:0">s is <b>0</b> away from itself. Nothing else is known yet, so every other '
-     + 'node starts at <b>&infin;</b> &mdash; <b>including s&rsquo;s own neighbours</b>. They pick up '
-     + 'their link costs on the very first pass, when s is settled and relaxed.</p></div>';
+     + '<p style="margin:0">s is <b>0</b> away from itself, and each of its <b>neighbours</b> is one '
+     + 'link away &mdash; so they start at <b class="mono">c(s,v)</b>, reached directly from s. '
+     + 'Everything else starts at <b>&infin;</b>: s has not heard of it yet.</p></div>';
   C[3]='<div class="djcard">'+HD+'The settled set S</p>'
      + '<p style="margin:0">S holds the nodes whose distance is <b>final</b>: once u is in S we have '
      + '<b class="mono">d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b>, the optimal cost.</p>'
-     + '<p style="margin:9px 0 0">It starts <b>empty</b>.</p></div>';
+     + '<p style="margin:9px 0 0">It starts holding just <b>s</b>, whose distance is already '
+     + 'final.</p></div>';
   C[4]='<div class="djcard">'+HD+'Pick</p>'
      + '<p style="margin:0">Take the unsettled node with the <b>smallest current distance</b>.</p></div>';
   C[5]='<div class="djcard">'+HD+'Settle</p>'
