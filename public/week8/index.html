@@ -1086,7 +1086,13 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   width:100%;max-width:1000px}
 .bgp-scope-card{padding:11px 16px;border-radius:11px;background:var(--surface);
   border:1px solid var(--border);font-size:17px;line-height:1.3}
-.bgp-scope-card b{font-family:var(--mono);font-size:15px;color:var(--accent-ink)}
+.bgp-scope-card > b{display:block;font-family:var(--mono);font-size:15px;color:var(--accent-ink);
+  margin-bottom:3px}
+.scope-does{display:block;font-size:13.5px;line-height:1.35;color:var(--muted);
+  margin:0 0 7px;padding-left:9px;border-left:3px solid var(--accent)}
+.scope-does b{font-family:var(--sans);color:var(--accent);font-weight:700}
+.scope-body{display:block}
+.scope-body b{font-family:var(--mono);font-size:.94em;color:var(--accent-ink)}
 .scope-stage-trigger{position:absolute;width:0;height:0;pointer-events:none}
 .ebgp-stage,.ibgp-stage,.bgp-scopes-slide .bgp-scope-card,.bgp-scopes-slide .bgp-handoff{
   opacity:0;transition:opacity .25s ease}
@@ -2485,10 +2491,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </span>
   </div>
   <div class="bgp-scope-row">
-    <div class="bgp-scope-card ebgp-card"><b>External BGP (eBGP)</b> is a session between BGP
-    speakers in different ASes—usually border or gateway routers at the AS boundary.</div>
-    <div class="bgp-scope-card ibgp-card"><b>Internal BGP (iBGP)</b> is a session between BGP
-    speakers in the same AS. It shares BGP routes among the participating routers.</div>
+    <div class="bgp-scope-card ebgp-card"><b>External BGP (eBGP)</b>
+      <span class="scope-does">this is how an AS <b>learns external reachability</b></span>
+      <span class="scope-body">A session between BGP speakers in <b>different ASes</b> &mdash;
+      usually the border routers either side of an AS boundary. Routes cross from one AS into the
+      next here.</span></div>
+    <div class="bgp-scope-card ibgp-card"><b>Internal BGP (iBGP)</b>
+      <span class="scope-does">this is how the AS <b>distributes it inside</b></span>
+      <span class="scope-body">A session between BGP speakers in the <b>same AS</b>. What eBGP
+      brought in is passed around the AS's own routers, so they all know how to reach the
+      outside.</span></div>
   </div>
   <div class="source">eBGP, iBGP and BGP speaker definitions: RFC 4271 §§1.1, 3</div>
 </section>
