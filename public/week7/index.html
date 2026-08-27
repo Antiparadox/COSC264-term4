@@ -228,7 +228,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 .djcard li{font-size:18px;line-height:1.5}
 .djcard.djbig p{font-size:20px}
 .djcard.djq{border-left-color:var(--muted)}
-#dk-table thead th{font-size:17px;text-transform:none;letter-spacing:0}
+#dk-table thead th{font-size:15px;text-transform:none;letter-spacing:0;line-height:1.35}
+#dk-table th,#dk-table td{padding:7px 10px}
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
 #ls-steps-slide:has(#ls-note.on) #ls-step-3{background:var(--accent-soft);border-color:var(--accent)}
 #ls-steps-slide:has(#ls-note.on) #ls-step-1,
@@ -2127,7 +2128,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Dijkstra's algorithm</div>
   <h2>Step-by-step walkthrough</h2>
   <div class="cols" style="align-items:flex-start;gap:12px;flex:0 0 auto">
-    <div class="col" style="flex:0.9">
+    <div class="col" style="flex:0.72">
       <svg id="dijk-svg" viewBox="0 0 580 380" style="width:100%;max-width:480px" aria-label="Dijkstra walkthrough on 6-node graph A-F">
         <!-- Edges -->
         <line id="dk-e-AB" x1="80" y1="190" x2="215" y2="74" stroke="var(--edge)" stroke-width="3"/>
@@ -2174,9 +2175,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
       <p class="mono" style="margin:8px 0 0;text-align:center;font-size:16px" id="dk-step-label">Click &#x2192; to step through</p>
     </div>
-    <div class="col" style="flex:1.1;overflow-x:auto;min-width:0">
+    <div class="col" style="flex:1.4;overflow-x:auto;min-width:0">
       <table class="ft" id="dk-table">
-        <thead><tr><th>Step</th><th>S</th><th style="white-space:nowrap">A<br><span style="font-weight:400;font-size:15px;text-transform:none">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">B<br><span style="font-weight:400;font-size:15px;text-transform:none">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">C<br><span style="font-weight:400;font-size:15px;text-transform:none">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">D<br><span style="font-weight:400;font-size:15px;text-transform:none">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">E<br><span style="font-weight:400;font-size:15px;text-transform:none">d<sub>s</sub>, p<sub>s</sub></span></th><th style="white-space:nowrap">F<br><span style="font-weight:400;font-size:15px;text-transform:none">d<sub>s</sub>, p<sub>s</sub></span></th></tr></thead>
+        <thead><tr><th>Step</th><th>S</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(A),<br>p<sub>s</sub>(A)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(B),<br>p<sub>s</sub>(B)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(C),<br>p<sub>s</sub>(C)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(D),<br>p<sub>s</sub>(D)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(E),<br>p<sub>s</sub>(E)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(F),<br>p<sub>s</sub>(F)</th></tr></thead>
         <tbody id="dk-tbody"></tbody>
       </table>
       <div id="dk-transition" style="display:none">
