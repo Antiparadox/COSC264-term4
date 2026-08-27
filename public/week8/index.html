@@ -2377,9 +2377,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   known, the AS's own routers must be told, so they know how to forward packets leaving the
   AS.</span></div>
 
-  <div class="jobcard j3"><b>Select a preferred route</b><span>Where several paths exist, choose.
-  The cost is no longer one number: the AS's <b>routing policy</b>, the interior cost of reaching
-  each exit, and further tie-breaks all count.</span></div>
+  <div class="jobcard j3"><b>Select a preferred route</b><span>Again several paths may reach the
+  same destination. But choosing between them is <b>multidimensional</b> here &mdash; the AS's own
+  <b>policy</b>, the length of the AS path, the interior cost of reaching each exit, and more. BGP
+  supplies the criteria that pick the best one.</span></div>
 
   <div class="source">BGP purpose and operation: RFC 4271 §§1, 3, 9.1</div>
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
