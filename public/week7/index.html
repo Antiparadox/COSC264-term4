@@ -2127,7 +2127,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
   <div class="kicker">Dijkstra's algorithm</div>
   <h2>Step-by-step walkthrough</h2>
-  <div class="cols" style="align-items:flex-start;gap:20px;flex:0 0 auto">
+  <div class="cols" id="dk-graphrow" style="align-items:flex-start;gap:20px;flex:0 0 auto">
     <div class="col" style="flex:1.15;min-width:0">
       <div id="dk-svgwrap" style="transition:max-width .3s;margin:0 auto">
       <svg id="dijk-svg" viewBox="0 0 580 380" style="width:100%;display:block" aria-label="Dijkstra walkthrough on 6-node graph A-F">
@@ -2191,15 +2191,25 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         </div>
         <div id="dk-why-q" style="display:none;margin-top:14px;font-size:18px;color:var(--accent)"><b>Unlike Bellman-Ford, where each router only needs information from its direct neighbours, Dijkstra requires the complete topology. How does each router obtain it?</b></div>
       </div>
-      <div id="dk-trace" style="display:none;margin-bottom:14px">
+    </div>
+  </div>
+  <div id="dk-tablewrap" style="margin-top:16px">
+    <table class="ft" id="dk-table" style="table-layout:fixed;width:100%">
+      <thead><tr><th style="width:7%">Step</th><th style="width:17.4%">S</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(A), p<sub>s</sub>(A)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(B), p<sub>s</sub>(B)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(C), p<sub>s</sub>(C)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(D), p<sub>s</sub>(D)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(E), p<sub>s</sub>(E)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(F), p<sub>s</sub>(F)</th></tr></thead>
+      <tbody id="dk-tbody"></tbody>
+    </table>
+  </div>
+  <div id="dk-traceblock" style="display:none;margin-top:16px">
+    <div style="display:flex;gap:26px;align-items:flex-start">
+      <div id="dk-trace" style="display:none;flex:1.3;min-width:0">
         <div class="card" style="border-left:4px solid var(--accent);padding:14px 18px;margin:0">
           <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)">Tracing one destination: F</p>
           <p class="mono" style="margin:0;font-size:17px;line-height:1.9">p<sub>s</sub>(F) = E &nbsp;&rarr;&nbsp; p<sub>s</sub>(E) = D &nbsp;&rarr;&nbsp; p<sub>s</sub>(D) = A</p>
           <p style="margin:8px 0 0;font-size:17px">So the path is <b class="mono">A &rarr; D &rarr; E &rarr; F</b>, and the first hop out of A is <b>D</b>. That is F&rsquo;s next hop.</p>
         </div>
       </div>
-      <div id="dk-fwd-wrap" style="display:none">
-    <p class="mono small" style="margin:0 0 6px;color:var(--accent)">&#x2192; A's forwarding table (trace predecessors back to A):</p>
+      <div id="dk-fwd-wrap" style="display:none;flex:1;min-width:0">
+    <p class="mono" style="margin:0 0 8px;color:var(--accent);font-size:16px">Do this for every destination &rarr; A's forwarding table:</p>
     <div style="display:flex;gap:24px;align-items:flex-start">
       <table class="ft" style="font-size:17px" id="dk-fwd-table">
         <thead><tr><th>Dest</th><th>Next hop</th></tr></thead>
@@ -2211,18 +2221,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <tr><td>F</td><td class="accent"><b>D</b></td></tr>
         </tbody>
       </table>
-      <p style="font-size:14px;margin:0;color:var(--muted)">The router only stores <b>destination + next hop</b>, not the full path.</p>
     </div>
   </div>
     </div>
   </div>
-  <div id="dk-tablewrap" style="margin-top:16px">
-    <table class="ft" id="dk-table" style="table-layout:fixed;width:100%">
-      <thead><tr><th style="width:7%">Step</th><th style="width:17.4%">S</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(A), p<sub>s</sub>(A)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(B), p<sub>s</sub>(B)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(C), p<sub>s</sub>(C)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(D), p<sub>s</sub>(D)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(E), p<sub>s</sub>(E)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(F), p<sub>s</sub>(F)</th></tr></thead>
-      <tbody id="dk-tbody"></tbody>
-    </table>
-  </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="lsdb-overview-slide">
@@ -3809,7 +3812,7 @@ function updateDijkstraSlide(){
   var label=document.getElementById('dk-step-label');
   if(!tbody)return;
 
-  var fragToRows=[0,1,1,2,2,3,4,5,6,6,6,6,6,6];
+  var fragToRows=[0,1,1,1,2,2,2,3,4,5,6,6,6,6,6,6,6];
   var rowsToShow=n<fragToRows.length?fragToRows[n]:7;
 
   var html='';
@@ -3823,7 +3826,10 @@ function updateDijkstraSlide(){
     for(var j=0;j<step.vals.length;j++){
       var val=step.vals[j];
       var changed=i>0&&dkSteps[i-1].vals[j]!==val&&val!=='—';
-      row+='<td class="mono" style="font-size:18px'+(changed?';color:var(--accent);font-weight:700':'')+'">'+(val==='—'?'<span style="color:var(--faint)">—</span>':val)+'</td>';
+      // tracing F: light the last real entry for F, E and D -- the three the
+      // predecessor chain actually reads
+      var traced=n>=11&&((i===2&&j===5)||(i===1&&j===4)||(i===0&&j===3));
+      row+='<td class="mono" style="font-size:18px'+(traced?';background:var(--accent-soft);color:var(--accent-ink);font-weight:700':(changed?';color:var(--accent);font-weight:700':''))+'">'+(val==='—'?'<span style="color:var(--faint)">—</span>':val)+'</td>';
     }
     row+='</tr>';
     html+=row;
@@ -3832,8 +3838,8 @@ function updateDijkstraSlide(){
 
   if(label){
     if(n===0)label.textContent='Click → to step through';
-    else if(n===2)label.textContent='Step 1 — relaxation';
-    else if(n===4)label.textContent='Step 2 — relaxation';
+    else if(n>=2&&n<=4)label.textContent='Step 1 — settle and relax';
+    else if(n>=5&&n<=7)label.textContent='Step 2 — settle and relax';
     else if(rowsToShow>0&&rowsToShow<=dkSteps.length){
       var stepNum=rowsToShow-1;
       if(stepNum===0)label.textContent='Initialisation';
@@ -3846,24 +3852,20 @@ function updateDijkstraSlide(){
   var relaxDiv=document.getElementById('dk-relax-detail');
   var relaxContent=document.getElementById('dk-relax-content');
   if(relaxDiv&&relaxContent){
-    if(n===2){
-      relaxDiv.style.display='block';
-      relaxContent.innerHTML='<div style="margin-bottom:8px"><b>Settle:</b> D has the smallest tentative distance: d<sub>s</sub>(D)&nbsp;=&nbsp;1. Add D to S → d<sub>s</sub>*(D)&nbsp;=&nbsp;1.</div>'
-        +'<div style="margin-bottom:4px;color:var(--accent);font-weight:700">Relax D’s neighbours:</div>'
-        +'d<sub>s</sub>(D) + c(D,C) = 1 + 3 = 4 &lt; 5 → d<sub>s</sub>(C) = 4, p<sub>s</sub>(C) = D<br>'
-        +'d<sub>s</sub>(D) + c(D,E) = 1 + 1 = 2 &lt; ∞ → d<sub>s</sub>(E) = 2, p<sub>s</sub>(E) = D';
-    } else if(n===4){
-      relaxDiv.style.display='block';
-      relaxContent.innerHTML='<div style="margin-bottom:8px"><b>Settle:</b> E has the smallest tentative distance: d<sub>s</sub>(E)&nbsp;=&nbsp;2. Add E to S → d<sub>s</sub>*(E)&nbsp;=&nbsp;2.</div>'
-        +'<div style="margin-bottom:4px;color:var(--accent);font-weight:700">Relax E’s neighbours:</div>'
-        +'d<sub>s</sub>(E) + c(E,C) = 2 + 1 = 3 &lt; 4 → d<sub>s</sub>(C) = 3, p<sub>s</sub>(C) = E<br>'
-        +'d<sub>s</sub>(E) + c(E,F) = 2 + 2 = 4 &lt; ∞ → d<sub>s</sub>(F) = 4, p<sub>s</sub>(F) = E';
-    } else {
-      relaxDiv.style.display='none';
-    }
+    var dSettle='<div><b>Settle:</b> D has the smallest tentative distance: d<sub>s</sub>(D)&nbsp;=&nbsp;1. Add D to S → d<sub>s</sub>*(D)&nbsp;=&nbsp;1.</div>';
+    var dRelax='<div style="margin:10px 0 4px;color:var(--accent);font-weight:700">Relax D’s neighbours:</div>'
+      +'d<sub>s</sub>(D) + c(D,C) = 1 + 3 = 4 &lt; 5 → d<sub>s</sub>(C) = 4, p<sub>s</sub>(C) = D<br>'
+      +'d<sub>s</sub>(D) + c(D,E) = 1 + 1 = 2 &lt; ∞ → d<sub>s</sub>(E) = 2, p<sub>s</sub>(E) = D';
+    var eSettle='<div><b>Settle:</b> E has the smallest tentative distance: d<sub>s</sub>(E)&nbsp;=&nbsp;2. Add E to S → d<sub>s</sub>*(E)&nbsp;=&nbsp;2.</div>';
+    var eRelax='<div style="margin:10px 0 4px;color:var(--accent);font-weight:700">Relax E’s neighbours:</div>'
+      +'d<sub>s</sub>(E) + c(E,C) = 2 + 1 = 3 &lt; 4 → d<sub>s</sub>(C) = 3, p<sub>s</sub>(C) = E<br>'
+      +'d<sub>s</sub>(E) + c(E,F) = 2 + 2 = 4 &lt; ∞ → d<sub>s</sub>(F) = 4, p<sub>s</sub>(F) = E';
+    if(n>=2&&n<=4){ relaxDiv.style.display='block'; relaxContent.innerHTML=dSettle+(n>=3?dRelax:''); }
+    else if(n>=5&&n<=7){ relaxDiv.style.display='block'; relaxContent.innerHTML=eSettle+(n>=6?eRelax:''); }
+    else { relaxDiv.style.display='none'; }
   }
 
-  var fragToStepIdx=[-1,0,1,1,2,2,3,4,5,5,5,5,5,5];
+  var fragToStepIdx=[-1,0,1,1,1,2,2,2,3,4,5,5,5,5,5,5,5];
   var stepIdx=n<fragToStepIdx.length?fragToStepIdx[n]:-1;
 
   var allNodes=['A','B','C','D','E','F'];
@@ -3889,7 +3891,9 @@ function updateDijkstraSlide(){
     var el=document.getElementById(dkEdgeMap[ek]);
     if(el){el.setAttribute('stroke','var(--edge)');el.setAttribute('stroke-width','3');}
   });
-  if(stepIdx>=0&&stepIdx<dkSteps.length){
+  // On a settle-only beat the relaxation has not happened yet, so its edges
+  // stay dark until the beat that performs it.
+  if(stepIdx>=0&&stepIdx<dkSteps.length&&n!==2&&n!==5){
     var step=dkSteps[stepIdx];
     step.relaxed.forEach(function(ek){
       var el=document.getElementById(dkEdgeMap[ek]);
@@ -3903,40 +3907,45 @@ function updateDijkstraSlide(){
     });
   }
   var trace=document.getElementById('dk-trace');
-  if(trace) trace.style.display=(n>=9&&n<11)?'':'none';
+  if(trace) trace.style.display=(n>=11)?'':'none';
+  var tblock=document.getElementById('dk-traceblock');
+  var graphRow=document.getElementById('dk-graphrow');
+  if(tblock) tblock.style.display=(n>=11&&n<13)?'':'none';
+  if(graphRow) graphRow.style.display=(n>=11&&n<13)?'none':'';
   // The graph gives up width as the table gains rows: early beats are about the
   // picture, later ones about the numbers.
   var wrap=document.getElementById('dk-svgwrap');
-  if(wrap) wrap.style.maxWidth = n>=9?'100%':(rowsToShow>=6?'64%':(rowsToShow>=4?'80%':'100%'));
+  // from beat 11 the step table is out of the way, so the graph takes it all back
+  if(wrap) wrap.style.maxWidth = n>=11?'100%':(rowsToShow>=6?'64%':(rowsToShow>=4?'80%':'100%'));
   var fwdWrap=document.getElementById('dk-fwd-wrap');
   var transWrap=document.getElementById('dk-transition');
-  if(fwdWrap) fwdWrap.style.display=(n>=10)?'block':'none';
-  var whyMode=n>=11;
-  var tableOff=n>=9;   // the trace and its table replace it from beat 9
+  if(fwdWrap) fwdWrap.style.display=(n>=12)?'block':'none';
+  var whyMode=n>=13;
+  var tableOff=whyMode;   // the table stays up while we trace through it
   var dkTable=document.getElementById('dk-tablewrap');
   if(dkTable) dkTable.style.display=tableOff?'none':'';
-  if(label) label.style.display=whyMode?'none':'';
+  if(label) label.style.display=(n>=11)?'none':'';
   if(transWrap) transWrap.style.display=whyMode?'block':'none';
   var h2=s.querySelector('h2');
   var kicker=s.querySelector('.kicker');
   if(h2) h2.textContent=whyMode?'Why does Dijkstra need the full topology?':'Step-by-step walkthrough';
   if(kicker) kicker.style.display=whyMode?'none':'';
-  if(relaxDiv) relaxDiv.style.display=(n===2||n===4)?'block':'none';
+
   s.querySelectorAll('p.frag').forEach(function(p){p.style.display='none';});
   if(whyMode){
     Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--edge)');el.setAttribute('stroke-width','3');}});
     allNodes.forEach(function(nd){var c=document.getElementById('dk-n-'+nd);if(c){c.setAttribute('fill','var(--accent-soft)');c.setAttribute('stroke','var(--accent)');}
     });
-    if(n>=12){Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}});}
+    if(n>=14){Object.keys(dkEdgeMap).forEach(function(ek){var el=document.getElementById(dkEdgeMap[ek]);if(el){el.setAttribute('stroke','var(--accent)');el.setAttribute('stroke-width','5');}});}
   }
   var w1=document.getElementById('dk-why-1');
   var w2=document.getElementById('dk-why-2');
   var wc=document.getElementById('dk-why-card');
-  if(w1) w1.style.display=(n>=11)?'':'none';
-  if(w2) w2.style.display=(n>=12)?'':'none';
-  if(wc) wc.style.display=(n>=13)?'':'none';
+  if(w1) w1.style.display=(n>=13)?'':'none';
+  if(w2) w2.style.display=(n>=14)?'':'none';
+  if(wc) wc.style.display=(n>=15)?'':'none';
   var wq=document.getElementById('dk-why-q');
-  if(wq) wq.style.display=(n>=14)?'':'none';
+  if(wq) wq.style.display=(n>=16)?'':'none';
 }
 
 var uniform=false;
