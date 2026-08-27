@@ -219,6 +219,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   .stack-layer.hl{opacity:1}
 }
 /* ---------- link-state 3-step slide: spotlight steps 1-2 on the closing fragment ---------- */
+.djcard{border-radius:12px;padding:14px 18px;line-height:1.55;
+  background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);
+  box-shadow:var(--shadow);animation:wfade .28s ease}
+/* a bare `font-size` on .djcard never reaches its <p>: the global p{font-size:26px}
+   targets the element directly and wins over inheritance. */
+.djcard p{font-size:18px}
+.djcard p:first-child{font-size:13px}
+.djcard.djq{border-left-color:var(--muted)}
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
 #ls-steps-slide:has(#ls-note.on) #ls-step-3{background:var(--accent-soft);border-color:var(--accent)}
 #ls-steps-slide:has(#ls-note.on) #ls-step-1,
@@ -2077,14 +2085,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
     <div class="col" style="flex:1">
-      <div class="frag" style="font-size:18px;margin:0 0 14px"><p style="margin:0 0 8px"><b>Start:</b> set d<sub>s</sub>(s) = 0, all others to &#x221E;.</p><p id="dj-settled-explain" style="margin:0 0 8px">We also initialise a <b>settled set</b> S &mdash; S tracks the nodes whose shortest-path distance has been <b>finalised</b>. Once a node u is in S, we have d<sub>s</sub>(u) = d<sub>s</sub>*(u), the optimal (least-cost) distance.</p><p id="dj-settled-init" style="margin:0">Initially, S is empty.</p></div>
-      <p class="frag" style="font-size:18px;margin:0 0 14px">Pick the unsettled node with the <b>smallest tentative distance</b>.</p>
-      <p class="frag" style="font-size:18px;margin:0 0 14px">Settle it &mdash; this distance is <b>final</b>.</p>
-      <p class="frag" style="font-size:18px;margin:0 0 14px;color:var(--accent)"><b>Do you recognise this operation?</b></p>
-      <p class="frag" style="font-size:18px;margin:0 0 14px">This is <b>relaxation</b> &mdash; the same core operation from Lecture 2. If the path through u is cheaper, update the tentative distance and predecessor.</p>
-      <p class="frag" style="font-size:18px;margin:0">Repeat: pick next minimum, settle, relax outward. Continue until all nodes are settled.</p>
+      <div id="dj-say" style="min-height:250px"></div>
     </div>
   </div>
+
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
@@ -3498,7 +3503,8 @@ function updateDijkstraDescSlide(){
   var s=document.getElementById('dijkstra-desc-slide');if(!s)return;
   var n=fragCount(s);
   var allLines=[1,2,3,4,5,6,7,8,9,10];
-  var hlSets=[[],[1,2],[4],[5],[6,7,8,9],[6,7,8,9],[3,10]];
+  // which pseudocode lines each beat is about
+  var hlSets=[[],[],[1],[2],[4],[5],[4,5],[4,5],[6,7,8,9],[6,7,8,9],[3,10]];
   var active=n<hlSets.length?hlSets[n]:[];
   allLines.forEach(function(ln){
     var el=document.getElementById('dj-line-'+ln);
@@ -3508,11 +3514,48 @@ function updateDijkstraDescSlide(){
     else{el.style.opacity='0.4';el.style.color='';el.style.fontWeight='';}
   });
   var q=document.getElementById('dj-question');
-  if(q){q.innerHTML=n>=5?'&#x2190; <b>relaxation!</b>':'&#x2190; ???';}
-  var se=document.getElementById('dj-settled-explain');
-  var si=document.getElementById('dj-settled-init');
-  if(se) se.style.display=n>=2?'none':'';
-  if(si) si.style.display=n>=2?'none':'';
+  if(q){q.innerHTML=n>=9?'&#x2190; <b>relaxation!</b>':'&#x2190; ???';}
+
+  var HD='<p style="margin:0 0 6px;font-size:13px;font-weight:700;letter-spacing:1px;'
+       + 'text-transform:uppercase;color:var(--accent)">';
+  var C=[];
+  C[1]='<div class="djcard"><p style="margin:0 0 6px;font-size:13px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--accent)">Notation</p>'
+     + '<p style="margin:0;line-height:1.75"><b class="mono">d<sub>s</sub>(v)</b> &mdash; the best cost '
+     + 'from s to v known <i>so far</i><br>'
+     + '<b class="mono">d<sub>s</sub>*(v)</b> &mdash; the <b>optimal</b> cost from s to v '
+     + '<span style="color:var(--muted)">(the * means optimal, as in Lecture 2)</span><br>'
+     + '<b class="mono">c(u,w)</b> &mdash; the cost of the link u&ndash;w<br>'
+     + '<b class="mono">p<sub>s</sub>(v)</b> &mdash; the node we reached v from</p></div>';
+  C[2]='<div class="djcard">'+HD+'Start</div>'.replace('</div>','</p>')
+     + '<p style="margin:0">s is <b>0</b> away from itself. Nothing else is known yet, so every other '
+     + 'node starts at <b>&infin;</b>.</p></div>';
+  C[3]='<div class="djcard">'+HD+'The settled set S</p>'
+     + '<p style="margin:0">S holds the nodes whose distance is <b>final</b>: once u is in S we have '
+     + '<b class="mono">d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b>, the optimal cost. It starts '
+     + '<b>empty</b>.</p></div>';
+  C[4]='<div class="djcard">'+HD+'Pick</p>'
+     + '<p style="margin:0">Take the unsettled node with the <b>smallest current distance</b>.</p></div>';
+  C[5]='<div class="djcard">'+HD+'Settle</p>'
+     + '<p style="margin:0">Move it into S. Its distance will <b>never change again</b>.</p></div>';
+  C[6]='<div class="djcard djq"><p style="margin:0"><b>But why is the smallest one already final?</b> '
+     + 'Could some longer way round not turn out cheaper?</p></div>';
+  C[7]='<div class="djcard">'+HD+'Why the minimum is safe</p>'
+     + '<p style="margin:0">Any other route to u must leave the settled set through some '
+     + '<b>unsettled</b> node v first. But u was the smallest, so '
+     + '<b class="mono">d<sub>s</sub>(v) &ge; d<sub>s</sub>(u)</b> &mdash; and the rest of the way from '
+     + 'v to u costs <b>&ge; 0</b>. So no other route can come in under '
+     + '<b class="mono">d<sub>s</sub>(u)</b>.</p></div>';
+  C[8]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
+     + 'operation?</b></p></div>';
+  C[9]='<div class="djcard">'+HD+'Relaxation</p>'
+     + '<p style="margin:0">The same core operation as Lecture 2. If the path through u is cheaper, '
+     + 'update the distance and the predecessor.</p></div>';
+  C[10]='<div class="djcard">'+HD+'Repeat</p>'
+      + '<p style="margin:0">Pick the next minimum, settle it, relax outward &mdash; until every node '
+      + 'is settled.</p></div>';
+  var say=document.getElementById('dj-say');
+  if(say) say.innerHTML = C[n] || '';
 }
 
 /* ---------- Flooding animation (Lecture 2 · slide 37-38) ---------- */
