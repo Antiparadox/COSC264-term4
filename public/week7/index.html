@@ -2452,6 +2452,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col" style="flex:1">
+      <p class="frag" style="margin:0 0 14px;font-size:22px"><b>Why do we need re-flooding?</b></p>
       <div class="frag card" style="border-left:4px solid var(--bad);padding:16px 22px;margin-bottom:12px">
         <p style="margin:0;font-size:20px"><span class="warn" style="font-size:16px">Topology change</span> — a link goes down, a router crashes, or a new link appears</p>
       </div>
@@ -2459,10 +2460,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <p style="margin:0;font-size:20px"><span style="color:var(--current);font-weight:600;font-size:16px">Cost change</span> — an administrator changes a link weight</p>
       </div>
       <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
-        <p style="margin:0;font-size:20px"><span class="accent" style="font-size:16px">Periodic refresh</span> — every ~30 min, each router re-announces its links even if nothing changed</p>
+        <p style="margin:0;font-size:20px"><span class="accent" style="font-size:16px">Periodic refresh</span> — every ~30 min, each router re-announces its links even if nothing has changed</p>
       </div>
       <div class="frag card" style="border-left:4px solid var(--ink);padding:16px 22px;margin-top:12px">
-        <p style="margin:0;font-size:20px"><span style="font-weight:600;font-size:16px">What happens</span> — the affected router generates a new LSA (incremented sequence number) and re-floods it. Every router updates its LSDB and reruns the shortest-path algorithm.</p>
+        <p style="margin:0;font-size:20px"><span style="font-weight:600;font-size:16px">What happens</span> — the affected router generates a fresh LSA with an <b>incremented sequence number</b> and re-floods it. Every router updates its LSDB.</p>
       </div>
     </div>
   </div>
@@ -2476,37 +2477,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <colgroup><col style="width:18%"><col style="width:41%"><col style="width:41%"></colgroup>
       <thead><tr><th></th><th style="border-top:4px solid var(--current)">Distance-vector <span class="muted" style="font-weight:400;font-size:13px">(Lecture 2)</span></th><th style="border-top:4px solid var(--accent)">Link-state <span class="muted" style="font-weight:400;font-size:13px">(Lecture 3)</span></th></tr></thead>
       <tbody>
-        <tr class="frag"><td class="muted small">Algorithm type</td><td>Decentralized</td><td>Global (centralized)</td></tr>
-        <tr class="frag"><td class="muted small">Information</td><td>Neighbours&rsquo; DVs only</td><td>Full topology (LSDB)</td></tr>
-        <tr class="frag"><td class="muted small">Computation</td><td>Iterative, distributed</td><td>Local, centralised (per-router)</td></tr>
-<tr class="frag"><td class="muted small">Convergence</td><td>Slow (iterative rounds)</td><td>Fast (independent computation)</td></tr>
+        <tr class="frag"><td class="muted small">Approach</td><td><b>Distributed</b> &mdash; only ever talks to its neighbours</td><td><b>Centralised</b> &mdash; needs the full topology (LSDB)</td></tr>
         <tr class="frag"><td class="muted small">Routing loops</td><td><span class="warn">Prone</span> (count-to-infinity)</td><td><span class="accent">Loop-free</span> (consistent topology)</td></tr>
         <tr class="frag"><td class="muted small">Memory</td><td>Small (only distance vectors)</td><td>Large (full topology database / LSDB)</td></tr>
-        <tr class="frag"><td class="muted small">Examples</td><td><b>RIP</b>, <b>BGP</b></td><td><b>OSPF</b>, <b>IS-IS</b></td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
 
-<section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
-  <div class="kicker">Week 7 recap</div>
-  <h2>What we covered this week</h2>
-  <div style="display:flex;flex-direction:column;gap:12px;flex:1;justify-content:center;max-width:860px">
-    <div class="frag card" style="border-left:4px solid var(--muted);padding:14px 20px">
-      <p style="font-size:16px;margin:0 0 5px"><b>Lecture 1 &mdash; The routing problem</b></p>
-      <p style="font-size:15px;margin:0;color:var(--muted)"><b>Routing</b> (control plane) builds forwarding tables; <b>forwarding</b> (data plane) reads them per-packet. Three requirements: discover neighbours &amp; link costs, integrate local views into a forwarding table, react to topology changes. <b>Intra-AS</b> routing (IGP) vs <b>inter-AS</b> routing (EGP). Autonomous Systems.</p>
-    </div>
-    <div class="frag card" style="border-left:4px solid var(--current);padding:14px 20px">
-      <p style="font-size:16px;margin:0 0 5px"><b style="color:var(--current)">Lecture 2 &mdash; Distance-vector routing</b></p>
-      <p style="font-size:15px;margin:0;color:var(--muted)">Bellman-Ford distributed: each router exchanges distance vectors with neighbours and relaxes iteratively. Count-to-infinity under link failure; poison reverse as a partial fix. Example: <b>RIP</b>.</p>
-    </div>
-    <div class="frag card" style="border-left:4px solid var(--accent);padding:14px 20px">
-      <p style="font-size:16px;margin:0 0 5px"><b style="color:var(--accent)">Lecture 3 &mdash; Link-state routing</b></p>
-      <p style="font-size:15px;margin:0;color:var(--muted)">Dijkstra&rsquo;s algorithm: settle the closest unsettled node, relax outward. Routers flood <b>LSAs</b> so every router builds an identical <b>LSDB</b>, then runs Dijkstra locally. Examples: <b>OSPF</b>, <b>IS-IS</b>.</p>
-    </div>
-  </div>
-</section>
+
 
 
 <section class="slide" data-sec="Colophon">
