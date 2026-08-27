@@ -2544,13 +2544,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 1 · BGP path vector">
   <div class="kicker">The route information carried by an UPDATE</div>
   <h2>A closer look at a BGP path vector</h2>
-  <div class="pv-two-points" aria-label="Two defining ideas of path-vector routing">
-    <div class="pv-two-point frag">Neighbouring BGP speakers exchange advertised routes,
-      each carrying path-vector information.</div>
-  </div>
   <div class="pv-format-layout frag">
-    <div class="pv-format-summary">We can view each advertised route as a path vector: a
-      destination prefix together with information describing its AS-level path.</div>
+    <div class="pv-format-summary">Unlike a distance-vector protocol, what BGP advertises to a
+      neighbour is a <b>path vector</b>: a destination prefix together with the <b>AS-level
+      path</b> that leads to it.</div>
     <div class="pv-vector-example">
       <b>One path-vector route</b>
       <div class="route-card" aria-label="Conceptual BGP path-vector route information">
@@ -2562,8 +2559,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="pv-format-explain">
       <div class="field-explain"><b>NLRI</b><span><strong>Network Layer Reachability Information:</strong>
         the destination prefix being advertised.</span></div>
-      <div class="field-explain"><b>AS_PATH</b><span>The complete AS-level path carried with the
-        route. Unlike a distance vector's scalar distance, it records the AS sequence.</span></div>
+      <div class="field-explain"><b>AS_PATH</b><span>The complete <strong>AS-level path leading to
+        that destination prefix</strong> &mdash; the sequence of ASes to traverse, where a distance
+        vector would carry a single number.</span></div>
       <div class="field-explain"><b>NEXT_HOP</b><span>The IP address of the next router to which
         traffic should be forwarded towards that prefix.</span></div>
     </div>
