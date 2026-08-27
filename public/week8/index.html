@@ -2289,14 +2289,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <li class="as-b as-b2">Each subnet is identified by a <b>network prefix</b>, written in
         <b>CIDR</b> notation &mdash; AS&nbsp;A holds <span class="mono">192.0.2.0/25</span> and
         <span class="mono">192.0.2.128/25</span>.</li>
-        <li class="as-b as-b3">So <span class="mono">192.0.2.17</span> sending to
+        <li class="as-b as-b3">So <span class="mono">192.0.2.1</span> sending to
         <span class="mono">192.0.2.200</span> stays <b>inside AS&nbsp;A</b>: that is
         <b class="accent">intra-AS routing</b>.</li>
       </ul></div>
-    <div class="as-mot-card as-card-packet"><b>Inter-AS routing problem</b><span>Now <span class="mono">192.0.2.17</span> sends
-    instead to <span class="mono">203.0.113.42</span> &mdash; an address in
-    <span class="mono">203.0.113.0/24</span>, a subnet inside <b>AS&nbsp;D</b>. That is the
-    inter-AS routing problem.</span></div>
+    <div class="as-mot-card as-card-packet"><b>Inter-AS routing problem</b><span>Now <span class="mono">192.0.2.1</span> sends
+    instead to <span class="mono">203.0.113.42</span> &mdash; an address in <b>AS&nbsp;D</b>.</span></div>
   </div>
   <div class="source">AS and network-prefix concepts: RFC 4271 §§1, 3</div>
 </section>
