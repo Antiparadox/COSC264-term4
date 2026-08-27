@@ -228,8 +228,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 .djcard li{font-size:18px;line-height:1.5}
 .djcard.djbig p{font-size:20px}
 .djcard.djq{border-left-color:var(--muted)}
-#dk-table thead th{font-size:15px;text-transform:none;letter-spacing:0;line-height:1.35}
-#dk-table th,#dk-table td{padding:7px 10px}
+#dk-table thead th{font-size:15.5px;text-transform:none;letter-spacing:0;line-height:1.4}
+#dk-table th,#dk-table td{padding:8px 10px}
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
 #ls-steps-slide:has(#ls-note.on) #ls-step-3{background:var(--accent-soft);border-color:var(--accent)}
 #ls-steps-slide:has(#ls-note.on) #ls-step-1,
@@ -2127,9 +2127,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
   <div class="kicker">Dijkstra's algorithm</div>
   <h2>Step-by-step walkthrough</h2>
-  <div class="cols" style="align-items:flex-start;gap:12px;flex:0 0 auto">
-    <div class="col" style="flex:0.72">
-      <svg id="dijk-svg" viewBox="0 0 580 380" style="width:100%;max-width:480px" aria-label="Dijkstra walkthrough on 6-node graph A-F">
+  <div class="cols" style="align-items:flex-start;gap:20px;flex:0 0 auto">
+    <div class="col" style="flex:1.15;min-width:0">
+      <svg id="dijk-svg" viewBox="0 0 580 380" style="width:100%;display:block" aria-label="Dijkstra walkthrough on 6-node graph A-F">
         <!-- Edges -->
         <line id="dk-e-AB" x1="80" y1="190" x2="215" y2="74" stroke="var(--edge)" stroke-width="3"/>
         <line id="dk-e-AC" x1="80" y1="190" x2="440" y2="80" stroke="var(--edge)" stroke-width="3"/>
@@ -2141,24 +2141,24 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <line id="dk-e-CF" x1="440" y1="80" x2="540" y2="190" stroke="var(--edge)" stroke-width="3"/>
         <line id="dk-e-EF" x1="410" y1="300" x2="540" y2="190" stroke="var(--edge)" stroke-width="3"/>
         <!-- Edge weights -->
-        <rect x="134" y="117" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="147" y="133" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
-        <rect x="247" y="120" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="260" y="136" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">5</text>
-        <rect x="140" y="254" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="153" y="270" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
-        <rect x="207" y="182" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="220" y="198" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
-        <rect x="322" y="186" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="335" y="202" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">3</text>
-        <rect x="307" y="310" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="320" y="326" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
-        <rect x="412" y="182" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="425" y="198" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">1</text>
-        <rect x="493" y="120" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="506" y="136" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">5</text>
-        <rect x="483" y="250" width="26" height="22" rx="6" fill="var(--surface)" stroke="var(--border)"/>
-        <text x="496" y="266" text-anchor="middle" font-size="14" class="svgmono" font-weight="700" fill="var(--muted)">2</text>
+        <rect x="130" y="113" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="147" y="134" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">2</text>
+        <rect x="243" y="116" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="260" y="137" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">5</text>
+        <rect x="136" y="250" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="153" y="271" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">1</text>
+        <rect x="203" y="178" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="220" y="199" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">2</text>
+        <rect x="318" y="182" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="335" y="203" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">3</text>
+        <rect x="303" y="306" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="320" y="327" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">1</text>
+        <rect x="408" y="178" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="425" y="199" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">1</text>
+        <rect x="489" y="116" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="506" y="137" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">5</text>
+        <rect x="479" y="246" width="34" height="30" rx="8" fill="var(--surface)" stroke="var(--border)"/>
+        <text x="496" y="267" text-anchor="middle" font-size="20" class="svgmono" font-weight="700" fill="var(--ink)">2</text>
         <!-- Nodes -->
         <circle id="dk-n-A" cx="80" cy="190" r="26" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="3"/>
         <text x="80" y="196" text-anchor="middle" font-size="16" font-weight="700" class="svgmono" fill="var(--accent-ink)">A</text>
@@ -2175,11 +2175,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
       <p class="mono" style="margin:8px 0 0;text-align:center;font-size:16px" id="dk-step-label">Click &#x2192; to step through</p>
     </div>
-    <div class="col" style="flex:1.4;overflow-x:auto;min-width:0">
-      <table class="ft" id="dk-table">
-        <thead><tr><th>Step</th><th>S</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(A),<br>p<sub>s</sub>(A)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(B),<br>p<sub>s</sub>(B)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(C),<br>p<sub>s</sub>(C)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(D),<br>p<sub>s</sub>(D)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(E),<br>p<sub>s</sub>(E)</th><th style="white-space:nowrap;text-transform:none">d<sub>s</sub>(F),<br>p<sub>s</sub>(F)</th></tr></thead>
-        <tbody id="dk-tbody"></tbody>
-      </table>
+    <div class="col" style="flex:1;min-width:0">
+      <div id="dk-relax-detail" style="display:none">
+    <div class="card mono" style="padding:14px 18px;font-size:17px;line-height:1.95;border-left:4px solid var(--accent)">
+      <div id="dk-relax-content"></div>
+    </div>
+  </div>
       <div id="dk-transition" style="display:none">
         <div id="dk-why-1" style="display:none;margin-bottom:12px;font-size:17px"><b>1.</b> Each step picks the unsettled node with the <b>smallest</b> tentative distance &mdash; so the algorithm must know <b>which nodes exist</b> in the network.</div>
         <div id="dk-why-2" style="display:none;margin-bottom:12px;font-size:17px"><b>2.</b> When relaxing from a settled node u, the algorithm needs the edge weight c(u,w) for each of u&rsquo;s neighbours. Since every node is eventually settled, this means it needs <b>every edge weight</b> in the graph.</div>
@@ -2188,17 +2189,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         </div>
         <div id="dk-why-q" style="display:none;margin-top:14px;font-size:18px;color:var(--accent)"><b>Unlike Bellman-Ford, where each router only needs information from its direct neighbours, Dijkstra requires the complete topology. How does each router obtain it?</b></div>
       </div>
-    </div>
-  </div>
-  <p class="frag" id="dk-f1"></p><p class="frag" id="dk-f2"></p><p class="frag" id="dk-f3"></p>
-  <p class="frag" id="dk-f4"></p><p class="frag" id="dk-f5"></p><p class="frag" id="dk-f6"></p>
-  <p class="frag" id="dk-f7"></p><p class="frag" id="dk-f8"></p><p class="frag" id="dk-f9"></p>
-  <div id="dk-relax-detail" style="display:none;margin-top:4px">
-    <div class="card mono" style="padding:14px 18px;font-size:17px;line-height:1.95;border-left:4px solid var(--accent)">
-      <div id="dk-relax-content"></div>
-    </div>
-  </div>
-  <div id="dk-fwd-wrap" style="display:none;margin-top:14px">
+      <div id="dk-fwd-wrap" style="display:none">
     <p class="mono small" style="margin:0 0 6px;color:var(--accent)">&#x2192; A's forwarding table (trace predecessors back to A):</p>
     <div style="display:flex;gap:24px;align-items:flex-start">
       <table class="ft" style="font-size:17px" id="dk-fwd-table">
@@ -2214,11 +2205,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p style="font-size:14px;margin:0;color:var(--muted)">The router only stores <b>destination + next hop</b>, not the full path.</p>
     </div>
   </div>
-  <p class="frag" id="dk-f10"></p>
-  <p class="frag" id="dk-f11"></p>
-  <p class="frag" id="dk-f12"></p>
-  <p class="frag" id="dk-f13"></p>
-  </section>
+    </div>
+  </div>
+  <div id="dk-tablewrap" style="margin-top:16px">
+    <table class="ft" id="dk-table" style="table-layout:fixed;width:100%">
+      <thead><tr><th style="width:7%">Step</th><th style="width:17.4%">S</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(A), p<sub>s</sub>(A)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(B), p<sub>s</sub>(B)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(C), p<sub>s</sub>(C)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(D), p<sub>s</sub>(D)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(E), p<sub>s</sub>(E)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(F), p<sub>s</sub>(F)</th></tr></thead>
+      <tbody id="dk-tbody"></tbody>
+    </table>
+  </div>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+</section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="lsdb-overview-slide">
   <div class="kicker">Link-state flooding</div>
@@ -3901,8 +3897,9 @@ function updateDijkstraSlide(){
   var transWrap=document.getElementById('dk-transition');
   if(fwdWrap) fwdWrap.style.display=(n===9)?'block':'none';
   var whyMode=n>=10;
-  var dkTable=document.getElementById('dk-table');
-  if(dkTable) dkTable.style.display=whyMode?'none':'';
+  var tableOff=n>=9;   // the forwarding table replaces it from beat 9
+  var dkTable=document.getElementById('dk-tablewrap');
+  if(dkTable) dkTable.style.display=tableOff?'none':'';
   if(label) label.style.display=whyMode?'none':'';
   if(transWrap) transWrap.style.display=whyMode?'block':'none';
   var h2=s.querySelector('h2');
