@@ -2093,7 +2093,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
 
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State" id="dijkstra-slide">
@@ -3508,7 +3508,7 @@ function updateDijkstraDescSlide(){
   var n=fragCount(s);
   var allLines=[1,2,3,4,5,6,7,8,9,10,11,12];
   // which pseudocode lines each beat is about
-  var hlSets=[[],[],[1,2,3],[4],[6,7],[6,7],[6,7],[8,9,10,11],[8,9,10,11],[5,12]];
+  var hlSets=[[],[],[1,2,3],[4],[6,7],[6,7],[8,9,10,11],[8,9,10,11],[5,12]];
   var active=n<hlSets.length?hlSets[n]:[];
   allLines.forEach(function(ln){
     var el=document.getElementById('dj-line-'+ln);
@@ -3518,7 +3518,7 @@ function updateDijkstraDescSlide(){
     else{el.style.opacity='0.4';el.style.color='';el.style.fontWeight='';}
   });
   var q=document.getElementById('dj-question');
-  if(q){q.innerHTML=n>=8?'&#x2190; <b>relaxation!</b>':'&#x2190; ???';}
+  if(q){q.innerHTML=n>=7?'&#x2190; <b>relaxation!</b>':'&#x2190; ???';}
 
   var HD='<p style="margin:0 0 6px;font-size:13px;font-weight:700;letter-spacing:1px;'
        + 'text-transform:uppercase;color:var(--accent)">';
@@ -3551,26 +3551,23 @@ function updateDijkstraDescSlide(){
      + '<b class="mono">d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b>, the optimal cost.</p>'
      + '<p style="margin:9px 0 0">It starts holding just <b>s</b>, whose distance is already '
      + 'final.</p></div>';
-  C[4]=C[5]=C[6]='<div class="djcard djbig">'+HD+'Pick and settle</p>'
+  C[4]=C[5]='<div class="djcard djbig">'+HD+'Pick and settle</p>'
      + '<p style="margin:0">Take the unsettled node with the <b>smallest current distance</b>.</p>'
      + '<p style="margin:8px 0 0">Move it into S. Its distance will <b>never change again</b>.</p></div>';
-  C[7]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
+  C[6]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
      + 'operation?</b></p></div>';
-  C[8]='<div class="djcard">'+HD+'Relaxation</p>'
+  C[7]='<div class="djcard">'+HD+'Relaxation</p>'
      + '<p style="margin:0">The same core operation as Lecture 2. If the path through u is cheaper, '
      + 'update the distance and the predecessor.</p></div>';
-  C[9]='<div class="djcard">'+HD+'Repeat</p>'
+  C[8]='<div class="djcard">'+HD+'Repeat</p>'
       + '<p style="margin:0">Pick the next minimum, settle it, relax outward &mdash; until every node '
       + 'is settled.</p></div>';
   var B=[];
-  B[5]='<div class="djcard djbig djq"><p style="margin:0"><b>But why is the smallest one already '
-     + 'final?</b> Could some longer way round not turn out cheaper?</p></div>';
-  B[6]='<div class="djcard djbig">'+HD+'Why the minimum is safe</p>'
-     + '<p style="margin:0">Any other route to u must leave the settled set through some '
-     + '<b>unsettled</b> node v first. But u was the smallest, so '
-     + '<b class="mono">d<sub>s</sub>(v) &ge; d<sub>s</sub>(u)</b> &mdash; and the rest of the way from '
-     + 'v to u costs <b>&ge; 0</b>. So no other route can come in under '
-     + '<b class="mono">d<sub>s</sub>(u)</b>.</p></div>';
+  B[5]='<div class="djcard djbig djq">'
+     + '<p style="margin:0 0 6px;font-size:13px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--muted)">Exercise</p>'
+     + '<p style="margin:0"><b>But why is the smallest one already final?</b> Could some longer way '
+     + 'round not turn out cheaper?</p></div>';
   var say=document.getElementById('dj-say');
   if(say) say.innerHTML = C[n] || '';
   var subEl=document.getElementById('dj-sub');
