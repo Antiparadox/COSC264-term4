@@ -417,16 +417,23 @@ svg text{font-family:var(--sans)}
   background:var(--surface);box-shadow:var(--shadow);font-size:21px;line-height:1.35}
 .bgp-overview-list > li > b{font-family:var(--mono);font-size:14px;color:var(--accent-ink);
   text-transform:uppercase;letter-spacing:.04em}
-/* BGP overview: two hot-swapped framing lines, then the three jobs build up */
-.bgp-idea-stage{position:relative;height:96px;max-width:1040px;margin:0 0 20px}
+/* BGP overview: framing over the AS map, then the three jobs */
+.bgp-idea-stage{position:relative;height:104px;max-width:1040px;margin:0 0 14px}
 .bgp-idea{position:absolute;inset:0;display:flex;align-items:center;
-  font-family:var(--serif);font-size:23px;line-height:1.4;opacity:0;transition:opacity .28s}
+  font-family:var(--serif);font-size:22px;line-height:1.4;opacity:0;transition:opacity .28s}
 .bgp-jobs-slide[data-step="1"] .bgp-idea[data-idea="1"],
-.bgp-jobs-slide[data-step="2"] .bgp-idea[data-idea="2"]{opacity:1}
+.bgp-jobs-slide[data-step="2"] .bgp-idea[data-idea="2"],
 .bgp-jobs-slide[data-step="3"] .bgp-idea[data-idea="3"],
 .bgp-jobs-slide[data-step="4"] .bgp-idea[data-idea="3"],
 .bgp-jobs-slide[data-step="5"] .bgp-idea[data-idea="3"],
 .bgp-jobs-slide[data-step="6"] .bgp-idea[data-idea="3"]{opacity:1}
+.bgp-mapwrap{display:none;transform:scale(.82);transform-origin:top left}
+.bgp-jobs-slide[data-step="2"] .bgp-mapwrap{display:block}
+.bgp-jobswrap{display:none}
+.bgp-jobs-slide[data-step="3"] .bgp-jobswrap,
+.bgp-jobs-slide[data-step="4"] .bgp-jobswrap,
+.bgp-jobs-slide[data-step="5"] .bgp-jobswrap,
+.bgp-jobs-slide[data-step="6"] .bgp-jobswrap{display:grid}
 .bgp-job{opacity:0;transition:opacity .28s}
 .bgp-jobs-slide[data-step="4"] .j1,
 .bgp-jobs-slide[data-step="5"] .j1,.bgp-jobs-slide[data-step="5"] .j2,
@@ -2321,24 +2328,44 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>BGP is the Internet's inter-AS routing protocol</h2>
 
   <div class="bgp-idea-stage">
-    <div class="bgp-idea" data-idea="1"><span><b>Border Gateway Protocol (BGP)</b> is a routing protocol,
-    like the ones from last week. What changes is the <b>level</b> it runs at.</span></div>
-    <div class="bgp-idea" data-idea="2"><span>Last week a node was a <b>router</b>. Here a node is a whole
-    <b>autonomous system</b>, and a destination is a <b>CIDR prefix</b> rather than one machine
-    &mdash; so inter-AS routing is the same problem, find a path, played out over a map of ASes.</span></div>
-    <div class="bgp-idea" data-idea="3"><span>To do that, BGP has <b>three jobs</b>.</span></div>
+    <div class="bgp-idea" data-idea="1"><span>The <b>Border Gateway Protocol (BGP)</b> is the
+    Internet's answer to that problem. It is still a routing protocol, like the ones from last week
+    &mdash; what changes is the <b>level</b> it runs at.</span></div>
+    <div class="bgp-idea" data-idea="2"><span>Last week every node in the graph was a <b>router</b>.
+    Here every node is a whole <b>autonomous system</b>, holding one or more <b>CIDR prefixes</b>
+    &mdash; the same problem, find a path over a graph, but the graph is a map of ASes.</span></div>
+    <div class="bgp-idea" data-idea="3"><span>To do that, BGP works in the following way.</span></div>
   </div>
 
-  <ul class="bgp-overview-list">
-    <li class="bgp-job j1"><b>Learn external reachability</b><span>Obtain which destination prefixes
-    are reachable through each neighbouring AS &mdash; reachability carried <b>across</b> AS
-    boundaries.</span></li>
-    <li class="bgp-job j2"><b>Distribute it inside the AS</b><span>Share what was learned with the
-    AS's own BGP routers, so the AS-level route reaches the routers that will forward the
-    packets.</span></li>
-    <li class="bgp-job j3"><b>Select a preferred route</b><span>Where several ASes offer the same
-    prefix, choose between them &mdash; on the AS's own <b>routing policy</b>, and on the interior
-    cost of reaching each exit point.</span></li>
+  <div class="bgp-mapwrap">
+    <div class="pv-topology wide-as-map" role="img"
+      aria-label="The same eight autonomous systems, now read as the nodes of a graph">
+      <span class="pv-edge ab"></span><span class="pv-edge ac"></span>
+      <span class="pv-edge bf"></span><span class="pv-edge be"></span>
+      <span class="pv-edge ce"></span><span class="pv-edge cg"></span>
+      <span class="pv-edge fh"></span><span class="pv-edge eh"></span>
+      <span class="pv-edge ed"></span><span class="pv-edge gd"></span><span class="pv-edge hd"></span>
+      <span class="pv-as a">AS A</span><span class="pv-as b">AS B</span>
+      <span class="pv-as c">AS C</span><span class="pv-as f">AS F</span>
+      <span class="pv-as e">AS E</span><span class="pv-as g">AS G</span>
+      <span class="pv-as h">AS H</span><span class="pv-as d">AS D</span>
+      <span class="pv-prefix local">192.0.2.0/25</span>
+      <span class="pv-prefix local second">192.0.2.128/25</span>
+      <span class="pv-prefix">203.0.113.0/24</span>
+      <span class="pv-prefix second">198.51.100.0/24</span>
+    </div>
+  </div>
+
+  <ul class="bgp-overview-list bgp-jobswrap">
+    <li class="bgp-job j1"><b>Learn external reachability</b><span>For each destination prefix,
+    learn which path across the AS graph reaches the AS holding it &mdash; path-finding again, one
+    level up.</span></li>
+    <li class="bgp-job j2"><b>Distribute it inside the AS</b><span>New in BGP: once the AS has
+    learned those external paths, its own routers must be told, so they know how to forward packets
+    leaving the AS.</span></li>
+    <li class="bgp-job j3"><b>Select a preferred route</b><span>Where several paths exist, choose.
+    But the cost is no longer one number: the AS's <b>routing policy</b>, the interior cost of
+    reaching each exit, and further tie-breaks all count.</span></li>
   </ul>
   <div class="source">BGP purpose and operation: RFC 4271 §§1, 3, 9.1</div>
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
