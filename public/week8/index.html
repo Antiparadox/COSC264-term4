@@ -1376,25 +1376,41 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 
 /* AS-level motivation preceding the BGP solution */
 .pv-prefix.second{top:251px}
-.as-mot-stage{position:relative;width:100%;max-width:1000px;height:86px;flex:0 0 86px;
+.as-mot-stage{position:relative;width:100%;max-width:1000px;height:148px;flex:0 0 148px;
   margin:10px auto 0}
 .as-mot-card{position:absolute;inset:0;display:grid;grid-template-columns:185px 1fr;gap:18px;
-  align-items:center;padding:12px 18px;border:1px solid var(--accent);border-left:7px solid
+  align-items:center;overflow:auto;padding:12px 18px;border:1px solid var(--accent);border-left:7px solid
   var(--accent);border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow);
   font-size:19px;line-height:1.28;opacity:0;transform:translateY(8px);transition:.22s}
 .as-mot-card > b{display:grid;place-items:center;min-height:48px;padding:7px 10px;
   border-radius:9px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px;
   text-align:center;text-transform:uppercase;letter-spacing:.04em}
 .as-mot-trigger{position:absolute;width:0;height:0;pointer-events:none}
+.wide-as-map .pv-prefix.local{left:34px;top:196px;background:var(--accent-soft);
+  border-color:var(--accent);color:var(--accent-ink);opacity:0;transition:opacity .25s}
+.as-intro-slide[data-step="2"] .pv-prefix.local,
+.as-intro-slide[data-step="3"] .pv-prefix.local,
+.as-intro-slide[data-step="4"] .pv-prefix.local{opacity:1}
+.as-bullets{margin:0;padding-left:20px;display:grid;gap:7px}
+.as-bullets li{font-size:17px;line-height:1.4;opacity:0;transition:opacity .25s}
+.as-intro-slide[data-step="1"] .as-b1,
+.as-intro-slide[data-step="2"] .as-b1,.as-intro-slide[data-step="2"] .as-b2,
+.as-intro-slide[data-step="3"] .as-b1,.as-intro-slide[data-step="3"] .as-b2,
+.as-intro-slide[data-step="3"] .as-b3{opacity:1}
 .as-intro-slide[data-step="1"] .as-card-system,
-.as-intro-slide[data-step="2"] .as-card-packet,
+.as-intro-slide[data-step="2"] .as-card-system,
+.as-intro-slide[data-step="3"] .as-card-system,
+.as-intro-slide[data-step="4"] .as-card-packet,
 .as-reach-slide[data-step="1"] .as-card-question{opacity:1;transform:none}
-.as-intro-slide[data-step="1"] .pv-as{border-color:var(--accent);background:var(--accent-soft)}
-.as-intro-slide[data-step="1"] .pv-prefix{box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.as-intro-slide[data-step="2"] .pv-as.a{box-shadow:0 0 0 5px var(--accent-soft),var(--shadow)}
-.as-intro-slide[data-step="2"] .pv-as.d{box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.as-intro-slide[data-step="2"] .as-card-packet{border-color:var(--current)}
-.as-intro-slide[data-step="2"] .as-card-packet > b{background:var(--current)}
+.as-intro-slide[data-step="1"] .pv-as.a,
+.as-intro-slide[data-step="2"] .pv-as.a,
+.as-intro-slide[data-step="3"] .pv-as.a{border-color:var(--accent);background:var(--accent-soft);
+  box-shadow:0 0 0 5px var(--accent-soft),var(--shadow)}
+.as-intro-slide[data-step="4"] .pv-as.a{box-shadow:0 0 0 5px var(--accent-soft),var(--shadow)}
+.as-intro-slide[data-step="4"] .pv-as.d{box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
+.as-intro-slide[data-step="4"] .pv-prefix:not(.local){box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
+.as-intro-slide[data-step="4"] .as-card-packet{border-color:var(--current)}
+.as-intro-slide[data-step="4"] .as-card-packet > b{background:var(--current)}
 .as-reach-slide .remote-view{opacity:.16}
 .as-reach-slide .pv-prefix{opacity:1}
 .pv-unknown{position:absolute;z-index:7;font-family:var(--serif);font-size:38px;font-weight:800;
@@ -2257,15 +2273,21 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="pv-as c">AS C</span><span class="pv-as f">AS F</span>
     <span class="pv-as e">AS E</span><span class="pv-as g">AS G</span>
     <span class="pv-as h">AS H</span><span class="pv-as d">AS D</span>
+    <span class="pv-prefix local">192.0.2.0/24</span>
     <span class="pv-prefix">203.0.113.0/24</span>
     <span class="pv-prefix second">198.51.100.0/24</span>
-    <span class="frag as-mot-trigger" aria-hidden="true"></span>
-    <span class="frag as-mot-trigger" aria-hidden="true"></span>
+    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>
   </div>
   <div class="as-mot-stage">
-    <div class="as-mot-card as-card-system"><b>Inside an AS</b><span>Each AS contains many routers
-    and multiple subnets, all managed by one organisation. We identify each subnet by a network
-    prefix, such as <span class="mono">203.0.113.0/24</span>.</span></div>
+    <div class="as-mot-card as-card-system"><b>Inside an AS</b>
+      <ul class="as-bullets">
+        <li class="as-b as-b1">An AS contains <b>many routers</b>, which together form
+        <b>several subnets</b>, all managed by a single organisation.</li>
+        <li class="as-b as-b2">Each subnet is identified by a <b>network prefix</b>, written in
+        <b>CIDR</b> notation &mdash; here AS&nbsp;A holds <span class="mono">192.0.2.0/24</span>.</li>
+        <li class="as-b as-b3">A router in AS&nbsp;A sending to another router in the
+        <b>same AS</b>: that is <b class="accent">intra-AS routing</b>.</li>
+      </ul></div>
     <div class="as-mot-card as-card-packet"><b>Inter-AS routing problem</b><span>A router somewhere
     inside AS A wants to send a packet to an address in
     <span class="mono">203.0.113.0/24</span>, a destination subnet originated by AS D.</span></div>
