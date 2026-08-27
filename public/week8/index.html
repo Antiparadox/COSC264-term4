@@ -217,6 +217,7 @@ svg text{font-family:var(--sans)}
 
 /* ---------- protocol matrix: algorithm (rows) x routing domain (columns) ---------- */
 .proto-matrix{border-collapse:collapse;margin:0 auto;background:var(--surface);
+  table-layout:fixed;width:790px;
   box-shadow:var(--shadow);border-radius:12px;overflow:hidden}
 .proto-matrix th,.proto-matrix td{border:1px solid var(--border);padding:13px 20px;text-align:left;
   vertical-align:middle}
@@ -235,19 +236,32 @@ svg text{font-family:var(--sans)}
 .proto-matrix td small{display:block;font-family:var(--sans);font-size:12.5px;font-weight:400;
   color:var(--muted);margin-top:3px;letter-spacing:0}
 .proto-matrix td.pm-empty{background:var(--surface)}
-.pm-domain,.pm-c-dom,.pm-fill{transition:opacity .25s}
-.matrix-slide[data-step="1"] .pm-domain,
-.matrix-slide[data-step="1"] .pm-c-dom{display:none}
-.matrix-slide[data-step="1"] .pm-fill,
-.matrix-slide[data-step="2"] .pm-fill{opacity:0}
+/* Every state is written out, step 0 included -- an unlisted step used to fall
+   through to "show everything", which is what put a full table on beat 0. */
+.pml,.pm-fill{opacity:0;transition:opacity .3s}
+.matrix-slide[data-step="1"] .pml1,.matrix-slide[data-step="2"] .pml1,.matrix-slide[data-step="3"] .pml1,.matrix-slide[data-step="4"] .pml1,.matrix-slide[data-step="5"] .pml1{opacity:1}
+.matrix-slide[data-step="2"] .pml2,.matrix-slide[data-step="3"] .pml2,.matrix-slide[data-step="4"] .pml2,.matrix-slide[data-step="5"] .pml2{opacity:1}
+.matrix-slide[data-step="3"] .pm-fill,.matrix-slide[data-step="4"] .pm-fill,.matrix-slide[data-step="5"] .pm-fill{opacity:1}
+/* the domain columns go INVISIBLE rather than away, so the algorithm column
+   never changes width or position when they arrive */
+.pm-domain,.pm-c-dom{visibility:hidden}
+/* border-style:hidden wins the border-collapse contest outright, so the empty
+   columns leave no ruled cells behind before they are introduced */
+.matrix-slide[data-step="0"] .pm-domain,
+.matrix-slide[data-step="1"] .pm-domain{border-style:hidden}
+.matrix-slide[data-step="2"] .pm-domain,.matrix-slide[data-step="3"] .pm-domain,.matrix-slide[data-step="4"] .pm-domain,.matrix-slide[data-step="5"] .pm-domain,
+.matrix-slide[data-step="2"] .pm-c-dom,.matrix-slide[data-step="3"] .pm-c-dom,.matrix-slide[data-step="4"] .pm-c-dom,.matrix-slide[data-step="5"] .pm-c-dom{visibility:visible}
 .pm-pvrow{display:none}
 .matrix-slide[data-step="5"] .pm-pvrow{display:table-row}
 .matrix-slide[data-step="4"] .pm-rip,
 .matrix-slide[data-step="4"] .pm-ospf,
 .matrix-slide[data-step="5"] .pm-bgp{background:var(--accent-soft);
   box-shadow:inset 0 0 0 2px var(--accent)}
+.pm-lead{min-height:70px;max-width:840px;margin:0 0 18px}
+.pml{margin:0 0 6px;font-size:20px}
 .pm-msg-wrap{position:relative;height:66px;width:100%;max-width:720px;margin:20px auto 0;flex:0 0 auto}
-.pm-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:11px;padding:0 22px;white-space:nowrap;
+.pm-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:11px;
+  padding:0 22px;white-space:nowrap;
   border-left:4px solid var(--current);background:var(--current-soft);border-radius:10px;
   font-size:19px;opacity:0;transition:opacity .3s}
 .pm-msg b{font-family:var(--serif);font-size:22px}
@@ -2198,10 +2212,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide stateful matrix-slide" data-sec="Lecture 1 · Recap: routing" data-anchor="lec1">
   <div class="kicker">Recap · Week 7</div>
   <h2>A quick recap of routing protocols</h2>
+  <div class="pm-lead">
+    <p class="pml pml1">Last week we met two ways to build a routing algorithm:
+    <b>distance vector</b> and <b>link state</b>.</p>
+    <p class="pml pml2">We can also sort a protocol by <b>where it runs</b>: inside one
+    autonomous system, or between them.</p>
+  </div>
   <table class="proto-matrix">
+    <colgroup><col style="width:27%"><col style="width:36.5%"><col style="width:36.5%"></colgroup>
     <thead>
       <tr>
         <th class="pm-corner">algorithm&nbsp;&darr;<span class="pm-c-dom"><br>domain&nbsp;&rarr;</span></th>
+
         <th class="pm-domain">Intra-AS<small>within one autonomous system</small></th>
         <th class="pm-domain">Inter-AS<small>between autonomous systems</small></th>
       </tr>
