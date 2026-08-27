@@ -1387,10 +1387,12 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   text-align:center;text-transform:uppercase;letter-spacing:.04em}
 .as-mot-trigger{position:absolute;width:0;height:0;pointer-events:none}
 .wide-as-map .pv-prefix.local{left:34px;top:196px;background:var(--accent-soft);
-  border-color:var(--accent);color:var(--accent-ink);opacity:0;transition:opacity .25s}
+  border-color:var(--accent);color:var(--accent-ink)}
+.wide-as-map .pv-prefix.local.second{top:233px}
+.as-intro-slide .pv-prefix{opacity:0;transition:opacity .25s}
+.as-intro-slide[data-step="4"] .pv-prefix{opacity:1}
 .as-intro-slide[data-step="2"] .pv-prefix.local,
-.as-intro-slide[data-step="3"] .pv-prefix.local,
-.as-intro-slide[data-step="4"] .pv-prefix.local{opacity:1}
+.as-intro-slide[data-step="3"] .pv-prefix.local{opacity:1}
 .as-bullets{margin:0;padding-left:20px;display:grid;gap:7px}
 .as-bullets li{font-size:17px;line-height:1.4;opacity:0;transition:opacity .25s}
 .as-intro-slide[data-step="1"] .as-b1,
@@ -2273,7 +2275,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="pv-as c">AS C</span><span class="pv-as f">AS F</span>
     <span class="pv-as e">AS E</span><span class="pv-as g">AS G</span>
     <span class="pv-as h">AS H</span><span class="pv-as d">AS D</span>
-    <span class="pv-prefix local">192.0.2.0/24</span>
+    <span class="pv-prefix local">192.0.2.0/25</span>
+    <span class="pv-prefix local second">192.0.2.128/25</span>
     <span class="pv-prefix">203.0.113.0/24</span>
     <span class="pv-prefix second">198.51.100.0/24</span>
     <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>
@@ -2284,13 +2287,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <li class="as-b as-b1">An AS contains <b>many routers</b>, which together form
         <b>several subnets</b>, all managed by a single organisation.</li>
         <li class="as-b as-b2">Each subnet is identified by a <b>network prefix</b>, written in
-        <b>CIDR</b> notation &mdash; here AS&nbsp;A holds <span class="mono">192.0.2.0/24</span>.</li>
-        <li class="as-b as-b3">A router in AS&nbsp;A sending to another router in the
-        <b>same AS</b>: that is <b class="accent">intra-AS routing</b>.</li>
+        <b>CIDR</b> notation &mdash; AS&nbsp;A holds <span class="mono">192.0.2.0/25</span> and
+        <span class="mono">192.0.2.128/25</span>.</li>
+        <li class="as-b as-b3">So <span class="mono">192.0.2.17</span> sending to
+        <span class="mono">192.0.2.200</span> stays <b>inside AS&nbsp;A</b>: that is
+        <b class="accent">intra-AS routing</b>.</li>
       </ul></div>
-    <div class="as-mot-card as-card-packet"><b>Inter-AS routing problem</b><span>A router somewhere
-    inside AS A wants to send a packet to an address in
-    <span class="mono">203.0.113.0/24</span>, a destination subnet originated by AS D.</span></div>
+    <div class="as-mot-card as-card-packet"><b>Inter-AS routing problem</b><span>Now <span class="mono">192.0.2.17</span> sends
+    instead to <span class="mono">203.0.113.42</span> &mdash; an address in
+    <span class="mono">203.0.113.0/24</span>, a subnet inside <b>AS&nbsp;D</b>. That is the
+    inter-AS routing problem.</span></div>
   </div>
   <div class="source">AS and network-prefix concepts: RFC 4271 §§1, 3</div>
 </section>
