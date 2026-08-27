@@ -3527,11 +3527,13 @@ function updateDijkstraDescSlide(){
      + '<span style="color:var(--muted)">(the * means optimal, as in Lecture 2)</span><br>'
      + '<b class="mono">c(u,w)</b> &mdash; the cost of the link u&ndash;w<br>'
      + '<b class="mono">p<sub>s</sub>(v)</b> &mdash; v&rsquo;s <b>predecessor</b>: the node we '
-     + 'reached v from <span style="color:var(--muted)">(follow these back from v to s and the '
-     + 'first step out of s is the next hop)</span>'
-     + '</p><p style="margin:9px 0 0;color:var(--muted)">Throughout, '
-     + '<b class="mono">d<sub>s</sub>(v) &ge; d<sub>s</sub>*(v)</b> &mdash; and by the time the '
-     + 'algorithm finishes, the two are <b>equal</b> for every v.</p></div>';
+     + 'reached v from</p>'
+     + '<div style="margin:9px 0 0;padding:9px 13px;border-radius:7px;background:var(--accent-soft);'
+     + 'line-height:1.7">'
+     + '<span style="font-size:15px;color:var(--muted)">e.g. if the best path is&nbsp;&nbsp;</span>'
+     + '<span class="mono" style="font-size:17px;color:var(--accent-ink)">s &rarr; a &rarr; b &rarr; v'
+     + '</span><br><span class="mono" style="font-size:17px;color:var(--accent-ink)">'
+     + 'p<sub>s</sub>(v) = b &nbsp; p<sub>s</sub>(b) = a &nbsp; p<sub>s</sub>(a) = s</span></div></div>';
   C[2]='<div class="djcard">'+HD+'Start</div>'.replace('</div>','</p>')
      + '<p style="margin:0">s is <b>0</b> away from itself. Nothing else is known yet, so every other '
      + 'node starts at <b>&infin;</b> &mdash; <b>including s&rsquo;s own neighbours</b>. They pick up '
