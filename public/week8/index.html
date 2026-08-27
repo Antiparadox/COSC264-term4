@@ -2494,13 +2494,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="bgp-scope-card ebgp-card"><b>External BGP (eBGP)</b>
       <span class="scope-does">this is how an AS <b>learns external reachability</b></span>
       <span class="scope-body">Sessions between BGP speakers in <b>different ASes</b>, usually the
-      border speakers each side of the boundary. Across these, an AS learns <b>AS-level paths</b> to
-      destinations outside itself.</span></div>
+      border speakers each side of the boundary. Using <b>eBGP</b>, an AS learns
+      <b>AS-level paths</b> to destinations outside itself.</span></div>
     <div class="bgp-scope-card ibgp-card"><b>Internal BGP (iBGP)</b>
       <span class="scope-does">this is how the AS <b>distributes it inside</b></span>
-      <span class="scope-body">A session between BGP speakers in the <b>same AS</b>. What eBGP
-      brought in is passed around the AS's own routers, so they all know how to reach the
-      outside.</span></div>
+      <span class="scope-body">Sessions between BGP speakers in the <b>same AS</b>. Using
+      <b>iBGP</b>, all the routers inside the AS come to know those external paths, so each of them
+      can forward towards the outside.</span></div>
   </div>
   <div class="source">eBGP, iBGP and BGP speaker definitions: RFC 4271 §§1.1, 3</div>
 </section>
