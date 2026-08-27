@@ -3587,10 +3587,12 @@ function updateDijkstraDescSlide(){
      + '<p style="margin:0">The same core operation as Lecture 2 &mdash; but with the roles swapped. '
      + 'There a node asked <i>&ldquo;can <b>I</b> do better through one of my neighbours?&rdquo;</i>; '
      + 'here we ask <i>&ldquo;can one of my <b>neighbours</b> do better through <b>me</b>?&rdquo;</i></p>'
-     + '<p style="margin:9px 0 0">By <b>symmetry</b>, the least cost from s to w is the same as from w '
-     + 'to s, so we may speak from w&rsquo;s side. Hold <b>u</b> fixed and go through its neighbours in '
-     + 'turn &mdash; say <b>w</b> first &mdash; and ask: <b>can w use u as its next hop and get a '
-     + 'smaller distance to s?</b></p></div>';
+     + '<p style="margin:9px 0 0">Hold <b>u</b> fixed and go through its neighbours in turn &mdash; '
+     + 'say <b>w</b> first &mdash; and ask: <b>can w use u as its next hop and get a smaller distance '
+     + 'to s?</b></p>'
+     + '<p style="margin:9px 0 0">By <b>symmetry</b> the least cost from w to s is the same as from s '
+     + 'to w &mdash; so shrinking w&rsquo;s distance to s <i>is</i> shrinking '
+     + '<b class="mono">d<sub>s</sub>(w)</b>, which is what we were after.</p></div>';
   C[8]='<div class="djcard">'+HD+'Relaxation</p>'
      + '<p style="margin:0">If it can, take it &mdash; u becomes w&rsquo;s <b>next hop</b> to s. Read '
      + 'the other way round, on the path from s to w that makes u the <b>predecessor</b> of w. Hence '
