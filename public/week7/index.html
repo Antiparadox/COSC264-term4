@@ -2041,27 +2041,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 3 · Dijkstra &amp; Link-State">
   <div class="kicker">The algorithm question</div>
   <h2>What algorithm do we need?</h2>
-  <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:860px">
+  <div style="display:flex;flex-direction:column;gap:18px;flex:1;justify-content:center;max-width:860px">
     <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
       <p style="margin:0;font-size:22px"><b style="color:var(--accent)">Goal:</b> given the full
-      topology, a source node <b>s</b> needs the shortest-path distance d<sub>s</sub>(v) to every other
-      node <b>v</b>, and the next hop to reach it &mdash; the <b>single-source</b> shortest-paths
-      problem.</p>
+      topology, every source node <b>s</b> needs the shortest-path cost to every other node <b>v</b>,
+      and the <b>next hop</b> to reach it.</p>
     </div>
-    <p class="frag" style="font-size:22px;margin:0">Bellman&ndash;Ford already solves this &mdash; for
-      every source at once, in fact. But it was built for routers that can see
-      <b>only their neighbours</b>, so it has to relax every link over and over until a whole round
-      passes with nothing changing.</p>
-    <p class="frag" style="font-size:22px;margin:0">Now that every router holds the <b>whole map</b>, it
-      can do better. At each step, take the <b>nearest node not yet settled</b>. Since link costs are
-      never negative, going further can never get cheaper &mdash; so that node&rsquo;s distance is
-      already final.</p>
+    <p class="frag" style="font-size:22px;margin:0">Bellman&ndash;Ford would do the job perfectly well
+      &mdash; it is a shortest-path algorithm, and we already have it.</p>
     <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px">
-      <p style="margin:0;font-size:22px">That is <b style="color:var(--accent)">Dijkstra&rsquo;s
-      algorithm</b>: settle the nodes one at a time, nearest first, each one exactly once &mdash; no
-      repeated rounds.</p>
-      <p class="small muted" style="margin:9px 0 0;font-size:16px">Which is also why it is faster:
-      O(E&thinsp;log&thinsp;V) against Bellman&ndash;Ford&rsquo;s O(VE).</p>
+      <p style="margin:0;font-size:22px">But now that every router holds the <b>full topology</b>, there
+      is a better-suited choice: <b style="color:var(--accent)">Dijkstra&rsquo;s algorithm</b>. That is
+      what the rest of this lecture is about.</p>
     </div>
   </div>
 </section>
