@@ -226,6 +226,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
    targets the element directly and wins over inheritance. */
 .djcard p{font-size:18px}
 .djcard p:first-child{font-size:13px}
+.djcard li{font-size:18px;line-height:1.5}
 .djcard.djq{border-left-color:var(--muted)}
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
 #ls-steps-slide:has(#ls-note.on) #ls-step-3{background:var(--accent-soft);border-color:var(--accent)}
@@ -3537,9 +3538,13 @@ function updateDijkstraDescSlide(){
      + '</span><br><span class="mono" style="font-size:17px;color:var(--accent-ink)">'
      + 'p<sub>s</sub>(v) = b &nbsp; p<sub>s</sub>(b) = a &nbsp; p<sub>s</sub>(a) = s</span></div></div>';
   C[2]='<div class="djcard">'+HD+'Start</div>'.replace('</div>','</p>')
-     + '<p style="margin:0">s is <b>0</b> away from itself, and each of its <b>neighbours</b> is one '
-     + 'link away &mdash; so they start at <b class="mono">c(s,v)</b>, reached directly from s. '
-     + 'Everything else starts at <b>&infin;</b>: s has not heard of it yet.</p></div>';
+     + '<ul style="margin:0;padding-left:20px">'
+     + '<li style="margin:0 0 7px"><b class="mono">d<sub>s</sub>(s) = 0</b> &mdash; s is zero away from '
+     + 'itself.</li>'
+     + '<li style="margin:0 0 7px"><b class="mono">d<sub>s</sub>(v) = c(s,v)</b> for each neighbour v '
+     + '&mdash; the best cost we know so far.</li>'
+     + '<li style="margin:0"><b class="mono">d<sub>s</sub>(v) = &infin;</b> for everyone else &mdash; '
+     + 'we know nothing about them yet.</li></ul></div>';
   C[3]='<div class="djcard">'+HD+'The settled set S</p>'
      + '<p style="margin:0">S holds the nodes whose distance is <b>final</b>: once u is in S we have '
      + '<b class="mono">d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b>, the optimal cost.</p>'
