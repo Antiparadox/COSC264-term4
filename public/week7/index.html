@@ -2187,9 +2187,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div id="dk-why-1" style="display:none;margin-bottom:12px;font-size:17px"><b>1.</b> Each step picks the unsettled node with the <b>smallest</b> tentative distance &mdash; so the algorithm must know <b>which nodes exist</b> in the network.</div>
         <div id="dk-why-2" style="display:none;margin-bottom:12px;font-size:17px"><b>2.</b> When relaxing from a settled node u, the algorithm needs the edge weight c(u,w) for each of u&rsquo;s neighbours. Since every node is eventually settled, this means it needs <b>every edge weight</b> in the graph.</div>
         <div id="dk-why-card" class="card" style="display:none;border-left:4px solid var(--accent);padding:14px 20px;margin-top:14px">
-          <p style="margin:0;font-size:18px">Together, Dijkstra needs all nodes and all edges &mdash; the <b>complete network topology</b>.</p>
+          <p style="margin:0;font-size:18px">Together, Dijkstra needs every node, every edge and every edge cost &mdash; the <b>complete network topology</b>.</p>
         </div>
-        <div id="dk-why-q" style="display:none;margin-top:14px;font-size:18px;color:var(--accent)"><b>Unlike Bellman-Ford, where each router only needs information from its direct neighbours, Dijkstra requires the complete topology. How does each router obtain it?</b></div>
+        <div id="dk-why-q" style="display:none;margin-top:16px">
+          <div class="card" style="border-left:4px solid var(--current);padding:14px 18px;margin:0">
+            <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--current)">Question</p>
+            <p style="margin:0;font-size:18px">Unlike the <b>distance-vector protocol</b>, where each router only needs what its <b>direct neighbours</b> tell it, Dijkstra requires the <b>complete topology</b>. So how does each router obtain it?</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
