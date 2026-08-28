@@ -577,12 +577,13 @@ svg text{font-family:var(--sans)}
 .rip-message-lane::before{position:absolute;top:50%;font-size:35px;line-height:1;transform:translateY(-50%)}
 .rip-message-lane.request::before{content:"→";right:-36px;color:var(--current)}
 .rip-message-lane.response::before{content:"←";left:-36px;color:var(--accent)}
-.rip-response-reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;max-width:1050px;margin:18px auto 0}
-.rip-response-reason{min-height:205px;padding:21px;border:1px solid var(--border);border-top:7px solid var(--accent);border-radius:15px;
+.rip-response-reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;flex:0 0 auto;
+  width:100%;max-width:1050px;margin:15px auto 0}
+.rip-response-reason{min-height:126px;padding:14px 17px;border:1px solid var(--border);border-top:6px solid var(--accent);border-radius:14px;
   background:var(--surface);box-shadow:var(--shadow)}.rip-response-reason:nth-child(2){border-top-color:var(--current)}
 .rip-response-reason:nth-child(3){border-top-color:var(--bad)}.rip-response-reason .reason-when{font-family:var(--mono);font-size:11px;
-  font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}.rip-response-reason h3{margin:10px 0 9px;
-  font-family:var(--serif);font-size:27px}.rip-response-reason p{margin:0;font-size:17px;line-height:1.38;color:var(--muted)}
+  font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}.rip-response-reason h3{margin:5px 0 4px;
+  font-family:var(--serif);font-size:22px}.rip-response-reason p{margin:0;font-size:15px;line-height:1.34;color:var(--muted)}
 .rip-hop-rule{margin:0 0 16px;padding:13px 18px;border-left:6px solid var(--current);
   border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);font-size:20px;line-height:1.35}
 .rip-hop-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(270px,.85fr);gap:22px;min-height:0;flex:1}
@@ -3174,7 +3175,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Lecture 2 · RIP messages">
-  <div class="kicker">The transport channel and the conversation</div>
+  <div class="kicker">Two message types &middot; three reasons to send a Response</div>
   <h2>RIP carries Request and Response messages over UDP</h2>
   <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
     <div class="rip-dialogue-router left">R1</div>
@@ -3185,12 +3186,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     routing table.</span></div>
     <div class="rip-dialogue-router right">R2</div>
   </div>
-  <div class="source">Request and Response processing: RFC 2453 §§3.9.1–3.9.2</div>
-</section>
-
-<section class="slide" data-sec="Lecture 2 · RIP Responses">
-  <div class="kicker">Three reasons to send the same message type</div>
-  <h2>A RIP Response can be requested, periodic, or triggered</h2>
   <div class="rip-response-reasons" aria-label="Three situations that cause RIP to send a Response">
     <div class="frag rip-response-reason"><span class="reason-when">After a Request</span><h3>Requested</h3>
       <p>Return all routes or the selected routing-table entries requested by another router.</p></div>
@@ -3199,7 +3194,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="frag rip-response-reason"><span class="reason-when">After a route changes</span><h3>Triggered</h3>
       <p>Send changed routing information shortly after the change occurs.</p></div>
   </div>
-  <div class="source">RIP Response generation: RFC 2453 §§3.8, 3.9.2, 3.10–3.10.2</div>
+  <div class="source">RIP Request and Response processing: RFC 2453 §§3.8, 3.9.1&ndash;3.9.2,
+    3.10&ndash;3.10.2</div>
 </section>
 
 <section class="slide stateful rip-example-slide rip-learn-slide" data-sec="Lecture 2 · RIP route maintenance">
