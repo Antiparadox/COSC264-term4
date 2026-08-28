@@ -3469,8 +3469,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="ospf-operation-card">
       <h3>Inside an area</h3>
       <ul>
-        <li class="frag inside-area2">Routers flood link-state information only within their own area and store that area’s detailed topology.</li>
-        <li class="frag inside-area-spf">Each router runs Dijkstra’s algorithm to calculate routes to destinations inside its area.</li>
+        <li class="frag inside-area2">A router does its link-state flooding only within its own area, and stores that area&rsquo;s topology.</li>
+        <li class="frag inside-area-spf">Each router then runs the shortest-path algorithm over that topology to reach destinations inside its area.</li>
       </ul>
     </div>
     <div class="ospf-operation-card">
