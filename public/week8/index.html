@@ -469,9 +469,6 @@ svg text{font-family:var(--sans)}
 .lecture2-recap-slide .lecture-recap-list li{padding:22px 26px 22px 62px;font-size:27px;line-height:1.35}
 
 /* Lecture 2: modern IGP terminology and RIP */
-.igp-definition{margin:0 0 22px;padding:17px 22px;border-left:6px solid var(--accent);
-  border-radius:0 14px 14px 0;background:var(--surface);box-shadow:var(--shadow);
-  font-family:var(--serif);font-size:27px;line-height:1.35}
 .igp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:4px}
 .igp-card{min-height:165px;padding:21px 20px;border:1px solid var(--border);border-radius:16px;
   background:var(--surface);box-shadow:var(--shadow)}
@@ -3019,10 +3016,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <section class="slide" data-sec="Lecture 2 · Interior Gateway Protocols">
-  <div class="kicker">Routing within one autonomous system</div>
-  <h2>Intra-AS routing uses Interior Gateway Protocols</h2>
-  <p class="frag igp-definition"><b>An IGP operates inside one AS:</b> the routers within that
-  autonomous system exchange route information with one another.</p>
+  <div class="kicker">Interior Gateway Protocols &middot; routing within one autonomous system</div>
+  <h2>An overview of intra-AS routing protocols</h2>
   <div class="igp-grid" aria-label="Examples of Interior Gateway Protocols">
     <div class="frag igp-card"><strong>RIP</strong><span class="protocol-name">Routing Information
     Protocol</span><span class="protocol-kind">Distance vector</span></div>
