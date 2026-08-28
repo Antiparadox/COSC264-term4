@@ -642,17 +642,22 @@ svg text{font-family:var(--sans)}
 .rl-table :is(td,th).c-metric,.rl-table :is(td,th).c-hop{width:104px}
 .rl-table :is(td,th).c-timer{width:118px}
 .rl-table td{font-size:17px}
-.rl-b,.rl-t1,.rl-reset{display:none}
-.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],
-  [data-step="7"]) .rl-a{display:none}
-.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],
-  [data-step="7"]) .rl-b{display:inline}
-.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"]) .rl-t0{display:none}
-.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"]) .rl-t1{
-  display:inline;color:var(--current);font-weight:900}
-.rip-learn-slide[data-step="7"] .rl-reset{display:inline;margin-left:6px;color:var(--accent-ink);
+.rl-b,.rl-reset{display:none}
+.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rl-a{display:none}
+.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rl-b{
+  display:inline}
+.rip-learn-slide[data-step="8"] .rl-reset{display:inline;margin-left:6px;color:var(--accent-ink);
   font-weight:900;animation:rip-timer-refresh .55s ease-out}
-.rip-learn-slide:is([data-step="3"],[data-step="4"]) .rl-table tbody td{background:var(--good-soft)}
+.rip-learn-slide:is([data-step="5"],[data-step="6"]) .rl-table tbody td{background:var(--good-soft)}
+.rip-learn-slide[data-step="4"] .rl-table tbody td.c-metric{background:var(--current-soft);
+  box-shadow:inset 0 0 0 2px var(--current)}
+.rl-compare{display:none;align-items:center;gap:11px;margin-top:13px;padding:9px 15px;
+  border:2px solid var(--current);border-radius:11px;background:var(--current-soft);
+  font-family:var(--mono);font-size:16px;color:var(--current-ink,var(--ink));width:fit-content}
+.rl-compare b{padding:3px 8px;border-radius:6px;background:var(--current);color:#fff;font-size:12px;
+  text-transform:uppercase;letter-spacing:.04em}
+.rl-compare em{font-style:normal;font-size:20px;font-weight:900;color:var(--current)}
+.rip-learn-slide:is([data-step="4"],[data-step="5"]) .rl-compare{display:flex}
 .rip-learn-column{min-width:0}.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rip-route-card.pending{display:none}
 .rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rip-route-card.learned{display:block}.rip-route-badge.waiting{
   background:var(--surface-2);color:var(--muted)}
@@ -671,8 +676,8 @@ svg text{font-family:var(--sans)}
 .rip-exchange-arrow.response .line::after{left:-1px;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:12px solid currentColor}
 .rip-exchange-arrow b{position:absolute;left:50%;top:-2px;transform:translateX(-50%);padding:2px 7px;border-radius:6px;background:var(--surface-2);
   font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-.rip-learn-slide[data-step="1"] .rip-exchange-arrow.request{color:var(--current)}
-.rip-learn-slide:is([data-step="2"],[data-step="3"],[data-step="6"],[data-step="7"]) .rip-exchange-arrow.response{color:var(--accent)}
+.rip-learn-slide[data-step="2"] .rip-exchange-arrow.request{color:var(--current)}
+.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="7"],[data-step="8"]) .rip-exchange-arrow.response{color:var(--accent)}
 .rip-example-trigger{position:absolute;width:1px;height:1px;overflow:hidden}.rip-example-panel-stage{position:relative;min-height:154px;
   max-width:1050px;margin:0 auto}.rip-example-panel{display:none;padding:15px 20px;border-left:6px solid var(--accent);
   border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow)}.rip-example-panel.alert{border-left-color:var(--bad)}
@@ -691,15 +696,16 @@ svg text{font-family:var(--sans)}
 .rip-learn-slide[data-step="1"] .rip-example-panel.p1,
 .rip-learn-slide[data-step="2"] .rip-example-panel.p2,
 .rip-learn-slide[data-step="3"] .rip-example-panel.p3,
-.rip-learn-slide:is([data-step="4"],[data-step="5"]) .rip-example-panel.p4,
-.rip-learn-slide:is([data-step="6"],[data-step="7"]) .rip-example-panel.p5,
+.rip-learn-slide[data-step="4"] .rip-example-panel.p4,
+.rip-learn-slide:is([data-step="5"],[data-step="6"]) .rip-example-panel.p5,
+.rip-learn-slide:is([data-step="7"],[data-step="8"]) .rip-example-panel.p6,
 .rip-failure-slide[data-step="1"] .rip-example-panel.p1,
 .rip-failure-slide[data-step="2"] .rip-example-panel.p2,.rip-failure-slide[data-step="3"] .rip-example-panel.p3,
 .rip-failure-slide[data-step="4"] .rip-example-panel.p4{display:block}
-.rip-learn-slide[data-step="4"] .rip-example-panel.p4 .b1,
-.rip-learn-slide[data-step="5"] .rip-example-panel.p4 li,
-.rip-learn-slide[data-step="6"] .rip-example-panel.p5 .b1,
-.rip-learn-slide[data-step="7"] .rip-example-panel.p5 li{display:list-item}
+.rip-learn-slide[data-step="5"] .rip-example-panel.p5 .b1,
+.rip-learn-slide[data-step="6"] .rip-example-panel.p5 li,
+.rip-learn-slide[data-step="7"] .rip-example-panel.p6 .b1,
+.rip-learn-slide[data-step="8"] .rip-example-panel.p6 li{display:list-item}
 
 .rip-count-recap{max-width:980px;margin:34px auto 0;border:1px solid var(--border);border-radius:18px;
   background:var(--surface);box-shadow:var(--shadow);overflow:hidden}.rip-count-sentence{display:grid;
@@ -3218,12 +3224,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <th class="c-hop">next hop</th><th class="c-timer">timer</th></tr></thead>
         <tbody><tr>
           <td class="c-dest">203.0.113.0/24</td>
-          <td class="c-metric"><span class="rl-a">&mdash;</span><span class="rl-b">3</span></td>
-          <td class="c-hop"><span class="rl-a">&mdash;</span><span class="rl-b">R2</span></td>
-          <td class="c-timer"><span class="rl-t0">&mdash;</span><span class="rl-t1">180 s</span>
+          <td class="c-metric"><span class="rl-a">6</span><span class="rl-b">3</span></td>
+          <td class="c-hop"><span class="rl-a">R5</span><span class="rl-b">R2</span></td>
+          <td class="c-timer"><span class="rl-a">132 s</span><span class="rl-b">180 s</span>
             <span class="rl-reset">&#8635;</span></td>
         </tr></tbody>
       </table>
+      <div class="rl-compare"><b>via R2</b><span>2 + 1 = <strong>3</strong></span>
+        <em>&lt;</em><span>current <strong>6</strong></span></div>
     </div>
     <div class="rip-learn-column">
       <div class="rip-example-exchange" aria-label="RIP Request from R1 to R2 and Response from R2 to R1 over UDP">
@@ -3241,24 +3249,29 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <div class="rip-example-panel-stage">
-    <div class="rip-example-panel p1"><b>1 &middot; Ask for the route</b><span>R1 wants a route to
-      <code>203.0.113.0/24</code>. It sends a RIP <strong class="message-highlight">Request</strong>
-      to R2 over UDP: do you have an entry for this destination?</span></div>
-    <div class="rip-example-panel p2"><b>2 &middot; R2 advertises its distance vector</b><span>R2
+    <div class="rip-example-panel p1"><b>1 &middot; R1 already has a route</b><span>R1 can already
+      reach <code>203.0.113.0/24</code> &mdash; through next hop <strong>R5</strong>, at
+      <strong>cost metric 6</strong>.</span></div>
+    <div class="rip-example-panel p2"><b>2 &middot; Ask R2 what it has</b><span>R1 sends a RIP
+      <strong class="message-highlight">Request</strong> to R2 over UDP, asking for R2&rsquo;s entry
+      for this destination.</span></div>
+    <div class="rip-example-panel p3"><b>3 &middot; R2 advertises its distance vector</b><span>R2
       replies with a <strong class="message-highlight">Response</strong>: it can reach
       <code>203.0.113.0/24</code> at <strong>cost metric 2</strong>.</span></div>
-    <div class="rip-example-panel p3"><b>3 &middot; Add it to the RIP routing table</b><span>R1 records
-      the destination with next hop R2. R1 is one hop further along, so its own cost metric is
-      <strong>2 + 1 = 3</strong>.</span></div>
-    <div class="rip-example-panel p4"><b>4 &middot; Start the timer, then install it</b>
+    <div class="rip-example-panel p4"><b>4 &middot; Is it any better?</b><span>R1 is one hop further
+      along, so going through R2 would cost <strong>2 + 1 = 3</strong>. That beats the current
+      <strong>6</strong>, so R1 takes it.</span></div>
+    <div class="rip-example-panel p5"><b>5 &middot; Replace the entry, then install it</b>
       <ul class="rip-example-bullets">
-        <li class="b1"><strong>Start a timer.</strong> The entry is given 180 seconds to live.</li>
-        <li class="b2"><strong>Install it.</strong> R1 puts the route into its forwarding table, and
-          starts forwarding datagrams for this prefix to R2.</li>
+        <li class="b1"><strong>Rewrite the row.</strong> Next hop becomes R2, cost metric becomes 3,
+          and the 180-second timer starts again.</li>
+        <li class="b2"><strong>Install it.</strong> R1 puts the new route into its forwarding table,
+          and starts forwarding datagrams for this prefix to R2 instead of R5.</li>
       </ul>
     </div>
-    <div class="rip-example-panel p5"><b>5 &middot; R2 keeps it fresh</b>
+    <div class="rip-example-panel p6"><b>6 &middot; R2 keeps it fresh</b>
       <ul class="rip-example-bullets">
         <li class="b1"><strong>Roughly every 30 seconds</strong>, R2 sends a
           <strong class="message-highlight">periodic Response</strong> re-advertising the same route,
