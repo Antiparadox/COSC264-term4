@@ -3251,9 +3251,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <div class="rip-example-panel-stage">
-    <div class="rip-example-panel p1"><b>1 &middot; R1 already has a route</b><span>R1 can already
-      reach <code>203.0.113.0/24</code> &mdash; through next hop <strong>R5</strong>, at
-      <strong>cost metric 6</strong>.</span></div>
+    <div class="rip-example-panel p1"><b>1 &middot; Can R2 do better?</b><span>R1 already reaches
+      <code>203.0.113.0/24</code> through next hop <strong>R5</strong> at <strong>cost metric 6</strong>,
+      with <strong>132 s</strong> left to live on the entry. But R1 would like to know whether R2 can
+      offer anything better for this destination.</span></div>
     <div class="rip-example-panel p2"><b>2 &middot; Ask R2 what it has</b><span>R1 sends a RIP
       <strong class="message-highlight">Request</strong> to R2 over UDP, asking for R2&rsquo;s entry
       for this destination.</span></div>
