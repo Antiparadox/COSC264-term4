@@ -1805,16 +1805,29 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-rule{border-color:var(--bad)}
 .export-policy-slide[data-step="3"] .export-policy-neighbour{opacity:1}
 .export-policy-slide[data-step="3"] .export-policy-neighbour::before{background:var(--bad)}
-.export-policy-stage.export-as-stage{position:relative;display:block;height:320px;padding:0}
+.export-policy-stage.export-as-stage{position:relative;display:block;height:340px;padding:0}
 .export-as-boundary{position:absolute;left:15px;right:295px;top:15px;bottom:15px;border:3px solid
   var(--accent);border-radius:25px;background:var(--surface);box-shadow:var(--shadow);z-index:1}
 .export-as-boundary > b{position:absolute;left:19px;top:11px;font-family:var(--serif);font-size:24px}
-.export-as-route{position:absolute;left:38px;top:74px;width:330px;padding:23px 12px 11px;
+.export-as-route{position:absolute;left:32px;top:74px;width:366px;padding:25px 12px 11px;
   border:2px solid var(--good);border-radius:15px;background:var(--surface);box-shadow:var(--shadow);
-  z-index:8}.export-as-route > b{position:absolute;left:13px;top:-12px;padding:5px 9px;
-  border-radius:7px;background:var(--good);color:#fff;font-family:var(--mono);font-size:10px;
-  letter-spacing:.04em}.export-as-route .route-card{padding:10px 13px;border-radius:10px;
-  font-size:11px;line-height:1.35}.export-as-route .route-card .field{grid-template-columns:92px 1fr}
+  transition:top .25s,opacity .25s;z-index:8}
+.export-as-route > b{position:absolute;left:13px;top:-13px;padding:6px 10px;
+  border-radius:8px;background:var(--good);color:#fff;font-family:var(--mono);font-size:12px;
+  font-weight:900;letter-spacing:.04em}.export-as-route .route-card{padding:11px 13px;
+  border-radius:10px;font-size:14px;line-height:1.42}
+.export-as-route .route-card .field{grid-template-columns:88px 1fr}
+.export-as-route.rejected{border-color:var(--bad);opacity:0}
+.export-as-route.rejected > b{background:var(--bad)}
+.export-verdict{position:absolute;right:-17px;top:50%;width:38px;height:38px;display:grid;
+  place-items:center;border-radius:50%;color:#fff;font-size:23px;font-weight:900;
+  border:3px solid var(--surface);opacity:0;transform:translateY(-50%) scale(.7);
+  transition:.22s;z-index:12}
+.export-verdict.win{background:var(--good)}.export-verdict.lose{background:var(--bad)}
+.export-policy-slide[data-step="1"] .export-as-route.rejected{opacity:1;top:22px}
+.export-policy-slide[data-step="1"] .export-as-route.chosen{top:170px}
+.export-policy-slide[data-step="1"] .export-verdict{opacity:1;transform:translateY(-50%) scale(1)}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-as-route.chosen{top:96px}
 .export-path-focus{margin:0 -5px;padding:3px 5px;border-radius:7px;transition:.22s}
 .export-outbound-state{display:none}
 .export-as-node{position:absolute;width:62px;height:38px;display:grid;place-items:center;border:3px solid
@@ -1859,8 +1872,7 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   color:#8fe0bc;font-weight:900}
 .export-policy-slide:is([data-step="1"],[data-step="3"]) .export-path-focus .value{
   color:#fff;font-weight:900}
-.export-policy-slide[data-step="2"] .export-ebgp-line{background:var(--bad);height:3px}
-.export-policy-slide[data-step="2"] .export-policy-block{opacity:1;transform:scale(1)}
+.export-policy-slide[data-step="2"] .export-ebgp-line{background:var(--current);height:7px}
 .export-policy-slide[data-step="3"] .export-ebgp-line.top{height:7px;background:var(--good)}
 .export-policy-slide[data-step="3"] .export-ebgp-line.bottom{height:3px;background:var(--bad)}
 .export-policy-slide[data-step="3"] .export-update.top{opacity:1}
@@ -2714,11 +2726,21 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="export-policy-stage export-as-stage" role="img"
     aria-label="AS A selects a route through AS E, AS H, and AS C. Gateway routers A4 and A5 connect to AS X and AS Y. Fragments show an export policy that advertises the route to neither neighbour or selectively to AS X">
     <div class="export-as-boundary"><b>AS A</b></div>
-    <div class="export-as-route"><b><span class="export-internal-state">SELECTED INSIDE AS A</span>
-      <span class="export-outbound-state">ADVERTISEMENT TO AS X</span></b>
+    <div class="export-as-route rejected"><b>IMPORTED FROM AS B</b>
       <div class="route-card">
         <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field export-internal-only"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
+        <div class="field export-lp-lose"><span class="key">LOCAL_PREF</span><span class="value">100</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS C</span></div>
+        <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
+      </div>
+      <span class="export-verdict lose">&times;</span>
+    </div>
+    <div class="export-as-route chosen"><b><span class="export-internal-state">IMPORTED FROM AS E</span>
+      <span class="export-outbound-state">ADVERTISEMENT TO AS X</span></b>
+      <span class="export-verdict win">&#10003;</span>
+      <div class="route-card">
+        <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
+        <div class="field export-internal-only export-lp-win"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
         <div class="field export-path-focus"><span class="key">AS_PATH</span><span class="value">
           <span class="export-internal-state">AS E · AS H · AS C</span>
           <span class="export-outbound-state">AS A · AS E · AS H · AS C</span></span></div>
@@ -2743,13 +2765,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
   </div>
   <div class="export-policy-status">
-    <div class="export-policy-card s1"><b>1 · Select an AS path</b><span>AS A selects
-      <strong>AS E · AS H · AS C</strong> for <code>203.0.113.0/24</code>. It can now consider
-      advertising that route to its neighbours.</span></div>
-    <div class="export-policy-card s2"><b>2 · Export to neither</b><span>One export policy
-      withholds the selected route from both AS X and AS Y.</span></div>
-    <div class="export-policy-card s3"><b>3 · Export selectively</b><span>AS A prepends itself and
-      advertises <strong>AS A · AS E · AS H · AS C</strong> to AS X, while withholding it from AS Y.</span></div>
+    <div class="export-policy-card s1"><b>1 · Select an AS path</b><span>Both routes were imported,
+      but the one through AS E carries the higher <code>LOCAL_PREF</code>, so AS A selects
+      <strong>AS E · AS H · AS C</strong> for <code>203.0.113.0/24</code>.</span></div>
+    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>AS A can now reach the
+      prefix, and it has two neighbours it could tell &mdash; AS X and AS Y.
+      <b>Which of them should AS A advertise this route to?</b></span></div>
+    <div class="export-policy-card s3"><b>3 · Export policy decides</b><span>AS A's export policy
+      answers per neighbour: it prepends itself and advertises
+      <strong>AS A · AS E · AS H · AS C</strong> to AS X, while withholding it from AS Y.</span></div>
   </div>
   <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
