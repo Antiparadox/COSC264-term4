@@ -3343,15 +3343,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Introducing another intra-AS protocol</div>
   <h2>OSPF · Open Shortest Path First</h2>
   <div class="ospf-intro-list">
-    <div class="frag ospf-fact"><b>What it is.</b> OSPF is an Interior Gateway Protocol (IGP) for
-    intra-AS routing: routers within one AS exchange routing information.</div>
-    <div class="frag ospf-fact"><b>Routing family.</b> OSPF implements link-state routing.</div>
-    <div class="frag ospf-fact"><b>Protocol channel.</b> RIP carries its messages over UDP;
-    OSPF carries its protocol packets directly over IP, without TCP or UDP.</div>
-    <div class="frag ospf-fact"><b>IP versions.</b> OSPFv2 is commonly used with IPv4; OSPFv3 is
-    used with IPv6.</div>
+    <div class="frag ospf-fact"><b>What it is.</b> OSPF is an intra-AS routing protocol which uses
+    the <b>link-state</b> routing algorithm.</div>
+    <div class="frag ospf-fact"><b>Protocol channel.</b> OSPF carries its protocol packets directly
+    over IP, without TCP or UDP.</div>
   </div>
-  <div class="source">OSPF architecture and packet encapsulation: RFC 2328 §§1, 4.3; OSPFv3: RFC 5340</div>
+  <div class="source">OSPF architecture and packet encapsulation: RFC 2328 §§1, 4.3</div>
 </section>
 
 <section class="slide" data-sec="Lecture 2 · OSPF link-state refresher">
