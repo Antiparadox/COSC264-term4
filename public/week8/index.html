@@ -642,12 +642,27 @@ svg text{font-family:var(--sans)}
 .rl-table :is(td,th).c-metric,.rl-table :is(td,th).c-hop{width:104px}
 .rl-table :is(td,th).c-timer{width:118px}
 .rl-table td{font-size:17px}
-.rl-b,.rl-reset{display:none}
-.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"]) .rl-a{display:none}
-.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"]) .rl-b{display:inline}
+.rl-b,.rl-c,.rl-x,.rl-reset{display:none}
+.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"],
+  [data-step="9"],[data-step="10"],[data-step="11"]) .rl-a{display:none}
+.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rl-b{
+  display:inline}
+.rip-learn-slide:is([data-step="9"],[data-step="10"],[data-step="11"]) .rl-c{display:inline;
+  color:var(--bad);font-weight:900}
+.rip-learn-slide:is([data-step="9"],[data-step="10"],[data-step="11"]) .rl-b{display:none}
+.rip-learn-slide[data-step="8"] .rl-b{display:none}
+.rip-learn-slide[data-step="8"] .rl-table td.c-metric .rl-b{display:inline}
+.rip-learn-slide[data-step="8"] .rl-table td.c-hop .rl-b{display:inline}
+.rip-learn-slide[data-step="8"] .rl-x{display:inline;color:var(--bad);font-weight:900}
+.rip-learn-slide:is([data-step="9"],[data-step="10"],[data-step="11"]) .rl-table td.c-hop .rl-b{
+  display:inline;color:var(--ink);font-weight:400}
+.rip-learn-slide:is([data-step="8"],[data-step="9"],[data-step="10"],[data-step="11"])
+  .rl-table tbody td{background:var(--bad-soft)}
+.rip-learn-slide[data-step="11"] .rl-table tbody td{text-decoration:line-through;opacity:.55}
 .rip-learn-slide[data-step="7"] .rl-reset{display:inline;margin-left:6px;color:var(--accent-ink);
   font-weight:900;animation:rip-timer-refresh .55s ease-out}
 .rip-learn-slide[data-step="5"] .rl-table tbody td{background:var(--good-soft)}
+.rip-example-panel-stage{min-height:182px}
 .rip-learn-slide[data-step="4"] .rl-table tbody td.c-metric{background:var(--current-soft);
   box-shadow:inset 0 0 0 2px var(--current)}
 .rl-compare{display:none;align-items:center;gap:11px;margin-top:13px;padding:9px 15px;
@@ -685,25 +700,21 @@ svg text{font-family:var(--sans)}
 .rip-example-bullets{display:grid;gap:6px;margin:7px 0 0;padding-left:24px}.rip-example-bullets li{display:none;
   font-size:17px;line-height:1.32;color:var(--muted)}.rip-example-bullets strong{color:var(--ink)}
 .rip-example-bullets strong.message-highlight,.rip-example-panel .message-highlight{color:var(--current);font-weight:900}
-.rip-failure-slide .rip-route-card.expired,
-.rip-failure-slide .rip-route-card.unreachable,.rip-failure-slide .rip-route-card.removed{display:none}
-.rip-failure-slide[data-step="1"] .rip-route-card.usable{display:none}.rip-failure-slide[data-step="1"] .rip-route-card.expired{display:block}
-.rip-failure-slide:is([data-step="2"],[data-step="3"]) .rip-route-card:is(.usable,.expired){display:none}
-.rip-failure-slide:is([data-step="2"],[data-step="3"]) .rip-route-card.unreachable{display:block}
-.rip-failure-slide[data-step="4"] .rip-route-card:is(.usable,.expired,.unreachable){display:none}
-.rip-failure-slide[data-step="4"] .rip-route-card.removed{display:block}
 .rip-learn-slide[data-step="1"] .rip-example-panel.p1,
 .rip-learn-slide[data-step="2"] .rip-example-panel.p2,
 .rip-learn-slide[data-step="3"] .rip-example-panel.p3,
 .rip-learn-slide[data-step="4"] .rip-example-panel.p4,
 .rip-learn-slide[data-step="5"] .rip-example-panel.p5,
 .rip-learn-slide:is([data-step="6"],[data-step="7"]) .rip-example-panel.p6,
-.rip-failure-slide[data-step="1"] .rip-example-panel.p1,
-.rip-failure-slide[data-step="2"] .rip-example-panel.p2,.rip-failure-slide[data-step="3"] .rip-example-panel.p3,
-.rip-failure-slide[data-step="4"] .rip-example-panel.p4{display:block}
+.rip-learn-slide:is([data-step="8"],[data-step="9"],[data-step="10"],
+  [data-step="11"]) .rip-example-panel.p7{display:block}
 .rip-learn-slide[data-step="5"] .rip-example-panel.p5 li,
 .rip-learn-slide[data-step="6"] .rip-example-panel.p6 .b1,
-.rip-learn-slide[data-step="7"] .rip-example-panel.p6 li{display:list-item}
+.rip-learn-slide[data-step="7"] .rip-example-panel.p6 li,
+.rip-learn-slide[data-step="8"] .rip-example-panel.p7 .b1,
+.rip-learn-slide[data-step="9"] .rip-example-panel.p7 :is(.b1,.b2),
+.rip-learn-slide[data-step="10"] .rip-example-panel.p7 :is(.b1,.b2,.b3),
+.rip-learn-slide[data-step="11"] .rip-example-panel.p7 li{display:list-item}
 
 .rip-count-recap{max-width:980px;margin:34px auto 0;border:1px solid var(--border);border-radius:18px;
   background:var(--surface);box-shadow:var(--shadow);overflow:hidden}.rip-count-sentence{display:grid;
@@ -3212,7 +3223,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide stateful rip-example-slide rip-learn-slide" data-sec="Lecture 2 &middot; RIP route maintenance">
-  <div class="kicker">Worked example &middot; normal operation</div>
+  <div class="kicker">Worked example &middot; learning, refreshing, and losing a route</div>
   <h2>An example of running RIP</h2>
   <div class="rip-learn-layout">
     <div class="rip-learn-column">
@@ -3222,9 +3233,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <th class="c-hop">next hop</th><th class="c-timer">timer</th></tr></thead>
         <tbody><tr>
           <td class="c-dest">203.0.113.0/24</td>
-          <td class="c-metric"><span class="rl-a">6</span><span class="rl-b">3</span></td>
+          <td class="c-metric"><span class="rl-a">6</span><span class="rl-b">3</span>
+            <span class="rl-c">16</span></td>
           <td class="c-hop"><span class="rl-a">R5</span><span class="rl-b">R2</span></td>
           <td class="c-timer"><span class="rl-a">132 s</span><span class="rl-b">180 s</span>
+            <span class="rl-x">expired</span><span class="rl-c">120 s</span>
             <span class="rl-reset">&#8635;</span></td>
         </tr></tbody>
       </table>
@@ -3240,6 +3253,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
@@ -3277,58 +3294,23 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <li class="b2"><strong>Every refresh resets the timer</strong> back to 180 seconds.</li>
       </ul>
     </div>
-  </div>
-  <div class="source">RIP route maintenance: RFC 2453 &sect;&sect;3.8, 3.9.2, 3.10</div>
-</section>
-
-<section class="slide stateful rip-example-slide rip-failure-slide" data-sec="Lecture 2 · RIP route failure">
-  <div class="kicker">Worked example · timeout and removal</div>
-  <h2>What happens when updates from R2 stop?</h2>
-  <div class="rip-example-route-stage" aria-label="Changing status of the RIP route at router R1">
-    <div class="rip-route-card usable">
-      <div class="rip-route-heading"><h3>RIP route at R1</h3><span class="rip-route-badge">ACTIVE</span></div>
-      <div class="rip-route-fields">
-        <div class="rip-route-field"><span>destination</span><strong>203.0.113.0/24</strong></div>
-        <div class="rip-route-field"><span>next hop</span><strong>R2</strong></div>
-        <div class="rip-route-field"><span>cost metric</span><strong>3</strong></div>
-      </div>
-    </div>
-    <div class="rip-route-card expired">
-      <div class="rip-route-heading"><h3>RIP route at R1</h3><span class="rip-route-badge expired">EXPIRED</span></div>
-      <div class="rip-route-fields">
-        <div class="rip-route-field"><span>destination</span><strong>203.0.113.0/24</strong></div>
-        <div class="rip-route-field"><span>next hop</span><strong>R2</strong></div>
-        <div class="rip-route-field"><span>cost metric</span><strong>3</strong></div>
-      </div>
-    </div>
-    <div class="rip-route-card unreachable">
-      <div class="rip-route-heading"><h3>RIP route at R1</h3><span class="rip-route-badge inactive">INACTIVE</span></div>
-      <div class="rip-route-fields">
-        <div class="rip-route-field"><span>destination</span><strong>203.0.113.0/24</strong></div>
-        <div class="rip-route-field"><span>next hop</span><strong>R2</strong></div>
-        <div class="rip-route-field"><span>cost metric</span><strong>16 <em>unreachable</em></strong></div>
-      </div>
-    </div>
-    <div class="rip-route-card removed">
-      <div class="rip-route-heading"><h3>RIP route at R1</h3><span class="rip-route-badge removed">REMOVED</span></div>
-      <div class="rip-route-fields">
-        <div class="rip-route-field"><span>destination</span><strong>203.0.113.0/24</strong></div>
-        <div class="rip-route-field"><span>next hop</span><strong>—</strong></div>
-        <div class="rip-route-field"><span>cost metric</span><strong>—</strong></div>
-      </div>
+    <div class="rip-example-panel p7 alert"><b>7 &middot; What if R2 stops sending them?</b>
+      <ul class="rip-example-bullets">
+        <li class="b1"><strong>The timer runs out.</strong> No valid refresh arrives from R2, and
+          after 180 seconds the entry expires.</li>
+        <li class="b2"><strong>Mark it unreachable.</strong> R1 sets the cost metric to
+          <strong>16</strong> &mdash; RIP&rsquo;s infinity &mdash; and immediately drops the route
+          from its <strong>forwarding table</strong>.</li>
+        <li class="b3"><strong>Keep it, to tell the neighbours.</strong> The entry stays in the RIP
+          routing table for another <strong>120 seconds</strong>, advertised with metric 16 so the
+          neighbours learn the destination is gone.</li>
+        <li class="b4"><strong>Then remove it.</strong> After those 120 seconds, R1 deletes the
+          entry from its routing table altogether.</li>
+      </ul>
     </div>
   </div>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <div class="rip-example-panel-stage">
-    <div class="rip-example-panel p1 alert"><b>1 · Updates stop</b><span>R1 receives no valid refresh for this route from R2. After 180 seconds, the route timer expires.</span></div>
-    <div class="rip-example-panel p2 alert"><b>2 · Mark the route unreachable</b><span>R1 changes the cost metric to 16 and immediately stops forwarding along the route. RIP permits metrics 1–16; 16 means infinity—unreachable.</span></div>
-    <div class="rip-example-panel p3 alert"><b>3 · Notify neighbours for 120 seconds</b><span>R1 sends a <strong class="message-highlight">triggered Response</strong> advertising 203.0.113.0/24 with cost metric 16 to its RIP neighbours. The route is <strong>retained in the RIP table</strong> — marked unreachable — for the 120-second garbage-collection period.</span></div>
-    <div class="rip-example-panel p4"><b>4 · Remove the obsolete route</b><span>After 120 seconds, R1 removes the route. A new valid route can replace it sooner.</span></div>
-  </div>
-  <div class="source">RIP timeout and garbage collection: RFC 2453 §3.8</div>
+  <div class="source">RIP route maintenance, timeout and garbage collection: RFC 2453
+    &sect;&sect;3.8, 3.9.2, 3.10</div>
 </section>
 
 <section class="slide" data-sec="Lecture 2 · RIP stability">
