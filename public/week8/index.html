@@ -1273,6 +1273,7 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .policy-overview-slide:is([data-step="2"],[data-step="3"]) .po-flow.out{opacity:1}
 .policy-overview-slide[data-step="3"] .po-pipeline{opacity:1}
 .policy-status,.zoom-status,.relationship-status{position:relative;height:84px;margin-top:10px}
+.relationship-status{height:126px}
 .policy-overview-card,.zoom-card,.relationship-card{position:absolute;inset:0;display:grid;
   grid-template-columns:190px 1fr;gap:18px;align-items:center;padding:12px 18px;border:1px solid
   var(--accent);border-left:7px solid var(--accent);border-radius:0 13px 13px 0;background:var(--surface);
@@ -2008,11 +2009,12 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   transparent 3.5px) left center/16px 8px repeat-x}
 .hierarchy-trigger,.policy-table-trigger{position:absolute;width:0;height:0;pointer-events:none}
 .hierarchy-status,.policy-table-status{position:relative;height:84px;margin-top:10px}
+.hierarchy-status{height:126px}
 .hierarchy-card,.policy-table-card{position:absolute;inset:0;display:grid;grid-template-columns:190px 1fr;
   gap:18px;align-items:center;padding:12px 18px;border:1px solid var(--accent);border-left:7px solid
   var(--accent);border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow);
   opacity:0;transform:translateY(7px);transition:.22s;font-size:17px;line-height:1.3}
-.hierarchy-card b,.policy-table-card b{font-family:var(--mono);font-size:12px;color:var(--accent-ink);
+.hierarchy-card > b,.policy-table-card > b{font-family:var(--mono);font-size:12px;color:var(--accent-ink);
   text-transform:uppercase}
 .hierarchy-slide[data-step="1"] .hierarchy-card.s1,.hierarchy-slide[data-step="2"] .hierarchy-card.s2,
 .hierarchy-slide[data-step="3"] .hierarchy-card.s3,.hierarchy-slide[data-step="4"] .hierarchy-card.s4,
@@ -2890,8 +2892,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <b>What drives an AS's import and export policy?</b><br>
       The answer lies in the <b>business relationships</b> between ASes &mdash; who pays whom for
       carrying traffic.</span></div>
-    <div class="relationship-card s1"><b>Customer → provider</b><span>The customer pays the provider for transit to the wider Internet.</span></div>
-    <div class="relationship-card s2"><b>Peer ↔ peer</b><span>Peers commonly exchange traffic for themselves and their customers—not general transit for one another.</span></div>
+    <div class="relationship-card s1"><b>Customer &rarr; provider</b><span>The customer pays the
+      provider for transit to the wider Internet.<br>
+      <i>e.g.</i> AS A buys its connectivity to the rest of the Internet from AS D, and pays AS D
+      for it.</span></div>
+    <div class="relationship-card s2"><b>Peer &harr; peer</b><span>Peers commonly exchange traffic for
+      themselves and their customers&mdash;not general transit for one another.<br>
+      <i>e.g.</i> AS A and AS P exchange roughly as much traffic as each other, so neither pays the
+      other and neither depends on the other for connectivity.</span></div>
   </div>
   <div class="source">Customer–provider and peer relationships: CAIDA AS Relationships; RFC 9234</div>
 </section>
@@ -2921,7 +2929,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="hierarchy-card s1"><b>Tier-1 transit ASes</b><span>They commonly peer with one another and do not purchase upstream transit.</span></div>
     <div class="hierarchy-card s2"><b>Regional transit ASes</b><span>They may buy transit upstream, sell it downstream, and peer with other regional ASes.</span></div>
     <div class="hierarchy-card s3"><b>Stub ASes</b><span>A stub reaches the wider Internet through providers and does not carry transit between other ASes.</span></div>
-    <div class="hierarchy-card s4"><b>Example · AS G → AS H</b><span>A datagram climbs from stub AS G through providers to the Tier-1 level, crosses one peer link, then descends to stub AS H. This up–across–down shape is a valley-free path.</span></div>
+    <div class="hierarchy-card s4"><b>Example &middot; AS G &rarr; AS H</b><span>When every AS's import
+      and export policy follows these relationships, a datagram from stub AS G to stub AS H
+      <b>climbs</b> through providers to the Tier-1 level, <b>crosses</b> one peer link, then
+      <b>descends</b> to AS H.<br>
+      This up&ndash;across&ndash;down shape is called a <b>valley-free path</b>.</span></div>
   </div>
   <div class="source">Simplified AS hierarchy and valley-free path model: CAIDA AS Relationships; Gao, 2001</div>
 </section>
