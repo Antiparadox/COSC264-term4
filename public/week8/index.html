@@ -643,12 +643,11 @@ svg text{font-family:var(--sans)}
 .rl-table :is(td,th).c-timer{width:118px}
 .rl-table td{font-size:17px}
 .rl-b,.rl-reset{display:none}
-.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rl-a{display:none}
-.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rl-b{
-  display:inline}
-.rip-learn-slide[data-step="8"] .rl-reset{display:inline;margin-left:6px;color:var(--accent-ink);
+.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"]) .rl-a{display:none}
+.rip-learn-slide:is([data-step="5"],[data-step="6"],[data-step="7"]) .rl-b{display:inline}
+.rip-learn-slide[data-step="7"] .rl-reset{display:inline;margin-left:6px;color:var(--accent-ink);
   font-weight:900;animation:rip-timer-refresh .55s ease-out}
-.rip-learn-slide:is([data-step="5"],[data-step="6"]) .rl-table tbody td{background:var(--good-soft)}
+.rip-learn-slide[data-step="5"] .rl-table tbody td{background:var(--good-soft)}
 .rip-learn-slide[data-step="4"] .rl-table tbody td.c-metric{background:var(--current-soft);
   box-shadow:inset 0 0 0 2px var(--current)}
 .rl-compare{display:none;align-items:center;gap:11px;margin-top:13px;padding:9px 15px;
@@ -677,7 +676,7 @@ svg text{font-family:var(--sans)}
 .rip-exchange-arrow b{position:absolute;left:50%;top:-2px;transform:translateX(-50%);padding:2px 7px;border-radius:6px;background:var(--surface-2);
   font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .rip-learn-slide[data-step="2"] .rip-exchange-arrow.request{color:var(--current)}
-.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="7"],[data-step="8"]) .rip-exchange-arrow.response{color:var(--accent)}
+.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="6"],[data-step="7"]) .rip-exchange-arrow.response{color:var(--accent)}
 .rip-example-trigger{position:absolute;width:1px;height:1px;overflow:hidden}.rip-example-panel-stage{position:relative;min-height:154px;
   max-width:1050px;margin:0 auto}.rip-example-panel{display:none;padding:15px 20px;border-left:6px solid var(--accent);
   border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow)}.rip-example-panel.alert{border-left-color:var(--bad)}
@@ -697,15 +696,14 @@ svg text{font-family:var(--sans)}
 .rip-learn-slide[data-step="2"] .rip-example-panel.p2,
 .rip-learn-slide[data-step="3"] .rip-example-panel.p3,
 .rip-learn-slide[data-step="4"] .rip-example-panel.p4,
-.rip-learn-slide:is([data-step="5"],[data-step="6"]) .rip-example-panel.p5,
-.rip-learn-slide:is([data-step="7"],[data-step="8"]) .rip-example-panel.p6,
+.rip-learn-slide[data-step="5"] .rip-example-panel.p5,
+.rip-learn-slide:is([data-step="6"],[data-step="7"]) .rip-example-panel.p6,
 .rip-failure-slide[data-step="1"] .rip-example-panel.p1,
 .rip-failure-slide[data-step="2"] .rip-example-panel.p2,.rip-failure-slide[data-step="3"] .rip-example-panel.p3,
 .rip-failure-slide[data-step="4"] .rip-example-panel.p4{display:block}
-.rip-learn-slide[data-step="5"] .rip-example-panel.p5 .b1,
-.rip-learn-slide[data-step="6"] .rip-example-panel.p5 li,
-.rip-learn-slide[data-step="7"] .rip-example-panel.p6 .b1,
-.rip-learn-slide[data-step="8"] .rip-example-panel.p6 li{display:list-item}
+.rip-learn-slide[data-step="5"] .rip-example-panel.p5 li,
+.rip-learn-slide[data-step="6"] .rip-example-panel.p6 .b1,
+.rip-learn-slide[data-step="7"] .rip-example-panel.p6 li{display:list-item}
 
 .rip-count-recap{max-width:980px;margin:34px auto 0;border:1px solid var(--border);border-radius:18px;
   background:var(--surface);box-shadow:var(--shadow);overflow:hidden}.rip-count-sentence{display:grid;
@@ -3242,7 +3240,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
