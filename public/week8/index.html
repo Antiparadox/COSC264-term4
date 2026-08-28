@@ -741,7 +741,7 @@ svg text{font-family:var(--sans)}
   max-width:1080px;margin:8px auto 0}.ospf-facts{display:grid;gap:12px}
 .ospf-fact{padding:15px 18px;border:1px solid var(--border);border-left:6px solid var(--accent);
   border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow);font-size:19px;line-height:1.34}
-.ospf-fact b{color:var(--accent-ink)}.ospf-flow{display:grid;grid-template-rows:repeat(4,1fr);gap:10px;
+.ospf-fact b{color:var(--accent-ink)}.ospf-flow{display:grid;grid-auto-rows:1fr;gap:10px;
   padding:18px;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:var(--shadow)}
 .ospf-flow-step{position:relative;display:grid;grid-template-columns:54px 1fr;gap:13px;align-items:center;
   padding:10px 14px;border-radius:12px;background:var(--surface-2);font-size:17px;line-height:1.25}
@@ -3355,15 +3355,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Quick refresher · from Week 7</div>
   <h2>A quick recap of the link-state routing protocol</h2>
   <div class="ospf-flow refresher" aria-label="Four-step link-state routing process used by OSPF">
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">1</span><span>Each router
-    observes its local neighbours, links, and configured link costs.</span></div>
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">2</span><span>It creates
-    <b>link-state advertisements (LSAs)</b> describing that local information.</span></div>
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">3</span><span>Routers reliably
-    flood the LSAs, so every router in the OSPF area builds the same network topology.</span></div>
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">4</span><span>Every router runs
-    Dijkstra’s algorithm on the learned topology to calculate its least-cost routes to all
-    destinations.</span></div>
+    <div class="frag ospf-flow-step"><span class="ospf-flow-index">1</span><span>Each router creates
+    an <b>advertisement</b> for its local information, and tells the others.</span></div>
+    <div class="frag ospf-flow-step"><span class="ospf-flow-index">2</span><span>Every router uses
+    all the advertisements to build the <b>same topology</b>.</span></div>
+    <div class="frag ospf-flow-step"><span class="ospf-flow-index">3</span><span>Each router runs a
+    <b>shortest-path algorithm</b> over that topology to derive its forwarding table.</span></div>
   </div>
   <div class="source">OSPF link-state operation: RFC 2328 §§2, 12–16</div>
 </section>
