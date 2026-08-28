@@ -558,23 +558,25 @@ svg text{font-family:var(--sans)}
   border-left:6px solid var(--current);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
   color:var(--muted)}.rip-channel-banner b{flex:0 0 auto;padding:7px 10px;border-radius:8px;background:var(--current-soft);
   font-family:var(--mono);font-size:12px;color:var(--current)}.rip-channel-banner span{font-size:15px;line-height:1.3}
-.rip-dialogue{position:relative;width:100%;max-width:1050px;height:230px;margin:2px auto 11px;
+.rip-dialogue{position:relative;width:100%;max-width:1050px;height:258px;margin:2px auto 11px;
   border:1px solid var(--border);border-radius:18px;background:var(--surface-2);overflow:hidden}
-.rip-dialogue-router{position:absolute;top:66px;display:grid;width:132px;height:98px;place-items:center;
+.rip-dialogue-router{position:absolute;top:80px;display:grid;width:132px;height:98px;place-items:center;
   border:3px solid var(--accent);border-radius:18px;background:var(--surface);box-shadow:var(--shadow);
   font-family:var(--serif);font-size:32px;font-weight:700;color:var(--accent-ink)}
 .rip-dialogue-router::after{content:"RIP router";position:absolute;bottom:10px;font-family:var(--mono);
   font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .rip-dialogue-router.left{left:34px}.rip-dialogue-router.right{right:34px}
-.rip-message-lane{position:absolute;left:190px;right:190px;height:84px;padding:12px 18px;
+.rip-message-lane{position:absolute;left:212px;right:212px;height:98px;padding:12px 18px;
   border:1px solid var(--border);border-radius:13px;background:var(--surface);box-shadow:var(--shadow)}
 .rip-message-lane.request{top:18px;border-left:6px solid var(--current)}
 .rip-message-lane.response{bottom:18px;border-right:6px solid var(--accent)}
-.rip-message-lane b{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.05em;
-  text-transform:uppercase}.rip-message-lane span{display:block;margin-top:5px;font-size:18px;color:var(--muted)}
+.rip-message-lane > b{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.05em;
+  text-transform:uppercase}.rip-message-lane > span{display:block;margin-top:5px;font-size:18px;color:var(--muted)}
+.rip-message-lane > span.lane-alias{margin-top:2px;font-family:var(--mono);font-size:12px;
+  font-style:normal;color:var(--muted);opacity:.85;text-transform:none}
 .rip-message-lane::before{position:absolute;top:50%;font-size:35px;line-height:1;transform:translateY(-50%)}
-.rip-message-lane.request::before{content:"→";right:-55px;color:var(--current)}
-.rip-message-lane.response::before{content:"←";left:-55px;color:var(--accent)}
+.rip-message-lane.request::before{content:"→";right:-36px;color:var(--current)}
+.rip-message-lane.response::before{content:"←";left:-36px;color:var(--accent)}
 .rip-response-reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;max-width:1050px;margin:18px auto 0}
 .rip-response-reason{min-height:205px;padding:21px;border:1px solid var(--border);border-top:7px solid var(--accent);border-radius:15px;
   background:var(--surface);box-shadow:var(--shadow)}.rip-response-reason:nth-child(2){border-top-color:var(--current)}
@@ -3174,13 +3176,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 2 · RIP messages">
   <div class="kicker">The transport channel and the conversation</div>
   <h2>RIP carries Request and Response messages over UDP</h2>
-  <div class="frag rip-channel-banner"><b>UDP</b><span>UDP runs on top of IP. We will study it later; for now, treat it as the data channel carrying RIP messages.</span></div>
   <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
     <div class="rip-dialogue-router left">R1</div>
-    <div class="frag rip-message-lane request"><b>Request</b><span>Ask a neighbour for all routes
-    or selected routing-table entries.</span></div>
-    <div class="frag rip-message-lane response"><b>Response</b><span>Advertise destination prefixes
-    together with their hop-count metrics.</span></div>
+    <div class="frag rip-message-lane request"><b>Request</b><span>Ask a neighbour for its
+    <b>distance vector</b> &mdash; the entries in that neighbour's RIP routing table.</span></div>
+    <div class="frag rip-message-lane response"><b>Response</b><span class="lane-alias">also known as
+    a RIP advertisement</span><span>Advertise the <b>distance vector</b> held in this router's RIP
+    routing table.</span></div>
     <div class="rip-dialogue-router right">R2</div>
   </div>
   <div class="source">Request and Response processing: RFC 2453 §§3.9.1–3.9.2</div>
