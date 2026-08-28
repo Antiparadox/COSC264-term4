@@ -1697,26 +1697,27 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .import-policy-rule b{display:block;margin-bottom:2px;font-family:var(--mono);font-size:11px;
   color:var(--accent-ink);text-transform:uppercase}
 .import-trigger,.export-policy-trigger{position:absolute;width:0;height:0;pointer-events:none}
-.import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-route{opacity:1}
-.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-policy-core{
+.import-policy-slide:is([data-step="1"],[data-step="2"]) .import-route{opacity:1}
+.import-policy-slide[data-step="2"] .import-policy-core{
   box-shadow:0 0 0 5px var(--current-soft),var(--shadow)}
-.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-policy-rule{
+.import-policy-slide[data-step="2"] .import-policy-rule{
   border-color:var(--current)}
-.import-policy-slide[data-step="3"] .import-localpref{display:grid}
-.import-policy-slide[data-step="3"] .import-route.route2{border-color:var(--good);
+.import-policy-slide[data-step="2"] .import-localpref{display:grid}
+.import-policy-slide[data-step="2"] .import-route.route2{border-color:var(--good);
   box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.import-policy-stage.import-as-stage{position:relative;display:block;height:320px;padding:0}
+.import-policy-stage.import-as-stage{position:relative;display:block;height:345px;padding:0}
 .import-as-boundary{position:absolute;left:365px;right:15px;top:15px;bottom:15px;border:3px solid
   var(--accent);border-radius:25px;background:var(--surface);box-shadow:var(--shadow);z-index:1}
 .import-as-boundary > b{position:absolute;left:19px;top:11px;font-family:var(--serif);font-size:24px}
-.import-as-route{position:absolute;left:18px;width:320px;padding:22px 11px 10px;border:2px solid
+.import-as-route{position:absolute;left:12px;width:326px;padding:25px 12px 11px;border:2px solid
   var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);transition:.22s;
-  z-index:7}.import-as-route.route1{top:36px}.import-as-route.route2{top:178px}
-.import-as-route > b{position:absolute;left:12px;top:-11px;padding:5px 8px;border-radius:7px;
-  background:var(--accent);color:#fff;font-family:var(--mono);font-size:9px;letter-spacing:.04em}
-.import-as-route.route2 > b{background:var(--good)}.import-as-route .route-card{padding:9px 12px;
-  border-radius:9px;font-size:11px;line-height:1.32}.import-as-route .route-card .field{
-  grid-template-columns:92px 1fr}.import-as-route .route-card .import-localpref{display:none}
+  z-index:7}.import-as-route.route1{top:26px}.import-as-route.route2{top:180px}
+.import-as-route > b{position:absolute;left:12px;top:-13px;padding:6px 10px;border-radius:8px;
+  background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;font-weight:900;
+  letter-spacing:.04em}
+.import-as-route.route2 > b{background:var(--good)}.import-as-route .route-card{padding:11px 13px;
+  border-radius:9px;font-size:14px;line-height:1.42}.import-as-route .route-card .field{
+  grid-template-columns:100px 1fr}.import-as-route .route-card .import-localpref{display:none}
 .import-as-node{position:absolute;width:62px;height:38px;display:grid;place-items:center;border:3px solid
   var(--accent);border-radius:22px;background:var(--accent-soft);color:var(--accent-ink);
   font-family:var(--mono);font-size:11px;font-weight:900;z-index:7}
@@ -1747,33 +1748,26 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   border-radius:50%;color:#fff;font-size:19px;font-weight:900;opacity:0;transform:scale(.7);
   transition:.22s;z-index:10}.import-verdict.top{top:80px}.import-verdict.bottom{top:212px}
 .import-verdict.reject{background:var(--bad)}.import-verdict.accept{background:var(--good)}
-.import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-ebgp::after{opacity:1}
-.import-policy-slide[data-step="2"] .import-as-route.route1{border-color:var(--bad);
-  box-shadow:0 0 0 5px var(--bad-soft),var(--shadow)}
-.import-policy-slide[data-step="2"] .import-as-route.route2{border-color:var(--good);
+.import-policy-slide:is([data-step="1"],[data-step="2"]) .import-ebgp::after{opacity:1}
+.import-policy-slide[data-step="2"] .import-verdict.accept.top,
+.import-policy-slide[data-step="2"] .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
+.import-policy-slide[data-step="2"] .import-as-route{border-color:var(--good);
   box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.import-policy-slide[data-step="2"] .import-verdict.reject.top,
-.import-policy-slide[data-step="2"] .import-verdict.accept.bottom,
-.import-policy-slide[data-step="3"] .import-verdict.accept.top,
-.import-policy-slide[data-step="3"] .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
-.import-policy-slide[data-step="3"] .import-as-route{border-color:var(--good);
-  box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.import-policy-slide[data-step="3"] .import-as-route .route-card .import-localpref{display:grid;
+.import-policy-slide[data-step="2"] .import-as-route .route-card .import-localpref{display:grid;
   margin:0 -5px;padding:3px 5px;border-radius:7px;background:#332b1f;
   box-shadow:inset 0 0 0 2px var(--current)}
-.import-policy-slide[data-step="3"] .import-localpref .key{color:#f5bd63;font-weight:900}
-.import-policy-slide[data-step="3"] .import-localpref .value{color:#fff;font-weight:900}
+.import-policy-slide[data-step="2"] .import-localpref .key{color:#f5bd63;font-weight:900}
+.import-policy-slide[data-step="2"] .import-localpref .value{color:#fff;font-weight:900}
 .import-policy-status,.export-policy-status{position:relative;height:90px;margin-top:10px}
 .import-policy-card,.export-policy-card{position:absolute;inset:0;display:grid;
   grid-template-columns:215px 1fr;gap:18px;align-items:center;padding:12px 18px;border:1px solid
   var(--accent);border-left:7px solid var(--accent);border-radius:0 13px 13px 0;
   background:var(--surface);box-shadow:var(--shadow);opacity:0;transform:translateY(7px);
   transition:.22s;font-size:18px;line-height:1.28}
-.import-policy-card b,.export-policy-card b{font-family:var(--mono);font-size:12px;
+.import-policy-card > b,.export-policy-card > b{font-family:var(--mono);font-size:12px;
   color:var(--accent-ink);text-transform:uppercase}
 .import-policy-slide[data-step="1"] .import-policy-card.s1,
 .import-policy-slide[data-step="2"] .import-policy-card.s2,
-.import-policy-slide[data-step="3"] .import-policy-card.s3,
 .export-policy-slide[data-step="1"] .export-policy-card.s1,
 .export-policy-slide[data-step="2"] .export-policy-card.s2,
 .export-policy-slide[data-step="3"] .export-policy-card.s3{opacity:1;transform:none}
@@ -2698,20 +2692,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="import-as-node gateway a4">A4</div><div class="import-as-node gateway a5">A5</div>
     <div class="import-as-node a2">A2</div><div class="import-as-node a3">A3</div>
     <div class="import-as-node a1">A1</div><div class="import-as-node a6">A6</div>
-    <span class="import-verdict reject top">×</span><span class="import-verdict accept top">✓</span>
+    <span class="import-verdict accept top">✓</span>
     <span class="import-verdict accept bottom">✓</span>
-    <span class="frag import-trigger" aria-hidden="true"></span>
     <span class="frag import-trigger" aria-hidden="true"></span>
     <span class="frag import-trigger" aria-hidden="true"></span>
   </div>
   <div class="import-policy-status">
     <div class="import-policy-card s1"><b>1 · One prefix, two routes</b><span>Two advertisements for
-      the same prefix, <code>203.0.113.0/24</code>, arrive over eBGP at separate AS A gateways.
-      No internal distribution yet.</span></div>
-    <div class="import-policy-card s2"><b>2 · Accept or reject</b><span>One possible AS A policy
-      rejects the route received at A4 and accepts the route received at A5.</span></div>
-    <div class="import-policy-card s3"><b>3 · Or accept both and rank them</b><span>Another policy
-      accepts both routes and attaches LOCAL_PREF 100 and 200 for use inside AS A.</span></div>
+      the same prefix, <code>203.0.113.0/24</code>, arrive over separate eBGP sessions at two
+      different AS A border gateways. <b>Which one should AS A allow to import?</b></span></div>
+    <div class="import-policy-card s2"><b>2 · Accept both, and rank them</b><span>AS A's import policy
+      accepts both routes and attaches a <code>LOCAL_PREF</code> to each &mdash; 100 and 200 &mdash;
+      for use inside AS A. The higher value is the one AS A prefers.</span></div>
   </div>
   <div class="source">Import policy and LOCAL_PREF: RFC 4271 §§5.1.5, 9.1.1</div>
 </section>
