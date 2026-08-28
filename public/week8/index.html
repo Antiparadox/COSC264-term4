@@ -3565,9 +3565,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>Why do so many local networks use addresses like 192.168.1.10?</h2>
   <ul class="nat-motivation-list">
     <li class="frag"><b>A familiar pattern.</b> You may see addresses such as <span class="mono">192.168.1.10</span> on devices at home, in an office, or in a campus lab.</li>
-    <li class="frag"><b>Private addressing.</b> These addresses can be reused independently in many local networks, greatly reducing demand for globally unique IPv4 addresses.</li>
     <li class="frag"><b>Why is there no conflict?</b> If both your home and a campus lab contain <span class="mono">192.168.1.10</span>, why does traffic sent at home reach the home device rather than the lab device?</li>
-    <li class="frag"><b>The key mechanism.</b> Network Address Translation (NAT) provides the mapping between the private network and the outside world.</li>
+    <li class="frag"><b>The key mechanism.</b> Network Address Translation (NAT) provides the mapping between the private network and the outside world. Addresses like this one are <b>private addresses</b>, free to be reused in any number of local networks.</li>
   </ul>
   <div class="source">Private IPv4 address space: RFC 1918</div>
 </section>
