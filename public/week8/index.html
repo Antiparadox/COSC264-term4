@@ -1666,7 +1666,7 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   gap:18px;align-items:center;padding:12px 18px;border:1px solid var(--accent);
   border-left:7px solid var(--accent);border-radius:0 13px 13px 0;background:var(--surface);
   box-shadow:var(--shadow);opacity:0;transform:translateY(7px);transition:.22s;font-size:18px;
-  line-height:1.28}.policy-merge-card b,.speaker-card b{font-family:var(--mono);font-size:12px;
+  line-height:1.28}.policy-merge-card > b,.speaker-card > b{font-family:var(--mono);font-size:12px;
   color:var(--accent-ink);text-transform:uppercase}
 .policy-merge-slide[data-step="1"] .policy-merge-card.s1,
 .policy-merge-slide[data-step="2"] .policy-merge-card.s2,
@@ -1674,7 +1674,10 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .speaker-decision-slide[data-step="1"] .speaker-card.s1,
 .speaker-decision-slide[data-step="2"] .speaker-card.s2,
 .speaker-decision-slide[data-step="3"] .speaker-card.s3,
-.speaker-decision-slide[data-step="4"] .speaker-card.s4{opacity:1;transform:none}
+.speaker-decision-slide[data-step="4"] .speaker-card.s4,
+.speaker-decision-slide[data-step="5"] .speaker-card.s5{opacity:1;transform:none}
+.speaker-card.question{border-color:var(--current);border-left-color:var(--current)}
+.speaker-card.question > b{color:var(--current)}
 
 .import-policy-stage{display:grid;grid-template-columns:470px 1fr;gap:34px;align-items:center;
   width:100%;max-width:1070px;height:320px;margin:0 auto;padding:24px 32px;border:1px solid
@@ -1937,35 +1940,36 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   border-radius:7px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:10px}
 .speaker-route.route2 > b{background:var(--good)}.speaker-route .route-card{padding:10px 13px;
   border-radius:10px;font-size:11px;line-height:1.35}.speaker-route .route-card .field{
-  grid-template-columns:92px 1fr}.decision-state.s2,.decision-state.s3,.decision-state.s4{display:none}
+  grid-template-columns:92px 1fr}.decision-state.s3,.decision-state.s4,.decision-state.s5{display:none}
 .speaker-result{position:absolute;right:11px;top:-12px;padding:5px 8px;border-radius:7px;
   background:var(--good);color:#fff;font-family:var(--mono);font-size:9px;font-weight:900;
   opacity:0;transition:.22s}.speaker-result.igp{background:var(--current)}
-.speaker-decision-slide:is([data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"])
-  .speaker-node.a1{box-shadow:0 0 0 6px var(--current-soft)}
-.speaker-decision-slide[data-step="1"] .speaker-ibgp{opacity:.9;border-top-width:5px}
-.speaker-decision-slide[data-step="1"] .speaker-ibgp::before,
-.speaker-decision-slide[data-step="1"] .speaker-ibgp::after{opacity:1}
-.speaker-decision-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .speaker-ibgp{opacity:.25}
-.speaker-decision-slide[data-step="4"] .speaker-ibgp{opacity:.08}
-.speaker-decision-slide[data-step="1"] .speaker-route{border-color:var(--current);
+.speaker-decision-slide:is([data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"],
+  [data-step="5"]) .speaker-node.a1{box-shadow:0 0 0 6px var(--current-soft)}
+.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-ibgp{opacity:.9;
+  border-top-width:5px}
+.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-ibgp::before,
+.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-ibgp::after{opacity:1}
+.speaker-decision-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .speaker-ibgp{opacity:.25}
+.speaker-decision-slide[data-step="5"] .speaker-ibgp{opacity:.08}
+.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-route{border-color:var(--current);
   box-shadow:0 0 0 4px var(--current-soft),var(--shadow)}
-.speaker-decision-slide[data-step="2"] .speaker-route.route2,
-.speaker-decision-slide:is([data-step="3"],[data-step="4"]) .speaker-route.route1{
+.speaker-decision-slide[data-step="3"] .speaker-route.route2,
+.speaker-decision-slide:is([data-step="4"],[data-step="5"]) .speaker-route.route1{
   border-color:var(--good);box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.speaker-decision-slide[data-step="2"] .speaker-route.route1,
-.speaker-decision-slide:is([data-step="3"],[data-step="4"]) .speaker-route.route2{opacity:.58}
-.speaker-decision-slide[data-step="2"] .route2 .speaker-result.lp,
-.speaker-decision-slide[data-step="3"] .route1 .speaker-result.path,
-.speaker-decision-slide[data-step="4"] .route1 .speaker-result.igp{opacity:1}
-.speaker-decision-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .decision-state.s1{display:none}
-.speaker-decision-slide[data-step="2"] .decision-state.s2,
+.speaker-decision-slide[data-step="3"] .speaker-route.route1,
+.speaker-decision-slide:is([data-step="4"],[data-step="5"]) .speaker-route.route2{opacity:.58}
+.speaker-decision-slide[data-step="3"] .route2 .speaker-result.lp,
+.speaker-decision-slide[data-step="4"] .route1 .speaker-result.path,
+.speaker-decision-slide[data-step="5"] .route1 .speaker-result.igp{opacity:1}
+.speaker-decision-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .decision-state.s1{display:none}
 .speaker-decision-slide[data-step="3"] .decision-state.s3,
-.speaker-decision-slide[data-step="4"] .decision-state.s4{display:inline}
-.speaker-decision-slide[data-step="4"] .speaker-igp.top,
-.speaker-decision-slide[data-step="4"] .speaker-ebgp.top{height:7px;background:var(--current)}
-.speaker-decision-slide[data-step="4"] .speaker-cost{opacity:1}
-.speaker-decision-slide[data-step="4"] .speaker-next-hop{margin:0 -5px;padding:3px 5px;
+.speaker-decision-slide[data-step="4"] .decision-state.s4,
+.speaker-decision-slide[data-step="5"] .decision-state.s5{display:inline}
+.speaker-decision-slide[data-step="5"] .speaker-igp.top,
+.speaker-decision-slide[data-step="5"] .speaker-ebgp.top{height:7px;background:var(--current)}
+.speaker-decision-slide[data-step="5"] .speaker-cost{opacity:1}
+.speaker-decision-slide[data-step="5"] .speaker-next-hop{margin:0 -5px;padding:3px 5px;
   border-radius:7px;background:#332b1f;box-shadow:inset 0 0 0 2px var(--current)}
 
 .hierarchy-stage{position:relative;width:100%;max-width:1070px;height:305px;margin:0 auto;
@@ -2781,9 +2785,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
 
-<section class="slide stateful speaker-decision-slide" data-sec="Lecture 1 · iBGP and router-level selection">
-  <div class="kicker">Router-level decision · LOCAL_PREF → AS_PATH → IGP cost</div>
-  <h2>iBGP shares candidate routes; each BGP router selects its next hop</h2>
+<section class="slide stateful speaker-decision-slide" data-sec="Lecture 1 · Building the forwarding table">
+  <div class="kicker">One next hop per prefix · LOCAL_PREF → AS_PATH → IGP cost</div>
+  <h2>How each BGP router builds its forwarding table</h2>
   <div class="speaker-decision-stage" role="img"
     aria-label="BGP speakers A4 and A5 distribute two candidate routes to A1 using iBGP. A1 compares local preference, AS path length, and finally its IGP cost to the next hops B3 and E1">
     <div class="speaker-topology"><div class="speaker-as-boundary"><b>AS A</b></div>
@@ -2811,11 +2815,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="route-card">
           <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
           <div class="field"><span class="key">LOCAL_PREF</span><span class="value">
-            <span class="decision-state s1">100</span><span class="decision-state s2">100</span>
-            <span class="decision-state s3">100</span><span class="decision-state s4">100</span></span></div>
+            <span class="decision-state s1">100</span><span class="decision-state s3">100</span>
+            <span class="decision-state s4">100</span><span class="decision-state s5">100</span></span></div>
           <div class="field"><span class="key">AS_PATH</span><span class="value">
-            <span class="decision-state s1">AS B · AS C</span><span class="decision-state s2">AS B · AS C</span>
-            <span class="decision-state s3">AS B · AS C</span><span class="decision-state s4">AS B · AS C</span></span></div>
+            <span class="decision-state s1">AS B · AS C</span><span class="decision-state s3">AS B · AS C</span>
+            <span class="decision-state s4">AS B · AS C</span><span class="decision-state s5">AS B · AS C</span></span></div>
           <div class="field speaker-next-hop"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
         </div>
       </div>
@@ -2824,13 +2828,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="route-card">
           <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
           <div class="field"><span class="key">LOCAL_PREF</span><span class="value">
-            <span class="decision-state s1">200</span><span class="decision-state s2">200</span>
-            <span class="decision-state s3">100</span><span class="decision-state s4">100</span></span></div>
+            <span class="decision-state s1">200</span><span class="decision-state s3">200</span>
+            <span class="decision-state s4">100</span><span class="decision-state s5">100</span></span></div>
           <div class="field"><span class="key">AS_PATH</span><span class="value">
             <span class="decision-state s1">AS E · AS H · AS C</span>
-            <span class="decision-state s2">AS E · AS H · AS C</span>
             <span class="decision-state s3">AS E · AS H · AS C</span>
-            <span class="decision-state s4">AS E · AS C</span></span></div>
+            <span class="decision-state s4">AS E · AS H · AS C</span>
+            <span class="decision-state s5">AS E · AS C</span></span></div>
           <div class="field speaker-next-hop"><span class="key">NEXT_HOP</span><span class="value">E1</span></div>
         </div>
       </div>
@@ -2839,17 +2843,23 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="frag speaker-trigger" aria-hidden="true"></span>
     <span class="frag speaker-trigger" aria-hidden="true"></span>
     <span class="frag speaker-trigger" aria-hidden="true"></span>
+    <span class="frag speaker-trigger" aria-hidden="true"></span>
   </div>
   <div class="speaker-status">
-    <div class="speaker-card s1"><b>Goal of iBGP</b><span>A4 and A5 learned external routes for
-      NLRI <code>203.0.113.0/24</code>. iBGP propagates that reachability among AS A's BGP speakers.</span></div>
-    <div class="speaker-card s2"><b>Focus on A1 · respect LOCAL_PREF</b><span>A1 now has two
-      candidates and must select its next hop. AS-wide policy comes first: 200 beats 100, so Route 2 wins.</span></div>
-    <div class="speaker-card s3"><b>2 · Compare AS_PATH length</b><span>If LOCAL_PREF ties, A1
-      chooses Route 1: its AS_PATH contains two ASes rather than three.</span></div>
-    <div class="speaker-card s4"><b>3 · Hot-potato tie-break</b><span>If both BGP attributes tie,
-      A1 asks its IGP for the closer next hop. With equal link costs, two internal links toward B3
-      beat three toward E1.</span></div>
+    <div class="speaker-card s1"><b>The setup</b><span>Over iBGP, router A1 has learned
+      <b>two routes</b> to <code>203.0.113.0/24</code> &mdash; one from A4, one from A5.</span></div>
+    <div class="speaker-card question s2"><b>The question</b><span>A1 must put <b>one</b> next hop for
+      this prefix into its forwarding table. <b>Which of the two routes should it pick?</b></span></div>
+    <div class="speaker-card s3"><b>1 &middot; AS-wide policy first</b><span>The first tie-breaker is
+      <code>LOCAL_PREF</code>, the AS-wide preference from import policy: 200 beats 100, so
+      <b>Route 2 wins</b>.</span></div>
+    <div class="speaker-card s4"><b>2 &middot; Then AS_PATH length</b><span>If <code>LOCAL_PREF</code>
+      ties, A1 compares AS-level path lengths and takes the shorter: <b>Route 1 wins</b> with two ASes
+      rather than three.</span></div>
+    <div class="speaker-card s5"><b>3 &middot; Then hot-potato routing</b><span>If both BGP attributes
+      tie, A1 turns to AS A's <b>own internal topology</b> and asks its IGP which next hop is closer:
+      B3 at cost 2 beats E1 at cost 3, so <b>Route 1 wins</b>. Handing the datagram to the nearest exit
+      is called <b>hot-potato routing</b> &mdash; get it out of your own network fast.</span></div>
   </div>
   <div class="source">iBGP, distributed selection, LOCAL_PREF, and IGP cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
 </section>
