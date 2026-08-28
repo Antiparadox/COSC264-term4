@@ -634,17 +634,28 @@ svg text{font-family:var(--sans)}
   font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2)}.rip-route-field strong{display:flex;align-items:center;
   gap:9px;font-size:19px;color:#fff}.rip-route-field em{padding:4px 7px;border-radius:6px;background:var(--bad);font-size:9px;
   font-style:normal;letter-spacing:.04em;text-transform:uppercase;color:#fff}
-.rip-learn-layout{display:grid;width:100%;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:30px;margin:14px 0 16px}
-.rip-learn-column{min-width:0}.rip-learn-slide .rip-example-route-stage{width:100%;min-height:214px;margin:0}
-.rip-learn-slide .rip-route-card{padding:22px 26px}.rip-learn-slide .rip-route-card h3{font-size:29px}
-.rip-learn-slide .rip-route-fields{grid-template-columns:minmax(0,1.55fr) minmax(0,.72fr) minmax(0,.83fr);gap:15px}
-.rip-learn-slide .rip-route-field{padding:15px 17px}.rip-learn-slide .rip-route-field strong{font-size:20px}
-.rip-learn-slide .rip-route-card.learned{display:none}.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rip-route-card.pending{display:none}
+.rip-learn-layout{display:grid;width:100%;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+  gap:30px;flex:0 0 auto;align-items:center;margin:14px 0 16px}
+.rl-cap{display:block;margin-bottom:9px;font-family:var(--serif);font-size:21px;font-weight:700;
+  color:var(--ink)}
+.rl-table{width:100%}
+.rl-table :is(td,th).c-metric,.rl-table :is(td,th).c-hop{width:104px}
+.rl-table :is(td,th).c-timer{width:118px}
+.rl-table td{font-size:17px}
+.rl-b,.rl-t1,.rl-reset{display:none}
+.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],
+  [data-step="7"]) .rl-a{display:none}
+.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],
+  [data-step="7"]) .rl-b{display:inline}
+.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"]) .rl-t0{display:none}
+.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"]) .rl-t1{
+  display:inline;color:var(--current);font-weight:900}
+.rip-learn-slide[data-step="7"] .rl-reset{display:inline;margin-left:6px;color:var(--accent-ink);
+  font-weight:900;animation:rip-timer-refresh .55s ease-out}
+.rip-learn-slide:is([data-step="3"],[data-step="4"]) .rl-table tbody td{background:var(--good-soft)}
+.rip-learn-column{min-width:0}.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rip-route-card.pending{display:none}
 .rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"]) .rip-route-card.learned{display:block}.rip-route-badge.waiting{
   background:var(--surface-2);color:var(--muted)}
-.rip-learn-slide .rip-route-card.pending .rip-route-fields{grid-template-columns:1fr}
-.rip-learn-slide:is([data-step="6"],[data-step="7"]) .rip-route-timer.started{display:inline-block}
-.rip-learn-slide[data-step="8"] .rip-route-timer.refreshed{display:inline-block;animation:rip-timer-refresh .55s ease-out}
 @keyframes rip-timer-refresh{0%{transform:scale(.78);box-shadow:0 0 0 0 rgba(13,148,136,.35)}70%{transform:scale(1.06);
   box-shadow:0 0 0 10px rgba(13,148,136,0)}100%{transform:scale(1);box-shadow:none}}
 .rip-example-exchange{position:relative;min-height:214px;border:1px solid var(--border);border-radius:17px;background:var(--surface-2);overflow:hidden}
@@ -661,7 +672,7 @@ svg text{font-family:var(--sans)}
 .rip-exchange-arrow b{position:absolute;left:50%;top:-2px;transform:translateX(-50%);padding:2px 7px;border-radius:6px;background:var(--surface-2);
   font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
 .rip-learn-slide[data-step="1"] .rip-exchange-arrow.request{color:var(--current)}
-.rip-learn-slide:is([data-step="2"],[data-step="3"],[data-step="7"],[data-step="8"]) .rip-exchange-arrow.response{color:var(--accent)}
+.rip-learn-slide:is([data-step="2"],[data-step="3"],[data-step="6"],[data-step="7"]) .rip-exchange-arrow.response{color:var(--accent)}
 .rip-example-trigger{position:absolute;width:1px;height:1px;overflow:hidden}.rip-example-panel-stage{position:relative;min-height:154px;
   max-width:1050px;margin:0 auto}.rip-example-panel{display:none;padding:15px 20px;border-left:6px solid var(--accent);
   border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow)}.rip-example-panel.alert{border-left-color:var(--bad)}
@@ -678,19 +689,17 @@ svg text{font-family:var(--sans)}
 .rip-failure-slide[data-step="4"] .rip-route-card:is(.usable,.expired,.unreachable){display:none}
 .rip-failure-slide[data-step="4"] .rip-route-card.removed{display:block}
 .rip-learn-slide[data-step="1"] .rip-example-panel.p1,
-.rip-learn-slide:is([data-step="2"],[data-step="3"]) .rip-example-panel.p2,
-.rip-learn-slide:is([data-step="4"],[data-step="5"],[data-step="6"]) .rip-example-panel.p3,
-.rip-learn-slide:is([data-step="7"],[data-step="8"]) .rip-example-panel.p4,
+.rip-learn-slide[data-step="2"] .rip-example-panel.p2,
+.rip-learn-slide[data-step="3"] .rip-example-panel.p3,
+.rip-learn-slide:is([data-step="4"],[data-step="5"]) .rip-example-panel.p4,
+.rip-learn-slide:is([data-step="6"],[data-step="7"]) .rip-example-panel.p5,
 .rip-failure-slide[data-step="1"] .rip-example-panel.p1,
 .rip-failure-slide[data-step="2"] .rip-example-panel.p2,.rip-failure-slide[data-step="3"] .rip-example-panel.p3,
 .rip-failure-slide[data-step="4"] .rip-example-panel.p4{display:block}
-.rip-learn-slide[data-step="2"] .rip-example-panel.p2 .b1,
-.rip-learn-slide[data-step="3"] .rip-example-panel.p2 li,
-.rip-learn-slide[data-step="4"] .rip-example-panel.p3 .b1,
-.rip-learn-slide[data-step="5"] .rip-example-panel.p3 :is(.b1,.b2),
-.rip-learn-slide[data-step="6"] .rip-example-panel.p3 li,
-.rip-learn-slide[data-step="7"] .rip-example-panel.p4 .b1,
-.rip-learn-slide[data-step="8"] .rip-example-panel.p4 li{display:list-item}
+.rip-learn-slide[data-step="4"] .rip-example-panel.p4 .b1,
+.rip-learn-slide[data-step="5"] .rip-example-panel.p4 li,
+.rip-learn-slide[data-step="6"] .rip-example-panel.p5 .b1,
+.rip-learn-slide[data-step="7"] .rip-example-panel.p5 li{display:list-item}
 
 .rip-count-recap{max-width:980px;margin:34px auto 0;border:1px solid var(--border);border-radius:18px;
   background:var(--surface);box-shadow:var(--shadow);overflow:hidden}.rip-count-sentence{display:grid;
@@ -3198,31 +3207,23 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     3.10&ndash;3.10.2</div>
 </section>
 
-<section class="slide stateful rip-example-slide rip-learn-slide" data-sec="Lecture 2 · RIP route maintenance">
-  <div class="kicker">Worked example · normal operation</div>
-  <h2>R1 learns and maintains a route through R2</h2>
+<section class="slide stateful rip-example-slide rip-learn-slide" data-sec="Lecture 2 &middot; RIP route maintenance">
+  <div class="kicker">Worked example &middot; normal operation</div>
+  <h2>An example of running RIP</h2>
   <div class="rip-learn-layout">
     <div class="rip-learn-column">
-      <div class="rip-example-route-stage" aria-label="RIP route learned by router R1 from router R2">
-        <div class="rip-route-card pending">
-          <div class="rip-route-heading"><h3>RIP route at R1</h3><span class="rip-route-badge waiting">WAITING</span></div>
-          <div class="rip-route-fields">
-            <div class="rip-route-field"><span>destination</span><strong>203.0.113.0/24</strong></div>
-          </div>
-        </div>
-        <div class="rip-route-card learned">
-          <div class="rip-route-heading"><h3>RIP route at R1</h3><div class="rip-route-status">
-            <span class="rip-route-badge">ACTIVE</span>
-            <span class="rip-route-timer started">⏱ 180 s</span>
-            <span class="rip-route-timer refreshed">↻ 180 s · restarted</span>
-          </div></div>
-          <div class="rip-route-fields">
-            <div class="rip-route-field"><span>destination</span><strong>203.0.113.0/24</strong></div>
-            <div class="rip-route-field"><span>next hop</span><strong>R2</strong></div>
-            <div class="rip-route-field"><span>cost metric</span><strong>3</strong></div>
-          </div>
-        </div>
-      </div>
+      <b class="rl-cap">RIP routing table at R1</b>
+      <table class="rt-table rl-table" aria-label="RIP routing table at R1, one entry">
+        <thead><tr><th class="c-dest">destination</th><th class="c-metric">metric</th>
+          <th class="c-hop">next hop</th><th class="c-timer">timer</th></tr></thead>
+        <tbody><tr>
+          <td class="c-dest">203.0.113.0/24</td>
+          <td class="c-metric"><span class="rl-a">&mdash;</span><span class="rl-b">3</span></td>
+          <td class="c-hop"><span class="rl-a">&mdash;</span><span class="rl-b">R2</span></td>
+          <td class="c-timer"><span class="rl-t0">&mdash;</span><span class="rl-t1">180 s</span>
+            <span class="rl-reset">&#8635;</span></td>
+        </tr></tbody>
+      </table>
     </div>
     <div class="rip-learn-column">
       <div class="rip-example-exchange" aria-label="RIP Request from R1 to R2 and Response from R2 to R1 over UDP">
@@ -3240,30 +3241,33 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <div class="rip-example-panel-stage">
-    <div class="rip-example-panel p1"><b>1 · Request routing information</b><span>R1 sends a RIP Request to R2 over UDP, asking for R2’s routing information.</span></div>
-    <div class="rip-example-panel p2"><b>2 · Receive and process an advertisement</b>
+    <div class="rip-example-panel p1"><b>1 &middot; Ask for the route</b><span>R1 wants a route to
+      <code>203.0.113.0/24</code>. It sends a RIP <strong class="message-highlight">Request</strong>
+      to R2 over UDP: do you have an entry for this destination?</span></div>
+    <div class="rip-example-panel p2"><b>2 &middot; R2 advertises its distance vector</b><span>R2
+      replies with a <strong class="message-highlight">Response</strong>: it can reach
+      <code>203.0.113.0/24</code> at <strong>cost metric 2</strong>.</span></div>
+    <div class="rip-example-panel p3"><b>3 &middot; Add it to the RIP routing table</b><span>R1 records
+      the destination with next hop R2. R1 is one hop further along, so its own cost metric is
+      <strong>2 + 1 = 3</strong>.</span></div>
+    <div class="rip-example-panel p4"><b>4 &middot; Start the timer, then install it</b>
       <ul class="rip-example-bullets">
-        <li class="b1"><strong>R2 advertises its distance.</strong> Its Response lists 203.0.113.0/24 with cost metric 2.</li>
-        <li class="b2"><strong>R1 adds one hop.</strong> R1 is one hop from R2, so its own cost metric is 2 + 1 = 3.</li>
+        <li class="b1"><strong>Start a timer.</strong> The entry is given 180 seconds to live.</li>
+        <li class="b2"><strong>Install it.</strong> R1 puts the route into its forwarding table, and
+          starts forwarding datagrams for this prefix to R2.</li>
       </ul>
     </div>
-    <div class="rip-example-panel p3"><b>3 · Save the usable route</b>
+    <div class="rip-example-panel p5"><b>5 &middot; R2 keeps it fresh</b>
       <ul class="rip-example-bullets">
-        <li class="b1"><strong>Record it.</strong> R1 stores the destination prefix, next hop R2, and cost metric 3.</li>
-        <li class="b2"><strong>Make it usable.</strong> R1 installs the selected route in its local forwarding table.</li>
-        <li class="b3"><strong>Start its timer.</strong> R1 begins a 180-second timer for the learned route.</li>
-      </ul>
-    </div>
-    <div class="rip-example-panel p4"><b>4 · Keep it fresh with periodic Responses</b>
-      <ul class="rip-example-bullets">
-        <li class="b1"><strong>Re-advertise it.</strong> Roughly every 30 seconds, R2 sends a <strong class="message-highlight">periodic Response</strong> with the same distance-vector information for this unchanged route.</li>
-        <li class="b2"><strong>Refresh the timer.</strong> Each valid Response for this route restarts R1’s 180-second timer.</li>
+        <li class="b1"><strong>Roughly every 30 seconds</strong>, R2 sends a
+          <strong class="message-highlight">periodic Response</strong> re-advertising the same route,
+          telling R1 it is still current.</li>
+        <li class="b2"><strong>Every refresh resets the timer</strong> back to 180 seconds.</li>
       </ul>
     </div>
   </div>
-  <div class="source">RIP route maintenance: RFC 2453 §§3.8, 3.9.2, 3.10</div>
+  <div class="source">RIP route maintenance: RFC 2453 &sect;&sect;3.8, 3.9.2, 3.10</div>
 </section>
 
 <section class="slide stateful rip-example-slide rip-failure-slide" data-sec="Lecture 2 · RIP route failure">
