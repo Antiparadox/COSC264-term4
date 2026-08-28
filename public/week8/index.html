@@ -528,26 +528,23 @@ svg text{font-family:var(--sans)}
   transparent;border-left-color:var(--good);border-right:0}
 .rt-install b{font-family:var(--mono);font-size:12px;color:var(--good);text-transform:uppercase}
 .riptable-slide:not([data-step="0"]) .rt-panel.rip{visibility:visible;opacity:1}
-.riptable-slide:is([data-step="3"],[data-step="4"]) .rt-panel.fwd,
-.riptable-slide:is([data-step="3"],[data-step="4"]) .rt-install{visibility:visible;opacity:1}
-.riptable-slide[data-step="2"] .rt-table :is(td,th):is(.c-dest,.c-metric){
-  background:var(--current-soft);box-shadow:inset 0 0 0 2px var(--current)}
-.riptable-slide[data-step="3"] .rt-table :is(td,th):is(.c-dest,.c-hop){
+.riptable-slide:is([data-step="2"],[data-step="3"]) .rt-panel.fwd,
+.riptable-slide:is([data-step="2"],[data-step="3"]) .rt-install{visibility:visible;opacity:1}
+.riptable-slide[data-step="2"] .rt-table :is(td,th):is(.c-dest,.c-hop){
   background:var(--good-soft);box-shadow:inset 0 0 0 2px var(--good)}
-.rt-status{position:relative;flex:0 0 104px;height:104px;width:100%;max-width:1060px;margin:16px auto 0}
+.rt-status{position:relative;flex:0 0 116px;height:116px;width:100%;max-width:1060px;margin:16px auto 0}
 .rt-card{position:absolute;inset:0;display:grid;grid-template-columns:225px 1fr;gap:18px;
   align-items:center;padding:12px 18px;border:1px solid var(--accent);border-left:7px solid
   var(--accent);border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow);
   opacity:0;transform:translateY(7px);transition:.22s;font-size:18px;line-height:1.3}
 .rt-card > b{font-family:var(--mono);font-size:12px;color:var(--accent-ink);text-transform:uppercase}
-.rt-card.s2{border-color:var(--current);border-left-color:var(--current)}
-.rt-card.s2 > b{color:var(--current)}
-.rt-card:is(.s3,.s4){border-color:var(--good);border-left-color:var(--good)}
-.rt-card:is(.s3,.s4) > b{color:var(--good)}
+.rt-card:is(.s2,.s3){border-color:var(--good);border-left-color:var(--good)}
+.rt-card:is(.s2,.s3) > b{color:var(--good)}
+.rt-bullets{margin:0;padding-left:21px;display:grid;gap:4px}
+.rt-bullets li{font-size:18px;line-height:1.3;color:var(--muted)}
 .riptable-slide[data-step="1"] .rt-card.s1,
 .riptable-slide[data-step="2"] .rt-card.s2,
-.riptable-slide[data-step="3"] .rt-card.s3,
-.riptable-slide[data-step="4"] .rt-card.s4{opacity:1;transform:none}
+.riptable-slide[data-step="3"] .rt-card.s3{opacity:1;transform:none}
 
 .rip-channel-banner{display:flex;gap:16px;align-items:center;max-width:790px;margin:0 auto 11px;padding:10px 15px;
   border-left:6px solid var(--current);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
@@ -3144,20 +3141,17 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
   <div class="rt-status">
-    <div class="rt-card s1"><b>RIP&rsquo;s own table</b><span>RIP keeps one entry per destination
-      network: how far away it is, which neighbour to use, and RIP&rsquo;s own bookkeeping &mdash;
-      here, the timer that says how long the entry stays valid.</span></div>
-    <div class="rt-card s2"><b>It holds a distance vector</b><span>Read the
-      <b>destination and metric</b> columns and you have A&rsquo;s <b>distance vector</b> &mdash;
-      exactly what A advertises to B and E.</span></div>
-    <div class="rt-card s3"><b>It feeds the forwarding table</b><span>For each destination, RIP
+    <div class="rt-card s1"><b>RIP routing table</b><ul class="rt-bullets">
+      <li>how far away each destination is &mdash; a <b>distance vector</b></li>
+      <li><b>next hop</b> information</li>
+      <li>RIP&rsquo;s own bookkeeping, such as a <b>timer</b> giving the entry its time to live</li>
+      </ul></div>
+    <div class="rt-card s2"><b>It feeds the forwarding table</b><span>For each destination, RIP
       installs its chosen route into A&rsquo;s <b>forwarding table</b> &mdash; the table A consults
       for every datagram it must forward.</span></div>
-    <div class="rt-card s4"><b>Two tables, not one</b><span>They are kept separately, and they do
-      not always agree: a route can be dropped from the forwarding table while RIP keeps it a while
-      longer, so that it can go on telling the neighbours about it.</span></div>
+    <div class="rt-card s3"><b>Two tables, not one</b><span>They are kept separately, and may not
+      always agree.</span></div>
   </div>
-  <span class="frag rt-trigger" aria-hidden="true"></span>
   <span class="frag rt-trigger" aria-hidden="true"></span>
   <span class="frag rt-trigger" aria-hidden="true"></span>
   <span class="frag rt-trigger" aria-hidden="true"></span>
