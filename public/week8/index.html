@@ -1217,6 +1217,16 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   background:var(--surface-2)}
 .pv-format-summary{grid-column:1/-1;font-family:var(--serif);font-size:23px;line-height:1.3;
   color:var(--ink)}
+/* path-vector fields: one explanation per beat, with its row lit */
+.pv-fields-slide .field-explain{opacity:0;transition:opacity .28s}
+.pv-fields-slide[data-step="2"] .f1,.pv-fields-slide[data-step="3"] .f1,
+.pv-fields-slide[data-step="4"] .f1,
+.pv-fields-slide[data-step="3"] .f2,.pv-fields-slide[data-step="4"] .f2,
+.pv-fields-slide[data-step="4"] .f3{opacity:1}
+.pv-fields-slide .route-card .field{transition:box-shadow .28s,border-color .28s}
+.pv-fields-slide[data-step="2"] .r1,
+.pv-fields-slide[data-step="3"] .r2,
+.pv-fields-slide[data-step="4"] .r3{box-shadow:0 0 0 3px rgba(232,181,102,.30)}
 .pv-format-layout .route-card{align-self:center;font-size:17px;line-height:1.55}
 .pv-vector-example{position:relative;align-self:center;padding:17px 9px 9px;border:2px solid
   var(--current);border-radius:17px;background:var(--current-soft);box-shadow:var(--shadow)}
@@ -2541,7 +2551,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="source">BGP transport and messages: RFC 4271 §§4.1-4.4, 8</div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 · BGP path vector">
+<section class="slide stateful pv-fields-slide" data-sec="Lecture 1 · BGP path vector">
   <div class="kicker">The route information carried by an UPDATE</div>
   <h2>A closer look at a BGP path vector</h2>
   <div class="pv-format-layout frag">
@@ -2550,21 +2560,22 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="pv-vector-example">
       <b>One path-vector route</b>
       <div class="route-card" aria-label="Conceptual BGP path-vector route information">
-        <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field path-vector-focus"><span class="key">AS_PATH</span><span class="value">AS C, AS D, AS F</span></div>
-        <div class="field"><span class="key">NEXT_HOP</span><span class="value">C2</span></div>
+        <div class="field r1"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
+        <div class="field path-vector-focus r2"><span class="key">AS_PATH</span><span class="value">AS C, AS D, AS F</span></div>
+        <div class="field r3"><span class="key">NEXT_HOP</span><span class="value">C2</span></div>
       </div>
     </div>
     <div class="pv-format-explain">
-      <div class="field-explain"><b>NLRI</b><span><strong>Network Layer Reachability Information:</strong>
+      <div class="field-explain f1"><b>NLRI</b><span><strong>Network Layer Reachability Information:</strong>
         the destination prefix being advertised.</span></div>
-      <div class="field-explain"><b>AS_PATH</b><span>The complete <strong>AS-level path leading to
+      <div class="field-explain f2"><b>AS_PATH</b><span>The complete <strong>AS-level path leading to
         that destination prefix</strong>.</span></div>
-      <div class="field-explain"><b>NEXT_HOP</b><span>The IP address of the next router to which
+      <div class="field-explain f3"><b>NEXT_HOP</b><span>The IP address of the next router to which
         traffic should be forwarded towards that prefix.</span></div>
     </div>
   </div>
   <div class="source">BGP route, NLRI and path attributes: RFC 4271 §§1.1, 3.1, 4.3, 5.1.2-5.1.3</div>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide stateful pv-walk-slide" data-sec="Lecture 1 · BGP path-vector walkthrough">
