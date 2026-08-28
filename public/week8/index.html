@@ -490,8 +490,18 @@ svg text{font-family:var(--sans)}
 .rip-overview-list li::before{position:absolute;left:20px;top:19px;display:grid;width:31px;height:31px;place-items:center;
   border-radius:10px;background:var(--accent-soft);color:var(--accent-ink);font-family:var(--mono);font-size:13px;font-weight:900}
 .rip-overview-list li:nth-child(1)::before{content:"1"}.rip-overview-list li:nth-child(2)::before{content:"2"}
-.rip-overview-list li:nth-child(3)::before{content:"3"}.rip-overview-list b{display:block;margin-bottom:3px;font-family:var(--serif);
+.rip-overview-list li:nth-child(3)::before{content:"3"}.rip-overview-list li > b{display:block;margin-bottom:3px;font-family:var(--serif);
   font-size:24px;color:var(--ink)}
+.rip-hopfig{display:flex;align-items:center;gap:0;margin-top:11px;padding:9px 14px;border-radius:11px;
+  background:var(--surface-2)}
+.rip-hopfig .rhn{flex:0 0 auto;width:38px;height:38px;display:grid;place-items:center;border:2px solid
+  var(--border);border-radius:50%;background:var(--surface);font-family:var(--mono);font-size:14px;
+  font-weight:900;color:var(--muted)}
+.rip-hopfig .rhn.on{border-color:var(--current);background:var(--current-soft);color:var(--current)}
+.rip-hopfig .rhl{flex:0 0 44px;height:4px;border-radius:3px;background:var(--edge)}
+.rip-hopfig .rhl.on{background:var(--current);height:6px}
+.rip-hopfig .rhcap{margin:0 0 0 auto;font-family:var(--mono);font-size:14px;font-weight:900;
+  color:var(--current)}
 
 .rip-channel-banner{display:flex;gap:16px;align-items:center;max-width:790px;margin:0 auto 11px;padding:10px 15px;
   border-left:6px solid var(--current);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
@@ -3035,9 +3045,22 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">A concrete distance-vector IGP</div>
   <h2>RIP is a concrete distance-vector protocol</h2>
   <ul class="rip-overview-list">
-    <li class="frag"><b>Neighbour-to-neighbour exchange</b>Each router learns distances from its directly connected neighbours rather than collecting the complete topology.</li>
-    <li class="frag"><b>Distributed Bellman–Ford relaxation</b>The router combines a neighbour’s advertised distance with the cost of reaching that neighbour, then keeps the better route.</li>
-    <li class="frag"><b>Every link costs one hop</b>RIP measures distance in router hops, so each router adds one to the received metric.</li>
+    <li class="frag"><b>A reminder: neighbour-to-neighbour exchange</b><span>Routers talk only to
+      their direct neighbours, and from that alone each learns the <b>best distance</b> and the
+      <b>next hop</b> to every destination. No router ever learns the full topology.</span></li>
+    <li class="frag"><b>Every link costs one hop</b><span>RIP measures distance in <b>router hops</b>:
+      each router adds one to the metric it received.</span>
+      <span class="rip-hopfig" role="img"
+        aria-label="Five routers A to E in a chain; the path from A to D crosses three links">
+        <span class="rhn on">A</span><span class="rhl on"></span>
+        <span class="rhn on">B</span><span class="rhl on"></span>
+        <span class="rhn on">C</span><span class="rhl on"></span>
+        <span class="rhn on">D</span><span class="rhl"></span>
+        <span class="rhn">E</span>
+        <b class="rhcap">distance from A to D = 3 hops</b>
+      </span></li>
+    <li class="frag"><b>15 hops is as far as RIP counts</b><span>A path of more than <b>15 hops</b> is
+      treated as unreachable &mdash; a metric of 16 means infinity.</span></li>
   </ul>
   <div class="source">RIP distance-vector operation and hop-count metric: RFC 2453 §§3.4, 3.9.2</div>
 </section>
