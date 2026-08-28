@@ -1388,6 +1388,9 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .pv-walk-card > b{display:grid;place-items:center;min-height:52px;padding:7px 9px;border-radius:9px;
   background:var(--accent);color:#fff;font-family:var(--mono);font-size:11px;text-align:center;
   text-transform:uppercase;letter-spacing:.04em}
+.pv-walk-card.wide{grid-template-columns:165px 1fr}
+.pv-walk-card.recap{border-color:var(--good)}
+.pv-walk-card.recap > b{background:var(--good)}
 .pv-walk-card.policy-only{grid-template-columns:165px 1fr;border-color:var(--bad);
   border-left-color:var(--bad);background:var(--bad-soft)}
 .pv-walk-card.policy-only > b{background:var(--bad)}
@@ -1406,24 +1409,24 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .pv-walk-slide[data-step="7"] .pv-walk-card.s7,
 .pv-walk-slide[data-step="8"] .pv-walk-card.s8,
 .pv-walk-slide[data-step="9"] .pv-walk-card.s9,
-.pv-walk-slide[data-step="10"] .pv-walk-card.s10,
-.pv-walk-slide[data-step="11"] .pv-walk-card.s11{opacity:1;transform:none}
+.pv-walk-slide[data-step="10"] .pv-walk-card.s10{opacity:1;transform:none}
 .pv-walk-slide:not([data-step="0"]) .pv-walk-prefix{box-shadow:0 0 0 4px var(--good-soft)}
 .pv-walk-slide:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],
-  [data-step="7"],[data-step="8"],[data-step="9"],[data-step="10"],
-  [data-step="11"]) .pv-ebgp-link.bc,
-.pv-walk-slide:is([data-step="8"],[data-step="9"],[data-step="10"],
-  [data-step="11"]) .pv-ebgp-link.ab{
+  [data-step="7"],[data-step="8"],[data-step="9"],
+  [data-step="10"]) .pv-ebgp-link.bc,
+.pv-walk-slide:is([data-step="7"],[data-step="8"],[data-step="9"],
+  [data-step="10"]) .pv-ebgp-link.ab{
   height:7px;background:var(--current)}
 .pv-walk-slide[data-step="3"] .pv-route-message.cb,
-.pv-walk-slide[data-step="8"] .pv-route-message.ba{opacity:1}
-.pv-walk-slide:is([data-step="6"],[data-step="7"],[data-step="8"],[data-step="9"],
-  [data-step="10"],[data-step="11"]) .pv-walk-as.b .pv-ibgp-link,
-.pv-walk-slide[data-step="11"] .pv-walk-as.a .pv-ibgp-link{opacity:.9;border-top-width:5px}
-.pv-walk-slide[data-step="6"] .pv-walk-as.b .pv-ibgp-link::before,
-.pv-walk-slide[data-step="6"] .pv-walk-as.b .pv-ibgp-link::after,
-.pv-walk-slide[data-step="11"] .pv-walk-as.a .pv-ibgp-link::before,
-.pv-walk-slide[data-step="11"] .pv-walk-as.a .pv-ibgp-link::after{opacity:1}
+.pv-walk-slide[data-step="7"] .pv-route-message.ba{opacity:1}
+.pv-walk-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"],
+  [data-step="9"],[data-step="10"]) .pv-walk-as.b .pv-ibgp-link,
+.pv-walk-slide:is([data-step="9"],[data-step="10"]) .pv-walk-as.a .pv-ibgp-link{
+  opacity:.9;border-top-width:5px}
+.pv-walk-slide[data-step="5"] .pv-walk-as.b .pv-ibgp-link::before,
+.pv-walk-slide[data-step="5"] .pv-walk-as.b .pv-ibgp-link::after,
+.pv-walk-slide[data-step="9"] .pv-walk-as.a .pv-ibgp-link::before,
+.pv-walk-slide[data-step="9"] .pv-walk-as.a .pv-ibgp-link::after{opacity:1}
 
 /* AS-level motivation preceding the BGP solution */
 .pv-prefix.second{top:251px}
@@ -2612,55 +2615,50 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
-    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
   </div>
   <div class="pv-walk-card-stage">
-    <div class="pv-walk-card s1"><b>1 · C1 knows the prefix</b><span>C1 knows that
-      <code>203.0.113.0/24</code> is reachable inside AS C.</span>
-      <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">—</span></div>
-        <div class="field"><span class="key">NEXT_HOP</span><span class="value">—</span></div></div></div>
-    <div class="pv-walk-card policy-only s2"><b>2 · AS C export policy</b><span>Before making an
-      advertisement, AS C applies its <span class="policy-term">export policy</span> to each route
-      and neighbour. It may advertise this prefix to AS B—or withhold it.
-      <span class="policy-preview">We will return to export policy later.</span></span></div>
-    <div class="pv-walk-card s3"><b>3 · eBGP: C → B</b><span>Suppose AS C permits the export.
+    <div class="pv-walk-card wide s1"><b>1 &middot; AS C owns the prefix</b><span>
+      <code>203.0.113.0/24</code> is one of the subnets inside AS C. For hosts elsewhere on the
+      Internet to reach it, AS C has to <b>advertise this destination prefix to the other ASes</b>.</span></div>
+    <div class="pv-walk-card policy-only s2"><b>2 &middot; AS C export policy</b><span>AS C has a
+      neighbour it could advertise to &mdash; AS B. But before it does, it consults its
+      <span class="policy-term">export policy</span>: is advertising this prefix to this neighbour
+      something AS C is willing to do?<span class="policy-preview">We will return to export policy
+      later.</span></span></div>
+    <div class="pv-walk-card s3"><b>3 &middot; eBGP: C &rarr; B</b><span>Suppose AS C permits the export.
       C1 sends an UPDATE to B4 over their established eBGP session.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS C</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">C1</span></div></div></div>
-    <div class="pv-walk-card policy-only s4"><b>4 · AS B import policy</b><span>AS B applies its
+    <div class="pv-walk-card policy-only s4"><b>4 &middot; AS B import policy</b><span>AS B applies its
       <span class="policy-term">import policy</span>. B4 may accept or reject C1's
       advertisement.<span class="policy-preview">We will return to import policy later.</span></span></div>
-    <div class="pv-walk-card s5"><b>5 · B4 updates forwarding</b><span>Suppose AS B accepts and
-      selects the route. B4 adds a forwarding entry for the destination prefix.</span>
-      <div class="route-card"><div class="field"><span class="key">DESTINATION</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">FORWARD TO</span><span class="value">C1</span></div></div></div>
-    <div class="pv-walk-card s6"><b>6 · iBGP inside B</b><span>B4 then shares the accepted route
-      using <b>internal BGP (iBGP)</b> with AS B's other BGP speakers; in particular, B3 learns it.</span>
+    <div class="pv-walk-card s5"><b>5 &middot; iBGP inside B</b><span>Suppose AS B accepts. B4 then shares
+      the accepted route using <b>internal BGP (iBGP)</b> with AS B's other BGP speakers; in
+      particular, B3 learns it.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS C · unchanged</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS C &middot; unchanged</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">C1</span></div></div></div>
-    <div class="pv-walk-card policy-only s7"><b>7 · AS B export policy</b><span>Before making an
+    <div class="pv-walk-card policy-only s6"><b>6 &middot; AS B export policy</b><span>Before making an
       advertisement to AS A, AS B applies its <span class="policy-term">export policy</span>. B3 may
-      advertise the route—or withhold it.</span></div>
-    <div class="pv-walk-card s8"><b>8 · eBGP: B → A</b><span>Suppose AS B permits the export.
+      advertise the route&mdash;or withhold it.</span></div>
+    <div class="pv-walk-card s7"><b>7 &middot; eBGP: B &rarr; A</b><span>Suppose AS B permits the export.
       B3 prepends AS B and sends an UPDATE to A4.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B · AS C</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS C</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div></div></div>
-    <div class="pv-walk-card policy-only s9"><b>9 · AS A import policy</b><span>AS A applies its
+    <div class="pv-walk-card policy-only s8"><b>8 &middot; AS A import policy</b><span>AS A applies its
       <span class="policy-term">import policy</span>. A4 may accept or reject B3's
       advertisement.</span></div>
-    <div class="pv-walk-card s10"><b>10 · A4 updates forwarding</b><span>Suppose AS A accepts and
-      selects the route. A4 adds a forwarding entry for the destination prefix.</span>
-      <div class="route-card"><div class="field"><span class="key">DESTINATION</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">FORWARD TO</span><span class="value">B3</span></div></div></div>
-    <div class="pv-walk-card s11"><b>11 · iBGP inside A</b><span>A4 then shares the accepted route
-      using <b>internal BGP (iBGP)</b> with AS A's other BGP speakers.</span>
+    <div class="pv-walk-card s9"><b>9 &middot; iBGP inside A</b><span>Suppose AS A accepts. A4 then shares
+      the accepted route using <b>internal BGP (iBGP)</b> with AS A's other BGP speakers.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B · AS C</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS C</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div></div></div>
+    <div class="pv-walk-card wide recap s10"><b>10 &middot; Every router in AS A knows the way</b><span>
+      Every BGP speaker in AS A now knows that <code>203.0.113.0/24</code> is reachable
+      <b>via AS B, then AS C</b> &mdash; carried between the ASes by <b>eBGP</b> and spread inside each
+      one by <b>iBGP</b>.</span></div>
   </div>
   <div class="source">BGP UPDATE, path attributes, and import/export policy: RFC 4271 §§3,
     4.3, 5.1.2-5.1.3, 9.1-9.2</div>
