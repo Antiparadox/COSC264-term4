@@ -1277,16 +1277,19 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   grid-template-columns:190px 1fr;gap:18px;align-items:center;padding:12px 18px;border:1px solid
   var(--accent);border-left:7px solid var(--accent);border-radius:0 13px 13px 0;background:var(--surface);
   box-shadow:var(--shadow);opacity:0;transform:translateY(7px);transition:.22s;font-size:18px;line-height:1.3}
-.policy-overview-card b,.zoom-card b,.relationship-card b{font-family:var(--mono);font-size:12px;
+.policy-overview-card > b,.zoom-card > b,.relationship-card > b{font-family:var(--mono);font-size:12px;
   color:var(--accent-ink);text-transform:uppercase}
 .policy-overview-slide[data-step="1"] .policy-overview-card.s1,
 .policy-overview-slide[data-step="2"] .policy-overview-card.s2,
 .policy-overview-slide[data-step="3"] .policy-overview-card.s3,
 .policy-zoom-slide[data-step="1"] .zoom-card.s1,.policy-zoom-slide[data-step="2"] .zoom-card.s2,
 .policy-zoom-slide[data-step="3"] .zoom-card.s3,
+.relationship-slide[data-step="0"] .relationship-card.intro,
 .relationship-slide[data-step="1"] .relationship-card.s1,
 .relationship-slide[data-step="2"] .relationship-card.s2,
 .relationship-slide[data-step="3"] .relationship-card.s3{opacity:1;transform:none}
+.relationship-card.intro{border-color:var(--current);border-left-color:var(--current)}
+.relationship-card.intro > b{color:var(--current)}
 
 .policy-zoom-stage{position:relative;width:100%;max-width:1070px;height:318px;margin:0 auto;
   border:1px solid var(--border);border-radius:18px;background:var(--surface-2);overflow:hidden}
@@ -2043,16 +2046,16 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
   margin-top:2px;font-family:var(--mono);font-size:9px;color:var(--muted);text-transform:uppercase}
 .relationship-node.a{left:429px;top:119px;border-color:var(--accent);background:var(--accent-soft)}
 .relationship-node.provider{left:429px;top:18px}.relationship-node.customer{left:429px;top:219px}
-.relationship-node.peer{left:758px;top:119px}
+.relationship-node.peer{left:800px;top:119px}
 .relationship-edge{position:absolute;height:5px;border-radius:4px;background:var(--edge);z-index:2;
   transition:.22s}.relationship-edge.provider{left:512px;top:86px;width:5px;height:38px}
 .relationship-edge.customer{left:512px;top:184px;width:5px;height:40px}
-.relationship-edge.peer{left:599px;top:149px;width:159px;height:8px;background:
+.relationship-edge.peer{left:599px;top:149px;width:201px;height:8px;background:
   radial-gradient(circle,var(--current) 0 3px,transparent 3.5px) left center/16px 8px repeat-x}
 .relationship-label{position:absolute;padding:5px 8px;border-radius:8px;background:var(--bg);
   border:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--muted);z-index:7}
 .relationship-label.provider{left:530px;top:91px}.relationship-label.customer{left:530px;top:192px}
-.relationship-label.peer{left:646px;top:126px}
+.relationship-label.peer{left:607px;top:126px}
 .relationship-legend{position:absolute;left:34px;top:108px;display:grid;gap:10px;padding:12px 14px;
   border:1px solid var(--border);border-radius:11px;background:var(--bg);font-family:var(--mono);
   font-size:10px;color:var(--muted);z-index:7}.relationship-legend span{display:flex;
@@ -2865,7 +2868,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <section class="slide stateful relationship-slide" data-sec="Lecture 1 · Inter-AS business relationships">
   <div class="kicker">The business model behind inter-AS route policy</div>
-  <h2>Business relationships shape an AS's import and export policy</h2>
+  <h2>Business relationships between ASes</h2>
   <div class="relationship-stage" role="img"
     aria-label="AS A buys transit from provider AS D, sells transit to customer AS B, and peers with AS P">
     <div class="relationship-legend"><span><i class="peer"></i>peer-to-peer</span>
@@ -2883,6 +2886,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="frag relationship-trigger" aria-hidden="true"></span>
   </div>
   <div class="relationship-status">
+    <div class="relationship-card intro"><b>The question</b><span>
+      <b>What drives an AS's import and export policy?</b><br>
+      The answer lies in the <b>business relationships</b> between ASes &mdash; who pays whom for
+      carrying traffic.</span></div>
     <div class="relationship-card s1"><b>Customer → provider</b><span>The customer pays the provider for transit to the wider Internet.</span></div>
     <div class="relationship-card s2"><b>Peer ↔ peer</b><span>Peers commonly exchange traffic for themselves and their customers—not general transit for one another.</span></div>
   </div>
