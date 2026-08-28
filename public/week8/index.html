@@ -736,13 +736,6 @@ svg text{font-family:var(--sans)}
 .rip-protection-card.cap{border-top:6px solid var(--current)}
 .rip-protection-tag{display:inline-block;margin-bottom:10px;padding:5px 9px;border-radius:999px;background:var(--accent-soft);
   color:var(--accent-ink);font-family:var(--mono);font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
-.rip-metric-scale{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch;
-  margin-top:13px}
-.rip-metric-band{display:grid;place-items:center;min-height:60px;padding:8px;border-radius:12px;text-align:center;
-  font-family:var(--mono);font-size:13px;font-weight:900;line-height:1.35}.rip-metric-band.usable{border:2px solid var(--good);
-  background:var(--good-soft);color:var(--good)}.rip-metric-band.infinity{border:2px solid var(--current);
-  background:var(--current-soft);color:var(--current)}.rip-metric-arrow{display:grid;place-items:center;color:var(--edge);
-  font-size:28px;font-weight:900}
 
 .ospf-overview-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:28px;align-items:stretch;
   max-width:1080px;margin:8px auto 0}.ospf-facts{display:grid;gap:12px}
@@ -3330,22 +3323,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="frag rip-protection-card poison">
       <span class="rip-protection-tag">Poison reverse</span>
       <h3>Send it back as infinity</h3>
-      <p>Stronger: R1 does advertise the route back to R2, but with metric <b>16</b>, so R2 can never
-      believe it can reach the destination through R1.</p>
+      <p>Stronger: R1 does advertise the route back to R2, but with a cost of
+      <b>infinity</b>.</p>
       <p class="rip-protection-note">Both are only <b>heuristics</b>. They break a loop between
       <b>two</b> routers, but not one running through three or more.</p>
     </div>
     <div class="frag rip-protection-card cap">
       <span class="rip-protection-tag">Count only to 16</span>
       <h3>Make infinity deliberately small</h3>
-      <p>Therefore, in RIP the maximum path length is bounded to <b>15 hops</b>. Any metric that
-      computes to 16 or more is simply recorded as 16 &mdash; unreachable &mdash; so a loop that
-      survives the heuristics reaches infinity in a few rounds instead of counting forever.</p>
-      <div class="rip-metric-scale" aria-label="RIP metrics one to fifteen are usable; sixteen is infinity">
-        <div class="rip-metric-band usable">1&ndash;15<br>usable routes</div>
-        <div class="rip-metric-arrow" aria-hidden="true">&rarr;</div>
-        <div class="rip-metric-band infinity">&ge; 16<br>unreachable</div>
-      </div>
+      <p>Therefore, this is why in RIP the maximum path length is bounded to
+      <b>15 hops</b>.</p>
     </div>
   </div>
   <div class="source">Split horizon, poisoned reverse and RIP infinity: RFC 2453 &sect;&sect;3.2,
