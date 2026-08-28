@@ -2639,9 +2639,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS C &middot; unchanged</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">C1</span></div></div></div>
-    <div class="pv-walk-card policy-only s6"><b>6 &middot; AS B export policy</b><span>Before making an
-      advertisement to AS A, AS B applies its <span class="policy-term">export policy</span>. B3 may
-      advertise the route&mdash;or withhold it.</span></div>
+    <div class="pv-walk-card policy-only s6"><b>6 &middot; AS B export policy</b><span>AS B now knows it
+      can reach the prefix, and it would like its own neighbours to know that too. It has a
+      neighbour it could advertise to &mdash; AS A. But first it consults its
+      <span class="policy-term">export policy</span>: is carrying other ASes' traffic to this prefix
+      something AS B is willing to do?</span></div>
     <div class="pv-walk-card s7"><b>7 &middot; eBGP: B &rarr; A</b><span>Suppose AS B permits the export.
       B3 prepends AS B and sends an UPDATE to A4.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
