@@ -528,9 +528,14 @@ svg text{font-family:var(--sans)}
   transparent;border-left-color:var(--good);border-right:0}
 .rt-install b{font-family:var(--mono);font-size:12px;color:var(--good);text-transform:uppercase}
 .riptable-slide:not([data-step="0"]) .rt-panel.rip{visibility:visible;opacity:1}
-.riptable-slide:is([data-step="2"],[data-step="3"]) .rt-panel.fwd,
-.riptable-slide:is([data-step="2"],[data-step="3"]) .rt-install{visibility:visible;opacity:1}
-.riptable-slide[data-step="2"] .rt-table :is(td,th):is(.c-dest,.c-hop){
+.riptable-slide:is([data-step="4"],[data-step="5"]) .rt-panel.fwd,
+.riptable-slide:is([data-step="4"],[data-step="5"]) .rt-install{visibility:visible;opacity:1}
+.riptable-slide[data-step="1"] .rt-table :is(td,th):is(.c-dest,.c-metric),
+.riptable-slide[data-step="2"] .rt-table :is(td,th).c-hop,
+.riptable-slide[data-step="3"] .rt-table :is(td,th).c-timer{
+  background:var(--current-soft);box-shadow:inset 0 0 0 2px var(--current)}
+.riptable-slide[data-step="3"] .rt-table :is(td,th).c-timer{color:var(--current)}
+.riptable-slide[data-step="4"] .rt-table :is(td,th):is(.c-dest,.c-hop){
   background:var(--good-soft);box-shadow:inset 0 0 0 2px var(--good)}
 .rt-status{position:relative;flex:0 0 116px;height:116px;width:100%;max-width:1060px;margin:16px auto 0}
 .rt-card{position:absolute;inset:0;display:grid;grid-template-columns:225px 1fr;gap:18px;
@@ -541,10 +546,13 @@ svg text{font-family:var(--sans)}
 .rt-card:is(.s2,.s3){border-color:var(--good);border-left-color:var(--good)}
 .rt-card:is(.s2,.s3) > b{color:var(--good)}
 .rt-bullets{margin:0;padding-left:21px;display:grid;gap:4px}
-.rt-bullets li{font-size:18px;line-height:1.3;color:var(--muted)}
-.riptable-slide[data-step="1"] .rt-card.s1,
-.riptable-slide[data-step="2"] .rt-card.s2,
-.riptable-slide[data-step="3"] .rt-card.s3{opacity:1;transform:none}
+.rt-bullets li{font-size:18px;line-height:1.3;color:var(--muted);opacity:0;transition:opacity .22s}
+.riptable-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .rt-bullets .b1,
+.riptable-slide:is([data-step="2"],[data-step="3"]) .rt-bullets .b2,
+.riptable-slide[data-step="3"] .rt-bullets .b3{opacity:1}
+.riptable-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .rt-card.s1,
+.riptable-slide[data-step="4"] .rt-card.s2,
+.riptable-slide[data-step="5"] .rt-card.s3{opacity:1;transform:none}
 
 .rip-channel-banner{display:flex;gap:16px;align-items:center;max-width:790px;margin:0 auto 11px;padding:10px 15px;
   border-left:6px solid var(--current);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
@@ -3142,16 +3150,21 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
   <div class="rt-status">
     <div class="rt-card s1"><b>RIP routing table</b><ul class="rt-bullets">
-      <li>how far away each destination is &mdash; a <b>distance vector</b></li>
-      <li><b>next hop</b> information</li>
-      <li>RIP&rsquo;s own bookkeeping, such as a <b>timer</b> giving the entry its time to live</li>
+      <li class="b1">how far away each destination is &mdash; a <b>distance vector</b></li>
+      <li class="b2"><b>next hop</b> information</li>
+      <li class="b3">RIP&rsquo;s own bookkeeping, such as a <b>timer</b> giving the entry its time
+        to live</li>
       </ul></div>
     <div class="rt-card s2"><b>It feeds the forwarding table</b><span>For each destination, RIP
       installs its chosen route into A&rsquo;s <b>forwarding table</b> &mdash; the table A consults
       for every datagram it must forward.</span></div>
     <div class="rt-card s3"><b>Two tables, not one</b><span>They are kept separately, and may not
-      always agree.</span></div>
+      always agree.<br>
+      <i>e.g.</i> a route may be removed from the forwarding table, yet still be kept temporarily
+      in the routing table.</span></div>
   </div>
+  <span class="frag rt-trigger" aria-hidden="true"></span>
+  <span class="frag rt-trigger" aria-hidden="true"></span>
   <span class="frag rt-trigger" aria-hidden="true"></span>
   <span class="frag rt-trigger" aria-hidden="true"></span>
   <span class="frag rt-trigger" aria-hidden="true"></span>
