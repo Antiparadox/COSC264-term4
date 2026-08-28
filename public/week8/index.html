@@ -817,8 +817,6 @@ svg text{font-family:var(--sans)}
   font-size:20px;line-height:1.31;color:var(--muted)}
 .ospf-scale-point b,.ospf-area-fact b{display:block;margin-bottom:4px;font-family:var(--serif);
   font-size:24px;color:var(--ink)}.ospf-area-fact{border-left-color:var(--accent)}
-.ospf-spoiler{display:block;margin-top:15px;padding:10px 12px;border-radius:10px;background:var(--accent-soft);
-  font-size:18px;line-height:1.3;color:var(--accent-ink)}
 
 /* Frame 34 highlights the concept named by the latest revealed fragment. */
 .ospf-area-slide .ospf-zone{opacity:.42}.ospf-area-slide .ospf-topology-node{transition:opacity .22s ease,
@@ -3376,14 +3374,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
     <div class="frag ospf-feature">
       <h3>Operator-defined costs</h3>
-      <p>Configurable link costs influence which least-cost paths OSPF chooses. For example,
-      a high cost can keep a slow backup link unused while a faster path is available.</p>
+      <p>The operator sets each link&rsquo;s cost, and so decides which paths OSPF prefers.</p>
     </div>
     <div class="frag ospf-feature">
       <h3>Area routing</h3>
-      <p>A large AS can be divided into areas so topology detail and most changes remain
-      local.<span class="ospf-spoiler"><b>Spoiler:</b> areas are OSPF’s solution to the
-      scaling problem we see next.</span></p>
+      <p>A large AS can be divided into <b>areas</b>, so that OSPF scales.</p>
     </div>
   </div>
   <div class="source">OSPF capabilities: RFC 2328 §§2.4, 3, 8 and Appendix D</div>
