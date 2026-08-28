@@ -2929,11 +2929,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="hierarchy-card s1"><b>Tier-1 transit ASes</b><span>They commonly peer with one another and do not purchase upstream transit.</span></div>
     <div class="hierarchy-card s2"><b>Regional transit ASes</b><span>They may buy transit upstream, sell it downstream, and peer with other regional ASes.</span></div>
     <div class="hierarchy-card s3"><b>Stub ASes</b><span>A stub reaches the wider Internet through providers and does not carry transit between other ASes.</span></div>
-    <div class="hierarchy-card s4"><b>Example &middot; AS G &rarr; AS H</b><span>When every AS's import
-      and export policy follows these relationships, a datagram from stub AS G to stub AS H
-      <b>climbs</b> through providers to the Tier-1 level, <b>crosses</b> one peer link, then
-      <b>descends</b> to AS H.<br>
-      This up&ndash;across&ndash;down shape is called a <b>valley-free path</b>.</span></div>
+    <div class="hierarchy-card s4"><b>Valley-free paths</b><span>Whenever every AS's import and export
+      policy is guided by these relationships, a path takes an <b>up&ndash;across&ndash;down</b> shape
+      &mdash; a <b>valley-free path</b>.<br>
+      <i>e.g.</i> a datagram from stub AS G to stub AS H climbs through providers to the Tier-1
+      level, crosses one peer link, then descends to AS H.</span></div>
   </div>
   <div class="source">Simplified AS hierarchy and valley-free path model: CAIDA AS Relationships; Gao, 2001</div>
 </section>
