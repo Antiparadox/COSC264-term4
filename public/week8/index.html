@@ -2644,8 +2644,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       neighbour it could advertise to &mdash; AS A. But first it consults its
       <span class="policy-term">export policy</span>: is carrying other ASes' traffic to this prefix
       something AS B is willing to do?</span></div>
-    <div class="pv-walk-card s7"><b>7 &middot; eBGP: B &rarr; A</b><span>Suppose AS B permits the export.
-      B3 prepends AS B and sends an UPDATE to A4.</span>
+    <div class="pv-walk-card s7"><b>7 &middot; eBGP: B &rarr; A</b><span>Suppose AS B permits the export. B3
+      <b>prepends AS B</b> onto the <code>AS_PATH</code> and sets <code>NEXT_HOP</code> to its own IP
+      address, then sends this path vector in an UPDATE to AS A's border router A4.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS C</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div></div></div>
