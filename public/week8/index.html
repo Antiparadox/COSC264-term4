@@ -717,17 +717,29 @@ svg text{font-family:var(--sans)}
 .rip-learn-slide[data-step="11"] .rip-example-panel.p7 li{display:list-item}
 
 
-.rip-protection-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1090px;margin:12px auto 0}
-.rip-protection-card{padding:21px 23px;border:1px solid var(--border);border-radius:17px;background:var(--surface);
-  box-shadow:var(--shadow)}.rip-protection-card h3{margin:0 0 10px;font-size:26px}.rip-protection-card p{margin:0;
-  font-size:19px;line-height:1.4;color:var(--muted)}.rip-protection-card.poison{border-top:6px solid var(--accent)}
-.rip-protection-card.limit{border-top:6px solid var(--current)}.rip-protection-card.cap{grid-column:1/-1;
-  display:grid;grid-template-columns:1fr 1.1fr;gap:24px;align-items:center;border-top:6px solid var(--current)}
+.rip-protection-lead{max-width:1090px;margin:6px auto 14px;padding:12px 18px;border-left:6px solid
+  var(--accent);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
+  font-size:20px;line-height:1.35;color:var(--muted)}
+.rip-protection-lead b{color:var(--ink)}
+.rip-protection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;align-items:start;
+  max-width:1090px;margin:0 auto}
+.rip-protection-card{padding:18px 19px;border:1px solid var(--border);border-radius:17px;
+  background:var(--surface);box-shadow:var(--shadow)}
+.rip-protection-card h3{margin:0 0 8px;font-size:22px}
+.rip-protection-card p{margin:0;font-size:16px;line-height:1.4;color:var(--muted)}
+.rip-protection-card p b{color:var(--ink)}
+.rip-protection-note{margin-top:10px !important;padding-top:10px;border-top:1px dashed var(--border);
+  font-size:15px !important;color:var(--bad) !important}
+.rip-protection-note b{color:var(--bad) !important}
+.rip-protection-card.split{border-top:6px solid var(--good)}
+.rip-protection-card.poison{border-top:6px solid var(--accent)}
+.rip-protection-card.cap{border-top:6px solid var(--current)}
 .rip-protection-tag{display:inline-block;margin-bottom:10px;padding:5px 9px;border-radius:999px;background:var(--accent-soft);
   color:var(--accent-ink);font-family:var(--mono);font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
-.rip-metric-scale{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:stretch}
-.rip-metric-band{display:grid;place-items:center;min-height:76px;padding:10px;border-radius:12px;text-align:center;
-  font-family:var(--mono);font-size:14px;font-weight:900;line-height:1.35}.rip-metric-band.usable{border:2px solid var(--good);
+.rip-metric-scale{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch;
+  margin-top:13px}
+.rip-metric-band{display:grid;place-items:center;min-height:60px;padding:8px;border-radius:12px;text-align:center;
+  font-family:var(--mono);font-size:13px;font-weight:900;line-height:1.35}.rip-metric-band.usable{border:2px solid var(--good);
   background:var(--good-soft);color:var(--good)}.rip-metric-band.infinity{border:2px solid var(--current);
   background:var(--current-soft);color:var(--current)}.rip-metric-arrow{display:grid;place-items:center;color:var(--edge);
   font-size:28px;font-weight:900}
@@ -3303,37 +3315,41 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     &sect;&sect;3.8, 3.9.2, 3.10</div>
 </section>
 
-<section class="slide" data-sec="Lecture 2 · RIP stability">
-  <div class="kicker">RIP’s protections</div>
-  <h2>RIP limits count to infinity in two ways</h2>
+<section class="slide" data-sec="Lecture 2 &middot; RIP stability">
+  <div class="kicker">RIP&rsquo;s protections</div>
+  <h2>How RIP limits count to infinity</h2>
+  <p class="frag rip-protection-lead">Recall from last week: a distance-vector protocol suffers from
+  the <b>count-to-infinity problem</b>. RIP guards against it in three ways.</p>
   <div class="rip-protection-grid">
+    <div class="frag rip-protection-card split">
+      <span class="rip-protection-tag">Split horizon</span>
+      <h3>Do not send it back</h3>
+      <p>Never advertise a route back to the neighbour you learned it from. If R1&rsquo;s route to a
+      destination came from R2, R1 leaves that destination out of the updates it sends to R2.</p>
+    </div>
     <div class="frag rip-protection-card poison">
       <span class="rip-protection-tag">Poison reverse</span>
-      <h3>Advertise infinity back</h3>
-      <p>If R1 learned a route from R2, R1 advertises that route back to R2 with metric
-      <b>infinity</b>. This prevents R2 from trying to reach the destination through R1.</p>
-    </div>
-    <div class="frag rip-protection-card limit">
-      <span class="rip-protection-tag">Important limitation</span>
-      <h3>It stops only two-router loops</h3>
-      <p>Poison reverse cannot prevent every loop involving three or more routers, so counting
-      to infinity can still occur.</p>
+      <h3>Send it back as infinity</h3>
+      <p>Stronger: R1 does advertise the route back to R2, but with metric <b>16</b>, so R2 can never
+      believe it can reach the destination through R1.</p>
+      <p class="rip-protection-note">Both are only <b>heuristics</b>. They break a loop between
+      <b>two</b> routers, but not one running through three or more.</p>
     </div>
     <div class="frag rip-protection-card cap">
-      <div>
-        <span class="rip-protection-tag">RIP’s additional protection</span>
-        <h3>Make infinity deliberately small</h3>
-        <p>Metrics <b>1–15</b> are usable. Metric <b>16</b> means infinity: the destination is
-        unreachable.</p>
-      </div>
+      <span class="rip-protection-tag">Count only to 16</span>
+      <h3>Make infinity deliberately small</h3>
+      <p>Therefore, in RIP the maximum path length is bounded to <b>15 hops</b>. Any metric that
+      computes to 16 or more is simply recorded as 16 &mdash; unreachable &mdash; so a loop that
+      survives the heuristics reaches infinity in a few rounds instead of counting forever.</p>
       <div class="rip-metric-scale" aria-label="RIP metrics one to fifteen are usable; sixteen is infinity">
-        <div class="rip-metric-band usable">1–15<br>usable routes</div>
-        <div class="rip-metric-arrow" aria-hidden="true">→</div>
-        <div class="rip-metric-band infinity">calculation ≥ 16<br>record 16 · unreachable</div>
+        <div class="rip-metric-band usable">1&ndash;15<br>usable routes</div>
+        <div class="rip-metric-arrow" aria-hidden="true">&rarr;</div>
+        <div class="rip-metric-band infinity">&ge; 16<br>unreachable</div>
       </div>
     </div>
   </div>
-  <div class="source">Poisoned reverse and RIP infinity: RFC 2453 §§3.2, 3.4.2–3.4.4, 3.9.2</div>
+  <div class="source">Split horizon, poisoned reverse and RIP infinity: RFC 2453 &sect;&sect;3.2,
+    3.4.2&ndash;3.4.4, 3.9.2</div>
 </section>
 
 <section class="slide" data-sec="Lecture 2 · OSPF overview">
