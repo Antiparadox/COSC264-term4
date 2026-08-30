@@ -3598,14 +3598,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <code>198.51.100.7</code></div>
     </div>
   </div>
-  <div class="source">Private IPv4 space: RFC 1918 · Traditional NAT and NAPT: RFC 3022</div>
+  <div class="source">Private IPv4 space: RFC 1918 · Traditional NAT: RFC 3022</div>
 </section>
 
-<section class="slide" data-sec="Lecture 3 · NAPT mapping">
+<section class="slide" data-sec="Lecture 3 · NAT mapping">
   <div class="kicker">A closer look at one home web request</div>
-  <h2>Network Address and Port Translation (NAPT)</h2>
-  <p class="frag napt-definition"><b>NAPT</b> is the form of NAT that translates both an IP address and a port number.</p>
-  <div class="nat-parallel-stage napt-example napt-outbound-layout" aria-label="A home host accesses a web server through a NAPT gateway">
+  <h2>NAT translates both the address and the port</h2>
+  <p class="frag napt-definition">Rewriting the <b>port</b> as well as the address is what lets many
+  private hosts share a single public address.</p>
+  <div class="nat-parallel-stage napt-example napt-outbound-layout" aria-label="A home host accesses a web server through a NAT gateway">
     <div class="nat-parallel-label">Outgoing<br>packet</div>
     <div class="nat-parallel-card inside"><h3>Inside</h3>
       <div class="frag napt-mini-step"><b>1 · Private address</b><span>The home device is assigned a private IPv4 address.</span>
@@ -3618,8 +3619,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="nat-parallel-card border"><h3>At the border</h3>
       <div class="frag napt-mini-step"><b>4 · Public address</b><span>The home gateway connects to the Internet using this public IPv4 address.</span>
         <code>203.0.113.5</code></div>
-      <div class="frag napt-mini-step"><b>5 · Assign a public port</b><span>NAPT chooses an available public port for this outbound connection and saves the mapping.</span>
-        <table class="napt-inline-table" aria-label="One simplified outbound NAPT mapping">
+      <div class="frag napt-mini-step"><b>5 · Assign a public port</b><span>NAT chooses an available public port for this outbound connection and saves the mapping.</span>
+        <table class="napt-inline-table" aria-label="One simplified outbound NAT mapping">
           <thead><tr><th>Private source</th><th class="map-arrow"></th><th>Public source</th></tr></thead>
           <tbody><tr><td>192.168.1.10:51514</td><td class="map-arrow">→</td><td>203.0.113.5:40001</td></tr></tbody>
         </table>
@@ -3632,30 +3633,30 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <code>198.51.100.20:443</code></div>
     </div>
   </div>
-  <div class="source">NAPT translation: RFC 3022 §§2.2, 3–4 · Documentation addresses: RFC 5737</div>
+  <div class="source">NAT translation: RFC 3022 §§2.2, 3–4 · Documentation addresses: RFC 5737</div>
 </section>
 
-<section class="slide" data-sec="Lecture 3 · NAPT walkthrough">
+<section class="slide" data-sec="Lecture 3 · NAT walkthrough">
   <div class="kicker">The server's reply</div>
   <h2>How does the reply reach the correct home device?</h2>
-  <div class="nat-parallel-stage napt-return-layout" aria-label="A server reply returns through the home NAPT gateway">
+  <div class="nat-parallel-stage napt-return-layout" aria-label="A server reply returns through the home NAT gateway">
     <div class="nat-parallel-label">Return<br>packet</div>
     <div class="frag nat-parallel-card outside"><h3>Outside</h3><p><b>1 · Reply arrives.</b> The server replies to the public source tuple it observed.</p>
       <code>S 198.51.100.20:443<br>D 203.0.113.5:40001</code></div>
     <div class="nat-parallel-card border"><h3>At the border</h3>
-      <div class="frag napt-mini-step"><b>2 · Look up the mapping</b><span>NAPT observes the public destination and finds the associated private destination.</span>
-        <table class="napt-inline-table" aria-label="One simplified inbound NAPT lookup">
+      <div class="frag napt-mini-step"><b>2 · Look up the mapping</b><span>NAT observes the public destination and finds the associated private destination.</span>
+        <table class="napt-inline-table" aria-label="One simplified inbound NAT lookup">
           <thead><tr><th>Public destination</th><th class="map-arrow"></th><th>Private destination</th></tr></thead>
           <tbody><tr><td>203.0.113.5:40001</td><td class="map-arrow">→</td><td>192.168.1.10:51514</td></tr></tbody>
         </table>
       </div>
-      <div class="frag napt-mini-step"><b>3 · Rewrite the destination</b><span>NAPT replaces the public destination with the private address and port.</span>
+      <div class="frag napt-mini-step"><b>3 · Rewrite the destination</b><span>NAT replaces the public destination with the private address and port.</span>
         <div class="napt-mini-packet">S 198.51.100.20:443<br>D 192.168.1.10:51514</div></div>
     </div>
     <div class="frag nat-parallel-card inside"><h3>Inside</h3><p><b>4 · Deliver inside.</b> The rewritten packet goes to the correct home device and port.</p>
       <code>S 198.51.100.20:443<br>D 192.168.1.10:51514</code></div>
   </div>
-  <div class="source">NAPT return translation: RFC 3022 §§3–4</div>
+  <div class="source">NAT return translation: RFC 3022 §§3–4</div>
 </section>
 
 <section class="slide" data-sec="Lecture 3 · NAT motivations and trade-offs">
