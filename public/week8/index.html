@@ -3639,15 +3639,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="nat-parallel-stage napt-example napt-outbound-layout" aria-label="A home host accesses a web server through a NAT gateway">
     <div class="nat-parallel-label">Outgoing<br>packet</div>
     <div class="nat-parallel-card inside"><h3>Inside</h3>
-      <div class="frag napt-mini-step"><b>1 · Private address</b><span>Suppose the home device has this private IPv4 address.</span>
+      <div class="frag napt-mini-step"><b>1 · Private address</b><span>Suppose the home device has this private IPv4 address, assigned through <b>DHCP</b> (Dynamic Host Configuration Protocol).</span>
         <code>192.168.1.10</code></div>
-      <div class="frag napt-mini-step"><b>2 · Source port</b><span>It opens a <b>source port</b> for this request &mdash; a number identifying which conversation on this device a packet belongs to.</span>
+      <div class="frag napt-mini-step"><b>2 · Source port</b><span>The device wants to send a request to the server, so it opens a <b>source port</b> for this request.</span>
         <code>51514</code></div>
       <div class="frag napt-mini-step"><b>3 · Original packet</b><span>From that address and port, it sends a packet to the destination server.</span>
         <div class="napt-mini-packet">S 192.168.1.10:51514<br>D 198.51.100.20:443</div></div>
     </div>
     <div class="nat-parallel-card border"><h3>At the border</h3>
-      <div class="frag napt-mini-step"><b>4 · Public address</b><span>The home gateway has its own unique public IPv4 address.</span>
+      <div class="frag napt-mini-step"><b>4 · Public address</b><span>The home gateway has its own unique public IPv4 address, typically assigned by its ISP.</span>
         <code>203.0.113.5</code></div>
       <div class="frag napt-mini-step"><b>5 · Assign a public port</b><span>NAT chooses an available public port for this outbound connection and saves the mapping.</span>
         <table class="napt-inline-table" aria-label="One simplified outbound NAT mapping">
