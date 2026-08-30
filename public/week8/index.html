@@ -994,6 +994,11 @@ svg text{font-family:var(--sans)}
 .napt-inline-table th.map-arrow,.napt-inline-table td.map-arrow{width:15px;padding-left:1px;padding-right:1px;text-align:center;color:var(--current)}
 .napt-inline-table .port-hl{padding:1px 4px;border-radius:5px;background:var(--current);
   color:#fff;font-style:normal;font-weight:900}
+.napt-inline-table tr.napt-form td{padding:0 4px;background:none}
+.napt-inline-table tr.napt-form td span{display:block;margin:0 2px;padding-top:4px;
+  border-top:2px solid var(--current);border-left:2px solid var(--current);
+  border-right:2px solid var(--current);border-radius:0 0 6px 6px;color:var(--current);
+  font-size:11px;font-weight:900;letter-spacing:.03em;text-align:center}
 .napt-inline-table td:first-child{border-radius:7px 0 0 7px}.napt-inline-table td:last-child{border-radius:0 7px 7px 0}
 .napt-return-layout{grid-template-columns:.9fr 1.35fr .8fr;grid-template-rows:auto;align-items:stretch;margin-top:10px}
 .napt-return-layout>.inside{grid-column:1;grid-row:1}
@@ -3655,7 +3660,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="frag napt-mini-step"><b>5 · Assign a public port</b><span>NAT chooses an available public port for this outbound connection and saves the mapping.</span>
         <table class="napt-inline-table" aria-label="One simplified outbound NAT mapping">
           <thead><tr><th>Private source</th><th class="map-arrow"></th><th>Public source</th></tr></thead>
-          <tbody><tr><td>192.168.1.10:51514</td><td class="map-arrow">→</td><td>203.0.113.5:<em class="port-hl">40001</em></td></tr></tbody>
+          <tbody><tr><td>192.168.1.10:51514</td><td class="map-arrow">→</td><td>203.0.113.5:<em class="port-hl">40001</em></td></tr>
+          <tr class="napt-form"><td><span>address : port</span></td><td class="map-arrow"></td><td><span>address : port</span></td></tr></tbody>
         </table>
       </div>
       <div class="frag napt-mini-step"><b>6 · Translated packet</b>
