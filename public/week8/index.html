@@ -952,18 +952,19 @@ svg text{font-family:var(--sans)}
 .nat-parallel-card.border{border-color:var(--current);background:var(--current-soft)}
 .nat-parallel-card.outside{border-color:var(--good);background:var(--good-soft)}
 .nat-parallel-stage-group.with-arrow .nat-parallel-card::before,
-.nat-parallel-stage.napt-example>.nat-parallel-card:nth-child(n+3)::before{content:"→";position:absolute;left:-20px;
+.nat-parallel-stage.napt-example>.nat-parallel-card:nth-child(n+2)::before{content:"→";position:absolute;left:-20px;
   top:50%;transform:translate(-50%,-50%);
   font-size:28px;font-weight:900;color:var(--current)}
 .napt-definition{max-width:1050px;margin:0 auto 4px;color:var(--muted);font-size:17px;line-height:1.3}
 .napt-definition b{color:var(--accent-ink)}
-.nat-parallel-stage.napt-example{margin-top:4px;padding:16px}.nat-parallel-stage.napt-example .nat-parallel-card{
-  min-height:330px;padding:15px 16px}.napt-mini-step{padding:8px 0;border-top:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
-.napt-mini-step:first-of-type{border-top:0}.napt-mini-step > b{display:block;margin-bottom:3px;font-size:14px;color:var(--ink)}
+.nat-parallel-stage.napt-example{margin-top:4px;padding:18px}.nat-parallel-stage.napt-example .nat-parallel-card{
+  min-height:296px;padding:14px 16px}
+.nat-parallel-stage.napt-example .nat-parallel-card h3{font-size:24px;margin-bottom:6px}.napt-mini-step{padding:6px 0;border-top:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
+.napt-mini-step:first-of-type{border-top:0}.napt-mini-step > b{display:block;margin-bottom:3px;font-size:17px;color:var(--ink)}
 .napt-mini-step span b{color:var(--ink)}
-.napt-mini-step span{display:block;margin-bottom:6px;font-size:13px;line-height:1.3;color:var(--muted)}
-.napt-mini-step code{padding:5px 7px;font-size:11px;line-height:1.4}.napt-mini-packet{padding:7px 8px;border-radius:8px;
-  background:var(--ink);font-family:var(--mono);font-size:11px;line-height:1.4;color:#fff}
+.napt-mini-step span{display:block;margin-bottom:5px;font-size:15px;line-height:1.3;color:var(--muted)}
+.napt-mini-step code{padding:6px 9px;font-size:13px;line-height:1.4}.napt-mini-packet{padding:8px 10px;border-radius:8px;
+  background:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.35;color:#fff}
 
 .napt-map-stage{display:grid;grid-template-columns:1fr 180px 1fr;gap:18px;align-items:center;max-width:1050px;
   margin:8px auto 15px;padding:20px;border:1px solid var(--border);border-radius:20px;background:var(--surface);
@@ -986,16 +987,17 @@ svg text{font-family:var(--sans)}
 .napt-mapping{max-width:650px;margin:13px auto 0;padding:11px 14px;border:2px solid var(--accent);border-radius:13px;
   background:var(--accent-soft);font-family:var(--mono);font-size:14px;text-align:center;color:var(--accent-ink)}
 
-.napt-outbound-layout{grid-template-columns:105px .82fr 1.36fr .82fr;grid-template-rows:auto;align-items:stretch}
-.napt-inline-table{width:100%;margin-top:7px;border-collapse:separate;border-spacing:0;font-family:var(--mono);font-size:10px}
-.napt-inline-table th{padding:5px 4px;color:var(--muted);font-size:9px;line-height:1.15;text-align:left;text-transform:uppercase}
-.napt-inline-table td{padding:7px 4px;background:var(--surface);font-weight:800;white-space:nowrap}
+.napt-outbound-layout{grid-template-columns:.98fr 1.28fr .8fr;grid-template-rows:auto;align-items:stretch}
+.napt-inline-table{width:100%;margin-top:8px;border-collapse:separate;border-spacing:0;font-family:var(--mono);font-size:12px}
+.napt-inline-table th{padding:5px 5px;color:var(--muted);font-size:11px;line-height:1.15;text-align:left;text-transform:uppercase}
+.napt-inline-table td{padding:8px 6px;background:var(--surface);font-weight:800;white-space:nowrap}
 .napt-inline-table th.map-arrow,.napt-inline-table td.map-arrow{width:15px;padding-left:1px;padding-right:1px;text-align:center;color:var(--current)}
 .napt-inline-table td:first-child{border-radius:7px 0 0 7px}.napt-inline-table td:last-child{border-radius:0 7px 7px 0}
-.napt-return-layout{grid-template-columns:105px .82fr 1.36fr .82fr;grid-template-rows:auto;align-items:stretch;margin-top:10px}
-.napt-return-layout>.nat-parallel-label{grid-column:1;grid-row:1}.napt-return-layout>.inside{grid-column:2;grid-row:1}
-.napt-return-layout>.border{grid-column:3;grid-row:1}.napt-return-layout>.outside{grid-column:4;grid-row:1}
-.napt-return-layout>.nat-parallel-card{min-height:270px}.napt-return-layout>.border::before,
+.napt-return-layout{grid-template-columns:.9fr 1.35fr .8fr;grid-template-rows:auto;align-items:stretch;margin-top:10px}
+.napt-return-layout>.inside{grid-column:1;grid-row:1}
+.napt-return-layout>.border{grid-column:2;grid-row:1}.napt-return-layout>.outside{grid-column:3;grid-row:1}
+.napt-return-layout>.nat-parallel-card{min-height:250px;padding:14px 16px}
+.napt-return-layout .nat-parallel-card h3{font-size:24px;margin-bottom:6px}.napt-return-layout>.border::before,
 .napt-return-layout>.outside::before{content:"←";position:absolute;left:-20px;top:50%;transform:translate(-50%,-50%);
   font-size:28px;font-weight:900;color:var(--current)}
 
@@ -3637,7 +3639,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">A closer look at one home web request</div>
   <h2>NAT translates both the address and the port</h2>
   <div class="nat-parallel-stage napt-example napt-outbound-layout" aria-label="A home host accesses a web server through a NAT gateway">
-    <div class="nat-parallel-label">Outgoing<br>packet</div>
     <div class="nat-parallel-card inside"><h3>Inside</h3>
       <div class="frag napt-mini-step"><b>1 · Private address</b><span>Suppose the home device has this private IPv4 address, assigned through <b>DHCP</b> (Dynamic Host Configuration Protocol).</span>
         <code>192.168.1.10</code></div>
@@ -3670,9 +3671,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">The server's reply</div>
   <h2>How does the reply reach the correct home device?</h2>
   <div class="nat-parallel-stage napt-return-layout" aria-label="A server reply returns through the home NAT gateway">
-    <div class="nat-parallel-label">Return<br>packet</div>
-    <div class="frag nat-parallel-card outside"><h3>Outside</h3><p><b>1 · Reply arrives.</b> The server replies to the public source tuple it observed.</p>
-      <code>S 198.51.100.20:443<br>D 203.0.113.5:40001</code></div>
+    <div class="frag nat-parallel-card outside"><h3>Outside</h3>
+      <div class="napt-mini-step"><b>1 &middot; Reply arrives</b><span>The server replies to the public source tuple it observed.</span>
+        <div class="napt-mini-packet">S 198.51.100.20:443<br>D 203.0.113.5:40001</div></div>
+    </div>
     <div class="nat-parallel-card border"><h3>At the border</h3>
       <div class="frag napt-mini-step"><b>2 · Look up the mapping</b><span>NAT observes the public destination and finds the associated private destination.</span>
         <table class="napt-inline-table" aria-label="One simplified inbound NAT lookup">
@@ -3683,8 +3685,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="frag napt-mini-step"><b>3 · Rewrite the destination</b><span>NAT replaces the public destination with the private address and port.</span>
         <div class="napt-mini-packet">S 198.51.100.20:443<br>D 192.168.1.10:51514</div></div>
     </div>
-    <div class="frag nat-parallel-card inside"><h3>Inside</h3><p><b>4 · Deliver inside.</b> The rewritten packet goes to the correct home device and port.</p>
-      <code>S 198.51.100.20:443<br>D 192.168.1.10:51514</code></div>
+    <div class="frag nat-parallel-card inside"><h3>Inside</h3>
+      <div class="napt-mini-step"><b>4 &middot; Deliver inside</b><span>The rewritten packet goes to the correct home device and port.</span>
+        <div class="napt-mini-packet">S 198.51.100.20:443<br>D 192.168.1.10:51514</div></div>
+    </div>
   </div>
   <div class="source">NAT return translation: RFC 3022 §§3–4</div>
 </section>
