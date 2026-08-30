@@ -3716,7 +3716,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <h3>Disadvantages</h3>
       <div class="nat-balance-list">
         <div class="frag nat-balance-item"><b>Per-flow state:</b> the gateway must remember active translations.</div>
-        <div class="frag nat-balance-item"><b>Inbound reachability:</b> NAT weakens end-to-end transparency: internal devices are not directly addressable from the public Internet, and unsolicited incoming traffic requires an explicit mapping.</div>
+        <div class="frag nat-balance-item"><b>Inbound reachability:</b> internal devices are not directly addressable from the public Internet. A mapping only comes into existence once the device has sent something out, so a reply can find its way back &mdash; nothing outside can start the conversation.</div>
       </div>
     </div>
   </div>
