@@ -1033,7 +1033,6 @@ svg text{font-family:var(--sans)}
   text-transform:uppercase;opacity:.3;transition:.2s ease}.ipv6-part-label.global{grid-column:span 3;background:var(--accent-soft);color:var(--accent-ink)}
 .ipv6-part-label.subnet{grid-column:span 1;background:var(--current-soft);color:var(--current)}
 .ipv6-part-label.interface{grid-column:span 4;background:var(--good-soft);color:var(--good)}
-.ipv6-example-caveat{margin:0;font-size:12px;text-align:center;color:var(--muted)}
 .ipv6-address-walkthrough[data-step="1"] .ipv6-word.global{opacity:1;border-color:var(--accent);background:var(--accent-soft);
   box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 22%,transparent);transform:translateY(-2px)}
 .ipv6-address-walkthrough[data-step="1"] .ipv6-part-label.global{opacity:1;box-shadow:inset 0 0 0 2px var(--accent)}
@@ -1044,19 +1043,22 @@ svg text{font-family:var(--sans)}
   box-shadow:0 0 0 2px color-mix(in srgb,var(--good) 22%,transparent);transform:translateY(-2px)}
 .ipv6-address-walkthrough[data-step="3"] .ipv6-part-label.interface{opacity:1;box-shadow:inset 0 0 0 2px var(--good)}
 
+.ipv6-title-slide .ipv6-key-list{margin:24px 0 0;max-width:860px}
+.ipv6-header-lead{max-width:1060px;margin:0 auto 6px;font-size:18px;line-height:1.3;
+  color:var(--muted)}.ipv6-header-lead b{color:var(--ink)}
 .ipv6-header-layout{display:grid;grid-template-columns:700px 1fr;gap:24px;max-width:1060px;margin:6px auto 0;align-items:center}
 .ipv6-header-diagram{border:2px solid var(--accent);border-radius:16px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
 .ipv6-header-scale{padding:8px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:11px;font-weight:900;
   letter-spacing:.08em;text-align:center;text-transform:uppercase}.ipv6-header-row{display:grid;border-top:2px solid var(--bg)}
 .ipv6-header-row.top{grid-template-columns:4fr 8fr 20fr}.ipv6-header-row.second{grid-template-columns:16fr 8fr 8fr}.ipv6-header-row.full{grid-template-columns:1fr}
-.ipv6-field{display:grid;min-height:72px;place-items:center;padding:9px;border-right:2px solid var(--bg);background:var(--accent-soft);
+.ipv6-field{display:grid;min-height:64px;place-items:center;padding:8px;border-right:2px solid var(--bg);background:var(--accent-soft);
   font-family:var(--serif);font-size:18px;font-weight:700;text-align:center;opacity:.34;transition:.2s ease}.ipv6-field:last-child{border-right:0}.ipv6-field small{display:block;
-  margin-top:3px;font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted)}.ipv6-header-row.full .ipv6-field{min-height:67px;background:var(--surface-2)}
+  margin-top:3px;font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted)}.ipv6-header-row.full .ipv6-field{min-height:60px;background:var(--surface-2)}
 .ipv6-header-size{display:grid;min-height:46px;place-items:center;border-top:7px solid var(--bg);background:var(--good-soft);color:var(--good);
   font-family:var(--mono);font-size:11px;font-weight:900;text-align:center;text-transform:uppercase}
-.ipv6-header-notes{display:grid;gap:11px}.ipv6-header-note{padding:13px 15px;border:1px solid var(--border);border-radius:13px;
+.ipv6-header-notes{display:grid;gap:9px}.ipv6-header-note{padding:11px 14px;border:1px solid var(--border);border-radius:13px;
   background:var(--surface);box-shadow:var(--shadow);font-size:15px;line-height:1.3;color:var(--muted)}
-.ipv6-header-note b{display:block;margin-bottom:3px;font-family:var(--serif);font-size:20px;color:var(--ink)}
+.ipv6-header-note b{display:block;margin-bottom:2px;font-family:var(--serif);font-size:18px;color:var(--ink)}
 .ipv6-header-slide[data-step="1"] .ipv6-field.address,
 .ipv6-header-slide[data-step="2"] .ipv6-field.hop-limit,
 .ipv6-header-slide[data-step="3"] .ipv6-field.flow-label,
@@ -3723,23 +3725,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="source">Traditional NAT motivations and limitations: RFC 3022 §§1–2, 6</div>
 </section>
 
-<section class="slide sec-title" data-sec="Lecture 3 &middot; IPv6">
+<section class="slide sec-title ipv6-title-slide" data-sec="Lecture 3 &middot; IPv6">
   <div class="kicker">Week 8 &middot; Lecture 3</div>
   <h1>IPv6</h1>
   <div class="rule"></div>
-</section>
-
-<section class="slide" data-sec="Lecture 3 · IPv6 at a glance">
-  <div class="kicker">Introducing IPv6</div>
-  <h2>Key properties of IPv6</h2>
-  <p class="frag ipv6-intro-definition">IPv6 is the newer version of the Internet Protocol, designed with a much larger address space.</p>
   <ul class="ipv6-key-list">
-    <li class="frag"><b>128-bit addresses</b> provide far more addresses than IPv4's 32-bit format.</li>
-    <li class="frag"><b>A fixed 40-byte base header</b> gives every IPv6 packet the same basic header structure.
-      <ul><li>Optional information is carried afterwards through an extension-header chain.</li></ul>
-    </li>
+    <li class="frag">IPv6 is the <b>newer version</b> of the Internet Protocol.</li>
+    <li class="frag">It uses <b>128-bit addresses</b>, far more than IPv4&rsquo;s 32-bit format.</li>
   </ul>
-  <div class="source">IPv6 base format and extension headers: RFC 8200 · Address architecture: RFC 4291</div>
+  <div class="source">IPv6 address architecture: RFC 4291</div>
 </section>
 
 <section class="slide stateful ipv6-address-walkthrough" data-sec="Lecture 3 · IPv6 address meaning">
@@ -3762,7 +3756,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="ipv6-part-label subnet">Subnet ID · 16 bits</div>
         <div class="ipv6-part-label interface">Interface identifier · 64 bits</div>
       </div>
-      <p class="ipv6-example-caveat">Common teaching pattern: a /48 site allocation divided into /64 subnets. Actual allocation sizes can vary.</p>
     </div>
   </div>
   <div class="source">IPv6 text representation: RFC 5952 · Address architecture: RFC 4291 · Documentation prefix: RFC 3849</div>
@@ -3771,6 +3764,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide stateful ipv6-header-slide" data-sec="Lecture 3 · IPv6 header format">
   <div class="kicker">IPv6 header format</div>
   <h2>A breakdown of the IPv6 header</h2>
+  <p class="frag ipv6-header-lead">Every IPv6 packet begins with the same <b>fixed 40-byte base
+  header</b>; anything optional follows in an <b>extension-header chain</b>.</p>
   <div class="ipv6-header-layout">
     <div class="ipv6-header-diagram" aria-label="IPv6 base-header fields arranged in 32-bit rows">
       <div class="ipv6-header-scale">Each row is 32 bits wide</div>
@@ -3795,7 +3790,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div class="frag ipv6-header-note"><b>Next Header</b>Identifies the extension header or upper-layer protocol that follows, such as a TCP or UDP header.</div>
     </div>
   </div>
-  <div class="source">IPv6 base header: RFC 8200 §3 · Flow Label specification: RFC 6437</div>
+  <div class="source">IPv6 base header and extension headers: RFC 8200 §§3&ndash;4 &middot;
+    Flow Label specification: RFC 6437</div>
 </section>
 
 <section class="slide stateful transition-problem-slide" data-sec="Lecture 3 · IPv4 and IPv6 coexistence problem">
