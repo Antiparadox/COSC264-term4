@@ -959,7 +959,8 @@ svg text{font-family:var(--sans)}
 .napt-definition b{color:var(--accent-ink)}
 .nat-parallel-stage.napt-example{margin-top:4px;padding:16px}.nat-parallel-stage.napt-example .nat-parallel-card{
   min-height:330px;padding:15px 16px}.napt-mini-step{padding:8px 0;border-top:1px solid color-mix(in srgb,var(--ink) 15%,transparent)}
-.napt-mini-step:first-of-type{border-top:0}.napt-mini-step b{display:block;margin-bottom:3px;font-size:14px;color:var(--ink)}
+.napt-mini-step:first-of-type{border-top:0}.napt-mini-step > b{display:block;margin-bottom:3px;font-size:14px;color:var(--ink)}
+.napt-mini-step span b{color:var(--ink)}
 .napt-mini-step span{display:block;margin-bottom:6px;font-size:13px;line-height:1.3;color:var(--muted)}
 .napt-mini-step code{padding:5px 7px;font-size:11px;line-height:1.4}.napt-mini-packet{padding:7px 8px;border-radius:8px;
   background:var(--ink);font-family:var(--mono);font-size:11px;line-height:1.4;color:#fff}
@@ -3635,20 +3636,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 3 · NAT mapping">
   <div class="kicker">A closer look at one home web request</div>
   <h2>NAT translates both the address and the port</h2>
-  <p class="frag napt-definition">Rewriting the <b>port</b> as well as the address is what lets many
-  private hosts share a single public address.</p>
   <div class="nat-parallel-stage napt-example napt-outbound-layout" aria-label="A home host accesses a web server through a NAT gateway">
     <div class="nat-parallel-label">Outgoing<br>packet</div>
     <div class="nat-parallel-card inside"><h3>Inside</h3>
-      <div class="frag napt-mini-step"><b>1 · Private address</b><span>The home device is assigned a private IPv4 address.</span>
+      <div class="frag napt-mini-step"><b>1 · Private address</b><span>Suppose the home device has this private IPv4 address.</span>
         <code>192.168.1.10</code></div>
-      <div class="frag napt-mini-step"><b>2 · Source port</b><span>The device opens a source port for this web request.</span>
+      <div class="frag napt-mini-step"><b>2 · Source port</b><span>It opens a <b>source port</b> for this request &mdash; a number identifying which conversation on this device a packet belongs to.</span>
         <code>51514</code></div>
-      <div class="frag napt-mini-step"><b>3 · Original packet</b>
+      <div class="frag napt-mini-step"><b>3 · Original packet</b><span>From that address and port, it sends a packet to the destination server.</span>
         <div class="napt-mini-packet">S 192.168.1.10:51514<br>D 198.51.100.20:443</div></div>
     </div>
     <div class="nat-parallel-card border"><h3>At the border</h3>
-      <div class="frag napt-mini-step"><b>4 · Public address</b><span>The home gateway connects to the Internet using this public IPv4 address.</span>
+      <div class="frag napt-mini-step"><b>4 · Public address</b><span>The home gateway has its own unique public IPv4 address.</span>
         <code>203.0.113.5</code></div>
       <div class="frag napt-mini-step"><b>5 · Assign a public port</b><span>NAT chooses an available public port for this outbound connection and saves the mapping.</span>
         <table class="napt-inline-table" aria-label="One simplified outbound NAT mapping">
@@ -3660,7 +3659,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="napt-mini-packet">S 203.0.113.5:40001<br>D 198.51.100.20:443</div></div>
     </div>
     <div class="nat-parallel-card outside"><h3>Outside</h3>
-      <div class="frag napt-mini-step"><b>7 · Route to the server</b><span>The translated packet travels to the server's public address and HTTPS port.</span>
+      <div class="frag napt-mini-step"><b>7 · Route to the server</b><span>The translated packet is then routed to the destination server.</span>
         <code>198.51.100.20:443</code></div>
     </div>
   </div>
