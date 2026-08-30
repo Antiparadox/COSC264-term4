@@ -918,15 +918,25 @@ svg text{font-family:var(--sans)}
 .nat-motivation-list li:nth-child(4)::before{background:var(--good);box-shadow:0 0 0 6px var(--good-soft)}
 .nat-motivation-list b{color:var(--accent-ink)}
 
+.nat-answer-stage{position:relative;flex:0 0 68px;height:68px;width:100%;max-width:1060px;
+  margin:2px auto 6px}
+.nat-answer{position:absolute;inset:0;display:grid;align-items:center;padding:12px 20px;
+  border-left:6px solid var(--current);border-radius:0 13px 13px 0;background:var(--surface);
+  box-shadow:var(--shadow);font-size:19px;line-height:1.32;color:var(--muted);opacity:0;
+  transform:translateY(7px);transition:.22s}
+.nat-answer b{color:var(--ink)}
+.nat-intro-slide[data-step="1"] .nat-answer.a1,
+.nat-intro-slide[data-step="2"] .nat-answer.a2,
+.nat-intro-slide[data-step="3"] .nat-answer.a3{opacity:1;transform:none}
 .nat-parallel-stage{display:grid;grid-template-columns:125px repeat(3,minmax(0,1fr));gap:18px;max-width:1100px;
-  margin:16px auto 0;padding:20px;border:1px solid var(--border);border-radius:20px;background:var(--surface);
+  margin:0 auto;padding:16px;border:1px solid var(--border);border-radius:20px;background:var(--surface);
   box-shadow:var(--shadow)}
 .nat-parallel-labels,.nat-parallel-stage-group{display:grid;grid-template-rows:repeat(2,minmax(0,1fr));gap:16px}
 .nat-parallel-label{display:grid;place-items:center;padding:12px;border-radius:14px;background:var(--ink);color:#fff;
   font-family:var(--serif);font-size:22px;font-weight:800;text-align:center}
-.nat-parallel-card{position:relative;min-height:126px;box-sizing:border-box;padding:16px 18px;border:2px solid;
+.nat-parallel-card{position:relative;min-height:112px;box-sizing:border-box;padding:13px 16px;border:2px solid;
   border-radius:15px;box-shadow:var(--shadow)}
-.nat-parallel-card h3{margin:0 0 8px;font-family:var(--serif);font-size:24px}.nat-parallel-card p{margin:0 0 12px;
+.nat-parallel-card h3{margin:0 0 6px;font-family:var(--serif);font-size:22px}.nat-parallel-card p{margin:0 0 9px;
   font-size:15px;line-height:1.35;color:var(--muted)}.nat-parallel-card code{display:inline-block;padding:7px 9px;
   border-radius:8px;background:var(--ink);font-family:var(--mono);font-size:13px;font-weight:900;color:#fff}
 .nat-parallel-card.inside{border-color:var(--accent);background:var(--accent-soft)}
@@ -3566,14 +3576,20 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <ul class="nat-motivation-list">
     <li class="frag"><b>A familiar pattern.</b> You may see addresses such as <span class="mono">192.168.1.10</span> on devices at home, in an office, or in a campus lab.</li>
     <li class="frag"><b>Why is there no conflict?</b> If both your home and a campus lab contain <span class="mono">192.168.1.10</span>, why does traffic sent at home reach the home device rather than the lab device?</li>
-    <li class="frag"><b>The key mechanism.</b> Addresses like this one are <b>private addresses</b>, free to be reused in any number of local networks. Network Address Translation (NAT) provides the mapping between the private network and the outside world.</li>
   </ul>
-  <div class="source">Private IPv4 address space: RFC 1918</div>
 </section>
 
-<section class="slide" data-sec="Lecture 3 · NAT introduction">
+<section class="slide stateful nat-intro-slide" data-sec="Lecture 3 · NAT introduction">
   <div class="kicker">Network Address Translation</div>
   <h2>NAT lets many private hosts share scarce public IPv4 addresses</h2>
+  <div class="nat-answer-stage">
+    <div class="nat-answer a1"><span>The answer is <b>NAT</b> &mdash; Network Address Translation. Both
+      networks are free to use the same <b>private address</b>.</span></div>
+    <div class="nat-answer a2"><span>At each network&rsquo;s border, NAT translates that private address
+      into <b>that network&rsquo;s own public address</b>.</span></div>
+    <div class="nat-answer a3"><span>The outside world only ever sees the public addresses &mdash; so
+      there is <b>no conflict</b>.</span></div>
+  </div>
   <div class="nat-parallel-stage" aria-label="Separate home and campus address-translation flows">
     <div class="nat-parallel-labels">
       <div class="nat-parallel-label">Home<br>network</div>
