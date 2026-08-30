@@ -927,7 +927,16 @@ svg text{font-family:var(--sans)}
 .nat-answer b{color:var(--ink)}
 .nat-intro-slide[data-step="1"] .nat-answer.a1,
 .nat-intro-slide[data-step="2"] .nat-answer.a2,
-.nat-intro-slide[data-step="3"] .nat-answer.a3{opacity:1;transform:none}
+.nat-intro-slide[data-step="3"] .nat-answer.a3,
+.nat-intro-slide[data-step="4"] .nat-answer.a4{opacity:1;transform:none}
+.nat-intro-trigger{position:absolute;width:0;height:0;pointer-events:none}
+.nat-intro-slide .nat-parallel-stage{visibility:hidden}
+.nat-intro-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .nat-parallel-stage{
+  visibility:visible}
+.nat-intro-slide .nat-parallel-stage-group{opacity:0;transition:opacity .25s}
+.nat-intro-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .g1,
+.nat-intro-slide:is([data-step="3"],[data-step="4"]) .g2,
+.nat-intro-slide[data-step="4"] .g3{opacity:1}
 .nat-parallel-stage{display:grid;grid-template-columns:125px repeat(3,minmax(0,1fr));gap:18px;max-width:1100px;
   margin:0 auto;padding:16px;border:1px solid var(--border);border-radius:20px;background:var(--surface);
   box-shadow:var(--shadow)}
@@ -3583,37 +3592,43 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">Network Address Translation</div>
   <h2>NAT lets many private hosts share scarce public IPv4 addresses</h2>
   <div class="nat-answer-stage">
-    <div class="nat-answer a1"><span>The answer is <b>NAT</b> &mdash; Network Address Translation. Both
-      networks are free to use the same <b>private address</b>.</span></div>
-    <div class="nat-answer a2"><span>At each network&rsquo;s border, NAT translates that private address
-      into <b>that network&rsquo;s own public address</b>.</span></div>
-    <div class="nat-answer a3"><span>The outside world only ever sees the public addresses &mdash; so
-      there is <b>no conflict</b>.</span></div>
+    <div class="nat-answer a1"><span>The answer is <b>NAT</b> &mdash; Network Address
+      Translation.</span></div>
+    <div class="nat-answer a2"><span>Suppose a host in the home network and a host in the campus
+      network use the <b>same private address</b>.</span></div>
+    <div class="nat-answer a3"><span>At each network&rsquo;s border, NAT translates that same private
+      address into <b>two different public addresses</b>.</span></div>
+    <div class="nat-answer a4"><span>As a result, the outside world only ever observes those two
+      public addresses &mdash; and there is <b>no conflict</b>.</span></div>
   </div>
   <div class="nat-parallel-stage" aria-label="Separate home and campus address-translation flows">
     <div class="nat-parallel-labels">
       <div class="nat-parallel-label">Home<br>network</div>
       <div class="nat-parallel-label">Campus<br>network</div>
     </div>
-    <div class="frag nat-parallel-stage-group">
+    <div class="nat-parallel-stage-group g1">
       <div class="nat-parallel-card inside"><h3>Inside</h3><p>A home device uses a reusable private address.</p>
         <code>192.168.1.10</code></div>
       <div class="nat-parallel-card inside"><h3>Inside</h3><p>A campus device can reuse that same private address.</p>
         <code>192.168.1.10</code></div>
     </div>
-    <div class="frag nat-parallel-stage-group with-arrow">
+    <div class="nat-parallel-stage-group with-arrow g2">
       <div class="nat-parallel-card border"><h3>At the border</h3><p>The home gateway translates traffic crossing its boundary.</p>
         <code>Home NAT</code></div>
       <div class="nat-parallel-card border"><h3>At the border</h3><p>The campus gateway performs its own translation.</p>
         <code>Campus NAT</code></div>
     </div>
-    <div class="frag nat-parallel-stage-group with-arrow">
+    <div class="nat-parallel-stage-group with-arrow g3">
       <div class="nat-parallel-card outside"><h3>Outside</h3><p>The traffic appears under the home's public address.</p>
         <code>203.0.113.5</code></div>
       <div class="nat-parallel-card outside"><h3>Outside</h3><p>The traffic appears under a different public address.</p>
         <code>198.51.100.7</code></div>
     </div>
   </div>
+  <span class="frag nat-intro-trigger" aria-hidden="true"></span>
+  <span class="frag nat-intro-trigger" aria-hidden="true"></span>
+  <span class="frag nat-intro-trigger" aria-hidden="true"></span>
+  <span class="frag nat-intro-trigger" aria-hidden="true"></span>
   <div class="source">Private IPv4 space: RFC 1918 · Traditional NAT: RFC 3022</div>
 </section>
 
