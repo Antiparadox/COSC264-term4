@@ -1061,8 +1061,7 @@ svg text{font-family:var(--sans)}
 .ipv6-header-note b{display:block;margin-bottom:2px;font-family:var(--serif);font-size:18px;color:var(--ink)}
 .ipv6-header-slide[data-step="1"] .ipv6-field.address,
 .ipv6-header-slide[data-step="2"] .ipv6-field.hop-limit,
-.ipv6-header-slide[data-step="3"] .ipv6-field.flow-label,
-.ipv6-header-slide[data-step="4"] .ipv6-field.next-header{opacity:1;background:var(--current-soft);color:var(--ink);
+.ipv6-header-slide[data-step="3"] .ipv6-field.next-header{opacity:1;background:var(--current-soft);color:var(--ink);
   box-shadow:inset 0 0 0 3px var(--current)}
 
 .coexistence-topology{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:30px;width:100%;max-width:1060px;
@@ -3764,7 +3763,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide stateful ipv6-header-slide" data-sec="Lecture 3 · IPv6 header format">
   <div class="kicker">IPv6 header format</div>
   <h2>A breakdown of the IPv6 header</h2>
-  <p class="frag ipv6-header-lead">Every IPv6 packet begins with the same <b>fixed 40-byte base
+  <p class="ipv6-header-lead">Every IPv6 packet begins with the same <b>fixed 40-byte base
   header</b>.</p>
   <div class="ipv6-header-layout">
     <div class="ipv6-header-diagram" aria-label="IPv6 base-header fields arranged in 32-bit rows">
@@ -3786,12 +3785,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="ipv6-header-notes">
       <div class="frag ipv6-header-note"><b>Source and destination addresses</b>Both fields are 128 bits and identify the packet's endpoints.</div>
       <div class="frag ipv6-header-note"><b>Hop Limit</b>Each router reduces it by one so a packet caught in a forwarding loop is eventually discarded.</div>
-      <div class="frag ipv6-header-note"><b>Flow Label</b>Identifies packets belonging to the same flow so routers can handle them consistently.</div>
       <div class="frag ipv6-header-note"><b>Next Header</b>Identifies the extension header or upper-layer protocol that follows, such as a TCP or UDP header.</div>
     </div>
   </div>
-  <div class="source">IPv6 base header and extension headers: RFC 8200 §§3&ndash;4 &middot;
-    Flow Label specification: RFC 6437</div>
+  <div class="source">IPv6 base header and extension headers: RFC 8200 §§3&ndash;4</div>
 </section>
 
 <section class="slide stateful transition-problem-slide" data-sec="Lecture 3 · IPv4 and IPv6 coexistence problem">
