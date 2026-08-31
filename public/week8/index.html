@@ -1219,10 +1219,11 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-fib2.lpm td.bits .m{font-family:var(--mono);font-size:13px;font-weight:900;color:var(--muted)}
 .agg-lpm-slide tr.e23{opacity:0;transition:opacity .22s}
 .agg-lpm-slide:not([data-step="0"]) tr.e23{opacity:1}
-.agg-lpm-slide[data-step="1"] tr:is(.e20,.e23) td{background:var(--current-soft)}
-.agg-lpm-slide[data-step="2"] tr.e23 td{background:var(--good-soft)}
-.agg-lpm-slide[data-step="2"] tr.e23 td .m{color:var(--good)}
-.agg-lpm-slide[data-step="2"] tr.e20 td{opacity:.4}
+.agg-lpm-slide:is([data-step="0"],[data-step="1"]) .agg-fib2 :is(th,td).bits{visibility:hidden}
+.agg-lpm-slide:is([data-step="2"],[data-step="3"]) tr:is(.e20,.e23) td{background:var(--current-soft)}
+.agg-lpm-slide[data-step="4"] tr.e23 td{background:var(--good-soft)}
+.agg-lpm-slide[data-step="4"] tr.e23 td .m{color:var(--good)}
+.agg-lpm-slide[data-step="4"] tr.e20 td{opacity:.4}
 .agg-status{position:relative;flex:0 0 118px;height:118px;width:100%;max-width:1020px;margin:16px auto 0}
 .agg-card{position:absolute;inset:0;display:grid;grid-template-columns:210px 1fr;gap:18px;
   align-items:center;padding:12px 18px;border:1px solid var(--accent);border-left:7px solid
@@ -1234,8 +1235,9 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-card.question{border-color:var(--current);border-left-color:var(--current)}
 .agg-card.question > b{color:var(--current)}
 .agg-how-slide[data-step="1"] .agg-card.s1,.agg-how-slide[data-step="2"] .agg-card.s2,
-.agg-lpm-slide[data-step="1"] .agg-card.s1,
-.agg-lpm-slide[data-step="2"] .agg-card.s2{opacity:1;transform:none}
+.agg-lpm-slide[data-step="1"] .agg-card.s1,.agg-lpm-slide[data-step="2"] .agg-card.s2,
+.agg-lpm-slide[data-step="3"] .agg-card.s3,.agg-lpm-slide[data-step="4"] .agg-card.s4{
+  opacity:1;transform:none}
 
 .reference-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;max-width:1060px;margin:8px auto 0}.reference-column{display:grid;
   gap:12px}.reference-card{padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
@@ -3794,14 +3796,20 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </tbody>
   </table>
   <div class="agg-status">
-    <div class="agg-card question s1"><b>Both match</b><span>The Science department is now reached
-      through a different provider, so a <code>/23</code> joins the <code>/20</code>. A datagram for
-      <code>200.23.18.5</code> matches <b>both</b> &mdash; 20 bits on one, 23 on the other. Which
-      entry should the router use?</span></div>
-    <div class="agg-card s2"><b>Longest wins</b><span>The router takes the <b>longest matching
+    <div class="agg-card s1"><b>One network moves</b><span>The Science department is now reached
+      through a different provider, so its <b>next hop is different</b>. A second entry,
+      <code>200.23.18.0/23</code>, joins the university&rsquo;s <code>/20</code>.</span></div>
+    <div class="agg-card s2"><b>Both match</b><span>Now suppose a datagram arrives for
+      <code>200.23.18.5</code>. It matches <b>both</b> destination prefixes &mdash; 20 bits on one,
+      23 on the other.</span></div>
+    <div class="agg-card question s3"><b>So which one?</b><span>Which entry should the router
+      use?</span></div>
+    <div class="agg-card s4"><b>Longest wins</b><span>The router takes the <b>longest matching
       prefix</b>: 23 beats 20, so the datagram is handed to <code>cloud-gw</code>. Without that rule,
       aggregation would trap every network at whichever provider first advertised it.</span></div>
   </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <div class="source">Longest-match forwarding: RFC 4632 &sect;5.1 &middot; RFC 1812 &sect;5.2.4.3</div>
