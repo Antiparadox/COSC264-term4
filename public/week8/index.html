@@ -2574,8 +2574,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <li>Route-finding over a graph of <b>nodes</b> and <b>edges</b>, just as last week &mdash;
       except a node is no longer a router but a whole <b>autonomous system</b>, holding one or more
       subnets.</li>
-      <li>A destination is a <b>destination prefix</b>, written in CIDR notation like
-      <span class="mono">203.0.113.0/24</span> &mdash; it identifies one subnet inside an AS.</li>
+      <li>Unlike last week, a destination is not a single IP address. It is a
+      <b>destination prefix</b> in CIDR notation, like <span class="mono">203.0.113.0/24</span>,
+      identifying a subnet inside some AS.</li>
       <li>For every <b>source&ndash;destination pair</b>, find a path across that graph &mdash; a path
       made of several ASes.</li>
       <li class="jobeg">e.g. a path from AS&nbsp;A to AS&nbsp;D:
@@ -2608,9 +2609,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
   <div class="jobcard j3"><b>Select a preferred route</b><span>Again several paths may reach the
   same destination. Last week the criterion was simple &mdash; the <b>shortest</b> path, one least
-  cost. Here the cost is <b>multidimensional</b>: the AS's own <b>policy</b>, the length of the AS
-  path, the interior cost of reaching each exit, and more. BGP supplies the criteria that pick the
-  best one.</span></div>
+  cost. Here it is <b>multidimensional</b>: economic incentives, delay, and more. BGP supplies the
+  criteria that pick the best one.</span></div>
 
   <div class="source">BGP purpose and operation: RFC 4271 §§1, 3, 9.1</div>
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
