@@ -1108,6 +1108,7 @@ svg text{font-family:var(--sans)}
   border:3px solid var(--accent);border-radius:19px;background:var(--accent-soft);color:var(--accent-ink);font-family:var(--mono);
   font-size:19px;font-weight:900}.packet-process-note{position:absolute;left:16px;right:16px;bottom:12px;color:var(--muted);
   font-size:13px;line-height:1.25;text-align:center}
+@keyframes tunnel-packet-b-c{0%{left:26.3%;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:42.1%;opacity:0}}
 @keyframes tunnel-packet-b-e{0%{left:26.3%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:73.7%;opacity:0}}
 .packet-plain.v4{border-color:var(--current);background:var(--current-soft);color:var(--current)}
 .tunnel-narration b.inl{color:var(--ink)}
@@ -1117,32 +1118,36 @@ svg text{font-family:var(--sans)}
 .tunnel-solution-slide[data-step="2"] .coexistence-router.b,
 .tunnel-solution-slide[data-step="3"] .coexistence-router:is(.e,.f),
 .tunnel-solution-slide[data-step="4"] .coexistence-router.b,
-.tunnel-solution-slide[data-step="5"] .coexistence-router:is(.c,.d),
-.tunnel-solution-slide[data-step="6"] .coexistence-router.e,
-.tunnel-solution-slide[data-step="7"] .coexistence-router:is(.e,.f){opacity:1;transform:translateY(-2px)}
-.tunnel-solution-slide[data-step="7"] .coexistence-router.e::after{height:7px;background:var(--accent)}
+.tunnel-solution-slide[data-step="5"] .coexistence-router:is(.b,.c),
+.tunnel-solution-slide[data-step="6"] .coexistence-router:is(.c,.d),
+.tunnel-solution-slide[data-step="7"] .coexistence-router.e,
+.tunnel-solution-slide[data-step="8"] .coexistence-router:is(.e,.f){opacity:1;transform:translateY(-2px)}
+.tunnel-solution-slide[data-step="8"] .coexistence-router.e::after{height:7px;background:var(--accent)}
 .tunnel-solution-slide[data-step="2"] .tunnel-flow-packet.translate-flow{display:block;animation:tunnel-packet-b-e 2.3s linear infinite}
 .tunnel-solution-slide[data-step="3"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
 .tunnel-solution-slide[data-step="4"] .tunnel-flow-packet.encapsulation-flow{display:block;animation:tunnel-packet-a-b 1.7s ease-in-out infinite}
-.tunnel-solution-slide[data-step="5"] .tunnel-flow-packet.tunnel-flow{display:block;animation:tunnel-packet-c-e 2.5s linear infinite}
-.tunnel-solution-slide[data-step="6"] .tunnel-flow-packet.decapsulation-flow{display:block;animation:tunnel-packet-d-e 1.6s ease-in-out infinite}
-.tunnel-solution-slide[data-step="7"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
-.tunnel-solution-slide[data-step="5"] .tunnel-solution-layout{grid-template-columns:1fr}
-.tunnel-solution-slide[data-step="5"] .packet-process-stage{display:none}
+.tunnel-solution-slide[data-step="5"] .tunnel-flow-packet.hop-flow{display:block;animation:tunnel-packet-b-c 1.7s ease-in-out infinite}
+.tunnel-solution-slide[data-step="6"] .tunnel-flow-packet.tunnel-flow{display:block;animation:tunnel-packet-c-e 2.5s linear infinite}
+.tunnel-solution-slide[data-step="7"] .tunnel-flow-packet.decapsulation-flow{display:block;animation:tunnel-packet-d-e 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="8"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="6"] .tunnel-solution-layout{grid-template-columns:1fr}
+.tunnel-solution-slide[data-step="6"] .packet-process-stage{display:none}
 .tunnel-solution-slide[data-step="0"] .packet-process-stage{visibility:hidden}
 .tunnel-solution-slide[data-step="1"] .packet-process.dual-stack,
 .tunnel-solution-slide[data-step="2"] .packet-process.translate-out,
 .tunnel-solution-slide[data-step="3"] .packet-process.translate-back,
-.tunnel-solution-slide[data-step="4"] .packet-process.encapsulate,
-.tunnel-solution-slide[data-step="6"] .packet-process.decapsulate,
-.tunnel-solution-slide[data-step="7"] .packet-process.deliver{opacity:1;transform:none}
+.tunnel-solution-slide:is([data-step="4"],[data-step="5"]) .packet-process.encapsulate,
+.tunnel-solution-slide[data-step="7"] .packet-process.decapsulate,
+.tunnel-solution-slide[data-step="8"] .packet-process.deliver{opacity:1;transform:none}
 .tunnel-solution-slide[data-step="1"] .tunnel-narration li:nth-child(1),
 .tunnel-solution-slide[data-step="2"] .tunnel-narration li:nth-child(2),
 .tunnel-solution-slide[data-step="3"] .tunnel-narration li:nth-child(3),
-.tunnel-solution-slide[data-step="4"] .tunnel-narration li:nth-child(4),
-.tunnel-solution-slide[data-step="5"] .tunnel-narration li:nth-child(5),
-.tunnel-solution-slide[data-step="6"] .tunnel-narration li:nth-child(6),
-.tunnel-solution-slide[data-step="7"] .tunnel-narration li:nth-child(7){opacity:1;transform:none}
+.tunnel-solution-slide:is([data-step="4"],[data-step="5"]) .tunnel-narration > li:nth-child(4),
+.tunnel-solution-slide[data-step="6"] .tunnel-narration > li:nth-child(5),
+.tunnel-solution-slide[data-step="7"] .tunnel-narration > li:nth-child(6),
+.tunnel-solution-slide[data-step="8"] .tunnel-narration > li:nth-child(7){opacity:1;transform:none}
+.tn-sub li.t2{opacity:0;transition:opacity .22s}
+.tunnel-solution-slide[data-step="5"] .tn-sub li.t2{opacity:1}
 body.scroll .tunnel-narration{display:grid;gap:10px;min-height:0}
 body.scroll .tunnel-solution-slide .tunnel-narration .frag{position:static;opacity:1;transform:none}
 body.scroll .packet-process-stage{min-height:210px}
@@ -3842,6 +3847,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="tunnel-flow-packet tunnel-packet decapsulation-flow" aria-hidden="true">IPv4 [IPv6]</div>
     <div class="tunnel-flow-packet delivery-flow" aria-hidden="true">IPv6</div>
     <div class="tunnel-flow-packet tunnel-packet translate-flow" aria-hidden="true">IPv4</div>
+    <div class="tunnel-flow-packet tunnel-packet hop-flow" aria-hidden="true">IPv4 [IPv6]</div>
   </div>
   <div class="tunnel-solution-layout">
     <ul class="tunnel-narration">
@@ -3852,8 +3858,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <li>But IPv6 and IPv4 are not equivalent, so this translation is <b class="inl">lossy</b>: some information is dropped along the way. The IPv6 <b class="inl">Flow Label</b>, for example, has no IPv4 field to go into.</li>
       </ul></li>
       <li class="frag"><b>Strategy 2 &middot; Tunnelling:</b><ul class="tn-sub">
-        <li>B wraps the <b class="inl">entire IPv6 packet</b> &mdash; header and payload together &mdash; into the <b class="inl">data field</b> of a new IPv4 packet. Nothing inside it is read or changed.</li>
-        <li>That outer IPv4 header is addressed <b class="inl">B &rarr; E</b> and marks its payload as an IPv6 packet (protocol 41). B then forwards it to its next hop, C.</li>
+        <li class="t1">B wraps the <b class="inl">entire IPv6 packet</b> &mdash; header and payload together &mdash; into the <b class="inl">data field</b> of a new IPv4 packet.</li>
+        <li class="t2">B then forwards that IPv4 packet to its next hop, C.</li>
       </ul></li>
       <li class="frag"><b>Tunnel:</b><span>The encapsulated packet crosses C and D, which see only an ordinary IPv4 packet.</span></li>
       <li class="frag"><b>Decapsulate at E:</b><span>E removes the outer IPv4 header, revealing the original IPv6 packet.</span></li>
@@ -3894,6 +3900,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
+  <span class="frag tunnel-extra-trigger" aria-hidden="true" style="position:absolute;width:0;height:0"></span>
   <div class="source">Dual IP-layer operation and configured tunnelling: RFC 4213 §§2&ndash;3 &middot;
     Stateless IP/ICMP translation: RFC 7915</div>
 </section>
