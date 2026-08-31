@@ -21,7 +21,7 @@
   const WS_PATH = '/rc';
   const STORE_KEY = 'cosc264-remote-code';
   const HIDE_KEY = 'cosc264-hide-remote';
-  const CAP_WORDS = 24;     // roughly two projected lines
+  const CAP_WORDS = 9;      // roughly one projected line at the band size
   const RETRY_MIN = 1000;
   const RETRY_MAX = 15000;
 
@@ -121,19 +121,23 @@
     #rc-status{margin:0;font-size:14px;color:var(--faint,#84939d)}
     /* Caption band. Sized for the back of a lecture theatre and painted on
        its own dark ground so it stays legible over any slide, in either
-       deck theme. Two lines maximum; older text is trimmed away in JS
-       rather than scrolled, so the newest words are always the visible ones. */
+       deck theme. One line only, at twice the old type size -- the band
+       keeps the same height, it just spends it on one big line instead of
+       two small ones. Older text is trimmed away in JS rather than
+       scrolled, so the newest words are always the visible ones. */
     #rc-cap{position:fixed;left:0;right:0;bottom:0;z-index:800;display:none;
       background:rgba(8,14,18,.9);color:#fff;text-align:center;
       font-family:var(--sans,system-ui,sans-serif);
-      font-size:clamp(20px,2.3vw,31px);line-height:1.34;
+      font-size:clamp(40px,4.6vw,62px);line-height:1.34;
       padding:14px 5vw;padding-bottom:calc(14px + env(safe-area-inset-bottom));
       text-wrap:balance}
-    /* Exactly two lines, always. The text is pinned to the BOTTOM of the
+    /* Exactly one line, always. The text is pinned to the BOTTOM of the
        window so anything over-long spills off the top and the newest words
        stay on screen -- the opposite of normal overflow, and the only
-       behaviour that makes sense for live speech. */
-    #rc-cap-clip{height:2.68em;overflow:hidden;position:relative}
+       behaviour that makes sense for live speech. 1.34em is one line-height,
+       and at double the font size that is the same band height as the two
+       smaller lines it replaces. */
+    #rc-cap-clip{height:1.34em;overflow:hidden;position:relative}
     #rc-cap-text{position:absolute;left:0;right:0;bottom:0}
     #rc-cap.on{display:block}
     #rc-cap-interim{color:#9fb4bd}
@@ -249,6 +253,7 @@
           // iOS can hold a very long interim result before finalising it, so
           // the two have to share one budget. Trimming only the final text
           // let the interim grow without limit and swallow the slide.
+          // The budget is tight on one line, so this matters more than it did.
           const iw = text.split(/\s+/).filter(Boolean);
           const room = Math.max(0, CAP_WORDS - iw.length);
           // slice(-0) is slice(0), which returns the whole array rather
