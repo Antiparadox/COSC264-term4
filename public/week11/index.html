@@ -152,11 +152,11 @@
       font: 800 34px/1 var(--sans);
     }
 
-    .roadmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+    .roadmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 38px; }
     .roadmap-card {
       position: relative;
-      min-height: 132px;
-      padding: 20px 24px 18px 86px;
+      min-height: 168px;
+      padding: 28px 28px 24px 92px;
       border: 1px solid var(--line);
       border-radius: 20px;
       background: var(--surface);
@@ -165,8 +165,8 @@
     .roadmap-card:nth-child(n+3) { border-color: color-mix(in srgb, var(--amber) 38%, var(--line)); }
     .roadmap-step {
       position: absolute;
-      top: 19px;
-      left: 22px;
+      top: 26px;
+      left: 26px;
       display: grid;
       place-items: center;
       width: 46px;
@@ -2018,30 +2018,20 @@
           <article class="roadmap-card frag" data-step="1">
             <span class="roadmap-step">01</span>
             <h3>Transport-layer services</h3>
-            <p>What transport protocols provide to applications.</p>
+            <p>What transport provides to applications: sockets, multiplexing and demultiplexing.</p>
           </article>
           <article class="roadmap-card frag" data-step="2">
             <span class="roadmap-step">02</span>
-            <h3>Multiplexing and demultiplexing</h3>
-            <p>How data reaches the correct application process.</p>
+            <h3>UDP and TCP</h3>
+            <p>The two transport protocols: segment formats, connections, and TCP&rsquo;s reliable delivery.</p>
           </article>
           <article class="roadmap-card frag" data-step="3">
             <span class="roadmap-step">03</span>
-            <h3>UDP — User Datagram Protocol</h3>
-            <p>Simple, connectionless transport.</p>
-          </article>
-          <article class="roadmap-card frag" data-step="4">
-            <span class="roadmap-step">04</span>
-            <h3>TCP — Transmission Control Protocol</h3>
-            <p>Reliable, connection-oriented transport.</p>
-          </article>
-          <article class="roadmap-card frag" data-step="5">
-            <span class="roadmap-step">05</span>
             <h3>TCP flow control</h3>
             <p>Keeping a fast sender from swamping the receiver.</p>
           </article>
-          <article class="roadmap-card frag" data-step="6">
-            <span class="roadmap-step">06</span>
+          <article class="roadmap-card frag" data-step="4">
+            <span class="roadmap-step">04</span>
             <h3>TCP congestion control</h3>
             <p>Matching the sending rate to what the network can carry.</p>
           </article>
@@ -2051,7 +2041,7 @@
       <section class="slide divider-slide" data-title="Transport-layer services" data-section="Module 5 · Concept 1">
         <div class="divider-wrap">
           <p class="kicker">From hosts to application processes</p>
-          <span class="concept-label">Concept 1</span>
+          <span class="concept-label">Concept 1 of 4</span>
           <h2>Transport-layer services</h2>
           <div class="rule"></div>
           <p class="subtitle">Applications use transport services for process-to-process communication.</p>
@@ -2293,6 +2283,16 @@
         </div>
       </section>
 
+      <section class="slide divider-slide" data-title="UDP and TCP" data-section="Module 5 · Concept 2">
+        <div class="divider-wrap">
+          <p class="kicker">The two transport protocols</p>
+          <span class="concept-label">Concept 2 of 4</span>
+          <h2>UDP and TCP</h2>
+          <div class="rule"></div>
+          <p class="subtitle">One is connectionless and minimal; the other is connection-oriented and reliable.</p>
+        </div>
+      </section>
+
       <section class="slide" data-title="User Datagram Protocol: an overview" data-section="UDP">
         <header class="content-header">
           <p class="kicker">User Datagram Protocol · RFC 768</p>
@@ -2314,7 +2314,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="UDP is connectionless" data-section="Multiplexing and demultiplexing">
+      <section class="slide" data-title="UDP is connectionless" data-section="UDP">
         <header class="content-header">
           <p class="kicker">UDP communication model</p>
           <h2>UDP is connectionless</h2>
@@ -2428,7 +2428,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="TCP is connection-oriented" data-section="Multiplexing and demultiplexing">
+      <section class="slide" data-title="TCP is connection-oriented" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP communication model</p>
           <h2>TCP is connection-oriented</h2>
@@ -3210,18 +3210,18 @@
       </section>
 
       <!-- Concept 2 opener -->
-      <section class="slide divider-slide" data-title="TCP Flow Control and Congestion Control" data-section="Module 5 · Concept 2">
+      <section class="slide divider-slide" data-title="TCP Flow Control" data-section="Module 5 · Concept 3">
         <div class="divider-wrap">
-          <p class="kicker">Managing traffic in reliable transport</p>
-          <span class="concept-label">Concept 2</span>
-          <h2>TCP Flow Control and Congestion Control</h2>
+          <p class="kicker">Matching the sender to the receiver</p>
+          <span class="concept-label">Concept 3 of 4</span>
+          <h2>TCP Flow Control</h2>
           <div class="rule"></div>
-          <p class="subtitle">TCP uses receiver feedback and network signals to keep traffic in check.</p>
+          <p class="subtitle">TCP uses receiver feedback so that a fast sender cannot swamp a slow receiver.</p>
         </div>
       </section>
 
       <!-- Frame 31: Flow control vs congestion control -->
-      <section class="slide" data-title="Flow control vs congestion control" data-section="TCP">
+      <section class="slide" data-title="Flow control vs congestion control" data-section="Flow control">
         <header class="content-header">
           <p class="kicker">TCP traffic management</p>
           <h2>Flow control vs congestion control</h2>
@@ -3477,9 +3477,10 @@
       </section>
 
       <!-- ── Frame 34: Congestion control section opener ── -->
-      <section class="slide divider-slide" data-title="Congestion Control" data-section="Congestion control">
+      <section class="slide divider-slide" data-title="Congestion Control" data-section="Module 5 · Concept 4">
         <div class="divider-wrap">
-          <p class="kicker">Next up</p>
+          <p class="kicker">Matching the sender to the network</p>
+          <span class="concept-label">Concept 4 of 4</span>
           <h2>Congestion Control</h2>
           <div class="rule"></div>
           <p class="subtitle">Too many senders overload router buffers. TCP limits each sender's rate to prevent this.</p>
