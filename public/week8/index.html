@@ -3846,12 +3846,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="tunnel-solution-layout">
     <ul class="tunnel-narration">
       <li class="frag"><b>Dual stack:</b><span>A <b class="inl">dual-stack router</b> runs both the IPv6 and the IPv4 protocol stack, so it understands either kind of packet. Here, suppose B and E are both dual-stack routers.</span></li>
-      <li class="frag"><b>Strategy 1 &middot; Translate at B:</b><span>B rewrites the IPv6 header into an IPv4 header. What leaves B is an ordinary IPv4 packet, which C and D forward without trouble.</span></li>
+      <li class="frag"><b>Strategy 1 &middot; Translation:</b><span>B rewrites the IPv6 header into an IPv4 header. What leaves B is an ordinary IPv4 packet, which C and D forward without trouble.</span></li>
       <li class="frag"><b>Translate back at E:</b><ul class="tn-sub">
         <li>When the IPv4 packet reaches E, E rewrites it back into an IPv6 packet and delivers it to F.</li>
         <li>But IPv6 and IPv4 are not equivalent, so this translation is <b class="inl">lossy</b>: some information is dropped along the way. The IPv6 <b class="inl">Flow Label</b>, for example, has no IPv4 field to go into.</li>
       </ul></li>
-      <li class="frag"><b>Strategy 2 &middot; Encapsulate at B:</b><span>B leaves the IPv6 packet untouched and wraps it inside an IPv4 packet addressed B &rarr; E.</span></li>
+      <li class="frag"><b>Strategy 2 &middot; Tunnelling:</b><ul class="tn-sub">
+        <li>B wraps the <b class="inl">entire IPv6 packet</b> &mdash; header and payload together &mdash; into the <b class="inl">data field</b> of a new IPv4 packet. Nothing inside it is read or changed.</li>
+        <li>That outer IPv4 header is addressed <b class="inl">B &rarr; E</b> and marks its payload as an IPv6 packet (protocol 41). B then forwards it to its next hop, C.</li>
+      </ul></li>
       <li class="frag"><b>Tunnel:</b><span>The encapsulated packet crosses C and D, which see only an ordinary IPv4 packet.</span></li>
       <li class="frag"><b>Decapsulate at E:</b><span>E removes the outer IPv4 header, revealing the original IPv6 packet.</span></li>
       <li class="frag"><b>Delivery:</b><span>The unchanged IPv6 packet continues to F. Nothing was lost &mdash; encapsulation is <b class="inl">lossless</b>.</span></li>
