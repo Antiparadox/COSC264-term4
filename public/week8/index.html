@@ -1235,9 +1235,14 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-card.question{border-color:var(--current);border-left-color:var(--current)}
 .agg-card.question > b{color:var(--current)}
 .agg-how-slide[data-step="1"] .agg-card.s1,.agg-how-slide[data-step="2"] .agg-card.s2,
-.agg-lpm-slide[data-step="1"] .agg-card.s1,.agg-lpm-slide[data-step="2"] .agg-card.s2,
-.agg-lpm-slide[data-step="3"] .agg-card.s3,.agg-lpm-slide[data-step="4"] .agg-card.s4{
-  opacity:1;transform:none}
+.agg-lpm-slide:not([data-step="0"]) .agg-card.s1{opacity:1;transform:none}
+.agg-lpm-slide:not([data-step="0"]) .agg-sub .m1,
+.agg-lpm-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .agg-sub .m2,
+.agg-lpm-slide:is([data-step="3"],[data-step="4"]) .agg-sub .m3,
+.agg-lpm-slide[data-step="4"] .agg-sub .m4{opacity:1}
+.agg-lpm-slide .agg-sub .m3{color:var(--current)}
+.agg-lpm-slide .agg-sub .m3 b{color:var(--current)}
+.agg-lpm-slide .agg-status{flex:0 0 206px;height:206px}
 
 .reference-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;max-width:1060px;margin:8px auto 0}.reference-column{display:grid;
   gap:12px}.reference-card{padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
@@ -3796,17 +3801,17 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </tbody>
   </table>
   <div class="agg-status">
-    <div class="agg-card s1"><b>One network moves</b><span>The Science department is now reached
-      through a different provider, so its <b>next hop is different</b>. A second entry,
-      <code>200.23.18.0/23</code>, joins the university&rsquo;s <code>/20</code>.</span></div>
-    <div class="agg-card s2"><b>Both match</b><span>Now suppose a datagram arrives for
-      <code>200.23.18.5</code>. It matches <b>both</b> destination prefixes &mdash; 20 bits on one,
-      23 on the other.</span></div>
-    <div class="agg-card question s3"><b>So which one?</b><span>Which entry should the router
-      use?</span></div>
-    <div class="agg-card s4"><b>Longest wins</b><span>The router takes the <b>longest matching
-      prefix</b>: 23 beats 20, so the datagram is handed to <code>cloud-gw</code>. Without that rule,
-      aggregation would trap every network at whichever provider first advertised it.</span></div>
+    <div class="agg-card s1"><b>The forwarding decision</b><ul class="agg-sub">
+      <li class="m1">The Science department is now reached through a different provider, so its
+        <b>next hop is different</b>. A second entry, <code>200.23.18.0/23</code>, joins the
+        university&rsquo;s <code>/20</code>.</li>
+      <li class="m2">Now suppose a datagram arrives for <code>200.23.18.5</code>. It matches
+        <b>both</b> destination prefixes &mdash; 20 bits on one, 23 on the other.</li>
+      <li class="m3"><b>Which entry should the router use?</b></li>
+      <li class="m4">The router takes the <b>longest matching prefix</b>: 23 beats 20, so the
+        datagram goes to <code>cloud-gw</code> &mdash; otherwise aggregation would trap every network
+        at whichever provider first advertised it.</li>
+      </ul></div>
   </div>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
