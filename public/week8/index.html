@@ -2574,8 +2574,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <li>Route-finding over a graph of <b>nodes</b> and <b>edges</b>, just as last week &mdash;
       except a node is no longer a router but a whole <b>autonomous system</b>, holding one or more
       subnets.</li>
-      <li>For every <b>source</b> and <b>destination</b>, find a path across that graph &mdash; a
-      path made of several ASes.</li>
+      <li>For every <b>destination prefix</b> &mdash; one of those subnets, written like
+      <span class="mono">203.0.113.0/24</span> &mdash; each AS finds a path from itself across that
+      graph, made of several ASes.</li>
       <li class="jobeg">e.g. a path from AS&nbsp;A to AS&nbsp;D:
       <span class="mono">AS A &rarr; AS B &rarr; AS E &rarr; AS D</span></li>
     </ul>
