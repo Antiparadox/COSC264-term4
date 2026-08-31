@@ -1008,6 +1008,34 @@ svg text{font-family:var(--sans)}
 .napt-return-layout>.outside::before{content:"←";position:absolute;left:-20px;top:50%;transform:translate(-50%,-50%);
   font-size:28px;font-weight:900;color:var(--current)}
 
+/* how IPv4 and IPv6 coexist: one capability, two things to do with it */
+.cmap-trigger{position:absolute;width:0;height:0;pointer-events:none}
+.cmap{display:grid;gap:14px;width:100%;max-width:1070px;margin:10px auto 0}
+.cmap-root{display:grid;grid-template-columns:190px 1fr;gap:20px;align-items:center;padding:14px 20px;
+  border:2px solid var(--accent);border-radius:15px;background:var(--accent-soft);
+  opacity:0;transform:translateY(7px);transition:.22s}
+.cmap-root > b{font-family:var(--serif);font-size:26px;color:var(--accent-ink)}
+.cmap-root > span{font-size:18px;line-height:1.32;color:var(--muted)}
+.cmap-root span b{color:var(--ink)}
+.cmap-branches{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cmap-branch{position:relative;padding:26px 16px 15px;border:1px solid var(--border);border-top:6px solid
+  var(--edge);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);
+  opacity:0;transform:translateY(7px);transition:.22s}
+.cmap-branch::before{content:"";position:absolute;left:50%;top:-15px;width:2px;height:9px;
+  background:var(--edge)}
+.cmap-branch.b1{border-top-color:var(--accent)}
+.cmap-branch.b2{border-top-color:var(--good)}
+.cmap-branch.b3{border-top-color:var(--current)}
+.cmap-when{display:block;margin-bottom:6px;font-family:var(--mono);font-size:11px;font-weight:900;
+  letter-spacing:.03em;line-height:1.3;color:var(--muted);text-transform:uppercase}
+.cmap-branch h3{margin:0 0 6px;font-family:var(--serif);font-size:23px}
+.cmap-branch p{margin:0;font-size:15px;line-height:1.36;color:var(--muted)}
+.cmap-branch p b{color:var(--ink)}
+.coexist-map-slide:not([data-step="0"]) .cmap-root{opacity:1;transform:none}
+.coexist-map-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .cmap-branch.b1,
+.coexist-map-slide:is([data-step="3"],[data-step="4"]) .cmap-branch.b2,
+.coexist-map-slide[data-step="4"] .cmap-branch.b3{opacity:1;transform:none}
+
 .nat-balance-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1060px;margin:10px auto 0}
 .nat-balance-column{padding:19px;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:var(--shadow)}
 .nat-balance-column h3{margin:0 0 14px;font-family:var(--serif);font-size:29px}.nat-balance-column.benefit h3{color:var(--good)}
@@ -3813,8 +3841,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide stateful tunnel-solution-slide" data-sec="Lecture 3 · Dual stack and tunnelling">
-  <div class="kicker">The compatibility solution</div>
-  <h2>Dual-stack routers create a channel through the IPv4-only region</h2>
+  <div class="kicker">A compatibility solution</div>
+  <h2>Tunnelling carries an IPv6 packet across the IPv4-only region</h2>
   <div class="coexistence-topology" aria-label="Dual-stack routers B and E use encapsulation to carry an IPv6 packet across IPv4-only routers C and D">
     <div class="coexistence-router v6 a">A<small>IPv6 router</small></div>
     <div class="coexistence-router dual b">B<small>dual stack</small></div>
@@ -3830,7 +3858,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
   <div class="tunnel-solution-layout">
     <ul class="tunnel-narration">
-      <li class="frag"><b>Dual stack:</b> B and E understand both IPv4 and IPv6 packets and can read either header.</li>
+      <li class="frag"><b>Dual stack:</b> B and E run both protocol stacks, so each can read and build either kind of packet. On its own that does not help &mdash; C and D still cannot forward an IPv6 packet.</li>
       <li class="frag"><b>Encapsulation at B:</b> The IPv6 packet reaches B, which wraps it inside an IPv4 packet without converting it.</li>
       <li class="frag"><b>Tunnel:</b> The encapsulated packet travels through C and D to E, carrying the IPv6 packet inside it.</li>
       <li class="frag"><b>Decapsulation at E:</b> E removes the outer IPv4 header and reveals the original IPv6 packet.</li>
@@ -3860,6 +3888,36 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
   <div class="source">Dual IP-layer operation and configured tunnelling: RFC 4213 §§2–3</div>
+</section>
+
+<section class="slide stateful coexist-map-slide" data-sec="Lecture 3 &middot; Coexistence approaches">
+  <div class="kicker">The three ways IPv4 and IPv6 coexist</div>
+  <h2>One capability, and two things to do with it</h2>
+  <div class="cmap">
+    <div class="cmap-root"><b>Dual stack</b><span>A node runs <b>both</b> protocol stacks and holds
+      both kinds of address. Everything below depends on this.</span></div>
+    <div class="cmap-branches">
+      <div class="cmap-branch b1"><span class="cmap-when">every node on the path runs both</span>
+        <h3>Nothing else needed</h3>
+        <p>Packets travel natively in either protocol. This is how most of the fixed-line and
+        content Internet runs today &mdash; but every node still needs an IPv4 address, so it does
+        not solve exhaustion.</p></div>
+      <div class="cmap-branch b2"><span class="cmap-when">only the boundary runs both &middot; both ends are IPv6</span>
+        <h3>Tunnel</h3>
+        <p>The boundary wraps the IPv6 packet inside an IPv4 one and unwraps it at the far side.
+        <b>Lossless</b> &mdash; the packet arrives unchanged.</p></div>
+      <div class="cmap-branch b3"><span class="cmap-when">only the boundary runs both &middot; one end is IPv4-only</span>
+        <h3>Translate</h3>
+        <p>The boundary rewrites the header from one protocol into the other. <b>Lossy</b> &mdash;
+        some IPv6 information has no IPv4 equivalent. This is how IPv6-only mobile networks reach
+        the IPv4 Internet.</p></div>
+    </div>
+  </div>
+  <span class="frag cmap-trigger" aria-hidden="true"></span>
+  <span class="frag cmap-trigger" aria-hidden="true"></span>
+  <span class="frag cmap-trigger" aria-hidden="true"></span>
+  <span class="frag cmap-trigger" aria-hidden="true"></span>
+  <div class="source">Dual stack and tunnelling: RFC 4213 &middot; NAT64 and DNS64: RFC 6146, 6147</div>
 </section>
 
 <section class="slide lecture2-recap-slide" data-sec="Week 8 · Recap">
