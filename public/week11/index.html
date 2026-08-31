@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>COSC264 · Week 11 — Network Transport Layer Protocols</title>
+  <title>COSC264 · Module 5 — Network Transport Layer Protocols</title>
   <style>
     :root {
       --bg: #eef1f4;
@@ -84,7 +84,7 @@
       text-transform: uppercase;
     }
 
-    .week-badge {
+    .module-badge {
       display: inline-flex;
       width: max-content;
       padding: 9px 16px;
@@ -152,21 +152,21 @@
       font: 800 34px/1 var(--sans);
     }
 
-    .roadmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 38px; }
+    .roadmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
     .roadmap-card {
       position: relative;
-      min-height: 168px;
-      padding: 28px 28px 24px 92px;
+      min-height: 132px;
+      padding: 20px 24px 18px 86px;
       border: 1px solid var(--line);
       border-radius: 20px;
       background: var(--surface);
       box-shadow: 0 10px 26px rgba(21, 36, 47, .07);
     }
-    .roadmap-card:nth-child(3), .roadmap-card:nth-child(4) { border-color: color-mix(in srgb, var(--amber) 38%, var(--line)); }
+    .roadmap-card:nth-child(n+3) { border-color: color-mix(in srgb, var(--amber) 38%, var(--line)); }
     .roadmap-step {
       position: absolute;
-      top: 26px;
-      left: 26px;
+      top: 19px;
+      left: 22px;
       display: grid;
       place-items: center;
       width: 46px;
@@ -176,7 +176,7 @@
       color: var(--teal);
       font: 800 18px/1 var(--mono);
     }
-    .roadmap-card:nth-child(3) .roadmap-step, .roadmap-card:nth-child(4) .roadmap-step {
+    .roadmap-card:nth-child(n+3) .roadmap-step {
       background: color-mix(in srgb, var(--amber) 15%, var(--surface));
       color: var(--amber);
     }
@@ -186,7 +186,7 @@
     .divider-slide { display: none; align-content: center; }
     .divider-slide.active { display: grid; }
     .divider-wrap { max-width: 980px; }
-    .lecture-label {
+    .concept-label {
       display: inline-flex;
       padding: 9px 15px;
       margin-bottom: 22px;
@@ -1986,10 +1986,10 @@
 <body>
   <main id="viewport">
     <div id="stage" aria-live="polite">
-      <section class="slide title-slide" data-title="Transport Layer Protocols" data-section="Week 11">
+      <section class="slide title-slide" data-title="Transport Layer Protocols" data-section="Module 5">
         <div>
           <p class="kicker">COSC264 · Term 4</p>
-          <div class="week-badge">Week 11</div>
+          <div class="module-badge">Module 5</div>
           <h1>Transport Layer Protocols</h1>
           <div class="rule"></div>
           <p class="subtitle">TCP and UDP</p>
@@ -1997,10 +1997,10 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Week 10 — what we covered" data-section="Week 11 · Recap">
+      <section class="slide" data-title="Module 4 — what we covered" data-section="Module 5 · Recap">
         <header class="content-header">
-          <p class="kicker">Recap · last week</p>
-          <h2>Week 10 — what we covered</h2>
+          <p class="kicker">Recap · Module 4</p>
+          <h2>Module 4 — what we covered</h2>
         </header>
         <div class="recap-list">
           <div class="recap-item frag" data-step="1">Reliable Data Transfer (RDT) moves data reliably over an unreliable channel.</div>
@@ -2009,10 +2009,10 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Week 11 roadmap" data-section="Week 11 · Overview">
+      <section class="slide" data-title="Module 5 roadmap" data-section="Module 5 · Overview">
         <header class="content-header">
           <p class="kicker">Our route through the transport layer</p>
-          <h2>Week 11 roadmap</h2>
+          <h2>Module 5 roadmap</h2>
         </header>
         <div class="roadmap-grid">
           <article class="roadmap-card frag" data-step="1">
@@ -2035,20 +2035,30 @@
             <h3>TCP — Transmission Control Protocol</h3>
             <p>Reliable, connection-oriented transport.</p>
           </article>
+          <article class="roadmap-card frag" data-step="5">
+            <span class="roadmap-step">05</span>
+            <h3>TCP flow control</h3>
+            <p>Keeping a fast sender from swamping the receiver.</p>
+          </article>
+          <article class="roadmap-card frag" data-step="6">
+            <span class="roadmap-step">06</span>
+            <h3>TCP congestion control</h3>
+            <p>Matching the sending rate to what the network can carry.</p>
+          </article>
         </div>
       </section>
 
-      <section class="slide divider-slide" data-title="Transport-layer services" data-section="Week 11 · Lecture 1">
+      <section class="slide divider-slide" data-title="Transport-layer services" data-section="Module 5 · Concept 1">
         <div class="divider-wrap">
           <p class="kicker">From hosts to application processes</p>
-          <span class="lecture-label">Lecture 1</span>
+          <span class="concept-label">Concept 1</span>
           <h2>Transport-layer services</h2>
           <div class="rule"></div>
           <p class="subtitle">Applications use transport services for process-to-process communication.</p>
         </div>
       </section>
 
-      <section class="slide" data-title="Transport layer provides an end-to-end channel between applications" data-section="Lecture 1 · Transport-layer services">
+      <section class="slide" data-title="Transport layer provides an end-to-end channel between applications" data-section="Transport-layer services">
         <header class="content-header">
           <p class="kicker">End-to-end abstraction</p>
           <h2>Transport layer provides an end-to-end channel between applications</h2>
@@ -2102,7 +2112,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Mechanisms utilized by transport-layer protocols" data-section="Lecture 1 · Transport-layer services">
+      <section class="slide" data-title="Mechanisms utilized by transport-layer protocols" data-section="Transport-layer services">
         <header class="content-header">
           <p class="kicker">How the abstraction is delivered</p>
           <h2>Mechanisms utilized by transport-layer protocols</h2>
@@ -2137,7 +2147,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Why multiplexing is needed" data-section="Lecture 1 · Multiplexing and demultiplexing">
+      <section class="slide" data-title="Why multiplexing is needed" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
           <p class="kicker">One host · many application processes</p>
           <h2>Why multiplexing is needed</h2>
@@ -2168,7 +2178,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Multiplexing and demultiplexing" data-section="Lecture 1 · Multiplexing and demultiplexing">
+      <section class="slide" data-title="Multiplexing and demultiplexing" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
           <p class="kicker">Combine outgoing data · route incoming data</p>
           <h2>Multiplexing sends; demultiplexing delivers</h2>
@@ -2196,7 +2206,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Sockets: the transport endpoint" data-section="Lecture 1 · Multiplexing and demultiplexing">
+      <section class="slide" data-title="Sockets: the transport endpoint" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
           <p class="kicker">Before demultiplexing</p>
           <h2>Sockets are transport-layer endpoints</h2>
@@ -2219,7 +2229,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="UDP demultiplexing" data-section="Lecture 1 · Multiplexing and demultiplexing">
+      <section class="slide" data-title="UDP demultiplexing" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
           <p class="kicker">UDP demultiplexing</p>
           <h2>UDP demultiplexing</h2>
@@ -2253,7 +2263,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="TCP demultiplexing" data-section="Lecture 1 · Multiplexing and demultiplexing">
+      <section class="slide" data-title="TCP demultiplexing" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
           <p class="kicker">TCP demultiplexing</p>
           <h2>TCP demultiplexing</h2>
@@ -2283,7 +2293,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="User Datagram Protocol: an overview" data-section="Lecture 1 · UDP">
+      <section class="slide" data-title="User Datagram Protocol: an overview" data-section="UDP">
         <header class="content-header">
           <p class="kicker">User Datagram Protocol · RFC 768</p>
           <h2>User Datagram Protocol: an overview</h2>
@@ -2304,7 +2314,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="UDP is connectionless" data-section="Lecture 1 · Multiplexing and demultiplexing">
+      <section class="slide" data-title="UDP is connectionless" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
           <p class="kicker">UDP communication model</p>
           <h2>UDP is connectionless</h2>
@@ -2338,7 +2348,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="UDP segment format" data-section="Lecture 1 · UDP">
+      <section class="slide" data-title="UDP segment format" data-section="UDP">
         <header class="content-header">
           <p class="kicker">Four fields · eight-byte header</p>
           <h2>A UDP segment has a compact header</h2>
@@ -2363,7 +2373,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Why applications choose UDP" data-section="Lecture 1 · UDP">
+      <section class="slide" data-title="Why applications choose UDP" data-section="UDP">
         <header class="content-header">
           <p class="kicker">The benefit of a minimal transport service</p>
           <h2>Why do some applications choose UDP?</h2>
@@ -2393,7 +2403,7 @@
         <p class="udp-examples-note frag" data-step="5">Common UDP examples include DNS lookups, real-time media, and online games.</p>
       </section>
 
-      <section class="slide" data-title="TCP: an overview" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP: an overview" data-section="TCP">
         <header class="content-header">
           <p class="kicker">Transmission Control Protocol · RFC 9293</p>
           <h2>TCP: an overview</h2>
@@ -2413,12 +2423,12 @@
           </article>
           <article class="udp-intro-card frag" data-step="4">
             <h3>Controlled pipelining</h3>
-            <p>Like the pipelined RDT studied last week, TCP keeps data in flight, subject to flow and congestion control.</p>
+            <p>Like the pipelined RDT studied in Module 4, TCP keeps data in flight, subject to flow and congestion control.</p>
           </article>
         </div>
       </section>
 
-      <section class="slide" data-title="TCP is connection-oriented" data-section="Lecture 1 · Multiplexing and demultiplexing">
+      <section class="slide" data-title="TCP is connection-oriented" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
           <p class="kicker">TCP communication model</p>
           <h2>TCP is connection-oriented</h2>
@@ -2453,7 +2463,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="TCP three-way handshake" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP three-way handshake" data-section="TCP">
         <header class="content-header">
           <p class="kicker">Connection establishment · SYN consumes one sequence number</p>
           <h2>TCP establishes a connection with a three-way handshake</h2>
@@ -2463,7 +2473,7 @@
             <div class="teaching-point frag" data-step="1"><strong>1 · SYN.</strong> The client chooses a random sequence number <strong>x</strong> and sends <strong>SYN</strong> with <strong>seq = x</strong>.</div>
             <div class="teaching-point frag" data-step="2"><strong>2 · SYN + ACK.</strong> The server chooses a random sequence number <strong>y</strong> and sends <strong>SYN + ACK</strong> with <strong>seq = y</strong> and <strong>ack = x + 1</strong>.</div>
             <div class="teaching-point frag" data-step="3"><strong>3 · ACK.</strong> The client sends <strong>ACK</strong> with <strong>seq = x + 1</strong> and <strong>ack = y + 1</strong>.</div>
-            <div class="tcp-recall frag" data-step="4"><strong>Recall Week 10 · RDT:</strong> TCP also uses sequence numbers and acknowledgments.</div>
+            <div class="tcp-recall frag" data-step="4"><strong>Recall Module 4 · RDT:</strong> TCP also uses sequence numbers and acknowledgments.</div>
           </div>
           <div class="tcp-handshake-scene" aria-label="TCP three-way handshake between a client and server">
             <div class="tcp-timeline-head">
@@ -2491,7 +2501,7 @@
         <div class="tcp-handshake-result frag" data-step="5">Now both endpoints have synchronized their sequence numbers and know the next number expected, so application data can flow.</div>
       </section>
 
-      <section class="slide" data-title="How TCP closes a connection" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="How TCP closes a connection" data-section="TCP">
         <header class="content-header">
           <p class="kicker">Connection teardown · each direction closes independently</p>
           <h2>How TCP closes a connection</h2>
@@ -2522,7 +2532,7 @@
         <div class="tcp-handshake-result tcp-close-result frag" data-step="4">Both directions are closed, so the TCP connection is finished.</div>
       </section>
 
-      <section class="slide" data-title="TCP header fields" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP header fields" data-section="TCP">
         <header class="content-header">
           <p class="kicker">A compact breakdown of the TCP header</p>
           <h2>Key TCP header fields</h2>
@@ -2555,7 +2565,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="The RDT used by TCP" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="The RDT used by TCP" data-section="TCP">
         <header class="content-header">
           <p class="kicker">Pipelining · cumulative acknowledgments · retransmission</p>
           <h2>The RDT used by TCP &mdash; an overview</h2>
@@ -2577,7 +2587,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="TCP sequence numbers" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP sequence numbers" data-section="TCP">
         <header class="content-header">
           <p class="kicker">Byte stream · every byte has its own number</p>
           <h2>TCP sequence numbers count bytes</h2>
@@ -2598,7 +2608,7 @@
       </section>
 
       <!-- ====== Slide 23: Sequence numbers in action (diagram) ====== -->
-      <section class="slide seq-action-slide" data-title="Sequence numbers in action" data-section="Lecture 1 · TCP">
+      <section class="slide seq-action-slide" data-title="Sequence numbers in action" data-section="TCP">
         <header class="content-header">
           <p class="kicker">ISN = 1000 · MSS = 1000 bytes · 3000 bytes to send</p>
           <h2>Sequence and acknowledgment in action</h2>
@@ -2732,7 +2742,7 @@
         <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
-      <section class="slide tcp-sender-slide" data-title="TCP sender rules" data-section="Lecture 1 · TCP">
+      <section class="slide tcp-sender-slide" data-title="TCP sender rules" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
           <h2>The TCP sender rules: overview</h2>
@@ -2878,7 +2888,7 @@
         <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
-      <section class="slide fast-retransmit-slide" data-title="TCP fast retransmit" data-section="Lecture 1 · TCP">
+      <section class="slide fast-retransmit-slide" data-title="TCP fast retransmit" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
           <h2>TCP fast retransmit</h2>
@@ -3011,7 +3021,7 @@
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
-      <section class="slide" data-title="TCP receiver rules: overview" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP receiver rules: overview" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
           <h2>TCP receiver rules: overview</h2>
@@ -3046,7 +3056,7 @@
       </section>
 
       <!-- Frame 27: TCP timeout: the challenge -->
-      <section class="slide" data-title="TCP timeout: the challenge" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP timeout: the challenge" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
           <h2>TCP timeout: the challenge</h2>
@@ -3075,7 +3085,7 @@
       </section>
 
       <!-- Frame 28: TCP RTT estimation -->
-      <section class="slide" data-title="TCP RTT estimation" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP RTT estimation" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
           <h2>TCP RTT estimation</h2>
@@ -3162,7 +3172,7 @@
       </section>
 
       <!-- Frame 29: TCP timeout interval -->
-      <section class="slide" data-title="TCP timeout interval" data-section="Lecture 1 · TCP">
+      <section class="slide" data-title="TCP timeout interval" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
           <h2>TCP timeout interval</h2>
@@ -3199,11 +3209,11 @@
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
-      <!-- Lecture 2 opener -->
-      <section class="slide divider-slide" data-title="TCP Flow Control and Congestion Control" data-section="Week 11 · Lecture 2">
+      <!-- Concept 2 opener -->
+      <section class="slide divider-slide" data-title="TCP Flow Control and Congestion Control" data-section="Module 5 · Concept 2">
         <div class="divider-wrap">
           <p class="kicker">Managing traffic in reliable transport</p>
-          <span class="lecture-label">Lecture 2</span>
+          <span class="concept-label">Concept 2</span>
           <h2>TCP Flow Control and Congestion Control</h2>
           <div class="rule"></div>
           <p class="subtitle">TCP uses receiver feedback and network signals to keep traffic in check.</p>
@@ -3211,7 +3221,7 @@
       </section>
 
       <!-- Frame 31: Flow control vs congestion control -->
-      <section class="slide" data-title="Flow control vs congestion control" data-section="Lecture 2 · TCP">
+      <section class="slide" data-title="Flow control vs congestion control" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP traffic management</p>
           <h2>Flow control vs congestion control</h2>
@@ -3309,7 +3319,7 @@
       </section>
 
       <!-- Frame 32: TCP flow control — the receive window -->
-      <section class="slide" data-title="TCP flow control: the receive window" data-section="Lecture 2 · Flow control">
+      <section class="slide" data-title="TCP flow control: the receive window" data-section="Flow control">
         <header class="content-header">
           <p class="kicker">Speed-matching the sender to the receiver</p>
           <h2>TCP flow control: the receive window</h2>
@@ -3411,7 +3421,7 @@
       </section>
 
       <!-- Frame: Advertising and enforcing the receive window -->
-      <section class="slide" data-title="Advertising and enforcing the receive window" data-section="Lecture 2 · Flow control">
+      <section class="slide" data-title="Advertising and enforcing the receive window" data-section="Flow control">
         <header class="content-header">
           <p class="kicker">From receiver to sender</p>
           <h2>Advertising and enforcing the receive window</h2>
@@ -3467,7 +3477,7 @@
       </section>
 
       <!-- ── Frame 34: Congestion control section opener ── -->
-      <section class="slide divider-slide" data-title="Congestion Control" data-section="Lecture 2 · Congestion control">
+      <section class="slide divider-slide" data-title="Congestion Control" data-section="Congestion control">
         <div class="divider-wrap">
           <p class="kicker">Next up</p>
           <h2>Congestion Control</h2>
@@ -3477,7 +3487,7 @@
       </section>
 
       <!-- ── Frame 35: Approaches to congestion control ── -->
-      <section class="slide" data-title="Approaches to congestion control" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="Approaches to congestion control" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>Approaches to congestion control</h2>
@@ -3560,7 +3570,7 @@
       </section>
 
       <!-- ── Frame 36: TCP congestion detection and action ── -->
-      <section class="slide" data-title="TCP congestion detection and action: an overview" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="TCP congestion detection and action: an overview" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>TCP congestion detection and action: an overview</h2>
@@ -3633,7 +3643,7 @@
       </section>
 
       <!-- ── Frame 37: How TCP matches its sending rate ── -->
-      <section class="slide" data-title="How TCP matches its sending rate" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="How TCP matches its sending rate" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>How TCP matches its sending rate</h2>
@@ -3727,7 +3737,7 @@
       </section>
 
       <!-- ── Frame 38: TCP · slow start ── -->
-      <section class="slide" data-title="TCP · slow start" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="TCP · slow start" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>TCP · slow start</h2>
@@ -3861,7 +3871,7 @@
       </section>
 
       <!-- ── Frame 39: TCP · congestion avoidance ── -->
-      <section class="slide" data-title="TCP · congestion avoidance" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="TCP · congestion avoidance" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>TCP · congestion avoidance</h2>
@@ -3997,7 +4007,7 @@
       </section>
 
       <!-- ── Frame 40: Why AIMD? ── -->
-      <section class="slide" data-title="Why AIMD?" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="Why AIMD?" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>Why AIMD?</h2>
@@ -4041,7 +4051,7 @@
       </section>
 
       <!-- ── Frame 41: TCP · reacting to loss ── -->
-      <section class="slide" data-title="TCP · reacting to loss" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="TCP · reacting to loss" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>TCP · reacting to loss</h2>
@@ -4082,7 +4092,7 @@
       </section>
 
       <!-- ── Frame 42: TCP fast recovery ── -->
-      <section class="slide" data-title="TCP · fast recovery" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="TCP · fast recovery" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>TCP · fast recovery</h2>
@@ -4266,7 +4276,7 @@
       </section>
 
       <!-- ── Frame 43: TCP fast recovery — exit ── -->
-      <section class="slide" data-title="TCP · fast recovery exit" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="TCP · fast recovery exit" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>TCP · fast recovery exit</h2>
@@ -4373,7 +4383,7 @@
       </section>
 
       <!-- ── Frame 44: TCP congestion control overview ── -->
-      <section class="slide" data-title="TCP · congestion control overview" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="TCP · congestion control overview" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>TCP · congestion control overview</h2>
@@ -4472,7 +4482,7 @@
       </section>
 
       <!-- ── Frame 45: Congestion control summary ── -->
-      <section class="slide" data-title="Congestion control — summary" data-section="Lecture 2 · Congestion control">
+      <section class="slide" data-title="Congestion control — summary" data-section="Congestion control">
         <header class="content-header">
           <p class="kicker">Congestion control</p>
           <h2>Congestion control — summary</h2>
@@ -4541,7 +4551,7 @@
       <button class="hud-button" id="outline-button" title="Contents (O)">⌗ contents</button>
       <button class="hud-button" id="theme-button" title="Theme (T)" aria-label="Toggle theme">◐</button>
     </div>
-    <div id="section-label">Week 11</div>
+    <div id="section-label">Module 5</div>
     <div id="counter">1 / 1</div>
     <div class="nav-zone" id="prev-zone"></div>
     <div class="nav-zone" id="next-zone"></div>
@@ -4549,7 +4559,7 @@
 
   <div id="jump-menu" role="dialog" aria-modal="true" aria-label="Slide outline">
     <div class="jump-panel">
-      <h2>Week 11 outline</h2>
+      <h2>Module 5 outline</h2>
       <div id="jump-list"></div>
     </div>
   </div>
@@ -4591,10 +4601,10 @@
         });
         const slide = slides[index];
         counter.textContent = `${index + 1} / ${slides.length}`;
-        sectionLabel.textContent = slide.dataset.section || 'Week 11';
+        sectionLabel.textContent = slide.dataset.section || 'Module 5';
         progress.style.width = `${((index + 1) / slides.length) * 100}%`;
         if (updateHash) history.replaceState(null, '', `#/${index + 1}`);
-        document.title = `${slide.dataset.title || 'Week 11'} · COSC264`;
+        document.title = `${slide.dataset.title || 'Module 5'} · COSC264`;
         [...jumpList.children].forEach((el, i) => el.classList.toggle('current', i === index));
       }
 
