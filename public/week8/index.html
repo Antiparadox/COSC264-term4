@@ -903,6 +903,9 @@ svg text{font-family:var(--sans)}
   margin:30px auto 0}.addressing-objective{position:relative;min-height:206px;padding:48px 20px 20px;
   border:1px solid var(--border);border-top:6px solid var(--accent);border-radius:16px;background:var(--surface);
   box-shadow:var(--shadow);text-align:center}.addressing-objective:nth-child(2){border-top-color:var(--good)}
+.addressing-objective.done{border-top-color:var(--muted);opacity:.72}
+.obj-seen{display:block;margin-top:7px;font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.03em;color:var(--muted);text-transform:none}
 .addressing-objective-num{position:absolute;
   left:50%;top:-22px;display:grid;width:46px;height:46px;place-items:center;transform:translateX(-50%);
   border-radius:50%;background:var(--ink);color:#fff;font-family:var(--mono);font-size:17px;font-weight:900}
@@ -3648,13 +3651,88 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>How did the Internet adapt to IPv4 scarcity?</h2>
   <p class="frag addressing-objective-lead">We will study three responses that extended IPv4&rsquo;s useful life and kept the Internet growing.</p>
   <div class="addressing-objective-grid" aria-label="Two responses covered in Lecture 3">
-    <div class="frag addressing-objective"><span class="addressing-objective-num">1</span>
-      <h3>Share public IPv4 addresses</h3><p>Network Address Translation (NAT)</p></div>
+    <div class="frag addressing-objective done"><span class="addressing-objective-num">1</span>
+      <h3>Give out blocks of any size</h3><p>CIDR<span class="obj-seen">already covered in Term 3</span></p></div>
     <div class="frag addressing-objective"><span class="addressing-objective-num">2</span>
-      <h3>Use a 128-bit address space</h3><p>IPv6</p></div>
+      <h3>Share public IPv4 addresses</h3><p>Network Address Translation (NAT)</p></div>
     <div class="frag addressing-objective"><span class="addressing-objective-num">3</span>
-      <h3>Advertise many networks as one</h3><p>Address aggregation</p></div>
+      <h3>Use a 128-bit address space</h3><p>IPv6</p></div>
   </div>
+</section>
+
+<section class="slide stateful agg-how-slide" data-sec="Lecture 3 &middot; Address aggregation">
+  <div class="kicker">Address aggregation</div>
+  <h2>Eight networks, one forwarding-table entry</h2>
+  <table class="agg-fib2" aria-label="A forwarding table holding one entry per department, then one aggregated entry">
+    <thead><tr><th class="who">network</th><th class="cidr">destination</th>
+      <th class="out">out</th><th class="bits">in binary</th></tr></thead>
+    <tbody>
+      <tr class="dept"><td class="who">Engineering</td><td class="cidr">200.23.16.0/23</td><td class="out">eth0</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>000<span class="tail">0&nbsp;00000000</span></td></tr>
+      <tr class="dept"><td class="who">Science</td><td class="cidr">200.23.18.0/23</td><td class="out">eth0</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>001<span class="tail">0&nbsp;00000000</span></td></tr>
+      <tr class="dept"><td class="who">Law</td><td class="cidr">200.23.20.0/23</td><td class="out">eth0</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>010<span class="tail">0&nbsp;00000000</span></td></tr>
+      <tr class="dept"><td class="who">Arts</td><td class="cidr">200.23.22.0/23</td><td class="out">eth0</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>011<span class="tail">0&nbsp;00000000</span></td></tr>
+      <tr class="dept"><td class="who">&hellip;</td><td class="cidr">&hellip;</td>
+        <td class="out">eth0</td><td class="bits">&hellip;</td></tr>
+      <tr class="dept"><td class="who">Library</td><td class="cidr">200.23.30.0/23</td><td class="out">eth0</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>111<span class="tail">0&nbsp;00000000</span></td></tr>
+      <tr class="agg"><td class="who">the whole university</td><td class="cidr">200.23.16.0/20</td>
+        <td class="out">eth0</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b><span class="tail">0000&nbsp;00000000</span></td></tr>
+    </tbody>
+  </table>
+  <div class="agg-status">
+    <div class="agg-card s1"><b>One entry each</b><span>The University of Canterbury holds
+      <code>200.23.16.0/20</code> and gives a <code>/23</code> to each of eight departments. A router
+      out on the Internet would need <b>eight entries</b> &mdash; and every one of them points the
+      same way.</span></div>
+    <div class="agg-card s2"><b>They share 20 bits</b><span>All eight blocks were carved out of the
+      university&rsquo;s block, so all eight agree on their <b>first 20 bits</b>.</span></div>
+    <div class="agg-card s3"><b>So keep one</b><span>The university advertises
+      <code>200.23.16.0/20</code>, and the router keeps a single entry that covers all eight
+      departments. <b>Eight rows become one.</b></span></div>
+  </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <div class="source">Classless Inter-Domain Routing and aggregation: RFC 4632 &sect;&sect;1, 3&ndash;4</div>
+</section>
+
+<section class="slide stateful agg-lpm-slide" data-sec="Lecture 3 &middot; Longest-prefix match">
+  <div class="kicker">When one network is reached another way</div>
+  <h2>What if two entries both match?</h2>
+  <table class="agg-fib2 lpm" aria-label="Two forwarding-table entries that both match one destination address">
+    <thead><tr><th class="who">network</th><th class="cidr">destination</th>
+      <th class="out">out</th><th class="bits">match for 200.23.18.5</th></tr></thead>
+    <tbody>
+      <tr class="e20"><td class="who">the whole university</td><td class="cidr">200.23.16.0/20</td>
+        <td class="out">eth0</td><td class="bits"><span class="m">matches &mdash; 20 bits</span></td></tr>
+      <tr class="e23"><td class="who">Science</td><td class="cidr">200.23.18.0/23</td>
+        <td class="out">eth1</td><td class="bits"><span class="m">matches &mdash; 23 bits</span></td></tr>
+    </tbody>
+  </table>
+  <div class="agg-status">
+    <div class="agg-card s1"><b>One network moves</b><span>The Science department&rsquo;s network is
+      now reached through a different provider, keeping its addresses. That provider advertises
+      <code>200.23.18.0/23</code>, so a <b>second entry</b> appears.</span></div>
+    <div class="agg-card question s2"><b>Both match</b><span>A datagram for
+      <code>200.23.18.5</code> matches the <code>/20</code> on its first 20 bits <b>and</b> the
+      <code>/23</code> on its first 23. Which entry should the router use?</span></div>
+    <div class="agg-card s3"><b>Longest-prefix match</b><span>The router forwards using the entry
+      with the <b>longest matching prefix</b>. 23 beats 20, so the datagram leaves by
+      <code>eth1</code>.</span></div>
+    <div class="agg-card s4"><b>Why the longest</b><span>A longer prefix is a more specific statement
+      about where an address actually is. Without this rule, aggregation would trap every network at
+      whichever provider first advertised it.</span></div>
+  </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <div class="source">Longest-match forwarding: RFC 4632 &sect;5.1 &middot; RFC 1812 &sect;5.2.4.3</div>
 </section>
 
 <section class="slide nat-motivation-slide" data-sec="Lecture 3 · NAT motivation">
@@ -3953,81 +4031,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <span class="frag tunnel-extra-trigger" aria-hidden="true" style="position:absolute;width:0;height:0"></span>
   <div class="source">Dual IP-layer operation and configured tunnelling: RFC 4213 §§2&ndash;3 &middot;
     Stateless IP/ICMP translation: RFC 7915</div>
-</section>
-
-<section class="slide stateful agg-how-slide" data-sec="Lecture 3 &middot; Address aggregation">
-  <div class="kicker">Address aggregation</div>
-  <h2>Eight networks, one forwarding-table entry</h2>
-  <table class="agg-fib2" aria-label="A forwarding table holding one entry per department, then one aggregated entry">
-    <thead><tr><th class="who">network</th><th class="cidr">destination</th>
-      <th class="out">out</th><th class="bits">in binary</th></tr></thead>
-    <tbody>
-      <tr class="dept"><td class="who">Engineering</td><td class="cidr">200.23.16.0/23</td><td class="out">eth0</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>000<span class="tail">0&nbsp;00000000</span></td></tr>
-      <tr class="dept"><td class="who">Science</td><td class="cidr">200.23.18.0/23</td><td class="out">eth0</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>001<span class="tail">0&nbsp;00000000</span></td></tr>
-      <tr class="dept"><td class="who">Law</td><td class="cidr">200.23.20.0/23</td><td class="out">eth0</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>010<span class="tail">0&nbsp;00000000</span></td></tr>
-      <tr class="dept"><td class="who">Arts</td><td class="cidr">200.23.22.0/23</td><td class="out">eth0</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>011<span class="tail">0&nbsp;00000000</span></td></tr>
-      <tr class="dept"><td class="who">&hellip;</td><td class="cidr">&hellip;</td>
-        <td class="out">eth0</td><td class="bits">&hellip;</td></tr>
-      <tr class="dept"><td class="who">Library</td><td class="cidr">200.23.30.0/23</td><td class="out">eth0</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>111<span class="tail">0&nbsp;00000000</span></td></tr>
-      <tr class="agg"><td class="who">the whole university</td><td class="cidr">200.23.16.0/20</td>
-        <td class="out">eth0</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b><span class="tail">0000&nbsp;00000000</span></td></tr>
-    </tbody>
-  </table>
-  <div class="agg-status">
-    <div class="agg-card s1"><b>One entry each</b><span>The University of Canterbury holds
-      <code>200.23.16.0/20</code> and gives a <code>/23</code> to each of eight departments. A router
-      out on the Internet would need <b>eight entries</b> &mdash; and every one of them points the
-      same way.</span></div>
-    <div class="agg-card s2"><b>They share 20 bits</b><span>All eight blocks were carved out of the
-      university&rsquo;s block, so all eight agree on their <b>first 20 bits</b>.</span></div>
-    <div class="agg-card s3"><b>So keep one</b><span>The university advertises
-      <code>200.23.16.0/20</code>, and the router keeps a single entry that covers all eight
-      departments. <b>Eight rows become one.</b></span></div>
-  </div>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <div class="source">Classless Inter-Domain Routing and aggregation: RFC 4632 &sect;&sect;1, 3&ndash;4</div>
-</section>
-
-<section class="slide stateful agg-lpm-slide" data-sec="Lecture 3 &middot; Longest-prefix match">
-  <div class="kicker">When one network is reached another way</div>
-  <h2>What if two entries both match?</h2>
-  <table class="agg-fib2 lpm" aria-label="Two forwarding-table entries that both match one destination address">
-    <thead><tr><th class="who">network</th><th class="cidr">destination</th>
-      <th class="out">out</th><th class="bits">match for 200.23.18.5</th></tr></thead>
-    <tbody>
-      <tr class="e20"><td class="who">the whole university</td><td class="cidr">200.23.16.0/20</td>
-        <td class="out">eth0</td><td class="bits"><span class="m">matches &mdash; 20 bits</span></td></tr>
-      <tr class="e23"><td class="who">Science</td><td class="cidr">200.23.18.0/23</td>
-        <td class="out">eth1</td><td class="bits"><span class="m">matches &mdash; 23 bits</span></td></tr>
-    </tbody>
-  </table>
-  <div class="agg-status">
-    <div class="agg-card s1"><b>One network moves</b><span>The Science department&rsquo;s network is
-      now reached through a different provider, keeping its addresses. That provider advertises
-      <code>200.23.18.0/23</code>, so a <b>second entry</b> appears.</span></div>
-    <div class="agg-card question s2"><b>Both match</b><span>A datagram for
-      <code>200.23.18.5</code> matches the <code>/20</code> on its first 20 bits <b>and</b> the
-      <code>/23</code> on its first 23. Which entry should the router use?</span></div>
-    <div class="agg-card s3"><b>Longest-prefix match</b><span>The router forwards using the entry
-      with the <b>longest matching prefix</b>. 23 beats 20, so the datagram leaves by
-      <code>eth1</code>.</span></div>
-    <div class="agg-card s4"><b>Why the longest</b><span>A longer prefix is a more specific statement
-      about where an address actually is. Without this rule, aggregation would trap every network at
-      whichever provider first advertised it.</span></div>
-  </div>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <div class="source">Longest-match forwarding: RFC 4632 &sect;5.1 &middot; RFC 1812 &sect;5.2.4.3</div>
 </section>
 
 <section class="slide lecture2-recap-slide" data-sec="Week 8 · Recap">
