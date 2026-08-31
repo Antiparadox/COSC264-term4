@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COSC264 · Week 9 — Error Detection and Correction</title>
+<title>COSC264 · Module 3 — Error Detection and Correction</title>
 <style>
 /* ============ fonts (embedded, latin subset) ============ */
 @font-face{font-family:'Source Serif 4';font-style:normal;font-weight:600;
@@ -75,8 +75,6 @@ h2{font-family:var(--serif);font-weight:600;font-size:42px;line-height:1.15;marg
 .sec-title h1{font-size:64px;max-width:900px}
 .sec-title .rule{width:120px;height:4px;background:var(--accent);border-radius:2px;margin:28px 0 18px}
 .sec-title .sub{font-size:24px;color:var(--muted);max-width:820px;line-height:1.45}
-.lecbadge{display:inline-block;font-family:var(--mono);font-size:19px;font-weight:700;
-  color:var(--accent-ink);background:var(--accent-soft);border-radius:10px;padding:7px 16px;margin:2px 0 18px}
 .roadmap{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
 .roadmap .rmi{font-family:var(--mono);font-size:15px;color:var(--faint);border:1px solid var(--border);
   border-radius:20px;padding:5px 14px}
@@ -250,36 +248,36 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Error Detection and Correction">
   <div class="center" style="align-items:flex-start">
     <div class="kicker">COSC264 · Introduction to Computer Networks and the Internet · Term 4</div>
-    <h1>Week 9<br>Error Detection and Correction</h1>
+    <h1>Module 3<br>Error Detection and Correction</h1>
   </div>
   <div class="courseurl"><a href="../">cosc264.up.railway.app</a></div>
 </section>
 
-<!-- ── Slide: Learning objectives & lecture plan (merged) ── -->
+<!-- ── Slide: Learning objectives & module plan (merged) ── -->
 <section class="slide" data-sec="Error Detection and Correction" data-anchor="objectives">
-  <div class="kicker">Week 9</div>
-  <h2>Learning objectives &amp; lecture plan</h2>
+  <div class="kicker">Module 3</div>
+  <h2>Learning objectives &amp; module plan</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:flex-start">
 
-    <!-- Lecture progress bar -->
+    <!-- Concept progress bar -->
     <div id="obj-bar" style="display:flex;align-items:center;margin-bottom:4px">
       <div class="ob-seg" data-lec="1" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;flex:1;border:1.5px solid var(--border);border-radius:8px;opacity:0.32;transition:opacity 0.35s,border-color 0.35s,background 0.35s">
-        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">LECTURE 1</span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">CONCEPT 1</span>
         <span style="font-size:14px;font-weight:600">Error Detection</span>
       </div>
       <div class="ob-connector" style="flex:0 0 48px;height:2px;background:var(--border);transition:background 0.4s"></div>
       <div class="ob-seg" data-lec="2" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;flex:1;border:1.5px solid var(--border);border-radius:8px;opacity:0.32;transition:opacity 0.35s,border-color 0.35s,background 0.35s">
-        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">LECTURE 2</span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">CONCEPT 2</span>
         <span style="font-size:14px;font-weight:600">Cyclic Redundancy Check</span>
       </div>
       <div class="ob-connector" style="flex:0 0 48px;height:2px;background:var(--border);transition:background 0.4s"></div>
       <div class="ob-seg" data-lec="3" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;flex:1;border:1.5px solid var(--border);border-radius:8px;opacity:0.32;transition:opacity 0.35s,border-color 0.35s,background 0.35s">
-        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">LECTURE 3</span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">CONCEPT 3</span>
         <span style="font-size:14px;font-weight:600">Error Correction</span>
       </div>
     </div>
 
-    <!-- One narrative card per lecture -->
+    <!-- One narrative card per concept -->
     <div id="obj-rows" style="display:flex;flex-direction:column;gap:12px">
 
       <div class="frag" data-lec="1" style="padding:14px 20px;border-radius:8px;border-left:3px solid transparent;font-size:18px;line-height:1.7">
@@ -336,9 +334,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 }());
 </script>
 
-<section class="slide sec-title" data-sec="Lecture 1 · Error Detection" data-anchor="lec1-det">
-  <div class="kicker">Week 9 · Lecture 1</div>
-  <div class="lecbadge">Lecture 1 of 3</div>
+<section class="slide sec-title" data-sec="Error Detection" data-anchor="c1-det">
+  <div class="kicker">Module 3 · Concept 1 of 3</div>
   <h1>Error Detection</h1>
   <div class="rule"></div>
 
@@ -349,7 +346,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Motivation</div>
   <h2>The journey of a packet</h2>
   <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:flex-start">
@@ -406,7 +403,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Motivation</div>
   <h2>Three categories of problem</h2>
   <div style="display:flex;flex-direction:column;gap:18px;flex:1;justify-content:flex-start;max-width:960px">
@@ -419,15 +416,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <tr><td colspan="2" style="padding-top:0;border-top:none;font-size:16px;color:var(--muted)">The datagram is delivered, but some of its bits have been altered in transit.</td></tr>
         </tbody>
         <tbody>
-          <tr class="frag"><td>Lost packets <span style="font-size:13px;color:var(--muted)">(next week)</span></td><td>ARQ protocols</td></tr>
-          <tr class="frag"><td>Out-of-order packets <span style="font-size:13px;color:var(--muted)">(next week)</span></td><td>ARQ protocols</td></tr>
+          <tr class="frag"><td>Lost packets <span style="font-size:13px;color:var(--muted)">(Module 4)</span></td><td>ARQ protocols</td></tr>
+          <tr class="frag"><td>Out-of-order packets <span style="font-size:13px;color:var(--muted)">(Module 4)</span></td><td>ARQ protocols</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 · Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Error types</div>
   <h2>Types of bit errors</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:14px">
@@ -541,7 +538,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Error detection process &mdash; sending</div>
   <h2>The error detection process</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:18px">
@@ -591,7 +588,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Error detection process &mdash; receiving</div>
   <h2>The error detection process</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px">
@@ -663,7 +660,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 · Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Parity check</div>
   <h2>Parity check</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:18px;max-width:960px">
@@ -745,7 +742,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Parity check</div>
   <h2>Odd parity</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:18px;max-width:960px">
@@ -763,7 +760,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Parity check</div>
   <h2>Parity check &mdash; limitation</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:12px;max-width:960px">
@@ -837,7 +834,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="twod-build" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" id="twod-build" data-sec="Error Detection">
   <style>
     #twod-build .rp, #twod-build .cp, #twod-build .pp { opacity:0; transition:opacity 0.35s }
     #twod-build .rp-border { border-left:2px solid transparent !important; transition:border-color 0.35s }
@@ -911,7 +908,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: 2-D parity — correcting a single-bit error ── -->
-<section class="slide" id="twod-correct" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" id="twod-correct" data-sec="Error Detection">
   <style>
     #twod-correct .corr-bit, #twod-correct .fix-bit { display:none }
     #twod-correct:has(.show-err.on) .orig-bit { display:none }
@@ -1000,7 +997,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: 2-D parity — undetectable error patterns ── -->
-<section class="slide" id="twod-undetect" data-sec="Lecture 1 &middot; Error Detection">
+<section class="slide" id="twod-undetect" data-sec="Error Detection">
   <style>
     #twod-undetect .corr-bit { display:none }
     #twod-undetect:has(.show-err.on) .orig-bit { display:none }
@@ -1085,7 +1082,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 
-<section class="slide" data-sec="Lecture 1 · Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Internet checksum</div>
   <h2>Internet checksum</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px">
@@ -1144,7 +1141,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 · Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Internet checksum</div>
   <h2>One&rsquo;s complement arithmetic</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px;max-width:1060px">
@@ -1198,7 +1195,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="checksum-sender" data-sec="Lecture 1 · Error Detection">
+<section class="slide" id="checksum-sender" data-sec="Error Detection">
   <style>
     #checksum-sender .lbl { opacity:0; transition:opacity 0.3s; margin:0; font-size:16px; line-height:1.5 }
     #checksum-sender:has(.f1.on) .lbl1 { opacity:1 }
@@ -1255,7 +1252,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="checksum-receiver" data-sec="Lecture 1 · Error Detection">
+<section class="slide" id="checksum-receiver" data-sec="Error Detection">
   <style>
     #checksum-receiver .lbl { opacity:0; transition:opacity 0.3s; margin:0; font-size:16px; line-height:1.5 }
     #checksum-receiver:has(.g1.on) .lbl1 { opacity:1 }
@@ -1307,7 +1304,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
 </section>
-<section class="slide" data-sec="Lecture 1 · Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Internet checksum</div>
   <h2>Efficiency and limitations</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:flex-start">
@@ -1326,14 +1323,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </ul>
     </div>
     <div class="frag card" style="border-left:3px solid var(--accent);padding:14px 18px">
-      <p style="margin:0;font-size:18px">The <strong style="color:var(--accent)">CRC</strong> is the subject of the next lecture.</p>
+      <p style="margin:0;font-size:18px">The <strong style="color:var(--accent)">CRC</strong> is the subject of the next concept.</p>
     </div>
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 1 · Error Detection">
+<section class="slide" data-sec="Error Detection">
   <div class="kicker">Recap</div>
-  <h2>Lecture 1 &mdash; what we covered</h2>
+  <h2>Error detection &mdash; what we covered</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1000px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.65"><b>Why error detection is needed:</b> a datagram&rsquo;s contents often get corrupted in transit, so the receiver needs a way to tell whether what arrived is what was sent.</p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.65"><b>How it is done:</b> the sender attaches redundant bits computed from the data &mdash; an <b>error-detection code</b>.</p>
@@ -1349,9 +1346,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide sec-title" data-sec="Lecture 2 · CRC" data-anchor="lec2-crc">
-  <div class="kicker">Week 9 · Lecture 2</div>
-  <div class="lecbadge">Lecture 2 of 3</div>
+<section class="slide sec-title" data-sec="CRC" data-anchor="c2-crc">
+  <div class="kicker">Module 3 · Concept 2 of 3</div>
   <h1>Cyclic Redundancy Check</h1>
   <div class="rule"></div>
   <div class="roadmap">
@@ -1361,19 +1357,19 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">Recall</div>
   <h2>Where we left off</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1000px">
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.65">Last lecture we saw two <b>error-detection codes</b>: the <b>parity check</b> and the <b>Internet checksum</b>.</p>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.65">So far we have seen two <b>error-detection codes</b>: the <b>parity check</b> and the <b>Internet checksum</b>.</p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.65">Both are cheap to compute, but both are <b>weak</b> &mdash; there are whole families of error patterns they never notice.</p>
     <div class="frag card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:19px">This lecture: the <b style="color:var(--accent)">cyclic redundancy check</b> &mdash; the code that actually protects your frames.</p>
+      <p style="margin:0;font-size:19px">Next: the <b style="color:var(--accent)">cyclic redundancy check</b> &mdash; the code that actually protects your frames.</p>
     </div>
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">Error Detection</div>
   <h2>Cyclic Redundancy Check (CRC)</h2>
   <div style="flex:1;display:flex;gap:34px;align-items:flex-start">
@@ -1396,7 +1392,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="crc-overview" data-sec="Lecture 2 · CRC">
+<section class="slide" id="crc-overview" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>How it works &mdash; the idea</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1040px">
@@ -1414,7 +1410,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="crc-notation" data-sec="Lecture 2 · CRC">
+<section class="slide" id="crc-notation" data-sec="CRC">
   <style>
     #crc-notation .gD, #crc-notation .gF, #crc-notation .gP, #crc-notation .gT { opacity:0; transition:opacity 0.35s }
     #crc-notation:has(.n1.on) .gD { opacity:1 }
@@ -1469,7 +1465,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>How to choose the pattern P?</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;justify-content:flex-start;max-width:1080px">
@@ -1498,7 +1494,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ── Slide: CRC — Modulo-2 Arithmetic ── -->
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>Modulo-2 Arithmetic</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:flex-start">
@@ -1547,7 +1543,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: CRC — An Example (setup) ── -->
-<section class="slide" id="crc-example" data-sec="Lecture 2 · CRC">
+<section class="slide" id="crc-example" data-sec="CRC">
   <style>
     #crc-example .gD, #crc-example .gF, #crc-example .gT { opacity:0; transition:opacity 0.35s }
     #crc-example:has(.e1.on) .gD { opacity:1 }
@@ -1613,7 +1609,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: CRC — An Example (sender) ── -->
-<section class="slide" id="crc-sender-div" data-sec="Lecture 2 · CRC">
+<section class="slide" id="crc-sender-div" data-sec="CRC">
   <style>
     #crc-sender-div .div-blk { font-family:monospace; font-size:15px; line-height:1.65; white-space:pre; color:var(--fg) }
     #crc-sender-div .div-blk > div.frag { transform:none }
@@ -1665,7 +1661,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: CRC — An Example (receiver) ── -->
-<section class="slide" id="crc-recv-div" data-sec="Lecture 2 · CRC">
+<section class="slide" id="crc-recv-div" data-sec="CRC">
   <style>
     #crc-recv-div .div-blk { font-family:monospace; font-size:15px; line-height:1.65; white-space:pre; color:var(--fg) }
     #crc-recv-div .div-blk > div.frag { transform:none }
@@ -1704,7 +1700,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ── Slide: CRC — Polynomial codes (motivation) ── -->
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>One more way to write the same thing</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1060px">
@@ -1715,14 +1711,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
     <p class="frag" style="margin:0;font-size:17px;line-height:1.6">1.&ensp;Every <b>CRC standard writes its generator this way</b>. Look up the one Ethernet uses and you will find <span style="font-family:monospace;font-size:16px">x<sup>32</sup> + x<sup>26</sup> + x<sup>23</sup> + &hellip;</span>, not a row of 33 ones and zeros.</p>
 
-    <p class="frag" style="margin:0;font-size:17px;line-height:1.6">2.&ensp;It is the form in which you can <b>analyse which errors a given generator will detect</b>. We will touch on this briefly, but it is beyond the scope of this lecture and will not be examined.</p>
+    <p class="frag" style="margin:0;font-size:17px;line-height:1.6">2.&ensp;It is the form in which you can <b>analyse which errors a given generator will detect</b>. We will touch on this briefly, but it is beyond the scope of this course and will not be examined.</p>
 
 
   </div>
 </section>
 
 <!-- ── Slide: CRC — Polynomial encoding, both directions ── -->
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>Bit strings as polynomials</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1080px">
@@ -1761,7 +1757,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: CRC — Polynomial division (same example) ── -->
-<section class="slide" id="crc-two-views" data-sec="Lecture 2 · CRC">
+<section class="slide" id="crc-two-views" data-sec="CRC">
   <style>
     #crc-two-views .row { display:flex; align-items:center }
     #crc-two-views .lft { flex:0 0 330px; padding:7px 16px 7px 0 }
@@ -1825,7 +1821,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: CRC — What it is guaranteed to catch (optional) ── -->
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC &middot; optional</div>
   <h2>What can this representation tell us?</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1080px">
@@ -1844,7 +1840,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: CRC — Short burst example (optional) ── -->
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC &middot; optional</div>
   <h2>Example: a short burst error</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1080px">
@@ -1985,7 +1981,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: CRC — Standard Polynomials ── -->
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>Some Standard Polynomials</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;justify-content:flex-start">
@@ -2030,11 +2026,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 
-<!-- ── Slide: Lecture 2 title card — Error Correction ── -->
 <!-- ── Bridge: when detection is not enough ── -->
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">Recap</div>
-  <h2>Lecture 2 &mdash; what we covered</h2>
+  <h2>CRC &mdash; what we covered</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:24px;max-width:1020px">
     <p class="frag" style="margin:0;font-size:20px;line-height:1.6">The <b>CRC</b> is an <b>error-detection code</b>: it appends a <b>Frame Check Sequence</b> chosen so that the whole frame divides exactly by an agreed generator <em>P</em>, and the receiver simply checks for a zero remainder.</p>
     <p class="frag" style="margin:0;font-size:20px;line-height:1.6">All of the arithmetic is <b>modulo-2</b> &mdash; addition, subtraction and division are XOR, with no carries and no borrows.</p>
@@ -2042,7 +2037,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 2 · CRC">
+<section class="slide" data-sec="CRC">
   <div class="kicker">CRC · Limits</div>
   <h2>When detection is not enough</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;justify-content:flex-start">
@@ -2064,15 +2059,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
 
     <div class="frag" style="background:rgba(0,200,180,0.1);border:1px solid var(--accent);border-radius:8px;padding:14px 22px;font-size:19px;font-weight:600">
-      &rarr; In <strong>Lecture 3</strong> we&rsquo;ll see how to design codes that let the receiver <strong>correct</strong> errors directly &mdash; no retransmission needed.
+      &rarr; Next we&rsquo;ll see how to design codes that let the receiver <strong>correct</strong> errors directly &mdash; no retransmission needed.
     </div>
 
   </div>
 </section>
 
-<section class="slide sec-title" data-sec="Lecture 3 · Error Correction" data-anchor="lec3-corr">
-  <div class="kicker">Week 9 · Lecture 3</div>
-  <div class="lecbadge">Lecture 3 of 3</div>
+<section class="slide sec-title" data-sec="Error Correction" data-anchor="c3-corr">
+  <div class="kicker">Module 3 · Concept 3 of 3</div>
   <h1>Error Correction</h1>
   <div class="rule"></div>
   <div class="roadmap">
@@ -2083,7 +2077,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: Forward Error Correction (FEC) ── -->
-<section class="slide" data-sec="Lecture 3 · Error Correction">
+<section class="slide" data-sec="Error Correction">
   <div class="kicker">Error correction</div>
   <h2>Forward Error Correction (FEC)</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;justify-content:flex-start">
@@ -2114,7 +2108,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: FEC Process ── -->
-<section class="slide" id="fec-tx" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="fec-tx" data-sec="Error Correction">
   <style>
     #fec-tx .gA1, #fec-tx .gA2, #fec-tx .gA3 { opacity:0; transition:opacity 0.35s }
     #fec-tx:has(.a1.on) .gA1 { opacity:1 }
@@ -2193,7 +2187,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="fec-rx" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="fec-rx" data-sec="Error Correction">
   <style>
     #fec-rx .gB1, #fec-rx .gB2, #fec-rx .gB3, #fec-rx .gB4 { opacity:0; transition:opacity 0.35s }
     #fec-rx:has(.b1.on) .gB1 { opacity:1 }
@@ -2283,7 +2277,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ── Slide: FEC — An Example (k=2, n=3) ── -->
 <!-- ── Slide: Block Code Principles — Hamming Distance ── -->
-<section class="slide" data-sec="Lecture 3 · Error Correction">
+<section class="slide" data-sec="Error Correction">
   <div class="kicker">FEC</div>
   <h2>Block Code Principles — Hamming Distance</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;justify-content:flex-start">
@@ -2334,7 +2328,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 3 · Error Correction">
+<section class="slide" data-sec="Error Correction">
   <div class="kicker">FEC</div>
   <h2>How the encoder and decoder work</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:13px;max-width:1060px">
@@ -2361,7 +2355,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: Block Code Principles — Minimum-Distance Decoding Example ── -->
-<section class="slide" id="mdd-ex" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="mdd-ex" data-sec="Error Correction">
   <style>
     #mdd-ex td, #mdd-ex th { border:1px solid var(--border); padding:5px 16px; font-size:15px }
     #mdd-ex th { background:rgba(0,200,180,0.12); font-size:13px; font-weight:600 }
@@ -2412,7 +2406,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: Block Code Principles — Minimum-Distance Principle ── -->
-<section class="slide" id="mdd-fail" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="mdd-fail" data-sec="Error Correction">
   <style>
     #mdd-fail td, #mdd-fail th { border:1px solid var(--border); padding:5px 16px; font-size:15px }
     #mdd-fail th { background:rgba(0,200,180,0.12); font-size:13px; font-weight:600 }
@@ -2465,7 +2459,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ── Slide: Block Code Principles — Decoding Regions ── -->
 <!-- ── Slide: An Example of Invalid Codewords ── -->
-<section class="slide" id="fullpic" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="fullpic" data-sec="Error Correction">
   <style>
     #fullpic .mono { font-family:monospace }
     #fullpic .pat { font-family:monospace; font-size:15px; padding:4px 9px; border:1px solid var(--border); border-radius:4px; background:var(--surface-2); transition:all 0.3s }
@@ -2503,7 +2497,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: Pairwise Distances between Valid Codewords ── -->
-<section class="slide" id="dmin" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="dmin" data-sec="Error Correction">
   <style>
     #dmin td, #dmin th { border:1px solid var(--border); padding:4px 18px; font-size:15.5px; text-align:center }
     #dmin th { background:rgba(0,200,180,0.12); font-size:13px; font-weight:600 }
@@ -2539,7 +2533,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="dwalk" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="dwalk" data-sec="Error Correction">
   <style>
     #dwalk .gGrid, #dwalk .gAB, #dwalk .gBall, #dwalk .gStr { opacity:0; transition:opacity 0.35s }
     #dwalk:has(.w1.on) .gGrid { opacity:1 }
@@ -2662,7 +2656,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="dcorrect" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="dcorrect" data-sec="Error Correction">
   <style>
     #dcorrect .gReg, #dcorrect .gHalf { opacity:0; transition:opacity 0.35s }
     #dcorrect:has(.c1.on) .gReg { opacity:1 }
@@ -2777,7 +2771,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" id="ddetect" data-sec="Lecture 3 · Error Correction">
+<section class="slide" id="ddetect" data-sec="Error Correction">
   <style>
     #ddetect .gWalk { opacity:0; transition:opacity 0.35s }
     #ddetect:has(.n2.on) .gWalk { opacity:1 }
@@ -2901,7 +2895,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
   </div>
 </section>
-<section class="slide" data-sec="Lecture 3 · Error Correction">
+<section class="slide" data-sec="Error Correction">
   <div class="kicker">FEC</div>
   <h2>The rule</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1020px">
@@ -2923,9 +2917,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <!-- ── Slide: Summary ── -->
-<section class="slide" data-sec="Lecture 3 · Error Correction">
+<section class="slide" data-sec="Error Correction">
   <div class="kicker">Recap</div>
-  <h2>Lecture 3 &mdash; what we covered</h2>
+  <h2>Error correction &mdash; what we covered</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;max-width:1030px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6"><b>Forward error correction</b> repairs errors at the receiver itself, from the bits that arrived &mdash; <b>without retransmission</b>.</p>
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">The <b>encoder</b> turns every <em>k</em>-bit data block into an <em>n</em>-bit <b>codeword</b>, with <em>n</em> &gt; <em>k</em>; the extra <em>n</em>&minus;<em>k</em> bits are the redundancy.</p>
@@ -2934,27 +2928,27 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<section class="slide" data-sec="Lecture 3 · Error Correction">
-  <div class="kicker">Week 9</div>
+<section class="slide" data-sec="Error Correction">
+  <div class="kicker">Module 3</div>
   <h2>Summary</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:flex-start">
     <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">LECTURE 1 &mdash; ERROR DETECTION</p>
+      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">CONCEPT 1 &mdash; ERROR DETECTION</p>
       <p style="margin:0;font-size:17px;line-height:1.6"><b>Parity</b> (single-bit check), <b>2-D parity</b> (row + column + overall parity &mdash; can locate single-bit errors), and the <b>Internet checksum</b> (one&rsquo;s-complement sum used by IPv4, TCP, UDP). Simple and fast, but limited detection power.</p>
     </div>
     <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">LECTURE 2 &mdash; CRC</p>
+      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">CONCEPT 2 &mdash; CRC</p>
       <p style="margin:0;font-size:17px;line-height:1.6"><b>Cyclic Redundancy Check</b> &mdash; modulo-2 division by a generator polynomial. Much stronger detection than checksums; standard at the <b>data link layer</b> (Ethernet, Wi-Fi). Polynomial representation lets us reason about which error patterns are guaranteed detectable.</p>
     </div>
     <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">LECTURE 3 &mdash; ERROR CORRECTION</p>
+      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">CONCEPT 3 &mdash; ERROR CORRECTION</p>
       <p style="margin:0;font-size:17px;line-height:1.6"><b>Forward Error Correction (FEC)</b> &mdash; block codes with enough redundancy to <b>correct</b> errors, not just detect them. <b>Hamming distance</b> determines how many errors a code can detect and correct. Minimum-distance decoding maps an invalid codeword to the nearest valid one.</p>
     </div>
   </div>
 </section>
 
 <!-- ── Slide: References ── -->
-<section class="slide" data-sec="Lecture 3 · Error Correction">
+<section class="slide" data-sec="Error Correction">
   <div class="kicker">References</div>
   <h2>References</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:flex-start">
@@ -2974,7 +2968,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <!-- ── Slide: Acknowledgements ── -->
-<section class="slide" data-sec="Lecture 3 · Error Correction">
+<section class="slide" data-sec="Error Correction">
   <div class="kicker">Acknowledgements</div>
   <h2>Acknowledgements</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:flex-start">
@@ -3063,7 +3057,7 @@ var seclabel=document.getElementById('seclabel'),counter=document.getElementById
 function sync(){
   slides.forEach(function(s,i){s.classList.toggle('active',i===cur);});
   var s=slides[cur];
-  seclabel.textContent='Week 9  \u00b7  '+(s.getAttribute('data-sec')||'');
+  seclabel.textContent='Module 3  \u00b7  '+(s.getAttribute('data-sec')||'');
   counter.textContent=(cur+1)+' / '+slides.length;
   progress.style.width=((cur+1)/slides.length*100)+'%';
   if(history.replaceState) history.replaceState(null,'','#/'+(cur+1));
