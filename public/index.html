@@ -80,6 +80,14 @@
   .notice p{margin:0; font-size:16px}
 
   /* ---------- resources ---------- */
+  .res-sub{
+    font-family:var(--serif); font-size:18px; font-weight:600;
+    margin:26px 0 8px; letter-spacing:-.005em;
+  }
+  .res-sub:first-of-type{margin-top:4px}
+  .res-read{flex:1 1 320px; font-size:15px; color:var(--faint)}
+  .res-plain{margin:0; padding-left:20px; display:grid; gap:6px; font-size:16px; color:var(--faint)}
+  .res-note{margin:10px 0 0; font-size:14.5px; color:var(--faint)}
   .res-lead{margin:0 0 14px; font-size:16px; color:var(--faint); max-width:62ch}
   .res-list{list-style:none; margin:0; padding:0; display:grid; gap:8px}
   .res{
@@ -280,7 +288,56 @@
       </section>
 
       <section>
-        <h2>Resources</h2>
+        <h2>Extra resources</h2>
+
+        <h3 class="res-sub">Course textbook</h3>
+        <p class="res-lead"><strong>James F. Kurose &amp; Keith W. Ross</strong>,
+        <em>Computer Networking: A Top-Down Approach Featuring the Internet</em>,
+        Addison Wesley, 3rd edition, 2005.</p>
+        <ul class="res-list">
+          <li class="res">
+            <span class="res-map">Module 1</span>
+            <span class="res-name">Introduction to Routing</span>
+            <span class="res-read">Chapter 4 &mdash; The Network Layer</span>
+          </li>
+          <li class="res">
+            <span class="res-map">Module 2</span>
+            <span class="res-name">Routing and Addressing at Internet Scale</span>
+            <span class="res-read">Chapter 4 &mdash; The Network Layer</span>
+          </li>
+          <li class="res">
+            <span class="res-map">Module 3</span>
+            <span class="res-name">Error Detection and Correction</span>
+            <span class="res-read">Chapter 5 &sect;5.2 &mdash; The Link Layer</span>
+          </li>
+          <li class="res">
+            <span class="res-map">Module 4</span>
+            <span class="res-name">Reliable Data Transfer: ARQ</span>
+            <span class="res-read">Chapter 3 &sect;3.4 &mdash; The Transport Layer</span>
+          </li>
+          <li class="res">
+            <span class="res-map">Module 5</span>
+            <span class="res-name">Network Transport Layer Protocols</span>
+            <span class="res-read">Chapter 3 &sect;&sect;3.1&ndash;3.3, 3.5&ndash;3.7 &mdash; The Transport Layer</span>
+          </li>
+          <li class="res">
+            <span class="res-map">Module 6</span>
+            <span class="res-name">Network Applications</span>
+            <span class="res-read">Chapter 2 &sect;&sect;2.3&ndash;2.4 &mdash; The Application Layer</span>
+          </li>
+        </ul>
+
+        <h3 class="res-sub">Also referenced</h3>
+        <ul class="res-plain">
+          <li>William Stallings, <em>Data and Computer Communications</em>, Pearson, 10th edition,
+          2013.</li>
+          <li>Andrew S. Tanenbaum &amp; David J. Wetherall, <em>Computer Networks</em>,
+          Prentice Hall, 5th edition, 2010.</li>
+        </ul>
+        <p class="res-note">Each deck&rsquo;s closing References frame gives the exact chapters and
+        sections in all three books.</p>
+
+        <h3 class="res-sub">Previous course slides</h3>
         <p class="res-lead">Slides from the previous run of COSC264, kept here for reference.
         They follow the earlier seven-lecture numbering; the module each one corresponds to is
         shown beside it.</p>
