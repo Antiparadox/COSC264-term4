@@ -899,8 +899,8 @@ svg text{font-family:var(--sans)}
 .ipv4-depletion-note{position:absolute;left:108px;bottom:15px;font-family:var(--mono);font-size:10px;color:var(--faint)}
 .addressing-objective-lead{max-width:1000px;margin:0 auto;font-family:var(--serif);font-size:29px;
   line-height:1.4;text-align:center;color:var(--muted)}
-.addressing-objective-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;width:100%;max-width:820px;
-  margin:34px auto 0}.addressing-objective{position:relative;min-height:230px;padding:54px 25px 24px;
+.addressing-objective-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px;width:100%;max-width:1020px;
+  margin:30px auto 0}.addressing-objective{position:relative;min-height:206px;padding:48px 20px 20px;
   border:1px solid var(--border);border-top:6px solid var(--accent);border-radius:16px;background:var(--surface);
   box-shadow:var(--shadow);text-align:center}.addressing-objective:nth-child(2){border-top-color:var(--good)}
 .addressing-objective-num{position:absolute;
@@ -1156,6 +1156,62 @@ body.scroll .tunnel-solution-slide .tunnel-narration .frag{position:static;opaci
 body.scroll .packet-process-stage{min-height:210px}
 body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transform:none}
 
+
+/* address aggregation and longest-prefix match */
+.agg-trigger{position:absolute;width:0;height:0;pointer-events:none}
+.agg-fan{display:grid;grid-template-columns:250px 1fr;gap:34px;align-items:center;flex:0 0 auto;
+  width:100%;max-width:1000px;margin:12px auto 0;padding:16px 22px;border:1px solid var(--border);
+  border-radius:18px;background:var(--surface-2)}
+.agg-isp{display:grid;gap:6px;justify-items:center;padding:16px 12px;border:3px solid var(--accent);
+  border-radius:16px;background:var(--accent-soft);text-align:center}
+.agg-isp b{font-family:var(--serif);font-size:19px;color:var(--accent-ink)}
+.agg-isp span{font-family:var(--mono);font-size:14px;font-weight:900;color:var(--accent-ink)}
+.agg-orgs{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.agg-org{display:grid;gap:3px;padding:9px 11px;border:1px solid var(--border);border-radius:11px;
+  background:var(--surface)}
+.agg-org b{font-size:13px;color:var(--muted);font-weight:700}
+.agg-org span{font-family:var(--mono);font-size:14px;font-weight:900;color:var(--ink)}
+.agg-org.dots{place-items:center;border-style:dashed}
+.agg-bits{flex:0 0 auto;border-collapse:collapse;width:100%;max-width:1010px;margin:12px auto 0;
+  font-family:var(--mono);font-size:15px}
+.agg-bits td{padding:7px 12px;border-bottom:1px solid var(--border)}
+.agg-bits td.who{width:190px;font-family:var(--sans,inherit);font-size:16px;color:var(--muted)}
+.agg-bits td.cidr{width:190px;font-weight:900;color:var(--ink)}
+.agg-bits td.bits{color:var(--muted);letter-spacing:.02em}
+.agg-bits tr.isp td{background:var(--accent-soft)}
+.agg-bits tr.isp td.who,.agg-bits tr.isp td.cidr{color:var(--accent-ink)}
+.agg-bits td.bits b{color:var(--ink);font-weight:900;transition:.22s;border-radius:4px;padding:2px 1px}
+.agg-how-slide:is([data-step="2"],[data-step="3"]) .agg-bits td.bits b{background:var(--current);
+  color:#fff}
+.agg-fib{flex:0 0 auto;border-collapse:collapse;width:100%;max-width:900px;margin:14px auto 0;
+  font-size:17px;background:var(--surface);box-shadow:var(--shadow)}
+.agg-fib th,.agg-fib td{padding:11px 15px;border:1px solid var(--border);text-align:left;transition:.22s}
+.agg-fib thead th{background:var(--surface-2);font-family:var(--mono);font-size:13px;
+  color:var(--muted);font-weight:900}
+.agg-fib code{font-family:var(--mono);font-weight:900;color:var(--ink)}
+.agg-fib .verdict span{font-family:var(--mono);font-size:13px;font-weight:900;color:var(--muted)}
+.agg-lpm-slide .agg-fib tr.e23{opacity:0;transition:opacity .22s}
+.agg-lpm-slide:not([data-step="0"]) .agg-fib tr.e23{opacity:1}
+.agg-lpm-slide:is([data-step="3"],[data-step="4"]) .agg-fib tr.e23 td{background:var(--good-soft)}
+.agg-lpm-slide:is([data-step="3"],[data-step="4"]) .agg-fib tr.e23 .verdict span{color:var(--good)}
+.agg-lpm-slide:is([data-step="3"],[data-step="4"]) .agg-fib tr.e20 td{opacity:.45}
+.agg-status{position:relative;flex:0 0 118px;height:118px;width:100%;max-width:1010px;margin:16px auto 0}
+.agg-card{position:absolute;inset:0;display:grid;grid-template-columns:210px 1fr;gap:18px;
+  align-items:center;padding:12px 18px;border:1px solid var(--accent);border-left:7px solid
+  var(--accent);border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow);
+  opacity:0;transform:translateY(7px);transition:.22s;font-size:18px;line-height:1.32}
+.agg-card > b{font-family:var(--mono);font-size:12px;color:var(--accent-ink);text-transform:uppercase}
+.agg-card span b{color:var(--ink)}
+.agg-card code{font-family:var(--mono);font-weight:900;color:var(--ink)}
+.agg-card.question{border-color:var(--current);border-left-color:var(--current)}
+.agg-card.question > b{color:var(--current)}
+.agg-why-slide[data-step="1"] .agg-card.s1,.agg-why-slide[data-step="2"] .agg-card.s2,
+.agg-why-slide[data-step="3"] .agg-card.s3,.agg-why-slide[data-step="4"] .agg-card.s4,
+.agg-how-slide[data-step="1"] .agg-card.s1,.agg-how-slide[data-step="2"] .agg-card.s2,
+.agg-how-slide[data-step="3"] .agg-card.s3,
+.agg-lpm-slide[data-step="1"] .agg-card.s1,.agg-lpm-slide[data-step="2"] .agg-card.s2,
+.agg-lpm-slide[data-step="3"] .agg-card.s3,.agg-lpm-slide[data-step="4"] .agg-card.s4{
+  opacity:1;transform:none}
 
 .reference-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;max-width:1060px;margin:8px auto 0}.reference-column{display:grid;
   gap:12px}.reference-card{padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
@@ -3602,12 +3658,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <section class="slide" data-sec="Lecture 3 · Learning objectives">
   <div class="kicker">This lecture's roadmap</div>
   <h2>How did the Internet adapt to IPv4 scarcity?</h2>
-  <p class="frag addressing-objective-lead">We will study two major responses that extended IPv4's useful life and enabled continued Internet growth.</p>
+  <p class="frag addressing-objective-lead">We will study three responses that extended IPv4&rsquo;s useful life and kept the Internet growing.</p>
   <div class="addressing-objective-grid" aria-label="Two responses covered in Lecture 3">
     <div class="frag addressing-objective"><span class="addressing-objective-num">1</span>
       <h3>Share public IPv4 addresses</h3><p>Network Address Translation (NAT)</p></div>
     <div class="frag addressing-objective"><span class="addressing-objective-num">2</span>
       <h3>Use a 128-bit address space</h3><p>IPv6</p></div>
+    <div class="frag addressing-objective"><span class="addressing-objective-num">3</span>
+      <h3>Advertise many networks as one</h3><p>Address aggregation</p></div>
   </div>
 </section>
 
@@ -3907,6 +3965,107 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <span class="frag tunnel-extra-trigger" aria-hidden="true" style="position:absolute;width:0;height:0"></span>
   <div class="source">Dual IP-layer operation and configured tunnelling: RFC 4213 §§2&ndash;3 &middot;
     Stateless IP/ICMP translation: RFC 7915</div>
+</section>
+
+<section class="slide stateful agg-why-slide" data-sec="Lecture 3 &middot; Address aggregation">
+  <div class="kicker">The cost of one route per organisation</div>
+  <h2>Every router stores an entry for every prefix it can reach</h2>
+  <div class="agg-fan">
+    <div class="agg-isp"><b>Fly-By-Night-ISP</b><span>200.23.16.0/20</span></div>
+    <div class="agg-orgs">
+        <div class="agg-org"><b>Organization 0</b><span>200.23.16.0/23</span></div>
+        <div class="agg-org"><b>Organization 1</b><span>200.23.18.0/23</span></div>
+        <div class="agg-org"><b>Organization 2</b><span>200.23.20.0/23</span></div>
+        <div class="agg-org dots"><b>&hellip;</b><span>&hellip;</span></div>
+        <div class="agg-org"><b>Organization 7</b><span>200.23.30.0/23</span></div>
+    </div>
+  </div>
+  <div class="agg-status">
+    <div class="agg-card s1"><b>The setup</b><span>Fly-By-Night-ISP holds the block
+      <code>200.23.16.0/20</code>, and gives a <code>/23</code> out of it to each of eight
+      organisations.</span></div>
+    <div class="agg-card s2"><b>Advertised separately</b><span>If all eight are announced on their
+      own, every router that can reach them needs <b>eight forwarding-table entries</b> &mdash; one
+      per prefix &mdash; for this one ISP.</span></div>
+    <div class="agg-card s3"><b>Now multiply</b><span>There are tens of thousands of ASes doing the
+      same. Forwarding tables run to hundreds of thousands of entries, and that memory has to be
+      fast enough to search once per arriving datagram. It is finite, and it is expensive.</span></div>
+    <div class="agg-card question s4"><b>The question</b><span>Can the ISP announce all eight
+      at once?</span></div>
+  </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <div class="source">Classless Inter-Domain Routing and route aggregation: RFC 4632 &sect;&sect;1, 3</div>
+</section>
+
+<section class="slide stateful agg-how-slide" data-sec="Lecture 3 &middot; Address aggregation">
+  <div class="kicker">The eight blocks were carved out of one</div>
+  <h2>Eight prefixes, one advertisement</h2>
+  <table class="agg-bits" aria-label="The ISP block and its eight customer blocks in binary">
+    <tbody>
+      <tr class="isp"><td class="who">ISP&rsquo;s block</td><td class="cidr">200.23.16.0/20</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>0000&nbsp;00000000</td></tr>
+      <tr><td class="who">Organization 0</td><td class="cidr">200.23.16.0/23</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>000<span class="rest">0&nbsp;00000000</span></td></tr>
+      <tr><td class="who">Organization 1</td><td class="cidr">200.23.18.0/23</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>001<span class="rest">0&nbsp;00000000</span></td></tr>
+      <tr><td class="who">Organization 2</td><td class="cidr">200.23.20.0/23</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>010<span class="rest">0&nbsp;00000000</span></td></tr>
+      <tr class="dots"><td class="who">&hellip;</td><td class="cidr">&hellip;</td><td class="bits">&hellip;</td></tr>
+      <tr><td class="who">Organization 7</td><td class="cidr">200.23.30.0/23</td>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>111<span class="rest">0&nbsp;00000000</span></td></tr>
+    </tbody>
+  </table>
+  <div class="agg-status">
+    <div class="agg-card s1"><b>Look at the bits</b><span>All eight customer blocks were carved out
+      of the ISP&rsquo;s block, so all eight agree on their <b>first 20 bits</b>.</span></div>
+    <div class="agg-card s2"><b>So say it once</b><span>The ISP advertises a single route to the rest
+      of the Internet: <code>200.23.16.0/20</code> &mdash; &ldquo;send me anything whose address
+      begins with those 20 bits&rdquo;. <b>Eight entries become one.</b></span></div>
+    <div class="agg-card s3"><b>This is what BGP carries</b><span>That single prefix is the
+      <code>NLRI</code> of a BGP UPDATE. Aggregation is why the number of prefixes on the Internet
+      stays manageable at all.</span></div>
+  </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <div class="source">Aggregation and prefix notation: RFC 4632 &sect;&sect;3&ndash;4</div>
+</section>
+
+<section class="slide stateful agg-lpm-slide" data-sec="Lecture 3 &middot; Longest-prefix match">
+  <div class="kicker">When aggregation is not the whole story</div>
+  <h2>What if one organisation moves to another ISP?</h2>
+  <table class="agg-fib" aria-label="Two matching forwarding-table entries for one destination">
+    <thead><tr><th>destination prefix</th><th>advertised by</th><th>match for 200.23.18.5?</th></tr></thead>
+    <tbody>
+      <tr class="e20"><td><code>200.23.16.0/20</code></td><td>Fly-By-Night-ISP</td>
+        <td class="verdict"><span class="yes">matches &mdash; 20 bits</span></td></tr>
+      <tr class="e23"><td><code>200.23.18.0/23</code></td><td>ISPs-R-Us</td>
+        <td class="verdict"><span class="yes">matches &mdash; 23 bits</span></td></tr>
+    </tbody>
+  </table>
+  <div class="agg-status">
+    <div class="agg-card s1"><b>Organization 1 moves</b><span>It leaves Fly-By-Night-ISP and joins
+      ISPs-R-Us, keeping its addresses. ISPs-R-Us now advertises
+      <code>200.23.18.0/23</code> on its behalf.</span></div>
+    <div class="agg-card question s2"><b>Two matches</b><span>A datagram for
+      <code>200.23.18.5</code> now matches <b>both</b> entries &mdash; the ISP&rsquo;s aggregate and
+      the organisation&rsquo;s own block. Which one should the router use?</span></div>
+    <div class="agg-card s3"><b>Longest-prefix match</b><span>The router forwards using the entry
+      with the <b>longest matching prefix</b>. The <code>/23</code> matches 23 bits and the
+      <code>/20</code> matches 20, so the datagram goes to <b>ISPs-R-Us</b>.</span></div>
+    <div class="agg-card s4"><b>Why the longest wins</b><span>A longer prefix is a more specific
+      statement about where an address actually lives. The <code>/20</code> says &ldquo;these 4096
+      addresses are generally mine&rdquo;; the <code>/23</code> says &ldquo;these 512 have moved&rdquo;.
+      Without this rule, aggregation would trap every organisation at its first ISP.</span></div>
+  </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
+  <div class="source">Longest-match forwarding: RFC 4632 &sect;5.1 &middot; RFC 1812 &sect;5.2.4.3</div>
 </section>
 
 <section class="slide lecture2-recap-slide" data-sec="Week 8 · Recap">
