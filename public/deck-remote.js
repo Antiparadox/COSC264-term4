@@ -123,10 +123,11 @@
        the slide rather than a bar bolted to the bottom of it, with the dark
        ground painted only behind the words. Nothing is drawn when there is
        nothing to say. */
-    #rc-cap{position:fixed;left:0;right:0;bottom:7vh;z-index:800;display:none;
+    #rc-cap{position:fixed;left:0;right:0;bottom:0;z-index:800;display:none;
       pointer-events:none;color:#fff;text-align:center;
       font-family:var(--sans,system-ui,sans-serif);
-      font-size:30px;line-height:1.42}
+      font-size:30px;line-height:1.42;
+      padding-bottom:calc(10px + env(safe-area-inset-bottom))}
     /* Three lines, and the text is pinned to the BOTTOM of the window so
        anything over-long spills off the top and the newest words stay on
        screen -- the opposite of normal overflow, and the only behaviour
@@ -137,7 +138,9 @@
     #rc-cap.on{display:block}
     /* box-decoration-break gives every wrapped line its own background box,
        so the ground hugs the text the way a caption should instead of
-       squaring off a paragraph-sized slab. */
+       squaring off a paragraph-sized slab. The block sits hard against the
+       bottom of the window: floated any higher it lands on whatever the
+       slide has down there. */
     #rc-cap-run{background:rgba(8,14,18,.76);
       -webkit-box-decoration-break:clone;box-decoration-break:clone;
       padding:.1em .34em}
