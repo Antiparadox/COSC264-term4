@@ -3728,11 +3728,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         &mdash; 65,534 host addresses, nearly all of them wasted.</li>
       </ul></div>
     <div class="agg-card s2"><b>The answer</b><ul class="agg-sub">
-      <li class="c1">Under <b>CIDR</b> the split can fall at <b>any bit</b> &mdash; that is what
-        <i>classless</i> means.</li>
-      <li class="c2"><i>e.g.</i> a university takes <code>200.23.16.0/20</code> and divides it into
-        eight <code>/23</code>s, one per department &mdash; 512 addresses each, and nothing left
-        over.</li>
+      <li class="c1">Under <b>CIDR</b> the split can fall at <b>any bit</b>.</li>
+      <li class="c2"><i>e.g.</i> a university takes <code>200.23.16.0/20</code> and divides it
+        into eight sub-blocks: <b>3 bits</b> to say which department, and the remaining
+        <b>9 bits</b> to say which host inside it.</li>
       </ul></div>
   </div>
   <span class="frag agg-trigger" aria-hidden="true"></span>
