@@ -152,10 +152,12 @@
   .card:hover .go::after,.card:focus-visible .go::after{transform:translateX(3px)}
 
   /* ---------- instructor ---------- */
+  aside{display:grid; gap:18px}
   aside .panel{
     background:var(--surface); border:1px solid var(--border);
     border-radius:14px; padding:20px 22px; box-shadow:var(--shadow);
   }
+  .tutor + .tutor{margin-top:16px; padding-top:16px; border-top:1px solid var(--border)}
   aside h2{font-size:19px; margin-bottom:12px}
   .name{font-family:var(--serif); font-size:20px; font-weight:600; margin:0}
   .role{margin:1px 0 10px; color:var(--muted); font-size:15px}
@@ -365,6 +367,18 @@
           <dt>Office hours</dt>
           <dd>Tuesday &amp; Thursday, 2pm</dd>
         </dl>
+      </div>
+
+      <div class="panel">
+        <h2>Tutors</h2>
+        <div class="tutor">
+          <p class="name">James Brazier</p>
+          <a class="mail" href="mailto:james.brazier@canterbury.ac.nz">james.brazier@canterbury.ac.nz</a>
+        </div>
+        <div class="tutor">
+          <p class="name">Bailey Moir</p>
+          <a class="mail" href="mailto:bmo92@uclive.ac.nz">bmo92@uclive.ac.nz</a>
+        </div>
       </div>
     </aside>
 
