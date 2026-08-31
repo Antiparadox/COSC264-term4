@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>COSC264 · Week 12</title>
+<title>COSC264 · Module 6 — Application Protocols</title>
 <style>
 /* ============ fonts (embedded, latin subset) ============ */
 @font-face{font-family:'Source Serif 4';font-style:normal;font-weight:600;
@@ -250,8 +250,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <!-- Slide 1: Title -->
 <section class="slide">
   <div class="center" style="align-items:flex-start">
-    <div class="kicker">COSC264 &middot; Introduction to Computer Networks and the Internet &middot; Term 4 &middot; Week 12</div>
-    <h1>Application Protocols:<br>Introduction to the Web and HTTP</h1>
+    <div class="kicker">COSC264 &middot; Introduction to Computer Networks and the Internet &middot; Term 4 &middot; Module 6</div>
+    <h1>Application Protocols:<br>the Web, Email and DNS</h1>
+    <div class="roadmap" aria-label="Module 6 concepts">
+      <span class="rmi">Network applications</span>
+      <span class="rmi">The Web and HTTP</span>
+      <span class="rmi">Email</span>
+      <span class="rmi">DNS</span>
+    </div>
   </div>
   <div class="courseurl"><a href="../">cosc264.up.railway.app</a></div>
 </section>
@@ -259,18 +265,26 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <!-- Slide 2: Outline -->
 <section class="slide">
   <div class="kicker">Outline</div>
-  <h2>Week 12 &mdash; roadmap</h2>
-  <div style="display:flex;flex-direction:column;gap:20px;max-width:860px">
-    <div class="frag card" style="padding:18px 24px;border-left:4px solid var(--accent)">
+  <h2>Module 6 &mdash; roadmap</h2>
+  <div style="display:flex;flex-direction:column;gap:13px;max-width:880px">
+    <div class="frag card" style="padding:14px 24px;border-left:4px solid var(--accent)">
       <p style="margin:0;font-size:20px;font-weight:700">General concepts about network applications</p>
     </div>
-    <div class="frag card" style="padding:18px 24px;border-left:4px solid var(--accent)">
+    <div class="frag card" style="padding:14px 24px;border-left:4px solid var(--accent)">
       <p style="margin:0;font-size:20px;font-weight:700">One network application: the Web</p>
       <p style="margin:6px 0 0;font-size:17px;opacity:0.8">Web page content layout, URL addressing</p>
     </div>
-    <div class="frag card" style="padding:18px 24px;border-left:4px solid var(--accent)">
+    <div class="frag card" style="padding:14px 24px;border-left:4px solid var(--accent)">
       <p style="margin:0;font-size:20px;font-weight:700">HTTP: the protocol that supports the Web</p>
-      <p style="margin:6px 0 0;font-size:17px;opacity:0.8">Connections, messages, cookies, web caching</p>
+      <p style="margin:5px 0 0;font-size:17px;opacity:0.8">Connections, messages, cookies, web caching</p>
+    </div>
+    <div class="frag card" style="padding:14px 24px;border-left:4px solid var(--accent)">
+      <p style="margin:0;font-size:20px;font-weight:700">Email</p>
+      <p style="margin:5px 0 0;font-size:17px;opacity:0.8">SMTP, POP3 and IMAP &middot; message format and MIME</p>
+    </div>
+    <div class="frag card" style="padding:14px 24px;border-left:4px solid var(--accent)">
+      <p style="margin:0;font-size:20px;font-weight:700">DNS: the Domain Name System</p>
+      <p style="margin:5px 0 0;font-size:17px;opacity:0.8">Hierarchy, caching, resource records</p>
     </div>
   </div>
 </section>
@@ -1661,18 +1675,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   .slide:has(#cg4.on) .cg-mod text { fill: var(--accent) !important; opacity: 1 !important; }
 </style>
 
-<!-- ══ Lecture 2 ══ -->
+<!-- ══ Concept: Email ══ -->
 <section class="slide sec-title" data-sec="Email" data-anchor="email-dns">
-  <div class="kicker">Week 12 &middot; Lecture 2</div>
-  <h1>Email and DNS</h1>
+  <div class="kicker">Module 6</div>
+  <h1>Email</h1>
   <div class="rule"></div>
-  <p class="sub">Electronic Mail &amp; Domain Name System</p>
+  <p class="sub">Electronic Mail</p>
 </section>
 
-<!-- Slide: Lecture 2 outline -->
+<!-- Slide: Email outline -->
 <section class="slide" data-sec="Email">
   <div class="kicker">Outline</div>
-  <h2>Lecture 2 &mdash; roadmap</h2>
+  <h2>Email &mdash; roadmap</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:860px;margin-top:8px">
     <div class="frag card" style="padding:16px 24px;border-left:4px solid var(--accent)">
       <p style="margin:0;font-size:19px;font-weight:700">Electronic Mail (Email)</p>
@@ -1680,9 +1694,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <li><span style="opacity:0.6;font-size:14.5px;font-style:italic">Mail access protocol: </span><b>SMTP, POP3, IMAP</b></li>
         <li><span style="opacity:0.6;font-size:14.5px;font-style:italic">Message format: </span><b>MIME</b></li>
       </ul>
-    </div>
-    <div class="frag card" style="padding:16px 24px;border-left:4px solid var(--accent)">
-      <p style="margin:0;font-size:19px;font-weight:700">Domain Name System (DNS)</p>
     </div>
   </div>
 </section>
@@ -2180,9 +2191,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   .slide:has(#mi2.on) #mime-headers { opacity: 1 !important; }
 </style>
 
-<!-- Lecture 3 opener: DNS -->
+<!-- Concept opener: DNS -->
 <section class="slide sec-title" data-sec="DNS" data-anchor="dns">
-  <div class="kicker">Week 12 &middot; Lecture 3</div>
+  <div class="kicker">Module 6</div>
   <h1>DNS</h1>
   <div class="rule"></div>
   <p class="sub">Domain Name System</p>
@@ -3737,7 +3748,7 @@ var seclabel=document.getElementById('seclabel'),counter=document.getElementById
 function sync(){
   slides.forEach(function(s,i){s.classList.toggle('active',i===cur);});
   var s=slides[cur];
-  seclabel.textContent='Week 12  \u00b7  '+(s.getAttribute('data-sec')||'');
+  seclabel.textContent='Module 6  \u00b7  '+(s.getAttribute('data-sec')||'');
   counter.textContent=(cur+1)+' / '+slides.length;
   progress.style.width=((cur+1)/slides.length*100)+'%';
   if(history.replaceState) history.replaceState(null,'','#/'+(cur+1));
