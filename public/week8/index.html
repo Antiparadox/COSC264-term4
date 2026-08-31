@@ -1214,8 +1214,8 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-how-slide tr.agg td{background:var(--good-soft)}
 .agg-how-slide tr.agg td:is(.who,.cidr,.out){color:var(--good)}
 .agg-how-slide:not([data-step="0"]) td.bits b{background:var(--current);color:#fff}
-.agg-how-slide[data-step="5"] tr.dept{display:none}
-.agg-how-slide[data-step="5"] tr.agg{display:table-row}
+.agg-how-slide[data-step="6"] tr.dept{display:none}
+.agg-how-slide[data-step="6"] tr.agg{display:table-row}
 .agg-fib2.lpm td.bits .m{font-family:var(--mono);font-size:13px;font-weight:900;color:var(--muted)}
 .agg-lpm-slide tr.e23{opacity:0;transition:opacity .22s}
 .agg-lpm-slide:not([data-step="0"]) tr.e23{opacity:1}
@@ -1238,12 +1238,12 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-card.question{border-color:var(--current);border-left-color:var(--current)}
 .agg-card.question > b{color:var(--current)}
 .agg-how-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .agg-card.s1,
-.agg-how-slide:is([data-step="4"],[data-step="5"]) .agg-card.s2,
+.agg-how-slide:is([data-step="4"],[data-step="5"],[data-step="6"]) .agg-card.s2,
 .agg-how-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .agg-sub .q1,
 .agg-how-slide:is([data-step="2"],[data-step="3"]) .agg-sub .q2,
 .agg-how-slide[data-step="3"] .agg-sub .q3,
-.agg-how-slide:is([data-step="4"],[data-step="5"]) .agg-sub .a1,
-.agg-how-slide[data-step="5"] .agg-sub .a2,
+.agg-how-slide:is([data-step="4"],[data-step="5"],[data-step="6"]) .agg-sub .a1,
+.agg-how-slide:is([data-step="5"],[data-step="6"]) .agg-sub .a2,
 .agg-lpm-slide:not([data-step="0"]) .agg-card.s1{opacity:1;transform:none}
 .agg-lpm-slide:not([data-step="0"]) .agg-sub .m1,
 .agg-lpm-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .agg-sub .m2,
@@ -1260,7 +1260,9 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .lpm-case code{font-family:var(--mono);font-weight:900;color:var(--ink)}
 .agg-lpm-slide .agg-sub .m3{color:var(--current)}
 .agg-lpm-slide .agg-sub .m3 b{color:var(--current)}
-.agg-lpm-slide .agg-status{flex:0 0 232px;height:232px}
+.agg-lpm-slide .agg-status{flex:0 0 258px;height:258px}
+.agg-lpm-slide .agg-card{padding:16px 20px}
+.agg-lpm-slide .lpm-body{gap:13px}
 
 .reference-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;max-width:1060px;margin:8px auto 0}.reference-column{display:grid;
   gap:12px}.reference-card{padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
@@ -3801,11 +3803,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </ul></div>
     <div class="agg-card s2"><b>The answer</b><ul class="agg-sub">
       <li class="a1">The answer is <b>address aggregation</b>.</li>
-      <li class="a2">In this example, all eight entries agree on their <b>first 20 bits</b> &mdash;
-        they were carved out of the same block &mdash; and they share a next hop. So the eight can be
-        replaced by one entry, <code>200.23.16.0/20</code>.</li>
+      <li class="a2">In this example, all eight entries agree on their <b>first 20 bits</b> and
+        share a next hop. So the eight can be replaced by one entry,
+        <code>200.23.16.0/20</code>.</li>
       </ul></div>
   </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
