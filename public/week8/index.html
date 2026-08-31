@@ -1172,17 +1172,18 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .cr-seg.b16{flex:16}.cr-seg.h16{flex:16}
 .cidr-ruler.classful .cr-seg.block{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
 .cidr-ruler{opacity:0;transition:opacity .22s}
-.cidr-recap-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .cidr-ruler.classful{opacity:1}
-.cidr-recap-slide[data-step="4"] .cidr-ruler.classless{opacity:1}
-.cidr-recap-slide[data-step="4"] .cidr-ruler.classful{display:none}
-.cidr-recap-slide:not([data-step="4"]) .cidr-ruler.classless{display:none}
+.cidr-recap-slide:is([data-step="1"],[data-step="2"]) .cidr-ruler.classful{opacity:1}
+.cidr-recap-slide:is([data-step="3"],[data-step="4"]) .cidr-ruler.classless{opacity:1}
+.cidr-recap-slide:is([data-step="3"],[data-step="4"]) .cidr-ruler.classful{display:none}
+.cidr-recap-slide:not(:is([data-step="3"],[data-step="4"])) .cidr-ruler.classless{display:none}
 .agg-sub{margin:0;padding-left:21px;display:grid;gap:5px}
 .agg-sub li{font-size:16px;line-height:1.3;color:var(--muted);opacity:0;transition:opacity .22s}
 .agg-sub li b{color:var(--ink)}
-.cidr-recap-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .agg-sub .p1,
-.cidr-recap-slide:is([data-step="2"],[data-step="3"]) .agg-sub .p2,
-.cidr-recap-slide[data-step="3"] .agg-sub .p3{opacity:1}
-.cidr-recap-slide .agg-status{flex:0 0 160px;height:160px;margin-top:10px}
+.cidr-recap-slide:is([data-step="1"],[data-step="2"]) .agg-sub .p1,
+.cidr-recap-slide[data-step="2"] .agg-sub .p2,
+.cidr-recap-slide:is([data-step="3"],[data-step="4"]) .agg-sub .c1,
+.cidr-recap-slide[data-step="4"] .agg-sub .c2{opacity:1}
+.cidr-recap-slide .agg-status{flex:0 0 132px;height:132px;margin-top:10px}
 .cidr-map{flex:0 0 auto;border-collapse:collapse;width:100%;max-width:1020px;margin:13px auto 0;
   background:var(--surface);box-shadow:var(--shadow);opacity:0;transition:opacity .22s}
 .cidr-recap-slide[data-step="4"] .cidr-map{opacity:1}
@@ -1192,8 +1193,8 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .cidr-map td.who{width:230px;font-size:16px;color:var(--muted)}
 .cidr-map td.sel{width:150px;font-family:var(--mono);font-size:16px;font-weight:900;color:var(--current)}
 .cidr-map td.cidr{font-family:var(--mono);font-size:16px;font-weight:900;color:var(--ink)}
-.cidr-recap-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .agg-card.s1,
-.cidr-recap-slide[data-step="4"] .agg-card.s2{opacity:1;transform:none}
+.cidr-recap-slide:is([data-step="1"],[data-step="2"]) .agg-card.s1,
+.cidr-recap-slide:is([data-step="3"],[data-step="4"]) .agg-card.s2{opacity:1;transform:none}
 
 /* address aggregation and longest-prefix match */
 .agg-trigger{position:absolute;width:0;height:0;pointer-events:none}
@@ -3722,15 +3723,17 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="agg-card s1"><b>The old problem</b><ul class="agg-sub">
       <li class="p1">An IPv4 address is <b>32 bits</b>, and before CIDR the split between network
         and host could fall in only <b>three places</b> &mdash; after 8, 16 or 24 bits.</li>
-      <li class="p2">With three sizes to choose from, an allocation was almost always far larger
-        than the site needed &mdash; and IPv4 space was already scarce.</li>
-      <li class="p3"><i>e.g.</i> a site needing 500 addresses had to take a whole <b>Class B</b>:
-        65,534 host addresses, of which some 65,000 were never used.</li>
+      <li class="p2">With three sizes to choose from, a great deal of an already scarce space went
+        unused. <i>e.g.</i> a site needing 500 addresses had to take a whole <b>16-bit</b> block
+        &mdash; 65,534 host addresses, nearly all of them wasted.</li>
       </ul></div>
-    <div class="agg-card s2"><b>CIDR: cut anywhere</b><span>The University of Canterbury takes
-      <code>200.23.16.0/20</code>, then spends three of the twelve remaining bits on a department
-      number &mdash; eight departments of 512 addresses, a <code>/23</code> each. Nothing fixed
-      either cut: that is what <b>classless</b> means.</span></div>
+    <div class="agg-card s2"><b>The answer</b><ul class="agg-sub">
+      <li class="c1">Under <b>CIDR</b> the split can fall at <b>any bit</b> &mdash; that is what
+        <i>classless</i> means.</li>
+      <li class="c2"><i>e.g.</i> a university takes <code>200.23.16.0/20</code> and divides it into
+        eight <code>/23</code>s, one per department &mdash; 512 addresses each, and nothing left
+        over.</li>
+      </ul></div>
   </div>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
