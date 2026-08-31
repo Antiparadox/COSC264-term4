@@ -2773,7 +2773,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <b>One path-vector route</b>
       <div class="route-card" aria-label="Conceptual BGP path-vector route information">
         <div class="field r1"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field path-vector-focus r2"><span class="key">AS_PATH</span><span class="value">AS E &middot; AS H &middot; AS C</span></div>
+        <div class="field path-vector-focus r2"><span class="key">AS_PATH</span><span class="value">AS E &middot; AS H &middot; AS D</span></div>
         <div class="field r3"><span class="key">NEXT_HOP</span><span class="value">E1</span></div>
       </div>
     </div>
@@ -2791,10 +2791,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide stateful pv-walk-slide" data-sec="Lecture 1 · BGP path-vector walkthrough">
-  <div class="kicker">Worked example · one route from AS C to AS A</div>
+  <div class="kicker">Worked example · one route from AS D to AS A</div>
   <h2>Watch one BGP route travel across three ASes</h2>
   <div class="pv-walk-stage" role="img"
-    aria-label="Router C1 knows a destination prefix inside AS C. eBGP carries its route to AS B and AS A, while iBGP exchanges it among multiple BGP speakers inside each AS">
+    aria-label="Router D1 knows a destination prefix inside AS D. eBGP carries its route to AS B and AS A, while iBGP exchanges it among multiple BGP speakers inside each AS">
     <div class="pv-walk-as a"><b>AS A</b>
       <span class="pv-walk-node n1">A1</span><span class="pv-walk-node n2">A2</span>
       <span class="pv-walk-node n3">A3</span><span class="pv-walk-node gateway">A4</span>
@@ -2805,9 +2805,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <span class="pv-walk-node n2">B2</span><span class="pv-walk-node gateway right">B4</span>
       <span class="pv-ibgp-link l1"></span><span class="pv-ibgp-link l2"></span>
       <span class="pv-ibgp-link l3"></span><span class="pv-ibgp-link l4"></span></div>
-    <div class="pv-walk-as c"><b>AS C</b>
-      <span class="pv-walk-node gateway">C1</span><span class="pv-walk-node n1">C2</span>
-      <span class="pv-walk-node n2">C3</span><span class="pv-walk-node n3">C4</span>
+    <div class="pv-walk-as c"><b>AS D</b>
+      <span class="pv-walk-node gateway">D1</span><span class="pv-walk-node n1">D2</span>
+      <span class="pv-walk-node n2">D3</span><span class="pv-walk-node n3">D4</span>
       <span class="pv-ibgp-link l1"></span><span class="pv-ibgp-link l2"></span>
       <span class="pv-ibgp-link l3"></span><span class="pv-ibgp-link l4"></span>
       <span class="pv-walk-prefix">203.0.113.0/24</span></div>
@@ -2826,28 +2826,28 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
   </div>
   <div class="pv-walk-card-stage">
-    <div class="pv-walk-card wide s1"><b>1 &middot; AS C owns the prefix</b><span>
-      <code>203.0.113.0/24</code> is one of the subnets inside AS C. For hosts elsewhere on the
-      Internet to reach it, AS C has to <b>advertise this destination prefix to the other ASes</b>.</span></div>
-    <div class="pv-walk-card policy-only s2"><b>2 &middot; AS C export policy</b><span>AS C has a
+    <div class="pv-walk-card wide s1"><b>1 &middot; AS D owns the prefix</b><span>
+      <code>203.0.113.0/24</code> is one of the subnets inside AS D. For hosts elsewhere on the
+      Internet to reach it, AS D has to <b>advertise this destination prefix to the other ASes</b>.</span></div>
+    <div class="pv-walk-card policy-only s2"><b>2 &middot; AS D export policy</b><span>AS D has a
       neighbour it could advertise to &mdash; AS B. But before it does, it consults its
       <span class="policy-term">export policy</span>: is advertising this prefix to this neighbour
-      something AS C is willing to do?<span class="policy-preview">We will return to export policy
+      something AS D is willing to do?<span class="policy-preview">We will return to export policy
       later.</span></span></div>
-    <div class="pv-walk-card s3"><b>3 &middot; eBGP: C &rarr; B</b><span>Suppose AS C permits the export.
-      C1 sends an UPDATE to B4 over their established eBGP session.</span>
+    <div class="pv-walk-card s3"><b>3 &middot; eBGP: D &rarr; B</b><span>Suppose AS D permits the export.
+      D1 sends an UPDATE to B4 over their established eBGP session.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS C</span></div>
-        <div class="field"><span class="key">NEXT_HOP</span><span class="value">C1</span></div></div></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS D</span></div>
+        <div class="field"><span class="key">NEXT_HOP</span><span class="value">D1</span></div></div></div>
     <div class="pv-walk-card policy-only s4"><b>4 &middot; AS B import policy</b><span>AS B applies its
-      <span class="policy-term">import policy</span>. B4 may accept or reject C1's
+      <span class="policy-term">import policy</span>. B4 may accept or reject D1's
       advertisement.<span class="policy-preview">We will return to import policy later.</span></span></div>
     <div class="pv-walk-card s5"><b>5 &middot; iBGP inside B</b><span>Suppose AS B accepts. B4 then shares
       the accepted route using <b>internal BGP (iBGP)</b> with AS B's other BGP speakers; in
       particular, B3 learns it.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS C &middot; unchanged</span></div>
-        <div class="field"><span class="key">NEXT_HOP</span><span class="value">C1</span></div></div></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS D &middot; unchanged</span></div>
+        <div class="field"><span class="key">NEXT_HOP</span><span class="value">D1</span></div></div></div>
     <div class="pv-walk-card policy-only s6"><b>6 &middot; AS B export policy</b><span>AS B now knows it
       can reach the prefix, and it would like its own neighbours to know that too. It has a
       neighbour it could advertise to &mdash; AS A. But first it consults its
@@ -2857,7 +2857,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <b>prepends AS B</b> onto the <code>AS_PATH</code> and sets <code>NEXT_HOP</code> to its own IP
       address, then sends this path vector in an UPDATE to AS A's border router A4.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS C</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div></div></div>
     <div class="pv-walk-card policy-only s8"><b>8 &middot; AS A import policy</b><span>AS A applies its
       <span class="policy-term">import policy</span>. A4 may accept or reject B3's
@@ -2865,11 +2865,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="pv-walk-card s9"><b>9 &middot; iBGP inside A</b><span>Suppose AS A accepts. A4 then shares
       the accepted route using <b>internal BGP (iBGP)</b> with AS A's other BGP speakers.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS C</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div></div></div>
     <div class="pv-walk-card wide recap s10"><b>10 &middot; Every router in AS A knows the way</b><span>
       Every BGP speaker in AS A now knows that <code>203.0.113.0/24</code> is reachable
-      <b>via AS B, then AS C</b> &mdash; carried between the ASes by <b>eBGP</b> and spread inside each
+      <b>via AS B, then AS D</b> &mdash; carried between the ASes by <b>eBGP</b> and spread inside each
       one by <b>iBGP</b>.</span></div>
   </div>
   <div class="source">BGP UPDATE, path attributes, and import/export policy: RFC 4271 §§3,
@@ -2885,7 +2885,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="route-card">
           <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
           <div class="field import-localpref"><span class="key">LOCAL_PREF</span><span class="value">100</span></div>
-          <div class="field"><span class="key">AS_PATH</span><span class="value">AS B · AS C</span></div>
+          <div class="field"><span class="key">AS_PATH</span><span class="value">AS B · AS D</span></div>
           <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
         </div>
     </div>
@@ -2893,7 +2893,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="route-card">
           <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
           <div class="field import-localpref"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
-          <div class="field"><span class="key">AS_PATH</span><span class="value">AS E · AS H · AS C</span></div>
+          <div class="field"><span class="key">AS_PATH</span><span class="value">AS E · AS H · AS D</span></div>
           <div class="field"><span class="key">NEXT_HOP</span><span class="value">E1</span></div>
         </div>
     </div>
@@ -2927,13 +2927,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="kicker">AS-wide routing intention · outgoing advertisements</div>
   <h2>eBGP export policy: what an AS advertises</h2>
   <div class="export-policy-stage export-as-stage" role="img"
-    aria-label="AS A selects a route through AS E, AS H, and AS C. Gateway routers A4 and A5 connect to AS X and AS Y. Fragments show an export policy that advertises the route to neither neighbour or selectively to AS X">
+    aria-label="AS A selects a route through AS E, AS H, and AS D. Gateway routers A4 and A5 connect to AS X and AS Y. Fragments show an export policy that advertises the route to neither neighbour or selectively to AS X">
     <div class="export-as-boundary"><b>AS A</b></div>
     <div class="export-as-route rejected"><b>IMPORTED FROM AS B</b>
       <div class="route-card">
         <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field export-lp-lose"><span class="key">LOCAL_PREF</span><span class="value">100</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS C</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
       </div>
       <span class="export-verdict lose">&times;</span>
@@ -2945,8 +2945,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field export-internal-only export-lp-win"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
         <div class="field export-path-focus"><span class="key">AS_PATH</span><span class="value">
-          <span class="export-internal-state">AS E · AS H · AS C</span>
-          <span class="export-outbound-state">AS A · AS E · AS H · AS C</span></span></div>
+          <span class="export-internal-state">AS E · AS H · AS D</span>
+          <span class="export-outbound-state">AS A · AS E · AS H · AS D</span></span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">
           <span class="export-internal-state">E1</span><span class="export-outbound-state">A4</span></span></div>
       </div>
@@ -2970,13 +2970,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <div class="export-policy-status">
     <div class="export-policy-card s1"><b>1 · Select an AS path</b><span>Both routes were imported,
       but the one through AS E carries the higher <code>LOCAL_PREF</code>, so AS A selects
-      <strong>AS E · AS H · AS C</strong> for <code>203.0.113.0/24</code>.</span></div>
+      <strong>AS E · AS H · AS D</strong> for <code>203.0.113.0/24</code>.</span></div>
     <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>AS A can now reach the
       prefix, and it has two neighbours it could tell &mdash; AS X and AS Y.
       <b>Which of them should AS A advertise this route to?</b></span></div>
     <div class="export-policy-card s3"><b>3 · Export policy decides</b><span>AS A's export policy
       answers per neighbour: it prepends itself and advertises
-      <strong>AS A · AS E · AS H · AS C</strong> to AS X, while withholding it from AS Y.</span></div>
+      <strong>AS A · AS E · AS H · AS D</strong> to AS X, while withholding it from AS Y.</span></div>
   </div>
   <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
@@ -3014,8 +3014,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
             <span class="decision-state s1">100</span><span class="decision-state s3">100</span>
             <span class="decision-state s4">100</span><span class="decision-state s5">100</span></span></div>
           <div class="field"><span class="key">AS_PATH</span><span class="value">
-            <span class="decision-state s1">AS B · AS C</span><span class="decision-state s3">AS B · AS C</span>
-            <span class="decision-state s4">AS B · AS C</span><span class="decision-state s5">AS B · AS C</span></span></div>
+            <span class="decision-state s1">AS B · AS D</span><span class="decision-state s3">AS B · AS D</span>
+            <span class="decision-state s4">AS B · AS D</span><span class="decision-state s5">AS B · AS D</span></span></div>
           <div class="field speaker-next-hop"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
         </div>
       </div>
@@ -3027,10 +3027,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
             <span class="decision-state s1">200</span><span class="decision-state s3">200</span>
             <span class="decision-state s4">100</span><span class="decision-state s5">100</span></span></div>
           <div class="field"><span class="key">AS_PATH</span><span class="value">
-            <span class="decision-state s1">AS E · AS H · AS C</span>
-            <span class="decision-state s3">AS E · AS H · AS C</span>
-            <span class="decision-state s4">AS E · AS H · AS C</span>
-            <span class="decision-state s5">AS E · AS C</span></span></div>
+            <span class="decision-state s1">AS E · AS H · AS D</span>
+            <span class="decision-state s3">AS E · AS H · AS D</span>
+            <span class="decision-state s4">AS E · AS H · AS D</span>
+            <span class="decision-state s5">AS E · AS D</span></span></div>
           <div class="field speaker-next-hop"><span class="key">NEXT_HOP</span><span class="value">E1</span></div>
         </div>
       </div>
