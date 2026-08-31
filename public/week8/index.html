@@ -1066,18 +1066,16 @@ svg text{font-family:var(--sans)}
   box-shadow:inset 0 0 0 3px var(--current)}
 
 .coexistence-topology{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:30px;width:100%;max-width:1060px;
-  min-height:185px;margin:8px auto 0;padding:49px 42px 44px;border:1px solid var(--border);border-radius:18px;
+  min-height:185px;margin:8px auto 0;padding:30px 42px 44px;border:1px solid var(--border);border-radius:18px;
   background:var(--surface-2);overflow:hidden}.coexistence-router{position:relative;display:grid;height:64px;place-items:center;
   border:3px solid var(--border);border-radius:21px;background:var(--surface);box-shadow:var(--shadow);font-family:var(--mono);
   font-size:19px;font-weight:900;opacity:.38;transition:.2s ease;z-index:2}.coexistence-router::after{content:"";position:absolute;
   left:100%;top:50%;width:33px;height:5px;background:var(--edge);transition:.2s ease}.coexistence-router.f::after{display:none}
 .coexistence-router.v6{border-color:var(--accent)}.coexistence-router.v4{border-color:var(--current)}.coexistence-router.dual{border-color:var(--good)}
 .coexistence-router small{position:absolute;top:72px;font-size:12px;line-height:1.2;color:var(--muted);white-space:nowrap}
-.coexistence-tunnel{position:absolute;left:22%;right:22%;top:9px;display:grid;height:34px;place-items:center;border:3px solid var(--accent);
-  border-radius:18px;background:var(--accent-soft);color:var(--accent-ink);font-family:var(--mono);font-size:12px;font-weight:900;
-  opacity:.15;transition:.2s ease}.coexistence-block{position:absolute;left:50%;top:81px;display:grid;width:38px;height:38px;
+.coexistence-block{position:absolute;left:50%;top:62px;display:grid;width:38px;height:38px;
   place-items:center;border-radius:50%;background:var(--bad);color:#fff;font-size:24px;font-weight:900;opacity:0;transform:translate(-50%,-50%)}
-.tunnel-flow-packet{position:absolute;top:67px;z-index:5;display:none;min-width:54px;padding:5px 8px;border:2px solid var(--accent);
+.tunnel-flow-packet{position:absolute;top:48px;z-index:5;display:none;min-width:54px;padding:5px 8px;border:2px solid var(--accent);
   border-radius:10px;background:var(--accent-soft);box-shadow:0 5px 12px rgba(15,23,42,.16);color:var(--accent-ink);font-family:var(--mono);
   font-size:10px;font-weight:900;text-align:center;transform:translateX(-50%);pointer-events:none}
 .tunnel-flow-packet.tunnel-packet{min-width:86px;border-color:var(--current);background:var(--current-soft);color:var(--current)}
@@ -1096,7 +1094,7 @@ svg text{font-family:var(--sans)}
 .tunnel-narration{position:relative;min-height:190px;margin:0;padding:0;list-style:none}.tunnel-solution-slide .tunnel-narration .frag{
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;margin:0;padding:25px 28px;border:1px solid var(--border);
   border-left:7px solid var(--accent);border-radius:0 16px 16px 0;background:var(--surface);box-shadow:var(--shadow);color:var(--muted);
-  font-size:20px;line-height:1.35;opacity:0;transform:translateY(8px)}.tunnel-narration li > b:first-child{display:block;margin-bottom:7px;
+  font-size:20px;line-height:1.35;opacity:0;transform:translateY(8px)}.tunnel-narration > li > b:first-child{display:block;margin-bottom:7px;
   font-family:var(--serif);font-size:25px;color:var(--ink)}
 .packet-process-stage{position:relative;min-height:190px;border:1px solid var(--border);border-radius:16px;background:var(--surface);
   box-shadow:var(--shadow);overflow:hidden}.packet-process{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -1112,6 +1110,8 @@ svg text{font-family:var(--sans)}
 @keyframes tunnel-packet-b-e{0%{left:26.3%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:73.7%;opacity:0}}
 .packet-plain.v4{border-color:var(--current);background:var(--current-soft);color:var(--current)}
 .tunnel-narration b.inl{color:var(--ink)}
+.tn-sub{margin:0;padding-left:22px;display:grid;gap:7px}
+.tn-sub li{font-size:18px;line-height:1.32;color:var(--muted)}
 .tunnel-solution-slide[data-step="1"] .coexistence-router:is(.b,.e),
 .tunnel-solution-slide[data-step="2"] .coexistence-router.b,
 .tunnel-solution-slide[data-step="3"] .coexistence-router:is(.e,.f),
@@ -1119,8 +1119,6 @@ svg text{font-family:var(--sans)}
 .tunnel-solution-slide[data-step="5"] .coexistence-router:is(.c,.d),
 .tunnel-solution-slide[data-step="6"] .coexistence-router.e,
 .tunnel-solution-slide[data-step="7"] .coexistence-router:is(.e,.f){opacity:1;transform:translateY(-2px)}
-.tunnel-solution-slide:is([data-step="4"],[data-step="5"],[data-step="6"],
-  [data-step="7"]) .coexistence-tunnel{opacity:1}
 .tunnel-solution-slide[data-step="7"] .coexistence-router.e::after{height:7px;background:var(--accent)}
 .tunnel-solution-slide[data-step="2"] .tunnel-flow-packet.translate-flow{display:block;animation:tunnel-packet-b-e 2.3s linear infinite}
 .tunnel-solution-slide[data-step="3"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
@@ -3835,7 +3833,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="coexistence-router v4 d">D<small>IPv4 only</small></div>
     <div class="coexistence-router dual e">E<small>dual stack</small></div>
     <div class="coexistence-router v6 f">F<small>IPv6 router</small></div>
-    <div class="coexistence-tunnel">IPv6-over-IPv4 tunnel: B → E</div>
     <div class="tunnel-flow-packet encapsulation-flow" aria-hidden="true">IPv6</div>
     <div class="tunnel-flow-packet tunnel-packet tunnel-flow" aria-hidden="true">IPv4 [IPv6]</div>
     <div class="tunnel-flow-packet tunnel-packet decapsulation-flow" aria-hidden="true">IPv4 [IPv6]</div>
@@ -3844,9 +3841,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
   <div class="tunnel-solution-layout">
     <ul class="tunnel-narration">
-      <li class="frag"><b>Dual stack:</b><span>B and E run both the IPv6 and the IPv4 protocol stack, so each understands both kinds of packet. That is what makes either strategy below possible.</span></li>
+      <li class="frag"><b>Dual stack:</b><span>A <b class="inl">dual-stack router</b> runs both the IPv6 and the IPv4 protocol stack, so it understands either kind of packet. Here, suppose B and E are both dual-stack routers.</span></li>
       <li class="frag"><b>Strategy 1 &middot; Translate at B:</b><span>B rewrites the IPv6 header into an IPv4 header. What leaves B is an ordinary IPv4 packet, which C and D forward without trouble.</span></li>
-      <li class="frag"><b>Translate back at E:</b><span>E rewrites it into IPv6 for delivery to F. But IPv6 fields with no IPv4 equivalent were dropped at B and cannot be recovered &mdash; translation is <b class="inl">lossy</b>.</span></li>
+      <li class="frag"><b>Translate back at E:</b><ul class="tn-sub">
+        <li>When the IPv4 packet reaches E, E rewrites it back into an IPv6 packet and delivers it to F.</li>
+        <li>But IPv6 and IPv4 are not equivalent, so this translation is <b class="inl">lossy</b>: some information is dropped along the way. The IPv6 <b class="inl">Flow Label</b>, for example, has no IPv4 field to go into.</li>
+      </ul></li>
       <li class="frag"><b>Strategy 2 &middot; Encapsulate at B:</b><span>B leaves the IPv6 packet untouched and wraps it inside an IPv4 packet addressed B &rarr; E.</span></li>
       <li class="frag"><b>Tunnel:</b><span>The encapsulated packet crosses C and D, which see only an ordinary IPv4 packet.</span></li>
       <li class="frag"><b>Decapsulate at E:</b><span>E removes the outer IPv4 header, revealing the original IPv6 packet.</span></li>
