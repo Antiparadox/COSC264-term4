@@ -1239,10 +1239,19 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-lpm-slide:not([data-step="0"]) .agg-sub .m1,
 .agg-lpm-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .agg-sub .m2,
 .agg-lpm-slide:is([data-step="3"],[data-step="4"]) .agg-sub .m3,
-.agg-lpm-slide[data-step="4"] .agg-sub .m4{opacity:1}
+.agg-lpm-slide[data-step="4"] :is(.lpm-rule,.lpm-case).m4{opacity:1}
+.lpm-body{display:grid;gap:10px;min-width:0}
+.lpm-rule,.lpm-case{opacity:0;transition:opacity .22s}
+.lpm-rule{display:grid;grid-template-columns:190px 1fr;gap:14px;align-items:center;padding:9px 14px;
+  border:2px solid var(--current);border-radius:11px;background:var(--current-soft)}
+.lpm-rule > b{font-family:var(--mono);font-size:12px;font-weight:900;letter-spacing:.03em;
+  text-transform:uppercase;color:var(--current)}
+.lpm-rule > span{font-size:16px;line-height:1.3;color:var(--ink)}
+.lpm-case{margin:0;padding-left:21px;font-size:16px;line-height:1.3;color:var(--muted)}
+.lpm-case code{font-family:var(--mono);font-weight:900;color:var(--ink)}
 .agg-lpm-slide .agg-sub .m3{color:var(--current)}
 .agg-lpm-slide .agg-sub .m3 b{color:var(--current)}
-.agg-lpm-slide .agg-status{flex:0 0 206px;height:206px}
+.agg-lpm-slide .agg-status{flex:0 0 232px;height:232px}
 
 .reference-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;max-width:1060px;margin:8px auto 0}.reference-column{display:grid;
   gap:12px}.reference-card{padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
@@ -3801,17 +3810,19 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </tbody>
   </table>
   <div class="agg-status">
-    <div class="agg-card s1"><b>The forwarding decision</b><ul class="agg-sub">
+    <div class="agg-card s1"><b>The forwarding decision</b><div class="lpm-body">
+      <ul class="agg-sub">
       <li class="m1">The Science department is now reached through a different provider, so its
         <b>next hop is different</b>. A second entry, <code>200.23.18.0/23</code>, is now
         inserted into the router&rsquo;s forwarding table.</li>
       <li class="m2">Now suppose a datagram arrives for <code>200.23.18.5</code>. It matches
         <b>both</b> destination prefixes &mdash; 20 bits on one, 23 on the other.</li>
       <li class="m3"><b>Which entry should the router use?</b></li>
-      <li class="m4">The router takes the <b>longest matching prefix</b>: 23 beats 20, so the
-        datagram goes to <code>cloud-gw</code> &mdash; otherwise aggregation would trap every network
-        at whichever provider first advertised it.</li>
-      </ul></div>
+      </ul>
+      <div class="lpm-rule m4"><b>Longest-prefix match</b><span>When more than one entry matches a
+        destination address, forward using the entry with the <b>longest</b> prefix.</span></div>
+      <p class="lpm-case m4">Here 23 beats 20, so the datagram goes to <code>cloud-gw</code>.</p>
+    </div></div>
   </div>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
