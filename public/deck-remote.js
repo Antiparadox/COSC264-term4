@@ -21,7 +21,7 @@
   const WS_PATH = '/rc';
   const STORE_KEY = 'cosc264-remote-code';
   const HIDE_KEY = 'cosc264-hide-remote';
-  const CAP_WORDS = 9;      // roughly one projected line at the band size
+  const CAP_WORDS = 30;     // roughly the three lines the caption box holds
   const RETRY_MIN = 1000;
   const RETRY_MAX = 15000;
 
@@ -86,7 +86,7 @@
   capBand.innerHTML =
     '<span id="rc-cap-cc">CC</span>' +
     '<div id="rc-cap-clip"><div id="rc-cap-text">' +
-    '<span id="rc-cap-final"></span> <span id="rc-cap-interim"></span>' +
+    '<span id="rc-cap-run"><span id="rc-cap-final"></span> <span id="rc-cap-interim"></span></span>' +
     '</div></div>';
 
   const pill = el('button', {
@@ -119,29 +119,30 @@
       letter-spacing:.18em;color:var(--accent,#0f8f83);margin:10px 0 14px;
       text-indent:.18em}
     #rc-status{margin:0;font-size:14px;color:var(--faint,#84939d)}
-    /* Caption band. Sized for the back of a lecture theatre and painted on
-       its own dark ground so it stays legible over any slide, in either
-       deck theme. One line only, at twice the old type size -- the band
-       keeps the same height, it just spends it on one big line instead of
-       two small ones. Older text is trimmed away in JS rather than
-       scrolled, so the newest words are always the visible ones. */
-    #rc-cap{position:fixed;left:0;right:0;bottom:0;z-index:800;display:none;
-      background:rgba(8,14,18,.9);color:#fff;text-align:center;
+    /* Captions, in the shape a video player uses: a block that floats over
+       the slide rather than a bar bolted to the bottom of it, with the dark
+       ground painted only behind the words. Nothing is drawn when there is
+       nothing to say. */
+    #rc-cap{position:fixed;left:0;right:0;bottom:7vh;z-index:800;display:none;
+      pointer-events:none;color:#fff;text-align:center;
       font-family:var(--sans,system-ui,sans-serif);
-      font-size:clamp(40px,4.6vw,62px);line-height:1.34;
-      padding:14px 5vw;padding-bottom:calc(14px + env(safe-area-inset-bottom));
-      text-wrap:balance}
-    /* Exactly one line, always. The text is pinned to the BOTTOM of the
-       window so anything over-long spills off the top and the newest words
-       stay on screen -- the opposite of normal overflow, and the only
-       behaviour that makes sense for live speech. 1.34em is one line-height,
-       and at double the font size that is the same band height as the two
-       smaller lines it replaces. */
-    #rc-cap-clip{height:1.34em;overflow:hidden;position:relative}
+      font-size:30px;line-height:1.42}
+    /* Three lines, and the text is pinned to the BOTTOM of the window so
+       anything over-long spills off the top and the newest words stay on
+       screen -- the opposite of normal overflow, and the only behaviour
+       that makes sense for live speech. */
+    #rc-cap-clip{height:4.26em;overflow:hidden;position:relative;
+      width:min(1100px,82vw);margin:0 auto}
     #rc-cap-text{position:absolute;left:0;right:0;bottom:0}
     #rc-cap.on{display:block}
-    #rc-cap-interim{color:#9fb4bd}
-    #rc-cap-cc{position:absolute;left:14px;top:10px;font-family:var(--mono,monospace);
+    /* box-decoration-break gives every wrapped line its own background box,
+       so the ground hugs the text the way a caption should instead of
+       squaring off a paragraph-sized slab. */
+    #rc-cap-run{background:rgba(8,14,18,.76);
+      -webkit-box-decoration-break:clone;box-decoration-break:clone;
+      padding:.1em .34em}
+    #rc-cap-interim{color:#c3d2d9}
+    #rc-cap-cc{position:fixed;left:14px;bottom:12px;font-family:var(--mono,monospace);
       font-size:11px;letter-spacing:.14em;color:#5f7681;border:1px solid #35505c;
       border-radius:4px;padding:1px 5px}
     /* the deck's own footer furniture would sit underneath the band */
@@ -155,6 +156,10 @@
     const i = document.getElementById('rc-cap-interim');
     if (f) f.textContent = final;
     if (i) i.textContent = interim;
+    // the run carries a literal word space between the two, so with nothing
+    // said yet it would still paint a thin dark sliver over the slide
+    const run = document.getElementById('rc-cap-run');
+    if (run) run.style.visibility = (final || interim) ? '' : 'hidden';
   }
 
   function statusLine() {
