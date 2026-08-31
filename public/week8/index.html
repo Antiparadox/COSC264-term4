@@ -1008,33 +1008,6 @@ svg text{font-family:var(--sans)}
 .napt-return-layout>.outside::before{content:"←";position:absolute;left:-20px;top:50%;transform:translate(-50%,-50%);
   font-size:28px;font-weight:900;color:var(--current)}
 
-/* how IPv4 and IPv6 coexist: one capability, two things to do with it */
-.cmap-trigger{position:absolute;width:0;height:0;pointer-events:none}
-.cmap{display:grid;gap:14px;width:100%;max-width:1070px;margin:10px auto 0}
-.cmap-root{display:grid;grid-template-columns:190px 1fr;gap:20px;align-items:center;padding:14px 20px;
-  border:2px solid var(--accent);border-radius:15px;background:var(--accent-soft);
-  opacity:0;transform:translateY(7px);transition:.22s}
-.cmap-root > b{font-family:var(--serif);font-size:26px;color:var(--accent-ink)}
-.cmap-root > span{font-size:18px;line-height:1.32;color:var(--muted)}
-.cmap-root span b{color:var(--ink)}
-.cmap-branches{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.cmap-branch{position:relative;padding:26px 16px 15px;border:1px solid var(--border);border-top:6px solid
-  var(--edge);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);
-  opacity:0;transform:translateY(7px);transition:.22s}
-.cmap-branch::before{content:"";position:absolute;left:50%;top:-15px;width:2px;height:9px;
-  background:var(--edge)}
-.cmap-branch.b1{border-top-color:var(--accent)}
-.cmap-branch.b2{border-top-color:var(--good)}
-.cmap-branch.b3{border-top-color:var(--current)}
-.cmap-when{display:block;margin-bottom:6px;font-family:var(--mono);font-size:11px;font-weight:900;
-  letter-spacing:.03em;line-height:1.3;color:var(--muted);text-transform:uppercase}
-.cmap-branch h3{margin:0 0 6px;font-family:var(--serif);font-size:23px}
-.cmap-branch p{margin:0;font-size:15px;line-height:1.36;color:var(--muted)}
-.cmap-branch p b{color:var(--ink)}
-.coexist-map-slide:not([data-step="0"]) .cmap-root{opacity:1;transform:none}
-.coexist-map-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .cmap-branch.b1,
-.coexist-map-slide:is([data-step="3"],[data-step="4"]) .cmap-branch.b2,
-.coexist-map-slide[data-step="4"] .cmap-branch.b3{opacity:1;transform:none}
 
 .nat-balance-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1060px;margin:10px auto 0}
 .nat-balance-column{padding:19px;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:var(--shadow)}
@@ -1123,7 +1096,7 @@ svg text{font-family:var(--sans)}
 .tunnel-narration{position:relative;min-height:190px;margin:0;padding:0;list-style:none}.tunnel-solution-slide .tunnel-narration .frag{
   position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;margin:0;padding:25px 28px;border:1px solid var(--border);
   border-left:7px solid var(--accent);border-radius:0 16px 16px 0;background:var(--surface);box-shadow:var(--shadow);color:var(--muted);
-  font-size:20px;line-height:1.35;opacity:0;transform:translateY(8px)}.tunnel-narration b{display:block;margin-bottom:7px;
+  font-size:20px;line-height:1.35;opacity:0;transform:translateY(8px)}.tunnel-narration li > b:first-child{display:block;margin-bottom:7px;
   font-family:var(--serif);font-size:25px;color:var(--ink)}
 .packet-process-stage{position:relative;min-height:190px;border:1px solid var(--border);border-radius:16px;background:var(--surface);
   box-shadow:var(--shadow);overflow:hidden}.packet-process{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -1136,28 +1109,40 @@ svg text{font-family:var(--sans)}
   border:3px solid var(--accent);border-radius:19px;background:var(--accent-soft);color:var(--accent-ink);font-family:var(--mono);
   font-size:19px;font-weight:900}.packet-process-note{position:absolute;left:16px;right:16px;bottom:12px;color:var(--muted);
   font-size:13px;line-height:1.25;text-align:center}
+@keyframes tunnel-packet-b-e{0%{left:26.3%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:73.7%;opacity:0}}
+.packet-plain.v4{border-color:var(--current);background:var(--current-soft);color:var(--current)}
+.tunnel-narration b.inl{color:var(--ink)}
 .tunnel-solution-slide[data-step="1"] .coexistence-router:is(.b,.e),
 .tunnel-solution-slide[data-step="2"] .coexistence-router.b,
-.tunnel-solution-slide[data-step="3"] .coexistence-router:is(.c,.d),
-.tunnel-solution-slide[data-step="4"] .coexistence-router.e,
-.tunnel-solution-slide[data-step="5"] .coexistence-router:is(.e,.f){opacity:1;transform:translateY(-2px)}
-.tunnel-solution-slide[data-step="3"] .coexistence-tunnel{opacity:1}
-.tunnel-solution-slide[data-step="5"] .coexistence-router.e::after{height:7px;background:var(--accent)}
-.tunnel-solution-slide[data-step="2"] .tunnel-flow-packet.encapsulation-flow{display:block;animation:tunnel-packet-a-b 1.7s ease-in-out infinite}
-.tunnel-solution-slide[data-step="3"] .tunnel-flow-packet.tunnel-flow{display:block;animation:tunnel-packet-c-e 2.5s linear infinite}
-.tunnel-solution-slide[data-step="4"] .tunnel-flow-packet.decapsulation-flow{display:block;animation:tunnel-packet-d-e 1.6s ease-in-out infinite}
-.tunnel-solution-slide[data-step="5"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
-.tunnel-solution-slide[data-step="3"] .tunnel-solution-layout{grid-template-columns:1fr}
-.tunnel-solution-slide[data-step="3"] .packet-process-stage{display:none}
+.tunnel-solution-slide[data-step="3"] .coexistence-router:is(.e,.f),
+.tunnel-solution-slide[data-step="4"] .coexistence-router.b,
+.tunnel-solution-slide[data-step="5"] .coexistence-router:is(.c,.d),
+.tunnel-solution-slide[data-step="6"] .coexistence-router.e,
+.tunnel-solution-slide[data-step="7"] .coexistence-router:is(.e,.f){opacity:1;transform:translateY(-2px)}
+.tunnel-solution-slide:is([data-step="4"],[data-step="5"],[data-step="6"],
+  [data-step="7"]) .coexistence-tunnel{opacity:1}
+.tunnel-solution-slide[data-step="7"] .coexistence-router.e::after{height:7px;background:var(--accent)}
+.tunnel-solution-slide[data-step="2"] .tunnel-flow-packet.translate-flow{display:block;animation:tunnel-packet-b-e 2.3s linear infinite}
+.tunnel-solution-slide[data-step="3"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="4"] .tunnel-flow-packet.encapsulation-flow{display:block;animation:tunnel-packet-a-b 1.7s ease-in-out infinite}
+.tunnel-solution-slide[data-step="5"] .tunnel-flow-packet.tunnel-flow{display:block;animation:tunnel-packet-c-e 2.5s linear infinite}
+.tunnel-solution-slide[data-step="6"] .tunnel-flow-packet.decapsulation-flow{display:block;animation:tunnel-packet-d-e 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="7"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="5"] .tunnel-solution-layout{grid-template-columns:1fr}
+.tunnel-solution-slide[data-step="5"] .packet-process-stage{display:none}
 .tunnel-solution-slide[data-step="1"] .packet-process.dual-stack,
-.tunnel-solution-slide[data-step="2"] .packet-process.encapsulate,
-.tunnel-solution-slide[data-step="4"] .packet-process.decapsulate,
-.tunnel-solution-slide[data-step="5"] .packet-process.deliver{opacity:1;transform:none}
+.tunnel-solution-slide[data-step="2"] .packet-process.translate-out,
+.tunnel-solution-slide[data-step="3"] .packet-process.translate-back,
+.tunnel-solution-slide[data-step="4"] .packet-process.encapsulate,
+.tunnel-solution-slide[data-step="6"] .packet-process.decapsulate,
+.tunnel-solution-slide[data-step="7"] .packet-process.deliver{opacity:1;transform:none}
 .tunnel-solution-slide[data-step="1"] .tunnel-narration li:nth-child(1),
 .tunnel-solution-slide[data-step="2"] .tunnel-narration li:nth-child(2),
 .tunnel-solution-slide[data-step="3"] .tunnel-narration li:nth-child(3),
 .tunnel-solution-slide[data-step="4"] .tunnel-narration li:nth-child(4),
-.tunnel-solution-slide[data-step="5"] .tunnel-narration li:nth-child(5){opacity:1;transform:none}
+.tunnel-solution-slide[data-step="5"] .tunnel-narration li:nth-child(5),
+.tunnel-solution-slide[data-step="6"] .tunnel-narration li:nth-child(6),
+.tunnel-solution-slide[data-step="7"] .tunnel-narration li:nth-child(7){opacity:1;transform:none}
 body.scroll .tunnel-narration{display:grid;gap:10px;min-height:0}
 body.scroll .tunnel-solution-slide .tunnel-narration .frag{position:static;opacity:1;transform:none}
 body.scroll .packet-process-stage{min-height:210px}
@@ -3841,8 +3826,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide stateful tunnel-solution-slide" data-sec="Lecture 3 · Dual stack and tunnelling">
-  <div class="kicker">A compatibility solution</div>
-  <h2>Tunnelling carries an IPv6 packet across the IPv4-only region</h2>
+  <div class="kicker">Dual-stack routers at the boundary</div>
+  <h2>Two ways across the IPv4-only region</h2>
   <div class="coexistence-topology" aria-label="Dual-stack routers B and E use encapsulation to carry an IPv6 packet across IPv4-only routers C and D">
     <div class="coexistence-router v6 a">A<small>IPv6 router</small></div>
     <div class="coexistence-router dual b">B<small>dual stack</small></div>
@@ -3855,20 +3840,35 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="tunnel-flow-packet tunnel-packet tunnel-flow" aria-hidden="true">IPv4 [IPv6]</div>
     <div class="tunnel-flow-packet tunnel-packet decapsulation-flow" aria-hidden="true">IPv4 [IPv6]</div>
     <div class="tunnel-flow-packet delivery-flow" aria-hidden="true">IPv6</div>
+    <div class="tunnel-flow-packet tunnel-packet translate-flow" aria-hidden="true">IPv4</div>
   </div>
   <div class="tunnel-solution-layout">
     <ul class="tunnel-narration">
-      <li class="frag"><b>Dual stack:</b> B and E run both protocol stacks, so each can read and build either kind of packet. On its own that does not help &mdash; C and D still cannot forward an IPv6 packet.</li>
-      <li class="frag"><b>Encapsulation at B:</b> The IPv6 packet reaches B, which wraps it inside an IPv4 packet without converting it.</li>
-      <li class="frag"><b>Tunnel:</b> The encapsulated packet travels through C and D to E, carrying the IPv6 packet inside it.</li>
-      <li class="frag"><b>Decapsulation at E:</b> E removes the outer IPv4 header and reveals the original IPv6 packet.</li>
-      <li class="frag"><b>Delivery:</b> The unchanged IPv6 packet continues to F.</li>
+      <li class="frag"><b>Dual stack:</b><span>B and E run both the IPv6 and the IPv4 protocol stack, so each understands both kinds of packet. That is what makes either strategy below possible.</span></li>
+      <li class="frag"><b>Strategy 1 &middot; Translate at B:</b><span>B rewrites the IPv6 header into an IPv4 header. What leaves B is an ordinary IPv4 packet, which C and D forward without trouble.</span></li>
+      <li class="frag"><b>Translate back at E:</b><span>E rewrites it into IPv6 for delivery to F. But IPv6 fields with no IPv4 equivalent were dropped at B and cannot be recovered &mdash; translation is <b class="inl">lossy</b>.</span></li>
+      <li class="frag"><b>Strategy 2 &middot; Encapsulate at B:</b><span>B leaves the IPv6 packet untouched and wraps it inside an IPv4 packet addressed B &rarr; E.</span></li>
+      <li class="frag"><b>Tunnel:</b><span>The encapsulated packet crosses C and D, which see only an ordinary IPv4 packet.</span></li>
+      <li class="frag"><b>Decapsulate at E:</b><span>E removes the outer IPv4 header, revealing the original IPv6 packet.</span></li>
+      <li class="frag"><b>Delivery:</b><span>The unchanged IPv6 packet continues to F. Nothing was lost &mdash; encapsulation is <b class="inl">lossless</b>.</span></li>
     </ul>
     <div class="packet-process-stage" aria-label="Encapsulation, tunnel transit, decapsulation, and delivery of one IPv6 packet">
       <div class="packet-process dual-stack">
         <div class="packet-router">B</div>
         <div class="packet-process-arrow">understands<br>IPv4 + IPv6</div>
         <div class="packet-router">E</div>
+      </div>
+      <div class="packet-process translate-out">
+        <div class="packet-plain">IPv6 packet<br>A &rarr; F</div>
+        <div class="packet-process-arrow">translate<br>&rarr;</div>
+        <div class="packet-plain v4">IPv4 packet<br>A&prime; &rarr; F&prime;</div>
+        <div class="packet-process-note">Fields with no IPv4 equivalent are dropped here.</div>
+      </div>
+      <div class="packet-process translate-back">
+        <div class="packet-plain v4">IPv4 packet<br>A&prime; &rarr; F&prime;</div>
+        <div class="packet-process-arrow">translate<br>&rarr;</div>
+        <div class="packet-plain">IPv6 packet<br>A &rarr; F</div>
+        <div class="packet-process-note">What was dropped cannot be put back.</div>
       </div>
       <div class="packet-process encapsulate">
         <div class="packet-plain">IPv6 packet<br>A → F</div>
@@ -3887,37 +3887,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <div class="source">Dual IP-layer operation and configured tunnelling: RFC 4213 §§2–3</div>
-</section>
-
-<section class="slide stateful coexist-map-slide" data-sec="Lecture 3 &middot; Coexistence approaches">
-  <div class="kicker">The three ways IPv4 and IPv6 coexist</div>
-  <h2>One capability, and two things to do with it</h2>
-  <div class="cmap">
-    <div class="cmap-root"><b>Dual stack</b><span>A node runs <b>both</b> protocol stacks and holds
-      both kinds of address. Everything below depends on this.</span></div>
-    <div class="cmap-branches">
-      <div class="cmap-branch b1"><span class="cmap-when">every node on the path runs both</span>
-        <h3>Nothing else needed</h3>
-        <p>Packets travel natively in either protocol. This is how most of the fixed-line and
-        content Internet runs today &mdash; but every node still needs an IPv4 address, so it does
-        not solve exhaustion.</p></div>
-      <div class="cmap-branch b2"><span class="cmap-when">only the boundary runs both &middot; both ends are IPv6</span>
-        <h3>Tunnel</h3>
-        <p>The boundary wraps the IPv6 packet inside an IPv4 one and unwraps it at the far side.
-        <b>Lossless</b> &mdash; the packet arrives unchanged.</p></div>
-      <div class="cmap-branch b3"><span class="cmap-when">only the boundary runs both &middot; one end is IPv4-only</span>
-        <h3>Translate</h3>
-        <p>The boundary rewrites the header from one protocol into the other. <b>Lossy</b> &mdash;
-        some IPv6 information has no IPv4 equivalent. This is how IPv6-only mobile networks reach
-        the IPv4 Internet.</p></div>
-    </div>
-  </div>
-  <span class="frag cmap-trigger" aria-hidden="true"></span>
-  <span class="frag cmap-trigger" aria-hidden="true"></span>
-  <span class="frag cmap-trigger" aria-hidden="true"></span>
-  <span class="frag cmap-trigger" aria-hidden="true"></span>
-  <div class="source">Dual stack and tunnelling: RFC 4213 &middot; NAT64 and DNS64: RFC 6146, 6147</div>
+  <div class="source">Dual IP-layer operation and configured tunnelling: RFC 4213 §§2&ndash;3 &middot;
+    Stateless IP/ICMP translation: RFC 7915</div>
 </section>
 
 <section class="slide lecture2-recap-slide" data-sec="Week 8 · Recap">
