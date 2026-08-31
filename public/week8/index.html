@@ -1170,19 +1170,17 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .cr-seg.dept{flex:3;border:2px solid var(--current);background:var(--current-soft);color:var(--current)}
 .cr-seg.host{flex:9;border:2px solid var(--border);background:var(--surface-2);color:var(--muted)}
 .cidr-recap-slide .cr-seg:is(.dept,.host){opacity:0;transition:opacity .22s}
-.cidr-recap-slide:is([data-step="2"],[data-step="3"]) .cr-seg:is(.dept,.host){opacity:1}
+.cidr-recap-slide[data-step="1"] .cr-seg:is(.dept,.host){opacity:1}
 .cidr-map{flex:0 0 auto;border-collapse:collapse;width:100%;max-width:1020px;margin:13px auto 0;
   background:var(--surface);box-shadow:var(--shadow);opacity:0;transition:opacity .22s}
-.cidr-recap-slide[data-step="3"] .cidr-map{opacity:1}
+.cidr-recap-slide[data-step="1"] .cidr-map{opacity:1}
 .cidr-map th,.cidr-map td{padding:6px 13px;border:1px solid var(--border);text-align:left}
 .cidr-map thead th{background:var(--surface-2);font-family:var(--mono);font-size:12px;
   color:var(--muted);font-weight:900}
 .cidr-map td.who{width:230px;font-size:16px;color:var(--muted)}
 .cidr-map td.sel{width:150px;font-family:var(--mono);font-size:16px;font-weight:900;color:var(--current)}
 .cidr-map td.cidr{font-family:var(--mono);font-size:16px;font-weight:900;color:var(--ink)}
-.cidr-recap-slide[data-step="1"] .agg-card.s1,
-.cidr-recap-slide[data-step="2"] .agg-card.s2,
-.cidr-recap-slide[data-step="3"] .agg-card.s3{opacity:1;transform:none}
+.cidr-recap-slide[data-step="1"] .agg-card.s1{opacity:1;transform:none}
 
 /* address aggregation and longest-prefix match */
 .agg-trigger{position:absolute;width:0;height:0;pointer-events:none}
@@ -1201,16 +1199,16 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-how-slide tr.agg{display:none}
 .agg-how-slide tr.agg td{background:var(--good-soft)}
 .agg-how-slide tr.agg td:is(.who,.cidr,.out){color:var(--good)}
-.agg-how-slide[data-step="2"] td.bits b{background:var(--current);color:#fff}
-.agg-how-slide[data-step="3"] tr.dept{display:none}
-.agg-how-slide[data-step="3"] tr.agg{display:table-row}
+.agg-how-slide:not([data-step="0"]) td.bits b{background:var(--current);color:#fff}
+.agg-how-slide[data-step="2"] tr.dept{display:none}
+.agg-how-slide[data-step="2"] tr.agg{display:table-row}
 .agg-fib2.lpm td.bits .m{font-family:var(--mono);font-size:13px;font-weight:900;color:var(--muted)}
 .agg-lpm-slide tr.e23{opacity:0;transition:opacity .22s}
 .agg-lpm-slide:not([data-step="0"]) tr.e23{opacity:1}
-.agg-lpm-slide[data-step="2"] tr:is(.e20,.e23) td{background:var(--current-soft)}
-.agg-lpm-slide:is([data-step="3"],[data-step="4"]) tr.e23 td{background:var(--good-soft)}
-.agg-lpm-slide:is([data-step="3"],[data-step="4"]) tr.e23 td .m{color:var(--good)}
-.agg-lpm-slide:is([data-step="3"],[data-step="4"]) tr.e20 td{opacity:.4}
+.agg-lpm-slide[data-step="1"] tr:is(.e20,.e23) td{background:var(--current-soft)}
+.agg-lpm-slide[data-step="2"] tr.e23 td{background:var(--good-soft)}
+.agg-lpm-slide[data-step="2"] tr.e23 td .m{color:var(--good)}
+.agg-lpm-slide[data-step="2"] tr.e20 td{opacity:.4}
 .agg-status{position:relative;flex:0 0 118px;height:118px;width:100%;max-width:1020px;margin:16px auto 0}
 .agg-card{position:absolute;inset:0;display:grid;grid-template-columns:210px 1fr;gap:18px;
   align-items:center;padding:12px 18px;border:1px solid var(--accent);border-left:7px solid
@@ -1222,10 +1220,8 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .agg-card.question{border-color:var(--current);border-left-color:var(--current)}
 .agg-card.question > b{color:var(--current)}
 .agg-how-slide[data-step="1"] .agg-card.s1,.agg-how-slide[data-step="2"] .agg-card.s2,
-.agg-how-slide[data-step="3"] .agg-card.s3,
-.agg-lpm-slide[data-step="1"] .agg-card.s1,.agg-lpm-slide[data-step="2"] .agg-card.s2,
-.agg-lpm-slide[data-step="3"] .agg-card.s3,.agg-lpm-slide[data-step="4"] .agg-card.s4{
-  opacity:1;transform:none}
+.agg-lpm-slide[data-step="1"] .agg-card.s1,
+.agg-lpm-slide[data-step="2"] .agg-card.s2{opacity:1;transform:none}
 
 .reference-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;max-width:1060px;margin:8px auto 0}.reference-column{display:grid;
   gap:12px}.reference-card{padding:16px 18px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
@@ -3706,19 +3702,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </tbody>
   </table>
   <div class="agg-status">
-    <div class="agg-card s1"><b>One block, from above</b><span>The University of Canterbury is
-      allocated <code>200.23.16.0/20</code>. Twenty bits fix the block; the remaining twelve are the
-      university&rsquo;s to divide as it likes &mdash; 4096 addresses in all.</span></div>
-    <div class="agg-card s2"><b>Spend three of them</b><span>Using three of those bits as a
-      department number gives <b>eight</b> departments, each keeping <b>nine</b> bits of host space
-      &mdash; 512 addresses. Twenty plus three is twenty-three, so each department&rsquo;s block is a
-      <code>/23</code>.</span></div>
-    <div class="agg-card s3"><b>Eight blocks out of one</b><span>Nothing here is fixed by a class.
-      The university chose where to cut, and could have cut somewhere else &mdash; that is what
-      <b>classless</b> means.</span></div>
+    <div class="agg-card s1"><b>CIDR recap</b><span>The University of Canterbury is allocated
+      <code>200.23.16.0/20</code>. It spends three of the twelve remaining bits on a department
+      number &mdash; eight departments, 512 addresses each, so every department&rsquo;s block is a
+      <code>/23</code>. Nothing fixed that choice: that is what <b>classless</b> means.</span></div>
   </div>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <div class="source">Classless Inter-Domain Routing: RFC 4632 &sect;&sect;3&ndash;4</div>
 </section>
@@ -3748,17 +3736,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </tbody>
   </table>
   <div class="agg-status">
-    <div class="agg-card s1"><b>One entry each</b><span>The University of Canterbury holds
-      <code>200.23.16.0/20</code> and gives a <code>/23</code> to each of eight departments. A router
-      out on the Internet would need <b>eight entries</b> &mdash; and every one of them points the
-      same way.</span></div>
-    <div class="agg-card s2"><b>They share 20 bits</b><span>All eight blocks were carved out of the
-      university&rsquo;s block, so all eight agree on their <b>first 20 bits</b>.</span></div>
-    <div class="agg-card s3"><b>So keep one</b><span>The university advertises
-      <code>200.23.16.0/20</code>, and the router keeps a single entry that covers all eight
+    <div class="agg-card s1"><b>Eight entries</b><span>Eight departments, eight rows &mdash; and
+      all eight point the same way. They also agree on their <b>first 20 bits</b>, because all eight
+      blocks were carved out of the university&rsquo;s.</span></div>
+    <div class="agg-card s2"><b>One entry</b><span>So the university advertises
+      <code>200.23.16.0/20</code>, and the router keeps a single row that covers all eight
       departments. <b>Eight rows become one.</b></span></div>
   </div>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <div class="source">Classless Inter-Domain Routing and aggregation: RFC 4632 &sect;&sect;1, 3&ndash;4</div>
@@ -3778,21 +3762,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </tbody>
   </table>
   <div class="agg-status">
-    <div class="agg-card s1"><b>One network moves</b><span>The Science department&rsquo;s network is
-      now reached through a different provider, keeping its addresses. That provider advertises
-      <code>200.23.18.0/23</code>, so a <b>second entry</b> appears.</span></div>
-    <div class="agg-card question s2"><b>Both match</b><span>A datagram for
-      <code>200.23.18.5</code> matches the <code>/20</code> on its first 20 bits <b>and</b> the
-      <code>/23</code> on its first 23. Which entry should the router use?</span></div>
-    <div class="agg-card s3"><b>Longest-prefix match</b><span>The router forwards using the entry
-      with the <b>longest matching prefix</b>. 23 beats 20, so the datagram is handed to
-      <code>cloud-gw</code>.</span></div>
-    <div class="agg-card s4"><b>Why the longest</b><span>A longer prefix is a more specific statement
-      about where an address actually is. Without this rule, aggregation would trap every network at
-      whichever provider first advertised it.</span></div>
+    <div class="agg-card question s1"><b>Both match</b><span>The Science department is now reached
+      through a different provider, so a <code>/23</code> joins the <code>/20</code>. A datagram for
+      <code>200.23.18.5</code> matches <b>both</b> &mdash; 20 bits on one, 23 on the other. Which
+      entry should the router use?</span></div>
+    <div class="agg-card s2"><b>Longest wins</b><span>The router takes the <b>longest matching
+      prefix</b>: 23 beats 20, so the datagram is handed to <code>cloud-gw</code>. Without that rule,
+      aggregation would trap every network at whichever provider first advertised it.</span></div>
   </div>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
-  <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <div class="source">Longest-match forwarding: RFC 4632 &sect;5.1 &middot; RFC 1812 &sect;5.2.4.3</div>
