@@ -3742,8 +3742,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide stateful agg-how-slide" data-sec="Lecture 3 &middot; Address aggregation">
-  <div class="kicker">Address aggregation</div>
-  <h2>Eight networks, one forwarding-table entry</h2>
+  <div class="kicker">What CIDR costs the routers</div>
+  <h2>IPv4 address aggregation</h2>
   <table class="agg-fib2" aria-label="A forwarding table holding one entry per department, then one aggregated entry">
     <thead><tr><th class="who">network</th><th class="cidr">destination</th>
       <th class="out">next hop</th><th class="bits">in binary</th></tr></thead>
@@ -3766,12 +3766,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </tbody>
   </table>
   <div class="agg-status">
-    <div class="agg-card s1"><b>Eight entries</b><span>Eight departments, eight rows &mdash; and
-      all eight point the same way. They also agree on their <b>first 20 bits</b>, because all eight
-      blocks were carved out of the university&rsquo;s.</span></div>
-    <div class="agg-card s2"><b>One entry</b><span>So the university advertises
-      <code>200.23.16.0/20</code>, and the router keeps a single row that covers all eight
-      departments. <b>Eight rows become one.</b></span></div>
+    <div class="agg-card s1"><b>A new problem</b><span>CIDR fixed the waste, but it left routing
+      with this: a router out on the Internet may have to keep <b>all eight</b> of these entries
+      &mdash; even though every one of them sends traffic to the <b>same next hop</b>. Across the
+      whole Internet, that is a great deal of router memory.</span></div>
+    <div class="agg-card s2"><b>Address aggregation</b><span>But the eight agree on their
+      <b>first 20 bits</b>, because all eight were carved out of the same block &mdash; and they
+      share a next hop. So the eight can be replaced by one entry,
+      <code>200.23.16.0/20</code>. This is <b>address aggregation</b>.</span></div>
   </div>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
