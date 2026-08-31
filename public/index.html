@@ -79,6 +79,28 @@
   }
   .notice p{margin:0; font-size:16px}
 
+  /* ---------- resources ---------- */
+  .res-lead{margin:0 0 14px; font-size:16px; color:var(--faint); max-width:62ch}
+  .res-list{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+  .res{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    background:var(--surface); border:1px solid var(--border); border-radius:11px;
+    padding:12px 16px;
+  }
+  .res-name{flex:1 1 260px; font-size:16px}
+  .res-map{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--faint); white-space:nowrap;
+  }
+  .res-dl{display:flex; gap:8px}
+  .res-dl a{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:.05em;
+    text-decoration:none; color:var(--accent-ink);
+    border:1px solid var(--accent); border-radius:7px; padding:5px 10px;
+    transition:background .15s ease;
+  }
+  .res-dl a:hover{background:var(--accent-soft)}
+
   /* ---------- deck cards ---------- */
   .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(258px,1fr))}
   .card{
@@ -255,6 +277,50 @@
           </a>
 
         </div>
+      </section>
+
+      <section>
+        <h2>Resources</h2>
+        <p class="res-lead">Slides from the previous run of COSC264, kept here for reference.
+        They follow the earlier seven-lecture numbering; the module each one corresponds to is
+        shown beside it.</p>
+        <ul class="res-list">
+          <li class="res">
+            <span class="res-name">1 &middot; Introduction to Routing</span>
+            <span class="res-map">Module 1</span>
+            <span class="res-dl"><a href="resources/slides/Lecture-01-Introduction-to-Routing.pptx" download>PPTX</a><a href="resources/slides/Lecture-01-Introduction-to-Routing.pdf" download>PDF</a></span>
+          </li>
+          <li class="res">
+            <span class="res-name">2 &middot; The Network Layer in the Internet</span>
+            <span class="res-map">Module 2</span>
+            <span class="res-dl"><a href="resources/slides/Lecture-02-The-Network-Layer-in-the-Internet.pptx" download>PPTX</a><a href="resources/slides/Lecture-02-The-Network-Layer-in-the-Internet.pdf" download>PDF</a></span>
+          </li>
+          <li class="res">
+            <span class="res-name">3 &middot; Error Detection and Correction</span>
+            <span class="res-map">Module 3</span>
+            <span class="res-dl"><a href="resources/slides/Lecture-03-Error-Detection-and-Correction.pptx" download>PPTX</a><a href="resources/slides/Lecture-03-Error-Detection-and-Correction.pdf" download>PDF</a></span>
+          </li>
+          <li class="res">
+            <span class="res-name">4 &middot; ARQ</span>
+            <span class="res-map">Module 4</span>
+            <span class="res-dl"><a href="resources/slides/Lecture-04-ARQ.pptx" download>PPTX</a><a href="resources/slides/Lecture-04-ARQ.pdf" download>PDF</a></span>
+          </li>
+          <li class="res">
+            <span class="res-name">5 &middot; Transport Protocols</span>
+            <span class="res-map">Module 5</span>
+            <span class="res-dl"><a href="resources/slides/Lecture-05-Transport-Protocols.pptx" download>PPTX</a><a href="resources/slides/Lecture-05-Transport-Protocols.pdf" download>PDF</a></span>
+          </li>
+          <li class="res">
+            <span class="res-name">6 &middot; Application Protocols: Web and HTTP</span>
+            <span class="res-map">Module 6</span>
+            <span class="res-dl"><a href="resources/slides/Lecture-06-Application-Protocols-Web-and-HTTP.pptx" download>PPTX</a><a href="resources/slides/Lecture-06-Application-Protocols-Web-and-HTTP.pdf" download>PDF</a></span>
+          </li>
+          <li class="res">
+            <span class="res-name">7 &middot; Application Protocols: Email and DNS</span>
+            <span class="res-map">Module 6</span>
+            <span class="res-dl"><a href="resources/slides/Lecture-07-Application-Protocols-Email-and-DNS.pptx" download>PPTX</a><a href="resources/slides/Lecture-07-Application-Protocols-Email-and-DNS.pdf" download>PDF</a></span>
+          </li>
+        </ul>
       </section>
 
     </main>
