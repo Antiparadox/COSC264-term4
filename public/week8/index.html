@@ -1116,38 +1116,41 @@ svg text{font-family:var(--sans)}
 .tn-sub li{font-size:18px;line-height:1.32;color:var(--muted)}
 .tunnel-solution-slide[data-step="1"] .coexistence-router:is(.b,.e),
 .tunnel-solution-slide[data-step="2"] .coexistence-router.b,
-.tunnel-solution-slide[data-step="3"] .coexistence-router:is(.e,.f),
-.tunnel-solution-slide[data-step="4"] .coexistence-router.b,
-.tunnel-solution-slide[data-step="5"] .coexistence-router:is(.b,.c),
-.tunnel-solution-slide[data-step="6"] .coexistence-router:is(.c,.d),
-.tunnel-solution-slide[data-step="7"] .coexistence-router.e,
-.tunnel-solution-slide[data-step="8"] .coexistence-router:is(.e,.f){opacity:1;transform:translateY(-2px)}
-.tunnel-solution-slide[data-step="8"] .coexistence-router.e::after{height:7px;background:var(--accent)}
+.tunnel-solution-slide:is([data-step="3"],[data-step="4"]) .coexistence-router:is(.e,.f),
+.tunnel-solution-slide[data-step="5"] .coexistence-router.b,
+.tunnel-solution-slide[data-step="6"] .coexistence-router:is(.b,.c),
+.tunnel-solution-slide[data-step="7"] .coexistence-router:is(.c,.d),
+.tunnel-solution-slide[data-step="8"] .coexistence-router.e,
+.tunnel-solution-slide[data-step="9"] .coexistence-router:is(.e,.f){opacity:1;transform:translateY(-2px)}
+.tunnel-solution-slide[data-step="9"] .coexistence-router.e::after{height:7px;background:var(--accent)}
 .tunnel-solution-slide[data-step="2"] .tunnel-flow-packet.translate-flow{display:block;animation:tunnel-packet-b-e 2.3s linear infinite}
-.tunnel-solution-slide[data-step="3"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
-.tunnel-solution-slide[data-step="4"] .tunnel-flow-packet.encapsulation-flow{display:block;animation:tunnel-packet-a-b 1.7s ease-in-out infinite}
-.tunnel-solution-slide[data-step="5"] .tunnel-flow-packet.hop-flow{display:block;animation:tunnel-packet-b-c 1.7s ease-in-out infinite}
-.tunnel-solution-slide[data-step="6"] .tunnel-flow-packet.tunnel-flow{display:block;animation:tunnel-packet-c-e 2.5s linear infinite}
-.tunnel-solution-slide[data-step="7"] .tunnel-flow-packet.decapsulation-flow{display:block;animation:tunnel-packet-d-e 1.6s ease-in-out infinite}
-.tunnel-solution-slide[data-step="8"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
-.tunnel-solution-slide[data-step="6"] .tunnel-solution-layout{grid-template-columns:1fr}
-.tunnel-solution-slide[data-step="6"] .packet-process-stage{display:none}
+.tunnel-solution-slide:is([data-step="3"],[data-step="4"]) .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="5"] .tunnel-flow-packet.encapsulation-flow{display:block;animation:tunnel-packet-a-b 1.7s ease-in-out infinite}
+.tunnel-solution-slide[data-step="6"] .tunnel-flow-packet.hop-flow{display:block;animation:tunnel-packet-b-c 1.7s ease-in-out infinite}
+.tunnel-solution-slide[data-step="7"] .tunnel-flow-packet.tunnel-flow{display:block;animation:tunnel-packet-c-e 2.5s linear infinite}
+.tunnel-solution-slide[data-step="8"] .tunnel-flow-packet.decapsulation-flow{display:block;animation:tunnel-packet-d-e 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="9"] .tunnel-flow-packet.delivery-flow{display:block;animation:tunnel-packet-e-f 1.6s ease-in-out infinite}
+.tunnel-solution-slide[data-step="7"] .tunnel-solution-layout{grid-template-columns:1fr}
+.tunnel-solution-slide[data-step="7"] .packet-process-stage{display:none}
 .tunnel-solution-slide[data-step="0"] .packet-process-stage{visibility:hidden}
 .tunnel-solution-slide[data-step="1"] .packet-process.dual-stack,
 .tunnel-solution-slide[data-step="2"] .packet-process.translate-out,
-.tunnel-solution-slide[data-step="3"] .packet-process.translate-back,
-.tunnel-solution-slide:is([data-step="4"],[data-step="5"]) .packet-process.encapsulate,
-.tunnel-solution-slide[data-step="7"] .packet-process.decapsulate,
-.tunnel-solution-slide[data-step="8"] .packet-process.deliver{opacity:1;transform:none}
+.tunnel-solution-slide:is([data-step="3"],[data-step="4"]) .packet-process.translate-back,
+.tunnel-solution-slide:is([data-step="5"],[data-step="6"]) .packet-process.encapsulate,
+.tunnel-solution-slide[data-step="8"] .packet-process.decapsulate,
+.tunnel-solution-slide[data-step="9"] .packet-process.deliver{opacity:1;transform:none}
 .tunnel-solution-slide[data-step="1"] .tunnel-narration li:nth-child(1),
 .tunnel-solution-slide[data-step="2"] .tunnel-narration li:nth-child(2),
-.tunnel-solution-slide[data-step="3"] .tunnel-narration li:nth-child(3),
-.tunnel-solution-slide:is([data-step="4"],[data-step="5"]) .tunnel-narration > li:nth-child(4),
-.tunnel-solution-slide[data-step="6"] .tunnel-narration > li:nth-child(5),
-.tunnel-solution-slide[data-step="7"] .tunnel-narration > li:nth-child(6),
-.tunnel-solution-slide[data-step="8"] .tunnel-narration > li:nth-child(7){opacity:1;transform:none}
-.tn-sub li.t2{opacity:0;transition:opacity .22s}
-.tunnel-solution-slide[data-step="5"] .tn-sub li.t2{opacity:1}
+.tunnel-solution-slide:is([data-step="3"],[data-step="4"]) .tunnel-narration > li:nth-child(3),
+.tunnel-solution-slide:is([data-step="5"],[data-step="6"]) .tunnel-narration > li:nth-child(4),
+.tunnel-solution-slide[data-step="7"] .tunnel-narration > li:nth-child(5),
+.tunnel-solution-slide[data-step="8"] .tunnel-narration > li:nth-child(6),
+.tunnel-solution-slide[data-step="9"] .tunnel-narration > li:nth-child(7){opacity:1;transform:none}
+.tn-sub li:is(.t2,.r2){opacity:0;transition:opacity .22s}
+.tunnel-solution-slide .packet-process.translate-back .packet-process-note{opacity:0;transition:opacity .22s}
+.tunnel-solution-slide[data-step="4"] .packet-process.translate-back .packet-process-note{opacity:1}
+.tunnel-solution-slide[data-step="4"] .tn-sub li.r2,
+.tunnel-solution-slide[data-step="6"] .tn-sub li.t2{opacity:1}
 body.scroll .tunnel-narration{display:grid;gap:10px;min-height:0}
 body.scroll .tunnel-solution-slide .tunnel-narration .frag{position:static;opacity:1;transform:none}
 body.scroll .packet-process-stage{min-height:210px}
@@ -3854,11 +3857,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <li class="frag"><b>Dual stack:</b><span>A <b class="inl">dual-stack router</b> runs both the IPv6 and the IPv4 protocol stack, so it understands either kind of packet. Here, suppose B and E are both dual-stack routers.</span></li>
       <li class="frag"><b>Strategy 1 &middot; Translation:</b><span>B rewrites the IPv6 header into an IPv4 header. What leaves B is an ordinary IPv4 packet, which C and D forward without trouble.</span></li>
       <li class="frag"><b>Translate back at E:</b><ul class="tn-sub">
-        <li>When the IPv4 packet reaches E, E rewrites it back into an IPv6 packet and delivers it to F.</li>
-        <li>But IPv6 and IPv4 are not equivalent, so this translation is <b class="inl">lossy</b>: some information is dropped along the way. The IPv6 <b class="inl">Flow Label</b>, for example, has no IPv4 field to go into.</li>
+        <li class="r1">When the IPv4 packet reaches E, E rewrites it back into an IPv6 packet and delivers it to F.</li>
+        <li class="r2">But IPv6 and IPv4 are not equivalent, so this translation is <b class="inl">lossy</b>: some information is dropped along the way. The IPv6 <b class="inl">Flow Label</b>, for example, has no IPv4 field to go into.</li>
       </ul></li>
       <li class="frag"><b>Strategy 2 &middot; Tunnelling:</b><ul class="tn-sub">
-        <li class="t1">B wraps the <b class="inl">entire IPv6 packet</b> &mdash; header and payload together &mdash; into the <b class="inl">data field</b> of a new IPv4 packet.</li>
+        <li class="t1">B <b class="inl">encapsulates</b> the entire IPv6 packet &mdash; header and payload together &mdash; into the <b class="inl">data field</b> of a new IPv4 packet.</li>
         <li class="t2">B then forwards that IPv4 packet to its next hop, C.</li>
       </ul></li>
       <li class="frag"><b>Tunnel:</b><span>The encapsulated packet crosses C and D, which see only an ordinary IPv4 packet.</span></li>
@@ -3900,6 +3903,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
+  <span class="frag tunnel-extra-trigger" aria-hidden="true" style="position:absolute;width:0;height:0"></span>
   <span class="frag tunnel-extra-trigger" aria-hidden="true" style="position:absolute;width:0;height:0"></span>
   <div class="source">Dual IP-layer operation and configured tunnelling: RFC 4213 §§2&ndash;3 &middot;
     Stateless IP/ICMP translation: RFC 7915</div>
