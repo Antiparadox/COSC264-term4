@@ -159,12 +159,17 @@
     /* Pointer. Only ever moved via transform: a fixed element translated on
        the compositor costs no layout and no repaint, which is what lets this
        run at 40Hz over a 1280x720 stage without touching the slide. */
+    /* Shown by toggling display, NOT by transitioning opacity. A transition
+       has to be *started* by the compositor, and a tab that was backgrounded
+       or a display that just woke can leave one committed at its from-value
+       indefinitely -- observed here as a cursor stuck at opacity 0 with the
+       .on class correctly applied. A pointer that silently fails to appear in
+       front of a lecture theatre is not worth a 160ms fade. */
     #rc-dot{position:fixed;z-index:850;left:0;top:0;width:26px;height:26px;
-      margin:-13px 0 0 -13px;border-radius:50%;pointer-events:none;opacity:0;
+      margin:-13px 0 0 -13px;border-radius:50%;pointer-events:none;display:none;
       background:radial-gradient(circle at 50% 40%,#ff6b5e 0%,#e0322a 55%,rgba(150,16,10,.55) 100%);
-      box-shadow:0 0 16px 5px rgba(255,60,45,.4);
-      transition:opacity .16s ease;will-change:transform}
-    #rc-dot.on{opacity:1}
+      box-shadow:0 0 16px 5px rgba(255,60,45,.4);will-change:transform}
+    #rc-dot.on{display:block}
     /* Expanding rings rather than a blink: at eight metres a blinking mark is
        hard to *locate*, whereas an expanding one drags the eye inward to its
        own centre. Two rings, staggered, read as deliberate; one reads as a

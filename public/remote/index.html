@@ -238,6 +238,158 @@
     if (on) startCaptions(); else stopCaptions();
   }
 
+  /* ---------- pointer ----------
+   *
+   * Held, never toggled -- like the laser pointer it replaces, and for the
+   * same reasons: the cursor cannot wander off target while unattended, the
+   * tilt origin is retaken on every press so error never accumulates, and the
+   * sensors only run while a thumb is actually down.
+   *
+   * Tilt ONLY. Yaw -- which way the phone is facing -- comes off the
+   * magnetometer, and that drifts worst in exactly this room: steel ceiling
+   * rig, projector, radio mic. Pitch and roll come off gravity, which does
+   * not drift at all, so the phone aims RELATIVE to wherever it happened to
+   * be pointing when the key went down. Absolute aiming is not on offer.
+   */
+  const FULL_X = 26;    // degrees of roll that sweep the full slide width
+  const FULL_Y = 20;    // degrees of pitch that sweep the full slide height
+  const SMOOTH = 0.25;  // EMA on the raw angles: hand tremor at 8m is visible
+  const SEND_MS = 25;   // 40Hz is past the point where anyone can see steps
+
+  let pointing = false;
+  let px = 0.5, py = 0.5;         // normalised cursor; PERSISTS between presses
+  let originX = 0.5, originY = 0.5;
+  let b0 = null, g0 = null;       // orientation captured at press
+  let bS = null, gS = null;       // smoothed current orientation
+  // Two flags, because they answer different questions. `motionAsked` means
+  // the listener is attached; `motionOn` means real angles are actually
+  // arriving. Desktop Chrome and plenty of cheap Android hardware expose
+  // DeviceOrientationEvent and then never fire it, so treating the interface's
+  // existence as proof of a sensor silently disables the drag fallback and
+  // leaves the pointer completely dead.
+  let motionAsked = false;
+  let motionOn = false;
+  let lastSent = 0, sentX = -1, sentY = -1;
+
+  // Falls back to the CURRENT position rather than to a number, because the
+  // arithmetic feeding this can go non-finite: innerWidth reads 0 while the
+  // page is hidden or mid-rotation, and dx/0 is Infinity. A plain min/max
+  // would pass NaN straight through (NaN fails both comparisons), park it in
+  // px, and kill the pointer for the rest of the session.
+  const clamp01 = (v, fallback) =>
+    (Number.isFinite(v) ? (v < 0 ? 0 : v > 1 ? 1 : v) : fallback);
+  const vw = () => innerWidth || 1280;
+  const vh = () => innerHeight || 720;
+  const wsOpen = () => ws && ws.readyState === WebSocket.OPEN;
+
+  function sendPoint(on) {
+    if (wsOpen()) ws.send(JSON.stringify({ type: 'point', on }));
+  }
+
+  function sendMove(force) {
+    if (!wsOpen()) return;
+    const now = Date.now();
+    if (!force) {
+      if (now - lastSent < SEND_MS) return;
+      if (Math.abs(px - sentX) < 0.002 && Math.abs(py - sentY) < 0.002) return;
+    }
+    lastSent = now; sentX = px; sentY = py;
+    ws.send(JSON.stringify({ type: 'move', x: px, y: py }));
+  }
+
+  function sendPing() {
+    if (wsOpen()) ws.send(JSON.stringify({ type: 'ping' }));
+    if (navigator.vibrate) navigator.vibrate([8, 40, 8]);
+  }
+
+  function onOrient(e) {
+    if (e.beta == null || e.gamma == null) return;
+    if (!motionOn) {                       // first real reading: sensor proven
+      motionOn = true;
+      $('point-label').textContent = 'Tilt to aim';
+    }
+    bS = bS == null ? e.beta : bS + SMOOTH * (e.beta - bS);
+    gS = gS == null ? e.gamma : gS + SMOOTH * (e.gamma - gS);
+    if (!pointing) return;
+    if (b0 == null) { b0 = bS; g0 = gS; return; }   // first frame of this press
+    // Held upright: tilting the top away lowers beta and lifts the cursor;
+    // rolling the right edge down raises gamma and moves it right. If either
+    // axis ever feels inverted it is one sign on these two lines.
+    px = clamp01(originX + (gS - g0) / FULL_X, px);
+    py = clamp01(originY + (bS - b0) / FULL_Y, py);
+    sendMove(false);
+  }
+
+  async function enableMotion() {
+    if (motionAsked || !window.DeviceOrientationEvent) return;
+    motionAsked = true;
+    const ask = DeviceOrientationEvent.requestPermission;
+    if (typeof ask === 'function') {
+      // iOS gates this behind a user gesture and may re-ask on every load, so
+      // the very first press of the key sometimes only buys the permission.
+      try { if (await ask.call(DeviceOrientationEvent) !== 'granted') return; }
+      catch { return; }
+    }
+    // motionOn is set by onOrient, once an actual angle turns up.
+    addEventListener('deviceorientation', onOrient);
+  }
+
+  function pointDown() {
+    if (pointing || !wsOpen()) return;
+    pointing = true;
+    originX = px; originY = py;   // resume from where the last press ended
+    b0 = g0 = null;               // and re-origin the tilt for this one
+    $('point').classList.add('live');
+    enableMotion();
+    sendPoint(true);
+    sendMove(true);
+  }
+
+  function pointUp() {
+    if (!pointing) return;
+    pointing = false;
+    $('point').classList.remove('live');
+    sendPoint(false);
+  }
+
+  const pk = $('point');
+  pk.addEventListener('touchstart', e => { e.preventDefault(); pointDown(); }, { passive: false });
+  pk.addEventListener('touchend', e => { e.preventDefault(); pointUp(); }, { passive: false });
+  pk.addEventListener('touchcancel', pointUp);
+  // Mouse too, so the whole path can be exercised from a laptop with no phone.
+  pk.addEventListener('mousedown', e => { e.preventDefault(); pointDown(); });
+  addEventListener('mouseup', pointUp);
+
+  // A second finger anywhere on the glass is the highlight. Nothing else
+  // competes for a gesture while the key is held, so this needs no tap timer:
+  // a double-tap would spend 250ms finding out it was not a single one.
+  document.addEventListener('touchstart', e => {
+    if (pointing && e.touches.length >= 2) { e.preventDefault(); sendPing(); }
+  }, { passive: false });
+
+  // Fallback for a phone with no usable motion sensor, or one where the
+  // permission was refused: hold the key and drag, and the glass is a
+  // trackpad over the slide. Identical messages either way.
+  let tx = null, ty = null;
+  document.addEventListener('touchmove', e => {
+    if (!pointing || motionOn) return;
+    e.preventDefault();
+    const t = e.touches[0];
+    if (tx != null) {
+      px = clamp01(px + (t.clientX - tx) / vw() * 1.6, px);
+      py = clamp01(py + (t.clientY - ty) / vh() * 1.6, py);
+      sendMove(false);
+    }
+    tx = t.clientX; ty = t.clientY;
+  }, { passive: false });
+  document.addEventListener('touchend', () => { tx = ty = null; });
+  addEventListener('mousemove', e => {
+    if (!pointing || motionOn) return;
+    px = clamp01(px + e.movementX / vw() * 1.6, px);
+    py = clamp01(py + e.movementY / vh() * 1.6, py);
+    sendMove(false);
+  });
+
   /* ---------- views ---------- */
   function showPad() { $('pair').style.display = 'none'; $('pad').classList.add('on'); }
   function showPair(message) {
@@ -248,7 +400,10 @@
   function setState(live, word) {
     $('dot').classList.toggle('live', !!live);
     $('state').textContent = word || (live ? 'connected' : 'waiting for slides');
-    for (const id of ['next', 'prev']) $(id).disabled = !live;
+    for (const id of ['next', 'prev', 'point']) $(id).disabled = !live;
+    // Losing the deck mid-press would otherwise leave the key lit here and a
+    // cursor stranded there, with no message able to clear either.
+    if (!live) pointUp();
   }
 
   /* ---------- wiring ---------- */
@@ -268,6 +423,7 @@
 
   $('leave').addEventListener('click', () => {
     if (capOn) setCaptions(false);
+    pointUp();
     quit = true;
     try { ws && ws.close(); } catch {}
     try { localStorage.removeItem(STORE); } catch {}
