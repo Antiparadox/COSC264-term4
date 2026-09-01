@@ -64,7 +64,11 @@
   #cc.on{color:var(--accent);border-color:var(--accent)}
   #cc:disabled{opacity:.4}
 
-  #buttons{flex:1;display:grid;grid-template-rows:1fr 1.7fr 1fr;gap:12px;padding:0 12px 12px}
+  /* Back and Next share one row: they are quick, aimed-by-memory taps, so
+     they need reach rather than area. Everything the row gives back goes to
+     the pointer, which is the one control you drag around inside. */
+  #buttons{flex:1;display:grid;grid-template-rows:1fr 2fr;gap:12px;padding:0 12px 12px}
+  #nav{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .key{
     border:2px solid var(--line);background:var(--panel);color:var(--ink);
     border-radius:22px;font-family:var(--sans);font-weight:600;
@@ -85,8 +89,8 @@
      slide rather than like the two keys above it. */
   #point{border-color:#7d3830;background:#251a18;touch-action:none;
     -webkit-touch-callout:none}
-  #point .glyph{font-size:34px;color:#ff6b5e}
-  #point .label{color:#c98d85;font-size:13px}
+  #point .glyph{font-size:46px;color:#ff6b5e}
+  #point .label{color:#c98d85;font-size:14px}
   #point.live{background:#48201c;border-color:#ff6b5e}
   #point.live .label{color:#ffb3aa}
 </style>
@@ -108,8 +112,10 @@
       <button id="leave">disconnect</button></span>
     </div>
     <div id="buttons">
-      <button class="key" id="prev"><span class="glyph">↑</span><span class="label">Back</span></button>
-      <button class="key" id="next"><span class="glyph">↓</span><span class="label">Next</span></button>
+      <div id="nav">
+        <button class="key" id="prev"><span class="glyph">←</span><span class="label">Back</span></button>
+        <button class="key" id="next"><span class="glyph">→</span><span class="label">Next</span></button>
+      </div>
       <button class="key" id="point"><span class="glyph">◎</span><span class="label" id="point-label">Hold to point</span></button>
     </div>
   </section>
