@@ -158,15 +158,70 @@
    * there. After "sub" the anchor is strong enough to take the whole table. */
   const SAFE = /^(?:[a-z]|ess|vee|zed|zee|aitch|jay|kay|cee|dee|gee|pee|tee|wye|eff)$/i;
 
-  /* Repairs that are only safe when the chunk is clearly about routing.
-   * "Elsa" is somebody's name; "elsa" among floods and databases is an LSA. */
+  /* ------------------------------------------------------------------
+   * Slide context.
+   *
+   * This file runs on the deck, so the slide on screen can simply be read --
+   * and a repair that is reckless in general is safe once the word is already
+   * projected above the caption. "Elsa" is somebody's name until the flooding
+   * slide is up, at which point it is certainly an LSA.
+   *
+   * The lookup is cached against the slide element, so it costs one DOM read
+   * per slide change rather than one per caption chunk.
+   * ---------------------------------------------------------------- */
+  let ctxSlide = null;
+  let ctxWords = null;
+
+  /** Lower-case word set of the slide on screen, or null when there is no deck. */
+  function slideWords() {
+    if (typeof document === 'undefined') return null;
+    const el = document.querySelector('.slide.active');
+    if (!el) return null;
+    if (el !== ctxSlide) {
+      ctxSlide = el;
+      ctxWords = new Set((el.textContent || '').toLowerCase().match(/[a-z0-9]+/g) || []);
+    }
+    return ctxWords;
+  }
+
+  /* Fallback for when there is no slide to read -- the caption probe, or the
+   * moment before the deck's first render. Then the chunk has to speak for
+   * itself. */
   const ROUTING = new RegExp('\\b(rout(?:e|er|ers|ing)|link|state|flood\\w*|'
     + 'database|topolog\\w*|hop|neighbour\\w*|neighbor\\w*|protocol|algorithm|'
     + 'node|vector|advertis\\w*|sub)\\b', 'i');
-  const GUARDED = [
-    [/\belsa\b/gi, 'LSA'],
-    [/\bl\s?s\s?d\s?b\b/gi, 'LSDB'],
+
+  /* [pattern, replacement, the word that has to be on the slide].
+   *
+   * Every one of these would be reckless as a blanket rule -- "the extra",
+   * "stab" and "deve" are ordinary English. Tying each to a word that is on
+   * screen is what makes them safe, and it is why this list can be far more
+   * aggressive than PHRASES. */
+  const ON_SLIDE = [
+    [/\belsa\b/gi, 'LSA', 'lsa'],
+    [/\bl\s?s\s?d\s?b\b/gi, 'LSDB', 'lsdb'],
+    [/\b(?:the|de)\s+extra\b/gi, 'Dijkstra', 'dijkstra'],
+    [/\bdick\s+stra\b/gi, 'Dijkstra', 'dijkstra'],
+    [/\bdyke\s+stra\w*/gi, 'Dijkstra', 'dijkstra'],
+    [/\bstab\b/gi, 'stub', 'stub'],
+    [/\bdeve\b/gi, 'DV', 'dv'],
+    [/\bfar\s+warding\b/gi, 'forwarding', 'forwarding'],
+    [/\brelaxing\b/gi, 'relaxation', 'relaxation'],
+    [/\bconversions?\b/gi, 'convergence', 'converges'],
+    [/\bvertices?\b/gi, 'vertices', 'vertices'],
+    [/\bpoisoned\b/gi, 'poison', 'poison'],
   ];
+
+  /** Apply the slide-scoped repairs to one chunk. */
+  function contextual(text) {
+    const words = slideWords();
+    let out = text;
+    for (const [re, to, need] of ON_SLIDE) {
+      const on = words ? words.has(need) : ROUTING.test(out);
+      if (on) out = out.replace(re, to);
+    }
+    return out;
+  }
 
   /* Words that, following an ambiguous letter, mean it was really a pronoun. */
   const PRONOUN = new RegExp('^(?:are|is|was|were|will|would|can|could|should|'
@@ -228,10 +283,14 @@
     // "node you" -> node u, "router be" -> router B. An ambiguous letter is
     // only taken when the word after it is not the giveaway of the pronoun
     // reading -- "the node we are looking at" has to survive.
+    const words = slideWords();
     out = out.replace(/\b(node|router)\s+(\w+)(\s+\w+)?/gi, (m, kind, a, next) => {
       const x = letter(a);
       if (!x) return m;
       if (!SAFE.test(a) && next && PRONOUN.test(next.trim())) return m;
+      // the deck is the authority on which nodes exist: if this letter is not
+      // labelling anything on screen, it was an ordinary word
+      if (words && !words.has(x)) return m;
       return `${kind} ${nodeCase(x)}${next || ''}`;
     });
 
@@ -257,10 +316,8 @@
     // 2. phonetic phrase repairs
     for (const [re, to] of PHRASES) out = out.replace(re, to);
 
-    // 3. repairs that need the chunk to be about routing before they fire
-    if (ROUTING.test(out)) {
-      for (const [re, to] of GUARDED) out = out.replace(re, to);
-    }
+    // 3. repairs licensed by whatever is on the slide right now
+    out = contextual(out);
 
     // 4. notation, on anchored patterns only
     out = notation(out);

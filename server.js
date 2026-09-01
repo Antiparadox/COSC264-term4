@@ -149,6 +149,16 @@ wss.on('connection', (ws) => {
       send(session.presenter, { type: 'caption', text: String(msg.text ?? ''), final: !!msg.final });
     } else if (msg.type === 'captions') {
       send(session.presenter, { type: 'captions', on: !!msg.on });
+    } else if (msg.type === 'point') {
+      send(session.presenter, { type: 'point', on: !!msg.on });
+    } else if (msg.type === 'move') {
+      // Deliberately NOT sequence-guarded, unlike 'cmd'. Pointer frames are a
+      // lossy stream where the latest one is the only one that matters: a
+      // dropped frame is invisible, whereas a frame replayed in order behind
+      // a newer one would drag the cursor backwards.
+      send(session.presenter, { type: 'move', x: Number(msg.x) || 0, y: Number(msg.y) || 0 });
+    } else if (msg.type === 'ping') {
+      send(session.presenter, { type: 'ping' });
     }
   });
 

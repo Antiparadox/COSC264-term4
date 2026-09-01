@@ -35,6 +35,9 @@
   let capWords = [];        // trailing window of finalised caption words
   let capOn = false;        // has the phone asked for captions?
   let capCount = 0;         // caption messages received, for diagnosis
+  let pointOn = false;      // is the phone currently holding the pointer?
+  let ptX = 0.5, ptY = 0.5; // cursor, normalised into STAGE space (not viewport)
+  let dotX = 0, dotY = 0;   // ...and the viewport pixels that resolves to
 
   /* ---------- drive the deck ---------- */
 
@@ -88,6 +91,8 @@
     '<div id="rc-cap-clip"><div id="rc-cap-text">' +
     '<span id="rc-cap-run"><span id="rc-cap-final"></span> <span id="rc-cap-interim"></span></span>' +
     '</div></div>';
+
+  const dot = el('div', { id: 'rc-dot' });
 
   const pill = el('button', {
     id: 'b-remote',
@@ -151,6 +156,24 @@
     /* the deck's own footer furniture would sit underneath the band */
     body.rc-captioning #counter,body.rc-captioning #seclabel,
     body.rc-captioning #section-label{display:none}
+    /* Pointer. Only ever moved via transform: a fixed element translated on
+       the compositor costs no layout and no repaint, which is what lets this
+       run at 40Hz over a 1280x720 stage without touching the slide. */
+    #rc-dot{position:fixed;z-index:850;left:0;top:0;width:26px;height:26px;
+      margin:-13px 0 0 -13px;border-radius:50%;pointer-events:none;opacity:0;
+      background:radial-gradient(circle at 50% 40%,#ff6b5e 0%,#e0322a 55%,rgba(150,16,10,.55) 100%);
+      box-shadow:0 0 16px 5px rgba(255,60,45,.4);
+      transition:opacity .16s ease;will-change:transform}
+    #rc-dot.on{opacity:1}
+    /* Expanding rings rather than a blink: at eight metres a blinking mark is
+       hard to *locate*, whereas an expanding one drags the eye inward to its
+       own centre. Two rings, staggered, read as deliberate; one reads as a
+       rendering glitch. */
+    .rc-ping{position:fixed;z-index:849;width:26px;height:26px;margin:-13px 0 0 -13px;
+      border-radius:50%;pointer-events:none;border:3px solid rgba(255,74,58,.9);
+      animation:rc-ping-out .9s cubic-bezier(.2,.6,.3,1) forwards}
+    @keyframes rc-ping-out{from{transform:scale(1);opacity:.95}
+      to{transform:scale(9);opacity:0}}
     @media (max-width:600px){#rc-card{min-width:0;width:86vw;padding:26px 22px 22px}
       #rc-code{font-size:42px}}`;
 
@@ -163,6 +186,54 @@
     // said yet it would still paint a thin dark sliver over the slide
     const run = document.getElementById('rc-cap-run');
     if (run) run.style.visibility = (final || interim) ? '' : 'hidden';
+  }
+
+  /* ---------- pointer ----------
+   *
+   * Coordinates arrive normalised into the 1280x720 stage, never in pixels.
+   * The stage is centred and scaled to whatever window it lands in, so a
+   * pixel from the presenter's laptop would miss by a long way on a projector
+   * of a different aspect. getBoundingClientRect absorbs that scale for free.
+   */
+  function stageRect() {
+    const st = document.getElementById('stage');
+    const r = st && st.getBoundingClientRect();
+    // A deck with no stage, or one in scroll/print mode where the stage has
+    // been unpinned, still gets a usable pointer over the viewport.
+    if (!r || !r.width || !r.height) {
+      return { left: 0, top: 0, width: innerWidth, height: innerHeight };
+    }
+    return r;
+  }
+
+  function placeDot() {
+    const r = stageRect();
+    dotX = r.left + ptX * r.width;
+    dotY = r.top + ptY * r.height;
+    dot.style.transform = `translate3d(${dotX}px,${dotY}px,0)`;
+  }
+
+  function ping() {
+    if (!pointOn) return;                 // no cursor on screen to ping at
+    for (const delay of [0, 140]) {
+      setTimeout(() => {
+        const ring = el('div', { className: 'rc-ping' });
+        ring.style.left = `${dotX}px`;
+        ring.style.top = `${dotY}px`;
+        document.body.appendChild(ring);
+        setTimeout(() => ring.remove(), 1000);
+      }, delay);
+    }
+  }
+
+  // Resizing or fullscreening mid-lecture rescales the stage under a cursor
+  // whose normalised position has not changed.
+  addEventListener('resize', () => { if (pointOn) placeDot(); });
+
+  function showPointer(on) {
+    pointOn = on;
+    dot.classList.toggle('on', on);
+    if (on) placeDot();
   }
 
   function statusLine() {
@@ -224,6 +295,9 @@
         // pairing therefore begins a fresh command stream. The guard still
         // does its real job -- rejecting duplicates *within* a stream.
         if (m.connected) lastSeq = 0;
+        // A phone that walks away mid-point would otherwise leave its cursor
+        // stranded on the projector with nothing able to clear it.
+        if (!m.connected) showPointer(false);
         paint(m.connected ? statusLine() : 'Waiting for your phone…', m.connected);
         // Hide the code once paired: it is on a projector in front of a class.
         if (m.connected) setTimeout(closePanel, 900);
@@ -271,6 +345,19 @@
         return;
       }
 
+      if (m.type === 'point') { showPointer(!!m.on); return; }
+
+      if (m.type === 'move') {
+        // Clamped rather than dropped: a cursor pinned to the edge tells the
+        // presenter which way they have over-tilted, an absent one does not.
+        ptX = Math.min(1, Math.max(0, Number(m.x) || 0));
+        ptY = Math.min(1, Math.max(0, Number(m.y) || 0));
+        placeDot();
+        return;
+      }
+
+      if (m.type === 'ping') { ping(); return; }
+
       if (m.type === 'cmd') {
         // Absolute sequence guard: a duplicated or delayed tap cannot
         // advance the deck twice.
@@ -282,6 +369,7 @@
 
     const retryLater = () => {
       ws = null;
+      showPointer(false);           // same reason: never strand a cursor
       if (!wantOpen) return;
       paint('Reconnecting…', false);
       clearTimeout(retryTimer);
@@ -328,6 +416,7 @@
     document.head.appendChild(style);
     document.body.appendChild(panel);
     document.body.appendChild(capBand);
+    document.body.appendChild(dot);
     hud.appendChild(pill);
 
     const url = document.getElementById('rc-url');
