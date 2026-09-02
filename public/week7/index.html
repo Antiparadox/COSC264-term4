@@ -332,7 +332,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div id="stage">
 
 <section class="slide" data-sec="Introduction to Routing">
-  <span class="pnote" hidden>[0 min] Welcome back. The second half of the course is six modules; today is Module 1, routing — how a network works out which way to send a packet. Three sessions: the routing problem itself, then the two families of algorithm.</span>
+  <span class="pnote" hidden>[0 min] Welcome back. This module is about routing — how a network works out the way to send a packet. Just a heads up: the module is three concepts. Today is the first, what the routing problem actually is. Over the next two sessions we learn two different methods of solving it.</span>
   <div class="center" style="align-items:flex-start">
     <div class="kicker">COSC264 · Introduction to Computer Networks and the Internet · Term 4</div>
     <h1>Module 1<br>Introduction to Routing</h1>
@@ -349,7 +349,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Recap and overview" data-anchor="c1">
-  <span class="pnote" hidden>Before we start, where this sits in the stack.</span>
+  <span class="pnote" hidden>Before we start, a quick recall. The network is divided into layers.</span>
   <div class="kicker">Recap and overview</div>
   <h2>Where this fits — the whole stack</h2>
   <div class="cols" style="align-items:center">
@@ -359,16 +359,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col" style="display:flex;flex-direction:column;gap:28px;justify-content:center">
-      <p class="frag lead" style="margin:0"><span class="pnote" hidden>Physical and link layers: done in the first half. That is getting bits across one hop.</span><b>Physical</b> and <b>Link</b> — done</p>
-      <p class="frag lead" style="margin:0"><span class="pnote" hidden>IP addressing: also done. Every interface has an address, and addresses group into networks.</span><b>IP addressing</b> — done</p>
-      <p class="frag lead" style="margin:0"><span class="pnote" hidden>Routing is the piece that is missing. We can name a destination and cross one link — but nothing yet chooses which links to cross.</span><b>Routing</b> — this module</p>
-      <p class="frag lead" style="margin:0"><span class="pnote" hidden>Transport and application come in later modules. Today we stay in the network layer.</span><b>Transport</b>, <b>Application</b> — coming weeks</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>In the first part of the semester we studied layer one and layer two — the physical layer and the link layer.</span><b>Physical</b> and <b>Link</b> — done</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>We also covered part of layer three: IP addressing — the address space, and how IP carries a packet across it.</span><b>IP addressing</b> — done</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>But one important piece of layer three was missing, and that is routing.</span><b>Routing</b> — this module</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>And looking ahead: the transport and application layers come in later modules.</span><b>Transport</b>, <b>Application</b> — coming weeks</p>
     </div>
   </div>
 </section>
 
 <section class="slide sec-title" data-sec="The Routing Problem">
-  <span class="pnote" hidden>Concept one: the routing problem itself. What routing is, what it produces, and who gets to decide how it is done.</span>
+  <span class="pnote" hidden>Now let's talk about the routing problem.</span>
   <div class="kicker">Module 1</div>
   <h1>The Routing Problem</h1>
   <div class="rule"></div>
@@ -382,7 +382,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 4: The goal ====== -->
 <section class="slide" data-sec="Why do we need routing?">
-  <span class="pnote" hidden>[~3 min] First question. Why does a network need routing at all?</span>
+  <span class="pnote" hidden>[~3 min] So let's think about it. Why do we need routing at all?</span>
   <div class="kicker">Question 1 of 4</div>
   <h2>Why do we need routing?</h2>
   <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0;margin-top:-4px">
@@ -453,8 +453,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </svg>
   </div>
   <div id="why-card" style="min-height:104px;display:flex;align-items:center;justify-content:center"></div>
-  <p class="frag" style="display:none"><span class="pnote" hidden>Here is part of a network. There are many more routers and links in the middle than we can draw.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>Pick two of them. A has a message for F. It will not get there by magic — it needs a path.</span></p>
-  <p class="frag" style="display:none"><span class="pnote" hidden>Formally: a path from A to F is a sequence of routers where every consecutive pair is joined by a link. The message is handed along that whole sequence.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>So how does the network know which path to use, for this source and this destination? That question is routing.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Suppose we have a very large network. Each node here is a router — a device with an IP address on each of its interfaces — and each link is an edge joining two of them. There are many more of both in the middle than we can draw.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>Now pick any two of them. Node A has a message for node F. It will not get there by magic — it needs a path.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>So what does a path mean? A path from A to F is a sequence of routers, starting at A and ending at F, where every consecutive pair is joined by a link. The message is handed along that whole sequence.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>So how does the network know which path to use, for this source and this destination? That question is routing.</span></p>
   <p class="frag" style="display:none"><span class="pnote" hidden>And usually more than one path exists. Choosing the best of them is also routing. Hold on to that word — best — we define it on the next slide.</span></p>
 </section>
 
