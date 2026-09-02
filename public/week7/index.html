@@ -362,7 +362,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag lead" style="margin:0"><span class="pnote" hidden>In the first part of the semester we studied layer one and layer two — the physical layer and the link layer.</span><b>Physical</b> and <b>Link</b> — done</p>
       <p class="frag lead" style="margin:0"><span class="pnote" hidden>We also covered part of layer three: IP addressing — the address space, and how IP carries a packet across it.</span><b>IP addressing</b> — done</p>
       <p class="frag lead" style="margin:0"><span class="pnote" hidden>But one important piece of layer three was missing, and that is routing.</span><b>Routing</b> — this module</p>
-      <p class="frag lead" style="margin:0"><span class="pnote" hidden>And looking ahead: the transport and application layers come in later modules.</span><b>Transport</b>, <b>Application</b> — coming weeks</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>And looking ahead: the transport and application layers come in later modules.</span><b>Transport</b>, <b>Application</b> — coming modules</p>
     </div>
   </div>
 </section>
@@ -2725,8 +2725,8 @@ function drawStack(){
     s+='</g>';
     layerLabel(y,h,layerNum);
   }
-  aheadBand(y1,h1,'Application','HTTP · Email · DNS  —  Weeks 11–12','stack-app',5);
-  aheadBand(y2,h2,'Transport','TCP · UDP · reliability  —  Weeks 9–11','stack-transport',4);
+  aheadBand(y1,h1,'Application','HTTP · Email · DNS  —  Module 6','stack-app',5);
+  aheadBand(y2,h2,'Transport','TCP · UDP · reliability  —  Modules 4–5','stack-transport',4);
   layerLabel(y3,h3,3);
   s+='<g id="stack-net" class="stack-layer"><rect x="'+x+'" y="'+y3+'" width="'+w+'" height="'+h3+'" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>';
   s+='<text x="'+(x+20)+'" y="'+(y3+24)+'" font-family="var(--sans)" font-weight="700" font-size="19" fill="var(--ink)">Network</text>';
