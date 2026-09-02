@@ -2528,21 +2528,52 @@ function sync(){
   if(history.replaceState) history.replaceState(null,'','#/'+(cur+1));
   try{localStorage.setItem(KEY+'-pos',String(cur));}catch(e){}
 }
+/* Every scripted slide re-derives its own state from the fragment count.
+   Called from goto_, next, prev -- and from init, which used to skip it, so a
+   reload mid-deck left the slide's cards and diagrams blank until the next
+   keypress. */
+function syncAll(){
+updateStackHighlight();
+  updateWhySlide();
+  updateFwdSlide();
+  updateRFSlide();
+  updateWhoSlide();
+  updateDiscoverSlide();
+  updateComputeSlides();
+  updateReactSlide();
+  updateLSSlide();
+  updateDVSlide();
+  updateIntraInterSlide();
+  updateRelaxSlide();
+  updateRelax2Slide();
+  updateDepSlide();
+  updateSPMotivationSlide();
+  updateBFFullSlide();
+  updateDVProtoSlide();
+  updateDVExampleSlide();
+  updateCountInfSlide();
+  updateSplitHorizonSlide();
+  updateDijkstraDescSlide();
+  updateFloodingSlide();
+  updateFloodingSlide2();
+  updateRefloodSlide();
+  updateDijkstraSlide();
+}
 function goto_(i,revealAll){
   if(i<0||i>=slides.length) return;
   cur=i;
   if(revealAll) showAllFrags(slides[cur]); else hideAllFrags(slides[cur]);
   sync();
-  updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateWhoSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();resetASP();
+  syncAll();resetASP();
 }
 function next(){
   var f=frags(slides[cur]).filter(function(x){return !x.classList.contains('on');});
-  if(f.length){f[0].classList.add('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateWhoSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(f.length){f[0].classList.add('on');syncAll();return;}
   goto_(cur+1,false);
 }
 function prev(){
   var on=frags(slides[cur]).filter(function(x){return x.classList.contains('on');});
-  if(on.length){on[on.length-1].classList.remove('on');updateStackHighlight();updateWhySlide();updateFwdSlide();updateRFSlide();updateWhoSlide();updateDiscoverSlide();updateComputeSlides();updateReactSlide();updateLSSlide();updateDVSlide();updateIntraInterSlide();updateRelaxSlide();updateRelax2Slide();updateDepSlide();updateSPMotivationSlide();updateBFFullSlide();updateDVProtoSlide();updateDVExampleSlide();updateCountInfSlide();updateSplitHorizonSlide();updateDijkstraDescSlide();updateFloodingSlide();updateFloodingSlide2();updateRefloodSlide();updateDijkstraSlide();return;}
+  if(on.length){on[on.length-1].classList.remove('on');syncAll();return;}
   goto_(cur-1,true);
 }
 
@@ -2733,8 +2764,8 @@ function drawStack(){
   var innerX=x+14, innerW=w-28, subY=y3+34, subH=h3-48, gapW=8;
   var halfW=(innerW-gapW)/2, rightX=innerX+halfW+gapW;
   s+='<g id="stack-ip"><rect x="'+innerX+'" y="'+subY+'" width="'+halfW+'" height="'+subH+'" rx="9" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/>';
-  s+='<text x="'+(innerX+halfW/2)+'" y="'+(subY+subH/2-3)+'" text-anchor="middle" font-family="var(--sans)" font-weight="700" font-size="16.5" fill="var(--ink)">IP addressing</text>';
-  s+='<text x="'+(innerX+halfW/2)+'" y="'+(subY+subH/2+17)+'" text-anchor="middle" class="svgmono" font-size="13" fill="var(--accent-ink)">ARP · ICMP · fragmentation</text></g>';
+  s+='<text x="'+(innerX+halfW/2)+'" y="'+(subY+subH/2-3)+'" text-anchor="middle" font-family="var(--sans)" font-weight="700" font-size="16.5" fill="var(--ink)">IP</text>';
+  s+='<text x="'+(innerX+halfW/2)+'" y="'+(subY+subH/2+17)+'" text-anchor="middle" class="svgmono" font-size="13" fill="var(--accent-ink)">addressing · header · fragmentation</text></g>';
   s+='<g id="stack-routing"><rect x="'+rightX+'" y="'+subY+'" width="'+halfW+'" height="'+subH+'" rx="9" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/>';
   s+='<text x="'+(rightX+halfW/2)+'" y="'+(subY+subH/2-3)+'" text-anchor="middle" font-family="var(--sans)" font-weight="700" font-size="16.5" fill="var(--ink)">Routing</text>';
   s+='<text x="'+(rightX+halfW/2)+'" y="'+(subY+subH/2+17)+'" text-anchor="middle" class="svgmono" font-size="13" fill="var(--current)">starting now →</text></g></g>';
@@ -3994,7 +4025,7 @@ cur=start||0;
 showAllFrags(slides[cur]); // resuming mid-deck: show its fragments
 if(cur===0) hideAllFrags(slides[0]);
 addEventListener('resize',function(){fit();applyMode();});
-applyMode(); sync(); fit();
+applyMode(); sync(); fit(); syncAll();
 })();
 </script>
 <script src="../caption-fixes.js" defer></script>
