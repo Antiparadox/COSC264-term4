@@ -454,19 +454,19 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
   <div id="why-card" style="min-height:104px;display:flex;align-items:center;justify-content:center"></div>
   <p class="frag" style="display:none"><span class="pnote" hidden>Suppose we have a very large network. Each node here is a router — a device with an IP address on each of its interfaces — and each link is an edge joining two of them. There are many more of both in the middle than we can draw.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>Now pick any two of them. Node A has a message for node F. It will not get there by magic — it needs a path.</span></p>
-  <p class="frag" style="display:none"><span class="pnote" hidden>So what does a path mean? A path from A to F is a sequence of routers, starting at A and ending at F, where every consecutive pair is joined by a link. The message is handed along that whole sequence.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>So how does the network know which path to use, for this source and this destination? That question is routing.</span></p>
-  <p class="frag" style="display:none"><span class="pnote" hidden>And usually more than one path exists. Choosing the best of them is also routing. Hold on to that word — best — we define it on the next slide.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Formally, here is how we define a path. A path from A to F is just a sequence of routers where the first one is A and the last one is F, and every consecutive pair is joined by a link — an edge in the graph. The message is handed along that whole sequence.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>So how does the network know which path to use, for this source and this destination? The answer is routing.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>And usually there is a second problem: more than one path is available. So how do we choose between them — how do we pick the best one? That is also something routing does.</span></p>
 </section>
 
 <!-- ====== What routing has to do ====== -->
 <section class="slide" data-sec="What does routing do?">
-  <span class="pnote" hidden>Second question. If routing picks a path, what does picking actually mean?</span>
+  <span class="pnote" hidden>So what is routing? Routing is how a network decides, automatically, which path a packet takes from every source to every destination. There are two things it has to settle, and they are the two cards here.</span>
   <div class="kicker">Question 2 of 4</div>
   <h2>What does routing do?</h2>
   <p class="lead" style="margin:0 0 26px;font-size:23px;max-width:60ch">Routing is how a network decides,
   <b>automatically</b>, which path packets take from each source to each destination.</p>
   <div class="cols" style="gap:24px;align-items:flex-start">
-    <div class="col frag" style="flex:1"><span class="pnote" hidden>Routing does not hand out just any path. It defines a cost metric, so every path has a cost, and then takes the cheapest. What cost means is the operator's choice — hop count, delay, spare bandwidth, money.</span>
+    <div class="col frag" style="flex:1"><span class="pnote" hidden>First: routing does not just hand you any path. It defines a cost metric, so that every path has a cost — and then we simply take the cheapest one. What cost means is the operator's choice, and it can be multidimensional: hop count, delay, spare bandwidth, and economic incentives.</span>
       <div class="card" style="border-left:4px solid var(--current);padding:17px 22px;margin:0">
         <p class="mono" style="margin:0 0 9px;font-size:15px;color:var(--current)">which path counts as best</p>
         <p style="margin:0 0 9px;font-size:17.5px">Routing does not hand out just <em>any</em> path. It defines a
@@ -476,7 +476,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         choice &mdash; hop count, delay, spare bandwidth, money.</p>
       </div>
     </div>
-    <div class="col frag" style="flex:1"><span class="pnote" hidden>And it happens before any packet arrives. Working a path out per message would be far too slow — the answer has to be waiting. It also reruns whenever the network changes, so routing is always running.</span>
+    <div class="col frag" style="flex:1"><span class="pnote" hidden>Second: when does it happen? Before any packet arrives. Working a path out on the fly, as the packet turns up, would be far too slow — the path has to be ready beforehand so that we add no unnecessary delay to delivering it. And it reruns whenever the network changes: links fail and costs change, so a path that was good a moment ago may not even exist now. Routing is therefore a continuously running process.</span>
       <div class="card" style="border-left:4px solid var(--accent);padding:17px 22px;margin:0">
         <p class="mono accent" style="margin:0 0 9px;font-size:15px">when it happens</p>
         <ul style="margin:0;padding-left:19px">
@@ -503,7 +503,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
 <section class="slide" data-sec="What does routing do?">
-  <span class="pnote" hidden>[~8 min] Routing works out paths. Where does that answer actually live?</span>
+  <span class="pnote" hidden>[~8 min] So how does the path information get stored?</span>
   <div class="kicker">What routing produces</div>
   <h2>How is the path information stored? <span style="color:var(--muted);font-weight:400">&mdash; the forwarding table</span></h2>
   <div id="fw-card" style="min-height:82px;display:flex;align-items:center;margin:2px 0 14px"></div>
@@ -560,7 +560,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
      border-top:1px solid var(--border);font-size:19px;color:var(--muted)">Building those tables is
      <b class="accent">routing</b>. Reading one row and passing the message on &mdash; what we just did
      &mdash; is <b style="color:var(--current)">forwarding</b>.</p>
-  <p class="frag" style="display:none"><span class="pnote" hidden>Routing works out a path from every source to every destination. But where does that information sit once it has been worked out?</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>In a forwarding table, and every router keeps one. For each destination it records one next hop — and nothing more.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>A has a message for F. A's table says: destination F, next hop B. So A hands it to B.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>B now does exactly the same with its own table: destination F, next hop D. It hands it on.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And D's table says: destination F, next hop F. D is directly attached, so the message arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Notice what just happened. Each router made only a local decision. None of them held the whole path — but put the local decisions together and you get A to B to D to F.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>That distinction is worth naming, and it is the next slide. Building those tables is routing. Reading one row and passing the message on is forwarding.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Routing works out a path from every source to every destination. But where does that information actually live, once it has been worked out?</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>The answer is the forwarding table. You met these in the first half of the course, so this is a quick recall. Every router keeps one, and it records, for each destination, the next hop to send to. And that is all it holds.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Now a concrete example. Router A has a message for F. A's table says: for destination F, the next hop is B. So A hands the message to B.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>B now does exactly the same with its own table: destination F, next hop D. It hands it on.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And D's table says: destination F, next hop F. D is directly attached, so the message arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Notice what just happened. Each router made only a local decision. None of them held the whole path — but put the local decisions together and you get A to B to D to F.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>That distinction is worth naming, and it is the next slide. Building those tables is routing. Reading one row and passing the message on is forwarding.</span></p>
 </section>
 
 
