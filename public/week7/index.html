@@ -382,7 +382,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 4: The goal ====== -->
 <section class="slide" data-sec="Why do we need routing?">
-  <span class="pnote" hidden>[~3 min] So let's think about it. Why do we need routing at all?</span>
+  <span class="pnote" hidden>[~3 min] So let's think about it. Why do we need routing at all? Suppose we have a very large network. Each node here is a router — a device with an IP address on each of its interfaces — and each link is an edge joining two of them. There are many more of both in the middle than we can draw.</span>
   <div class="kicker">Question 1 of 4</div>
   <h2>Why do we need routing?</h2>
   <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0;margin-top:-4px">
@@ -452,8 +452,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <text id="why-q" x="405" y="252" text-anchor="middle" font-size="44" font-weight="700" fill="var(--muted)" stroke="var(--bg)" stroke-width="7" paint-order="stroke" opacity="0">?</text>
     </svg>
   </div>
-  <div id="why-card" style="min-height:104px;display:flex;align-items:center;justify-content:center"></div>
-  <p class="frag" style="display:none"><span class="pnote" hidden>Suppose we have a very large network. Each node here is a router — a device with an IP address on each of its interfaces — and each link is an edge joining two of them. There are many more of both in the middle than we can draw.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>Now pick any two of them. Node A has a message for node F. It will not get there by magic — it needs a path.</span></p>
+  <div id="why-card" style="min-height:104px;display:flex;align-items:center;justify-content:center"></div><p class="frag" style="display:none"><span class="pnote" hidden>Now pick any two of them. Node A has a message for node F. It will not get there by magic — it needs a path.</span></p>
   <p class="frag" style="display:none"><span class="pnote" hidden>Formally, here is how we define a path. A path from A to F is just a sequence of routers where the first one is A and the last one is F, and every consecutive pair is joined by a link — an edge in the graph. The message is handed along that whole sequence.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>So how does the network know which path to use, for this source and this destination? The answer is routing.</span></p>
   <p class="frag" style="display:none"><span class="pnote" hidden>And usually there is a second problem: more than one path is available. So how do we choose between them — how do we pick the best one? That is also something routing does.</span></p>
 </section>
@@ -2866,8 +2865,8 @@ function updateWhySlide(){
   var P2=['A-L7','L7-R4','R4-F'];
   var P3=['A-L6','L6-R2','R2-R5','R5-F'];
   var lit=[];
-  if(n===3) lit=[[P1,'p1']];
-  if(n===5) lit=[[P1,'p1'],[P2,'p2'],[P3,'p3']];
+  if(n===2) lit=[[P1,'p1']];
+  if(n===4) lit=[[P1,'p1'],[P2,'p2'],[P3,'p3']];
   var on={};
   lit.forEach(function(pair){pair[0].forEach(function(e){on[e]=pair[1];});});
 
@@ -2885,7 +2884,7 @@ function updateWhySlide(){
   // Until beat 2 picks them out, A and F are indistinguishable from every
   // other router -- no letters, no colour, same radius. Naming them before
   // the card introduces them would give the game away.
-  var picked=n>=2;
+  var picked=n>=1;
   var a=document.getElementById('why-a'), f=document.getElementById('why-f');
   var at=document.getElementById('why-a-t'), ft=document.getElementById('why-f-t');
   if(a){a.setAttribute('r',picked?'24':'15');
@@ -2902,16 +2901,16 @@ function updateWhySlide(){
          ft.setAttribute('opacity',picked?'1':'0');}
 
   var q=document.getElementById('why-q');
-  if(q)q.setAttribute('opacity',(n===4||n===5)?'1':'0');
+  if(q)q.setAttribute('opacity',(n===3||n===4)?'1':'0');
   var tb=document.getElementById('why-tables');
   if(tb)tb.setAttribute('opacity','0');
 
   var W=[];
-  W[1]='Suppose we have a large network. The diagram above shows part of it &mdash; there are many more routers and links in the middle.';
-  W[2]='Pick any two of them. <b>A</b> has a message to deliver to <b>F</b>.<br>It will not get there by magic. It needs a <b>path</b>.';
-  W[3]='<span class="wdef">definition</span> A <b>path</b> from A to F is a sequence of routers R<sub>0</sub>, R<sub>1</sub>, &#8230;, R<sub>k</sub> with R<sub>0</sub>&nbsp;=&nbsp;A and R<sub>k</sub>&nbsp;=&nbsp;F, where every consecutive pair is joined by a link. The message is handed along the whole sequence.';
-  W[4]='How does the network know <b>which path to use</b> for this source and this destination? <span class="wans">routing!</span>';
-  W[5]='Furthermore, it is often the case that <b>more than one path exists</b>. When several would do, how does the network know <b>which is the best one</b> to use? <span class="wans">routing!</span>';
+  W[0]='Suppose we have a large network. The diagram above shows part of it &mdash; there are many more routers and links in the middle.';
+  W[1]='Pick any two of them. <b>A</b> has a message to deliver to <b>F</b>.<br>It will not get there by magic. It needs a <b>path</b>.';
+  W[2]='<span class="wdef">definition</span> A <b>path</b> from A to F is a sequence of routers R<sub>0</sub>, R<sub>1</sub>, &#8230;, R<sub>k</sub> with R<sub>0</sub>&nbsp;=&nbsp;A and R<sub>k</sub>&nbsp;=&nbsp;F, where every consecutive pair is joined by a link. The message is handed along the whole sequence.';
+  W[3]='How does the network know <b>which path to use</b> for this source and this destination? <span class="wans">routing!</span>';
+  W[4]='Furthermore, it is often the case that <b>more than one path exists</b>. When several would do, how does the network know <b>which is the best one</b> to use? <span class="wans">routing!</span>';
   card.innerHTML = W[n] ? '<div class="wcard">'+W[n]+'</div>' : '';
 }
 
