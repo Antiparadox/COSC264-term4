@@ -471,7 +471,7 @@ svg text{font-family:var(--sans)}
 .lecture2-recap-slide .lecture-recap-list{margin-top:20px;gap:18px}
 .lecture2-recap-slide .lecture-recap-list li{padding:22px 26px 22px 62px;font-size:27px;line-height:1.35}
 
-/* Intra-AS routing: modern IGP terminology and RIP */
+/* Intra-AS routing: modern terminology and RIP */
 .igp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:4px}
 .igp-card{min-height:165px;padding:21px 20px;border:1px solid var(--border);border-radius:16px;
   background:var(--surface);box-shadow:var(--shadow)}
@@ -3035,10 +3035,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide stateful speaker-decision-slide" data-sec="Building the forwarding table">
-  <div class="kicker">One next hop per prefix · LOCAL_PREF → AS_PATH → IGP cost</div>
+  <div class="kicker">One next hop per prefix · LOCAL_PREF → AS_PATH → intra-AS cost</div>
   <h2>How each BGP router builds its forwarding table</h2>
   <div class="speaker-decision-stage" role="img"
-    aria-label="BGP speakers A4 and A5 distribute two candidate routes to A1 using iBGP. A1 compares local preference, AS path length, and finally its IGP cost to the next hops B3 and E1">
+    aria-label="BGP speakers A4 and A5 distribute two candidate routes to A1 using iBGP. A1 compares local preference, AS path length, and finally its intra-AS cost to the next hops B3 and E1">
     <div class="speaker-topology"><div class="speaker-as-boundary"><b>AS A</b></div>
       <span class="speaker-origin-label top">from AS B</span><span class="speaker-origin-label bottom">from AS E</span>
       <div class="speaker-external b3">B3</div><div class="speaker-external e1">E1</div>
@@ -3053,14 +3053,14 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <span class="speaker-ibgp l3"></span><span class="speaker-ibgp l4"></span>
       <span class="speaker-ibgp l5"></span>
       <span class="speaker-legend ibgp">dashed · iBGP sessions</span>
-      <span class="speaker-legend igp">solid · IGP topology</span>
-      <span class="speaker-cost top">IGP cost 2 · toward B3</span>
-      <span class="speaker-cost bottom">IGP cost 3 · toward E1</span>
+      <span class="speaker-legend igp">solid · intra-AS topology</span>
+      <span class="speaker-cost top">intra-AS cost 2 · toward B3</span>
+      <span class="speaker-cost bottom">intra-AS cost 3 · toward E1</span>
     </div>
     <div class="speaker-route-panel">
       <div class="speaker-route route1"><b>ROUTE 1 · AT A1</b>
         <span class="speaker-result path">SELECTED · AS_PATH</span>
-        <span class="speaker-result igp">SELECTED · IGP COST</span>
+        <span class="speaker-result igp">SELECTED · INTRA-AS COST</span>
         <div class="route-card">
           <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
           <div class="field"><span class="key">LOCAL_PREF</span><span class="value">
@@ -3106,7 +3106,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       ties, A1 compares AS-level path lengths and takes the shorter: <b>Route 1 wins</b> with two ASes
       rather than three.</span></div>
     <div class="speaker-card s5"><b>3 &middot; Then hot-potato routing</b><span>If both BGP attributes
-      tie, A1 turns to AS A's <b>own internal topology</b> and asks its IGP which next hop is closer:
+      tie, A1 turns to AS A's <b>own internal topology</b> and asks its own intra-AS routing protocol which next hop is closer:
       B3 at cost 2 beats E1 at cost 3, so <b>Route 1 wins</b> &mdash; <b>hot-potato routing</b>.</span></div>
   </div>
   <div class="source">iBGP, distributed selection, LOCAL_PREF, and IGP cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
@@ -3252,10 +3252,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 
-<section class="slide" data-sec="Interior Gateway Protocols">
-  <div class="kicker">Interior Gateway Protocols &middot; routing within one autonomous system</div>
+<section class="slide" data-sec="Intra-AS routing protocols">
+  <div class="kicker">Routing within one autonomous system</div>
   <h2>An overview of intra-AS routing protocols</h2>
-  <div class="igp-grid" aria-label="Examples of Interior Gateway Protocols">
+  <div class="igp-grid" aria-label="Examples of intra-AS routing protocols">
     <div class="frag igp-card"><strong>RIP</strong><span class="protocol-name">Routing Information
     Protocol</span><span class="protocol-kind">Distance vector</span></div>
     <div class="frag igp-card"><strong>OSPF</strong><span class="protocol-name">Open Shortest Path
@@ -3269,7 +3269,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="RIP overview">
-  <div class="kicker">A concrete distance-vector IGP</div>
+  <div class="kicker">A concrete distance-vector intra-AS protocol</div>
   <h2>RIP is a concrete distance-vector protocol</h2>
   <ul class="rip-overview-list">
     <li class="frag"><b>A reminder: neighbour-to-neighbour exchange</b><span>Routers talk only to

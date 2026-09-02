@@ -1093,13 +1093,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col">
-      <div class="frag" id="intra-block"><span class="pnote" hidden>Inside one AS: intra-AS routing, run by an Interior Gateway Protocol. Each AS picks its own, which is exactly the autonomy we just described.</span>
-        <p class="mono accent" style="margin:0 0 6px;font-size:16px">intra-AS · IGP <span class="small muted">(Interior Gateway Protocol)</span></p>
+      <div class="frag" id="intra-block"><span class="pnote" hidden>Inside one AS: intra-AS routing, run by an intra-AS routing protocol. Each AS picks its own, which is exactly the autonomy we just described.</span>
+        <p class="mono accent" style="margin:0 0 6px;font-size:16px">intra-AS routing protocol</p>
         <p style="margin:0;font-size:20px">Routing <b>within</b> a single AS — figure out the path a packet travels from one router to another router inside the same AS.</p>
         <p style="margin:8px 0 0;font-size:20px">Each AS has <b>full autonomy</b> over which protocol to run internally.</p>
       </div>
-      <div class="frag" id="inter-block" style="margin-top:24px"><span class="pnote" hidden>Between ASes: inter-AS routing, an Exterior Gateway Protocol. This one everybody has to agree on, because it is the part that spans organisations.</span>
-        <p class="mono" style="margin:0 0 6px;font-size:16px;color:var(--current)">inter-AS · EGP <span class="small muted">(Exterior Gateway Protocol)</span></p>
+      <div class="frag" id="inter-block" style="margin-top:24px"><span class="pnote" hidden>Between ASes: inter-AS routing, run by an inter-AS routing protocol. This one everybody has to agree on, because it is the part that spans organisations.</span>
+        <p class="mono" style="margin:0 0 6px;font-size:16px;color:var(--current)">inter-AS routing protocol</p>
         <p style="margin:0;font-size:20px">Routing <b>between</b> autonomous systems — figure out the path a packet travels from one AS to another.</p>
       </div>
     </div>
@@ -1112,23 +1112,23 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>Intra-AS and Inter-AS protocols</h2>
   <div class="cols">
     <div class="col">
-      <p class="mono accent" style="margin:0 0 10px;font-size:16px">intra-AS (IGP)</p>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);margin-bottom:14px"><span class="pnote" hidden>RIP, the Routing Information Protocol. Interior, and distance-vector.</span>
+      <p class="mono accent" style="margin:0 0 10px;font-size:16px">intra-AS routing protocols</p>
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);margin-bottom:14px"><span class="pnote" hidden>RIP, the Routing Information Protocol. Intra-AS, and distance-vector.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>RIP</b> <span class="small muted">(Routing Information Protocol)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono" style="color:var(--current)">distance-vector</span></p>
       </div>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent);margin-bottom:14px"><span class="pnote" hidden>OSPF, Open Shortest Path First. Interior, and link-state.</span>
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent);margin-bottom:14px"><span class="pnote" hidden>OSPF, Open Shortest Path First. Intra-AS, and link-state.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>OSPF</b> <span class="small muted">(Open Shortest Path First)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono accent">link-state</span></p>
       </div>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent)"><span class="pnote" hidden>IS-IS. Also interior, also link-state.</span>
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent)"><span class="pnote" hidden>IS-IS. Also intra-AS, also link-state.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>IS-IS</b> <span class="small muted">(Intermediate System to Intermediate System)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono accent">link-state</span></p>
       </div>
     </div>
     <div class="col">
-      <p class="mono" style="margin:0 0 10px;font-size:16px;color:var(--current)">inter-AS (EGP)</p>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);border-style:dashed"><span class="pnote" hidden>BGP, the Border Gateway Protocol. This is the exterior one, and its family is path-vector — a relative of distance-vector we meet in Module 2.</span>
+      <p class="mono" style="margin:0 0 10px;font-size:16px;color:var(--current)">inter-AS routing protocols</p>
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);border-style:dashed"><span class="pnote" hidden>BGP, the Border Gateway Protocol. This is the inter-AS one, and its family is path-vector — a relative of distance-vector we meet in Module 2.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>BGP</b> <span class="small muted">(Border Gateway Protocol)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono" style="color:var(--current)">path-vector</span></p>
       </div>
