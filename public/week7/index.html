@@ -332,6 +332,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div id="stage">
 
 <section class="slide" data-sec="Introduction to Routing">
+  <span class="pnote" hidden>[0 min] Welcome back. The second half of the course is six modules; today is Module 1, routing — how a network works out which way to send a packet. Three sessions: the routing problem itself, then the two families of algorithm.</span>
   <div class="center" style="align-items:flex-start">
     <div class="kicker">COSC264 · Introduction to Computer Networks and the Internet · Term 4</div>
     <h1>Module 1<br>Introduction to Routing</h1>
@@ -348,6 +349,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Recap and overview" data-anchor="c1">
+  <span class="pnote" hidden>Before we start, where this sits in the stack.</span>
   <div class="kicker">Recap and overview</div>
   <h2>Where this fits — the whole stack</h2>
   <div class="cols" style="align-items:center">
@@ -357,15 +359,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col" style="display:flex;flex-direction:column;gap:28px;justify-content:center">
-      <p class="frag lead" style="margin:0"><b>Physical</b> and <b>Link</b> — done</p>
-      <p class="frag lead" style="margin:0"><b>IP addressing</b> — done</p>
-      <p class="frag lead" style="margin:0"><b>Routing</b> — this week</p>
-      <p class="frag lead" style="margin:0"><b>Transport</b>, <b>Application</b> — coming weeks</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>Physical and link layers: done in the first half. That is getting bits across one hop.</span><b>Physical</b> and <b>Link</b> — done</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>IP addressing: also done. Every interface has an address, and addresses group into networks.</span><b>IP addressing</b> — done</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>Routing is the piece that is missing. We can name a destination and cross one link — but nothing yet chooses which links to cross.</span><b>Routing</b> — this module</p>
+      <p class="frag lead" style="margin:0"><span class="pnote" hidden>Transport and application come in later modules. Today we stay in the network layer.</span><b>Transport</b>, <b>Application</b> — coming weeks</p>
     </div>
   </div>
 </section>
 
 <section class="slide sec-title" data-sec="The Routing Problem">
+  <span class="pnote" hidden>Concept one: the routing problem itself. What routing is, what it produces, and who gets to decide how it is done.</span>
   <div class="kicker">Module 1</div>
   <h1>The Routing Problem</h1>
   <div class="rule"></div>
@@ -379,6 +382,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 4: The goal ====== -->
 <section class="slide" data-sec="Why do we need routing?">
+  <span class="pnote" hidden>[~3 min] First question. Why does a network need routing at all?</span>
   <div class="kicker">Question 1 of 4</div>
   <h2>Why do we need routing?</h2>
   <div style="display:flex;align-items:center;justify-content:center;flex:1;min-height:0;margin-top:-4px">
@@ -449,19 +453,20 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </svg>
   </div>
   <div id="why-card" style="min-height:104px;display:flex;align-items:center;justify-content:center"></div>
-  <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
-  <p class="frag" style="display:none"></p><p class="frag" style="display:none"></p>
-  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Here is part of a network. There are many more routers and links in the middle than we can draw.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>Pick two of them. A has a message for F. It will not get there by magic — it needs a path.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Formally: a path from A to F is a sequence of routers where every consecutive pair is joined by a link. The message is handed along that whole sequence.</span></p><p class="frag" style="display:none"><span class="pnote" hidden>So how does the network know which path to use, for this source and this destination? That question is routing.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>And usually more than one path exists. Choosing the best of them is also routing. Hold on to that word — best — we define it on the next slide.</span></p>
 </section>
 
 <!-- ====== What routing has to do ====== -->
 <section class="slide" data-sec="What does routing do?">
+  <span class="pnote" hidden>Second question. If routing picks a path, what does picking actually mean?</span>
   <div class="kicker">Question 2 of 4</div>
   <h2>What does routing do?</h2>
   <p class="lead" style="margin:0 0 26px;font-size:23px;max-width:60ch">Routing is how a network decides,
   <b>automatically</b>, which path packets take from each source to each destination.</p>
   <div class="cols" style="gap:24px;align-items:flex-start">
-    <div class="col frag" style="flex:1">
+    <div class="col frag" style="flex:1"><span class="pnote" hidden>Routing does not hand out just any path. It defines a cost metric, so every path has a cost, and then takes the cheapest. What cost means is the operator's choice — hop count, delay, spare bandwidth, money.</span>
       <div class="card" style="border-left:4px solid var(--current);padding:17px 22px;margin:0">
         <p class="mono" style="margin:0 0 9px;font-size:15px;color:var(--current)">which path counts as best</p>
         <p style="margin:0 0 9px;font-size:17.5px">Routing does not hand out just <em>any</em> path. It defines a
@@ -471,7 +476,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         choice &mdash; hop count, delay, spare bandwidth, money.</p>
       </div>
     </div>
-    <div class="col frag" style="flex:1">
+    <div class="col frag" style="flex:1"><span class="pnote" hidden>And it happens before any packet arrives. Working a path out per message would be far too slow — the answer has to be waiting. It also reruns whenever the network changes, so routing is always running.</span>
       <div class="card" style="border-left:4px solid var(--accent);padding:17px 22px;margin:0">
         <p class="mono accent" style="margin:0 0 9px;font-size:15px">when it happens</p>
         <ul style="margin:0;padding-left:19px">
@@ -498,6 +503,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
 <section class="slide" data-sec="What does routing do?">
+  <span class="pnote" hidden>[~8 min] Routing works out paths. Where does that answer actually live?</span>
   <div class="kicker">What routing produces</div>
   <h2>How is the path information stored? <span style="color:var(--muted);font-weight:400">&mdash; the forwarding table</span></h2>
   <div id="fw-card" style="min-height:82px;display:flex;align-items:center;margin:2px 0 14px"></div>
@@ -554,7 +560,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
      border-top:1px solid var(--border);font-size:19px;color:var(--muted)">Building those tables is
      <b class="accent">routing</b>. Reading one row and passing the message on &mdash; what we just did
      &mdash; is <b style="color:var(--current)">forwarding</b>.</p>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Routing works out a path from every source to every destination. But where does that information sit once it has been worked out?</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>In a forwarding table, and every router keeps one. For each destination it records one next hop — and nothing more.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>A has a message for F. A's table says: destination F, next hop B. So A hands it to B.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>B now does exactly the same with its own table: destination F, next hop D. It hands it on.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And D's table says: destination F, next hop F. D is directly attached, so the message arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Notice what just happened. Each router made only a local decision. None of them held the whole path — but put the local decisions together and you get A to B to D to F.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>That distinction is worth naming, and it is the next slide. Building those tables is routing. Reading one row and passing the message on is forwarding.</span></p>
 </section>
 
 
@@ -565,6 +571,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 13: Control plane / data plane ====== -->
 <section class="slide" data-sec="What does routing do?">
+  <span class="pnote" hidden>[~12 min] Those two words get used interchangeably outside this room. They are not the same thing.</span>
   <div class="kicker">Control plane vs. data plane</div>
   <h2>Routing vs. forwarding</h2>
   <div class="cols" style="align-items:center;gap:22px;flex:0 0 auto;margin-top:6px">
@@ -628,11 +635,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </tbody>
     </table>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Routing produces the tables. Forwarding uses them.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Routing runs beforehand, offline. Forwarding runs at the moment a datagram actually arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Which is why forwarding has to be fast — nanoseconds, per packet — and routing can afford to be slow.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And the names for the two halves: control plane and data plane. Those terms come back all term.</span></p>
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
 <section class="slide" data-sec="What does routing do?">
+  <span class="pnote" hidden>The everyday version. Routing is planning the trip before you leave. Forwarding is reading one sign at one junction. You plan once; you read a sign at every intersection.</span>
   <div class="kicker">Analogy</div>
   <h2>Planning the trip vs. reading the signs</h2>
   <div class="cols">
@@ -669,20 +677,21 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 17: The solution ====== -->
 <section class="slide" data-sec="How do we do routing?">
+  <span class="pnote" hidden>[~16 min] Third question, and this is the hard one. Every router knows only the links it is plugged into. None of them can see the whole network — and yet a path has to be found across all of it.</span>
   <div class="kicker">Question 3 of 4</div>
   <h2>How do we do routing?</h2>
   <p class="lead" style="margin:0 0 26px;font-size:22px;max-width:74ch">Easier to state than to do. Every
   router knows only the links it is plugged into &mdash; <b>none of them can see the whole network</b>
   &mdash; and yet a path has to be found across all of it.</p>
   <div class="cols" style="gap:22px;align-items:flex-start">
-    <div class="col frag" style="flex:1">
+    <div class="col frag" style="flex:1"><span class="pnote" hidden>A routing algorithm solves that problem under ideal assumptions — as though someone could see the whole network at once.</span>
       <div class="card" style="border-left:4px solid var(--current);padding:16px 20px;margin:0">
         <p class="mono" style="margin:0 0 8px;font-size:15px;color:var(--current)">a routing algorithm</p>
         <p style="margin:0;font-size:18px">Solves the routing problem under
         <b style="color:var(--current)">ideal assumptions</b>.</p>
       </div>
     </div>
-    <div class="col frag" style="flex:1.25">
+    <div class="col frag" style="flex:1.25"><span class="pnote" hidden>A routing protocol embeds that algorithm in a real network: it is distributed, it carries explicit messages between routers, and those messages take time and can fail. The protocol has to allow for all of that.</span>
       <div class="card" style="border-left:4px solid var(--accent);padding:16px 20px;margin:0">
         <p class="mono accent" style="margin:0 0 8px;font-size:15px">a routing protocol</p>
         <p style="margin:0 0 8px;font-size:18px">Embeds a routing algorithm into
@@ -702,6 +711,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <section class="slide sec-title" data-sec="How do we do routing?">
+  <span class="pnote" hidden>There are two families of routing algorithm, and most of this module is about them: link-state and distance-vector. One slide each, then we come back to both in later sessions.</span>
   <div class="kicker">Module 1 · The Routing Problem</div>
   <h1>Two families of<br>routing algorithms</h1>
   <div class="rule"></div>
@@ -716,6 +726,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="How do we do routing?">
+  <span class="pnote" hidden>[~18 min] First family: link-state. The idea is to give every router the whole map.</span>
   <div class="kicker">The two families &middot; link-state</div>
   <h2>Link-state: get the whole map</h2>
   <div class="cols" style="align-items:center">
@@ -746,17 +757,18 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col">
-      <p class="frag" style="font-size:22px;margin:0">The routers talk to each of their
+      <p class="frag" style="font-size:22px;margin:0"><span class="pnote" hidden>The routers talk to each of their neighbours.</span>The routers talk to each of their
       <b>neighbours</b>.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">They exchange information, so that at the
+      <p class="frag" style="margin-top:20px;font-size:22px"><span class="pnote" hidden>They exchange information until every router holds a global view of the network — and crucially, the same view.</span>They exchange information, so that at the
       end every router holds a <b>global view</b> of the network.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">With that map in hand, each router works out
+      <p class="frag" style="margin-top:20px;font-size:22px"><span class="pnote" hidden>With that map in hand, each router works out its own forwarding table locally. The algorithm for that is the third session.</span>With that map in hand, each router works out
       its own forwarding table <b>locally</b> <span class="small muted">(next lecture)</span>.</p>
     </div>
   </div>
 </section>
 
 <section class="slide" data-sec="How do we do routing?">
+  <span class="pnote" hidden>Second family: distance-vector. Same starting point, opposite idea.</span>
   <div class="kicker">The two families &middot; distance-vector</div>
   <h2>Distance-vector: ask your neighbours</h2>
   <div class="cols">
@@ -814,12 +826,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
     <div class="col">
-      <p class="frag" style="font-size:22px;margin:0">The routers talk to each of their
+      <p class="frag" style="font-size:22px;margin:0"><span class="pnote" hidden>The routers still talk only to their neighbours — exactly as before.</span>The routers talk to each of their
       <b>neighbours</b> &mdash; exactly as before.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">This time, instead of learning a global
+      <p class="frag" style="margin-top:20px;font-size:22px"><span class="pnote" hidden>But instead of building a map, each router learns directly, for each destination, which neighbour is the best next hop. No router ever sees the whole network.</span>This time, instead of learning a global
       view, each router directly learns, for each destination, <b>which neighbour is the best next hop
       to forward to</b> for that destination.</p>
-      <p class="frag" style="margin-top:20px;font-size:22px">Eventually each router builds its forwarding
+      <p class="frag" style="margin-top:20px;font-size:22px"><span class="pnote" hidden>The forwarding table falls straight out of that. That algorithm is our next session.</span>Eventually each router builds its forwarding
       table out of that <span class="small muted">(next lecture)</span>.</p>
     </div>
   </div>
@@ -828,6 +840,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>[~23 min] Fourth and last question. A network is a great many routers — and they are not all run by the same people.</span>
   <div class="kicker">Question 4 of 4</div>
   <h2>Who runs the routing protocol?</h2>
   <p class="lead" style="margin:0 0 16px;font-size:22px;max-width:78ch">A network is a great many
@@ -873,18 +886,19 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       operates the router</p>
     </div>
     <div class="col">
-      <p class="frag" style="margin:0;font-size:21px">One operator may want <b>link-state</b>. Another
+      <p class="frag" style="margin:0;font-size:21px"><span class="pnote" hidden>One operator may want link-state. Another may prefer distance-vector. A third may not want to publish how its network is wired at all.</span>One operator may want <b>link-state</b>. Another
       may prefer <b>distance-vector</b>. A third may not want to publish how its network is wired at
       all.</p>
-      <p class="frag" style="margin-top:18px;font-size:21px">So <b>who decides</b> which routing
+      <p class="frag" style="margin-top:18px;font-size:21px"><span class="pnote" hidden>So who decides which routing protocol runs? Nobody is in charge of the Internet, so nobody gets to impose one answer.</span>So <b>who decides</b> which routing
       protocol runs? Nobody is in charge of the Internet, so nobody gets to impose one answer.</p>
-      <p class="frag" style="margin-top:18px;font-size:21px">The way out is to stop asking about the
+      <p class="frag" style="margin-top:18px;font-size:21px"><span class="pnote" hidden>The way out is to stop asking about the Internet as a whole, and find the smallest piece that can decide for itself.</span>The way out is to stop asking about the
       Internet as a whole, and find the smallest piece that <b>can</b> decide for itself.</p>
     </div>
   </div>
 </section>
 
 <section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>[~26 min] That piece has a name: an autonomous system, an AS. A set of routers and networks that decides for itself.</span>
   <div class="kicker">Autonomous systems</div>
   <h2>The unit of the Internet: the AS</h2>
   <div class="cols" style="align-items:center">
@@ -932,15 +946,16 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     <div class="col">
       <p class="lead" style="margin-bottom:20px">An <b>autonomous system</b> is a set of routers and networks…</p>
       <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;font-size:22px">
-        <li class="frag">managed by a <span class="accent"><b>single organisation</b></span></li>
-        <li class="frag">running under a <span class="accent"><b>common routing policy</b></span> internally</li>
-        <li class="frag">has <span class="accent"><b>full autonomy</b></span> over which routing protocol to run within its own network</li>
+        <li class="frag"><span class="pnote" hidden>Managed by a single organisation.</span>managed by a <span class="accent"><b>single organisation</b></span></li>
+        <li class="frag"><span class="pnote" hidden>Running under one common routing policy internally.</span>running under a <span class="accent"><b>common routing policy</b></span> internally</li>
+        <li class="frag"><span class="pnote" hidden>And with full autonomy over which routing protocol runs inside it. That third point is the one that matters — the AS is the unit that gets to choose.</span>has <span class="accent"><b>full autonomy</b></span> over which routing protocol to run within its own network</li>
       </ul>
     </div>
   </div>
 </section>
 
 <section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>And you are sitting inside one right now.</span>
   <div class="kicker">Concretely</div>
   <h2>The AS you are inside right now</h2>
   <div class="cols" style="align-items:center;gap:30px">
@@ -957,9 +972,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="small muted" style="margin-top:12px">asnlookup.com, retrieved July 2026</p>
     </div>
     <div class="col">
-      <p class="frag" style="margin:0;font-size:21px"><b class="accent">AS9432</b> is the
+      <p class="frag" style="margin:0;font-size:21px"><span class="pnote" hidden>AS9432 is the AS number — the handle every other AS on the Internet uses to refer to this one.</span><b class="accent">AS9432</b> is the
       <b>AS number</b> &mdash; the handle every other AS on the Internet uses to refer to this one.</p>
-      <p class="frag" style="margin-top:20px;font-size:21px">The <b class="accent">/16</b> is the
+      <p class="frag" style="margin-top:20px;font-size:21px"><span class="pnote" hidden>The /16 is the subnet mask: the first sixteen bits name the network, so every 132.181-dot-anything address sits inside it.</span>The <b class="accent">/16</b> is the
       <b>subnet mask</b>: the first 16 bits name the network, so every <span class="mono">132.181.x.x</span>
       address sits inside it.</p>
     </div>
@@ -967,6 +982,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>[~30 min] ASes are classified by how traffic is allowed to flow through them. Three kinds.</span>
   <div class="kicker">Taxonomy</div>
   <h2>Three kinds of AS — by how traffic may flow</h2>
   <div class="cols">
@@ -997,13 +1013,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col" style="display:flex;flex-direction:column;gap:11px;justify-content:flex-start;min-height:0">
-      <div class="card frag" data-mark="stub" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Stub</b> — one connection to one <b>provider</b> (an AS that sells connectivity to other ASes).</p>
+      <div class="card frag" data-mark="stub" style="padding:14px 20px"><span class="pnote" hidden>Stub: one connection, to one provider. Here AS 3 is the provider and AS 1 is the stub.</span><p style="margin:0;font-size:19px"><b>Stub</b> — one connection to one <b>provider</b> (an AS that sells connectivity to other ASes).</p>
         <p style="margin:6px 0 0;font-size:16px;color:var(--muted)">e.g. AS&nbsp;3 is the provider to
         AS&nbsp;1, which is a stub.</p></div>
-      <div class="card frag" data-mark="multi" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Multi-homed</b> — several providers, but carries <span class="warn">no through-traffic</span>.</p>
+      <div class="card frag" data-mark="multi" style="padding:14px 20px"><span class="pnote" hidden>Multi-homed: several providers, but it carries no through-traffic. A datagram may not cross from AS 3 through AS 2 to AS 4.</span><p style="margin:0;font-size:19px"><b>Multi-homed</b> — several providers, but carries <span class="warn">no through-traffic</span>.</p>
         <p style="margin:6px 0 0;font-size:16px;color:var(--muted)">e.g. a datagram may not go from
         AS&nbsp;3 through AS&nbsp;2 to AS&nbsp;4.</p></div>
-      <div class="card frag" data-mark="transit" style="padding:14px 20px"><p style="margin:0;font-size:19px"><b>Transit</b> — connects ASes and <span class="accent">carries others’ traffic</span>. That service is the product. <span class="small muted">(e.g. One NZ, Verizon)</span></p></div>
+      <div class="card frag" data-mark="transit" style="padding:14px 20px"><span class="pnote" hidden>Transit: connects ASes and carries other people's traffic. That service is the product — One NZ, Verizon.</span><p style="margin:0;font-size:19px"><b>Transit</b> — connects ASes and <span class="accent">carries others’ traffic</span>. That service is the product. <span class="small muted">(e.g. One NZ, Verizon)</span></p></div>
     </div>
   </div>
 </section>
@@ -1011,6 +1027,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 
 <section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>[~33 min] Try this one before I say anything. A hospital network, two providers so it stays online if one fails, never carries anyone else's traffic. Give them a minute of thinking time, then reveal.</span>
   <div class="kicker">Quick question</div>
   <h2>What kind of AS?</h2>
   <div class="poll" id="poll2">
@@ -1031,6 +1048,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>Once the Internet is divided into ASes, the routing problem divides in two as well.</span>
   <div class="kicker">Two routing problems</div>
   <h2>Intra-AS routing vs Inter-AS routing</h2>
   <div class="cols" style="align-items:center">
@@ -1077,12 +1095,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </svg>
     </div>
     <div class="col">
-      <div class="frag" id="intra-block">
+      <div class="frag" id="intra-block"><span class="pnote" hidden>Inside one AS: intra-AS routing, run by an Interior Gateway Protocol. Each AS picks its own, which is exactly the autonomy we just described.</span>
         <p class="mono accent" style="margin:0 0 6px;font-size:16px">intra-AS · IGP <span class="small muted">(Interior Gateway Protocol)</span></p>
         <p style="margin:0;font-size:20px">Routing <b>within</b> a single AS — figure out the path a packet travels from one router to another router inside the same AS.</p>
         <p style="margin:8px 0 0;font-size:20px">Each AS has <b>full autonomy</b> over which protocol to run internally.</p>
       </div>
-      <div class="frag" id="inter-block" style="margin-top:24px">
+      <div class="frag" id="inter-block" style="margin-top:24px"><span class="pnote" hidden>Between ASes: inter-AS routing, an Exterior Gateway Protocol. This one everybody has to agree on, because it is the part that spans organisations.</span>
         <p class="mono" style="margin:0 0 6px;font-size:16px;color:var(--current)">inter-AS · EGP <span class="small muted">(Exterior Gateway Protocol)</span></p>
         <p style="margin:0;font-size:20px">Routing <b>between</b> autonomous systems — figure out the path a packet travels from one AS to another.</p>
       </div>
@@ -1091,34 +1109,35 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 </section>
 
 <section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>[~38 min] And the real protocols, so the names are familiar when we meet them properly.</span>
   <div class="kicker">Real protocols</div>
   <h2>Intra-AS and Inter-AS protocols</h2>
   <div class="cols">
     <div class="col">
       <p class="mono accent" style="margin:0 0 10px;font-size:16px">intra-AS (IGP)</p>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);margin-bottom:14px">
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);margin-bottom:14px"><span class="pnote" hidden>RIP, the Routing Information Protocol. Interior, and distance-vector.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>RIP</b> <span class="small muted">(Routing Information Protocol)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono" style="color:var(--current)">distance-vector</span></p>
       </div>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent);margin-bottom:14px">
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent);margin-bottom:14px"><span class="pnote" hidden>OSPF, Open Shortest Path First. Interior, and link-state.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>OSPF</b> <span class="small muted">(Open Shortest Path First)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono accent">link-state</span></p>
       </div>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent)">
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--accent)"><span class="pnote" hidden>IS-IS. Also interior, also link-state.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>IS-IS</b> <span class="small muted">(Intermediate System to Intermediate System)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono accent">link-state</span></p>
       </div>
     </div>
     <div class="col">
       <p class="mono" style="margin:0 0 10px;font-size:16px;color:var(--current)">inter-AS (EGP)</p>
-      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);border-style:dashed">
+      <div class="card frag" style="padding:16px 20px;border-top:4px solid var(--current);border-style:dashed"><span class="pnote" hidden>BGP, the Border Gateway Protocol. This is the exterior one, and its family is path-vector — a relative of distance-vector we meet in Module 2.</span>
         <p style="margin:0 0 6px;font-size:21px"><b>BGP</b> <span class="small muted">(Border Gateway Protocol)</span></p>
         <p style="margin:0;font-size:18px">Algorithm family: <span class="mono" style="color:var(--current)">path-vector</span></p>
       </div>
     </div>
   </div>
-  <p class="frag" style="margin:22px 0 0;font-size:20px">We will look at these protocols themselves
-  next week.</p>
+  <p class="frag" style="margin:22px 0 0;font-size:20px"><span class="pnote" hidden>That is the routing problem. Next session we make best precise, and build the distance-vector algorithm from scratch.</span>We will look at these protocols themselves
+  in Module 2.</p>
 </section>
 
 
