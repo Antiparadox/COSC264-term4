@@ -503,7 +503,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 
 <!-- ====== Slide 10: Integrate — the forwarding table ====== -->
 <section class="slide" data-sec="What does routing do?">
-  <span class="pnote" hidden>[~8 min] So how does the path information get stored?</span>
+  <span class="pnote" hidden>[~8 min] So how does the path information get stored? Routing works out a path from every source to every destination — but where does that information actually live, once it has been worked out?</span>
   <div class="kicker">What routing produces</div>
   <h2>How is the path information stored? <span style="color:var(--muted);font-weight:400">&mdash; the forwarding table</span></h2>
   <div id="fw-card" style="min-height:82px;display:flex;align-items:center;margin:2px 0 14px"></div>
@@ -559,8 +559,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p id="fw-next" style="opacity:0;transition:opacity .3s;margin:20px 0 0;padding-top:13px;
      border-top:1px solid var(--border);font-size:19px;color:var(--muted)">Building those tables is
      <b class="accent">routing</b>. Reading one row and passing the message on &mdash; what we just did
-     &mdash; is <b style="color:var(--current)">forwarding</b>.</p>
-  <p class="frag" style="display:none"><span class="pnote" hidden>Routing works out a path from every source to every destination. But where does that information actually live, once it has been worked out?</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>The answer is the forwarding table. You met these in the first half of the course, so this is a quick recall. Every router keeps one, and it records, for each destination, the next hop to send to. And that is all it holds.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Now a concrete example. Router A has a message for F. A's table says: for destination F, the next hop is B. So A hands the message to B.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>B now does exactly the same with its own table: destination F, next hop D. It hands it on.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And D's table says: destination F, next hop F. D is directly attached, so the message arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Notice what just happened. Each router made only a local decision. None of them held the whole path — but put the local decisions together and you get A to B to D to F.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>That distinction is worth naming, and it is the next slide. Building those tables is routing. Reading one row and passing the message on is forwarding.</span></p>
+     &mdash; is <b style="color:var(--current)">forwarding</b>.</p>  <p class="frag" style="display:none"><span class="pnote" hidden>The answer is the forwarding table. You met these in the first half of the course, so this is a quick recall. Every router keeps one, and it records, for each destination, the next hop to send to. And that is all it holds.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Now a concrete example. Router A has a message for F. A's table says: for destination F, the next hop is B. So A hands the message to B.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>B now does exactly the same with its own table: destination F, next hop D. It hands it on.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And D's table says: destination F, next hop F. D is directly attached, so the message arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Notice what just happened. Each router made only a local decision. None of them held the whole path — but put the local decisions together and you get A to B to D to F.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>That distinction is worth naming, and it is the next slide. Building those tables is routing. Reading one row and passing the message on is forwarding.</span></p>
 </section>
 
 
@@ -2792,38 +2791,38 @@ function updateFwdSlide(){
   var card=document.getElementById('fw-card');
 
   var C=[];
-  C[1]='<div class="fcard fq">Routing works out a path from <b>every source to every destination</b>. '
+  C[0]='<div class="fcard fq">Routing works out a path from <b>every source to every destination</b>. '
      + 'But where does that information actually <b>live</b> once it has been worked out?</div>';
-  C[2]='<div class="fcard fa">In a <b>forwarding table</b>, and every router keeps one. It records, for each '
+  C[1]='<div class="fcard fa">In a <b>forwarding table</b>, and every router keeps one. It records, for each '
      + 'destination, which <span class="accent">next hop</span> to send it to &mdash; and nothing more.</div>';
-  C[3]='<div class="fcard fa">A has a message for F. A’s table says: for destination <b>F</b>, next hop is '
+  C[2]='<div class="fcard fa">A has a message for F. A’s table says: for destination <b>F</b>, next hop is '
      + '<b>B</b>. So A hands the message to B.</div>';
-  C[4]='<div class="fcard fa">B now does exactly the same thing with <i>its own</i> table: for destination '
+  C[3]='<div class="fcard fa">B now does exactly the same thing with <i>its own</i> table: for destination '
      + '<b>F</b>, next hop is <b>D</b>. So B hands it to D.</div>';
-  C[5]='<div class="fcard fa">And D’s table: for destination <b>F</b>, next hop is <b>F</b> itself. '
+  C[4]='<div class="fcard fa">And D’s table: for destination <b>F</b>, next hop is <b>F</b> itself. '
      + 'D is directly attached, so the message arrives.</div>';
-  C[6]='<div class="fcard fa">Notice that each router holds only a <b>local</b> decision &mdash; '
+  C[5]='<div class="fcard fa">Notice that each router holds only a <b>local</b> decision &mdash; '
      + 'none of them has the global path. Put those local decisions together and you get '
      + '<b>A &#8594; B &#8594; D &#8594; F</b>.</div>';
-  C[7]=C[6];                       // beat 7 adds the hand-over line; the card stays put
+  C[6]=C[5];                       // the last beat adds the hand-over line; the card stays put
   if(card) card.innerHTML = C[n] || '';
 
   // Each table appears exactly when its router has to make its decision.
   ['A','B','D'].forEach(function(r,k){
     var t=document.getElementById('fwtab-'+r);
-    if(t) t.classList.toggle('show', n >= (k===0?2:k+3));
+    if(t) t.classList.toggle('show', n >= (k===0?1:k+2));
   });
 
   // One arrow per hop, and the base edges fade so the chosen path stands out.
   for(var i=1;i<=3;i++){
     var hop=document.getElementById('fwh'+i);
-    if(hop) hop.classList.toggle('on', n >= i+2);
+    if(hop) hop.classList.toggle('on', n >= i+1);
   }
-  s.querySelectorAll('.fwe').forEach(function(l){l.classList.toggle('dim', n>=3);});
+  s.querySelectorAll('.fwe').forEach(function(l){l.classList.toggle('dim', n>=2);});
   var pl=document.getElementById('fw-path');
-  if(pl) pl.setAttribute('opacity', n>=6?'1':'0');
+  if(pl) pl.setAttribute('opacity', n>=5?'1':'0');
   var nx=document.getElementById('fw-next');
-  if(nx) nx.style.opacity = n>=7?'1':'0';
+  if(nx) nx.style.opacity = n>=6?'1':'0';
 }
 
 /* ---------- slide 5: the diagram tracks the story, one card at a time ---------- */
