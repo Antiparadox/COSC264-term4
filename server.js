@@ -135,6 +135,31 @@ wss.on('connection', (ws) => {
       return;
     }
 
+    // --- deck -> phone and lectern screen -----------------------------
+    // The only thing that travels this way. The deck is the authority on what
+    // is projected, so the notes screen follows the deck rather than the
+    // button press: if the deck lags, the note lags with it, which is the
+    // behaviour you want. Everything is clamped here because the notes screen
+    // renders it.
+    if (ws.role === 'presenter') {
+      const own = sessions.get(ws.code);
+      if (!own || msg.type !== 'state') return;
+      const str = (v, n) => String(v ?? '').slice(0, n);
+      const num = v => (Number.isFinite(Number(v)) ? Number(v) : 0);
+      const out = {
+        type: 'state',
+        slide: num(msg.slide), total: num(msg.total),
+        step: num(msg.step), steps: num(msg.steps),
+        section: str(msg.section, 120),
+        title: str(msg.title, 200),
+        nextTitle: str(msg.nextTitle, 200),
+        note: str(msg.note, 2000),
+        nextNote: str(msg.nextNote, 2000),
+      };
+      for (const r of own.remotes) send(r, out);
+      return;
+    }
+
     // --- phone -> deck ------------------------------------------------
     if (ws.role !== 'remote') return;
     const session = sessions.get(ws.code);

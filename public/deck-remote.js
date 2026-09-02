@@ -182,6 +182,90 @@
     @media (max-width:600px){#rc-card{min-width:0;width:86vw;padding:26px 22px 22px}
       #rc-code{font-size:42px}}`;
 
+  /* ------------------------------------------------------------------
+   * Deck state, for the lectern screen.
+   *
+   * The deck's own engine is not touched: the slide and step are read back
+   * out of the DOM, the way the caption corrector reads the active slide.
+   * That keeps this working across all six decks, which mark the current
+   * fragment with .on in five of them and .visible in the sixth.
+   *
+   * Speaker notes are read from an optional block inside each slide:
+   *
+   *     <div class="pnotes" hidden>
+   *       <p data-step="0">What to say before the first reveal.</p>
+   *       <p data-step="1">What to say once the first fragment is up.</p>
+   *     </div>
+   *
+   * No deck carries one yet -- the notes are written last -- so today this
+   * sends empty strings and the lectern screen shows position only.
+   * ---------------------------------------------------------------- */
+  const REVEALED = '.frag.on, .frag.visible';
+
+  function noteFor(slide, step) {
+    if (!slide) return '';
+    const block = slide.querySelector('.pnotes');
+    if (!block) return '';
+    const exact = block.querySelector(`[data-step="${step}"]`);
+    if (exact) return exact.textContent.trim();
+    // an unnumbered block is the note for the whole slide
+    return block.children.length ? '' : block.textContent.trim();
+  }
+
+  function headingOf(slide) {
+    const h = slide && slide.querySelector('h1, h2');
+    return h ? h.textContent.replace(/\s+/g, ' ').trim() : '';
+  }
+
+  function deckState() {
+    const slides = [...document.querySelectorAll('.slide')];
+    const i = slides.findIndex(s => s.classList.contains('active'));
+    if (i < 0) return null;
+    const cur = slides[i];
+    const step = cur.querySelectorAll(REVEALED).length;
+    return {
+      type: 'state',
+      slide: i + 1,
+      total: slides.length,
+      step,
+      steps: cur.querySelectorAll('.frag').length,
+      section: cur.getAttribute('data-sec') || cur.getAttribute('data-section') || '',
+      title: headingOf(cur),
+      nextTitle: headingOf(slides[i + 1]),
+      note: noteFor(cur, step),
+      nextNote: noteFor(cur, step + 1) || noteFor(slides[i + 1], 0),
+    };
+  }
+
+  let lastState = '';
+  function pushState(force) {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+    const st = deckState();
+    if (!st) return;
+    const key = JSON.stringify(st);
+    if (!force && key === lastState) return;   // the DOM churns; the state does not
+    lastState = key;
+    try { ws.send(key); } catch {}
+  }
+
+  /* Class changes are how these deck engines express everything, so one
+   * observer catches slide changes and fragment reveals alike. Coalesced on a
+   * short timer so a burst of toggles sends once -- deliberately not
+   * requestAnimationFrame, which stops entirely when the deck window is not
+   * the foreground one. On a second display that is the normal case, and the
+   * lectern screen would simply stop updating. */
+  let queued = null;
+  function watchDeck() {
+    const fire = () => {
+      clearTimeout(queued);
+      queued = setTimeout(() => pushState(false), 40);
+    };
+    new MutationObserver(fire).observe(document.body, {
+      attributes: true, subtree: true, attributeFilter: ['class'],
+    });
+    fire();
+  }
+
   function setCap(final, interim) {
     const f = document.getElementById('rc-cap-final');
     const i = document.getElementById('rc-cap-interim');
@@ -279,6 +363,7 @@
     sock.addEventListener('open', () => {
       retry = RETRY_MIN;
       sock.send(JSON.stringify({ role: 'presenter', code }));
+      pushState(true);           // a screen joining mid-lecture needs the truth
     });
 
     sock.addEventListener('message', (ev) => {
@@ -295,6 +380,9 @@
       }
 
       if (m.type === 'remote') {
+        // a lectern screen that has just joined has no idea where we are
+        pushState(true);
+
         // A phone that has just (re)joined starts counting from scratch, so a
         // stale high-water mark here would silently swallow every tap. Each
         // pairing therefore begins a fresh command stream. The guard still
@@ -435,6 +523,8 @@
     });
 
     try { code = sessionStorage.getItem(STORE_KEY); } catch {}
+
+    watchDeck();
   }
 
   // Never let this file break a lecture.

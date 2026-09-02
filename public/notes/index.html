@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>COSC264 · Lectern</title>
+<style>
+  /* A screen read at arm's length, in a dark theatre, out of the corner of an
+     eye. Dark ground so it throws no light on the lecturer, and the note is
+     the only thing allowed to be large. */
+  :root{
+    --bg:#0c1116; --panel:#131b22; --line:#22303a;
+    --ink:#eef4f7; --muted:#8fa3ae; --faint:#5d707c;
+    --accent:#3ddbb8; --warn:#e8b04b; --bad:#e2705d;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;overflow:hidden}
+
+  /* ---------- pairing ---------- */
+  #pair{position:fixed;inset:0;display:grid;place-items:center;padding:24px;z-index:20}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;
+    padding:30px 30px 26px;width:min(420px,92vw);text-align:center}
+  .card h1{margin:0 0 6px;font-size:21px;letter-spacing:-.01em}
+  .card p{margin:0 0 20px;color:var(--muted);font-size:14px;line-height:1.5}
+  #code{width:100%;font:700 40px/1 var(--mono);letter-spacing:.22em;text-align:center;
+    text-transform:uppercase;background:#0a0f14;color:var(--ink);
+    border:1px solid var(--line);border-radius:12px;padding:16px 10px}
+  #code:focus{outline:2px solid var(--accent);outline-offset:1px}
+  #go{margin-top:14px;width:100%;font:600 17px/1 var(--sans);border:0;border-radius:12px;
+    padding:15px;background:var(--accent);color:#06231d;cursor:pointer}
+  #go:disabled{opacity:.4;cursor:default}
+  #pairmsg{margin:14px 0 0;font-size:13.5px;color:var(--bad);min-height:1.2em}
+
+  /* ---------- lectern ---------- */
+  #view{display:none;grid-template-rows:auto 1fr auto;height:100%;padding:16px 22px 14px;gap:14px}
+  #view.on{display:grid}
+
+  header{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);padding-bottom:11px}
+  #section{font:600 15px/1.3 var(--sans);color:var(--accent);
+    text-transform:uppercase;letter-spacing:.09em}
+  #title{font-size:19px;color:var(--muted);flex:1;min-width:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #pos{font:600 15px/1 var(--mono);color:var(--faint);white-space:nowrap}
+  #clock{font:600 16px/1 var(--mono);color:var(--muted);white-space:nowrap;
+    cursor:pointer;user-select:none}
+  #clock.run{color:var(--accent)}
+
+  main{display:grid;grid-template-rows:1fr auto;gap:14px;min-height:0}
+
+  #now{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);
+    border-radius:14px;padding:24px 28px;overflow-y:auto;min-height:0;
+    font-size:clamp(22px,2.7vw,34px);line-height:1.42}
+  #now.empty{color:var(--faint);font-size:19px;font-style:italic;
+    display:grid;place-items:center;text-align:center;border-left-color:var(--line)}
+
+  #next{background:#0f161c;border:1px solid var(--line);border-radius:14px;
+    padding:14px 20px;color:var(--muted);font-size:clamp(15px,1.5vw,19px);line-height:1.45;
+    max-height:26vh;overflow-y:auto}
+  #next .lbl{display:block;font:700 10.5px/1 var(--mono);letter-spacing:.16em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+
+  /* ---------- steps + controls ---------- */
+  footer{display:flex;align-items:center;gap:14px}
+  #pips{display:flex;gap:5px;flex:1;flex-wrap:wrap;align-items:center;min-height:10px}
+  .pip{width:26px;height:6px;border-radius:3px;background:var(--line)}
+  .pip.on{background:var(--accent)}
+  #steptxt{font:600 13px/1 var(--mono);color:var(--faint);white-space:nowrap}
+  .nav{display:flex;gap:9px}
+  .nav button{font:600 16px/1 var(--sans);border:1px solid var(--line);border-radius:11px;
+    background:var(--panel);color:var(--ink);padding:13px 22px;cursor:pointer}
+  .nav button:active{transform:scale(.985)}
+  .nav button.pri{background:var(--accent);color:#06231d;border-color:transparent}
+
+  #link{position:fixed;left:14px;bottom:10px;font:600 11px/1 var(--mono);
+    letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+  #link.off{color:var(--bad)}
+
+  @media (max-width:640px){
+    #view{padding:12px 14px 10px}
+    #now{padding:16px 18px}
+    .nav button{padding:12px 16px}
+  }
+</style>
+</head>
+<body>
+
+<section id="pair">
+  <div class="card">
+    <h1>Lectern</h1>
+    <p>Open the remote panel on the deck and type the code it shows.</p>
+    <input id="code" maxlength="6" autocomplete="off" autocapitalize="characters"
+           spellcheck="false" inputmode="latin" aria-label="Session code">
+    <button id="go" disabled>Connect</button>
+    <p id="pairmsg" role="status"></p>
+  </div>
+</section>
+
+<section id="view">
+  <header>
+    <span id="section">—</span>
+    <span id="title"></span>
+    <span id="pos">–/–</span>
+    <span id="clock" title="Click to start, pause, or reset">00:00</span>
+  </header>
+
+  <main>
+    <div id="now" class="empty">Waiting for the deck…</div>
+    <div id="next"><span class="lbl">Next</span><span id="nexttxt">—</span></div>
+  </main>
+
+  <footer>
+    <div id="pips"></div>
+    <span id="steptxt"></span>
+    <div class="nav">
+      <button id="prev">← Back</button>
+      <button id="next-btn" class="pri">Next →</button>
+    </div>
+  </footer>
+</section>
+
+<div id="link" class="off">offline</div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const STORE = 'cosc264-remote-last-code';
+
+  let ws = null, code = '', seq = 0, retry = 1000, timer = null, quit = false;
+
+  /* ---------- connection ----------
+     Joins as a 'remote', exactly like the phone: same code, same session. The
+     only difference is that this screen listens for the deck's state as well
+     as sending commands, so the phone can stay in a pocket or drive alongside
+     it. Nothing here is a second presenter. */
+  function connect() {
+    if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) return;
+    const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const sock = new WebSocket(`${proto}//${location.host}/rc`);
+    ws = sock;
+
+    sock.addEventListener('open', () => {
+      retry = 1000;
+      sock.send(JSON.stringify({ role: 'remote', code }));
+    });
+
+    sock.addEventListener('message', ev => {
+      let m; try { m = JSON.parse(ev.data); } catch { return; }
+      if (m.type === 'nosession') {
+        quit = true;
+        try { sock.close(); } catch {}
+        pairMsg('No session with that code. Check the deck and try again.');
+        return;
+      }
+      if (m.type === 'joined') {
+        try { localStorage.setItem(STORE, code); } catch {}
+        $('pair').style.display = 'none';
+        $('view').classList.add('on');
+        link(m.presenter);
+        return;
+      }
+      if (m.type === 'presenter') link(m.connected);
+      if (m.type === 'state') render(m);
+    });
+
+    sock.addEventListener('close', () => {
+      ws = null; link(false);
+      if (quit) return;
+      clearTimeout(timer);
+      timer = setTimeout(connect, retry);
+      retry = Math.min(retry * 2, 15000);
+    });
+    sock.addEventListener('error', () => { try { sock.close(); } catch {} });
+  }
+
+  const open = () => ws && ws.readyState === WebSocket.OPEN;
+  function link(on) {
+    const el = $('link');
+    el.textContent = on ? 'deck connected' : (open() ? 'deck offline' : 'reconnecting');
+    el.classList.toggle('off', !on);
+  }
+  function pairMsg(t) { $('pairmsg').textContent = t || ''; }
+
+  /* ---------- rendering ---------- */
+  function render(s) {
+    $('section').textContent = s.section || '—';
+    $('title').textContent = s.title || '';
+    $('pos').textContent = `${s.slide}/${s.total}`;
+
+    const now = $('now');
+    if (s.note) { now.textContent = s.note; now.classList.remove('empty'); }
+    else {
+      now.textContent = 'No note for this step.';
+      now.classList.add('empty');
+    }
+    $('nexttxt').textContent = s.nextNote || (s.nextTitle ? '→ ' + s.nextTitle : '—');
+
+    // one pip per fragment, filled as far as the deck has revealed
+    const pips = $('pips');
+    if (pips.childElementCount !== s.steps) {
+      pips.replaceChildren(...Array.from({ length: s.steps }, () => {
+        const d = document.createElement('span'); d.className = 'pip'; return d;
+      }));
+    }
+    [...pips.children].forEach((p, i) => p.classList.toggle('on', i < s.step));
+    $('steptxt').textContent = s.steps ? `${s.step}/${s.steps}` : '';
+
+    if (!clockRunning && (s.slide > 1 || s.step > 0)) startClock();
+  }
+
+  /* ---------- sending ---------- */
+  function press(cmd) {
+    if (!open()) return;
+    ws.send(JSON.stringify({ type: 'cmd', cmd, seq: ++seq }));
+  }
+  $('next-btn').addEventListener('click', () => press('next'));
+  $('prev').addEventListener('click', () => press('prev'));
+  document.addEventListener('keydown', e => {
+    if ($('pair').style.display !== 'none') return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); press('next'); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); press('prev'); }
+  });
+
+  /* ---------- clock ----------
+     Starts itself on the first advance, so it measures the lecture rather than
+     how early the screen was opened. Click cycles run → pause → reset. */
+  let clockRunning = false, clockStart = 0, elapsed = 0;
+  function paintClock() {
+    const ms = elapsed + (clockRunning ? Date.now() - clockStart : 0);
+    const t = Math.floor(ms / 1000);
+    $('clock').textContent =
+      String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
+  }
+  function startClock() { clockRunning = true; clockStart = Date.now(); $('clock').classList.add('run'); }
+  $('clock').addEventListener('click', () => {
+    if (clockRunning) { elapsed += Date.now() - clockStart; clockRunning = false; $('clock').classList.remove('run'); }
+    else if (elapsed) { elapsed = 0; paintClock(); }
+    else startClock();
+  });
+  setInterval(paintClock, 500);
+
+  /* ---------- pairing ---------- */
+  const input = $('code');
+  input.addEventListener('input', () => {
+    input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    $('go').disabled = input.value.length < 4;
+    pairMsg('');
+  });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter' && !$('go').disabled) $('go').click(); });
+  $('go').addEventListener('click', () => {
+    code = input.value.trim().toUpperCase();
+    if (!code) return;
+    quit = false; pairMsg('Connecting…'); connect();
+  });
+
+  try {
+    const last = localStorage.getItem(STORE);
+    if (last) { input.value = last; $('go').disabled = last.length < 4; }
+  } catch {}
+  input.focus();
+
+  // The lectern screen must not sleep mid-lecture.
+  if (navigator.wakeLock) {
+    const keep = () => navigator.wakeLock.request('screen').catch(() => {});
+    keep();
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) keep(); });
+  }
+})();
+</script>
+</body>
+</html>
