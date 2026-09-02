@@ -153,6 +153,10 @@
     #rc-cap-cc{position:fixed;left:14px;bottom:12px;font-family:var(--mono,monospace);
       font-size:11px;letter-spacing:.14em;color:#5f7681;border:1px solid #35505c;
       border-radius:4px;padding:1px 5px}
+    /* Speaker notes live in the slide markup and must never reach the
+       projector. Each deck's own stylesheet says this too; this is the
+       backstop. */
+    .pnote{display:none !important}
     /* the deck's own footer furniture would sit underneath the band */
     body.rc-captioning #counter,body.rc-captioning #seclabel,
     body.rc-captioning #section-label{display:none}
@@ -190,27 +194,35 @@
    * That keeps this working across all six decks, which mark the current
    * fragment with .on in five of them and .visible in the sixth.
    *
-   * Speaker notes are read from an optional block inside each slide:
+   * Speaker notes hang off the thing they describe, rather than being keyed
+   * by position:
    *
-   *     <div class="pnotes" hidden>
-   *       <p data-step="0">What to say before the first reveal.</p>
-   *       <p data-step="1">What to say once the first fragment is up.</p>
-   *     </div>
+   *     <section class="slide">
+   *       <span class="pnote" hidden>Say this before the first click.</span>
+   *       <li class="frag">the bullet
+   *         <span class="pnote" hidden>Say this once it is up.</span>
+   *       </li>
    *
-   * No deck carries one yet -- the notes are written last -- so today this
+   * A note inside a .frag belongs to that fragment; one outside every .frag
+   * belongs to the slide before anything is revealed. Nothing counts steps,
+   * so inserting or deleting a fragment moves its note with it and leaves
+   * every other note alone.
+   *
+   * No deck carries any yet -- the notes are written last -- so today this
    * sends empty strings and the lectern screen shows position only.
    * ---------------------------------------------------------------- */
-  const REVEALED = '.frag.on, .frag.visible';
+  const text = el => (el ? el.textContent.replace(/\s+/g, ' ').trim() : '');
 
-  function noteFor(slide, step) {
-    if (!slide) return '';
-    const block = slide.querySelector('.pnotes');
-    if (!block) return '';
-    const exact = block.querySelector(`[data-step="${step}"]`);
-    if (exact) return exact.textContent.trim();
-    // an unnumbered block is the note for the whole slide
-    return block.children.length ? '' : block.textContent.trim();
+  /** Fragments of a slide, in document order, split at what is revealed. */
+  function fragsOf(slide) {
+    const all = slide ? [...slide.querySelectorAll('.frag')] : [];
+    const shown = all.filter(f => f.classList.contains('on') || f.classList.contains('visible'));
+    return { all, shown };
   }
+
+  /** The note for the slide itself -- what to say before anything is revealed. */
+  const openingNote = slide =>
+    slide ? [...slide.querySelectorAll('.pnote')].find(n => !n.closest('.frag')) : null;
 
   function headingOf(slide) {
     const h = slide && slide.querySelector('h1, h2');
@@ -222,18 +234,29 @@
     const i = slides.findIndex(s => s.classList.contains('active'));
     if (i < 0) return null;
     const cur = slides[i];
-    const step = cur.querySelectorAll(REVEALED).length;
+    const { all, shown } = fragsOf(cur);
+    const step = shown.length;
+
+    // the note belongs to the last thing revealed; before any click, to the
+    // slide. Nothing here depends on how many fragments came before it.
+    const here = step ? shown[shown.length - 1].querySelector('.pnote') : openingNote(cur);
+
+    // and the next note is whatever the next click will reveal -- or, at the
+    // end of a slide, the next slide's opening note
+    const upcoming = all[step];
+    const after = upcoming ? upcoming.querySelector('.pnote') : openingNote(slides[i + 1]);
+
     return {
       type: 'state',
       slide: i + 1,
       total: slides.length,
       step,
-      steps: cur.querySelectorAll('.frag').length,
+      steps: all.length,
       section: cur.getAttribute('data-sec') || cur.getAttribute('data-section') || '',
       title: headingOf(cur),
       nextTitle: headingOf(slides[i + 1]),
-      note: noteFor(cur, step),
-      nextNote: noteFor(cur, step + 1) || noteFor(slides[i + 1], 0),
+      note: text(here),
+      nextNote: text(after),
     };
   }
 
