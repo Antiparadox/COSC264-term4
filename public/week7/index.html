@@ -291,6 +291,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #rlx-table{opacity:0;transition:opacity .3s}
 #rlx-legend.lit{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 #rlx-legend.lit #rlx-legend-hd{color:var(--accent)}
+/* One line at a time is picked out while its own card explains it. */
+#rlx-legend .lgline{display:inline-block;border-radius:6px;padding:0 5px;margin-left:-5px;
+  transition:background .3s,opacity .3s}
+#rlx-legend .lgline.lit{background:var(--accent-soft)}
+#rlx-legend.walking .lgline:not(.lit){opacity:.42}
 #rlx-say .scard{border-radius:12px;padding:12px 16px;font-size:18px;line-height:1.5;
   background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
 #rlx-say .sq{border-left:4px solid var(--muted)}
@@ -1344,10 +1349,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <p id="rlx-legend-hd" style="margin:0 0 5px;font-size:12px;font-weight:700;letter-spacing:1px;
            text-transform:uppercase;color:var(--muted);transition:color .3s">Notation</p>
         <p style="margin:0;font-size:16px;line-height:1.65">
-          <b class="mono" style="color:var(--accent)">c(s,x)</b> &mdash; cost of the link s&nbsp;&rarr;&nbsp;x<br>
-          <b class="mono" style="color:var(--accent)">d<sub>x</sub>(v)</b> &mdash; the <b>least</b> known cost from x onward to v<br>
-          <b class="mono" style="color:var(--accent)">p<sub>s</sub>(v)</b> &mdash; s's next hop towards v<br>
-          <b class="mono" style="color:var(--accent)">d<sub>s</sub>(&middot;)</b> &mdash; s's <b>distance vector</b>: one estimate per destination
+          <span class="lgline" id="lg-c"><b class="mono" style="color:var(--accent)">c(s,x)</b> &mdash; cost of the link s&nbsp;&rarr;&nbsp;x</span><br>
+          <span class="lgline" id="lg-d"><b class="mono" style="color:var(--accent)">d<sub>s</sub>(&middot;)</b> &mdash; s's <b>distance vector</b>: one estimate per destination</span><br>
+          <span class="lgline" id="lg-p"><b class="mono" style="color:var(--accent)">p<sub>s</sub>(v)</b> &mdash; s's next hop towards v</span>
         </p>
       </div>
       <table id="rlx-table" style="margin:2px auto 0;border-collapse:collapse;font-size:15px">
@@ -1403,7 +1407,10 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       </div>
     </div>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+      <p class="frag" style="display:none"></p>
+      <p class="frag" style="display:none"></p>
+      <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== Relaxation: formal rule + convergence ====== -->
@@ -3073,37 +3080,58 @@ function updateRelaxSlide(){
      + 'The answer is quite simple: that least cost must be the <b>cost of the link to x</b>, plus the '
      + '<b class="accent">least possible cost</b> from x onward to v.</div>';
   S[4]='<div class="scard sa">From here on we write these the way the <b>notation</b> under the '
-     + 'graph does.</div>';
+     + 'graph does. Three symbols, one at a time.</div>';
   S[5]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--accent)">The link cost</p>'
+     + '<b class="mono accent">c(s,x)</b> is what it costs to take <b>one hop</b>, from s to its '
+     + 'neighbour x. It is the weight written on that one edge of the graph, and s knows it '
+     + 'without asking anybody.</div>';
+  S[6]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--accent)">The distance vector</p>'
+     + '<b class="mono accent">d<sub>s</sub>(&middot;)</b> is s\'s <b>distance vector</b>: a vector of '
+     + 'distances from s to every destination, one entry each. So '
+     + '<b class="mono accent">d<sub>s</sub>(v)</b> is the <b>best known</b> cost from s to v, and '
+     + '<b class="mono accent">d<sub>x</sub>(v)</b> is x\'s own best known cost onward to v.</div>';
+  S[7]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--accent)">The next hop</p>'
+     + '<b class="mono accent">p<sub>s</sub>(v)</b> is s\'s <b>next hop</b> towards v &mdash; which '
+     + 'neighbour s hands the packet to when the destination is v. It is the one thing that ends up '
+     + 'in the forwarding table.</div>';
+  S[8]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop x</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
      + 'c(s,x) + d<sub>x</sub>(v)</p></div>';
-  S[6]=S[7]=S[5];
+  S[9]=S[10]=S[8];
   var say=document.getElementById('rlx-say');
   if(say){ say.innerHTML = S[n] || ''; say.style.minHeight = S[n] ? '104px' : '0';
            say.style.marginBottom = S[n] ? '14px' : '0'; }
 
   var leg=document.getElementById('rlx-legend'), tbl=document.getElementById('rlx-table');
-  if(leg){ leg.style.opacity = n>=4?'1':'0'; leg.classList.toggle('lit', n>=4); }
+  if(leg){ leg.style.opacity = n>=4?'1':'0'; leg.classList.toggle('lit', n>=4);
+    // beats 5-7 walk the legend, one symbol per card
+    leg.classList.toggle('walking', n>=5&&n<=7);
+    var lit={5:'lg-c',6:'lg-d',7:'lg-p'}[n];
+    ['lg-c','lg-d','lg-p'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.classList.toggle('lit', id===lit); }); }
   if(tbl) tbl.style.opacity = n>=4?'1':'0';
 
   // Beat 8 retires the x working entirely and replaces it with one line of
   // state, so the column never carries more than one neighbour's arithmetic.
   var xb=document.getElementById('rlx-x-block'), sf=document.getElementById('rlx-sofar');
-  if(xb) xb.style.display = n>=8?'none':'';
-  if(sf) sf.style.display = n>=8?'':'none';
+  if(xb) xb.style.display = n>=11?'none':'';
+  if(sf) sf.style.display = n>=11?'':'none';
 
-  fade('rlx-sum-x', n>=6); fade('rlx-upd-x', n>=7);
-  fade('rlx-sum-w', n>=9); fade('rlx-upd-w', n>=10);
-  fade('rlx-sum-u', n>=11); fade('rlx-upd-u', n>=12);
+  fade('rlx-sum-x', n>=9); fade('rlx-upd-x', n>=10);
+  fade('rlx-sum-w', n>=12); fade('rlx-upd-w', n>=13);
+  fade('rlx-sum-u', n>=14); fade('rlx-upd-u', n>=15);
 
-  var xAct=n>=2&&n<=7,xFade=n>=8,wAct=n>=9&&n<=10,wFade=n>=11,uAct=n>=11;
-  setOp('rlx-c-sx',n>=6?(xFade?0.25:1):0);
-  setOp('rlx-d-xv',n>=6?(xFade?0.25:1):0);
+  var xAct=n>=2&&n<=10,xFade=n>=11,wAct=n>=12&&n<=13,wFade=n>=14,uAct=n>=14;
+  setOp('rlx-c-sx',n>=9?(xFade?0.25:1):0);
+  setOp('rlx-d-xv',n>=9?(xFade?0.25:1):0);
   setLine('rlx-e-sx',xAct?'var(--current)':'var(--edge)',xAct?3:2.5,xFade?0.25:1);
   setLine('rlx-p-xv',xAct?'var(--current)':'var(--edge)',xAct?2:1.5,xAct?0.7:(xFade?0.1:0.35));
-  setOp('rlx-c-sw',n>=9?(wFade?0.25:1):0);
-  setOp('rlx-d-wv',n>=9?(wFade?0.25:1):0);
+  setOp('rlx-c-sw',n>=12?(wFade?0.25:1):0);
+  setOp('rlx-d-wv',n>=12?(wFade?0.25:1):0);
   setLine('rlx-e-sw',wAct?'var(--current)':'var(--edge)',wAct?3:2.5,wFade?0.25:1);
   setLine('rlx-p-wv',wAct?'var(--current)':'var(--edge)',wAct?2:1.5,wAct?0.7:(wFade?0.1:0.35));
   setOp('rlx-c-su',uAct?1:0);
@@ -3114,9 +3142,9 @@ function updateRelaxSlide(){
   // The table only moves on the beats that say it moves.
   var tN=document.getElementById('rlx-tbl-next'),tC=document.getElementById('rlx-tbl-cost');
   if(tN&&tC){
-    if(n>=12){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
-    else if(n>=10){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
-    else if(n>=7){tN.textContent='x';tC.textContent='35';tC.style.color='';}
+    if(n>=15){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
+    else if(n>=13){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
+    else if(n>=10){tN.textContent='x';tC.textContent='35';tC.style.color='';}
     else{tN.textContent='nil';tC.textContent='∞';tC.style.color='';}
   }
 }
