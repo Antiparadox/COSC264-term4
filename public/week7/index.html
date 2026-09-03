@@ -1597,7 +1597,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
           <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Making it a distributed algorithm</p>
           <p style="font-size:17px;margin:0">That observation lets us break up the outer loop <span style="font-size:14px">(line 6)</span>. Instead of <b>one</b> algorithm working through the nodes in turn, hand <b>every node its own copy</b> and let it run the inner relaxation for itself.</p>
-          <p style="font-size:17px;margin:10px 0 0">Here is how it looks &mdash; the outer loop is gone, and the initialisation is now something <b>every node does for itself</b>.</p>
+          <p id="bf-howitlooks" style="font-size:17px;margin:10px 0 0;display:none">Here is how it looks &mdash; the outer loop is gone, and the initialisation is now something <b>every node does for itself</b>.</p>
         </div>
       </div>
       <div id="bf-refine" style="display:none;margin-top:12px">
@@ -1624,7 +1624,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p><p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p><p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
@@ -3261,34 +3261,35 @@ function updateBFFullSlide(){
   var n=fragCount(s);
   function show(id,on){var el=document.getElementById(id);if(el)el.style.display=on?'':'none';}
 
-  show('bf-intro',      n===1);
-  show('bf-init',       n===2);
-  show('bf-loop',       n===3||n===4);
-  show('bf-converge',   n===4);
-  show('bf-observe',    n>=5&&n<=6);
-  show('bf-distribute', n>=6&&n<=7);
-  show('bf-refine',     n===7);
-  show('bf-send',       n>=8);
-  show('bf-dv-card',    n>=9);
+  show('bf-intro',       n===1);
+  show('bf-init',        n===2);
+  show('bf-loop',        n===3||n===4);
+  show('bf-converge',    n===4);
+  show('bf-observe',     n>=5&&n<=6);
+  show('bf-distribute',  n>=6&&n<=8);
+  show('bf-howitlooks',  n>=7&&n<=8);
+  show('bf-refine',      n===8);
+  show('bf-send',        n>=9);
+  show('bf-dv-card',     n>=10);
 
-  /* The swap happens on the beat that argues for it, not the one after, and
-     the line it removes is left struck through in its old place for that one
-     beat so the change is something you watch rather than something you find. */
+  /* Beat 6 argues for the change against the code it is changing; beat 7 makes
+     it. The removed line stays in place for that beat, struck through, so the
+     loop is seen to go rather than found gone. */
   var central=document.getElementById('bf-central');
   var centralLabel=document.getElementById('bf-central-label');
   var distrib=document.getElementById('bf-distrib');
   var distribLabel=document.getElementById('bf-distrib-label');
-  if(central)central.style.display=(n<6)?'flex':'none';  /* keep the flex column */
-  if(centralLabel)centralLabel.style.display=(n<6)?'':'none';
-  if(distrib)distrib.style.display=(n>=6)?'flex':'none';
-  if(distribLabel)distribLabel.style.display=(n>=6)?'':'none';
-  show('bfd-ghost', n===6);
+  if(central)central.style.display=(n<7)?'flex':'none';  /* keep the flex column */
+  if(centralLabel)centralLabel.style.display=(n<7)?'':'none';
+  if(distrib)distrib.style.display=(n>=7)?'flex':'none';
+  if(distribLabel)distribLabel.style.display=(n>=7)?'':'none';
+  show('bfd-ghost', n===7);
 
   var dsHi=document.getElementById('bf-ds-hi'), psHi=document.getElementById('bf-ps-hi');
   if(dsHi){dsHi.style.color=(n===4)?'var(--accent)':'';dsHi.style.fontWeight=(n===4)?'bold':'';}
   if(psHi){psHi.style.color=(n===4)?'var(--accent)':'';psHi.style.fontWeight=(n===4)?'bold':'';}
   var arrow=document.getElementById('bfln6-arrow');
-  if(arrow)arrow.style.display=(n===5)?'inline':'none';
+  if(arrow)arrow.style.display=(n===5||n===6)?'inline':'none';
 
   function light(id,on){
     var row=document.getElementById(id);if(!row)return;
@@ -3299,10 +3300,10 @@ function updateBFFullSlide(){
   }
   var C={2:['bfrow1','bfrow2','bfrow3'],
          3:['bfrow5','bfrow6','bfrow7','bfrow8','bfrow9','bfrow10','bfrow11','bfrow12'],
-         5:['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11']}[n]||[];
+         5:['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11'],
+         6:['bfrow6']}[n]||[];
   for(var i=1;i<=12;i++) light('bfrow'+i, C.indexOf('bfrow'+i)>=0);
-  /* on the swap beat, line 1 is what changed: initialisation is now per node */
-  var D={6:['bfdrow1'],8:['bfdrow11','bfdrow12']}[n]||[];
+  var D={7:['bfdrow1'],9:['bfdrow11','bfdrow12']}[n]||[];
   for(var k=1;k<=12;k++) light('bfdrow'+k, D.indexOf('bfdrow'+k)>=0);
 }
 
