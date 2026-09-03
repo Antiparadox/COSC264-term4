@@ -1596,8 +1596,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div id="bf-distribute" style="display:none;margin-top:12px">
         <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
           <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Making it a distributed algorithm</p>
-          <p style="font-size:17px;margin:0">That observation lets us break up the outer loop <span style="font-size:14px">(line 6)</span>. Instead of <b>one</b> algorithm working through the nodes in turn, hand <b>every node its own copy</b> and let it run the inner relaxation for itself.</p>
-          <p id="bf-howitlooks" style="font-size:17px;margin:10px 0 0;display:none">Here is how it looks &mdash; the outer loop is gone, and the initialisation is now something <b>every node does for itself</b>.</p>
+          <p id="bf-breakup" style="font-size:17px;margin:0">That observation lets us break up the outer loop <span style="font-size:14px">(line 6)</span>. Instead of <b>one</b> algorithm working through the nodes in turn, hand <b>every node its own copy</b> and let it run the inner relaxation for itself.</p>
+          <p id="bf-howitlooks" style="font-size:17px;margin:0;display:none">Here is how it looks &mdash; the outer loop is gone, and the initialisation is now something <b>every node does for itself</b>.</p>
         </div>
       </div>
       <div id="bf-refine" style="display:none;margin-top:12px">
@@ -3267,6 +3267,7 @@ function updateBFFullSlide(){
   show('bf-converge',    n===4);
   show('bf-observe',     n>=5&&n<=6);
   show('bf-distribute',  n>=6&&n<=8);
+  show('bf-breakup',     n===6);
   show('bf-howitlooks',  n>=7&&n<=8);
   show('bf-refine',      n===8);
   show('bf-send',        n>=9);
