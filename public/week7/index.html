@@ -3120,15 +3120,13 @@ function updateRelaxSlide(){
      + '<b class="mono accent">d<sub>s</sub>(v)</b>: the neighbour on that best known path.</p></div>';
   S[7]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">A concrete example</p>'
-     + 'Here is s\'s distance vector and its next hops, as a table &mdash; '
-     + '<b>one row per destination</b>:'
+     + 'Initially, for s &mdash; destinations x, v, and so on:'
      + '<ul style="margin:5px 0 0;padding-left:21px">'
-     + '<li style="font-size:18px;line-height:1.45">to x, the next hop is trivially x itself, and '
-     + '<b class="mono accent">d<sub>s</sub>(x) = 20</b> &mdash; which is just '
-     + '<b class="mono accent">c(s,x)</b>, the best s knows so far.</li>'
-     + '<li style="font-size:18px;line-height:1.45;margin-top:3px">to v there is no path yet, so '
-     + '<b class="mono accent">d<sub>s</sub>(v) = &infin;</b> and no next hop is ready: '
-     + '<b class="mono accent">p<sub>s</sub>(v) = nil</b>.</li></ul></div>';
+     + '<li style="font-size:18px;line-height:1.45"><b>x</b>: only the direct edge is known, so take '
+     + 'it. <b class="mono accent">d<sub>s</sub>(x) = c(s,x) = 20</b>, next hop x.</li>'
+     + '<li style="font-size:18px;line-height:1.45;margin-top:3px"><b>v</b>: no path known yet. '
+     + '<b class="mono accent">d<sub>s</sub>(v) = &infin;</b>, next hop '
+     + '<b class="mono accent">nil</b>.</li></ul></div>';
   S[8]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop x</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
