@@ -1418,13 +1418,19 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <p style="font-size:18px;margin:14px 0 0">Now on to the next neighbour, <b>w</b>.</p>
         </div>
 
+        <p class="rlxsum" id="rlx-ask-w" style="opacity:0;transition:opacity .3s;font-size:18px;margin:0">
+          Ask <b>w</b> how far it is from v. It answers
+          <span class="mono">d<sub>w</sub>(v) = 15</span>.</p>
         <p class="rlxsum" id="rlx-sum-w" style="opacity:0;transition:opacity .3s;font-size:18px;margin:14px 0 0">
-          take <b>w</b> as the next hop: &nbsp;<span class="mono">c(s,w) + d<sub>w</sub>(v) = 10 + 15 =</span>
-          <b class="mono" style="color:var(--current)">25</b><br>
-          <span style="font-size:17px;color:var(--muted)">25 &lt; 35 &mdash; better, so take it.</span>
+          So the least cost to v with <b>w</b> as the first hop is
+          &nbsp;<span class="mono">c(s,w) + d<sub>w</sub>(v) = 10 + 15 =</span>
+          <b class="mono" style="color:var(--current)">25</b></p>
+        <p class="rlxsum" id="rlx-cmp-w" style="opacity:0;transition:opacity .3s;font-size:18px;margin:14px 0 0">
+          Our best known cost to v is <span class="mono">35</span>, and going through w offers
+          <span class="mono">25</span> &mdash; cheaper.</p>
+        <p class="rlxupd" id="rlx-upd-w" style="opacity:0;transition:opacity .3s">So we take it too:
+          <span class="mono">p<sub>s</sub>(v) = w</span>, <span class="mono">d<sub>s</sub>(v) = 25</span>.
           <span class="rlxstamp">relaxation</span></p>
-        <p class="rlxupd" id="rlx-upd-w" style="opacity:0;transition:opacity .3s">So update both:
-          <span class="mono">p<sub>s</sub>(v) = w</span>, <span class="mono">d<sub>s</sub>(v) = 25</span>.</p>
 
         <p class="rlxsum" id="rlx-sum-u" style="opacity:0;transition:opacity .3s;font-size:18px;margin:14px 0 0">
           and the other neighbour <b>u</b>: &nbsp;<span class="mono">c(s,u) + d<sub>u</sub>(v) = 5 + 13 =</span>
@@ -1442,7 +1448,9 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>      <p class="frag" style="display:none"></p>
       <p class="frag" style="display:none"></p>
   <p class="frag" style="display:none"></p>      <p class="frag" style="display:none"></p>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>      <p class="frag" style="display:none"></p>
+      <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <!-- ====== Relaxation: formal rule + convergence ====== -->
@@ -3097,6 +3105,10 @@ function updateRelaxSlide(){
   function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
   function setLine(id,c,w,op){var el=document.getElementById(id);if(el){el.setAttribute('stroke',c);el.setAttribute('stroke-width',String(w));el.setAttribute('opacity',String(op));}}
   function fade(id,on){var el=document.getElementById(id);if(el)el.style.opacity=on?'1':'0';}
+  /* Same, but the line takes no room until it is due -- the working grows
+     downward and nothing sits under it, so nothing shifts. */
+  function step(id,on){var el=document.getElementById(id);
+    if(el){el.style.display=on?'':'none';el.style.opacity=on?'1':'0';}}
 
   fade('rlx-goal', n>=1);
 
@@ -3162,7 +3174,7 @@ function updateRelaxSlide(){
   if(tbl) tbl.classList.toggle('lit', n===7);
   // the row under discussion is picked out while it is compared and updated
   var rowv=document.getElementById('rlx-row-v');
-  if(rowv) rowv.classList.toggle('lit', n>=11&&n<=12);
+  if(rowv) rowv.classList.toggle('lit', (n>=11&&n<=12)||(n>=16&&n<=17));
   if(tbl){ var tOn = n>=7;
     tbl.style.display = tOn?'':'none'; tbl.style.opacity = tOn?'1':'0';
     tbl.classList.toggle('big', tOn); }
@@ -3173,17 +3185,18 @@ function updateRelaxSlide(){
   if(xb) xb.style.display = (n>=9&&n<13)?'':'none';
   if(sf) sf.style.display = n>=13?'':'none';
 
-  fade('rlx-ask-x', n>=9); fade('rlx-sum-x', n>=10);
-  fade('rlx-cmp-x', n>=11); fade('rlx-upd-x', n>=12);
-  fade('rlx-sum-w', n>=14); fade('rlx-upd-w', n>=15);
-  fade('rlx-sum-u', n>=16); fade('rlx-upd-u', n>=17);
+  step('rlx-ask-x', n>=9); step('rlx-sum-x', n>=10);
+  step('rlx-cmp-x', n>=11); step('rlx-upd-x', n>=12);
+  step('rlx-ask-w', n>=14); step('rlx-sum-w', n>=15);
+  step('rlx-cmp-w', n>=16); step('rlx-upd-w', n>=17);
+  step('rlx-sum-u', n>=18); step('rlx-upd-u', n>=19);
 
-  var xAct=n>=2&&n<=12,xFade=n>=13,wAct=n>=14&&n<=15,wFade=n>=16,uAct=n>=16;
+  var xAct=n>=2&&n<=12,xFade=n>=13,wAct=n>=14&&n<=17,wFade=n>=18,uAct=n>=18;
   setOp('rlx-c-sx',n>=10?(xFade?0.25:1):0);
   setOp('rlx-d-xv',n>=9?(xFade?0.25:1):0);
   setLine('rlx-e-sx',xAct?'var(--current)':'var(--edge)',xAct?3:2.5,xFade?0.25:1);
   setLine('rlx-p-xv',xAct?'var(--current)':'var(--edge)',xAct?2:1.5,xAct?0.7:(xFade?0.1:0.35));
-  setOp('rlx-c-sw',n>=14?(wFade?0.25:1):0);
+  setOp('rlx-c-sw',n>=15?(wFade?0.25:1):0);
   setOp('rlx-d-wv',n>=14?(wFade?0.25:1):0);
   setLine('rlx-e-sw',wAct?'var(--current)':'var(--edge)',wAct?3:2.5,wFade?0.25:1);
   setLine('rlx-p-wv',wAct?'var(--current)':'var(--edge)',wAct?2:1.5,wAct?0.7:(wFade?0.1:0.35));
@@ -3195,8 +3208,8 @@ function updateRelaxSlide(){
   // The table only moves on the beats that say it moves.
   var tN=document.getElementById('rlx-tbl-next'),tC=document.getElementById('rlx-tbl-cost');
   if(tN&&tC){
-    if(n>=17){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
-    else if(n>=15){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
+    if(n>=19){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
+    else if(n>=17){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
     else if(n>=12){tN.textContent='x';tC.textContent='35';tC.style.color='';}
     else{tN.textContent='nil';tC.textContent='∞';tC.style.color='';}
   }
