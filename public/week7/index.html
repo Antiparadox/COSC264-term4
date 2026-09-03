@@ -1785,11 +1785,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2 id="ctinf-title">The count-to-infinity problem</h2>
   <div class="cols" style="align-items:flex-start;gap:16px">
     <div class="col" style="flex:1.1">
-      <!-- y's table (above graph, centred) -->
-      <div style="display:flex;justify-content:center;margin-bottom:2px">
+      <!-- both tables, side by side above the graph; x left, as in the diagram -->
+      <div style="display:flex;justify-content:center;align-items:flex-start;gap:20px;margin-bottom:6px">
+        <div>
+          <p class="mono small accent" style="margin:0 0 2px;font-weight:700">x</p>
+            <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(&middot;)</th><th>p<sub>x</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-x"><tr><td>y</td><td class="mono">2</td><td class="mono">y</td></tr><tr><td>z</td><td class="mono">3</td><td class="mono">y</td></tr></tbody></table>
+        </div>
         <div>
           <p class="mono small" style="margin:0 0 2px;font-weight:700;color:var(--ink)">y</p>
-          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>y</sub>(&middot;)</th><th>p<sub>y</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-y"><tr><td>x</td><td class="mono">2</td><td class="mono">x</td></tr><tr><td>z</td><td class="mono">1</td><td class="mono">z</td></tr></tbody></table>
+            <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>y</sub>(&middot;)</th><th>p<sub>y</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-y"><tr><td>x</td><td class="mono">2</td><td class="mono">x</td></tr><tr><td>z</td><td class="mono">1</td><td class="mono">z</td></tr></tbody></table>
         </div>
       </div>
       <!-- Graph -->
@@ -1841,13 +1845,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <text x="250" y="106" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">z</text>
         <defs><marker id="ctinfarr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="#e07850"/></marker><marker id="ctinfloop" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="var(--bad)"/></marker></defs>
       </svg>
-      <!-- x's table (below graph, left-aligned near x node) -->
-      <div style="margin-top:2px;max-width:380px;margin-left:auto;margin-right:auto">
-        <div style="display:inline-block">
-          <p class="mono small accent" style="margin:0 0 2px;font-weight:700">x</p>
-          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(&middot;)</th><th>p<sub>x</sub>(&middot;)</th></tr></thead><tbody id="ctinf-tbody-x"><tr><td>y</td><td class="mono">2</td><td class="mono">y</td></tr><tr><td>z</td><td class="mono">3</td><td class="mono">y</td></tr></tbody></table>
-        </div>
-      </div>
     </div>
     <div class="col" style="flex:1">
       <div id="ctinf-card1" class="card" style="border-left:4px solid var(--bad);padding:14px 20px;display:none">
@@ -1887,8 +1884,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <h2>Poison reverse</h2>
   <div class="cols" style="align-items:flex-start;gap:16px">
     <div class="col" style="flex:1.1">
-      <!-- y’s table (above graph, centred) -->
-      <div id="sh-y-wrap" style="display:flex;justify-content:center;margin-bottom:2px">
+      <!-- both tables, side by side above the graph; x left, as in the diagram -->
+      <div id="sh-y-wrap" style="display:flex;justify-content:center;align-items:flex-start;gap:20px;margin-bottom:6px">
+        <div>
+          <p class="mono small accent" style="margin:0 0 2px;font-weight:700">x</p>
+          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(·)</th><th>p<sub>x</sub>(·)</th></tr></thead><tbody id="sh-tbody-x"></tbody></table>
+        </div>
         <div>
           <p class="mono small" style="margin:0 0 2px;font-weight:700;color:var(--ink)">y</p>
           <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>y</sub>(·)</th><th>p<sub>y</sub>(·)</th></tr></thead><tbody id="sh-tbody-y"></tbody></table>
@@ -1943,13 +1944,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <text x="250" y="106" text-anchor="middle" font-size="15" font-weight="700" class="svgmono" fill="var(--ink)">z</text>
         <defs><marker id="sharr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L6,3.5 L0,7 z" fill="var(--accent)"/></marker></defs>
       </svg>
-      <!-- x’s table (below graph, left-aligned near x node) -->
-      <div id="sh-x-wrap" style="margin-top:2px;max-width:380px;margin-left:auto;margin-right:auto">
-        <div style="display:inline-block">
-          <p class="mono small accent" style="margin:0 0 2px;font-weight:700">x</p>
-          <table class="ft" style="font-size:12px"><thead><tr><th>dest</th><th>d<sub>x</sub>(·)</th><th>p<sub>x</sub>(·)</th></tr></thead><tbody id="sh-tbody-x"></tbody></table>
-        </div>
-      </div>
     </div>
     <div class="col" style="flex:1">
       <div id="sh-card" class="card" style="border-left:4px solid var(--accent);padding:14px 20px;display:none">
