@@ -3087,15 +3087,20 @@ function updateRelaxSlide(){
      + 'link from s to its neighbour x.</div>';
   S[6]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">The distance vector</p>'
-     + '<b class="mono accent">d<sub>s</sub>(&middot;)</b> is s\'s <b>distance vector</b>: a vector of '
-     + 'distances from s to every destination, one entry each. So '
-     + '<b class="mono accent">d<sub>s</sub>(v)</b> is the <b>best known</b> cost from s to v, and '
-     + '<b class="mono accent">d<sub>x</sub>(v)</b> is x\'s own best known cost onward to v.</div>';
+     + '<ul style="margin:0;padding-left:21px">'
+     + '<li style="font-size:18px;line-height:1.5"><b class="mono accent">d<sub>s</sub>(&middot;)</b> '
+     + 'is s\'s <b>distance vector</b>: a vector of <b>best known</b> distances from one node to '
+     + 'every destination.</li>'
+     + '<li style="font-size:18px;line-height:1.5;margin-top:4px">e.g. '
+     + '<b class="mono accent">d<sub>s</sub>(v)</b> is the best known cost from s to v,</li>'
+     + '<li style="font-size:18px;line-height:1.5;margin-top:4px">and '
+     + '<b class="mono accent">d<sub>x</sub>(v)</b> is the best known cost from x to v.</li>'
+     + '</ul></div>';
   S[7]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">The next hop</p>'
-     + '<b class="mono accent">p<sub>s</sub>(v)</b> is s\'s <b>next hop</b> towards v &mdash; which '
-     + 'neighbour s hands the packet to when the destination is v. It is the one thing that ends up '
-     + 'in the forwarding table.</div>';
+     + '<b class="mono accent">p<sub>s</sub>(v)</b> is the <b>next hop</b> that goes with '
+     + '<b class="mono accent">d<sub>s</sub>(v)</b>: the neighbour on the current best known path '
+     + 'from s to v.</div>';
   S[8]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop x</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
