@@ -326,6 +326,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 .fwtab table.ft th,.fwtab table.ft td{padding:8px 11px}
 @keyframes wfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 
+@keyframes bfdel{0%{background:rgba(224,120,80,.30);opacity:.95}
+  70%{background:rgba(224,120,80,.10);opacity:.6}
+  100%{background:transparent;opacity:.45}}
+#bfd-ghost{animation:bfdel 1.1s ease-out both}
+
 /* Speaker notes: read by the lectern screen, never rendered here. */
 .pnote{display:none !important}
 </style>
@@ -1549,6 +1554,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div id="bfdrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = c(s,u)  <span class="p">if u is a neighbour, else</span> &infin;</div>
 <div id="bfdrow4"><span class="dim"> 4</span></div>
 <div id="bfdrow5"><span class="dim"> 5</span>  <span class="p">repeat:</span></div>
+<div id="bfd-ghost" style="display:none;opacity:.45;text-decoration:line-through"><span class="dim"> &nbsp;</span>    <span class="p">for each</span> node s:</div>
 <div id="bfdrow6"><span class="dim"> 6</span>    <span class="p">for each</span> neighbour w <span class="p">of</span> s:</div>
 <div id="bfdrow7"><span class="dim"> 7</span>      <span class="p">for each</span> destination u:</div>
 <div id="bfdrow8"><span class="dim"> 8</span>        <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span></div>
@@ -1591,7 +1597,12 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
           <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Making it a distributed algorithm</p>
           <p style="font-size:17px;margin:0">That observation lets us break up the outer loop <span style="font-size:14px">(line 6)</span>. Instead of <b>one</b> algorithm working through the nodes in turn, hand <b>every node its own copy</b> and let it run the inner relaxation for itself.</p>
-          <p style="font-size:17px;margin:10px 0 0;color:var(--muted)">The idea works. It needs one refinement &mdash; next.</p>
+          <p style="font-size:17px;margin:10px 0 0">Here is how it looks &mdash; the outer loop is gone, and the initialisation is now something <b>every node does for itself</b>.</p>
+        </div>
+      </div>
+      <div id="bf-refine" style="display:none;margin-top:12px">
+        <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
+          <p style="font-size:17px;margin:0">The idea works. But it needs <b>one refinement</b>.</p>
         </div>
       </div>
       <div id="bf-send" style="display:none">
@@ -3248,60 +3259,51 @@ function updateSPMotivationSlide(){
 function updateBFFullSlide(){
   var s=document.getElementById('bf-full-slide');if(!s)return;
   var n=fragCount(s);
+  function show(id,on){var el=document.getElementById(id);if(el)el.style.display=on?'':'none';}
+
+  show('bf-intro',      n===1);
+  show('bf-init',       n===2);
+  show('bf-loop',       n===3||n===4);
+  show('bf-converge',   n===4);
+  show('bf-observe',    n>=5&&n<=6);
+  show('bf-distribute', n>=6&&n<=7);
+  show('bf-refine',     n===7);
+  show('bf-send',       n>=8);
+  show('bf-dv-card',    n>=9);
+
+  /* The swap happens on the beat that argues for it, not the one after, and
+     the line it removes is left struck through in its old place for that one
+     beat so the change is something you watch rather than something you find. */
   var central=document.getElementById('bf-central');
   var centralLabel=document.getElementById('bf-central-label');
   var distrib=document.getElementById('bf-distrib');
   var distribLabel=document.getElementById('bf-distrib-label');
-  var init=document.getElementById('bf-init');
-  var loop=document.getElementById('bf-loop');
-  var converge=document.getElementById('bf-converge');
-  var observe=document.getElementById('bf-observe');
-  var distribute=document.getElementById('bf-distribute');
-  var send=document.getElementById('bf-send');
-  var dvCard=document.getElementById('bf-dv-card');
-  var intro=document.getElementById('bf-intro');
-  var dsHi=document.getElementById('bf-ds-hi');
-  var psHi=document.getElementById('bf-ps-hi');
-  if(intro)intro.style.display=(n===1)?'':'none';
-  if(central)central.style.display=(n<7)?'flex':'none';  /* keep the flex column: '' would wipe it */
-  if(centralLabel)centralLabel.style.display=(n<7)?'':'none';
-  if(distrib)distrib.style.display=(n>=7)?'flex':'none';
-  if(distribLabel)distribLabel.style.display=(n>=7)?'':'none';
-  /* the two code-walk frags hot-swap; the argument after them builds up */
-  if(init)init.style.display=(n===2)?'':'none';
-  if(loop)loop.style.display=(n===3||n===4)?'':'none';
-  if(converge)converge.style.display=(n===4)?'':'none';
-  if(observe)observe.style.display=(n>=5&&n<=7)?'':'none';
-  if(distribute)distribute.style.display=(n>=6&&n<=7)?'':'none';
-  if(send)send.style.display=(n>=8)?'':'none';
-  if(dvCard)dvCard.style.display=(n>=9)?'':'none';
+  if(central)central.style.display=(n<6)?'flex':'none';  /* keep the flex column */
+  if(centralLabel)centralLabel.style.display=(n<6)?'':'none';
+  if(distrib)distrib.style.display=(n>=6)?'flex':'none';
+  if(distribLabel)distribLabel.style.display=(n>=6)?'':'none';
+  show('bfd-ghost', n===6);
+
+  var dsHi=document.getElementById('bf-ds-hi'), psHi=document.getElementById('bf-ps-hi');
   if(dsHi){dsHi.style.color=(n===4)?'var(--accent)':'';dsHi.style.fontWeight=(n===4)?'bold':'';}
   if(psHi){psHi.style.color=(n===4)?'var(--accent)':'';psHi.style.fontWeight=(n===4)?'bold':'';}
-  var ln6arrow=document.getElementById('bfln6-arrow');
-  if(ln6arrow)ln6arrow.style.display=(n===6)?'inline':'none';
-  var initRows=['bfrow1','bfrow2','bfrow3'];
-  var loopRows=['bfrow5','bfrow6','bfrow7','bfrow8','bfrow9','bfrow10','bfrow11','bfrow12'];
-  var obsRows=['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11'];
-  var distRows=['bfrow6'];
-  for(var i=1;i<=12;i++){
-    var row=document.getElementById('bfrow'+i);if(!row)continue;
-    var id='bfrow'+i;
-    var active=(n===2&&initRows.indexOf(id)>=0)||(n===3&&loopRows.indexOf(id)>=0)
-             ||(n===5&&obsRows.indexOf(id)>=0)||(n===6&&distRows.indexOf(id)>=0);
-    row.style.backgroundColor=active?'rgba(224,120,80,0.15)':'';
-    row.style.borderLeft=active?'3px solid #e07850':'';
-    row.style.paddingLeft=active?'4px':'';
-    row.style.marginLeft=active?'-7px':'';
+  var arrow=document.getElementById('bfln6-arrow');
+  if(arrow)arrow.style.display=(n===5)?'inline':'none';
+
+  function light(id,on){
+    var row=document.getElementById(id);if(!row)return;
+    row.style.backgroundColor=on?'rgba(224,120,80,0.15)':'';
+    row.style.borderLeft=on?'3px solid #e07850':'';
+    row.style.paddingLeft=on?'4px':'';
+    row.style.marginLeft=on?'-7px':'';
   }
-  /* distributed code: spotlight the two lines distribution introduces */
-  for(var k=1;k<=12;k++){
-    var drow=document.getElementById('bfdrow'+k);if(!drow)continue;
-    var dActive=(n===8&&(k===11||k===12));
-    drow.style.backgroundColor=dActive?'rgba(224,120,80,0.15)':'';
-    drow.style.borderLeft=dActive?'3px solid #e07850':'';
-    drow.style.paddingLeft=dActive?'4px':'';
-    drow.style.marginLeft=dActive?'-7px':'';
-  }
+  var C={2:['bfrow1','bfrow2','bfrow3'],
+         3:['bfrow5','bfrow6','bfrow7','bfrow8','bfrow9','bfrow10','bfrow11','bfrow12'],
+         5:['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11']}[n]||[];
+  for(var i=1;i<=12;i++) light('bfrow'+i, C.indexOf('bfrow'+i)>=0);
+  /* on the swap beat, line 1 is what changed: initialisation is now per node */
+  var D={6:['bfdrow1'],8:['bfdrow11','bfdrow12']}[n]||[];
+  for(var k=1;k<=12;k++) light('bfdrow'+k, D.indexOf('bfdrow'+k)>=0);
 }
 
 function updateDVProtoSlide(){
