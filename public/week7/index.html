@@ -300,9 +300,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 #rlx-table.lit{box-shadow:0 0 0 7px var(--accent-soft)}
 /* From the beat that reads it, the table is the thing worth looking at:
    it moves up into the space the legend vacates and grows to match. */
-#rlx-table.big{font-size:23px;margin-top:18px;background:var(--surface);
-  border:2px solid var(--border);border-radius:12px;padding:6px 10px}
-#rlx-table.big th,#rlx-table.big td{padding:7px 24px}
+#rlx-table{font-size:15px}
+#rlx-table.big{font-size:30px;margin-top:20px;background:var(--surface);
+  border:2px solid var(--border);border-radius:14px;padding:8px 14px}
+#rlx-table.big th,#rlx-table.big td{padding:9px 30px}
+#rlx-table .rlx-more td{color:var(--faint)}
 #rlx-say .scard{border-radius:12px;padding:12px 16px;font-size:18px;line-height:1.5;
   background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
 #rlx-say .sq{border-left:4px solid var(--muted)}
@@ -1361,13 +1363,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <span class="lgline" id="lg-p"><b class="mono" style="color:var(--accent)">p<sub>s</sub>(v)</b> &mdash; s's next hop towards v</span>
         </p>
       </div>
-      <table id="rlx-table" style="margin:2px auto 0;border-collapse:collapse;font-size:15px">
+      <table id="rlx-table" style="margin:2px auto 0;border-collapse:collapse">
         <tr style="border-bottom:2px solid var(--edge)">
           <th style="padding:3px 12px;text-align:left;font-weight:600">dest</th>
           <th style="padding:3px 12px;text-align:center;font-weight:600">p<sub>s</sub>(&middot;)</th>
           <th style="padding:3px 12px;text-align:center;font-weight:600">d<sub>s</sub>(&middot;)</th>
         </tr>
-        <tr id="rlx-row-x" style="display:none">
+        <tr>
           <td class="mono" style="padding:3px 12px">x</td>
           <td class="mono" style="padding:3px 12px;text-align:center">x</td>
           <td class="mono" style="padding:3px 12px;text-align:center">20</td>
@@ -1376,6 +1378,11 @@ body.scroll #counter,body.scroll #seclabel{display:none}
           <td class="mono" style="padding:3px 12px">v</td>
           <td class="mono" id="rlx-tbl-next" style="padding:3px 12px;text-align:center">nil</td>
           <td class="mono" id="rlx-tbl-cost" style="padding:3px 12px;text-align:center">∞</td>
+        </tr>
+        <tr class="rlx-more">
+          <td class="mono" style="padding:3px 12px">&ctdot;</td>
+          <td class="mono" style="padding:3px 12px;text-align:center">&ctdot;</td>
+          <td class="mono" style="padding:3px 12px;text-align:center">&ctdot;</td>
         </tr>
       </table>
     </div>
@@ -3112,15 +3119,16 @@ function updateRelaxSlide(){
      + '<b class="mono accent">p<sub>s</sub>(v)</b> is the <b>next hop</b> that goes with '
      + '<b class="mono accent">d<sub>s</sub>(v)</b>: the neighbour on that best known path.</p></div>';
   S[7]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
-     + 'text-transform:uppercase;color:var(--accent)">Putting the two together</p>'
-     + 'So s keeps <b>one row per destination</b> &mdash; a next hop and a distance:'
+     + 'text-transform:uppercase;color:var(--accent)">A concrete example</p>'
+     + 'Here is s\'s distance vector and its next hops, as a table &mdash; '
+     + '<b>one row per destination</b>:'
      + '<ul style="margin:5px 0 0;padding-left:21px">'
-     + '<li style="font-size:18px;line-height:1.45">x is a direct neighbour: '
-     + '<b class="mono accent">p<sub>s</sub>(x) = x</b>, '
-     + '<b class="mono accent">d<sub>s</sub>(x) = 20</b>.</li>'
-     + '<li style="font-size:18px;line-height:1.45;margin-top:3px">no path to v yet: '
-     + '<b class="mono accent">p<sub>s</sub>(v) = nil</b>, '
-     + '<b class="mono accent">d<sub>s</sub>(v) = &infin;</b>.</li></ul></div>';
+     + '<li style="font-size:18px;line-height:1.45">to x, the next hop is trivially x itself, and '
+     + '<b class="mono accent">d<sub>s</sub>(x) = 20</b> &mdash; which is just '
+     + '<b class="mono accent">c(s,x)</b>, the best s knows so far.</li>'
+     + '<li style="font-size:18px;line-height:1.45;margin-top:3px">to v there is no path yet, so '
+     + '<b class="mono accent">d<sub>s</sub>(v) = &infin;</b> and no next hop is ready: '
+     + '<b class="mono accent">p<sub>s</sub>(v) = nil</b>.</li></ul></div>';
   S[8]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop x</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
@@ -3141,10 +3149,10 @@ function updateRelaxSlide(){
     var lit={5:['lg-c'],6:['lg-d','lg-p']}[n]||[];
     ['lg-c','lg-d','lg-p'].forEach(function(id){
       var el=document.getElementById(id); if(el) el.classList.toggle('lit', lit.indexOf(id)>=0); }); }
-  var rowx=document.getElementById('rlx-row-x');
-  if(rowx) rowx.style.display = n>=7?'':'none';
   if(tbl) tbl.classList.toggle('lit', n===7);
-  if(tbl){ tbl.style.opacity = n>=4?'1':'0'; tbl.classList.toggle('big', n>=7); }
+  if(tbl){ var tOn = n>=7;
+    tbl.style.display = tOn?'':'none'; tbl.style.opacity = tOn?'1':'0';
+    tbl.classList.toggle('big', tOn); }
 
   // Beat 8 retires the x working entirely and replaces it with one line of
   // state, so the column never carries more than one neighbour's arithmetic.
