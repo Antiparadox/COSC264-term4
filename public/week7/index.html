@@ -1520,30 +1520,15 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   </div>
 </section>
 
-<!-- ====== Bellman-Ford: centralised → distributed ====== -->
+<!-- ====== Bellman-Ford, at one node ====== -->
 <section class="slide" data-sec="Shortest Paths &amp; Distance-Vector" id="bf-full-slide">
   <div class="kicker">Shortest-path algorithms</div>
   <h2>Bellman-Ford</h2>
   <div class="cols" style="align-items:flex-start">
     <div class="col" style="flex:1.2">
       <!-- Centralised all-pairs pseudocode (shown at n<3) -->
-      <p id="bf-central-label" style="font-size:14px;font-weight:bold;color:var(--accent);margin:0 0 4px;letter-spacing:0.05em">BELLMAN-FORD</p>
-      <div id="bf-central" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:flex;flex-direction:column">
-<div id="bfrow1"><span class="dim"> 1</span>  <span class="p">Initialisation:</span></div>
-<div id="bfrow2"><span class="dim"> 2</span>    d<sub>s</sub>(s) = 0  <span class="p">for every node</span> s</div>
-<div id="bfrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = c(s,u)  <span class="p">if u is a neighbour of s, else</span> &infin;</div>
-<div id="bfrow4"><span class="dim"> 4</span></div>
-<div id="bfrow5"><span class="dim"> 5</span>  <span class="p">repeat:</span></div>
-<div id="bfrow6"><span class="dim"> 6</span>    <span id="bfln6-text" class="p">for each</span> node s:<span id="bfln6-arrow" style="display:none;color:#e07850;font-size:12px;font-style:italic">  &larr; distribute this loop</span></div>
-<div id="bfrow7"><span class="dim"> 7</span>      <span class="p">for each</span> neighbour w <span class="p">of</span> s:</div>
-<div id="bfrow8"><span class="dim"> 8</span>        <span class="p">for each</span> destination u:</div>
-<div id="bfrow9"><span class="dim"> 9</span>          <span class="hi">if c(s,w) + d<sub>w</sub>(u) &lt; d<sub>s</sub>(u):</span>  <span style="color:var(--accent);font-size:12px;font-style:italic">&larr; relax</span></div>
-<div id="bfrow10"><span class="dim">10</span>            <span id="bf-ds-hi">d<sub>s</sub>(u)</span> = c(s,w) + d<sub>w</sub>(u)</div>
-<div id="bfrow11"><span class="dim">11</span>            <span id="bf-ps-hi">p<sub>s</sub>(u)</span> = w</div>
-<div id="bfrow12"><span class="dim">12</span>    <span class="p">if</span> no changes: <span class="p">stop</span></div></div>
-      <!-- Distributed pseudocode (shown at n>=3) -->
-      <p id="bf-distrib-label" style="font-size:14px;font-weight:bold;color:var(--accent);margin:0 0 4px;letter-spacing:0.05em;display:none">DISTRIBUTED BELLMAN-FORD</p>
-      <div id="bf-distrib" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:none;flex-direction:column">
+      <p id="bf-distrib-label" style="font-size:14px;font-weight:bold;color:var(--accent);margin:0 0 4px;letter-spacing:0.05em">BELLMAN-FORD, AT NODE s</p>
+      <div id="bf-distrib" class="term" style="font-size:15px;line-height:1.55;min-height:0;display:flex;flex-direction:column">
 <div id="bfdrow1"><span class="dim"> 1</span>  <span class="p">Initialisation (at node s):</span></div>
 <div id="bfdrow2"><span class="dim"> 2</span>    d<sub>s</sub>(s) = 0</div>
 <div id="bfdrow3"><span class="dim"> 3</span>    d<sub>s</sub>(u) = c(s,u)  <span class="p">if u is a neighbour, else</span> &infin;</div>
@@ -1561,7 +1546,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <div id="bf-intro" style="display:none">
         <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
           <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">The idea</p>
-          <p style="margin:0;font-size:17px">Bellman&ndash;Ford uses exactly that idea, run over
+          <p style="margin:0;font-size:17px">Bellman&ndash;Ford is exactly that idea, run over
           <b>every pair of nodes</b>: for each node s and each destination u, s keeps relaxing over its
           neighbours &mdash; until d<sub>s</sub>(u) = d<sub>s</sub>*(u) for <b>all</b> s and <b>all</b> u.</p>
           <p style="margin:10px 0 0;font-size:17px;color:var(--muted)">Here s and u mean <i>any</i> node
@@ -1577,32 +1562,23 @@ body.scroll #counter,body.scroll #seclabel{display:none}
         <p style="font-size:18px;margin:0">Every node s performs <b>relaxation</b> for every destination u, through every neighbour w.</p>
         <p style="font-size:18px;margin:10px 0 0">They keep doing this until the network <b>converges</b> &mdash; a full pass where nothing changes.</p>
       </div>
-      <div id="bf-converge" style="display:none">
-        <p style="font-size:18px;margin:0">After convergence, every node s has the shortest distance <b style="color:var(--accent)">d<sub>s</sub>(u)</b> and next hop <b style="color:var(--accent)">p<sub>s</sub>(u)</b> to every other node u.</p>
-        <p style="font-size:18px;margin:9px 0 0">Every node, to every other node &mdash; so Bellman&ndash;Ford solves the <b style="color:var(--accent)">all-pairs</b> shortest-path problem, not just one source&rsquo;s.</p>
-      </div>
+      
       <div id="bf-observe" style="display:none">
         <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
           <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Important observation</p>
-          <p style="font-size:17px;margin:0">To run the inner relaxation <span style="font-size:14px">(lines 7&ndash;11)</span> for itself, node s only needs its <b>own link costs</b> c(s,w) and its <b>neighbours' distance vectors</b> d<sub>w</sub>(u). That is purely <b>local</b> information &mdash; s never has to learn, for example, the cost of a link <b>two hops away</b>.</p>
+          <p style="font-size:17px;margin:0">To run the relaxation <span style="font-size:14px">(line 8)</span> for itself, node s only needs its <b>own link costs</b> c(s,w) and its <b>neighbours' distance vectors</b> d<sub>w</sub>(u). That is purely <b>local</b> information &mdash; s never has to learn, for example, the cost of a link <b>two hops away</b>.</p>
         </div>
       </div>
-      <div id="bf-distribute" style="display:none;margin-top:12px">
-        <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
-          <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Distributing the loop</p>
-          <p style="font-size:17px;margin:0">We can <b>distribute</b> the outer loop <span style="font-size:14px">(line 6)</span>: each node s runs the inner relaxation independently.</p>
-        </div>
-      </div>
+      
       <div id="bf-send" style="display:none">
         <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
-          <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">What distribution adds: lines 11&ndash;12</p>
-          <p style="font-size:17px;margin:0">In the centralised version, one algorithm held every node's estimates in a single shared table.</p>
-          <p style="font-size:17px;margin:10px 0 0">However, when distributed, node s can no longer <em>read</em> its neighbours' estimates &mdash; d<sub>w</sub>(u) now lives in w's own memory.</p>
-          <p style="font-size:17px;margin:10px 0 0">Therefore, whenever its own estimates change, s must <b>send</b> them to its neighbours.</p>
+          <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Which is why it has to talk</p>
+          <p style="font-size:17px;margin:0">Local is not free, though: <span class="mono">d<sub>w</sub>(u)</span> lives in <b>w's own memory</b>, and s cannot reach into it.</p>
+          <p style="font-size:17px;margin:10px 0 0">So the one thing s owes its neighbours is the reverse: whenever its own vector changes, s must <b>send</b> it <span style="font-size:14px">(lines 11&ndash;12)</span>.</p>
         </div>
       </div>
       <div id="bf-dv-card" class="card" style="border-left:4px solid var(--accent);padding:10px 16px;margin:14px 0 0;display:none">
-        <p style="margin:0;font-size:17px">This is the bare-bone algorithm of the <b style="color:var(--accent)">distance-vector protocol</b>.</p>
+        <p style="margin:0;font-size:17px">Every node running this, and telling its neighbours when something changes, is the bare-bone <b style="color:var(--accent)">distance-vector protocol</b>.</p>
       </div>
     </div>
   </div>
@@ -1613,8 +1589,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p><p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  
+  
 </section>
 
 <!-- ====== Distance-vector protocol ====== -->
@@ -3248,59 +3224,30 @@ function updateSPMotivationSlide(){
 function updateBFFullSlide(){
   var s=document.getElementById('bf-full-slide');if(!s)return;
   var n=fragCount(s);
-  var central=document.getElementById('bf-central');
-  var centralLabel=document.getElementById('bf-central-label');
-  var distrib=document.getElementById('bf-distrib');
-  var distribLabel=document.getElementById('bf-distrib-label');
-  var init=document.getElementById('bf-init');
-  var loop=document.getElementById('bf-loop');
-  var converge=document.getElementById('bf-converge');
-  var observe=document.getElementById('bf-observe');
-  var distribute=document.getElementById('bf-distribute');
-  var send=document.getElementById('bf-send');
-  var dvCard=document.getElementById('bf-dv-card');
-  var intro=document.getElementById('bf-intro');
-  var dsHi=document.getElementById('bf-ds-hi');
-  var psHi=document.getElementById('bf-ps-hi');
-  if(intro)intro.style.display=(n===1)?'':'none';
-  if(central)central.style.display=(n<7)?'flex':'none';  /* keep the flex column: '' would wipe it */
-  if(centralLabel)centralLabel.style.display=(n<7)?'':'none';
-  if(distrib)distrib.style.display=(n>=7)?'flex':'none';
-  if(distribLabel)distribLabel.style.display=(n>=7)?'':'none';
-  /* the two code-walk frags hot-swap; the argument after them builds up */
-  if(init)init.style.display=(n===2)?'':'none';
-  if(loop)loop.style.display=(n===3||n===4)?'':'none';
-  if(converge)converge.style.display=(n===4)?'':'none';
-  if(observe)observe.style.display=(n>=5&&n<=7)?'':'none';
-  if(distribute)distribute.style.display=(n>=6&&n<=7)?'':'none';
-  if(send)send.style.display=(n>=8)?'':'none';
-  if(dvCard)dvCard.style.display=(n>=9)?'':'none';
-  if(dsHi){dsHi.style.color=(n===4)?'var(--accent)':'';dsHi.style.fontWeight=(n===4)?'bold':'';}
-  if(psHi){psHi.style.color=(n===4)?'var(--accent)':'';psHi.style.fontWeight=(n===4)?'bold':'';}
-  var ln6arrow=document.getElementById('bfln6-arrow');
-  if(ln6arrow)ln6arrow.style.display=(n===6)?'inline':'none';
-  var initRows=['bfrow1','bfrow2','bfrow3'];
-  var loopRows=['bfrow5','bfrow6','bfrow7','bfrow8','bfrow9','bfrow10','bfrow11','bfrow12'];
-  var obsRows=['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11'];
-  var distRows=['bfrow6'];
+  function show(id,on){var el=document.getElementById(id);if(el)el.style.display=on?'':'none';}
+
+  /* One card at a time; the argument is carried by which lines are lit. */
+  show('bf-intro',   n===1);
+  show('bf-init',    n===2);
+  show('bf-loop',    n===3);
+  show('bf-observe', n===4);
+  show('bf-send',    n===5);
+  show('bf-dv-card', n>=6);
+
+  /* There is one listing now, so the walk is a highlight rather than a swap
+     between a centralised version and a distributed one. */
+  var LIT={2:['bfdrow1','bfdrow2','bfdrow3'],
+           3:['bfdrow5','bfdrow6','bfdrow7','bfdrow8','bfdrow9','bfdrow10'],
+           4:['bfdrow8'],
+           5:['bfdrow11','bfdrow12']};
+  var lit=LIT[n]||[];
   for(var i=1;i<=12;i++){
-    var row=document.getElementById('bfrow'+i);if(!row)continue;
-    var id='bfrow'+i;
-    var active=(n===2&&initRows.indexOf(id)>=0)||(n===3&&loopRows.indexOf(id)>=0)
-             ||(n===5&&obsRows.indexOf(id)>=0)||(n===6&&distRows.indexOf(id)>=0);
-    row.style.backgroundColor=active?'rgba(224,120,80,0.15)':'';
-    row.style.borderLeft=active?'3px solid #e07850':'';
-    row.style.paddingLeft=active?'4px':'';
-    row.style.marginLeft=active?'-7px':'';
-  }
-  /* distributed code: spotlight the two lines distribution introduces */
-  for(var k=1;k<=12;k++){
-    var drow=document.getElementById('bfdrow'+k);if(!drow)continue;
-    var dActive=(n===8&&(k===11||k===12));
-    drow.style.backgroundColor=dActive?'rgba(224,120,80,0.15)':'';
-    drow.style.borderLeft=dActive?'3px solid #e07850':'';
-    drow.style.paddingLeft=dActive?'4px':'';
-    drow.style.marginLeft=dActive?'-7px':'';
+    var row=document.getElementById('bfdrow'+i);if(!row)continue;
+    var on=lit.indexOf('bfdrow'+i)>=0;
+    row.style.backgroundColor=on?'rgba(224,120,80,0.15)':'';
+    row.style.borderLeft=on?'3px solid #e07850':'';
+    row.style.paddingLeft=on?'4px':'';
+    row.style.marginLeft=on?'-7px':'';
   }
 }
 
