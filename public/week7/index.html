@@ -296,6 +296,8 @@ body.scroll #counter,body.scroll #seclabel{display:none}
   transition:background .3s,opacity .3s}
 #rlx-legend .lgline.lit{background:var(--accent-soft)}
 #rlx-legend.walking .lgline:not(.lit){opacity:.42}
+#rlx-table{border-radius:8px;transition:box-shadow .3s}
+#rlx-table.lit{box-shadow:0 0 0 7px var(--accent-soft)}
 #rlx-say .scard{border-radius:12px;padding:12px 16px;font-size:18px;line-height:1.5;
   background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);animation:wfade .28s ease}
 #rlx-say .sq{border-left:4px solid var(--muted)}
@@ -1357,8 +1359,13 @@ body.scroll #counter,body.scroll #seclabel{display:none}
       <table id="rlx-table" style="margin:2px auto 0;border-collapse:collapse;font-size:15px">
         <tr style="border-bottom:2px solid var(--edge)">
           <th style="padding:3px 12px;text-align:left;font-weight:600">dest</th>
-          <th style="padding:3px 12px;text-align:center;font-weight:600">p<sub>s</sub>(v)</th>
-          <th style="padding:3px 12px;text-align:center;font-weight:600">d<sub>s</sub>(v)</th>
+          <th style="padding:3px 12px;text-align:center;font-weight:600">p<sub>s</sub>(&middot;)</th>
+          <th style="padding:3px 12px;text-align:center;font-weight:600">d<sub>s</sub>(&middot;)</th>
+        </tr>
+        <tr id="rlx-row-x" style="display:none">
+          <td class="mono" style="padding:3px 12px">x</td>
+          <td class="mono" style="padding:3px 12px;text-align:center">x</td>
+          <td class="mono" style="padding:3px 12px;text-align:center">20</td>
         </tr>
         <tr>
           <td class="mono" style="padding:3px 12px">v</td>
@@ -1408,6 +1415,7 @@ body.scroll #counter,body.scroll #seclabel{display:none}
     </div>
   </div>
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+      <p class="frag" style="display:none"></p>
       <p class="frag" style="display:none"></p>
       <p class="frag" style="display:none"></p>
       <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
@@ -3102,10 +3110,20 @@ function updateRelaxSlide(){
      + '<b class="mono accent">d<sub>s</sub>(v)</b>: the neighbour on the current best known path '
      + 'from s to v.</div>';
   S[8]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
+     + 'text-transform:uppercase;color:var(--accent)">Putting the two together</p>'
+     + 'So s keeps <b>one row per destination</b> &mdash; a next hop and a distance:'
+     + '<ul style="margin:5px 0 0;padding-left:21px">'
+     + '<li style="font-size:18px;line-height:1.45">x is a direct neighbour: '
+     + '<b class="mono accent">p<sub>s</sub>(x) = x</b>, '
+     + '<b class="mono accent">d<sub>s</sub>(x) = 20</b>.</li>'
+     + '<li style="font-size:18px;line-height:1.45;margin-top:3px">no path to v yet: '
+     + '<b class="mono accent">p<sub>s</sub>(v) = nil</b>, '
+     + '<b class="mono accent">d<sub>s</sub>(v) = &infin;</b>.</li></ul></div>';
+  S[9]='<div class="scard sa"><p style="margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:1px;'
      + 'text-transform:uppercase;color:var(--accent)">Least cost from s to v with first hop x</p>'
      + '<p class="mono" style="margin:0;text-align:center;font-size:25px;color:var(--accent)">'
      + 'c(s,x) + d<sub>x</sub>(v)</p></div>';
-  S[9]=S[10]=S[8];
+  S[10]=S[11]=S[9];
   var say=document.getElementById('rlx-say');
   if(say){ say.innerHTML = S[n] || ''; say.style.minHeight = S[n] ? '104px' : '0';
            say.style.marginBottom = S[n] ? '14px' : '0'; }
@@ -3113,29 +3131,33 @@ function updateRelaxSlide(){
   var leg=document.getElementById('rlx-legend'), tbl=document.getElementById('rlx-table');
   if(leg){ leg.style.opacity = n>=4?'1':'0'; leg.classList.toggle('lit', n>=4);
     // beats 5-7 walk the legend, one symbol per card
-    leg.classList.toggle('walking', n>=5&&n<=7);
-    var lit={5:'lg-c',6:'lg-d',7:'lg-p'}[n];
+    leg.classList.toggle('walking', n>=5&&n<=8);
+    // beat 8 reads the table, which is both symbols at once
+    var lit={5:['lg-c'],6:['lg-d'],7:['lg-p'],8:['lg-d','lg-p']}[n]||[];
     ['lg-c','lg-d','lg-p'].forEach(function(id){
-      var el=document.getElementById(id); if(el) el.classList.toggle('lit', id===lit); }); }
+      var el=document.getElementById(id); if(el) el.classList.toggle('lit', lit.indexOf(id)>=0); }); }
+  var rowx=document.getElementById('rlx-row-x');
+  if(rowx) rowx.style.display = n>=8?'':'none';
+  if(tbl) tbl.classList.toggle('lit', n===8);
   if(tbl) tbl.style.opacity = n>=4?'1':'0';
 
   // Beat 8 retires the x working entirely and replaces it with one line of
   // state, so the column never carries more than one neighbour's arithmetic.
   var xb=document.getElementById('rlx-x-block'), sf=document.getElementById('rlx-sofar');
-  if(xb) xb.style.display = n>=11?'none':'';
-  if(sf) sf.style.display = n>=11?'':'none';
+  if(xb) xb.style.display = n>=12?'none':'';
+  if(sf) sf.style.display = n>=12?'':'none';
 
-  fade('rlx-sum-x', n>=9); fade('rlx-upd-x', n>=10);
-  fade('rlx-sum-w', n>=12); fade('rlx-upd-w', n>=13);
-  fade('rlx-sum-u', n>=14); fade('rlx-upd-u', n>=15);
+  fade('rlx-sum-x', n>=10); fade('rlx-upd-x', n>=11);
+  fade('rlx-sum-w', n>=13); fade('rlx-upd-w', n>=14);
+  fade('rlx-sum-u', n>=15); fade('rlx-upd-u', n>=16);
 
-  var xAct=n>=2&&n<=10,xFade=n>=11,wAct=n>=12&&n<=13,wFade=n>=14,uAct=n>=14;
-  setOp('rlx-c-sx',n>=9?(xFade?0.25:1):0);
-  setOp('rlx-d-xv',n>=9?(xFade?0.25:1):0);
+  var xAct=n>=2&&n<=11,xFade=n>=12,wAct=n>=13&&n<=14,wFade=n>=15,uAct=n>=15;
+  setOp('rlx-c-sx',n>=10?(xFade?0.25:1):0);
+  setOp('rlx-d-xv',n>=10?(xFade?0.25:1):0);
   setLine('rlx-e-sx',xAct?'var(--current)':'var(--edge)',xAct?3:2.5,xFade?0.25:1);
   setLine('rlx-p-xv',xAct?'var(--current)':'var(--edge)',xAct?2:1.5,xAct?0.7:(xFade?0.1:0.35));
-  setOp('rlx-c-sw',n>=12?(wFade?0.25:1):0);
-  setOp('rlx-d-wv',n>=12?(wFade?0.25:1):0);
+  setOp('rlx-c-sw',n>=13?(wFade?0.25:1):0);
+  setOp('rlx-d-wv',n>=13?(wFade?0.25:1):0);
   setLine('rlx-e-sw',wAct?'var(--current)':'var(--edge)',wAct?3:2.5,wFade?0.25:1);
   setLine('rlx-p-wv',wAct?'var(--current)':'var(--edge)',wAct?2:1.5,wAct?0.7:(wFade?0.1:0.35));
   setOp('rlx-c-su',uAct?1:0);
@@ -3146,9 +3168,9 @@ function updateRelaxSlide(){
   // The table only moves on the beats that say it moves.
   var tN=document.getElementById('rlx-tbl-next'),tC=document.getElementById('rlx-tbl-cost');
   if(tN&&tC){
-    if(n>=15){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
-    else if(n>=13){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
-    else if(n>=10){tN.textContent='x';tC.textContent='35';tC.style.color='';}
+    if(n>=16){tN.textContent='u';tC.textContent='18';tC.style.color='var(--accent)';}
+    else if(n>=14){tN.textContent='w';tC.textContent='25';tC.style.color='var(--current)';}
+    else if(n>=11){tN.textContent='x';tC.textContent='35';tC.style.color='';}
     else{tN.textContent='nil';tC.textContent='∞';tC.style.color='';}
   }
 }
