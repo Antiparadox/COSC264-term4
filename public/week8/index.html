@@ -1153,10 +1153,10 @@ svg text{font-family:var(--sans)}
 .tunnel-solution-slide[data-step="4"] .packet-process.translate-back .packet-process-note{opacity:1}
 .tunnel-solution-slide[data-step="4"] .tn-sub li.r2,
 .tunnel-solution-slide[data-step="6"] .tn-sub li.t2{opacity:1}
-body.scroll .tunnel-narration{display:grid;gap:10px;min-height:0}
-body.scroll .tunnel-solution-slide .tunnel-narration .frag{position:static;opacity:1;transform:none}
-body.scroll .packet-process-stage{min-height:210px}
-body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transform:none}
+
+
+
+
 
 
 /* CIDR recap: where the university cuts its block */
@@ -2441,36 +2441,31 @@ body.scroll .tunnel-solution-slide .packet-process.encapsulate{opacity:1;transfo
 .answer-block strong{font-family:var(--serif);font-size:27px;display:block}
 .answer-block p{font-size:17px;color:var(--muted);margin:12px 0 0}
 
-body.scroll .source{position:static;text-align:left;margin-top:14px}
-body.scroll .state-layout{grid-template-columns:1fr}
-body.scroll .tree-level,body.scroll .three-answers{grid-template-columns:1fr}
-body.scroll .roadmap-message-wrap{height:auto;display:flex;flex-direction:column;gap:10px}
-body.scroll .roadmap-message{position:static}
-body.scroll .mot-topology{min-width:1070px}
-body.scroll .topology{min-height:332px}
-body.scroll .compact-topology,body.scroll .state-layout .topology{
-  width:100%;transform:none;margin-bottom:0}
-body.scroll .session-line{grid-template-columns:1fr}
-body.scroll .session-wire{width:4px;height:24px;margin:auto}
 
-/* ============ scroll mode ============ */
-body.scroll{overflow:auto}
-body.scroll #stage{position:static;width:auto;height:auto;transform:none!important}
-body.scroll .slide{position:static;display:flex!important;width:auto;min-height:0;height:auto;
-  padding:34px 22px;border-bottom:1px solid var(--border)}
-body.scroll .slide .cols{flex-direction:column;gap:20px}
-body.scroll .frag{opacity:1;transform:none}
-body.scroll h1{font-size:34px}
-body.scroll h2{font-size:27px}
-body.scroll .sec-title h1{font-size:36px}
-body.scroll p,body.scroll li{font-size:17.5px}
-body.scroll .lead{font-size:19px}
-body.scroll .prow .q{font-size:16.5px}
-body.scroll .term{font-size:14px}
-body.scroll table.ft{font-size:15px}
-body.scroll .footnote{position:static;margin-top:14px;font-size:12.5px}
-body.scroll .navzone{display:none}
-body.scroll #counter,body.scroll #seclabel{display:none}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ============ print / reader ============ */
 @page{size:A4 landscape;margin:10mm}
@@ -2511,7 +2506,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div id="progress"></div>
 <div id="hud">
   <a id="b-home" href="../" title="Course home">⌂ home</a>
-  <button id="b-mode" title="Stage / scroll mode">⇕ view</button>
   <button id="b-jump" title="Contents (Esc)">⌗ contents</button>
   <button id="b-theme" title="Theme (T)">◐</button>
 </div>
@@ -4209,29 +4203,15 @@ try{
 /* ---------- stage scaling ---------- */
 var stage=document.getElementById('stage');
 function fit(){
-  if(document.body.classList.contains('scroll')) return;
   var scale=Math.min(innerWidth/1280,innerHeight/720);
   stage.style.transform='translate(-50%,-50%) scale('+scale+')';
 }
 
-/* ---------- scroll/stage mode ---------- */
-var modePref='auto';
-try{modePref=localStorage.getItem(KEY+'-mode')||'auto';}catch(e){}
-function autoWantsScroll(){return innerWidth<700||(innerHeight>innerWidth&&innerWidth<1000);}
+/* ---------- stage layout ---------- */
 function applyMode(){
-  var scroll=modePref==='scroll'||(modePref==='auto'&&autoWantsScroll());
-  document.body.classList.toggle('scroll',scroll);
-  if(!scroll){
-    slides.forEach(function(slide,index){slide.classList.toggle('active',index===cur);});
-    fit();
-  }
-  document.getElementById('b-mode').textContent=scroll?'▭ slides':'⇕ view';
+  slides.forEach(function(s,i){s.classList.toggle('active',i===cur);});
+  fit();
 }
-document.getElementById('b-mode').addEventListener('click',function(){
-  modePref=document.body.classList.contains('scroll')?'stage':'scroll';
-  try{localStorage.setItem(KEY+'-mode',modePref);}catch(e){}
-  applyMode();
-});
 
 /* ---------- fragments ---------- */
 function frags(slide){return [].slice.call(slide.querySelectorAll('.frag'));}
@@ -4296,7 +4276,6 @@ addEventListener('hashchange',function(){
 /* ---------- keyboard and controls ---------- */
 addEventListener('keydown',function(event){
   if(/input|textarea|select/i.test(event.target.tagName)) return;
-  if(document.body.classList.contains('scroll')) return;
   switch(event.key){
     case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
       event.preventDefault(); next(); break;
@@ -4321,7 +4300,7 @@ addEventListener('touchstart',function(event){
   }
 },{passive:true});
 addEventListener('touchend',function(event){
-  if(touchX==null||document.body.classList.contains('scroll')) return;
+  if(touchX==null) return;
   var dx=event.changedTouches[0].clientX-touchX;
   var dy=event.changedTouches[0].clientY-touchY;
   if(Math.abs(dx)>70&&Math.abs(dx)>2*Math.abs(dy)){dx<0?next():prev();}

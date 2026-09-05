@@ -181,24 +181,21 @@ svg text{font-family:var(--sans)}
 .hl-edge{stroke:var(--current)!important;stroke-width:6!important}
 .best-edge{stroke:var(--accent)!important;stroke-width:6!important}
 
-/* ============ scroll mode ============ */
-body.scroll{overflow:auto}
-body.scroll #stage{position:static;width:auto;height:auto;transform:none!important}
-body.scroll .slide{position:static;display:flex!important;width:auto;min-height:0;height:auto;
-  padding:34px 22px;border-bottom:1px solid var(--border)}
-body.scroll .slide .cols{flex-direction:column;gap:20px}
-body.scroll .frag{opacity:1;transform:none}
-body.scroll h1{font-size:34px}
-body.scroll h2{font-size:27px}
-body.scroll .sec-title h1{font-size:36px}
-body.scroll p,body.scroll li{font-size:17.5px}
-body.scroll .lead{font-size:19px}
-body.scroll .prow .q{font-size:16.5px}
-body.scroll .term{font-size:14px}
-body.scroll table.ft{font-size:15px}
-body.scroll .footnote{position:static;margin-top:14px;font-size:12.5px}
-body.scroll .navzone{display:none}
-body.scroll #counter,body.scroll #seclabel{display:none}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ============ print / reader ============ */
 @page{size:A4 landscape;margin:10mm}
@@ -234,7 +231,6 @@ body.scroll #counter,body.scroll #seclabel{display:none}
 <div id="progress"></div>
 <div id="hud">
   <a id="b-home" href="../" title="Course home">⌂ home</a>
-  <button id="b-mode" title="Stage / scroll mode">⇕ view</button>
   <button id="b-jump" title="Contents (Esc)">⌗ contents</button>
   <button id="b-theme" title="Theme (T)">◐</button>
 </div>
@@ -2501,27 +2497,15 @@ try{var savedT=localStorage.getItem(KEY+'-theme'); if(savedT) document.documentE
 /* ---------- stage scaling ---------- */
 var stage=document.getElementById('stage');
 function fit(){
-  if(document.body.classList.contains('scroll')) return;
   var s=Math.min(innerWidth/1280,innerHeight/720);
   stage.style.transform='translate(-50%,-50%) scale('+s+')';
 }
 
-/* ---------- scroll/stage mode ---------- */
-var modePref='auto';
-try{modePref=localStorage.getItem(KEY+'-mode')||'auto';}catch(e){}
-function autoWantsScroll(){return innerWidth<700||(innerHeight>innerWidth&&innerWidth<1000);}
+/* ---------- stage layout ---------- */
 function applyMode(){
-  var scroll=modePref==='scroll'||(modePref==='auto'&&autoWantsScroll());
-  document.body.classList.toggle('scroll',scroll);
-  if(!scroll){slides.forEach(function(s,i){s.classList.toggle('active',i===cur);});fit();}
-  document.getElementById('b-mode').textContent=scroll?'\u25ad slides':'\u21d5 view';
+  slides.forEach(function(s,i){s.classList.toggle('active',i===cur);});
+  fit();
 }
-document.getElementById('b-mode').addEventListener('click',function(){
-  var isScroll=document.body.classList.contains('scroll');
-  modePref=isScroll?'stage':'scroll';
-  try{localStorage.setItem(KEY+'-mode',modePref);}catch(e){}
-  applyMode();
-});
 
 /* ---------- fragments ---------- */
 function frags(s){return [].slice.call(s.querySelectorAll('.frag'));}
@@ -2572,7 +2556,6 @@ addEventListener('hashchange',function(){var i=parseHash(); if(i!=null&&i!==cur)
 /* ---------- keys ---------- */
 addEventListener('keydown',function(e){
   if(/input|textarea|select/i.test(e.target.tagName)) return;
-  if(document.body.classList.contains('scroll')) return;
   switch(e.key){
     case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': e.preventDefault(); next(); break;
     case 'ArrowLeft': case 'ArrowUp': case 'PageUp': e.preventDefault(); prev(); break;
@@ -2590,7 +2573,7 @@ document.querySelector('.navzone.right').addEventListener('click',next);
 var tx=null,ty=null;
 addEventListener('touchstart',function(e){if(e.touches.length===1){tx=e.touches[0].clientX;ty=e.touches[0].clientY;}},{passive:true});
 addEventListener('touchend',function(e){
-  if(tx==null||document.body.classList.contains('scroll'))return;
+  if(tx==null)return;
   var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
   if(Math.abs(dx)>70&&Math.abs(dx)>2*Math.abs(dy)){dx<0?next():prev();}
   tx=ty=null;

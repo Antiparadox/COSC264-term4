@@ -1751,12 +1751,6 @@
     .jump-item:hover, .jump-item.current { background: var(--teal-soft); }
     .jump-number { margin-right: 14px; color: var(--teal); font-family: var(--mono); }
 
-    body.scroll-mode { overflow: auto; }
-    body.scroll-mode #viewport { position: static; display: block; padding: 24px; }
-    body.scroll-mode #stage { position: relative; top: auto; left: auto; width: min(1280px, 100%); height: auto; margin: 0 auto; transform: none !important; overflow: visible; box-shadow: none; }
-    body.scroll-mode .slide { position: relative; display: block; width: 100%; min-height: min(720px, 72vw); margin-bottom: 28px; border: 1px solid var(--line); box-shadow: var(--shadow); }
-    body.scroll-mode .frag { opacity: 1; transform: none; }
-    body.scroll-mode .nav-zone, body.scroll-mode #progress, body.scroll-mode #section-label, body.scroll-mode #counter { display: none; }
 
     .tcp-ack-layout,
     .tcp-exchange-layout,
@@ -4551,7 +4545,6 @@
     <div id="progress"></div>
     <div id="hud">
       <a class="hud-button" id="home-button" href="../" title="Course home">⌂ home</a>
-      <button class="hud-button" id="view-button" title="Stage / scroll mode (V)">⇕ view</button>
       <button class="hud-button" id="outline-button" title="Contents (O)">⌗ contents</button>
       <button class="hud-button" id="theme-button" title="Theme (T)" aria-label="Toggle theme">◐</button>
     </div>
@@ -4626,13 +4619,10 @@
 
       function goTo(i) { index = Math.min(slides.length - 1, Math.max(0, i)); step = 0; menu.classList.remove('open'); render(); }
       function fit() {
-        if (!document.body.classList.contains('scroll-mode')) {
-          const scale = Math.min((document.documentElement.clientWidth - 48) / 1280, (document.documentElement.clientHeight - 48) / 720);
-          stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
-        }
+        const scale = Math.min((document.documentElement.clientWidth - 48) / 1280, (document.documentElement.clientHeight - 48) / 720);
+        stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
       }
       function toggleTheme() { const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = nextTheme; localStorage.setItem(`${KEY}-theme`, nextTheme); }
-      function toggleView() { document.body.classList.toggle('scroll-mode'); stage.style.transform = ''; localStorage.setItem(`${KEY}-scroll`, document.body.classList.contains('scroll-mode') ? '1' : '0'); fit(); }
 
       slides.forEach((slide, i) => {
         const button = document.createElement('button');
@@ -4643,7 +4633,6 @@
       });
 
       document.getElementById('theme-button').addEventListener('click', toggleTheme);
-      document.getElementById('view-button').addEventListener('click', toggleView);
       document.getElementById('outline-button').addEventListener('click', () => menu.classList.add('open'));
       document.getElementById('prev-zone').addEventListener('click', previous);
       document.getElementById('next-zone').addEventListener('click', next);
@@ -4658,12 +4647,10 @@
         else if (event.key === 'Home') goTo(0);
         else if (event.key === 'End') goTo(slides.length - 1);
         else if (event.key.toLowerCase() === 't') toggleTheme();
-        else if (event.key.toLowerCase() === 'v') toggleView();
         else if (event.key.toLowerCase() === 'o') menu.classList.add('open');
       });
 
       document.documentElement.dataset.theme = localStorage.getItem(`${KEY}-theme`) || 'light';
-      if (localStorage.getItem(`${KEY}-scroll`) === '1') document.body.classList.add('scroll-mode');
       index = parseHash();
       fit();
       render(false);
