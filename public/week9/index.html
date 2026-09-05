@@ -96,6 +96,10 @@ p,li{font-size:26px;line-height:1.5}
 /* fragments */
 .frag{opacity:0;transform:translateY(8px);transition:opacity .22s ease,transform .22s ease}
 .frag.on{opacity:1;transform:none}
+/* Each ring on the bit-error diagram is lit by the card that explains it. */
+#bit-err-svg .hl-burst,#bit-err-svg .hl-single{opacity:0;transition:opacity .25s ease}
+.slide:has(#bit-card-burst.on) #bit-err-svg .hl-burst{opacity:1}
+.slide:has(#bit-card-single.on) #bit-err-svg .hl-single{opacity:1}
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .frag{transform:none}
@@ -432,9 +436,8 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Error types</div>
   <h2>Types of bit errors</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:14px">
-    <p class="frag" style="margin:0;font-size:20px">An error occurs when a bit is <b>altered between transmission and reception</b>.</p>
     <div class="frag" style="display:flex;justify-content:center">
-<svg viewBox="0 0 956 192" style="width:100%;max-height:180px">
+<svg id="bit-err-svg" viewBox="0 0 922 172" style="width:100%;max-height:300px">
 <defs><marker id="earr9" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0.5 L5.5,3 L0,5.5 Z" fill="#cf5c36"/></marker></defs>
 <text x="4" y="25" dominant-baseline="middle" font-size="14" fill="var(--ink)" font-weight="700">Sent</text>
 <text x="4" y="109" dominant-baseline="middle" font-size="14" fill="var(--ink)" font-weight="700">Received</text>
@@ -529,14 +532,16 @@ svg text{font-family:var(--sans)}
 <text x="411.0" y="152" font-size="12" fill="#cf5c36" text-anchor="middle">Burst error of length B = 8</text>
 <text x="852" y="144" font-size="12" fill="var(--accent)" text-anchor="middle">Single-bit</text>
 <text x="852" y="158" font-size="12" fill="var(--accent)" text-anchor="middle">error</text>
+<rect class="hl-burst" x="240" y="90" width="342" height="38" rx="5" fill="none" stroke="#cf5c36" stroke-width="2.5"/>
+<rect class="hl-single" x="828" y="90" width="48" height="38" rx="5" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
 </svg>
     </div>
-    <div class="frag cols" style="gap:16px;margin-top:4px">
-      <div class="col card" style="padding:11px 18px">
-        <p style="margin:0;font-size:17px"><b style="color:#cf5c36">Burst error</b> of length B — the span from the first to the last corrupted bit is B positions.</p>
+    <div style="display:flex;gap:18px;margin-top:8px;align-items:flex-start;flex-wrap:wrap">
+      <div id="bit-card-burst" class="frag card" style="padding:13px 20px;flex:0 1 auto;max-width:56%">
+        <p style="margin:0;font-size:21px;line-height:1.45"><b style="color:#cf5c36">Burst error</b> of length B — the span from the first to the last corrupted bit is B positions.</p>
       </div>
-      <div class="col card" style="padding:11px 18px">
-        <p style="margin:0;font-size:17px"><b style="color:var(--accent)">Single-bit error</b> — a single isolated bit is altered.</p>
+      <div id="bit-card-single" class="frag card" style="padding:13px 20px;flex:0 1 auto;max-width:42%">
+        <p style="margin:0;font-size:21px;line-height:1.45"><b style="color:var(--accent)">Single-bit error</b> — a single isolated bit is altered.</p>
       </div>
     </div>
   </div>
@@ -547,7 +552,7 @@ svg text{font-family:var(--sans)}
   <h2>The error detection process</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:18px">
 
-    <p class="frag" style="margin:0;font-size:20px;max-width:880px">The sender computes an <b>error-detecting code</b> <i>E</i> from the data &mdash; a compact fingerprint that depends on every bit of the original content.</p>
+    <p class="frag" style="margin:0;font-size:20px;max-width:880px">The sender runs the data through an <b>error-detecting code</b>, which produces a small number of <b>check bits</b> <i>E</i> &mdash; a compact fingerprint that depends on every bit of the original content.</p>
 
     <!-- Transmitter pipeline -->
     <div class="frag card" style="padding:18px 24px">
@@ -1337,7 +1342,7 @@ svg text{font-family:var(--sans)}
   <h2>Error detection &mdash; what we covered</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1000px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.65"><b>Why error detection is needed:</b> a datagram&rsquo;s contents often get corrupted in transit, so the receiver needs a way to tell whether what arrived is what was sent.</p>
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.65"><b>How it is done:</b> the sender attaches redundant bits computed from the data &mdash; an <b>error-detection code</b>.</p>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.65"><b>How it is done:</b> the sender attaches <b>check bits</b> computed from the data by an <b>error-detecting code</b>.</p>
     <div class="frag" style="display:flex;flex-direction:column;gap:12px">
       <p style="margin:0;font-size:19px">We studied two of them:</p>
       <div class="card" style="padding:12px 18px">
