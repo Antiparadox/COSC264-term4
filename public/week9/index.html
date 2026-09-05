@@ -411,8 +411,13 @@ svg text{font-family:var(--sans)}
         <colgroup><col style="width:38%"><col style="width:62%"></colgroup>
         <thead><tr><th>Problem</th><th>Approach</th></tr></thead>
         <tbody class="frag" style="background:rgba(0,200,180,0.08)">
-          <tr><td><b>Bit errors</b> <span style="font-size:13px;padding:2px 8px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;margin-left:4px">this week</span></td><td>Error detection and correction</td></tr>
-          <tr><td colspan="2" style="padding-top:0;border-top:none;font-size:16px;color:var(--muted)">The datagram is delivered, but some of its bits have been altered in transit.</td></tr>
+          <tr><td><b>Corrupted packets</b> <span style="font-size:13px;padding:2px 8px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;margin-left:4px">this module</span></td><td>Error detection and correction</td></tr>
+          <tr><td colspan="2" style="padding-top:0;border-top:none;white-space:normal">
+            <div style="border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:10px 15px;margin:2px 0 4px;white-space:normal">
+              <span style="font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:700">Definition</span>
+              <p style="margin:4px 0 0;font-size:16.5px;line-height:1.5;color:var(--ink)">A packet is <b>corrupted</b> when it is delivered, but one or more of its bits have been <b>altered in transit</b>. Those altered bits are called <b>bit errors</b>.</p>
+            </div>
+          </td></tr>
         </tbody>
         <tbody>
           <tr class="frag"><td>Lost packets <span style="font-size:13px;color:var(--muted)">(Module 4)</span></td><td>ARQ protocols</td></tr>
