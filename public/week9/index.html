@@ -664,10 +664,10 @@ svg text{font-family:var(--sans)}
       </div>
     </div>
 
-    <ul class="frag" style="margin:0;padding-left:22px;max-width:900px;font-size:18px;line-height:1.6;color:var(--muted)">
-      <li style="font-size:18px;line-height:1.6">If nothing is corrupted, the check <b>always</b> passes.</li>
-      <li style="font-size:18px;line-height:1.6;margin-top:6px">The reverse is <b>not</b> true. A check that passes does not guarantee nothing was corrupted &mdash; it only says <b>no error was detected</b>. Some rare corruption patterns still slip through.</li>
-      <li style="font-size:18px;line-height:1.6;margin-top:6px">So a <b>good</b> error-detecting code is one that makes those patterns as rare as it can &mdash; above all for the kinds of errors that actually happen on real links.</li>
+    <ul style="margin:0;padding-left:22px;max-width:900px;font-size:18px;line-height:1.6;color:var(--muted)">
+      <li class="frag" style="font-size:18px;line-height:1.6">If nothing is corrupted, the check <b>always</b> passes.</li>
+      <li class="frag" style="font-size:18px;line-height:1.6;margin-top:6px">The reverse is <b>not</b> true. A check that passes does not guarantee nothing was corrupted &mdash; it only says <b>no error was detected</b>. Some rare corruption patterns still slip through.</li>
+      <li class="frag" style="font-size:18px;line-height:1.6;margin-top:6px">So a <b>good</b> error-detecting code should catch <b>as many error patterns as it can</b>: if an error occurred, it is detected with <b>high probability</b>.</li>
     </ul>
 
   </div>
