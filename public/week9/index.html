@@ -664,7 +664,11 @@ svg text{font-family:var(--sans)}
       </div>
     </div>
 
-    <p class="frag" style="margin:0;font-size:18px;color:var(--muted);max-width:880px">If nothing is corrupted, the check <b>always</b> passes. If any part is corrupted, the error is <b>likely</b> detected &mdash; but not guaranteed; some rare bit patterns can still produce a matching check.</p>
+    <ul class="frag" style="margin:0;padding-left:22px;max-width:900px;font-size:18px;line-height:1.6;color:var(--muted)">
+      <li style="font-size:18px;line-height:1.6">If nothing is corrupted, the check <b>always</b> passes.</li>
+      <li style="font-size:18px;line-height:1.6;margin-top:6px">The reverse is <b>not</b> true. A check that passes does not guarantee nothing was corrupted &mdash; it only says <b>no error was detected</b>. Some rare corruption patterns still slip through.</li>
+      <li style="font-size:18px;line-height:1.6;margin-top:6px">So a <b>good</b> error-detecting code is one that makes those patterns as rare as it can &mdash; above all for the kinds of errors that actually happen on real links.</li>
+    </ul>
 
   </div>
 </section>
