@@ -1354,7 +1354,7 @@ svg text{font-family:var(--sans)}
       <p class="frag" style="margin:0;font-size:19px;line-height:1.65">It lives in the <b>data link layer</b>. Every frame you send over Ethernet or Wi-Fi carries a CRC.</p>
 
       <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:19px;line-height:1.65"><b>The intuition:</b> read the message as a <b>number</b>, and append a few check bits so that the whole thing is <b>exactly divisible</b> by a divisor the two sides agreed on in advance.</p>
+        <p style="margin:0;font-size:19px;line-height:1.65"><b>The intuition:</b> sender and receiver agree on a fixed <b>divisor</b> in advance. Both read the message as a <b>number</b>, and the sender appends a few check bits that make the whole thing <b>exactly divisible</b> by that divisor.</p>
       </div>
     </div>
     <!-- Right: layer stack -->
