@@ -1240,7 +1240,7 @@ svg text{font-family:var(--sans)}
     <!-- Right: computation, fragment by fragment -->
     <div style="flex:1;display:flex;flex-direction:column;gap:6px">
       <div class="frag f1" style="display:flex;flex-direction:column;gap:2px">
-        <p style="margin:0;font-size:18px;color:var(--muted)">IPv4 header rows are 32 bits wide. Our simplified header is one such row, written in hex:</p>
+        <p style="margin:0;font-size:18px;color:var(--muted)">IPv4 header rows are 32 bits, so each can be written as <b>8 hex digits</b>:</p>
         <p style="margin:0;font-size:22px;font-family:monospace;letter-spacing:.04em">F2345678</p>
       </div>
       <div class="frag f2" style="display:flex;align-items:baseline;gap:12px">
@@ -1280,8 +1280,6 @@ svg text{font-family:var(--sans)}
     #checksum-receiver td.hex { font-size:18px }
     #checksum-receiver td.bin { font-size:16px; color:var(--muted) }
     #checksum-receiver tbody.frag { transform:none }
-    #checksum-receiver .why-note { opacity:0; transition:opacity 0.3s }
-    #checksum-receiver:has(.g4.on) .why-note { opacity:1 }
   </style>
   <div class="kicker">Internet checksum</div>
   <h2>Receiver verification</h2>
@@ -1312,10 +1310,7 @@ svg text{font-family:var(--sans)}
           <tr><td class="lab" style="font-weight:700;color:#4caf50">Total</td><td class="hex" style="color:#4caf50;font-weight:700">FFFF</td><td class="bin" style="color:#4caf50">1111 1111 1111 1111</td></tr>
         </tbody>
       </table>
-      <p class="why-note" style="margin:4px 0 0;font-size:18px;color:var(--muted);max-width:600px">Why all 1s? The sender set the checksum to the <b>one&rsquo;s complement</b> of exactly this sum. Adding a value to its own one&rsquo;s complement always gives all 1 bits &mdash; so if nothing changed in transit, the total must be <code>FFFF</code>.</p>
-      <div class="frag g4 card" style="padding:10px 14px;border-left:3px solid #4caf50;margin-top:4px;align-self:flex-start">
-        <p style="margin:0;font-size:18px">Result = <code style="color:#4caf50;font-weight:700">FFFF</code> &rarr; no error detected.</p>
-      </div>
+      <p class="frag g4" style="margin:4px 0 0;font-size:18px;color:var(--muted);max-width:600px">Why all 1s? The sender set the checksum to the <b>one&rsquo;s complement</b> of exactly this sum. Adding a value to its own one&rsquo;s complement always gives all 1 bits &mdash; so if nothing changed in transit, the total must be <code>FFFF</code>.</p>
     </div>
   </div>
 </section>
