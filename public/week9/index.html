@@ -1500,8 +1500,9 @@ svg text{font-family:var(--sans)}
 <!-- ── Slide: CRC — An Example (setup) ── -->
 <section class="slide" id="crc-example" data-sec="CRC">
   <style>
-    #crc-example .gD, #crc-example .gF, #crc-example .gT { opacity:0; transition:opacity 0.35s }
+    #crc-example .gD, #crc-example .gF, #crc-example .gP, #crc-example .gT { opacity:0; transition:opacity 0.35s }
     #crc-example:has(.e1.on) .gD { opacity:1 }
+    #crc-example:has(.e1.on) .gP { opacity:1 }
     #crc-example:has(.e2.on) .gF { opacity:1 }
     #crc-example:has(.e3.on) .gT { opacity:1 }
     #crc-example .eq { font-family:monospace; font-size:17px; margin:0 }
@@ -1537,7 +1538,7 @@ svg text{font-family:var(--sans)}
 
     <!-- Right: diagram, synchronised with the fragments -->
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;padding-top:10px">
-      <svg viewBox="0 0 420 156" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px">
+      <svg viewBox="0 0 420 234" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px">
         <g class="gD">
           <text x="135" y="14" text-anchor="middle" font-style="italic" font-size="14" fill="currentColor">k bits (10)</text>
           <path d="M20,20 L20,34 M20,20 L250,20 M250,20 L250,34" stroke="currentColor" stroke-width="1.5" fill="none"/>
@@ -1549,6 +1550,14 @@ svg text{font-family:var(--sans)}
           <path d="M250,20 L250,34 M250,20 L400,20 M400,20 L400,34" stroke="currentColor" stroke-width="1.5" fill="none"/>
           <rect x="250" y="34" width="150" height="52" fill="none" stroke="currentColor" stroke-width="2"/>
           <text x="325" y="63" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="22" fill="currentColor">F</text>
+          <rect x="221" y="169" width="29" height="40" fill="var(--accent)" opacity="0.20"/>
+          <line x1="250" y1="86" x2="250" y2="168" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
+          <text x="235" y="162" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">+1</text>
+        </g>
+        <g class="gP">
+          <rect x="220" y="168" width="180" height="42" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
+          <text x="310" y="191" text-anchor="middle" dominant-baseline="middle" font-size="16" fill="currentColor"><tspan font-style="italic" font-weight="700">P</tspan><tspan font-family="monospace"> = 110101</tspan></text>
+          <text x="310" y="225" text-anchor="middle" font-size="13" fill="currentColor"><tspan font-style="italic">r</tspan>+1 = 6 bits</text>
         </g>
         <g class="gT">
           <path d="M20,100 L20,114 M20,114 L400,114 M400,114 L400,100" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
