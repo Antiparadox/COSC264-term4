@@ -1799,10 +1799,17 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="CRC">
   <div class="kicker">CRC &middot; optional</div>
   <h2>Example: a short burst error</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1080px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:1080px">
 
-    <div class="frag" style="display:flex;justify-content:center">
-<svg viewBox="0 0 639 152" style="width:100%;max-width:900px">
+    <div class="frag">
+      <p style="margin:0;font-size:20px;line-height:1.55">Our generator is <b><em>P</em>(x) = x<sup>5</sup> + x<sup>4</sup> + x<sup>2</sup> + 1</b>, of <b>degree 5</b>.</p>
+      <p style="margin:5px 0 0;font-size:18px;color:var(--muted);line-height:1.5">The <b>degree</b> of a polynomial is its highest power &mdash; equivalently, the position of its leading 1 bit.</p>
+    </div>
+
+    <div class="frag">
+      <p style="margin:0 0 6px;font-size:19px">Now suppose a burst corrupts the frame in transit:</p>
+      <div style="display:flex;justify-content:center">
+<svg viewBox="0 0 639 152" style="width:100%;max-width:760px">
 <defs><marker id="ea34" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0.5 L5.5,3 L0,5.5 Z" fill="#cf5c36"/></marker></defs>
 <text x="95.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">14</tspan></text>
 <text x="132.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">13</tspan></text>
@@ -1917,18 +1924,16 @@ svg text{font-family:var(--sans)}
 <text x="613.0" y="120" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">1</text>
 <text x="78" y="145" font-size="11" fill="var(--muted)">E has a 1 exactly where a bit was flipped &#8212; here a burst of three</text>
 </svg>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px">
+        <div style="font-size:21px;font-weight:700;color:#cf5c36;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:6px;padding:8px 18px"><em>E</em>(x) = x<sup>2</sup> + x + 1</div>
+        <p style="margin:0;font-size:19px;color:var(--muted)"><b>degree 2</b></p>
+      </div>
     </div>
 
-    <div class="frag" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-      <div style="font-size:22px;font-weight:700;color:#cf5c36;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:6px;padding:9px 20px"><em>E</em>(x) = x<sup>2</sup> + x + 1</div>
-      <p style="margin:0;font-size:19px;color:var(--muted)"><b>degree 2</b> &mdash; while <em>P</em>(x) = x<sup>5</sup> + x<sup>4</sup> + x<sup>2</sup> + 1 has <b>degree 5</b></p>
-    </div>
-
-    <p class="frag" style="margin:0;font-size:15px;color:var(--muted);line-height:1.55">The <b>degree</b> of a polynomial is just its highest power &mdash; equivalently, the position of its leading 1 bit.</p>
-
-    <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:20px;line-height:1.6">A degree-5 polynomial cannot divide a non-zero polynomial of degree 2. So the remainder cannot be zero and the burst is <b>always caught</b>.</p>
-      <p style="margin:8px 0 0;font-size:14px;color:var(--muted)">The same conclusion holds wherever the burst sits in the frame, as long as it is shorter than <em>P</em>.</p>
+    <div class="frag card" style="padding:13px 18px;border-left:4px solid var(--accent)">
+      <p style="margin:0;font-size:19px;line-height:1.5">A degree-5 polynomial cannot divide a non-zero one of degree 2, so the remainder cannot be zero &mdash; the burst is <b>always caught</b>, wherever it sits, as long as it is shorter than <em>P</em>.</p>
+      <p class="frag" style="margin:8px 0 0;font-size:19px;line-height:1.5">This is why we required <em>P</em>&rsquo;s <b>highest-order bit to be 1</b>: that is what holds its degree at <em>r</em>, and the degree is what sets how long a burst can be and still be caught.</p>
     </div>
 
   </div>
