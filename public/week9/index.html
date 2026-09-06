@@ -1583,15 +1583,10 @@ svg text{font-family:var(--sans)}
   </style>
   <div class="kicker">CRC &middot; Sender</div>
   <h2>An Example &mdash; Computing FCS</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+  <div style="flex:1;display:flex;gap:26px;align-items:flex-start">
 
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">We need the remainder of <span style="font-family:monospace">101000110100000 &divide; 110101</span>, and we get it by <b>long division</b> &mdash; the same procedure you learned at school.</p>
-
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">The only difference: at each step the subtraction is an <b style="color:var(--accent)">XOR</b>, because we are working in <b>modulo-2 arithmetic</b>.</p>
-
-    <div style="display:flex;gap:24px;align-items:flex-start;margin-top:2px">
-      <div class="frag" style="flex:0 0 auto;background:rgba(0,0,0,0.05);border:1px solid var(--border);border-radius:8px;padding:14px 18px">
-        <div class="div-blk">
+    <div class="frag" style="flex:0 0 auto;background:rgba(0,0,0,0.05);border:1px solid var(--border);border-radius:8px;padding:14px 18px">
+      <div class="div-blk">
               1101010110   <span class="note">quotient (discarded)</span>
          ---------------
 110101 ) 101000110100000   <span class="note">D &times; 2&#8309;</span>
@@ -1604,9 +1599,18 @@ svg text{font-family:var(--sans)}
                 <span class="note">&#8942;  four more steps  &#8942;</span>
                    <span style="color:#4caf50;font-weight:700">-----</span>
                    <span style="color:#4caf50;font-weight:700">01110</span>   <span class="note">remainder</span></div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px">
+      <div class="frag card" style="padding:14px 18px">
+        <p style="margin:0;font-size:18px;line-height:1.6">We need the remainder of <span style="font-family:monospace">101000110100000 &divide; 110101</span>, and we get it by <b>long division</b> &mdash; the same procedure you learned at school.</p>
       </div>
 
-      <div class="frag card" style="flex:1;padding:14px 18px;border-left:3px solid var(--accent)">
+      <div class="frag card" style="padding:14px 18px">
+        <p style="margin:0;font-size:18px;line-height:1.6">The only difference: at each step the subtraction is an <b style="color:var(--accent)">XOR</b>, because we are working in <b>modulo-2 arithmetic</b>.</p>
+      </div>
+
+      <div class="frag card" style="padding:14px 18px;border-left:4px solid var(--accent)">
         <p style="margin:0 0 10px;font-size:19px"><b><em>F</em> = <span style="font-family:monospace">01110</span></b> <span style="font-size:15px;color:var(--muted)">(the 5-bit FCS)</span></p>
         <p style="margin:0;font-size:17px">Transmitted frame <em>T</em>:</p>
         <p style="margin:5px 0 0;font-family:monospace;font-size:18px">1010001101<b style="color:var(--accent)">01110</b></p>
