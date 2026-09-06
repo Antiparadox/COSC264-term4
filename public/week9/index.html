@@ -1997,17 +1997,6 @@ svg text{font-family:var(--sans)}
 </section>
 
 
-<!-- ── Bridge: when detection is not enough ── -->
-<section class="slide" data-sec="CRC">
-  <div class="kicker">Recap</div>
-  <h2>CRC &mdash; what we covered</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:24px;max-width:1020px">
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">The <b>CRC</b> is an <b>error-detection code</b>: it appends a <b>Frame Check Sequence</b> chosen so that the whole frame divides exactly by an agreed generator <em>P</em>, and the receiver simply checks for a zero remainder.</p>
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">All of the arithmetic is <b>modulo-2</b> &mdash; addition, subtraction and division are XOR, with no carries and no borrows.</p>
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">Generators are conventionally written as <b>polynomials</b>, and the standard ones are chosen for the error patterns they are guaranteed to catch.</p>
-  </div>
-</section>
-
 <section class="slide" data-sec="CRC">
   <div class="kicker">CRC · Limits</div>
   <h2>When detection is not enough</h2>
