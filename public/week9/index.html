@@ -2669,8 +2669,8 @@ svg text{font-family:var(--sans)}
     #dcorrect .hot.on { display:block }
     #dcorrect .hot.on:has(~ .hot.on) { display:none }
     #dcorrect .gSetup, #dcorrect .gReg, #dcorrect .gHalf { opacity:0; transition:opacity 0.35s }
-    #dcorrect:has(.c0.on) .gSetup { opacity:1 }
-    #dcorrect:has(.c1.on) .gReg { opacity:1 }
+    #dcorrect:has(.c0.on) .gReg { opacity:1 }
+    #dcorrect:has(.c1.on) .gSetup { opacity:1 }
     #dcorrect:has(.c3.on) .gHalf { opacity:1 }
   </style>
   <div class="kicker">FEC</div>
@@ -2678,9 +2678,9 @@ svg text{font-family:var(--sans)}
   <div style="flex:1;display:flex;flex-direction:column;gap:11px">
 
     <div style="min-height:66px">
-      <p class="frag hot c0" style="margin:0;font-size:20px;line-height:1.45">Suppose the error flips <b><em>k</em></b> bits. In the <b>worst case</b> every flip moves straight towards <b>B</b>, so the received pattern lands <em>k</em> steps along the line from A to B.</p>
+      <p class="frag hot c0" style="margin:0;font-size:20px;line-height:1.45">Suppose the error flips <b><em>k</em></b> bits, with <b><em>k</em> &le; &lfloor;(d&minus;1)/2&rfloor;</b>. Then the received pattern stays inside <b>A&rsquo;s region</b> and never crosses the <b>halfway</b> line &mdash; even in the worst case.</p>
 
-      <p class="frag hot c1" style="margin:0;font-size:20px;line-height:1.45">While <b><em>k</em> &le; &lfloor;(d&minus;1)/2&rfloor;</b>, that pattern stays inside <b>A&rsquo;s region</b> and never crosses the <b>halfway</b> line &mdash; even in the worst case.</p>
+      <p class="frag hot c1" style="margin:0;font-size:20px;line-height:1.45">What is the worst case? Every flip moves straight towards <b>B</b> &mdash; the pattern then lands <em>k</em> steps along the line from A to B, at the point shown.</p>
 
       <p class="frag hot c2" style="margin:0;font-size:20px;line-height:1.45">So <b>A</b> is strictly the nearest codeword, and minimum-distance decoding walks us back to it: a <em>k</em>-bit error is <b>corrected</b>.</p>
 
