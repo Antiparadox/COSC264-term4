@@ -2509,12 +2509,14 @@ svg text{font-family:var(--sans)}
     #dwalk .hot { display:none }
     #dwalk .hot.on { display:block }
     #dwalk .hot.on:has(~ .hot.on) { display:none }
-    #dwalk .gGrid, #dwalk .gStep, #dwalk .gStep2, #dwalk .gAB, #dwalk .gBall, #dwalk .gStr { opacity:0; transition:opacity 0.35s }
+    #dwalk .gGrid, #dwalk .gStep, #dwalk .gStep2, #dwalk .gStep3, #dwalk .gAB, #dwalk .gBall, #dwalk .gStr { opacity:0; transition:opacity 0.35s }
     #dwalk:has(.w1.on) .gGrid { opacity:1 }
     #dwalk:has(.w1b.on) .gStep { opacity:1 }
     #dwalk:has(.w1c.on) .gStep2 { opacity:1 }
-    #dwalk:has(.w2.on) .gStep { opacity:0 }
-    #dwalk:has(.w2.on) .gStep2 { opacity:0 }
+    #dwalk:has(.w1d.on) .gStep3 { opacity:1 }
+    #dwalk:has(.w2a.on) .gStep { opacity:0 }
+    #dwalk:has(.w2a.on) .gStep2 { opacity:0 }
+    #dwalk:has(.w2a.on) .gStep3 { opacity:0 }
     #dwalk:has(.w2.on) .gAB { opacity:1 }
     #dwalk:has(.w3.on) .gBall { opacity:1 }
     #dwalk:has(.w5.on) .gStr { opacity:1 }
@@ -2529,9 +2531,13 @@ svg text{font-family:var(--sans)}
 
     <p class="frag hot w1b" style="margin:0;font-size:21px;line-height:1.45">For example, if <b>A</b> is <span style="font-family:monospace">00000</span>, then one step away is a string like <span style="font-family:monospace">00100</span> &mdash; they differ in <b>exactly one bit</b>, so their Hamming distance is <b>1</b>.</p>
 
-    <p class="frag hot w1c" style="margin:0;font-size:21px;line-height:1.45">Step <b>up</b> instead and we reach <span style="font-family:monospace">10000</span> &mdash; a different bit flipped, but still <b>one step</b> from <span style="font-family:monospace">00000</span>. Different directions, same distance.</p>
+    <p class="frag hot w1c" style="margin:0;font-size:21px;line-height:1.45">Step <b>up</b> instead and we reach <span style="font-family:monospace">10000</span> &mdash; a different bit flipped, but still <b>one step</b> from <span style="font-family:monospace">00000</span>.</p>
 
-    <p class="frag hot w2" style="margin:0;font-size:21px;line-height:1.45">Two codewords <b>A</b> and <b>B</b> that achieve the minimum sit on this grid <b><em>d</em> steps apart</b>.</p>
+    <p class="frag hot w1d" style="margin:0;font-size:21px;line-height:1.45">Notice that <span style="font-family:monospace">10000</span> and <span style="font-family:monospace">00100</span> are <b>two steps</b> apart &mdash; two edges to travel from one to the other.</p>
+
+    <p class="frag hot w2a" style="margin:0;font-size:21px;line-height:1.45">Now suppose we use a code whose <b>minimum Hamming distance</b> is <em>d</em>.</p>
+
+    <p class="frag hot w2" style="margin:0;font-size:21px;line-height:1.45">Let <b>A</b> and <b>B</b> be two codewords that achieve that minimum &mdash; on the grid they sit <b><em>d</em> steps apart</b>.</p>
 
     <p class="frag hot w3" style="margin:0;font-size:21px;line-height:1.45">Send <b>A</b> over a channel that flips at most <b><em>k</em></b> bits. Each flip is one step to a neighbour, so the received pattern lands <b>somewhere within <em>k</em> steps of A</b>.</p>
 
@@ -2627,12 +2633,16 @@ svg text{font-family:var(--sans)}
           <line x1="186" y1="160" x2="248" y2="160" stroke="var(--accent)" stroke-width="2.6"/>
           <circle cx="248" cy="160" r="7" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
           <text x="172" y="152" text-anchor="end" font-size="15" font-family="monospace" font-weight="700" fill="var(--accent)">00000</text>
-          <text x="248" y="138" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="var(--accent)">00100</text>
+          <text x="260" y="166" text-anchor="start" font-size="15" font-family="monospace" font-weight="700" fill="var(--accent)">00100</text>
         </g>
         <g class="gStep2">
           <line x1="186" y1="160" x2="186" y2="103" stroke="var(--accent)" stroke-width="2.6"/>
           <circle cx="186" cy="103" r="7" fill="none" stroke="var(--accent)" stroke-width="2.4"/>
-          <text x="200" y="99" text-anchor="start" font-size="15" font-family="monospace" font-weight="700" fill="var(--accent)">10000</text>
+          <text x="200" y="93" text-anchor="start" font-size="15" font-family="monospace" font-weight="700" fill="var(--accent)">10000</text>
+        </g>
+        <g class="gStep3">
+          <path d="M186,103 Q252,120 248,160" fill="none" stroke="#cf5c36" stroke-width="2" stroke-dasharray="5,4"/>
+          <text x="258" y="128" text-anchor="start" font-size="14" font-weight="700" fill="#cf5c36">2 steps apart</text>
         </g>
         <g class="gAB">
           <line x1="186" y1="20" x2="558" y2="20" stroke="currentColor" stroke-width="1.2" marker-start="url(#dla)" marker-end="url(#dra)"/>
