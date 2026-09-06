@@ -2954,25 +2954,6 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Correction">
-  <div class="kicker">Module 3</div>
-  <h2>Summary</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:flex-start">
-    <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">CONCEPT 1 &mdash; ERROR DETECTION</p>
-      <p style="margin:0;font-size:17px;line-height:1.6"><b>Parity</b> (single-bit check), <b>2-D parity</b> (row + column + overall parity &mdash; can locate single-bit errors), and the <b>Internet checksum</b> (one&rsquo;s-complement sum used by IPv4, TCP, UDP). Simple and fast, but limited detection power.</p>
-    </div>
-    <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">CONCEPT 2 &mdash; CRC</p>
-      <p style="margin:0;font-size:17px;line-height:1.6"><b>Cyclic Redundancy Check</b> &mdash; modulo-2 division by a generator polynomial. Much stronger detection than checksums; standard at the <b>data link layer</b> (Ethernet, Wi-Fi). Polynomial representation lets us reason about which error patterns are guaranteed detectable.</p>
-    </div>
-    <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 4px;font-size:13px;letter-spacing:1.2px;color:var(--muted);font-weight:700">CONCEPT 3 &mdash; ERROR CORRECTION</p>
-      <p style="margin:0;font-size:17px;line-height:1.6"><b>Forward Error Correction (FEC)</b> &mdash; block codes with enough redundancy to <b>correct</b> errors, not just detect them. <b>Hamming distance</b> determines how many errors a code can detect and correct. Minimum-distance decoding maps an invalid codeword to the nearest valid one.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ── Slide: References ── -->
 <section class="slide" data-sec="Error Correction">
   <div class="kicker">References</div>
