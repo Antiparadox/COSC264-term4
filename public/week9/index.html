@@ -2064,11 +2064,11 @@ svg text{font-family:var(--sans)}
   <div class="kicker">FEC</div>
   <h2>The FEC process &mdash; sender</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:9px">
-    <p class="frag a1" style="margin:0;font-size:17px;line-height:1.55">The message is divided into blocks of <em>k</em> bits &mdash; each one a <b>data block</b>.</p>
-    <p class="frag a2" style="margin:0;font-size:17px;line-height:1.55">The <b>encoder</b> is applied to each data block <b>independently</b>, turning every <em>k</em>-bit block into an <em>n</em>-bit <b>codeword</b> &mdash; the extra <em>n&minus;k</em> bits are the redundancy.</p>
-    <p class="frag a3" style="margin:0;font-size:17px;line-height:1.55">The codewords are then transmitted, one after another.</p>
+    <p class="frag a1" style="margin:0;font-size:21px;line-height:1.5">The message is divided into blocks of <em>k</em> bits &mdash; each one a <b>data block</b>.</p>
+    <p class="frag a2" style="margin:0;font-size:21px;line-height:1.5">The <b>encoder</b> is applied to each data block <b>independently</b>, turning every <em>k</em>-bit block into an <em>n</em>-bit <b>codeword</b> &mdash; the extra <em>n&minus;k</em> bits are the redundancy.</p>
+    <p class="frag a3" style="margin:0;font-size:21px;line-height:1.5">The codewords are then transmitted, one after another.</p>
     <div style="display:flex;justify-content:center;margin-top:2px">
-<svg viewBox="0 0 690 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:690px">
+<svg viewBox="0 0 690 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px">
 <defs><marker id="fa" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="currentColor"/></marker></defs>
 <g class="gA1">
   <rect x="52" y="18" width="580" height="34" rx="5" fill="rgba(0,200,180,0.08)" stroke="currentColor" stroke-width="1.5"/>
@@ -2144,15 +2144,15 @@ svg text{font-family:var(--sans)}
   <div class="kicker">FEC</div>
   <h2>The FEC process &mdash; receiver</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:9px">
-    <p class="frag b1" style="margin:0;font-size:17px;line-height:1.55">The receiver splits the incoming stream back into <em>n</em>-bit codewords &mdash; some of which may have been corrupted in transit.</p>
-    <p class="frag b2" style="margin:0;font-size:17px;line-height:1.55">The <b>decoder</b> is applied to each codeword independently.</p>
-    <p class="frag b3" style="margin:0;font-size:17px;line-height:1.55">Each decode recovers the original <em>k</em>-bit data block, <b>correcting</b> any errors the code is strong enough to fix.</p>
+    <p class="frag b1" style="margin:0;font-size:21px;line-height:1.5">The receiver splits the incoming stream back into <em>n</em>-bit codewords &mdash; some of which may have been corrupted in transit.</p>
+    <p class="frag b2" style="margin:0;font-size:21px;line-height:1.5">The <b>decoder</b> is applied to each codeword independently.</p>
+    <p class="frag b3" style="margin:0;font-size:21px;line-height:1.5">Each decode recovers the original <em>k</em>-bit data block, <b>correcting</b> any errors the code is strong enough to fix.</p>
     <div class="frag b4" style="display:flex;flex-direction:column;gap:4px">
-      <p style="margin:0;font-size:17px;line-height:1.55">The recovered blocks are reassembled into the original message.</p>
-      <p style="margin:0;font-size:17px;line-height:1.55">All of this happens at the receiver &mdash; <b>no retransmission is needed</b>.</p>
+      <p style="margin:0;font-size:21px;line-height:1.5">The recovered blocks are reassembled into the original message.</p>
+      <p style="margin:0;font-size:21px;line-height:1.5">All of this happens at the receiver &mdash; <b>no retransmission is needed</b>.</p>
     </div>
     <div style="display:flex;justify-content:center;margin-top:2px">
-<svg viewBox="0 0 690 288" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:690px">
+<svg viewBox="0 0 690 288" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px">
 <defs><marker id="fb" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="currentColor"/></marker></defs>
 <g class="gB1">
   <text x="342.0" y="10" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.7">received from the channel</text>
