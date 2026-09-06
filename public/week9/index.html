@@ -1318,39 +1318,17 @@ svg text{font-family:var(--sans)}
   <h2>Efficiency and limitations</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:flex-start">
     <div class="frag">
-      <p style="margin:0 0 8px;font-size:19px">The primary reason for its adoption is <strong>efficiency</strong>:</p>
-      <ul style="margin:0;padding-left:24px;font-size:17px;line-height:1.75">
-        <li>Most of these protocols are implemented in software</li>
-        <li>The Internet checksum involves simple operations &rarr; very little computational overhead</li>
+      <p style="margin:0 0 8px;font-size:18px">The primary reason for its adoption is <strong>efficiency</strong>:</p>
+      <ul style="margin:0;padding-left:24px;line-height:1.75">
+        <li style="font-size:18px">Most of these protocols are implemented in software</li>
+        <li style="font-size:18px">The Internet checksum involves simple operations &rarr; very little computational overhead</li>
       </ul>
     </div>
     <div class="frag">
-      <p style="margin:0 0 8px;font-size:19px">But it also has a <strong>limitation</strong>:</p>
-      <ul style="margin:0;padding-left:24px;font-size:17px;line-height:1.75">
-        <li>It is much less effective at detecting errors than a stronger code such as the <strong style="color:var(--accent)">cyclic redundancy check (CRC)</strong></li>
-        <li>The Internet checksum is therefore an <em>additional</em>, cheap check &mdash; not the primary defence</li>
+      <p style="margin:0 0 8px;font-size:18px">But it also has a <strong>limitation</strong>:</p>
+      <ul style="margin:0;padding-left:24px;line-height:1.75">
+        <li style="font-size:18px">It is much less effective at detecting errors than the <strong style="color:var(--accent)">cyclic redundancy check (CRC)</strong>, which we look at next</li>
       </ul>
-    </div>
-    <div class="frag card" style="border-left:3px solid var(--accent);padding:14px 18px">
-      <p style="margin:0;font-size:18px">The <strong style="color:var(--accent)">CRC</strong> is the subject of the next concept.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-sec="Error Detection">
-  <div class="kicker">Recap</div>
-  <h2>Error detection &mdash; what we covered</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1000px">
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.65"><b>Why error detection is needed:</b> a datagram&rsquo;s contents often get corrupted in transit, so the receiver needs a way to tell whether what arrived is what was sent.</p>
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.65"><b>How it is done:</b> the sender attaches <b>check bits</b> computed from the data by an <b>error-detecting code</b>.</p>
-    <div class="frag" style="display:flex;flex-direction:column;gap:12px">
-      <p style="margin:0;font-size:19px">We studied two of them:</p>
-      <div class="card" style="padding:12px 18px">
-        <p style="margin:0;font-size:17px;line-height:1.6"><b style="color:var(--accent)">Parity check</b> &mdash; add parity bits so the number of 1s comes out even; simple, and in two dimensions it can even correct a single-bit error.</p>
-      </div>
-      <div class="card" style="padding:12px 18px">
-        <p style="margin:0;font-size:17px;line-height:1.6"><b style="color:var(--accent)">Internet checksum</b> &mdash; send the complement of the one&rsquo;s-complement sum of the header&rsquo;s 16-bit words; cheap in software, used by IPv4 and TCP/UDP.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -1363,18 +1341,6 @@ svg text{font-family:var(--sans)}
     <span class="rmi done">1 &middot; Error Detection</span>
     <span class="rmi here">2 &middot; CRC</span>
     <span class="rmi">3 &middot; Error Correction</span>
-  </div>
-</section>
-
-<section class="slide" data-sec="CRC">
-  <div class="kicker">Recall</div>
-  <h2>Where we left off</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1000px">
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.65">So far we have seen two <b>error-detection codes</b>: the <b>parity check</b> and the <b>Internet checksum</b>.</p>
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.65">Both are cheap to compute, but both are <b>weak</b> &mdash; there are whole families of error patterns they never notice.</p>
-    <div class="frag card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:19px">Next: the <b style="color:var(--accent)">cyclic redundancy check</b> &mdash; the code that actually protects your frames.</p>
-    </div>
   </div>
 </section>
 
