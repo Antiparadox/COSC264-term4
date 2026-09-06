@@ -1429,8 +1429,8 @@ svg text{font-family:var(--sans)}
     <div class="frag">
       <p style="margin:0 0 8px;font-size:19px">Not every pattern will do &mdash; two <strong>clearly bad</strong> choices:</p>
       <ul style="margin:0;padding-left:24px;line-height:1.75">
-        <li style="margin-bottom:8px;font-size:17px"><b>P = <code>0000&hellip;0</code></b> &mdash; you cannot divide by zero at all.</li>
-        <li style="font-size:17px"><b>Highest-order bit of P = 0</b> &mdash; the leading zero contributes nothing to the division, so P is effectively <strong>one bit shorter</strong>. And since the FCS is always one bit shorter than P, the <strong>effective FCS is one bit shorter</strong> too &mdash; fewer check bits than we intended.</li>
+        <li class="frag" style="margin-bottom:8px;font-size:17px"><b>P = <code>0000&hellip;0</code></b> &mdash; you cannot divide by zero at all.</li>
+        <li class="frag" style="font-size:17px"><b>Highest-order bit of P = 0</b> &mdash; the leading zero contributes nothing to the division, so P is effectively <strong>one bit shorter</strong>. And since the FCS is always one bit shorter than P, the <strong>effective FCS is one bit shorter</strong> too &mdash; fewer check bits than we intended.</li>
       </ul>
     </div>
     <p class="frag" style="margin:0;font-size:19px">The exact bit pattern depends on the <strong>type of errors</strong> expected &mdash; but in every case:</p>
