@@ -2274,25 +2274,36 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="Error Correction">
   <div class="kicker">FEC</div>
   <h2>How the encoder and decoder work</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:13px;max-width:1060px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1040px">
 
-    <p class="frag" style="margin:0;font-size:17.5px;line-height:1.55">The design of the <b>encoder</b> and <b>decoder</b> is what determines how many errors an FEC scheme can <b>detect</b> and how many it can <b>correct</b> &mdash; it is the most important aspect of the whole process.</p>
+    <p class="frag" style="margin:0;font-size:23px;line-height:1.5">The design of the <b>encoder</b> and <b>decoder</b> is what determines how many errors an FEC scheme can <b>detect</b> and how many it can <b>correct</b> &mdash; it is the most important aspect of the whole process.</p>
 
-    <p class="frag" style="margin:0;font-size:17.5px;line-height:1.55">There are many ways to design an <b>encoder</b> &mdash; different codes assign different codewords to the same data blocks, and we will not go into how they are constructed.</p>
+    <p class="frag" style="margin:0;font-size:23px;line-height:1.5">There are many ways to design an <b>encoder</b> &mdash; different codes assign different codewords to the same data blocks, and we will not go into how they are constructed.</p>
 
-    <p class="frag" style="margin:0;font-size:17.5px;line-height:1.55">But whatever the code, the <b>decoder</b> works in the same way. Given the received <em>n</em>-bit pattern:</p>
+    <p class="frag" style="margin:0;font-size:23px;line-height:1.5">But whatever the code, the <b>decoder</b> always works in the same way.</p>
 
-    <div class="frag card" style="padding:12px 18px;border-left:3px solid #4caf50">
-      <p style="margin:0 0 5px;font-size:17px"><b>1.&ensp;Is it one of the valid codewords?</b></p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">If so, <b>no error is detected</b> &mdash; output the data block the encoder assigned to it.</p>
+  </div>
+</section>
+
+<!-- ── FEC: what the decoder does with a received pattern ── -->
+<section class="slide" data-sec="Error Correction">
+  <div class="kicker">FEC</div>
+  <h2>How the decoder decides</h2>
+  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1040px">
+
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">Given the received <em>n</em>-bit pattern, the decoder asks:</p>
+
+    <div class="frag card" style="padding:14px 20px;border-left:4px solid #4caf50">
+      <p style="margin:0 0 6px;font-size:21px"><b>1.&ensp;Is it one of the valid codewords?</b></p>
+      <p style="margin:0;font-size:21px;line-height:1.5">If so, <b>no error is detected</b> &mdash; output the data block the encoder assigned to it.</p>
     </div>
 
-    <div class="frag card" style="padding:12px 18px;border-left:3px solid #cf5c36">
-      <p style="margin:0 0 5px;font-size:17px"><b>2.&ensp;If not, an error has occurred</b> &mdash; that much we know immediately.</p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">Then find the valid codeword <b>closest to it</b> in Hamming distance, and output <em>that</em> codeword&rsquo;s data block as the recovered data. This is <b>minimum-distance decoding</b>.</p>
+    <div class="frag card" style="padding:14px 20px;border-left:4px solid #cf5c36">
+      <p style="margin:0 0 6px;font-size:21px"><b>2.&ensp;If not, an error has occurred</b> &mdash; that much we know immediately.</p>
+      <p style="margin:0;font-size:21px;line-height:1.5">Then find the valid codeword <b>closest to it</b> in Hamming distance, and output <em>that</em> codeword&rsquo;s data block. This is <b>minimum-distance decoding</b>.</p>
     </div>
 
-    <p class="frag" style="margin:0;font-size:17px;line-height:1.55">The reasoning behind step 2 is simply that <b>fewer bit flips are more likely than many</b> &mdash; so the nearest valid codeword is the most plausible thing the sender actually transmitted.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">Step 2 works because <b>fewer bit flips are more likely than many</b> &mdash; the nearest valid codeword is the most plausible thing the sender actually sent.</p>
 
   </div>
 </section>
