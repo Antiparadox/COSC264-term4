@@ -1390,10 +1390,6 @@ svg text{font-family:var(--sans)}
         <li class="frag n3"><b><em>F</em></b> &mdash; the <b>frame check sequence (FCS)</b> we must compute. Once <em>P</em> is fixed, <em>F</em> is <em>n&minus;k</em> bits &mdash; <b>one bit shorter than <em>P</em></b></li>
         <li class="frag n4"><b><em>T</em></b> &mdash; the <em>n</em>-bit frame actually transmitted: <em>D</em> followed by <em>F</em></li>
       </ul>
-      <div class="frag card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p style="margin:0 0 10px;font-size:16px;line-height:1.6">We want <em>T</em> to be <b>exactly divisible by <em>P</em></b>. To achieve that, <em>F</em> must be set to:</p>
-        <p style="margin:0;font-family:monospace;font-size:17px;color:var(--accent)">F = remainder of (D &times; 2<sup>n&minus;k</sup>) / P</p>
-      </div>
     </div>
     <div style="flex:1;display:flex;align-items:flex-start;justify-content:center;padding-top:6px">
       <svg viewBox="0 0 420 218" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:470px">
