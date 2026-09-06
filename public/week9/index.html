@@ -1717,61 +1717,57 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="crc-two-views" data-sec="CRC">
   <style>
     #crc-two-views .row { display:flex; align-items:center }
-    #crc-two-views .lft { flex:0 0 330px; padding:7px 16px 7px 0 }
-    #crc-two-views .rgt { flex:1; padding:7px 0 7px 22px; border-left:1px solid var(--border) }
+    #crc-two-views .lft { flex:0 0 360px; padding:6px 16px 6px 0 }
+    #crc-two-views .rgt { flex:1; padding:6px 0 6px 22px; border-left:1px solid var(--border) }
     #crc-two-views .mono { font-family:monospace }
-    #crc-two-views .lbl { display:inline-block; width:26px; color:var(--muted); font-style:italic }
+    #crc-two-views .lbl { display:inline-block; width:30px; color:var(--muted); font-style:italic }
+    #crc-two-views .rule { margin:6px 0; padding:10px 16px; border-left:3px solid var(--accent);
+      background:var(--surface); border-radius:6px; font-size:18px; line-height:1.55 }
   </style>
   <div class="kicker">CRC</div>
   <h2>The same FCS, two representations</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1080px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:1080px">
 
     <div style="background:rgba(0,0,0,0.05);border:1px solid var(--border);border-radius:8px;padding:10px 18px">
 
-      <div class="row" style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700">
+      <div class="row" style="font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700">
         <div class="lft">Bit strings</div>
         <div class="rgt">Polynomials</div>
       </div>
 
-      <div class="frag row" style="font-size:16px">
+      <div class="frag row" style="font-size:19px">
         <div class="lft"><span class="lbl">D</span><span class="mono">1010001101</span></div>
         <div class="rgt"><em>D</em>(x) = x<sup>9</sup> + x<sup>7</sup> + x<sup>3</sup> + x<sup>2</sup> + 1</div>
       </div>
 
-      <div class="frag row" style="font-size:16px">
+      <div class="frag row" style="font-size:19px">
         <div class="lft"><span class="lbl">P</span><span class="mono">110101</span></div>
         <div class="rgt"><em>P</em>(x) = x<sup>5</sup> + x<sup>4</sup> + x<sup>2</sup> + 1</div>
       </div>
 
-      <div class="frag row" style="font-size:15.5px;border-top:1px solid var(--border);margin-top:4px;padding-top:2px">
-        <div class="lft"><em>F</em> = remainder of<br><span class="mono" style="font-size:14.5px">1010001101<b style="color:var(--accent)">00000</b></span> &divide; <span class="mono" style="font-size:14.5px">110101</span></div>
+      <div class="frag row" style="font-size:18px;border-top:1px solid var(--border);margin-top:4px;padding-top:2px">
+        <div class="lft"><em>F</em> = remainder of<br><span class="mono" style="font-size:17px">1010001101<b style="color:var(--accent)">00000</b></span> &divide; <span class="mono" style="font-size:17px">110101</span></div>
         <div class="rgt"><em>F</em>(x) = remainder of<br><em>D</em>(x)&thinsp;&middot;&thinsp;<b style="color:var(--accent)">x<sup>5</sup></b> &divide; <em>P</em>(x)</div>
       </div>
 
-      <div class="frag row" style="font-size:13.5px;color:var(--muted)">
-        <div class="lft">appending <em>r</em> zeros&hellip;</div>
-        <div class="rgt">&hellip;is multiplying by x<sup>r</sup> &mdash; worth checking for yourself</div>
-      </div>
+      <div class="frag rule">Appending <em>r</em> zeros to a bit string is the same as <b>multiplying its polynomial by x<sup>r</sup></b>.</div>
 
-      <div class="frag row" style="font-size:16px;border-top:1px solid var(--border);margin-top:4px;padding-top:2px;color:var(--accent);font-weight:600">
+      <div class="frag row" style="font-size:19px;border-top:1px solid var(--border);margin-top:4px;padding-top:2px;color:var(--accent);font-weight:600">
         <div class="lft"><span class="lbl">F</span><span class="mono">01110</span></div>
         <div class="rgt"><em>F</em>(x) = x<sup>3</sup> + x<sup>2</sup> + x</div>
       </div>
 
-      <div class="frag row" style="font-size:15.5px;border-top:1px solid var(--border);margin-top:4px;padding-top:4px">
-        <div class="lft"><span class="lbl">T</span><span class="mono" style="font-size:14.5px">1010001101<b style="color:var(--accent)">01110</b></span></div>
+      <div class="frag row" style="font-size:18px;border-top:1px solid var(--border);margin-top:4px;padding-top:4px">
+        <div class="lft"><span class="lbl">T</span><span class="mono" style="font-size:17px">1010001101<b style="color:var(--accent)">01110</b></span></div>
         <div class="rgt"><em>T</em>(x) = x<sup>14</sup> + x<sup>12</sup> + x<sup>8</sup> + x<sup>7</sup> + x<sup>5</sup> + x<sup>3</sup> + x<sup>2</sup> + x</div>
       </div>
 
-      <div class="frag row" style="font-size:13.5px;color:var(--muted)">
-        <div class="lft"><em>D</em> followed by <em>F</em>&hellip;</div>
-        <div class="rgt">&hellip;is <em>D</em>(x)&thinsp;&middot;&thinsp;x<sup>5</sup> + <em>F</em>(x), and it divides evenly by <em>P</em>(x)</div>
-      </div>
+      <div class="frag rule">Following <em>D</em> with <em>F</em> is the same as forming <b><em>D</em>(x)&thinsp;&middot;&thinsp;x<sup>r</sup> + <em>F</em>(x)</b> &mdash; and that divides evenly by <em>P</em>(x).</div>
 
     </div>
 
-    <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:17px;line-height:1.6"><b>You do not need to learn polynomial division.</b> The two columns are the same computation &mdash; if it is unfamiliar, work in bit strings and convert the remainder at the end.</p>
+    <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
+      <p style="margin:0;font-size:19px;line-height:1.55"><b>You do not need to learn polynomial division.</b> The two columns are the same computation &mdash; if it is unfamiliar, work in bit strings and convert the remainder at the end.</p>
     </div>
 
   </div>
