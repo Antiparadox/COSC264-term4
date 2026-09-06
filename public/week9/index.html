@@ -2445,14 +2445,18 @@ svg text{font-family:var(--sans)}
 
     <p class="frag p2" style="margin:0;font-size:19px;line-height:1.5">Only <b>four</b> of them are valid codewords, so <b>32 &minus; 4 = 28</b> are invalid.</p>
 
-    <div class="frag card" style="padding:13px 18px;border-left:4px solid var(--accent)">
-      <p style="margin:0;font-size:19px;line-height:1.5"><b>20 of the 28</b> lie at distance 1 from <b>exactly one</b> codeword &mdash; never two. The nearest codeword is <b>unique</b>, so all 20 can be <b>corrected</b>. That was our first example.</p>
-    </div>
+    <ul style="margin:0;padding-left:26px">
+      <li class="frag" style="font-size:19px;line-height:1.5;margin-bottom:9px"><b>20 of the 28</b> are at Hamming distance 1 from a valid codeword.</li>
+      <li class="frag" style="font-size:19px;line-height:1.5;margin-bottom:9px">Each is at distance 1 from <b>exactly one</b> codeword, never two &mdash; so its nearest codeword is <b>unique</b>.</li>
+      <li class="frag" style="font-size:19px;line-height:1.5">Therefore all 20 can be <b>corrected</b>. That was our first example.</li>
+    </ul>
 
-    <div class="frag" style="display:flex;flex-direction:column;gap:9px">
-      <p style="margin:0;font-size:19px;line-height:1.5">The remaining <b>8</b> lie at distance 2 from <b>two different</b> codewords, so the nearest is <b>not unique</b> and they can only be <b>detected</b> &mdash; our second example:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01010</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01011</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01100</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01101</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10010</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10011</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10100</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10101</span></div>
-    </div>
+    <div class="frag" style="display:flex;flex-wrap:wrap;gap:8px"><span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01010</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01011</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01100</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01101</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10010</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10011</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10100</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10101</span></div>
+
+    <ul style="margin:0;padding-left:26px">
+      <li class="frag" style="font-size:19px;line-height:1.5;margin-bottom:9px">The remaining <b>8</b> lie at distance 2 from <b>two different</b> codewords, so the nearest is <b>not unique</b>.</li>
+      <li class="frag" style="font-size:19px;line-height:1.5">So they can only be <b>detected</b> &mdash; our second example.</li>
+    </ul>
 
     <div class="frag card" style="padding:13px 18px;border-left:4px solid var(--accent)">
       <p style="margin:0;font-size:20px;line-height:1.5">So this code can <b>detect</b> any error of up to two bits, but only <b>single-bit errors</b> can be <b>corrected</b>.</p>
