@@ -2281,11 +2281,11 @@ svg text{font-family:var(--sans)}
   <h2>How the encoder and decoder work</h2>
   <div style="flex:1;display:grid;grid-template-columns:1fr auto;gap:18px 30px;align-content:start;max-width:1060px">
 
-    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">The design of the <b>encoder</b> and <b>decoder</b> is what determines how many errors an FEC scheme can <b>detect</b> and how many it can <b>correct</b> &mdash; it is the most important aspect of the whole process.</p>
+    <p class="frag" style="grid-column:1;margin:0;font-size:23px;line-height:1.5">Constructing the <b>encoder</b> is the most important part &mdash; it is what determines how many errors the code can <b>detect</b> and <b>correct</b>. We will not go into those details here.</p>
 
-    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">Whatever the code, an <b>encoder</b> is just a <b>map</b>: a table assigning each <em>k</em>-bit data block one <em>n</em>-bit codeword.</p>
+    <p class="frag" style="grid-column:1;margin:0;font-size:23px;line-height:1.5">You can always think of an encoder as a <b>map</b>: a table assigning each <em>k</em>-bit data block one <em>n</em>-bit codeword. That is all we need in this lecture.</p>
 
-    <div class="frag" style="grid-column:2;grid-row:1 / span 4;align-self:start">
+    <div class="frag" style="grid-column:2;grid-row:1 / span 3;align-self:start">
       <p style="margin:0 0 8px;font-size:16px;color:var(--muted)">for example, with <em>k</em> = 2 and <em>n</em> = 5:</p>
       <table style="border-collapse:collapse">
         <tr><th>Data block</th><th>Codeword</th></tr>
@@ -2296,9 +2296,7 @@ svg text{font-family:var(--sans)}
       </table>
     </div>
 
-    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">Different codes fill that table in differently, and we will not go into how they are constructed.</p>
-
-    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">But whatever the code, the <b>decoder</b> always works in the same way.</p>
+    <p class="frag" style="grid-column:1;margin:0;font-size:23px;line-height:1.5">But whatever the code, the <b>decoder</b> always works in the same way.</p>
 
   </div>
 </section>
