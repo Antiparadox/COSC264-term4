@@ -1578,49 +1578,38 @@ svg text{font-family:var(--sans)}
 <!-- ── Slide: CRC — An Example (sender) ── -->
 <section class="slide" id="crc-sender-div" data-sec="CRC">
   <style>
-    #crc-sender-div .div-blk { font-family:monospace; font-size:15px; line-height:1.65; white-space:pre; color:var(--fg) }
-    #crc-sender-div .div-blk > div.frag { transform:none }
-    #crc-sender-div .note { color:var(--muted); font-size:12.5px }
-    #crc-sender-div .q { opacity:0; transition:opacity 0.3s; color:var(--accent); font-weight:700 }
-    #crc-sender-div:has(.st1.on) .q1 { opacity:1 }
-    #crc-sender-div:has(.st2.on) .q2 { opacity:1 }
-    #crc-sender-div:has(.st3.on) .q3 { opacity:1 }
-    #crc-sender-div .exp { opacity:0; transition:opacity 0.3s; font-size:15px; line-height:1.6 }
-    #crc-sender-div:has(.st1.on) .exp1 { opacity:1 }
-    #crc-sender-div:has(.st2.on) .exp2 { opacity:1 }
-    #crc-sender-div:has(.st3.on) .exp3 { opacity:1 }
+    #crc-sender-div .div-blk { font-family:monospace; font-size:16px; line-height:1.65; white-space:pre; color:var(--fg) }
+    #crc-sender-div .note { color:var(--muted); font-size:13px }
   </style>
   <div class="kicker">CRC &middot; Sender</div>
   <h2>An Example &mdash; Computing FCS</h2>
-  <div style="flex:1;display:flex;gap:24px;align-items:flex-start">
+  <div style="flex:1;display:flex;flex-direction:column;gap:14px">
 
-    <!-- Left: long division, full width, leading zeros dropped after each XOR -->
-    <div style="flex:0 0 440px;background:rgba(0,0,0,0.05);border:1px solid var(--border);border-radius:8px;padding:14px 18px">
-      <div class="div-blk">
-<div class="frag">              <span class="q q1">1</span><span class="q q2">1</span><span class="q q3">01010110</span>   <span class="note">quotient (discarded)</span>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">We need the remainder of <span style="font-family:monospace">101000110100000 &divide; 110101</span>, and we get it by <b>long division</b> &mdash; the same procedure you learned at school.</p>
+
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">The only difference: at each step the subtraction is an <b style="color:var(--accent)">XOR</b>, because we are working in <b>modulo-2 arithmetic</b>.</p>
+
+    <div style="display:flex;gap:24px;align-items:flex-start;margin-top:2px">
+      <div class="frag" style="flex:0 0 auto;background:rgba(0,0,0,0.05);border:1px solid var(--border);border-radius:8px;padding:14px 18px">
+        <div class="div-blk">
+              1101010110   <span class="note">quotient (discarded)</span>
          ---------------
-110101 ) 101000110100000   <span class="note">D &times; 2&#8309;</span></div><div class="frag st1">         110101000000000   <span class="note">&oplus; P</span>
+110101 ) 101000110100000   <span class="note">D &times; 2&#8309;</span>
+         110101000000000   <span class="note">&oplus; P</span>
          ---------------
-          11101110100000</div><div class="frag st2">          11010100000000   <span class="note">&oplus; P shifted</span>
+          11101110100000
+          11010100000000   <span class="note">&oplus; P shifted</span>
           --------------
-            111010100000</div><div class="frag st3">                <span class="note">⋮  four more steps  ⋮</span></div><div class="frag">                   <span style="color:#4caf50;font-weight:700">-----</span>
+            111010100000
+                <span class="note">&#8942;  four more steps  &#8942;</span>
+                   <span style="color:#4caf50;font-weight:700">-----</span>
                    <span style="color:#4caf50;font-weight:700">01110</span>   <span class="note">remainder</span></div>
       </div>
-    </div>
 
-    <!-- Right: one short note per step -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:14px;padding-top:2px;max-width:310px">
-      <div class="exp exp1 card" style="padding:11px 15px;display:flex;flex-direction:column;gap:6px">
-        <p style="margin:0;font-size:15px">We perform division over <b>modulo-2 arithmetic</b>.</p>
-        <p style="margin:0;font-size:15px">The leading bit is <b>1</b>, so <em>P</em> goes in and the quotient bit is <b>1</b>.</p>
-        <p style="margin:0;font-size:15px">The subtraction is simply an <b style="color:var(--accent)">XOR</b>.</p>
-      </div>
-      <div class="exp exp2 card" style="padding:11px 15px">Leading zeros are dropped, so the next XOR uses <em>P</em> shifted one place right.</div>
-      <div class="exp exp3 card" style="padding:11px 15px">Where the leading bit is <b>0</b>, the quotient bit is <b>0</b> and we just shift along.</div>
-      <div class="frag card" style="padding:12px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0 0 8px;font-size:17px"><b>F = <span style="font-family:monospace">01110</span></b> <span style="font-size:14px;color:var(--muted)">(5-bit FCS)</span></p>
-        <p style="margin:0;font-size:15px">Transmitted frame <em>T</em>:</p>
-        <p style="margin:4px 0 0;font-family:monospace;font-size:16px">1010001101<b style="color:var(--accent)">01110</b></p>
+      <div class="frag card" style="flex:1;padding:14px 18px;border-left:3px solid var(--accent)">
+        <p style="margin:0 0 10px;font-size:19px"><b><em>F</em> = <span style="font-family:monospace">01110</span></b> <span style="font-size:15px;color:var(--muted)">(the 5-bit FCS)</span></p>
+        <p style="margin:0;font-size:17px">Transmitted frame <em>T</em>:</p>
+        <p style="margin:5px 0 0;font-family:monospace;font-size:18px">1010001101<b style="color:var(--accent)">01110</b></p>
       </div>
     </div>
 
