@@ -2665,20 +2665,30 @@ svg text{font-family:var(--sans)}
 
 <section class="slide" id="dcorrect" data-sec="Error Correction">
   <style>
-    #dcorrect .gReg, #dcorrect .gHalf { opacity:0; transition:opacity 0.35s }
+    #dcorrect .hot { display:none }
+    #dcorrect .hot.on { display:block }
+    #dcorrect .hot.on:has(~ .hot.on) { display:none }
+    #dcorrect .gSetup, #dcorrect .gReg, #dcorrect .gHalf { opacity:0; transition:opacity 0.35s }
+    #dcorrect:has(.c0.on) .gSetup { opacity:1 }
     #dcorrect:has(.c1.on) .gReg { opacity:1 }
-    #dcorrect:has(.c2.on) .gHalf { opacity:1 }
+    #dcorrect:has(.c3.on) .gHalf { opacity:1 }
   </style>
   <div class="kicker">FEC</div>
   <h2>When can the error still be corrected?</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:11px">
 
-    <p class="frag c1" style="margin:0;font-size:17px;line-height:1.5">While <b><em>k</em> &le; &lfloor;(d&minus;1)/2&rfloor;</b> the pattern stays inside A&rsquo;s region and never crosses the <b>halfway</b> line, so A is still <b>strictly</b> the nearest codeword &mdash; minimum-distance decoding walks us back to A. <b>Corrected.</b></p>
+    <div style="min-height:66px">
+      <p class="frag hot c0" style="margin:0;font-size:20px;line-height:1.45">Suppose the error flips <b><em>k</em></b> bits. In the <b>worst case</b> every flip moves straight towards <b>B</b>, so the received pattern lands <em>k</em> steps along the line from A to B.</p>
 
-    <p class="frag c2" style="margin:0;font-size:17px;line-height:1.5">On the halfway line the pattern is <b>equidistant</b> from A and B. It could have come from either, so the decoder cannot say which was sent &mdash; <b>correction is no longer possible</b>.</p>
+      <p class="frag hot c1" style="margin:0;font-size:20px;line-height:1.45">While <b><em>k</em> &le; &lfloor;(d&minus;1)/2&rfloor;</b>, that pattern stays inside <b>A&rsquo;s region</b> and never crosses the <b>halfway</b> line &mdash; even in the worst case.</p>
+
+      <p class="frag hot c2" style="margin:0;font-size:20px;line-height:1.45">So <b>A</b> is strictly the nearest codeword, and minimum-distance decoding walks us back to it: a <em>k</em>-bit error is <b>corrected</b>.</p>
+
+      <p class="frag hot c3" style="margin:0;font-size:20px;line-height:1.45">On the halfway line the pattern is <b>equidistant</b> from A and B. It could have come from either, so <b>correction is no longer possible</b>.</p>
+    </div>
 
     <div style="display:flex;justify-content:center;margin-top:2px">
-      <svg viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px">
+      <svg viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:780px">
 <defs>
           <marker id="zg" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
           <marker id="dla" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="currentColor"/></marker>
@@ -2689,6 +2699,8 @@ svg text{font-family:var(--sans)}
 <text x="186" y="296" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">&#8804; &#8970;(d&#8722;1)/2&#8971; steps &#8212; decodes to A</text>
 <path d="M558,46 L682,160 L558,274 L434,160 Z" fill="rgba(0,200,180,0.10)" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="5,4"/>
 <text x="558" y="296" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">&#8804; &#8970;(d&#8722;1)/2&#8971; steps &#8212; decodes to B</text>
+<line x1="372" y1="32" x2="372" y2="288" stroke="#cf5c36" stroke-width="1.6" stroke-dasharray="6,4" opacity="0.85"/>
+<text x="372" y="322" text-anchor="middle" font-size="12.5" fill="#cf5c36" font-weight="700">halfway between A and B</text>
         </g>
 <line x1="62" y1="46" x2="682" y2="46" stroke="currentColor" stroke-width="1" opacity="0.13"/>
 <line x1="62" y1="103" x2="682" y2="103" stroke="currentColor" stroke-width="1" opacity="0.13"/>
@@ -2759,14 +2771,17 @@ svg text{font-family:var(--sans)}
 <circle cx="558" cy="274" r="2.6" fill="currentColor" opacity="0.3"/>
 <circle cx="620" cy="274" r="2.6" fill="currentColor" opacity="0.3"/>
 <circle cx="682" cy="274" r="2.6" fill="currentColor" opacity="0.3"/>
-<line x1="372" y1="32" x2="372" y2="288" stroke="#cf5c36" stroke-width="1.6" stroke-dasharray="6,4" opacity="0.85"/>
-<text x="372" y="322" text-anchor="middle" font-size="12.5" fill="#cf5c36" font-weight="700">halfway between A and B</text>
 <circle cx="186" cy="160" r="8" fill="var(--accent)"/>
 <circle cx="558" cy="160" r="8" fill="var(--accent)"/>
 <text x="186" y="187" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">A</text>
 <text x="558" y="187" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">B</text>
 <line x1="186" y1="16" x2="558" y2="16" stroke="currentColor" stroke-width="1.2" marker-start="url(#dla)" marker-end="url(#dra)"/>
 <text x="372.0" y="9" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor"><tspan font-style="italic">d</tspan> steps</text>
+        <g class="gSetup">
+          <line x1="186" y1="160" x2="558" y2="160" stroke="#cf5c36" stroke-width="1.8" stroke-dasharray="6,4" opacity="0.55"/>
+          <circle cx="310" cy="160" r="7" fill="#cf5c36"/>
+          <text x="310" y="184" text-anchor="middle" font-size="12.5" fill="#cf5c36" font-weight="700">received &mdash; <tspan font-style="italic">k</tspan> flips</text>
+        </g>
         <g class="gHalf">
           <path d="M186,160 L372,160" fill="none" stroke="#cf5c36" stroke-width="2.4" marker-end="url(#zg)"/>
           <circle cx="372" cy="160" r="8" fill="#cf5c36"/>
