@@ -1287,7 +1287,7 @@ svg text{font-family:var(--sans)}
       <p class="lbl lbl1">1.&ensp;Take the received header — the checksum field now holds <b>B752</b>.</p>
       <p class="lbl lbl2">2.&ensp;Compute the <b>one&rsquo;s-complement sum</b> of the header words.</p>
       <p class="lbl lbl3">3.&ensp;Add the <b>checksum</b> to that sum.</p>
-      <p class="lbl lbl4">4.&ensp;The check <b>succeeds</b> if the result is <b>all 1 bits</b> (<code>FFFF</code>).</p>
+      <p class="lbl lbl4">4.&ensp;The checksum is the <b>one&rsquo;s complement</b> of that sum, so adding them must give <b>all 1 bits</b> &mdash; check that the total is <code>FFFF</code>.</p>
     </div>
     <!-- Right: computation, fragment by fragment -->
     <div style="flex:1;display:flex;flex-direction:column;gap:8px">
@@ -1305,10 +1305,11 @@ svg text{font-family:var(--sans)}
         </tbody>
         <tbody class="frag g3">
           <tr><td class="lab">Add checksum</td><td class="hex" style="color:#cf5c36">+&ensp;B752</td><td class="bin" style="color:#cf5c36">+&ensp;1011 0111 0101 0010</td></tr>
+        </tbody>
+        <tbody class="frag g4">
           <tr><td class="lab" style="font-weight:700;color:#4caf50">Total</td><td class="hex" style="color:#4caf50;font-weight:700">FFFF</td><td class="bin" style="color:#4caf50">1111 1111 1111 1111</td></tr>
         </tbody>
       </table>
-      <p class="frag g4" style="margin:4px 0 0;font-size:18px;color:var(--muted);max-width:600px">Why all 1s? The sender set the checksum to the <b>one&rsquo;s complement</b> of exactly this sum. Adding a value to its own one&rsquo;s complement always gives all 1 bits &mdash; so if nothing changed in transit, the total must be <code>FFFF</code>.</p>
     </div>
   </div>
 </section>
