@@ -2378,8 +2378,8 @@ svg text{font-family:var(--sans)}
 <!-- ── Slide: Block Code Principles — Minimum-Distance Principle ── -->
 <section class="slide" id="mdd-fail" data-sec="Error Correction">
   <style>
-    #mdd-fail td, #mdd-fail th { border:1px solid var(--border); padding:5px 16px; font-size:15px }
-    #mdd-fail th { background:rgba(0,200,180,0.12); font-size:13px; font-weight:600 }
+    #mdd-fail td, #mdd-fail th { border:1px solid var(--border); padding:7px 18px; font-size:18px }
+    #mdd-fail th { background:rgba(0,200,180,0.12); font-size:15px; font-weight:600 }
     #mdd-fail .mono { font-family:monospace }
     #mdd-fail .drow td { color:var(--muted) }
     #mdd-fail:has(.f3.on) .win td { color:#cf5c36; font-weight:700; background:rgba(207,92,54,0.10) }
@@ -2388,12 +2388,12 @@ svg text{font-family:var(--sans)}
   <h2>When can we actually correct?</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:12px">
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">Minimum-distance decoding only works if the closest valid codeword is <b>unique</b>. It need not be.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">Minimum-distance decoding only works if the closest valid codeword is <b>unique</b>. It need not be.</p>
 
     <div style="display:flex;gap:30px;align-items:flex-start">
-      <div style="flex:0 0 290px;display:flex;flex-direction:column;gap:10px">
+      <div style="flex:0 0 350px;display:flex;flex-direction:column;gap:10px">
         <div class="frag f2">
-          <p style="margin:0 0 6px;font-size:16px">The same encoder as before:</p>
+          <p style="margin:0 0 8px;font-size:19px">The same encoder as before:</p>
           <table style="border-collapse:collapse">
             <tr><th>Data block</th><th>Codeword</th></tr>
             <tr><td class="mono">00</td><td class="mono">00000</td></tr>
@@ -2403,9 +2403,9 @@ svg text{font-family:var(--sans)}
           </table>
         </div>
         <div class="frag" style="border-left:3px solid #cf5c36;padding:5px 0 5px 12px">
-          <p style="margin:0;font-size:15.5px;line-height:1.55"><b>New assumption:</b> this channel is noisier &mdash; <b>up to two bits</b> per codeword may be flipped.</p>
+          <p style="margin:0;font-size:19px;line-height:1.5"><b>New assumption:</b> this channel is noisier &mdash; <b>up to two bits</b> per codeword may be flipped.</p>
         </div>
-        <p class="frag f2" style="margin:0;font-size:16px;line-height:1.6">The receiver gets <span class="mono" style="font-size:18px;color:#cf5c36;font-weight:700">01010</span>.</p>
+        <p class="frag f2" style="margin:0;font-size:19px;line-height:1.5">The receiver gets <span class="mono" style="font-size:21px;color:#cf5c36;font-weight:700">01010</span>.</p>
       </div>
 
       <div style="flex:1;display:flex;flex-direction:column;gap:11px">
@@ -2419,7 +2419,7 @@ svg text{font-family:var(--sans)}
           </table>
         </div>
         <div class="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
-          <p style="margin:0;font-size:17px;line-height:1.6"><b>Two</b> codewords sit at distance 2, and two flips are now allowed. We know an error occurred &mdash; but <span class="mono">00</span> and <span class="mono">11</span> are equally plausible, so the error can be <b>detected but not corrected</b>.</p>
+          <p style="margin:0;font-size:20px;line-height:1.5"><b>Two</b> codewords sit at distance 2, and two flips are now allowed. We know an error occurred &mdash; but <span class="mono">00</span> and <span class="mono">11</span> are equally plausible, so the error can be <b>detected but not corrected</b>.</p>
         </div>
       </div>
     </div>
