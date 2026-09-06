@@ -2271,16 +2271,34 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Correction">
+<section class="slide" id="fec-encdec" data-sec="Error Correction">
+  <style>
+    #fec-encdec td, #fec-encdec th { border:1px solid var(--border); padding:7px 20px; font-size:18px; text-align:center }
+    #fec-encdec th { background:rgba(0,200,180,0.12); font-size:14px; font-weight:600 }
+    #fec-encdec .mono { font-family:monospace }
+  </style>
   <div class="kicker">FEC</div>
   <h2>How the encoder and decoder work</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1040px">
+  <div style="flex:1;display:grid;grid-template-columns:1fr auto;gap:18px 30px;align-content:start;max-width:1060px">
 
-    <p class="frag" style="margin:0;font-size:23px;line-height:1.5">The design of the <b>encoder</b> and <b>decoder</b> is what determines how many errors an FEC scheme can <b>detect</b> and how many it can <b>correct</b> &mdash; it is the most important aspect of the whole process.</p>
+    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">The design of the <b>encoder</b> and <b>decoder</b> is what determines how many errors an FEC scheme can <b>detect</b> and how many it can <b>correct</b> &mdash; it is the most important aspect of the whole process.</p>
 
-    <p class="frag" style="margin:0;font-size:23px;line-height:1.5">There are many ways to design an <b>encoder</b> &mdash; different codes assign different codewords to the same data blocks, and we will not go into how they are constructed.</p>
+    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">Whatever the code, an <b>encoder</b> is just a <b>map</b>: a table assigning each <em>k</em>-bit data block one <em>n</em>-bit codeword.</p>
 
-    <p class="frag" style="margin:0;font-size:23px;line-height:1.5">But whatever the code, the <b>decoder</b> always works in the same way.</p>
+    <div class="frag" style="grid-column:2;grid-row:1 / span 4;align-self:start">
+      <p style="margin:0 0 8px;font-size:16px;color:var(--muted)">for example, with <em>k</em> = 2 and <em>n</em> = 5:</p>
+      <table style="border-collapse:collapse">
+        <tr><th>Data block</th><th>Codeword</th></tr>
+        <tr><td class="mono">00</td><td class="mono">00000</td></tr>
+        <tr><td class="mono">01</td><td class="mono">00111</td></tr>
+        <tr><td class="mono">10</td><td class="mono">11001</td></tr>
+        <tr><td class="mono">11</td><td class="mono">11110</td></tr>
+      </table>
+    </div>
+
+    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">Different codes fill that table in differently, and we will not go into how they are constructed.</p>
+
+    <p class="frag" style="grid-column:1;margin:0;font-size:22px;line-height:1.5">But whatever the code, the <b>decoder</b> always works in the same way.</p>
 
   </div>
 </section>
@@ -2288,7 +2306,7 @@ svg text{font-family:var(--sans)}
 <!-- ── FEC: what the decoder does with a received pattern ── -->
 <section class="slide" data-sec="Error Correction">
   <div class="kicker">FEC</div>
-  <h2>How the decoder decides</h2>
+  <h2>Minimum Hamming distance decoding</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1040px">
 
     <p class="frag" style="margin:0;font-size:21px;line-height:1.5">Given the received <em>n</em>-bit pattern, the decoder asks:</p>
