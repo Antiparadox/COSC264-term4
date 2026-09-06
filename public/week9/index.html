@@ -2468,8 +2468,8 @@ svg text{font-family:var(--sans)}
 <!-- ── Slide: Pairwise Distances between Valid Codewords ── -->
 <section class="slide" id="dmin" data-sec="Error Correction">
   <style>
-    #dmin td, #dmin th { border:1px solid var(--border); padding:4px 18px; font-size:15.5px; text-align:center }
-    #dmin th { background:rgba(0,200,180,0.12); font-size:13px; font-weight:600 }
+    #dmin td, #dmin th { border:1px solid var(--border); padding:6px 20px; font-size:18px; text-align:center }
+    #dmin th { background:rgba(0,200,180,0.12); font-size:15px; font-weight:600 }
     #dmin .mono { font-family:monospace }
     #dmin:has(.t4.on) .win td { color:var(--accent); font-weight:700; background:rgba(0,200,180,0.12) }
   </style>
@@ -2477,13 +2477,13 @@ svg text{font-family:var(--sans)}
   <h2>What determines the ability to correct?</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1040px">
 
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.5">For a <b>general</b> code, how many errors can it correct, and how many can it detect?</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">For a <b>general</b> code, how many errors can it correct, and how many can it detect?</p>
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">It comes down to a single number: the <b>minimum Hamming distance</b> <em>d</em> of the code &mdash; the smallest distance between <b>any two</b> valid codewords.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">It comes down to a single number: the <b>minimum Hamming distance</b> <em>d</em> of the code &mdash; the smallest distance between <b>any two</b> valid codewords.</p>
 
     <div class="frag" style="display:flex;flex-direction:column;gap:7px">
-      <p style="margin:0;font-size:17px">Our code has four valid codewords:</p>
-      <div style="display:flex;gap:9px;flex-wrap:wrap"><span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:4px 11px;font-size:16px;color:var(--accent);font-weight:700">00000</span> <span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:4px 11px;font-size:16px;color:var(--accent);font-weight:700">00111</span> <span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:4px 11px;font-size:16px;color:var(--accent);font-weight:700">11001</span> <span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:4px 11px;font-size:16px;color:var(--accent);font-weight:700">11110</span></div>
+      <p style="margin:0;font-size:20px">Our code has four valid codewords:</p>
+      <div style="display:flex;gap:9px;flex-wrap:wrap"><span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:5px 12px;font-size:18px;color:var(--accent);font-weight:700">00000</span> <span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:5px 12px;font-size:18px;color:var(--accent);font-weight:700">00111</span> <span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:5px 12px;font-size:18px;color:var(--accent);font-weight:700">11001</span> <span class="mono" style="background:rgba(0,200,180,0.14);border:1px solid var(--accent);border-radius:4px;padding:5px 12px;font-size:18px;color:var(--accent);font-weight:700">11110</span></div>
     </div>
 
     <div class="frag" style="display:flex;gap:26px;align-items:flex-start">
@@ -2496,16 +2496,19 @@ svg text{font-family:var(--sans)}
 <tr class="pairrow win"><td class="mono">00111</td><td class="mono">11110</td><td>3</td></tr>
 <tr class="pairrow win"><td class="mono">11001</td><td class="mono">11110</td><td>3</td></tr>
       </table>
-      <p style="margin:4px 0 0;font-size:16px;color:var(--muted);line-height:1.6;max-width:320px">Every pair, six in total.</p>
+      <p style="margin:6px 0 0;font-size:19px;color:var(--muted);line-height:1.5;max-width:320px">Every pair, six in total.</p>
     </div>
 
-    <p class="frag t4" style="margin:0;font-size:18px;line-height:1.6">Reading off the smallest entry: <b style="color:var(--accent)">d = 3</b>.</p>
+    <p class="frag t4" style="margin:0;font-size:21px;line-height:1.5">Reading off the smallest entry: <b style="color:var(--accent)">d = 3</b>.</p>
 
   </div>
 </section>
 
 <section class="slide" id="dwalk" data-sec="Error Correction">
   <style>
+    #dwalk .hot { display:none }
+    #dwalk .hot.on { display:block }
+    #dwalk .hot.on:has(~ .hot.on) { display:none }
     #dwalk .gGrid, #dwalk .gAB, #dwalk .gBall, #dwalk .gStr { opacity:0; transition:opacity 0.35s }
     #dwalk:has(.w1.on) .gGrid { opacity:1 }
     #dwalk:has(.w2.on) .gAB { opacity:1 }
@@ -2514,20 +2517,24 @@ svg text{font-family:var(--sans)}
   </style>
   <div class="kicker">FEC</div>
   <h2>Walking away from a codeword</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:10px">
 
-    <p class="frag w1" style="margin:0;font-size:16.5px;line-height:1.5">Picture the whole space of bit strings as a <b>grid</b>: every node is one specific bit string, and any two <b>adjacent</b> nodes differ in <b>exactly one bit</b> &mdash; Hamming distance 1.</p>
+    <div style="min-height:70px">
 
-    <p class="frag w2" style="margin:0;font-size:16.5px;line-height:1.5">Two codewords <b>A</b> and <b>B</b> that achieve the minimum sit on this grid <b><em>d</em> steps apart</b>.</p>
+    <p class="frag hot w1" style="margin:0;font-size:21px;line-height:1.45">Picture the whole space of bit strings as a <b>grid</b>: every node is one specific bit string, and any two <b>adjacent</b> nodes differ in <b>exactly one bit</b> &mdash; Hamming distance 1.</p>
 
-    <p class="frag w3" style="margin:0;font-size:16.5px;line-height:1.5">Send <b>A</b> over a channel that flips at most <b><em>k</em></b> bits. Each flip is one step to a neighbour, so the received pattern lands <b>somewhere within <em>k</em> steps of A</b>.</p>
+    <p class="frag hot w2" style="margin:0;font-size:21px;line-height:1.45">Two codewords <b>A</b> and <b>B</b> that achieve the minimum sit on this grid <b><em>d</em> steps apart</b>.</p>
 
-    <p class="frag w4" style="margin:0;font-size:16.5px;line-height:1.5">The further it drifts from A, the <b>less it looks like A</b> &mdash; and the more it may start to resemble some other codeword.</p>
+    <p class="frag hot w3" style="margin:0;font-size:21px;line-height:1.45">Send <b>A</b> over a channel that flips at most <b><em>k</em></b> bits. Each flip is one step to a neighbour, so the received pattern lands <b>somewhere within <em>k</em> steps of A</b>.</p>
 
-    <p class="frag w5" style="margin:0;font-size:16.5px;line-height:1.5">The <b>worst case</b> is when every flip takes us straight towards the <b>nearest</b> codeword B, so the pattern looks more and more like B with each step.</p>
+    <p class="frag hot w4" style="margin:0;font-size:21px;line-height:1.45">The further it drifts from A, the <b>less it looks like A</b> &mdash; and the more it may start to resemble some other codeword.</p>
 
-    <div style="display:flex;justify-content:center;margin-top:-2px">
-      <svg viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px">
+    <p class="frag hot w5" style="margin:0;font-size:21px;line-height:1.45">The <b>worst case</b> is when every flip takes us straight towards the <b>nearest</b> codeword B, so the pattern looks more and more like B with each step.</p>
+
+    </div>
+
+    <div style="display:flex;justify-content:center">
+      <svg viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:770px">
 <defs>
           <marker id="zg" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
           <marker id="dla" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="currentColor"/></marker>
