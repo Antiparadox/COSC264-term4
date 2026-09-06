@@ -1430,7 +1430,7 @@ svg text{font-family:var(--sans)}
       <p style="margin:0 0 8px;font-size:19px">Not every pattern will do &mdash; two <strong>clearly bad</strong> choices:</p>
       <ul style="margin:0;padding-left:24px;line-height:1.75">
         <li class="frag" style="margin-bottom:8px;font-size:17px"><b>P = <code>0000&hellip;0</code></b> &mdash; you cannot divide by zero at all.</li>
-        <li class="frag" style="font-size:17px"><b>Highest-order bit of P = 0</b> &mdash; the leading zero contributes nothing to the division, so P is effectively <strong>one bit shorter</strong>. And since the FCS is always one bit shorter than P, the <strong>effective FCS is one bit shorter</strong> too &mdash; fewer check bits than we intended.</li>
+        <li class="frag" style="font-size:17px"><b>Highest-order bit of P = 0</b> &mdash; the leading zero contributes nothing to the division, so P is effectively <strong>one bit shorter</strong>. And since the FCS is always one bit shorter than P, the <strong>effective FCS is one bit shorter</strong> too &mdash; fewer check bits than we intended.<span style="display:block;margin-top:6px;color:var(--muted)">Intuitively, fewer check bits means weaker error detection &mdash; not what we want.</span></li>
       </ul>
     </div>
     <p class="frag" style="margin:0;font-size:19px">The exact bit pattern depends on the <strong>type of errors</strong> expected &mdash; but in every case:</p>
@@ -1442,7 +1442,7 @@ svg text{font-family:var(--sans)}
       <div class="card" style="flex:1;padding:16px 20px;border-left:3px solid var(--accent)">
         <p style="margin:0 0 6px;font-size:12px;letter-spacing:1.5px;color:var(--muted);font-weight:700">REQUIRED</p>
         <p style="margin:0 0 6px;font-size:17px">The <strong>lowest-order bit</strong> = 1</p>
-        <p style="margin:0;font-size:14px;color:var(--muted);line-height:1.5">This is what buys the <strong>burst-error guarantee</strong> &mdash; we will see why shortly.</p>
+        <p style="margin:0;font-size:17px;color:var(--muted);line-height:1.5">This is what buys the <strong>burst-error guarantee</strong> &mdash; we will see why shortly.</p>
       </div>
     </div>
   </div>
