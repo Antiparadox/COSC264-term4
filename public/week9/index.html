@@ -2431,37 +2431,34 @@ svg text{font-family:var(--sans)}
 <!-- ── Slide: An Example of Invalid Codewords ── -->
 <section class="slide" id="fullpic" data-sec="Error Correction">
   <style>
-    #fullpic .mono { font-family:monospace }
-    #fullpic .pat { font-family:monospace; font-size:15px; padding:4px 9px; border:1px solid var(--border); border-radius:4px; background:var(--surface-2); transition:all 0.3s }
+    #fullpic .pat { font-family:monospace; font-size:16px; padding:5px 10px; border:1px solid var(--border); border-radius:4px; background:var(--surface-2); transition:all 0.3s }
     #fullpic:has(.p2.on) .pat.valid { border-color:var(--accent); background:rgba(0,200,180,0.16); color:var(--accent); font-weight:700 }
   </style>
   <div class="kicker">FEC</div>
   <h2>The full picture for this code</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1060px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:15px;max-width:1060px">
 
-    <div class="frag" style="display:flex;flex-direction:column;gap:8px">
-      <p style="margin:0;font-size:18px;line-height:1.6">With <em>n</em> = 5 there are <b>2<sup>5</sup> = 32</b> possible received patterns:</p>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;align-items:center"><span class="pat valid">00000</span><span class="pat">00001</span><span class="pat">00010</span><span style="color:var(--muted);font-size:16px;padding:0 2px">…</span><span class="pat valid">00111</span><span style="color:var(--muted);font-size:16px;padding:0 2px">…</span><span class="pat valid">11001</span><span style="color:var(--muted);font-size:16px;padding:0 2px">…</span><span class="pat valid">11110</span><span class="pat">11111</span></div>
+    <div class="frag" style="display:flex;flex-direction:column;gap:9px">
+      <p style="margin:0;font-size:19px;line-height:1.5">With <em>n</em> = 5 there are <b>2<sup>5</sup> = 32</b> possible received patterns:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><span class="pat valid">00000</span><span class="pat">00001</span><span class="pat">00010</span><span style="color:var(--muted);font-size:17px;padding:0 2px">&hellip;</span><span class="pat valid">00111</span><span style="color:var(--muted);font-size:17px;padding:0 2px">&hellip;</span><span class="pat valid">11001</span><span style="color:var(--muted);font-size:17px;padding:0 2px">&hellip;</span><span class="pat valid">11110</span><span class="pat">11111</span></div>
     </div>
 
-    <p class="frag p2" style="margin:0;font-size:18px;line-height:1.6">Only <b>four</b> of them are valid codewords, so <b>28</b> are invalid.</p>
+    <p class="frag p2" style="margin:0;font-size:19px;line-height:1.5">Only <b>four</b> of them are valid codewords, so <b>32 &minus; 4 = 28</b> are invalid.</p>
 
-    <p class="frag" style="margin:0;font-size:17.5px;line-height:1.6"><b>20 of the 28</b> lie at distance 1 from a valid codeword &mdash; four codewords &times; five single-bit flips each. So far, nothing surprising.</p>
-
-    <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:17px;line-height:1.6">What matters is that each of those 20 is at distance 1 from <b>exactly one</b> codeword &mdash; never two. The nearest codeword is <b>unique</b>, so all 20 can be <b>uniquely decoded and corrected</b>.</p>
+    <div class="frag card" style="padding:13px 18px;border-left:4px solid var(--accent)">
+      <p style="margin:0;font-size:19px;line-height:1.5"><b>20 of the 28</b> lie at distance 1 from <b>exactly one</b> codeword &mdash; never two. The nearest codeword is <b>unique</b>, so all 20 can be <b>corrected</b>. That was our first example.</p>
     </div>
 
-    <div class="frag" style="display:flex;flex-direction:column;gap:8px">
-      <p style="margin:0;font-size:17px;line-height:1.6">The remaining <b>8</b> are not so lucky: each lies at distance 2 from <b>two different</b> codewords, so the nearest one is <b>not unique</b> and they can only be <b>detected</b>:</p>
-<div style="display:flex;flex-wrap:wrap;gap:8px"><span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">01010</span> <span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">01011</span> <span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">01100</span> <span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">01101</span> <span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">10010</span> <span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">10011</span> <span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">10100</span> <span class="mono" style="background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:3px 9px;font-size:15px;color:#cf5c36">10101</span></div>
+    <div class="frag" style="display:flex;flex-direction:column;gap:9px">
+      <p style="margin:0;font-size:19px;line-height:1.5">The remaining <b>8</b> lie at distance 2 from <b>two different</b> codewords, so the nearest is <b>not unique</b> and they can only be <b>detected</b> &mdash; our second example:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01010</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01011</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01100</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">01101</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10010</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10011</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10100</span> <span style="font-family:monospace;background:rgba(207,92,54,0.10);border:1px solid #cf5c36;border-radius:4px;padding:4px 10px;font-size:16px;color:#cf5c36">10101</span></div>
     </div>
 
-    <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:17px;line-height:1.6">So this code <b>corrects any single-bit error</b> and <b>detects any double-bit error</b>.</p>
+    <div class="frag card" style="padding:13px 18px;border-left:4px solid var(--accent)">
+      <p style="margin:0;font-size:20px;line-height:1.5">So this code can <b>detect</b> any error of up to two bits, but only <b>single-bit errors</b> can be <b>corrected</b>.</p>
     </div>
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">We counted that out by hand for one small code. For a <b>general</b> code, how many errors can it correct, and how many can it detect?</p>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.5">For a <b>general</b> code, how many errors can it correct, and how many can it detect?</p>
 
   </div>
 </section>
