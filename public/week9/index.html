@@ -752,32 +752,20 @@ svg text{font-family:var(--sans)}
         </div>
       </div>
     </div>
+
+    <p class="frag" style="margin:0;font-size:19px"><b style="color:var(--current)">Odd parity</b> is the same idea with the opposite convention &mdash; the parity bit makes the total number of 1s <b>odd</b>. Everything that follows holds for either.</p>
   </div>
 </section>
 
 <section class="slide" data-sec="Error Detection">
   <div class="kicker">Parity check</div>
-  <h2>Odd parity</h2>
-  <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:18px;max-width:960px">
-    <p class="frag" style="margin:0;font-size:20px"><b style="color:var(--current)">Odd parity</b> &mdash; parity bit makes the total number of 1s odd.</p>
-    <div class="frag" style="display:flex;flex-direction:column;gap:10px;margin-left:18px">
-      <div style="display:flex;align-items:center;gap:16px">
-        <code style="font-size:20px;letter-spacing:2px">10010101</code><code style="font-size:20px;background:var(--current);color:var(--bg);padding:1px 6px;border-radius:3px">1</code>
-        <span style="font-size:15px;color:var(--muted)">4 ones in data + parity 1 = 5 (odd) &nbsp;&#10003;</span>
-      </div>
-      <div class="frag" style="display:flex;align-items:center;gap:16px">
-        <code style="font-size:20px;letter-spacing:2px">100<span style="color:#cf5c36">0</span>0101</code><code style="font-size:20px;background:var(--current);color:var(--bg);padding:1px 6px;border-radius:3px">1</code>
-        <span style="font-size:15px;color:#cf5c36">3 ones in data + parity 1 = 4 (even) &mdash; Error detected!</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-sec="Error Detection">
-  <div class="kicker">Parity check</div>
-  <h2>Parity check &mdash; limitation</h2>
+  <h2>Parity check &mdash; can it be fooled?</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:12px;max-width:960px">
-    <p style="margin:0;font-size:18px;color:var(--muted)">This limitation applies to <b>both</b> even and odd parity.</p>
+    <div class="card" style="border-left:4px solid var(--current);padding:13px 20px">
+      <p style="margin:0;font-size:20px">Can you think of a scenario where the parity check <b>fails</b> &mdash; the data arrives corrupted, but the receiver sees nothing wrong?</p>
+    </div>
+
+    <p class="frag" style="margin:0;font-size:18px">Take the same even-parity example, and let <b>two</b> bits flip &mdash; one of them the parity bit itself.</p>
 
     <!-- Step 1: corruption in transit -->
     <div class="frag card" style="padding:12px 18px;border-left:3px solid #cf5c36">
@@ -790,11 +778,11 @@ svg text{font-family:var(--sans)}
         </div>
         <span style="font-size:16px;color:#cf5c36">&xrarr;</span>
         <div style="display:flex;border:2px solid #cf5c36;border-radius:5px;overflow:hidden">
-          <div style="padding:4px 12px"><code style="font-size:16px;letter-spacing:2px">100<span style="color:#cf5c36;font-weight:700">1</span>000<span style="color:#cf5c36;font-weight:700">0</span></code></div>
+          <div style="padding:4px 12px"><code style="font-size:16px;letter-spacing:2px">100<span style="color:#cf5c36;font-weight:700">1</span>0101</code></div>
           <div style="width:2px;background:#cf5c36"></div>
-          <div style="padding:4px 8px"><code style="font-size:16px;font-weight:600">1</code></div>
+          <div style="padding:4px 8px"><code style="font-size:16px;font-weight:600;color:#cf5c36">0</code></div>
         </div>
-        <span style="font-size:13px;color:#cf5c36">bit 4: 0&rarr;1, bit 8: 1&rarr;0</span>
+        <span style="font-size:13px;color:#cf5c36">bit 4: 0&rarr;1, parity bit: 1&rarr;0</span>
       </div>
     </div>
 
@@ -806,19 +794,19 @@ svg text{font-family:var(--sans)}
           <span style="font-size:12px;color:var(--muted);min-width:14px">1.</span>
           <span style="font-size:12px;color:var(--muted)">Parse:</span>
           <div style="border:2px solid var(--border);border-radius:5px;padding:4px 12px;text-align:center">
-            <code style="font-size:16px;letter-spacing:2px">100<span style="color:#cf5c36;font-weight:700">1</span>000<span style="color:#cf5c36;font-weight:700">0</span></code>
-            <div style="font-size:10px;color:var(--muted)">data&prime; (3 ones)</div>
+            <code style="font-size:16px;letter-spacing:2px">100<span style="color:#cf5c36;font-weight:700">1</span>0101</code>
+            <div style="font-size:10px;color:var(--muted)">data&prime; (4 ones)</div>
           </div>
           <span style="font-size:14px;color:var(--muted)">+</span>
           <div style="border:2px solid var(--border);border-radius:5px;padding:4px 8px;text-align:center">
-            <code style="font-size:16px;font-weight:600">1</code>
+            <code style="font-size:16px;font-weight:600;color:#cf5c36">0</code>
             <div style="font-size:10px;color:var(--muted)">received</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:10px">
           <span style="font-size:12px;color:var(--muted);min-width:14px">2.</span>
           <div style="border:2px solid var(--border);border-radius:5px;padding:4px 12px">
-            <code style="font-size:16px;letter-spacing:2px">100<span style="color:#cf5c36;font-weight:700">1</span>000<span style="color:#cf5c36;font-weight:700">0</span></code>
+            <code style="font-size:16px;letter-spacing:2px">100<span style="color:#cf5c36;font-weight:700">1</span>0101</code>
           </div>
           <span style="font-size:16px;color:var(--muted)">&rarr;</span>
           <div style="border:2px dashed var(--border);border-radius:5px;padding:4px 12px;text-align:center">
@@ -826,20 +814,20 @@ svg text{font-family:var(--sans)}
           </div>
           <span style="font-size:16px;color:var(--muted)">&rarr;</span>
           <div style="border:2px solid var(--border);border-radius:5px;padding:4px 8px;text-align:center">
-            <code style="font-size:16px;font-weight:600">1</code>
+            <code style="font-size:16px;font-weight:600">0</code>
             <div style="font-size:10px;color:var(--muted)">recomputed</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:10px">
           <span style="font-size:12px;color:var(--muted);min-width:14px">3.</span>
-          <span style="font-size:15px">Compare: <b>1</b> = <b>1</b> &rarr; <b style="color:#cf5c36">No error detected!</b> <span style="color:var(--muted);font-size:13px">(but the data is corrupted)</span></span>
+          <span style="font-size:15px">Compare: <b>0</b> = <b>0</b> &rarr; <b style="color:#cf5c36">No error detected!</b> <span style="color:var(--muted);font-size:13px">(but the data is corrupted)</span></span>
         </div>
       </div>
     </div>
 
     <!-- Conclusion -->
     <div class="frag" style="display:flex;flex-direction:column;gap:10px">
-      <p style="margin:0;font-size:18px">If an <b>even number of bits</b> are flipped, one flip cancels the other &mdash; parity is unchanged, and the error goes <b>undetected</b>.</p>
+      <p style="margin:0;font-size:18px">If an <b>even number of bits</b> are flipped &mdash; data bits, the parity bit, or both &mdash; one flip cancels the other, the check still passes, and the error goes <b>undetected</b>.</p>
       <div class="card" style="border-left:4px solid var(--warn);padding:12px 20px">
         <p style="margin:0;font-size:18px">We need a more <b>robust</b> error-detection scheme.</p>
       </div>
