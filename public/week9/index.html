@@ -1351,7 +1351,11 @@ svg text{font-family:var(--sans)}
     <!-- Left: text -->
     <div style="flex:1;display:flex;flex-direction:column;gap:20px">
       <p class="frag" style="margin:0;font-size:19px;line-height:1.65">The CRC is one of the <b>most common and most powerful</b> error-detecting codes in use.</p>
-      <p class="frag" style="margin:0;font-size:19px;line-height:1.65">It lives in the <b>data link layer</b> &mdash; the layer just above the physical medium, responsible for moving a frame across a <em>single</em> link. Every frame you send over Ethernet or Wi-Fi carries a CRC.</p>
+      <p class="frag" style="margin:0;font-size:19px;line-height:1.65">It lives in the <b>data link layer</b>. Every frame you send over Ethernet or Wi-Fi carries a CRC.</p>
+
+      <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
+        <p style="margin:0;font-size:19px;line-height:1.65"><b>The intuition:</b> read the message as a <b>number</b>, and append a few check bits so that the whole thing is <b>exactly divisible</b> by a divisor the two sides agreed on in advance.</p>
+      </div>
     </div>
     <!-- Right: layer stack -->
     <div style="flex:0 0 210px;display:flex;flex-direction:column;font-size:14px;text-align:center;margin-top:4px">
@@ -1369,7 +1373,7 @@ svg text{font-family:var(--sans)}
 
 <section class="slide" id="crc-overview" data-sec="CRC">
   <div class="kicker">CRC</div>
-  <h2>How it works &mdash; the idea</h2>
+  <h2>How it works</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1040px">
     <p class="frag" style="margin:0;font-size:19px;line-height:1.65">Start with a <b><em>k</em>-bit message</b>. Sender and receiver agree in advance on a fixed <b>divisor</b>.</p>
 
