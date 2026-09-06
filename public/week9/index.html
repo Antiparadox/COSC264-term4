@@ -1510,30 +1510,35 @@ svg text{font-family:var(--sans)}
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
 
     <!-- Left: given / goal / derivation -->
-    <div style="flex:0 0 440px;display:flex;flex-direction:column;gap:14px">
+    <div style="flex:0 0 556px;display:flex;flex-direction:column;gap:12px">
       <div class="frag e1" style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 18px">
         <div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">GIVEN</div>
         <table style="border-collapse:collapse;font-size:16px;line-height:1.9">
-          <tr><td style="padding-right:14px;color:var(--muted)"><em>D</em></td><td style="font-family:monospace;font-weight:600">1010001101</td><td style="padding-left:10px;color:var(--muted);font-size:13px"><em>k</em> = 10 bits</td></tr>
-          <tr><td style="padding-right:14px;color:var(--muted)"><em>P</em></td><td style="font-family:monospace;font-weight:600">110101</td><td style="padding-left:10px;color:var(--muted);font-size:13px">6 bits</td></tr>
+          <tr><td style="padding-right:14px;color:var(--muted)"><em>D</em></td><td style="font-family:monospace;font-weight:600">1010001101</td><td style="padding-left:10px;color:var(--muted);font-size:14px"><em>k</em> = 10 bits</td></tr>
+          <tr><td style="padding-right:14px;color:var(--muted)"><em>P</em></td><td style="font-family:monospace;font-weight:600">110101</td><td style="padding-left:10px;color:var(--muted);font-size:14px">6 bits</td></tr>
         </table>
       </div>
+
       <div class="frag e2" style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 18px">
         <div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">TO FIND</div>
-        <p style="margin:0;font-size:16px;line-height:1.6"><em>F</em>, the FCS &mdash; <em>n&minus;k</em> = 5 bits, since <em>F</em> must be one bit shorter than <em>P</em>.</p>
+        <p style="margin:0;font-size:17px;line-height:1.6"><em>F</em>, the <b>FCS</b>. It is always <b>one bit shorter than <em>P</em></b>, so here <em>F</em> is <b>5 bits</b>.</p>
       </div>
 
-      <p class="frag e3" style="margin:4px 0 0;font-size:17px;line-height:1.6">Appending <em>F</em> to <em>D</em> gives the transmitted frame <em>T</em>, of <em>n</em> = 15 bits.</p>
+      <p class="frag e3" style="margin:2px 0 0;font-size:17px;line-height:1.6">Appending <em>F</em> to <em>D</em> gives the transmitted frame <em>T</em>: 10 + 5 = <b><em>n</em> = 15 bits</b>.</p>
 
-      <div class="frag" style="display:flex;flex-direction:column;gap:8px;margin-top:2px">
-        <p style="margin:0;font-size:16px;line-height:1.6">So our job is to compute</p>
+      <div class="frag card" style="padding:11px 18px;border-left:4px solid var(--current)">
+        <p style="margin:0;font-size:17px;line-height:1.6">We must choose <em>F</em> so that <em>T</em> is <b>exactly divisible by <em>P</em></b>.</p>
+      </div>
+
+      <div class="frag" style="display:flex;flex-direction:column;gap:6px">
+        <p style="margin:0;font-size:17px;line-height:1.6">Read as numbers, appending 5 bits to <em>D</em> is multiplying it by 2<sup>5</sup> &mdash; so the job is to compute</p>
         <p class="eq" style="color:var(--accent)">F = remainder of (D &times; 2<sup>n&minus;k</sup>) / P</p>
       </div>
 
-      <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-        <p style="margin:0 0 8px;font-size:16px;line-height:1.6">Plugging in the numbers:</p>
-        <p class="eq" style="font-size:15px">F = rem. of (1010001101 &times; 2<sup>5</sup>) / 110101</p>
-        <p class="eq" style="font-size:15px;color:var(--accent);margin-top:6px">&nbsp;&nbsp;= rem. of 101000110100000 / 110101</p>
+      <div class="frag card" style="padding:11px 18px;border-left:3px solid var(--accent)">
+        <p style="margin:0 0 6px;font-size:16px;line-height:1.6">Plugging in the numbers:</p>
+        <p class="eq" style="font-size:16px">F = rem. of (1010001101 &times; 2<sup>5</sup>) / 110101</p>
+        <p class="eq" style="font-size:16px;color:var(--accent);margin-top:4px">&nbsp;&nbsp;= rem. of 101000110100000 / 110101</p>
       </div>
     </div>
 
