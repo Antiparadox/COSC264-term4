@@ -1371,41 +1371,23 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="crc-overview" data-sec="CRC">
-  <div class="kicker">CRC</div>
-  <h2>How it works</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1040px">
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.65">Start with a <b><em>k</em>-bit message</b>. Sender and receiver agree in advance on a fixed <b>divisor</b>.</p>
-
-    <div class="frag card" style="display:flex;align-items:center;gap:18px;padding:14px 18px">
-      <div style="width:74px;height:74px;border-radius:50%;background:rgba(0,200,180,0.15);border:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center;line-height:1.3">Trans&shy;mitter</div>
-      <p class="frag" style="margin:0;font-size:16px;line-height:1.7">Compute an <em>(n&minus;k)</em>-bit <b>Frame Check Sequence (FCS)</b> and append it to the message, so that the resulting <em>n</em>-bit frame is <b>exactly divisible</b> by the agreed divisor.</p>
-    </div>
-
-    <div class="frag card" style="display:flex;align-items:center;gap:18px;padding:14px 18px">
-      <div style="width:74px;height:74px;border-radius:50%;background:rgba(0,200,180,0.15);border:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;text-align:center">Receiver</div>
-      <p class="frag" style="margin:0;font-size:16px;line-height:1.7">Divide the received <em>n</em>-bit frame by the same divisor. <b>No remainder</b> &rarr; assume no error. <b>Non-zero remainder</b> &rarr; the frame was corrupted, so discard it.</p>
-    </div>
-  </div>
-</section>
-
 <section class="slide" id="crc-notation" data-sec="CRC">
   <style>
     #crc-notation .gD, #crc-notation .gF, #crc-notation .gP, #crc-notation .gT { opacity:0; transition:opacity 0.35s }
     #crc-notation:has(.n1.on) .gD { opacity:1 }
-    #crc-notation:has(.n2.on) .gF { opacity:1 }
-    #crc-notation:has(.n3.on) .gP { opacity:1 }
+    #crc-notation:has(.n2.on) .gP { opacity:1 }
+    #crc-notation:has(.n3.on) .gF { opacity:1 }
     #crc-notation:has(.n4.on) .gT { opacity:1 }
     #crc-notation li { margin-bottom:12px }
   </style>
   <div class="kicker">CRC</div>
   <h2>CRC &mdash; notation</h2>
   <div style="flex:1;display:flex;gap:32px;align-items:flex-start">
-    <div style="flex:0 0 400px;display:flex;flex-direction:column;gap:14px">
+    <div style="flex:0 0 486px;display:flex;flex-direction:column;gap:14px">
       <ul style="margin:0;padding-left:0;list-style:none;font-size:16.5px;line-height:1.6">
         <li class="frag n1"><b><em>D</em></b> &mdash; the <em>k</em>-bit block of data to send</li>
-        <li class="frag n2"><b><em>F</em></b> &mdash; the <em>(n&minus;k)</em>-bit <b>FCS</b> we must compute</li>
-        <li class="frag n3"><b><em>P</em></b> &mdash; the predetermined <b>divisor</b>, a fixed pattern of <em>n&minus;k+1</em> bits &mdash; <b>one bit longer than <em>F</em></b></li>
+        <li class="frag n2"><b><em>P</em></b> &mdash; the <b>divisor</b>, a fixed pattern of <em>n&minus;k+1</em> bits that sender and receiver agree on in advance</li>
+        <li class="frag n3"><b><em>F</em></b> &mdash; the <b>frame check sequence (FCS)</b> we must compute. Once <em>P</em> is fixed, <em>F</em> is <em>n&minus;k</em> bits &mdash; <b>one bit shorter than <em>P</em></b></li>
         <li class="frag n4"><b><em>T</em></b> &mdash; the <em>n</em>-bit frame actually transmitted: <em>D</em> followed by <em>F</em></li>
       </ul>
       <div class="frag card" style="padding:14px 18px;border-left:3px solid var(--accent)">
@@ -1421,23 +1403,23 @@ svg text{font-family:var(--sans)}
     <rect x="20" y="34" width="230" height="52" fill="none" stroke="currentColor" stroke-width="2"/>
     <text x="135" y="63" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="26" fill="currentColor">D</text>
   </g>
+  <g class="gP">
+    <rect x="228" y="152" width="172" height="42" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="320" y="175" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="22" fill="currentColor">P</text>
+    <text x="314" y="209" text-anchor="middle" font-size="13" fill="currentColor"><tspan font-style="italic">n&minus;k+1</tspan> bits</text>
+  </g>
   <g class="gF">
     <text x="325" y="14" text-anchor="middle" font-style="italic" font-size="14" fill="currentColor">n&minus;k bits</text>
     <path d="M250,20 L250,34 M250,20 L400,20 M400,20 L400,34" stroke="currentColor" stroke-width="1.5" fill="none"/>
     <rect x="250" y="34" width="150" height="52" fill="none" stroke="currentColor" stroke-width="2"/>
     <text x="325" y="63" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="26" fill="currentColor">F</text>
+    <rect x="229" y="153" width="21" height="40" fill="var(--accent)" opacity="0.20"/>
+    <line x1="250" y1="86" x2="250" y2="152" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
+    <text x="239" y="146" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">+1</text>
   </g>
   <g class="gT">
     <path d="M20,96 L20,110 M20,110 L400,110 M400,110 L400,96" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
-    <text x="210" y="126" text-anchor="middle" font-size="14" fill="var(--accent)">T &mdash; n bits, transmitted</text>
-  </g>
-  <g class="gP">
-    <rect x="228" y="152" width="22" height="42" fill="var(--accent)" opacity="0.20"/>
-    <rect x="228" y="152" width="172" height="42" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
-    <text x="320" y="175" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="22" fill="currentColor">P</text>
-    <line x1="250" y1="86" x2="250" y2="152" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
-    <text x="239" y="146" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">+1</text>
-    <text x="314" y="209" text-anchor="middle" font-size="13" fill="currentColor"><tspan font-style="italic">n&minus;k+1</tspan> bits &mdash; one longer than <tspan font-style="italic">F</tspan></text>
+    <text x="210" y="126" text-anchor="middle" font-size="14" fill="var(--accent)"><tspan font-style="italic">T</tspan> &#8194;(<tspan font-style="italic">n</tspan> bits, transmitted)</text>
   </g>
 </svg>
     </div>
