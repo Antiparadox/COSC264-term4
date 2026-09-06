@@ -1453,47 +1453,45 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>Modulo-2 Arithmetic</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:flex-start">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start">
 
     <ul style="margin:0;padding-left:24px;font-size:19px;line-height:1.7">
-      <li class="frag" style="margin-bottom:8px">Addition and subtraction are both performed with <strong>XOR (&oplus;)</strong> &mdash; so they are the <strong>same operation</strong>.</li>
-      <li class="frag" style="margin-bottom:8px">Multiplication is the usual shift-and-add &mdash; only the additions inside it become XORs.</li>
-      <li class="frag">Ordinary binary addition propagates a carry: <code>1 + 1 = 10</code>. In modulo-2 there are <strong>no carries and no borrows</strong> &mdash; each bit position stands on its own: <code>1 &oplus; 1 = 0</code> and <code>0 &oplus; 1 = 1</code>.</li>
-    </ul>
+      <li class="frag" style="margin-bottom:10px">Addition and subtraction are both performed with <strong>XOR (&oplus;)</strong> &mdash; so they are the <strong>same operation</strong>.
 
-    <div class="frag" style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:4px">
-
-      <!-- Addition box -->
-      <div style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:14px 20px;min-width:160px;text-align:center">
-        <div style="font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:8px">ADDITION (XOR)</div>
-        <pre style="font-family:monospace;font-size:16px;line-height:1.8;margin:0;text-align:right;color:var(--fg)">  1111
-⊕ 1010
-──────
+        <div class="frag" style="display:flex;gap:20px;flex-wrap:wrap;margin:10px 0 18px">
+          <div style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 20px;min-width:160px;text-align:center">
+            <div style="font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">ADDITION (XOR)</div>
+            <pre style="font-family:monospace;font-size:16px;line-height:1.7;margin:0;text-align:right;color:var(--fg)">  1111
+&#8853; 1010
+&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
   0101</pre>
-      </div>
-
-      <!-- Subtraction box -->
-      <div style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:14px 20px;min-width:160px;text-align:center">
-        <div style="font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:8px">SUBTRACTION (XOR)</div>
-        <pre style="font-family:monospace;font-size:16px;line-height:1.8;margin:0;text-align:right;color:var(--fg)">  1111
-⊕ 1010
-──────
+          </div>
+          <div style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 20px;min-width:160px;text-align:center">
+            <div style="font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">SUBTRACTION (XOR)</div>
+            <pre style="font-family:monospace;font-size:16px;line-height:1.7;margin:0;text-align:right;color:var(--fg)">  1111
+&#8853; 1010
+&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
   0101</pre>
-      </div>
+          </div>
+        </div>
+      </li>
 
-      <!-- Multiplication box -->
-      <div class="frag" style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:14px 20px;min-width:180px;text-align:center">
-        <div style="font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:8px">MULTIPLICATION</div>
-        <pre style="font-family:monospace;font-size:16px;line-height:1.8;margin:0;text-align:right;color:var(--fg)">    11001
-  ×    11
-  ──────
+      <li class="frag">Multiplication is the usual shift-and-add &mdash; only the additions inside it become XORs.
+
+        <div class="frag" style="display:flex;margin:10px 0 0">
+          <div style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 20px;min-width:160px;text-align:center;min-width:180px">
+            <div style="font-size:13px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">MULTIPLICATION</div>
+            <pre style="font-family:monospace;font-size:16px;line-height:1.7;margin:0;text-align:right;color:var(--fg)">    11001
+  &times;    11
+  &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
     11001
-⊕ 110010
-─────────
+&#8853; 110010
+&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
   101011</pre>
-      </div>
-
-    </div>
+          </div>
+        </div>
+      </li>
+    </ul>
 
   </div>
 </section>
@@ -1508,7 +1506,7 @@ svg text{font-family:var(--sans)}
     #crc-example .eq { font-family:monospace; font-size:17px; margin:0 }
   </style>
   <div class="kicker">CRC</div>
-  <h2>An Example</h2>
+  <h2>How to compute the FCS</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
 
     <!-- Left: given / goal / derivation -->
