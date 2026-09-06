@@ -1511,7 +1511,7 @@ svg text{font-family:var(--sans)}
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
 
     <!-- Left: given / goal / derivation -->
-    <div style="flex:0 0 556px;display:flex;flex-direction:column;gap:12px">
+    <div style="flex:0 0 540px;display:flex;flex-direction:column;gap:12px">
       <div class="frag e1" style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 18px">
         <div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">GIVEN</div>
         <table style="border-collapse:collapse;font-size:16px;line-height:1.9">
@@ -1522,29 +1522,21 @@ svg text{font-family:var(--sans)}
 
       <div class="frag e2" style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 18px">
         <div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">TO FIND</div>
-        <p style="margin:0;font-size:17px;line-height:1.6"><em>F</em>, the <b>FCS</b>. It is always <b>one bit shorter than <em>P</em></b>, so here <em>r</em> = <b>5 bits</b>.</p>
+        <p style="margin:0;font-size:17px;line-height:1.6"><em>F</em>, the <b>FCS</b> &mdash; one bit shorter than <em>P</em>, so <em>r</em> = <b>5 bits</b> &mdash; such that:</p>
+        <ol style="margin:8px 0 0;padding-left:22px;line-height:1.6">
+          <li class="frag e3" style="font-size:17px;margin-bottom:5px">appending <em>F</em> to <em>D</em> gives <em>T</em>, of <em>k</em>+<em>r</em> = 10 + 5 = <b>15 bits</b>;</li>
+          <li class="frag" style="font-size:17px;margin-bottom:5px">as integers, <span style="font-family:monospace">T = D &times; 2<sup>r</sup> + F</span>;</li>
+          <li class="frag" style="font-size:17px">and <em>T</em> is <b>exactly divisible by <em>P</em></b>.</li>
+        </ol>
       </div>
 
-      <p class="frag e3" style="margin:2px 0 0;font-size:17px;line-height:1.6">Appending <em>F</em> to <em>D</em> gives the transmitted frame <em>T</em>: <em>k</em>+<em>r</em> = 10 + 5 = <b>15 bits</b>.</p>
-
-      <div class="frag card" style="padding:11px 18px;border-left:4px solid var(--current)">
-        <p style="margin:0;font-size:17px;line-height:1.6">We must choose <em>F</em> so that <em>T</em> is <b>exactly divisible by <em>P</em></b>.</p>
-      </div>
-
-      <div class="frag" style="display:flex;flex-direction:column;gap:6px">
-        <p style="margin:0;font-size:17px;line-height:1.6">Read as numbers, appending <em>r</em> bits to <em>D</em> is multiplying it by 2<sup>r</sup> &mdash; so the job is to compute</p>
-        <p class="eq" style="color:var(--accent)">F = remainder of (D &times; 2<sup>r</sup>) / P</p>
-      </div>
-
-      <div class="frag card" style="padding:11px 18px;border-left:3px solid var(--accent)">
-        <p style="margin:0 0 6px;font-size:16px;line-height:1.6">Plugging in the numbers:</p>
-        <p class="eq" style="font-size:16px">F = rem. of (1010001101 &times; 2<sup>5</sup>) / 110101</p>
-        <p class="eq" style="font-size:16px;color:var(--accent);margin-top:4px">&nbsp;&nbsp;= rem. of 101000110100000 / 110101</p>
+      <div class="frag card" style="padding:13px 18px;border-left:4px solid var(--accent)">
+        <p class="eq" style="color:var(--accent);font-size:18px">F = remainder of (D &times; 2<sup>r</sup>) / P</p>
       </div>
     </div>
 
     <!-- Right: diagram, synchronised with the fragments -->
-    <div style="flex:1;display:flex;align-items:flex-start;justify-content:center;padding-top:10px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:18px;padding-top:10px">
       <svg viewBox="0 0 420 156" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px">
         <g class="gD">
           <text x="135" y="14" text-anchor="middle" font-style="italic" font-size="14" fill="currentColor">k bits (10)</text>
@@ -1563,6 +1555,12 @@ svg text{font-family:var(--sans)}
           <text text-anchor="middle" font-size="14" fill="var(--accent)"><tspan x="210" y="130" font-style="italic" font-size="17" font-weight="700">T</tspan><tspan x="210" y="148">k+r = 15 bits</tspan></text>
         </g>
       </svg>
+
+      <div class="frag card" style="align-self:stretch;padding:12px 18px;border-left:3px solid var(--accent)">
+        <p style="margin:0 0 6px;font-size:16px;line-height:1.6">Plugging in the numbers:</p>
+        <p class="eq" style="font-size:16px">F = rem. of (1010001101 &times; 2<sup>5</sup>) / 110101</p>
+        <p class="eq" style="font-size:16px;color:var(--accent);margin-top:4px">&nbsp;&nbsp;= rem. of 101000110100000 / 110101</p>
+      </div>
     </div>
 
   </div>
