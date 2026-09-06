@@ -1776,17 +1776,21 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="CRC">
   <div class="kicker">CRC &middot; optional</div>
   <h2>What can this representation tell us?</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1080px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1060px">
 
-    <p class="frag" style="margin:0;font-size:15px;color:var(--muted);line-height:1.5">Optional material, for anyone curious about <em>why</em> the polynomial form is used. Not examined.</p>
+    <p class="frag" style="margin:0;font-size:17px;color:var(--muted);line-height:1.5">Optional material, for anyone curious about <em>why</em> the polynomial form is used. Not examined.</p>
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">A corrupted frame can always be written as <b><em>T</em>(x) + <em>E</em>(x)</b>, where the <b>error polynomial</b> <em>E</em>(x) has a 1 in every flipped position.</p>
-
-    <div class="frag card" style="padding:13px 18px;border-left:3px solid #cf5c36">
-      <p style="margin:0;font-size:17px;line-height:1.6">We built <em>T</em>(x) to divide evenly by <em>P</em>(x). So the corrupted frame divides evenly &mdash; and the error slips through &mdash; <b>exactly when <em>P</em>(x) divides <em>E</em>(x)</b>.</p>
+    <div class="frag card" style="padding:14px 20px;border-left:4px solid var(--accent)">
+      <div style="font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--accent);margin-bottom:6px">OBSERVATION</div>
+      <p style="margin:0;font-size:20px;line-height:1.55">A corrupted frame can always be written as <b><em>T</em>(x) + <em>E</em>(x)</b>, where the <b>error polynomial</b> <em>E</em>(x) has a 1 in every flipped position.</p>
     </div>
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">So we choose a generator <em>P</em>(x) that <b>cannot divide</b> the error patterns we expect. For most <em>E</em>(x), the division simply does not go through.</p>
+    <ul style="margin:0;padding-left:28px;line-height:1.6">
+      <li class="frag" style="font-size:20px;margin-bottom:10px">How should we choose a good generator <em>P</em>(x)?</li>
+      <li class="frag" style="font-size:20px;margin-bottom:10px">We built <em>T</em>(x) to divide evenly by <em>P</em>(x).</li>
+      <li class="frag" style="font-size:20px;margin-bottom:10px">So the error slips through <b>exactly when <em>P</em>(x) divides <em>E</em>(x)</b>.</li>
+      <li class="frag" style="font-size:20px">Therefore choose a <em>P</em>(x) that <b>cannot divide</b> the error patterns we expect.</li>
+    </ul>
 
   </div>
 </section>
