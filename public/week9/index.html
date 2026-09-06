@@ -1750,7 +1750,9 @@ svg text{font-family:var(--sans)}
         <div class="rgt"><em>F</em>(x) = remainder of<br><em>D</em>(x)&thinsp;&middot;&thinsp;<b style="color:var(--accent)">x<sup>5</sup></b> &divide; <em>P</em>(x)</div>
       </div>
 
-      <div class="frag rule">Appending <em>r</em> zeros to a bit string is the same as <b>multiplying its polynomial by x<sup>r</sup></b>.</div>
+      <div class="frag rule">How do we write &ldquo;append five zeros to <em>D</em>, then divide by <em>P</em>&rdquo; in polynomial form?
+        <div style="margin-top:6px">Multiply <em>D</em>(x) by <b>x<sup>5</sup></b> and divide by <em>P</em>(x) &mdash; it does exactly the same thing. Worth checking for yourself.</div>
+      </div>
 
       <div class="frag row" style="font-size:19px;border-top:1px solid var(--border);margin-top:4px;padding-top:2px;color:var(--accent);font-weight:600">
         <div class="lft"><span class="lbl">F</span><span class="mono">01110</span></div>
@@ -1762,7 +1764,6 @@ svg text{font-family:var(--sans)}
         <div class="rgt"><em>T</em>(x) = x<sup>14</sup> + x<sup>12</sup> + x<sup>8</sup> + x<sup>7</sup> + x<sup>5</sup> + x<sup>3</sup> + x<sup>2</sup> + x</div>
       </div>
 
-      <div class="frag rule">Following <em>D</em> with <em>F</em> is the same as forming <b><em>D</em>(x)&thinsp;&middot;&thinsp;x<sup>r</sup> + <em>F</em>(x)</b> &mdash; and that divides evenly by <em>P</em>(x).</div>
 
     </div>
 
