@@ -1664,16 +1664,18 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>One more way to write the same thing</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1060px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:20px;max-width:1000px">
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">The divisor <em>P</em> &mdash; the pattern both sides agree on in advance &mdash; is also called the <b>generator</b> of the code, because it is what generates the FCS.</p>
+    <p class="frag" style="margin:0;font-size:22px;line-height:1.6">The divisor <em>P</em> is also called the <b>generator</b> &mdash; it is what generates the FCS.</p>
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">Generators are almost never written as bit strings. They are written in the <b>polynomial representation</b> &mdash; and a code built this way is called a <b>polynomial code</b>. There are two reasons to learn this form:</p>
+    <p class="frag" style="margin:0;font-size:22px;line-height:1.6">A bit string can also be written as a <b>polynomial</b>, and generators are almost always written that way.</p>
 
-    <p class="frag" style="margin:0;font-size:17px;line-height:1.6">1.&ensp;Every <b>CRC standard writes its generator this way</b>. Look up the one Ethernet uses and you will find <span style="font-family:monospace;font-size:16px">x<sup>32</sup> + x<sup>26</sup> + x<sup>23</sup> + &hellip;</span>, not a row of 33 ones and zeros.</p>
+    <p class="frag" style="margin:0;font-size:22px;line-height:1.6">Two reasons it is worth knowing:</p>
 
-    <p class="frag" style="margin:0;font-size:17px;line-height:1.6">2.&ensp;It is the form in which you can <b>analyse which errors a given generator will detect</b>. We will touch on this briefly, but it is beyond the scope of this course and will not be examined.</p>
-
+    <ul style="margin:0;padding-left:28px;line-height:1.6">
+      <li class="frag" style="font-size:21px;margin-bottom:10px">Every CRC <b>standard</b> publishes its generator in this form.</li>
+      <li class="frag" style="font-size:21px">It is the form in which you can <b>analyse</b> which errors a generator will catch.</li>
+    </ul>
 
   </div>
 </section>
