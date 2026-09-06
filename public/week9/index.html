@@ -909,6 +909,107 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
+<!-- ── Slide: 2-D parity — what it catches, and what slips through ── -->
+<section class="slide" id="twod-limits" data-sec="Error Detection">
+  <style>
+    #twod-limits .flip { display:none }
+    #twod-limits:has(.show-2bit.on) .e2 .orig { display:none }
+    #twod-limits:has(.show-2bit.on) .e2 .flip { display:inline }
+    #twod-limits:has(.show-2bit.on) .e2 { color:#cf5c36;outline:1.5px solid #cf5c36;outline-offset:-2px;border-radius:50%;background:rgba(207,92,54,0.1) }
+    #twod-limits:has(.show-4bit.on) .e1 .orig { display:none }
+    #twod-limits:has(.show-4bit.on) .e1 .flip { display:inline }
+    #twod-limits:has(.show-4bit.on) .e1 { color:#cf5c36;outline:1.5px solid #cf5c36;outline-offset:-2px;border-radius:50%;background:rgba(207,92,54,0.1) }
+    #twod-limits .rc, #twod-limits .cc { opacity:0; transition:opacity 0.3s }
+    #twod-limits .mk-ok { color:#4caf50 }
+    #twod-limits .mk-bad { color:#cf5c36; font-weight:700; display:none }
+    #twod-limits:has(.show-rowchk.on) .rc { opacity:1 }
+    #twod-limits:has(.show-colchk.on) .cc { opacity:1 }
+    #twod-limits:has(.show-colchk.on) .cbad .mk-ok { display:none }
+    #twod-limits:has(.show-colchk.on) .cbad .mk-bad { display:inline }
+    #twod-limits:has(.show-allpass.on) .cbad .mk-ok { display:inline }
+    #twod-limits:has(.show-allpass.on) .cbad .mk-bad { display:none }
+  </style>
+  <div class="kicker">2-D parity</div>
+  <h2>How much can 2-D parity catch?</h2>
+  <div style="flex:1;display:flex;gap:34px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:11px;max-width:640px">
+      <p class="frag show-2bit" style="margin:0;font-size:17px">Flip <b>two bits in the same row</b> &mdash; the pattern that defeated the one-dimensional check.</p>
+      <p class="frag show-rowchk" style="margin:0;font-size:17px">The <b>row</b> check still passes: within that row, one flip cancels the other.</p>
+      <p class="frag show-colchk" style="margin:0;font-size:17px">But each flip is alone in its <b>column</b> &mdash; <b style="color:#cf5c36">both column checks fail</b>, and the error is detected.</p>
+      <div class="frag card" style="padding:11px 16px;border-left:3px solid #4caf50">
+        <p style="margin:0;font-size:17px">Two flips can cancel within a row, or within a column &mdash; never both. Every pattern of <b>one, two or three</b> flipped bits is caught.</p>
+      </div>
+      <div class="frag card" style="padding:11px 16px;border-left:4px solid var(--current)">
+        <p style="margin:0;font-size:18px">So what does get through? Can you think of a pattern 2-D parity would miss?</p>
+      </div>
+      <p class="frag show-4bit" style="margin:0;font-size:17px">Flip the <b>matching pair in the row above</b> too &mdash; four bits at the corners of a <b>rectangle</b>.</p>
+      <p class="frag show-allpass" style="margin:0;font-size:17px">Every affected row <i>and</i> every affected column now loses <b>two</b> 1s &mdash; every check <b style="color:#4caf50">passes</b>.</p>
+      <div class="frag card" style="padding:11px 16px;border-left:3px solid #cf5c36">
+        <p style="margin:0;font-size:17px">Four flips in a rectangle are <b style="color:#cf5c36">undetectable</b>.</p>
+      </div>
+    </div>
+    <div style="flex-shrink:0">
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:18px">
+        <tbody>
+          <tr>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td class="e1" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig">1</span><span class="flip">0</span></td>
+            <td class="e1" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig">1</span><span class="flip">0</span></td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
+            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span></td>
+          </tr>
+          <tr>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td class="e2" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig">1</span><span class="flip">0</span></td>
+            <td class="e2" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig">1</span><span class="flip">0</span></td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
+            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span></td>
+          </tr>
+          <tr>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
+            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span></td>
+          </tr>
+          <tr>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
+            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span></td>
+          </tr>
+          <tr>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">0</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">1</td>
+            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);border-left:2px solid var(--muted);color:var(--muted);font-weight:600">0</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span><span class="mk-bad">&#10007;</span></td>
+            <td class="cc cbad" style="padding:4px 10px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span><span class="mk-bad">&#10007;</span></td>
+            <td class="cc cbad" style="padding:4px 10px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span><span class="mk-bad">&#10007;</span></td>
+            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span><span class="mk-bad">&#10007;</span></td>
+            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;text-align:center"><span class="mk-ok">&check;</span><span class="mk-bad">&#10007;</span></td>
+            <td></td><td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- ── Slide: 2-D parity — correcting a single-bit error ── -->
 <section class="slide" id="twod-correct" data-sec="Error Detection">
   <style>
@@ -998,92 +1099,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<!-- ── Slide: 2-D parity — undetectable error patterns ── -->
-<section class="slide" id="twod-undetect" data-sec="Error Detection">
-  <style>
-    #twod-undetect .corr-bit { display:none }
-    #twod-undetect:has(.show-err.on) .orig-bit { display:none }
-    #twod-undetect:has(.show-err.on) .corr-bit { display:inline }
-    #twod-undetect:has(.show-err.on) .err-cell { color:#cf5c36;outline:1.5px solid #cf5c36;outline-offset:-2px;border-radius:50%;background:rgba(207,92,54,0.1) }
-    #twod-undetect .rc, #twod-undetect .cc { opacity:0; transition:opacity 0.35s }
-    #twod-undetect:has(.show-checks.on) .rc { opacity:1 }
-    #twod-undetect:has(.show-checks.on) .cc { opacity:1 }
-  </style>
-  <div class="kicker">2-D parity</div>
-  <h2>Undetectable error patterns</h2>
-  <div style="flex:1;display:flex;gap:36px;align-items:flex-start">
-    <div style="display:flex;flex-direction:column;gap:14px;max-width:420px">
-      <p class="frag" style="margin:0;font-size:18px">The same data matrix &mdash; as transmitted.</p>
-      <p class="frag show-err" style="margin:0;font-size:18px">Four bits are <b style="color:#cf5c36">flipped</b>, forming a <b>rectangle</b> in the matrix.</p>
-      <p class="frag show-checks" style="margin:0;font-size:18px">Every affected row and column lost an <b>even</b> number of 1s &mdash; all parity checks <b style="color:#4caf50">pass</b>.</p>
-      <div class="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
-        <p style="margin:0;font-size:17px">All parity checks pass &mdash; the errors are <b style="color:#cf5c36">undetectable</b>.</p>
-        <p style="margin:6px 0 0;font-size:15px;color:var(--muted)">2-D parity can detect and correct any single-bit error, but cannot detect all multi-bit error patterns.</p>
-      </div>
-    </div>
-    <div style="flex-shrink:0">
-      <table style="border-collapse:collapse;font-family:var(--mono);font-size:18px">
-        <tbody>
-          <tr>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td class="err-cell" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig-bit">1</span><span class="corr-bit">0</span></td>
-            <td class="err-cell" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig-bit">1</span><span class="corr-bit">0</span></td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
-            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;color:#4caf50">&check;</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td class="err-cell" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig-bit">1</span><span class="corr-bit">0</span></td>
-            <td class="err-cell" style="padding:6px 10px;text-align:center;border:1px solid var(--border)"><span class="orig-bit">1</span><span class="corr-bit">0</span></td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
-            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;color:#4caf50">&check;</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
-            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;color:#4caf50">&check;</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border)">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-left:2px solid var(--muted);color:var(--accent);font-weight:600">1</td>
-            <td class="rc" style="padding:4px 8px;border:none;font-size:16px;color:#4caf50">&check;</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">0</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);color:var(--current);font-weight:600">1</td>
-            <td style="padding:6px 10px;text-align:center;border:1px solid var(--border);border-top:2px solid var(--muted);border-left:2px solid var(--muted);color:var(--muted);font-weight:600">0</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;color:#4caf50;text-align:center">&check;</td>
-            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;color:#4caf50;text-align:center">&check;</td>
-            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;color:#4caf50;text-align:center">&check;</td>
-            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;color:#4caf50;text-align:center">&check;</td>
-            <td class="cc" style="padding:4px 10px;border:none;font-size:16px;color:#4caf50;text-align:center">&check;</td>
-            <td></td><td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-
+<!-- ── Slide: Internet checksum ── -->
 <section class="slide" data-sec="Error Detection">
   <div class="kicker">Internet checksum</div>
   <h2>Internet checksum</h2>
