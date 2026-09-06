@@ -1223,9 +1223,8 @@ svg text{font-family:var(--sans)}
     #checksum-sender td.hex { font-size:18px }
     #checksum-sender td.bin { font-size:16px; color:var(--muted) }
     #checksum-sender tbody.frag { transform:none }
-    #checksum-sender .split-note, #checksum-sender .carry-note { opacity:0; transition:opacity 0.3s }
+    #checksum-sender .split-note { opacity:0; transition:opacity 0.3s }
     #checksum-sender:has(.f2.on) .split-note { opacity:1 }
-    #checksum-sender:has(.f4.on) .carry-note { opacity:1 }
   </style>
   <div class="kicker">Internet checksum</div>
   <h2>Sender computation</h2>
@@ -1262,7 +1261,6 @@ svg text{font-family:var(--sans)}
           <tr><td class="lab" style="font-weight:700;color:var(--accent)">Checksum &nbsp;=&nbsp; complement</td><td class="hex" style="color:var(--accent);font-weight:700">B752</td><td class="bin" style="color:var(--accent)">1011 0111 0101 0010</td></tr>
         </tbody>
       </table>
-      <p class="carry-note" style="margin:2px 0 0;font-size:18px;color:var(--muted)">The sum overflows 16 bits, so the carry <span style="color:#cf5c36">1</span> is wrapped around and added back at the low end &mdash; the <b>end-around carry</b> of one&rsquo;s-complement addition.</p>
     </div>
   </div>
 </section>
