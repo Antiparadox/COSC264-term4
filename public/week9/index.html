@@ -1386,10 +1386,11 @@ svg text{font-family:var(--sans)}
     <div style="flex:0 0 486px;display:flex;flex-direction:column;gap:14px">
       <ul style="margin:0;padding-left:0;list-style:none;font-size:16.5px;line-height:1.6">
         <li class="frag n1"><b><em>D</em></b> &mdash; the <em>k</em>-bit block of data to send</li>
-        <li class="frag n2"><b><em>P</em></b> &mdash; the <b>divisor</b>, a fixed pattern of <em>n&minus;k+1</em> bits that sender and receiver agree on in advance</li>
-        <li class="frag n3"><b><em>F</em></b> &mdash; the <b>frame check sequence (FCS)</b> we must compute, <em>n&minus;k</em> bits long</li>
-        <li class="frag n4"><b><em>T</em></b> &mdash; the <em>n</em>-bit frame actually transmitted: <em>D</em> followed by <em>F</em></li>
+        <li class="frag n2"><b><em>P</em></b> &mdash; the <b>divisor</b>, a fixed pattern of <em>r</em>+1 bits that sender and receiver agree on in advance</li>
+        <li class="frag n3"><b><em>F</em></b> &mdash; the <b>frame check sequence (FCS)</b> we must compute, <em>r</em> bits long</li>
+        <li class="frag n4"><b><em>T</em></b> &mdash; the frame actually transmitted, <em>k</em>+<em>r</em> bits: <em>D</em> followed by <em>F</em></li>
       </ul>
+      <p style="margin:2px 0 0;font-size:14px;color:var(--muted);line-height:1.5">Some texts write <em>F</em>&rsquo;s length as <em>n</em>&minus;<em>k</em>, where <em>n</em> = <em>k</em>+<em>r</em> is the whole frame.</p>
     </div>
     <div style="flex:1;display:flex;align-items:flex-start;justify-content:center;padding-top:6px">
       <svg viewBox="0 0 420 218" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:470px">
@@ -1402,10 +1403,10 @@ svg text{font-family:var(--sans)}
   <g class="gP">
     <rect x="228" y="152" width="172" height="42" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="320" y="175" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="22" fill="currentColor">P</text>
-    <text x="314" y="209" text-anchor="middle" font-size="13" fill="currentColor"><tspan font-style="italic">n&minus;k+1</tspan> bits</text>
+    <text x="314" y="209" text-anchor="middle" font-size="13" fill="currentColor"><tspan font-style="italic">r</tspan>+1 bits</text>
   </g>
   <g class="gF">
-    <text x="325" y="14" text-anchor="middle" font-style="italic" font-size="14" fill="currentColor">n&minus;k bits</text>
+    <text x="325" y="14" text-anchor="middle" font-style="italic" font-size="14" fill="currentColor">r bits</text>
     <path d="M250,20 L250,34 M250,20 L400,20 M400,20 L400,34" stroke="currentColor" stroke-width="1.5" fill="none"/>
     <rect x="250" y="34" width="150" height="52" fill="none" stroke="currentColor" stroke-width="2"/>
     <text x="325" y="63" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="26" fill="currentColor">F</text>
@@ -1415,7 +1416,7 @@ svg text{font-family:var(--sans)}
   </g>
   <g class="gT">
     <path d="M20,96 L20,110 M20,110 L400,110 M400,110 L400,96" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
-    <text x="210" y="126" text-anchor="middle" font-size="14" fill="var(--accent)"><tspan font-style="italic">T</tspan> &#8194;(<tspan font-style="italic">n</tspan> bits, transmitted)</text>
+    <text x="210" y="126" text-anchor="middle" font-size="14" fill="var(--accent)"><tspan font-style="italic">T</tspan> &#8194;(<tspan font-style="italic">k</tspan>+<tspan font-style="italic">r</tspan> bits, transmitted)</text>
   </g>
 </svg>
     </div>
@@ -1515,24 +1516,24 @@ svg text{font-family:var(--sans)}
         <div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">GIVEN</div>
         <table style="border-collapse:collapse;font-size:16px;line-height:1.9">
           <tr><td style="padding-right:14px;color:var(--muted)"><em>D</em></td><td style="font-family:monospace;font-weight:600">1010001101</td><td style="padding-left:10px;color:var(--muted);font-size:14px"><em>k</em> = 10 bits</td></tr>
-          <tr><td style="padding-right:14px;color:var(--muted)"><em>P</em></td><td style="font-family:monospace;font-weight:600">110101</td><td style="padding-left:10px;color:var(--muted);font-size:14px">6 bits</td></tr>
+          <tr><td style="padding-right:14px;color:var(--muted)"><em>P</em></td><td style="font-family:monospace;font-weight:600">110101</td><td style="padding-left:10px;color:var(--muted);font-size:14px"><em>r</em>+1 = 6 bits</td></tr>
         </table>
       </div>
 
       <div class="frag e2" style="background:rgba(0,200,180,0.08);border:1px solid var(--border);border-radius:8px;padding:12px 18px">
         <div style="font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--accent);margin-bottom:6px">TO FIND</div>
-        <p style="margin:0;font-size:17px;line-height:1.6"><em>F</em>, the <b>FCS</b>. It is always <b>one bit shorter than <em>P</em></b>, so here <em>F</em> is <b>5 bits</b>.</p>
+        <p style="margin:0;font-size:17px;line-height:1.6"><em>F</em>, the <b>FCS</b>. It is always <b>one bit shorter than <em>P</em></b>, so here <em>r</em> = <b>5 bits</b>.</p>
       </div>
 
-      <p class="frag e3" style="margin:2px 0 0;font-size:17px;line-height:1.6">Appending <em>F</em> to <em>D</em> gives the transmitted frame <em>T</em>: 10 + 5 = <b><em>n</em> = 15 bits</b>.</p>
+      <p class="frag e3" style="margin:2px 0 0;font-size:17px;line-height:1.6">Appending <em>F</em> to <em>D</em> gives the transmitted frame <em>T</em>: <em>k</em>+<em>r</em> = 10 + 5 = <b>15 bits</b>.</p>
 
       <div class="frag card" style="padding:11px 18px;border-left:4px solid var(--current)">
         <p style="margin:0;font-size:17px;line-height:1.6">We must choose <em>F</em> so that <em>T</em> is <b>exactly divisible by <em>P</em></b>.</p>
       </div>
 
       <div class="frag" style="display:flex;flex-direction:column;gap:6px">
-        <p style="margin:0;font-size:17px;line-height:1.6">Read as numbers, appending 5 bits to <em>D</em> is multiplying it by 2<sup>5</sup> &mdash; so the job is to compute</p>
-        <p class="eq" style="color:var(--accent)">F = remainder of (D &times; 2<sup>n&minus;k</sup>) / P</p>
+        <p style="margin:0;font-size:17px;line-height:1.6">Read as numbers, appending <em>r</em> bits to <em>D</em> is multiplying it by 2<sup>r</sup> &mdash; so the job is to compute</p>
+        <p class="eq" style="color:var(--accent)">F = remainder of (D &times; 2<sup>r</sup>) / P</p>
       </div>
 
       <div class="frag card" style="padding:11px 18px;border-left:3px solid var(--accent)">
@@ -1552,14 +1553,14 @@ svg text{font-family:var(--sans)}
           <text x="135" y="63" text-anchor="middle" dominant-baseline="middle" font-size="16" fill="currentColor"><tspan font-style="italic" font-weight="700">D</tspan><tspan font-family="monospace"> = 1010001101</tspan></text>
         </g>
         <g class="gF">
-          <text x="325" y="14" text-anchor="middle" font-style="italic" font-size="14" fill="currentColor">n&minus;k bits (5)</text>
+          <text x="325" y="14" text-anchor="middle" font-style="italic" font-size="14" fill="currentColor">r bits (5)</text>
           <path d="M250,20 L250,34 M250,20 L400,20 M400,20 L400,34" stroke="currentColor" stroke-width="1.5" fill="none"/>
           <rect x="250" y="34" width="150" height="52" fill="none" stroke="currentColor" stroke-width="2"/>
           <text x="325" y="63" text-anchor="middle" dominant-baseline="middle" font-style="italic" font-size="22" fill="currentColor">F</text>
         </g>
         <g class="gT">
           <path d="M20,100 L20,114 M20,114 L400,114 M400,114 L400,100" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
-          <text text-anchor="middle" font-size="14" fill="var(--accent)"><tspan x="210" y="130" font-style="italic" font-size="17" font-weight="700">T</tspan><tspan x="210" y="148">n = 15 bits</tspan></text>
+          <text text-anchor="middle" font-size="14" fill="var(--accent)"><tspan x="210" y="130" font-style="italic" font-size="17" font-weight="700">T</tspan><tspan x="210" y="148">k+r = 15 bits</tspan></text>
         </g>
       </svg>
     </div>
@@ -1751,8 +1752,8 @@ svg text{font-family:var(--sans)}
       </div>
 
       <div class="frag row" style="font-size:13.5px;color:var(--muted)">
-        <div class="lft">appending <em>n&minus;k</em> zeros&hellip;</div>
-        <div class="rgt">&hellip;is multiplying by x<sup>n&minus;k</sup> &mdash; worth checking for yourself</div>
+        <div class="lft">appending <em>r</em> zeros&hellip;</div>
+        <div class="rgt">&hellip;is multiplying by x<sup>r</sup> &mdash; worth checking for yourself</div>
       </div>
 
       <div class="frag row" style="font-size:16px;border-top:1px solid var(--border);margin-top:4px;padding-top:2px;color:var(--accent);font-weight:600">
