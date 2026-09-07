@@ -495,14 +495,14 @@ svg text{font-family:var(--sans)}
   <p class="lead" style="margin:0 0 26px;font-size:23px;max-width:60ch">Routing is how a network decides,
   <b>automatically</b>, which path packets take from each source to each destination.</p>
   <div class="cols" style="gap:24px;align-items:flex-start">
-    <div class="col frag" style="flex:1"><span class="pnote" hidden>First: routing does not just hand you any path. It defines a cost metric, so that every path has a cost — and then we simply take the cheapest one. What cost means is the operator's choice, and it can be multidimensional: hop count, delay, spare bandwidth, and economic incentives.</span>
+    <div class="col frag" style="flex:1"><span class="pnote" hidden>First: routing does not just hand you any path. It defines a cost metric, so that every path has a cost — and then we simply take the cheapest one. The cost metric can capture many factors — hop count, that is distance, delay, bandwidth, and so on.</span>
       <div class="card" style="border-left:4px solid var(--current);padding:17px 22px;margin:0">
         <p class="mono" style="margin:0 0 9px;font-size:15px;color:var(--current)">which path counts as best</p>
         <p style="margin:0 0 9px;font-size:17.5px">Routing does not hand out just <em>any</em> path. It defines a
         <b>cost metric</b>, so that every path has a cost &mdash; and then picks the path with the
         <b>least</b> cost.</p>
-        <p style="margin:0;font-size:16.5px;color:var(--muted)">What cost <em>means</em> is the operator's
-        choice &mdash; hop count, delay, spare bandwidth, money.</p>
+        <p style="margin:0;font-size:16.5px;color:var(--muted)">The cost metric can capture many factors,
+        such as hop count (distance), delay, bandwidth, and so on.</p>
       </div>
     </div>
     <div class="col frag" style="flex:1"><span class="pnote" hidden>Second: when does it happen? Before any packet arrives. Working a path out on the fly, as the packet turns up, would be far too slow — the path has to be ready beforehand so that we add no unnecessary delay to delivering it. And it reruns whenever the network changes: links fail and costs change, so a path that was good a moment ago may not even exist now. Routing is therefore a continuously running process.</span>
