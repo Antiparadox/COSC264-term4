@@ -2023,7 +2023,7 @@ svg text{font-family:var(--sans)}
     <p class="frag" style="font-size:22px;margin:0">A simple idea: what if every router knew the <b>complete network topology</b>? Then each router could compute its shortest paths to all destinations <b>directly</b>.</p>
     <p class="frag" style="font-size:22px;margin:0">This avoids DV&rsquo;s limitation: <b>no count-to-infinity</b> &mdash; routers share the <b>map</b>.</p>
 
-    <p class="frag" style="font-size:22px;margin:0">Each computes its own <b>shortest-path tree</b> from the same topology, and such a tree cannot contain a loop.</p>
+    <p class="frag" style="font-size:22px;margin:0">Each router then works out the <b>shortest path</b> over that whole topology itself &mdash; and a shortest path can never contain a loop, since going round in a circle only adds cost.</p>
     <p class="frag" style="font-size:22px;margin:0;color:var(--accent)">This is the idea behind <b>link-state routing</b>.</p>
   </div>
 </section>
