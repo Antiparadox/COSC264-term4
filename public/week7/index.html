@@ -659,13 +659,13 @@ svg text{font-family:var(--sans)}
       <thead><tr><th style="width:11%"></th><th style="color:var(--accent);width:33%">routing</th><th style="color:var(--current)">forwarding</th></tr></thead>
       <tbody>
         <tr class="rfrow"><td style="color:var(--muted)">job</td><td>produces the tables</td><td>uses the tables</td></tr>
+        <tr class="rfrow"><td style="color:var(--muted)">plane</td><td>control plane</td><td>data plane</td></tr>
         <tr class="rfrow"><td style="color:var(--muted)">when</td><td>before data arrives</td><td>when a datagram arrives</td></tr>
         <tr class="rfrow"><td style="color:var(--muted)">speed</td><td>slower</td><td>faster &mdash; <span style="color:var(--muted)">nanoseconds</span></td></tr>
-        <tr class="rfrow"><td style="color:var(--muted)">plane</td><td>control plane</td><td>data plane</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="frag" style="display:none"><span class="pnote" hidden>Routing produces the tables. Forwarding uses them.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Routing runs beforehand, offline. Forwarding runs at the moment a datagram actually arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Which is why forwarding has to be fast — nanoseconds, per packet — and routing can afford to be slow.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And the names for the two halves: control plane and data plane. Those terms come back all term.</span></p>
+  <p class="frag" style="display:none"><span class="pnote" hidden>Routing produces the tables. Forwarding uses them.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>And the names for the two halves: control plane and data plane. Those terms come back all term.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Routing runs beforehand, before any data arrives. Forwarding runs at the moment a datagram actually arrives.</span></p>  <p class="frag" style="display:none"><span class="pnote" hidden>Which is why forwarding has to be fast — nanoseconds, per packet — and routing can afford to be slow.</span></p>
 </section>
 
 <!-- ====== Slide 12: Road trip analogy ====== -->
