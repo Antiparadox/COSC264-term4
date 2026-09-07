@@ -1865,6 +1865,7 @@ svg text{font-family:var(--sans)}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
 <!-- ====== Poison reverse ====== -->
@@ -3506,17 +3507,19 @@ function updateCountInfSlide(){
   STEP[9]  = xBroadcast;
   STEP[10] = xBroadcast + xForced;
   STEP[11] = xBroadcast + xForced + xThroughZ;
-  STEP[12] = yBroadcast;
-  STEP[13] = yBroadcast + yForced;
-  STEP[14] = yBroadcast + yForced + yThroughZ2;
-  STEP[15] = K.head('the loop keeps going') + K.line('y sends 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …')
+  STEP[12] = xBroadcast + xForced + xThroughZ
+    + K.line('x&rsquo;s own distance vector has changed, so it must advertise that change to its neighbours &mdash; in particular, it sends <b>y</b> this update.');
+  STEP[13] = yBroadcast;
+  STEP[14] = yBroadcast + yForced;
+  STEP[15] = yBroadcast + yForced + yThroughZ2;
+  STEP[16] = K.head('the loop keeps going') + K.line('y sends 9 to x, x computes 2+9 = <b>11</b>, y: 2+11 = <b>13</b>, x: 2+13 = <b>15</b> …')
     + K.line('The climb only stops when going via the other router costs more than the <b>direct x–z link of 50</b>.')
     + K.ok('x switches to the direct link at <b>d<sub>x</sub>(z) = 50</b>, and y follows at <b>d<sub>y</sub>(z) = 52</b>. The network is stable again.');
-  STEP[16] = STEP[15] + K.note('And it is <b>slow</b>. The cost only climbs two at a time, so it takes roughly <b>22 rounds</b> of exchanges before the direct link finally wins. For all of that time x and y are still handing the same packets back and forth.');
-  STEP[17] = noLink;
-  STEP[18] = noLink2;
-  STEP[19] = noLink2 + K.note('This is the <b style="color:var(--bad)">count-to-infinity problem</b>: a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.');
-  STEP[20] = STEP[19] + '<div style="margin-top:11px;font-size:17px;color:var(--accent)">How do we address this?</div>';
+  STEP[17] = STEP[16] + K.note('And it is <b>slow</b>. The cost only climbs two at a time, so it takes roughly <b>22 rounds</b> of exchanges before the direct link finally wins. For all of that time x and y are still handing the same packets back and forth.');
+  STEP[18] = noLink;
+  STEP[19] = noLink2;
+  STEP[20] = noLink2 + K.note('This is the <b style="color:var(--bad)">count-to-infinity problem</b>: in <b>distance-vector routing</b>, a router cannot tell that a neighbour’s route runs back through itself, so the loop forms and the cost climbs one step at a time.');
+  STEP[21] = STEP[20] + '<div style="margin-top:11px;font-size:17px;color:var(--accent)">How do we address this?</div>';
       if(STEP[n]) c1.innerHTML=STEP[n];
     }
   } else {
@@ -3534,9 +3537,9 @@ function updateCountInfSlide(){
 
   var good=' style="color:var(--current);font-weight:700"';
   var xzC='3',xzP='y',xzS='';
-  if(n>=11&&n<=14){xzC='7';xzP='y';xzS=hot;}
-  else if(n>=15&&n<=16){xzC='50';xzP='z';xzS=good;}    // settles on the direct link
-  else if(n>=17){xzC='…';xzP='y';xzS=hot;}             // no direct link: unbounded
+  if(n>=11&&n<=15){xzC='7';xzP='y';xzS=hot;}
+  else if(n>=16&&n<=17){xzC='50';xzP='z';xzS=good;}    // settles on the direct link
+  else if(n>=18){xzC='…';xzP='y';xzS=hot;}             // no direct link: unbounded
   if(tbx)tbx.innerHTML=row('y','2','y')+row('z',xzC,xzP,xzS);
 
   // The failure alone changes nothing: y's table only moves once y actually
@@ -3545,10 +3548,10 @@ function updateCountInfSlide(){
   // distance, so p_y(z) does not become x until the relax loop at line 15.
   var yzC='1',yzH='z',yzS='';
   if(n>=5&&n<=6){yzC='∞';yzH='z';yzS=hot;}
-  else if(n>=7&&n<=12){yzC='5';yzH='x';yzS=hot;}
-  else if(n>=13&&n<=14){yzC='9';yzH='x';yzS=hot;}
-  else if(n>=15&&n<=16){yzC='52';yzH='x';yzS=good;}
-  else if(n>=17){yzC='…';yzH='x';yzS=hot;}
+  else if(n>=7&&n<=13){yzC='5';yzH='x';yzS=hot;}
+  else if(n>=14&&n<=15){yzC='9';yzH='x';yzS=hot;}
+  else if(n>=16&&n<=17){yzC='52';yzH='x';yzS=good;}
+  else if(n>=18){yzC='…';yzH='x';yzS=hot;}
   if(tby)tby.innerHTML=row('x','2','x')+row('z',yzC,yzH,yzS);
 }
 
