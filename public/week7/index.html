@@ -1114,6 +1114,19 @@ svg text{font-family:var(--sans)}
   in Module 2.</p>
 </section>
 
+<!-- ── Recap: the routing problem ── -->
+<section class="slide" data-sec="Who runs it?">
+  <span class="pnote" hidden>Before we move on, a quick recap of the first part of this module.</span>
+  <div class="kicker">Recap</div>
+  <h2>The routing problem &mdash; what we covered</h2>
+  <div style="display:flex;flex-direction:column;gap:20px;flex:1;justify-content:center;max-width:1000px">
+    <p class="frag" style="font-size:23px;margin:0;line-height:1.5"><span class="pnote" hidden>Routing builds the forwarding tables. Forwarding just reads one row of the table and passes the packet on.</span><b>Routing</b> builds the forwarding tables; <b>forwarding</b> reads one row and passes the packet on.</p>
+    <p class="frag" style="font-size:23px;margin:0;line-height:1.5"><span class="pnote" hidden>There are two families of routing algorithm. Link-state gets the whole map. Distance-vector only asks its neighbours.</span>Two families of algorithm: <b>link-state</b> gets the whole map, <b>distance-vector</b> asks its neighbours.</p>
+    <p class="frag" style="font-size:23px;margin:0;line-height:1.5"><span class="pnote" hidden>Nobody runs the whole Internet, so the unit that decides is the autonomous system — one operator, one routing policy.</span>Nobody runs the whole Internet, so the unit that decides is the <b>autonomous system</b>.</p>
+    <p class="frag" style="font-size:23px;margin:0;line-height:1.5"><span class="pnote" hidden>That splits routing into two problems: intra-AS routing inside one autonomous system, and inter-AS routing between them.</span>That splits routing in two: <b>intra-AS</b> inside one, <b>inter-AS</b> between them.</p>
+  </div>
+</section>
+
 
 <!-- ====================================================================
      LECTURE 2 — Link-State Routing & Shortest-Path Algorithms
