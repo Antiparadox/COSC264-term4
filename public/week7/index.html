@@ -1955,6 +1955,7 @@ svg text{font-family:var(--sans)}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 <!-- ====== Distance-vector recap ====== -->
 <section class="slide" data-sec="Shortest Paths &amp; Distance-Vector">
@@ -3566,7 +3567,7 @@ function updateSplitHorizonSlide(){
   setOp('sh-poison-contrast',n===4?1:0);
   setOp('sh-fail',n>=5?1:0);
   setOp('sh-y-to-x',n===6?1:0);
-  setOp('sh-x-to-y',n>=8?1:0);
+  setOp('sh-x-to-y',n>=9?1:0);
   var yzLine=document.getElementById('sh-yz');
   var yzCost=document.getElementById('sh-yzcost');
   if(yzLine)yzLine.setAttribute('opacity',n>=5?'0.15':'1');
@@ -3582,14 +3583,15 @@ function updateSplitHorizonSlide(){
       else if(n===3) c.innerHTML='x performs relaxation:<div style="margin:8px 0 0 12px">via y: c(x,y) + d<sub>y</sub>(z) = 2 + 1 = <b>3</b><br>direct to z: cost = <b>50</b></div><div style="margin-top:8px">3 &lt; 50, so x adopts the route via y:</div><div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px"><b style="color:var(--accent)">d<sub>x</sub>(z) = 3, next<sub>x</sub>(z) = y</b></div>';
       else if(n===4) c.innerHTML='x adopted the route to z <b>from y</b> — y is the next hop.<div style="margin-top:8px">Poison reverse kicks in: x <b style="color:var(--accent)">lies to y</b>, advertising d<sub>x</sub>(z) = ∞.</div><div style="margin-top:8px;font-size:16px;color:var(--muted)">Without poison reverse, x would tell y its true cost d<sub>x</sub>(z) = 3 — and that is what causes the count-to-infinity situation.</div>';
       else if(n===5) c.innerHTML='The y–z link fails. y looks for an alternative route to z:<div style="margin:8px 0 0 12px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + ∞ = <b>∞</b><br><span style="color:var(--muted)">(x has been poisoning y)</span><br>direct to z: link down → <b>∞</b></div><div style="margin-top:8px">y has no route to z: <b style="color:var(--bad)">d<sub>y</sub>(z) = ∞</b></div>';
-      else if(n===6) c.innerHTML='y sends <b style="color:var(--accent)">d<sub>y</sub>(z) = ∞</b> to x.<div style="margin-top:10px">Since y is x’s next-hop, x must accept (<b>forced-accept rule</b>):<br>d<sub>x</sub>(z) = ∞.</div><div style="margin-top:8px">x performs relaxation: direct to z costs <b>50</b>, cheaper than ∞.</div><div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px">Update: <b style="color:var(--accent)">d<sub>x</sub>(z) = 50, next<sub>x</sub>(z) = z</b></div>';
-      else if(n===7) c.innerHTML='<div style="padding:12px 16px;border:2px solid var(--accent);border-radius:6px;color:var(--accent)"><b>What should x advertise to y now &mdash; the true d<sub>x</sub>(z) = 50, or &infin;?</b></div><div style="margin-top:10px;font-size:16px;color:var(--muted)">Think about whether poison reverse applies here.</div>';
-      else if(n===8) c.innerHTML='<b>The true value, 50</b> — x’s next-hop to z is now <b>z</b>, not y, so poison reverse does not apply:<div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px"><b style="color:var(--accent)">d<sub>x</sub>(z) = 50</b></div><div style="margin-top:8px">y performs relaxation:</div><div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 50 = <b>52</b><br>direct to z: ∞</div><div style="margin-top:4px">52 &lt; ∞ → update: <b style="color:var(--accent)">d<sub>y</sub>(z) = 52, next<sub>y</sub>(z) = x</b></div>';
-      else if(n===9) c.innerHTML='<b style="color:var(--accent);font-size:20px">The network converges correctly.</b><div style="margin-top:10px">Poison reverse prevents 2-node loops.</div>';
-      else if(n===10) c.innerHTML='<div style="padding:12px 16px;border:2px solid var(--accent);border-radius:6px;color:var(--accent)"><b>But does poison reverse completely solve the count-to-infinity problem?</b></div>';
-      else if(n===11) c.innerHTML='<b style="color:var(--accent);font-size:20px">No.</b><div style="margin-top:10px">Can you think of a case where it fails?</div>';
-      else if(n===12) c.innerHTML='Loops involving <b>three or more nodes</b> will not be detected by poison reverse.';
-      else if(n===13) c.innerHTML='<div style="padding:10px 14px;border-radius:6px;background:rgba(224,120,80,0.08)">Despite this limitation, poison reverse is still used as a heuristic in distance-vector routing protocols such as <b>RIP</b>.</div>';
+      else if(n===6) c.innerHTML='y sends <b style="color:var(--accent)">d<sub>y</sub>(z) = ∞</b> to x.<div style="margin-top:10px">Since y is x’s next-hop, x must accept (<b>forced-accept rule</b>):<br><b style="color:var(--bad)">d<sub>x</sub>(z) = ∞</b>.</div>';
+      else if(n===7) c.innerHTML='y sends <b style="color:var(--accent)">d<sub>y</sub>(z) = ∞</b> to x.<div style="margin-top:10px">Since y is x’s next-hop, x must accept (<b>forced-accept rule</b>):<br><b style="color:var(--bad)">d<sub>x</sub>(z) = ∞</b>.</div><div style="margin-top:8px">x then performs relaxation: direct to z costs <b>50</b>, cheaper than ∞.</div><div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px">Update: <b style="color:var(--accent)">d<sub>x</sub>(z) = 50, next<sub>x</sub>(z) = z</b></div>';
+      else if(n===8) c.innerHTML='<div style="padding:12px 16px;border:2px solid var(--accent);border-radius:6px;color:var(--accent)"><b>What should x advertise to y now &mdash; the true d<sub>x</sub>(z) = 50, or &infin;?</b></div><div style="margin-top:10px;font-size:16px;color:var(--muted)">Think about whether poison reverse applies here.</div>';
+      else if(n===9) c.innerHTML='<b>The true value, 50</b> — x’s next-hop to z is now <b>z</b>, not y, so poison reverse does not apply:<div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px"><b style="color:var(--accent)">d<sub>x</sub>(z) = 50</b></div><div style="margin-top:8px">y performs relaxation:</div><div style="margin:6px 0;padding:8px 12px;background:rgba(224,120,80,0.08);border-radius:6px">via x: c(y,x) + d<sub>x</sub>(z) = 2 + 50 = <b>52</b><br>direct to z: ∞</div><div style="margin-top:4px">52 &lt; ∞ → update: <b style="color:var(--accent)">d<sub>y</sub>(z) = 52, next<sub>y</sub>(z) = x</b></div>';
+      else if(n===10) c.innerHTML='<b style="color:var(--accent);font-size:20px">The network converges correctly.</b><div style="margin-top:10px">Poison reverse prevents 2-node loops.</div>';
+      else if(n===11) c.innerHTML='<div style="padding:12px 16px;border:2px solid var(--accent);border-radius:6px;color:var(--accent)"><b>But does poison reverse completely solve the count-to-infinity problem?</b></div>';
+      else if(n===12) c.innerHTML='<b style="color:var(--accent);font-size:20px">No.</b><div style="margin-top:10px">Can you think of a case where it fails?</div>';
+      else if(n===13) c.innerHTML='Loops involving <b>three or more nodes</b> will not be detected by poison reverse.';
+      else if(n===14) c.innerHTML='<div style="padding:10px 14px;border-radius:6px;background:rgba(224,120,80,0.08)">Despite this limitation, poison reverse is still used as a heuristic in distance-vector routing protocols such as <b>RIP</b>.</div>';
     }
   } else {
     if(card)card.style.display='none';
@@ -3600,9 +3602,11 @@ function updateSplitHorizonSlide(){
   if(tbx){
     if(n<3) tbx.innerHTML='<tr><td>z</td><td class="mono">50</td><td class="mono">z</td></tr>';
     else if(n<6) tbx.innerHTML='<tr style="color:var(--accent);font-weight:700"><td>z</td><td class="mono">3</td><td class="mono">y</td></tr>';
+    // the forced accept assigns the distance only; the next hop moves when x relaxes
+    else if(n===6) tbx.innerHTML='<tr style="color:var(--bad);font-weight:700"><td>z</td><td class="mono">∞</td><td class="mono">y</td></tr>';
     else tbx.innerHTML='<tr style="color:var(--accent);font-weight:700"><td>z</td><td class="mono">50</td><td class="mono">z</td></tr>';
   }
-  if(tby) tby.innerHTML='<tr'+(n>=5&&n<=7?' style="color:var(--bad);font-weight:700"':(n>=8?' style="color:var(--accent);font-weight:700"':''))+'><td>z</td><td class="mono">'+(n>=5&&n<=7?'∞':(n>=8?'52':'1'))+'</td><td class="mono">'+(n>=5&&n<=7?'nil':(n>=8?'x':'z'))+'</td></tr>';
+  if(tby) tby.innerHTML='<tr'+(n>=5&&n<=8?' style="color:var(--bad);font-weight:700"':(n>=9?' style="color:var(--accent);font-weight:700"':''))+'><td>z</td><td class="mono">'+(n>=5&&n<=8?'∞':(n>=9?'52':'1'))+'</td><td class="mono">'+(n>=5&&n<=8?'nil':(n>=9?'x':'z'))+'</td></tr>';
 }
 /* ---------- Dijkstra insight animation ---------- */
 function updateDijkstraDescSlide(){
