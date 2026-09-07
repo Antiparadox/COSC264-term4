@@ -1658,8 +1658,8 @@ svg text{font-family:var(--sans)}
       <div id="dvp-f4" class="card" style="display:none;border-left:4px solid var(--bad);padding:12px 16px">
         <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--bad);text-transform:uppercase;letter-spacing:1px">Forced-accept rule</p>
         <p style="font-size:17px;margin:0">If the update comes from your <b>current next-hop</b> for a destination, accept unconditionally &mdash; even if the cost is <em>worse</em>.</p>
-        <p style="font-size:17px;margin:10px 0 0;font-weight:700;color:var(--bad)">Why?</p>
-        <p style="font-size:17px;margin:4px 0 0">Your route to that destination runs <b>through</b> that neighbour. If their cost changes, yours changes with it &mdash; your old estimate is simply no longer true.</p>
+        <p id="dvp-why" style="display:none;font-size:17px;margin:10px 0 0;font-weight:700;color:var(--bad)">Why?</p>
+        <p id="dvp-ans" style="display:none;font-size:17px;margin:4px 0 0">Your route to that destination runs <b>through</b> that neighbour. If their cost changes, yours changes with it &mdash; your old estimate is simply no longer true.</p>
       </div>
       <div id="dvp-f5" style="display:none">
         <p style="font-size:18px;margin:0">Lines 9&ndash;15 can be simplified into the following two lines of code:</p>
@@ -1671,6 +1671,8 @@ svg text{font-family:var(--sans)}
     </div>
   </div>
   <!-- Hidden fragment triggers -->
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
@@ -3285,8 +3287,13 @@ function updateDVProtoSlide(){
   if(f1)f1.style.display=(n===1)?'':'none';
   if(f2)f2.style.display=(n===2)?'':'none';
   if(f3)f3.style.display=(n===3)?'':'none';
-  if(f4)f4.style.display=(n===4)?'':'none';
-  if(f5)f5.style.display=(n>=5)?'':'none';
+  if(f4)f4.style.display=(n>=4&&n<=6)?'':'none';
+  if(f5)f5.style.display=(n>=7)?'':'none';
+  // the rule, then the question, then the answer
+  var why=document.getElementById('dvp-why');
+  var ans=document.getElementById('dvp-ans');
+  if(why)why.style.display=(n>=5&&n<=6)?'':'none';
+  if(ans)ans.style.display=(n===6)?'':'none';
   // Forced-accept block only appears once the "accept unconditionally" rule is on screen
   var faIds=['dvpfa1','dvpfa2','dvpfa3'];
   faIds.forEach(function(id){var r=document.getElementById(id);if(r)r.style.display=(n>=4)?'':'none';});
@@ -3306,8 +3313,8 @@ function updateDVProtoSlide(){
     if(row.style.display==='none'||noNum.indexOf(id)>=0){if(num)num.textContent='';}
     else{ln++;if(num)num.textContent=(ln<10?' ':'')+ln;}
     var active=(n===1&&initRows.indexOf(id)>=0)||(n===2&&relaxRows.indexOf(id)>=0)
-             ||(n===3&&bcastRows.indexOf(id)>=0)||(n===4&&faIds.indexOf(id)>=0)
-             ||(n>=5&&minRows.indexOf(id)>=0);
+             ||(n===3&&bcastRows.indexOf(id)>=0)||(n>=4&&n<=6&&faIds.indexOf(id)>=0)
+             ||(n>=7&&minRows.indexOf(id)>=0);
     row.style.backgroundColor=active?'rgba(224,120,80,0.15)':'';
     row.style.borderLeft=active?'3px solid #e07850':'';
     row.style.paddingLeft=active?'4px':'';
