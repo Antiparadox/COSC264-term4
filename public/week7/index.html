@@ -2130,7 +2130,7 @@ svg text{font-family:var(--sans)}
     </div>
   </div>
 
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
 <section class="slide" data-sec="Dijkstra &amp; Link-State" id="dijkstra-slide">
@@ -3601,7 +3601,8 @@ function updateDijkstraDescSlide(){
   var n=fragCount(s);
   var allLines=[1,2,3,4,5,6,7,8,9,10,11,12];
   // which pseudocode lines each beat is about
-  var hlSets=[[],[],[1,2,3],[4],[6,7],[6,7],[8,9,10,11],[8,9,10,11],[8,9,10,11],[5,12]];
+  var R=[8,9,10,11];
+  var hlSets=[[],[],[1,2,3],[4],[6,7],[6,7],R,R,R,R,R,R,[5,12]];
   var active=n<hlSets.length?hlSets[n]:[];
   allLines.forEach(function(ln){
     var el=document.getElementById('dj-line-'+ln);
@@ -3612,7 +3613,7 @@ function updateDijkstraDescSlide(){
   });
   var box=document.getElementById('dj-relaxbox');
   if(box){
-    var on = n>=6 && n<=8;
+    var on = n>=6 && n<=11;
     box.style.outlineColor = on?'var(--accent)':'transparent';
     box.style.background   = on?'var(--accent-soft)':'transparent';
   }
@@ -3661,21 +3662,27 @@ function updateDijkstraDescSlide(){
      + '<b>boxed</b> lines on it.</p>'
      + '<div style="margin:11px 0 0;padding:11px 15px;border-radius:8px;background:var(--accent-soft)">'
      + '<p style="margin:0;color:var(--accent)"><b>Do you recognise this operation?</b></p></div></div>';
-  C[7]='<div class="djcard">'+HD+'Relaxation</p>'
-     + '<p style="margin:0">The same core operation as in distance vector &mdash; but with the roles swapped. '
-     + 'There a node asked <i>&ldquo;can <b>I</b> do better through one of my neighbours?&rdquo;</i>; '
-     + 'here we ask <i>&ldquo;can one of my <b>neighbours</b> do better through <b>me</b>?&rdquo;</i></p>'
-     + '<p style="margin:9px 0 0">Hold <b>u</b> fixed and go through its neighbours in turn &mdash; '
-     + 'say <b>w</b> first &mdash; and ask: <b>can w use u as its next hop and get a smaller distance '
-     + 'to s?</b></p>'
-     + '<p style="margin:9px 0 0">By <b>symmetry</b> the least cost from w to s is the same as from s '
-     + 'to w &mdash; so shrinking w&rsquo;s distance to s <i>is</i> shrinking '
-     + '<b class="mono">d<sub>s</sub>(w)</b>, which is what we were after.</p></div>';
-  C[8]='<div class="djcard">'+HD+'Relaxation</p>'
-     + '<p style="margin:0">If it can, take it &mdash; u becomes w&rsquo;s <b>next hop</b> to s. Read '
-     + 'the other way round, on the path from s to w that makes u the <b>predecessor</b> of w. Hence '
-     + '<b class="mono">pred<sub>s</sub>(w) = u</b>.</p></div>';
-  C[9]='<div class="djcard">'+HD+'Repeat</p>'
+  var RX = ['<li style="margin:0 0 8px">The same core operation as in <b>distance vector</b> '
+          + '&mdash; but with the roles <b>swapped</b>.</li>',
+            '<li style="margin:0 0 8px">There, a node asked: <i>can <b>I</b> get a shorter path '
+          + 'through one of my neighbours?</i></li>',
+            '<li style="margin:0">Here we ask: <i>can one of my <b>neighbours</b> get a shorter path '
+          + 'through <b>me</b>?</i></li>'];
+  function rxCard(k){
+    return '<div class="djcard">'+HD+'Relaxation</p>'
+         + '<ul style="margin:0;padding-left:20px">'+RX.slice(0,k).join('')+'</ul></div>';
+  }
+  C[7]=rxCard(1); C[8]=rxCard(2); C[9]=rxCard(3);
+  C[10]='<div class="djcard">'+HD+'Relaxation</p>'
+      + '<p style="margin:0">Hold <b>u</b> fixed and go through its neighbours in turn &mdash; say '
+      + '<b>w</b>. Ask: is the path to w <b>via u</b> shorter than w&rsquo;s current best, '
+      + '<b class="mono">d<sub>s</sub>(w)</b>?</p></div>';
+  C[11]='<div class="djcard">'+HD+'Relaxation</p>'
+      + '<p style="margin:0">If it is, take it: <b class="mono">d<sub>s</sub>(w)</b> becomes '
+      + '<b class="mono">d<sub>s</sub>(u) + c(u,w)</b>, and since we reached w from u, '
+      + '<b class="mono">pred<sub>s</sub>(w) = u</b>.</p>'
+      + '<p style="margin:9px 0 0">That is exactly <b>relaxation</b>.</p></div>';
+  C[12]='<div class="djcard">'+HD+'Repeat</p>'
       + '<p style="margin:0">Pick the next minimum, settle it, relax outward &mdash; until every node '
       + 'is settled.</p></div>';
   var B=[];
@@ -3688,7 +3695,7 @@ function updateDijkstraDescSlide(){
   var subEl=document.getElementById('dj-sub');
   if(subEl) subEl.innerHTML = B[n] || '';
   var dg=document.getElementById('dj-diagram');
-  if(dg) dg.style.display = (n===7||n===8)?'':'none';
+  if(dg) dg.style.display = (n===10||n===11)?'':'none';
 }
 
 /* ---------- Flooding animation (slides 37-38) ---------- */
