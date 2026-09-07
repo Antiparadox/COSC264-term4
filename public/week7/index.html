@@ -2084,7 +2084,7 @@ svg text{font-family:var(--sans)}
       <div class="card mono" style="padding:18px 22px;font-size:15px;line-height:2;background:var(--surface);border:1px solid var(--border)">
         <div id="dj-line-1" style="opacity:0.3;transition:all 0.3s">initialise d<sub>s</sub>(s) = 0</div>
         <div id="dj-line-2" style="opacity:0.3;transition:all 0.3s;padding-left:24px">d<sub>s</sub>(v) = c(s,v)  <span style="color:var(--muted)">if v is a neighbour of s, else</span> &#x221E;</div>
-        <div id="dj-line-3" style="opacity:0.3;transition:all 0.3s;padding-left:24px">p<sub>s</sub>(v) = s      <span style="color:var(--muted)">if v is a neighbour of s, else</span> nil</div>
+        <div id="dj-line-3" style="opacity:0.3;transition:all 0.3s;padding-left:24px">pred<sub>s</sub>(v) = s   <span style="color:var(--muted)">if v is a neighbour of s, else</span> nil</div>
         <div id="dj-line-4" style="opacity:0.3;transition:all 0.3s">S = {s} <span style="color:var(--muted)">(settled set)</span></div>
         <div id="dj-line-5" style="opacity:0.3;transition:all 0.3s;margin-top:8px"><b>repeat:</b></div>
         <div id="dj-line-6" style="opacity:0.3;transition:all 0.3s;padding-left:24px">u = unsettled node with smallest d<sub>s</sub>(u)</div>
@@ -2092,7 +2092,7 @@ svg text{font-family:var(--sans)}
         <div id="dj-line-8" style="opacity:0.3;transition:all 0.3s;padding-left:24px">for each neighbour w of u:</div>
         <div id="dj-line-9" style="opacity:0.3;transition:all 0.3s;padding-left:48px">if d<sub>s</sub>(u) + c(u,w) &lt; d<sub>s</sub>(w): <span id="dj-question" style="color:var(--accent)">&#x2190; ???</span></div>
         <div id="dj-line-10" style="opacity:0.3;transition:all 0.3s;padding-left:72px">d<sub>s</sub>(w) = d<sub>s</sub>(u) + c(u,w)</div>
-        <div id="dj-line-11" style="opacity:0.3;transition:all 0.3s;padding-left:72px">p<sub>s</sub>(w) = u</div>
+        <div id="dj-line-11" style="opacity:0.3;transition:all 0.3s;padding-left:72px">pred<sub>s</sub>(w) = u</div>
         <div id="dj-line-12" style="opacity:0.3;transition:all 0.3s"><b>until</b> all nodes settled</div>
       </div>
     </div>
@@ -2207,7 +2207,7 @@ svg text{font-family:var(--sans)}
   </div>
   <div id="dk-tablewrap" style="margin-top:16px">
     <table class="ft" id="dk-table" style="table-layout:fixed;width:100%">
-      <thead><tr><th style="width:7%">Step</th><th style="width:17.4%">S</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(A), p<sub>s</sub>(A)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(B), p<sub>s</sub>(B)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(C), p<sub>s</sub>(C)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(D), p<sub>s</sub>(D)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(E), p<sub>s</sub>(E)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(F), p<sub>s</sub>(F)</th></tr></thead>
+      <thead><tr><th style="width:7%">Step</th><th style="width:17.4%">S</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(A)<br>pred<sub>s</sub>(A)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(B)<br>pred<sub>s</sub>(B)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(C)<br>pred<sub>s</sub>(C)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(D)<br>pred<sub>s</sub>(D)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(E)<br>pred<sub>s</sub>(E)</th><th style="width:12.6%;white-space:nowrap;text-transform:none">d<sub>s</sub>(F)<br>pred<sub>s</sub>(F)</th></tr></thead>
       <tbody id="dk-tbody"></tbody>
     </table>
   </div>
@@ -2222,7 +2222,7 @@ svg text{font-family:var(--sans)}
       <div id="dk-trace" style="display:none;flex:1.3;min-width:0">
         <div class="card" style="border-left:4px solid var(--accent);padding:14px 18px;margin:0">
           <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)">Tracing F&rsquo;s predecessors</p>
-          <p class="mono" style="margin:0;font-size:17px;line-height:1.9">p<sub>s</sub>(F) = E &nbsp;&rarr;&nbsp; p<sub>s</sub>(E) = D &nbsp;&rarr;&nbsp; p<sub>s</sub>(D) = A</p>
+          <p class="mono" style="margin:0;font-size:17px;line-height:1.9">pred<sub>s</sub>(F) = E &nbsp;&rarr;&nbsp; pred<sub>s</sub>(E) = D &nbsp;&rarr;&nbsp; pred<sub>s</sub>(D) = A</p>
           <p style="margin:8px 0 0;font-size:17px">So the path is <b class="mono">A &rarr; D &rarr; E &rarr; F</b>. Therefore, on the shortest path to F, the <b>next hop is D</b>.</p>
         </div>
       </div>
@@ -3621,14 +3621,14 @@ function updateDijkstraDescSlide(){
      + '<b class="mono">d<sub>s</sub>*(v)</b> &mdash; the <b>optimal</b> cost from s to v '
      + '<span style="color:var(--muted)">(the * means optimal, as before)</span><br>'
      + '<b class="mono">c(u,w)</b> &mdash; the cost of the link u&ndash;w<br>'
-     + '<b class="mono">p<sub>s</sub>(v)</b> &mdash; v&rsquo;s <b>predecessor</b>: the node we '
+     + '<b class="mono">pred<sub>s</sub>(v)</b> &mdash; v&rsquo;s <b>predecessor</b>: the node we '
      + 'reached v from</p>'
      + '<div style="margin:9px 0 0;padding:9px 13px;border-radius:7px;background:var(--accent-soft);'
      + 'line-height:1.7">'
      + '<span style="font-size:15px;color:var(--muted)">e.g. if the best path is&nbsp;&nbsp;</span>'
      + '<span class="mono" style="font-size:17px;color:var(--accent-ink)">s &rarr; a &rarr; b &rarr; v'
      + '</span><br><span class="mono" style="font-size:17px;color:var(--accent-ink)">'
-     + 'p<sub>s</sub>(v) = b &nbsp; p<sub>s</sub>(b) = a &nbsp; p<sub>s</sub>(a) = s</span></div></div>';
+     + 'pred<sub>s</sub>(v) = b &nbsp; pred<sub>s</sub>(b) = a &nbsp; pred<sub>s</sub>(a) = s</span></div></div>';
   C[2]='<div class="djcard">'+HD+'Start</div>'.replace('</div>','</p>')
      + '<ul style="margin:0;padding-left:20px">'
      + '<li style="margin:0 0 7px"><b class="mono">d<sub>s</sub>(s) = 0</b> &mdash; s is zero away from '
@@ -3661,7 +3661,7 @@ function updateDijkstraDescSlide(){
   C[8]='<div class="djcard">'+HD+'Relaxation</p>'
      + '<p style="margin:0">If it can, take it &mdash; u becomes w&rsquo;s <b>next hop</b> to s. Read '
      + 'the other way round, on the path from s to w that makes u the <b>predecessor</b> of w. Hence '
-     + '<b class="mono">p<sub>s</sub>(w) = u</b>.</p></div>';
+     + '<b class="mono">pred<sub>s</sub>(w) = u</b>.</p></div>';
   C[9]='<div class="djcard">'+HD+'Repeat</p>'
       + '<p style="margin:0">Pick the next minimum, settle it, relax outward &mdash; until every node '
       + 'is settled.</p></div>';
@@ -3910,12 +3910,12 @@ function updateDijkstraSlide(){
   if(relaxDiv&&relaxContent){
     var dSettle='<div><b>Settle:</b> D has the smallest tentative distance: d<sub>s</sub>(D)&nbsp;=&nbsp;1. Add D to S → d<sub>s</sub>*(D)&nbsp;=&nbsp;1.</div>';
     var dRelax='<div style="margin:10px 0 4px;color:var(--accent);font-weight:700">Relax D’s neighbours:</div>'
-      +'d<sub>s</sub>(D) + c(D,C) = 1 + 3 = 4 &lt; 5 → d<sub>s</sub>(C) = 4, p<sub>s</sub>(C) = D<br>'
-      +'d<sub>s</sub>(D) + c(D,E) = 1 + 1 = 2 &lt; ∞ → d<sub>s</sub>(E) = 2, p<sub>s</sub>(E) = D';
+      +'d<sub>s</sub>(D) + c(D,C) = 1 + 3 = 4 &lt; 5 → d<sub>s</sub>(C) = 4, pred<sub>s</sub>(C) = D<br>'
+      +'d<sub>s</sub>(D) + c(D,E) = 1 + 1 = 2 &lt; ∞ → d<sub>s</sub>(E) = 2, pred<sub>s</sub>(E) = D';
     var eSettle='<div><b>Settle:</b> E has the smallest tentative distance: d<sub>s</sub>(E)&nbsp;=&nbsp;2. Add E to S → d<sub>s</sub>*(E)&nbsp;=&nbsp;2.</div>';
     var eRelax='<div style="margin:10px 0 4px;color:var(--accent);font-weight:700">Relax E’s neighbours:</div>'
-      +'d<sub>s</sub>(E) + c(E,C) = 2 + 1 = 3 &lt; 4 → d<sub>s</sub>(C) = 3, p<sub>s</sub>(C) = E<br>'
-      +'d<sub>s</sub>(E) + c(E,F) = 2 + 2 = 4 &lt; ∞ → d<sub>s</sub>(F) = 4, p<sub>s</sub>(F) = E';
+      +'d<sub>s</sub>(E) + c(E,C) = 2 + 1 = 3 &lt; 4 → d<sub>s</sub>(C) = 3, pred<sub>s</sub>(C) = E<br>'
+      +'d<sub>s</sub>(E) + c(E,F) = 2 + 2 = 4 &lt; ∞ → d<sub>s</sub>(F) = 4, pred<sub>s</sub>(F) = E';
     if(n>=2&&n<=4){ relaxDiv.style.display='block'; relaxContent.innerHTML=dSettle+(n>=3?dRelax:''); }
     else if(n>=5&&n<=7){ relaxDiv.style.display='block'; relaxContent.innerHTML=eSettle+(n>=6?eRelax:''); }
     else { relaxDiv.style.display='none'; }
