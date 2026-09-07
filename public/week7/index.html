@@ -884,8 +884,10 @@ svg text{font-family:var(--sans)}
       all.</p>
       <p class="frag" style="margin-top:18px;font-size:21px"><span class="pnote" hidden>So who decides which routing protocol runs? Nobody is in charge of the Internet, so nobody gets to impose one answer.</span>So <b>who decides</b> which routing
       protocol runs? Nobody is in charge of the Internet, so nobody gets to impose one answer.</p>
-      <p class="frag" style="margin-top:18px;font-size:21px"><span class="pnote" hidden>The way out is to stop asking about the Internet as a whole, and find the smallest piece that can decide for itself.</span>The way out is to stop asking about the
-      Internet as a whole, and find the smallest piece that <b>can</b> decide for itself.</p>
+      <p class="frag" style="margin-top:18px;font-size:21px"><span class="pnote" hidden>The way out is to stop thinking of the Internet as a whole. It is a network of subnetworks — so find the smallest piece that has the autonomy to decide for itself, and treat the Internet as a network of those pieces.</span>The way out is to stop thinking of the
+      Internet as a whole. It is a <b>network of subnetworks</b>.</p>
+      <p class="frag" style="margin-top:18px;font-size:21px"><span class="pnote" hidden>So we look for the smallest piece that has the autonomy to decide for itself — and then the Internet is a network of those pieces.</span>So find the smallest piece that has the
+      <b>autonomy</b> to decide for itself &mdash; the Internet is a network of <b>those</b>.</p>
     </div>
   </div>
 </section>
@@ -1018,27 +1020,6 @@ svg text{font-family:var(--sans)}
 </section>
 
 
-
-<section class="slide" data-sec="Who runs it?">
-  <span class="pnote" hidden>[~33 min] Try this one before I say anything. A hospital network, two providers so it stays online if one fails, never carries anyone else's traffic. Give them a minute of thinking time, then reveal.</span>
-  <div class="kicker">Quick question</div>
-  <h2>What kind of AS?</h2>
-  <div class="poll" id="poll2">
-    <p style="font-size:24px;margin:0 0 6px">A regional hospital network runs its own autonomous
-      system. It buys connectivity from <i>two</i> different providers so it can stay online if
-      either connection fails — but it never carries traffic for any other organisation.</p>
-    <div class="prow" data-a="C" style="flex-direction:column;align-items:stretch;gap:10px">
-      <button class="popt" data-v="A" style="text-align:left">A — Stub: it only has one connection</button>
-      <button class="popt" data-v="B" style="text-align:left">B — Transit: hospital traffic passes through other networks</button>
-      <button class="popt correct" data-v="C" style="text-align:left">C — Multi-homed: two providers, no through-traffic</button>
-      <button class="popt" data-v="D" style="text-align:left">D — Not an AS: hospitals don't need one</button>
-    </div>
-    <p class="pwhy">Two upstream connections bought purely for redundancy, carrying nothing for
-      anyone else, is exactly a multi-homed AS — insurance against a single point of failure, not a
-      transit business.</p>
-    <div class="pfoot"><button class="btn preveal">Reveal</button></div>
-  </div>
-</section>
 
 <section class="slide" data-sec="Who runs it?">
   <span class="pnote" hidden>Once the Internet is divided into ASes, the routing problem divides in two as well.</span>
