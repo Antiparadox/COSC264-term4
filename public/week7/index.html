@@ -2233,19 +2233,19 @@ svg text{font-family:var(--sans)}
         </div>
       </div>
       <div id="dk-fwd-wrap" style="display:none;flex:1;min-width:0">
-    <p class="mono" style="margin:0 0 8px;color:var(--accent);font-size:16px">Do this for every destination &rarr; A's forwarding table:</p>
-    <div style="display:flex;gap:24px;align-items:flex-start">
-      <table class="ft" style="font-size:17px" id="dk-fwd-table">
-        <thead><tr><th>Dest</th><th>Next hop</th></tr></thead>
-        <tbody>
-          <tr><td>B</td><td class="accent"><b>B</b></td></tr>
-          <tr><td>C</td><td class="accent"><b>D</b></td></tr>
-          <tr><td>D</td><td class="accent"><b>D</b></td></tr>
-          <tr><td>E</td><td class="accent"><b>D</b></td></tr>
-          <tr><td>F</td><td class="accent"><b>D</b></td></tr>
-        </tbody>
-      </table>
-    </div>
+    <p class="mono" style="margin:0 0 12px;color:var(--accent);font-size:19px">Do this for every destination &rarr; A&rsquo;s forwarding table:</p>
+    <table class="ft" id="dk-fwd-table" style="font-size:21px">
+      <tbody>
+        <tr>
+          <th style="text-align:left">Dest</th>
+          <td class="mono">B</td><td class="mono">C</td><td class="mono">D</td><td class="mono">E</td><td class="mono">F</td>
+        </tr>
+        <tr>
+          <th style="text-align:left">Next hop</th>
+          <td class="mono accent"><b>B</b></td><td class="mono accent"><b>D</b></td><td class="mono accent"><b>D</b></td><td class="mono accent"><b>D</b></td><td class="mono accent"><b>D</b></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
     </div>
   </div>
@@ -3993,7 +3993,7 @@ function updateDijkstraSlide(){
     var li=document.getElementById(id);
     if(li) li.style.display=(n>=11+i)?'':'none';
   });
-  if(trace) trace.style.display=(n>=14)?'':'none';
+  if(trace) trace.style.display=(n===14)?'':'none';
   var tblock=document.getElementById('dk-traceblock');
   var graphRow=document.getElementById('dk-graphrow');
   if(tblock) tblock.style.display=(n>=11&&n<16)?'':'none';
