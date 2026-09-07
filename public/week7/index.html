@@ -2008,22 +2008,17 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="Dijkstra &amp; Link-State">
   <div class="kicker">Recall</div>
   <h2>DV limitations</h2>
-  <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center;max-width:900px">
+  <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:900px">
 
     <div class="frag" style="margin:0">
-      <p style="font-size:22px;margin:0"><b>Slow convergence</b></p>
-      <ul style="margin:6px 0 0;padding-left:26px"><li style="font-size:20px;line-height:1.5;color:var(--muted)">After a link changes, the new distance vectors spread <b style="color:var(--ink)">one hop at a time</b> &mdash; a router only learns of the change once its neighbours tell it.</li></ul>
+      <p style="font-size:23px;margin:0"><b>Count-to-infinity</b></p>
+      <ul style="margin:8px 0 0;padding-left:26px"><li style="font-size:21px;line-height:1.5;color:var(--muted)">A distance vector reports <b style="color:var(--ink)">distances, not paths</b>, so a router cannot see that the route it is offered runs back through itself.</li></ul>
     </div>
-    <ul style="margin:-8px 0 0;padding-left:26px"><li class="frag" style="font-size:20px;line-height:1.5;color:var(--muted)">Across a large network that propagation is <b style="color:var(--ink)">slow</b>, so the tables take a long time to settle.</li></ul>
+    <ul style="margin:-10px 0 0;padding-left:26px"><li class="frag" style="font-size:21px;line-height:1.5;color:var(--muted)"><b style="color:var(--ink)">Routing loops</b> form, and unwind only one step per round &mdash; in RIP, where infinity is 16 and updates go out every 30 seconds, that can take minutes.</li></ul>
+    <ul style="margin:-10px 0 0;padding-left:26px"><li class="frag" style="font-size:21px;line-height:1.5;color:var(--muted)">Poison reverse helps, but not for loops of three or more nodes.</li></ul>
 
-    <div class="frag" style="margin:0">
-      <p style="font-size:22px;margin:0"><b>Count-to-infinity</b></p>
-      <ul style="margin:6px 0 0;padding-left:26px"><li style="font-size:20px;line-height:1.5;color:var(--muted)">A distance vector reports <b style="color:var(--ink)">distances, not paths</b>, so a router cannot see that the route it is offered runs back through itself.</li></ul>
-    </div>
-    <ul style="margin:-8px 0 0;padding-left:26px"><li class="frag" style="font-size:20px;line-height:1.5;color:var(--muted)"><b style="color:var(--ink)">Routing loops</b> form and unwind only slowly. Poison reverse helps, but not for loops of three or more nodes.</li></ul>
-
-    <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px;margin-top:4px">
-      <p style="margin:0;font-size:22px;color:var(--accent)"><b>Can a different routing approach avoid these problems?</b></p>
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:16px 22px;margin-top:6px">
+      <p style="margin:0;font-size:23px;color:var(--accent)"><b>Can a different routing approach avoid this problem?</b></p>
     </div>
 
   </div>
@@ -2037,7 +2032,7 @@ svg text{font-family:var(--sans)}
     <div class="frag" style="margin:0">
       <p style="font-size:22px;margin:0 0 10px">This avoids the key weaknesses of DV:</p>
       <ul style="font-size:20px;margin:0">
-        <li style="margin-bottom:8px"><b>Faster convergence</b> &mdash; each router computes independently once it has the full map</li>
+        <li style="margin-bottom:8px"><b>No iterative rounds</b> &mdash; each router computes its own tables once it has the full map</li>
         <li><b>No count-to-infinity</b> &mdash; all routers share the same topology, so there is no mismatch in their views and therefore no routing loops</li>
       </ul>
     </div>
