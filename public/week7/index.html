@@ -3622,13 +3622,13 @@ function updateDijkstraDescSlide(){
      + '<span style="color:var(--muted)">(the * means optimal, as before)</span><br>'
      + '<b class="mono">c(u,w)</b> &mdash; the cost of the link u&ndash;w<br>'
      + '<b class="mono">pred<sub>s</sub>(v)</b> &mdash; v&rsquo;s <b>predecessor</b>: the node we '
-     + 'reached v from</p>'
+     + 'reached v from on the <b>current best known path</b> to v</p>'
      + '<div style="margin:9px 0 0;padding:9px 13px;border-radius:7px;background:var(--accent-soft);'
      + 'line-height:1.7">'
-     + '<span style="font-size:15px;color:var(--muted)">e.g. if the best path is&nbsp;&nbsp;</span>'
+     + '<span style="font-size:15px;color:var(--muted)">e.g. if the best known path to v is&nbsp;&nbsp;</span>'
      + '<span class="mono" style="font-size:17px;color:var(--accent-ink)">s &rarr; a &rarr; b &rarr; v'
      + '</span><br><span class="mono" style="font-size:17px;color:var(--accent-ink)">'
-     + 'pred<sub>s</sub>(v) = b &nbsp; pred<sub>s</sub>(b) = a &nbsp; pred<sub>s</sub>(a) = s</span></div></div>';
+     + 'pred<sub>s</sub>(v) = b</span></div></div>';
   C[2]='<div class="djcard">'+HD+'Start</div>'.replace('</div>','</p>')
      + '<ul style="margin:0;padding-left:20px">'
      + '<li style="margin:0 0 7px"><b class="mono">d<sub>s</sub>(s) = 0</b> &mdash; s is zero away from '
