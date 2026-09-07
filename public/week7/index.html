@@ -1562,6 +1562,14 @@ svg text{font-family:var(--sans)}
         <p style="font-size:18px;margin:0">After convergence, every node s has the shortest distance <b style="color:var(--accent)">d<sub>s</sub>(u)</b> and next hop <b style="color:var(--accent)">next<sub>s</sub>(u)</b> to every other node u.</p>
         <p style="font-size:18px;margin:9px 0 0">Every node, to every other node &mdash; so Bellman&ndash;Ford solves the <b style="color:var(--accent)">all-pairs</b> shortest-path problem, not just one source&rsquo;s.</p>
       </div>
+      <div id="bf-question" style="display:none;margin-bottom:14px">
+        <div class="card" style="border-left:4px solid var(--current);padding:12px 16px;margin:0">
+          <p style="margin:0;font-size:17px">So we now have a shortest-path algorithm. How does
+          <b>distance-vector routing</b> use it?</p>
+          <p style="margin:9px 0 0;font-size:17px">Not in this shape &mdash; it rests on one
+          <b>observation</b> about the inner loop.</p>
+        </div>
+      </div>
       <div id="bf-observe" style="display:none">
         <div class="card" style="border-left:4px solid var(--accent);padding:12px 16px;margin:0">
           <p style="margin:0 0 6px;font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px">Important observation</p>
@@ -1601,6 +1609,7 @@ svg text{font-family:var(--sans)}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p><p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p><p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
@@ -3220,13 +3229,14 @@ function updateBFFullSlide(){
   show('bf-init',        n===3);
   show('bf-loop',        n===4||n===5);
   show('bf-converge',    n===5);
-  show('bf-observe',     n>=6&&n<=7);
-  show('bf-distribute',  n>=7&&n<=9);
-  show('bf-breakup',     n===7);
-  show('bf-howitlooks',  n>=8&&n<=9);
-  show('bf-refine',      n===9);
-  show('bf-send',        n>=10);
-  show('bf-dv-card',     n>=11);
+  show('bf-question',    n>=6&&n<=7);
+  show('bf-observe',     n>=7&&n<=8);
+  show('bf-distribute',  n>=8&&n<=10);
+  show('bf-breakup',     n===8);
+  show('bf-howitlooks',  n>=9&&n<=10);
+  show('bf-refine',      n===10);
+  show('bf-send',        n>=11);
+  show('bf-dv-card',     n>=12);
 
   /* Beat 6 argues for the change against the code it is changing; beat 7 makes
      it. The removed line stays in place for that beat, struck through, so the
@@ -3235,17 +3245,17 @@ function updateBFFullSlide(){
   var centralLabel=document.getElementById('bf-central-label');
   var distrib=document.getElementById('bf-distrib');
   var distribLabel=document.getElementById('bf-distrib-label');
-  if(central)central.style.display=(n<8)?'flex':'none';  /* keep the flex column */
-  if(centralLabel)centralLabel.style.display=(n<8)?'':'none';
-  if(distrib)distrib.style.display=(n>=8)?'flex':'none';
-  if(distribLabel)distribLabel.style.display=(n>=8)?'':'none';
-  show('bfd-ghost', n===8);
+  if(central)central.style.display=(n<9)?'flex':'none';  /* keep the flex column */
+  if(centralLabel)centralLabel.style.display=(n<9)?'':'none';
+  if(distrib)distrib.style.display=(n>=9)?'flex':'none';
+  if(distribLabel)distribLabel.style.display=(n>=9)?'':'none';
+  show('bfd-ghost', n===9);
 
   var dsHi=document.getElementById('bf-ds-hi'), psHi=document.getElementById('bf-ps-hi');
   if(dsHi){dsHi.style.color=(n===5)?'var(--accent)':'';dsHi.style.fontWeight=(n===5)?'bold':'';}
   if(psHi){psHi.style.color=(n===5)?'var(--accent)':'';psHi.style.fontWeight=(n===5)?'bold':'';}
   var arrow=document.getElementById('bfln6-arrow');
-  if(arrow)arrow.style.display=(n===6||n===7)?'inline':'none';
+  if(arrow)arrow.style.display=(n===7||n===8)?'inline':'none';
 
   function light(id,on){
     var row=document.getElementById(id);if(!row)return;
@@ -3256,10 +3266,10 @@ function updateBFFullSlide(){
   }
   var C={3:['bfrow1','bfrow2','bfrow3'],
          4:['bfrow5','bfrow6','bfrow7','bfrow8','bfrow9','bfrow10','bfrow11','bfrow12'],
-         6:['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11'],
-         7:['bfrow6']}[n]||[];
+         7:['bfrow7','bfrow8','bfrow9','bfrow10','bfrow11'],
+         8:['bfrow6']}[n]||[];
   for(var i=1;i<=12;i++) light('bfrow'+i, C.indexOf('bfrow'+i)>=0);
-  var D={8:['bfdrow1'],10:['bfdrow11','bfdrow12']}[n]||[];
+  var D={9:['bfdrow1'],11:['bfdrow11','bfdrow12']}[n]||[];
   for(var k=1;k<=12;k++) light('bfdrow'+k, D.indexOf('bfdrow'+k)>=0);
 }
 
