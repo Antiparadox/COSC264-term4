@@ -2021,13 +2021,7 @@ svg text{font-family:var(--sans)}
   <h2>What if every router had the full map?</h2>
   <div style="display:flex;flex-direction:column;gap:16px;flex:1;justify-content:center;max-width:820px">
     <p class="frag" style="font-size:22px;margin:0">A simple idea: what if every router knew the <b>complete network topology</b>? Then each router could compute its shortest paths to all destinations <b>directly</b>.</p>
-    <div class="frag" style="margin:0">
-      <p style="font-size:22px;margin:0 0 10px">This avoids the key weaknesses of DV:</p>
-      <ul style="font-size:20px;margin:0">
-        <li style="margin-bottom:8px"><b>No iterative rounds</b> &mdash; each router computes its own tables once it has the full map</li>
-        <li><b>No count-to-infinity</b> &mdash; all routers share the same topology, so there is no mismatch in their views and therefore no routing loops</li>
-      </ul>
-    </div>
+    <p class="frag" style="font-size:22px;margin:0">This avoids DV&rsquo;s limitation: <b>no count-to-infinity</b> &mdash; all routers share the same topology, so there is no mismatch in their views and therefore no routing loops.</p>
     <p class="frag" style="font-size:22px;margin:0;color:var(--accent)">This is the idea behind <b>link-state routing</b>.</p>
   </div>
 </section>
