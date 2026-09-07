@@ -2090,9 +2090,11 @@ svg text{font-family:var(--sans)}
         <div id="dj-line-6" style="opacity:0.3;transition:all 0.3s;padding-left:24px">u = unsettled node with smallest d<sub>s</sub>(u)</div>
         <div id="dj-line-7" style="opacity:0.3;transition:all 0.3s;padding-left:24px">add u to S</div>
         <div id="dj-line-8" style="opacity:0.3;transition:all 0.3s;padding-left:24px">for each neighbour w of u:</div>
+        <div id="dj-relaxbox" style="border-radius:8px;transition:outline-color 0.3s,background 0.3s;outline:2px solid transparent;outline-offset:5px">
         <div id="dj-line-9" style="opacity:0.3;transition:all 0.3s;padding-left:48px">if d<sub>s</sub>(u) + c(u,w) &lt; d<sub>s</sub>(w): <span id="dj-question" style="color:var(--accent)">&#x2190; ???</span></div>
         <div id="dj-line-10" style="opacity:0.3;transition:all 0.3s;padding-left:72px">d<sub>s</sub>(w) = d<sub>s</sub>(u) + c(u,w)</div>
         <div id="dj-line-11" style="opacity:0.3;transition:all 0.3s;padding-left:72px">pred<sub>s</sub>(w) = u</div>
+        </div>
         <div id="dj-line-12" style="opacity:0.3;transition:all 0.3s"><b>until</b> all nodes settled</div>
       </div>
     </div>
@@ -3608,6 +3610,12 @@ function updateDijkstraDescSlide(){
     else if(active.indexOf(ln)>=0){el.style.opacity='1';el.style.color='var(--accent)';el.style.fontWeight='700';}
     else{el.style.opacity='0.4';el.style.color='';el.style.fontWeight='';}
   });
+  var box=document.getElementById('dj-relaxbox');
+  if(box){
+    var on = n>=6 && n<=8;
+    box.style.outlineColor = on?'var(--accent)':'transparent';
+    box.style.background   = on?'var(--accent-soft)':'transparent';
+  }
   var q=document.getElementById('dj-question');
   if(q){q.innerHTML=n>=7?'&#x2190; <b>relaxation!</b>':'&#x2190; ???';}
 
@@ -3646,8 +3654,13 @@ function updateDijkstraDescSlide(){
      + '<p style="margin:0">Take the unsettled node with the <b>smallest current distance</b>.</p>'
      + '<p style="margin:8px 0 0">Move it into S &mdash; its distance must <b>already be optimal</b>: '
      + '<b class="mono">d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b>.</p></div>';
-  C[6]='<div class="djcard djq"><p style="margin:0;color:var(--accent)"><b>Do you recognise this '
-     + 'operation?</b></p></div>';
+  C[6]='<div class="djcard">'+HD+'What do we do with u?</p>'
+     + '<p style="margin:0">We have just taken the unsettled node <b>u</b> with the smallest distance '
+     + 'and moved it into S.</p>'
+     + '<p style="margin:9px 0 0">Now we go through <b>each neighbour w of u</b> and run the '
+     + '<b>boxed</b> lines on it.</p>'
+     + '<div style="margin:11px 0 0;padding:11px 15px;border-radius:8px;background:var(--accent-soft)">'
+     + '<p style="margin:0;color:var(--accent)"><b>Do you recognise this operation?</b></p></div></div>';
   C[7]='<div class="djcard">'+HD+'Relaxation</p>'
      + '<p style="margin:0">The same core operation as in distance vector &mdash; but with the roles swapped. '
      + 'There a node asked <i>&ldquo;can <b>I</b> do better through one of my neighbours?&rdquo;</i>; '
