@@ -1763,6 +1763,8 @@ svg text{font-family:var(--sans)}
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
   <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+  <p class="frag" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
 </section>
 
 
@@ -3326,13 +3328,13 @@ function updateDVExampleSlide(){
   var s=document.getElementById('dv-example-slide');if(!s)return;
   var n=fragCount(s);
   function setOp(id,op){var el=document.getElementById(id);if(el)el.setAttribute('opacity',String(op));}
-  setOp('dve-arrows',(n===2||n===8)?1:0);
-  setOp('dve-vec-x',n>=3&&n<=7?1:0);
-  setOp('dve-vec-z',n>=3&&n<=7?1:0);
+  setOp('dve-arrows',(n===2||n===10)?1:0);
+  setOp('dve-vec-x',n>=3&&n<=9?1:0);
+  setOp('dve-vec-z',n>=3&&n<=9?1:0);
   var HD='<b style="font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">';
   var card=document.getElementById('dve-step-card');
   var content=document.getElementById('dve-step-content');
-  if(n>=1&&n<=10){
+  if(n>=1&&n<=12){
     if(card)card.style.display='';
     if(content){
       if(n===1) content.innerHTML='<b>Initial:</b> each router knows only its own direct link costs.';
@@ -3341,23 +3343,23 @@ function updateDVExampleSlide(){
       else if(n===3) content.innerHTML='So each router receives <b>one vector per neighbour</b>: '
         + 'x gets one from y and one from z, z gets one from y and one from x, y gets one from x '
         + 'and one from z.';
-      else if(n===4) content.innerHTML=HD+'x relaxes for destination z</b>'
+      else if(n===4||n===5) content.innerHTML=HD+'x relaxes for destination z</b>'
         + '<div style="margin-top:5px">via y: c(x,y) + d<sub>y</sub>(z) = 2 + 1 = <b>3</b>, and 3 &lt; 50 '
         + '&mdash; so <b class="accent">relax</b>: d<sub>x</sub>(z) = 3, next<sub>x</sub>(z) = y.</div>';
-      else if(n===5) content.innerHTML=HD+'x relaxes for destination y</b>'
+      else if(n===6) content.innerHTML=HD+'x relaxes for destination y</b>'
         + '<div style="margin-top:5px">via z: c(x,z) + d<sub>z</sub>(y) = 50 + 1 = 51, worse than the '
         + '<b>2</b> x already has &mdash; <b>no change</b>.</div>';
-      else if(n===6) content.innerHTML=HD+'z relaxes for destination x</b>'
+      else if(n===7||n===8) content.innerHTML=HD+'z relaxes for destination x</b>'
         + '<div style="margin-top:5px">via y: c(z,y) + d<sub>y</sub>(x) = 1 + 2 = <b>3</b>, and 3 &lt; 50 '
         + '&mdash; so <b class="accent">relax</b>: d<sub>z</sub>(x) = 3, next<sub>z</sub>(x) = y.</div>';
-      else if(n===7) content.innerHTML=HD+'z relaxes for destination y</b>'
+      else if(n===9) content.innerHTML=HD+'z relaxes for destination y</b>'
         + '<div style="margin-top:5px">via x: c(z,x) + d<sub>x</sub>(y) = 50 + 2 = 52, worse than the '
         + '<b>1</b> it already has &mdash; <b>no change</b>. y is already direct to both, so it changes '
         + 'nothing either.</div>';
-      else if(n===8) content.innerHTML='<b>Round 2:</b> everyone sends their updated vectors again.';
-      else if(n===9) content.innerHTML='This time <b>nothing improves anywhere</b> &mdash; a full round '
+      else if(n===10) content.innerHTML='<b>Round 2:</b> everyone sends their updated vectors again.';
+      else if(n===11) content.innerHTML='This time <b>nothing improves anywhere</b> &mdash; a full round '
         + 'with no change. The protocol has <b class="accent">converged</b>.';
-      else if(n===10) content.innerHTML='Each router reads <b class="accent">next<sub>s</sub>(u)</b> '
+      else if(n===12) content.innerHTML='Each router reads <b class="accent">next<sub>s</sub>(u)</b> '
         + '&mdash; the next-hop column &mdash; as its <b>forwarding table</b>.';
     }
   } else {
@@ -3366,7 +3368,7 @@ function updateDVExampleSlide(){
   var lx=document.getElementById('dve-label-x');
   var ly=document.getElementById('dve-label-y');
   var lz=document.getElementById('dve-label-z');
-  var fwd=n>=10, tick=n>=9;
+  var fwd=n>=12, tick=n>=11;
   function lab(k){return fwd?(k+'&#39;s forwarding table')
     :tick?(k+'&#39;s table <span style="color:var(--accent)">✓</span>'):(k+'&#39;s table');}
   if(lx)lx.innerHTML=lab('x'); if(ly)ly.innerHTML=lab('y'); if(lz)lz.innerHTML=lab('z');
@@ -3381,8 +3383,8 @@ function updateDVExampleSlide(){
     if(fwd){
       tbx.innerHTML='<tr><td>y</td><td class="mono">y</td></tr><tr><td>z</td><td class="mono">y</td></tr>';
     } else if(n>=1){
-      // x's z-row turns over on the beat that relaxes it, beat 4
-      var zC=n>=4?'3':'50',zH=n>=4?'y':'z',zS=n>=4?' style="color:var(--accent);font-weight:700"':'';
+      // x's z-row turns over on the beat after the one that explains the relaxation
+      var zC=n>=5?'3':'50',zH=n>=5?'y':'z',zS=n>=5?' style="color:var(--accent);font-weight:700"':'';
       tbx.innerHTML='<tr><td>y</td><td class="mono">2</td><td class="mono">y</td></tr><tr'+zS+'><td>z</td><td class="mono">'+zC+'</td><td class="mono">'+zH+'</td></tr>';
     } else tbx.innerHTML='';
   }
@@ -3399,7 +3401,7 @@ function updateDVExampleSlide(){
     if(fwd){
       tbz.innerHTML='<tr><td>x</td><td class="mono">y</td></tr><tr><td>y</td><td class="mono">y</td></tr>';
     } else if(n>=1){
-      var xC=n>=6?'3':'50',xH=n>=6?'y':'x',xS=n>=6?' style="color:var(--accent);font-weight:700"':'';
+      var xC=n>=8?'3':'50',xH=n>=8?'y':'x',xS=n>=8?' style="color:var(--accent);font-weight:700"':'';
       tbz.innerHTML='<tr'+xS+'><td>x</td><td class="mono">'+xC+'</td><td class="mono">'+xH+'</td></tr><tr><td>y</td><td class="mono">1</td><td class="mono">y</td></tr>';
     } else tbz.innerHTML='';
   }
