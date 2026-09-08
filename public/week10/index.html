@@ -670,8 +670,6 @@ svg text{font-family:var(--sans)}
     #rdt2-dup:has(.d2.on) .s2,#rdt2-dup:has(.d2.on) .r2 { opacity:1 }
     #rdt2-dup:has(.d2.on):not(:has(.d3.on)) .a2 { opacity:1 }
     #rdt2-dup:has(.d3.on) .a2c,#rdt2-dup:has(.d3.on) .s3 { opacity:1 }
-    #rdt2-dup:has(.d4.on) .r4 { opacity:1 }
-    #rdt2-dup:has(.d5.on) .a3,#rdt2-dup:has(.d5.on) .s4,#rdt2-dup:has(.d5.on) .r5 { opacity:1 }
   </style>
   <div class="kicker">rdt 2.0</div>
   <h2>A fatal flaw</h2>
@@ -685,13 +683,13 @@ svg text{font-family:var(--sans)}
 <line x1="402" y1="26" x2="402" y2="294" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="422" y1="26" x2="422" y2="294" stroke="currentColor" stroke-width="0.7" opacity="0.18" stroke-dasharray="3,3"/>
 <text class="rl" x="430" y="38" font-size="13" font-weight="600" fill="currentColor">Received:</text>
-<text class="r1" x="430" y="68" font-size="13" fill="currentColor">• Zak is his</text>
-<text class="r2" x="430" y="140" font-size="13" fill="currentColor">• great</text>
-<text class="r4" x="430" y="220" font-size="13" fill="#cf5c36" font-weight="600">• great (!)</text>
-<text class="r5" x="430" y="282" font-size="13" fill="currentColor">• grandson</text>
+<text class="r1" x="430" y="68" font-size="13" fill="currentColor">• I am</text>
+<text class="r2" x="430" y="140" font-size="13" fill="currentColor">• very</text>
+<text class="r4" x="430" y="220" font-size="13" fill="#cf5c36" font-weight="600">• very (!)</text>
+<text class="r5" x="430" y="282" font-size="13" fill="currentColor">• tired</text>
 <g class="s1">
   <line x1="118" y1="42" x2="402" y2="62" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup)"/>
-  <text x="260" y="38" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">Zak is his</text>
+  <text x="260" y="38" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">I am</text>
 </g>
 <g class="a1">
   <line x1="402" y1="76" x2="118" y2="96" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup)"/>
@@ -699,7 +697,7 @@ svg text{font-family:var(--sans)}
 </g>
 <g class="s2">
   <line x1="118" y1="114" x2="402" y2="134" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup)"/>
-  <text x="260" y="110" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">great</text>
+  <text x="260" y="110" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">very</text>
 </g>
 <g class="a2">
   <line x1="402" y1="148" x2="118" y2="168" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup)"/>
@@ -711,7 +709,7 @@ svg text{font-family:var(--sans)}
 </g>
 <g class="s3">
   <line x1="118" y1="186" x2="402" y2="214" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup)"/>
-  <text x="260" y="182" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">great &mdash; resent</text>
+  <text x="260" y="182" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">very &mdash; resent</text>
 </g>
 <g class="a3">
   <line x1="402" y1="228" x2="118" y2="248" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup)"/>
@@ -719,19 +717,81 @@ svg text{font-family:var(--sans)}
 </g>
 <g class="s4">
   <line x1="118" y1="264" x2="402" y2="280" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup)"/>
-  <text x="260" y="260" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">grandson</text>
+  <text x="260" y="260" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">tired</text>
 </g>
 </svg>
     </div>
-    <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:320px">
-      <p class="frag d1" style="margin:0;font-size:16px;line-height:1.55">Suppose the sender wants to deliver the message <b>&ldquo;Zak is his great grandson&rdquo;</b> from the application above. <b>&ldquo;Zak is his&rdquo;</b> arrives intact &mdash; receiver delivers it and sends ACK.</p>
-      <p class="frag d2" style="margin:0;font-size:16px;line-height:1.55"><b>&ldquo;great&rdquo;</b> arrives intact &mdash; receiver delivers it and sends ACK.</p>
-      <p class="frag d3" style="margin:0;font-size:16px;line-height:1.55">The ACK gets <b>corrupted</b> &mdash; sender cannot tell, so it <b>resends</b> &ldquo;great&rdquo;.</p>
-      <p class="frag d4" style="margin:0;font-size:16px;line-height:1.55">Receiver has no idea this is a resend &mdash; it <b>delivers &ldquo;great&rdquo; again</b>.</p>
-      <p class="frag d5" style="margin:0;font-size:16px;line-height:1.55"><b>&ldquo;grandson&rdquo;</b> eventually gets through and is delivered.</p>
-      <div class="frag card" style="padding:12px 15px;border-left:3px solid #cf5c36">
-        <p style="margin:0 0 5px;font-size:15.5px;line-height:1.6">Receiver got: &ldquo;Zak is his <b style="color:#cf5c36">great great</b> grandson&rdquo;</p>
-        <p style="margin:0;font-size:15.5px;line-height:1.6">Regardless, this is the wrong message &mdash; it <b>contains a duplicate</b>.</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:450px">
+      <p class="frag d1" style="margin:0;font-size:19px;line-height:1.55">Suppose the sender wants to deliver the message <b>&ldquo;I am very tired&rdquo;</b> from the application above. <b>&ldquo;I am&rdquo;</b> arrives intact &mdash; receiver delivers it and sends ACK.</p>
+      <p class="frag d2" style="margin:0;font-size:19px;line-height:1.55"><b>&ldquo;very&rdquo;</b> arrives intact &mdash; receiver delivers it and sends ACK.</p>
+      <p class="frag d3" style="margin:0;font-size:19px;line-height:1.55">The ACK gets <b>corrupted</b> &mdash; sender cannot tell, so it <b>resends</b> &ldquo;very&rdquo;.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="rdt2-dup2" data-sec="Reliable Data Transfer">
+  <style>
+    #rdt2-dup2 .a2,#rdt2-dup2 .a3,#rdt2-dup2 .s4,
+    #rdt2-dup2 .r4,#rdt2-dup2 .r5 { opacity:0; transition:opacity 0.3s }
+    #rdt2-dup2:has(.d4.on) .r4 { opacity:1 }
+    #rdt2-dup2:has(.d5.on) .a3,#rdt2-dup2:has(.d5.on) .s4,#rdt2-dup2:has(.d5.on) .r5 { opacity:1 }
+  </style>
+  <div class="kicker">rdt 2.0</div>
+  <h2>A fatal flaw</h2>
+  <div style="flex:1;display:flex;gap:22px;align-items:flex-start">
+    <div style="flex:0 0 620px">
+<svg viewBox="0 0 700 302" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px">
+<defs><marker id="fdup2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
+<text x="118" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Sender</text>
+<text x="402" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Receiver</text>
+<line x1="118" y1="26" x2="118" y2="294" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<line x1="402" y1="26" x2="402" y2="294" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<line x1="422" y1="26" x2="422" y2="294" stroke="currentColor" stroke-width="0.7" opacity="0.18" stroke-dasharray="3,3"/>
+<text class="rl" x="430" y="38" font-size="13" font-weight="600" fill="currentColor">Received:</text>
+<text class="r1" x="430" y="68" font-size="13" fill="currentColor">• I am</text>
+<text class="r2" x="430" y="140" font-size="13" fill="currentColor">• very</text>
+<text class="r4" x="430" y="220" font-size="13" fill="#cf5c36" font-weight="600">• very (!)</text>
+<text class="r5" x="430" y="282" font-size="13" fill="currentColor">• tired</text>
+<g class="s1">
+  <line x1="118" y1="42" x2="402" y2="62" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="38" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">I am</text>
+</g>
+<g class="a1">
+  <line x1="402" y1="76" x2="118" y2="96" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="72" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">ACK</text>
+</g>
+<g class="s2">
+  <line x1="118" y1="114" x2="402" y2="134" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="110" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">very</text>
+</g>
+<g class="a2">
+  <line x1="402" y1="148" x2="118" y2="168" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="144" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">ACK</text>
+</g>
+<g class="a2c">
+  <line x1="402" y1="148" x2="118" y2="168" stroke="#cf5c36" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="144" text-anchor="middle" font-size="14" fill="#cf5c36" font-weight="600">?#%! &mdash; corrupted</text>
+</g>
+<g class="s3">
+  <line x1="118" y1="186" x2="402" y2="214" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="182" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">very &mdash; resent</text>
+</g>
+<g class="a3">
+  <line x1="402" y1="228" x2="118" y2="248" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="224" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">ACK</text>
+</g>
+<g class="s4">
+  <line x1="118" y1="264" x2="402" y2="280" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup2)"/>
+  <text x="260" y="260" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">tired</text>
+</g>
+</svg>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:450px">
+      <p class="frag d4" style="margin:0;font-size:19px;line-height:1.55">Receiver has no idea this is a resend &mdash; it <b>delivers &ldquo;very&rdquo; again</b>.</p>
+      <p class="frag d5" style="margin:0;font-size:19px;line-height:1.55"><b>&ldquo;tired&rdquo;</b> eventually gets through and is delivered.</p>
+      <div class="frag card" style="padding:14px 18px;border-left:3px solid #cf5c36">
+        <p style="margin:0 0 7px;font-size:18px;line-height:1.6">Receiver got: &ldquo;I am <b style="color:#cf5c36">very very</b> tired&rdquo;</p>
+        <p style="margin:0;font-size:18px;line-height:1.6">Regardless, this is the wrong message &mdash; it <b>contains a duplicate</b>.</p>
       </div>
     </div>
   </div>
@@ -784,21 +844,21 @@ svg text{font-family:var(--sans)}
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="118" y1="38" x2="118" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="402" y1="38" x2="402" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-<g class="e1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Zak is his, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="e1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">I am, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 <g class="e1"><line x1="402" y1="96" x2="118" y2="122" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="90" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Yes (ACK)</text></g>
-<g class="e1"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">great, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
+<g class="e1"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">very, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
 <g class="e2"><line x1="402" y1="176" x2="118" y2="202" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">#### &mdash; corrupted</text></g>
-<g class="e2"><line x1="118" y1="216" x2="402" y2="242" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="210" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">great, <tspan fill="var(--accent)" font-weight="700">1</tspan> &mdash; resent</text></g>
+<g class="e2"><line x1="118" y1="216" x2="402" y2="242" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="210" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">very, <tspan fill="var(--accent)" font-weight="700">1</tspan> &mdash; resent</text></g>
 <g class="e3"><line x1="402" y1="256" x2="118" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="250" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Yes (ACK)</text></g>
-<g class="e3"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">grandson, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="e3"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">tired, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:13px;max-width:350px">
-      <p class="frag r1" style="margin:0;font-size:16.5px;line-height:1.55">Same story as before: &ldquo;great&rdquo; is sent with number <b>1</b>, and the reply comes back corrupted.</p>
-      <p class="frag r2" style="margin:0;font-size:16.5px;line-height:1.55">The sender resends &ldquo;great&rdquo;, still numbered <b>1</b>.</p>
+      <p class="frag r1" style="margin:0;font-size:16.5px;line-height:1.55">Same story as before: &ldquo;very&rdquo; is sent with number <b>1</b>, and the reply comes back corrupted.</p>
+      <p class="frag r2" style="margin:0;font-size:16.5px;line-height:1.55">The sender resends &ldquo;very&rdquo;, still numbered <b>1</b>.</p>
       <div class="frag r3 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
         <p style="margin:0 0 7px;font-size:16.5px;line-height:1.6">The receiver already has number 1, so it <b>discards the copy</b> and just re-acknowledges. Delivered:</p>
-        <p style="margin:0;font-size:17px">&ldquo;Zak is his great grandson&rdquo; <b style="color:var(--accent)">&#10003;</b></p>
+        <p style="margin:0;font-size:17px">&ldquo;I am very tired&rdquo; <b style="color:var(--accent)">&#10003;</b></p>
       </div>
     </div>
   </div>
@@ -822,23 +882,23 @@ svg text{font-family:var(--sans)}
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="118" y1="38" x2="118" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="402" y1="38" x2="402" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-<g class="h1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Zak is his, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="h1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">I am, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 <g class="h1"><line x1="402" y1="96" x2="118" y2="122" stroke="var(--accent)" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="90" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Yes (ACK)</text></g>
-<g class="h1"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">great, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
+<g class="h1"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">very, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
 <g class="h1"><line x1="402" y1="176" x2="118" y2="202" stroke="var(--accent)" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Yes (ACK)</text></g>
-<g class="h2"><line x1="118" y1="216" x2="402" y2="242" stroke="#cf5c36" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="210" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">great, <tspan fill="#cf5c36" font-weight="700">0</tspan> &mdash; genuinely new</text></g>
+<g class="h2"><line x1="118" y1="216" x2="402" y2="242" stroke="#cf5c36" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="210" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">very, <tspan fill="#cf5c36" font-weight="700">0</tspan> &mdash; genuinely new</text></g>
 <g class="h3"><line x1="402" y1="256" x2="118" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="250" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Yes (ACK)</text></g>
-<g class="h3"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">grandson, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
+<g class="h3"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g16a)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">tired, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:13px;max-width:350px">
-      <p class="frag t1" style="margin:0;font-size:16.5px;line-height:1.55">This time nothing is corrupted &mdash; but the sender genuinely wants to say &ldquo;great&rdquo; <b>twice</b>.</p>
+      <p class="frag t1" style="margin:0;font-size:16.5px;line-height:1.55">This time nothing is corrupted &mdash; but the sender genuinely wants to say &ldquo;very&rdquo; <b>twice</b>.</p>
       <div class="frag t2 card" style="padding:12px 16px;border-left:3px solid #cf5c36">
-        <p style="margin:0;font-size:16.5px;line-height:1.6">The second &ldquo;great&rdquo; carries number <b style="color:#cf5c36">0</b>, not 1 &mdash; so the receiver knows it is <b>new data</b>, not a copy.</p>
+        <p style="margin:0;font-size:16.5px;line-height:1.6">The second &ldquo;very&rdquo; carries number <b style="color:#cf5c36">0</b>, not 1 &mdash; so the receiver knows it is <b>new data</b>, not a copy.</p>
       </div>
       <div class="frag t3 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
         <p style="margin:0 0 7px;font-size:16.5px;line-height:1.6">Delivered:</p>
-        <p style="margin:0;font-size:17px">&ldquo;Zak is his great great grandson&rdquo; <b style="color:var(--accent)">&#10003;</b></p>
+        <p style="margin:0;font-size:17px">&ldquo;I am very very tired&rdquo; <b style="color:var(--accent)">&#10003;</b></p>
       </div>
     </div>
   </div>
@@ -1936,16 +1996,6 @@ else:
   </div>
 </section>
 
-
-
-lass="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
-        <p style="margin:0;font-size:16px;line-height:1.6">When <b>pkt2</b> times out, <b>every</b> unacknowledged packet is resent &mdash; 2, 3, 4 and 5. One lost packet cost four retransmissions.</p>
-      </div>
-      <p class="frag" style="margin:0;font-size:16px;line-height:1.55">Three of those four were already delivered successfully once. That waste is the price of the simple receiver.</p>
-      <p class="frag" style="margin:0;font-size:14px;color:var(--muted)">After Kurose &amp; Ross, Fig. 3.22.</p>
-    </div>
-  </div>
-</section>
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">Recap &middot; Go-back-N</div>
   <h2>What we covered</h2>
