@@ -1127,27 +1127,11 @@ svg text{font-family:var(--sans)}
       <div class="frag c2 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
         <p style="margin:0;font-size:18px;line-height:1.6">Seeing the same ACK number twice is called a <b style="color:var(--accent)">duplicate ACK</b>, and it does a NAK&rsquo;s job: it asks the sender to retransmit.</p>
       </div>
-      <p class="frag c3" style="margin:0;font-size:18px;line-height:1.55">So the sender <b>retransmits</b> &mdash; and this time the packet gets through.</p>
-      <p class="frag c4" style="margin:0;font-size:18px;line-height:1.55">So <b>NAKs are unnecessary</b>: one message type does both jobs &mdash; the design <b>TCP</b> uses.</p>
+      <p class="frag c3" style="margin:0;font-size:18px;line-height:1.55">So the sender <b>retransmits</b>, using the <b>same sequence number</b> as before &mdash; <b>1</b> here.</p>
     </div>
   </div>
 </section>
 
-<!-- ── rdt 2.x recap + rdt 3.0 teaser ── -->
-<section class="slide" id="rdt2x-recap" data-sec="Reliable Data Transfer" data-anchor="rdt30">
-  <div class="kicker">Recap</div>
-  <h2>Quick recap: rdt 2.x</h2>
-  <div style="display:flex;flex-direction:column;gap:18px;max-width:820px">
-    <ul style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:14px">
-      <li class="frag" style="font-size:18px;line-height:1.6">rdt 2.x assumes a channel that is prone to <b>bit errors</b>.</li>
-      <li class="frag" style="font-size:18px;line-height:1.6">Every packet carries a <b>sequence number</b> and a <b>checksum</b>; the receiver ACKs each packet with the same number so the sender knows exactly what got through.</li>
-      <li class="frag" style="font-size:18px;line-height:1.6">If the sender receives a <b>corrupted ACK</b> or a <b>duplicate ACK</b>, it simply retransmits.</li>
-    </ul>
-    <div class="frag card" style="padding:14px 18px;border-left:3px solid var(--accent);margin-top:8px">
-      <p style="margin:0;font-size:18px;line-height:1.6">Next: <b>rdt 3.0</b> &mdash; the channel is not only prone to bit errors, but can also <b>lose packets entirely</b>.</p>
-    </div>
-  </div>
-</section>
 
 <!-- ── Three new things that can go wrong ── -->
 <section class="slide" id="lossy3" data-sec="Reliable Data Transfer">
