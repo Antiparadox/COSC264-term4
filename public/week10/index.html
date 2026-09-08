@@ -472,94 +472,134 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Stop-and-wait: rdt 2.0 behaviour ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
-  <div class="kicker">rdt 2.0</div>
-  <h2>What each side does</h2>
-  <div style="display:flex;flex-direction:column;gap:18px;max-width:1040px">
-
-    <div style="display:flex;gap:26px;align-items:flex-start">
-
-      <div class="frag" style="flex:1">
-        <div class="card" style="padding:16px 20px;border-left:3px solid var(--accent)">
-          <p style="margin:0 0 10px;font-size:19px;font-weight:700;color:var(--accent)">Sender</p>
-          <ul style="margin:0;padding-left:22px;font-size:17px;line-height:1.7">
-            <li class="frag" style="margin-bottom:9px">When a packet arrives from the application, <b>send it</b> and wait for an ACK or NAK.</li>
-            <li class="frag" style="margin-bottom:9px">On <b>NAK</b>: retransmit the same packet and wait again.</li>
-            <li class="frag">On <b>ACK</b>: move on and wait for the next packet from the application above.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="frag" style="flex:1">
-        <div class="card" style="padding:16px 20px;border-left:3px solid var(--accent)">
-          <p style="margin:0 0 10px;font-size:19px;font-weight:700;color:var(--accent)">Receiver</p>
-          <ul style="margin:0;padding-left:22px;font-size:17px;line-height:1.7">
-            <li class="frag" style="margin-bottom:9px">Packet arrives <b>intact</b> &rarr; send an <b>ACK</b> and deliver to the application above.</li>
-            <li class="frag">Packet arrives <b>corrupted</b> &rarr; send a <b>NAK</b>.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="frag card accent" style="padding:14px 20px">
-      <p style="margin:0;font-size:18px;line-height:1.6">This is the <b>stop-and-wait</b> strategy: the sender transmits one packet, then <b>stops</b> and does nothing until it hears back.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── rdt 2.0 FSM ── -->
 <section class="slide" id="rdt2-fsm" data-sec="Reliable Data Transfer">
   <style>
-    #rdt2-fsm .fsmA, #rdt2-fsm .fsmB { opacity:0; transition:opacity 0.35s; width:100% }
-    #rdt2-fsm:has(.q2.on) .fsmA { opacity:1 }
-    #rdt2-fsm:has(.q3.on) .fsmB { opacity:1 }
+    #rdt2-fsm .dgm { display:none; width:100% }
+    #rdt2-fsm .dlab { opacity:0; transition:opacity 0.3s }
+    #rdt2-fsm:has(.s2.on) .dSend { display:block }
+    #rdt2-fsm:has(.s2.on) .labSend { opacity:1 }
+    #rdt2-fsm:has(.s6.on) .dSend { display:none }
+    #rdt2-fsm:has(.s6.on) .labSend { opacity:0 }
+    #rdt2-fsm:has(.s6.on) .dRecv { display:block }
+    #rdt2-fsm:has(.s6.on) .labRecv { opacity:1 }
+    #rdt2-fsm .ar { opacity:0; transition:opacity 0.35s }
+    #rdt2-fsm:has(.s3.on) .a1 { opacity:1 }
+    #rdt2-fsm:has(.s4.on) .a2 { opacity:1 }
+    #rdt2-fsm:has(.s5.on) .a3 { opacity:1 }
+    #rdt2-fsm:has(.s7.on) .b1 { opacity:1 }
+    #rdt2-fsm:has(.s8.on) .b2 { opacity:1 }
+    #rdt2-fsm .hot { display:none }
+    #rdt2-fsm .hot.on { display:block }
+    #rdt2-fsm .hot.on:has(~ .hot.on) { display:none }
+    #rdt2-fsm .hot p { margin:0; font-size:18px; line-height:1.6 }
+    #rdt2-fsm .hot p + p { margin-top:10px }
+    #rdt2-fsm .evt { font-weight:700; color:var(--accent) }
+    #rdt2-fsm .evtb { font-weight:700; color:#cf5c36 }
   </style>
   <div class="kicker">rdt 2.0</div>
-  <h2>The same protocol as a state machine</h2>
-  <div style="display:flex;flex-direction:column;gap:10px">
+  <h2>The protocol as a state machine</h2>
+  <div style="display:flex;flex-direction:column;gap:14px">
 
-    <p class="frag q1" style="margin:0;font-size:17px;line-height:1.55">A <b>finite-state machine</b> says the same thing more precisely: each circle is a <b>state</b> the protocol can sit in, and each arrow is a <b>transition</b> labelled with the event that triggers it and the action taken.</p>
+    <p class="frag s1" style="margin:0;font-size:19px;line-height:1.6;max-width:1160px">We can describe what each side does with a <b>finite-state machine</b>: each circle is a <b>state</b> the side can sit in, and each arrow is a <b>transition</b>, labelled with the event that triggers it and the action it takes.</p>
 
-    <div style="display:flex;gap:26px;align-items:flex-start;margin-top:2px">
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <p class="frag q2" style="margin:0;font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--muted)">SENDER</p>
-        <div class="fsmA">
-<svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px">
-<defs><marker id="fs1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--accent)"/></marker>
-<marker id="fs1m" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--muted)"/></marker></defs>
-<path d="M40,58 L100,108" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5,4" fill="none" marker-end="url(#fs1m)"/>
+    <div style="display:flex;gap:24px;align-items:flex-start;margin-top:8px">
+
+      <div style="flex:0 0 730px;display:flex;flex-direction:column;align-items:center;gap:2px">
+        <div style="height:22px">
+          <p class="dlab labSend" style="margin:0;font-size:16px;font-weight:700;letter-spacing:.06em;color:var(--muted)">SENDER</p>
+          <p class="dlab labRecv" style="margin:-22px 0 0;font-size:16px;font-weight:700;letter-spacing:.06em;color:var(--muted)">RECEIVER</p>
+        </div>
+        <div style="min-height:314px;width:100%">
+
+<svg class="dgm dSend" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:730px">
+<defs>
+<marker id="fs1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--accent)"/></marker>
+<marker id="fs1m" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--muted)"/></marker>
+<marker id="fs2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#cf5c36"/></marker>
+</defs>
 <circle cx="150" cy="150" r="60" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="1.8"/>
 <text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="150" y="138">Wait for</tspan><tspan x="150" y="156">call from</tspan><tspan x="150" y="174">above</tspan></text>
 <circle cx="400" cy="150" r="60" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="1.8"/>
 <text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="400" y="144">Wait for</tspan><tspan x="400" y="162">ACK / NAK</tspan></text>
+<g class="ar a1">
+<path d="M40,58 L100,108" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5,4" fill="none" marker-end="url(#fs1m)"/>
 <path d="M196,110 Q275,40 354,110" stroke="var(--accent)" stroke-width="1.8" fill="none" marker-end="url(#fs1)"/>
-<text x="275" y="34" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">sends packet</text>
-<path d="M354,190 Q275,260 196,190" stroke="var(--accent)" stroke-width="1.8" fill="none" marker-end="url(#fs1)"/>
-<text x="275" y="282" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">receives ACK</text>
+<text x="275" y="34" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">data from above &amp; sends packet</text>
+</g>
+<g class="ar a2">
 <path d="M456,118 C548,84 548,216 456,182" stroke="#cf5c36" stroke-width="1.8" fill="none" marker-end="url(#fs2)"/>
-<defs><marker id="fs2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#cf5c36"/></marker></defs>
-<text font-size="13.5" fill="#cf5c36" font-weight="600"><tspan x="556" y="145">receives NAK</tspan><tspan x="556" y="163">&amp; retransmits</tspan></text>
+<text font-size="14" fill="#cf5c36" font-weight="600"><tspan x="556" y="145">receives NAK</tspan><tspan x="556" y="163">&amp; retransmits</tspan></text>
+</g>
+<g class="ar a3">
+<path d="M354,190 Q275,260 196,190" stroke="var(--accent)" stroke-width="1.8" fill="none" marker-end="url(#fs1)"/>
+<text x="275" y="282" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="600">receives ACK</text>
+</g>
 </svg>
+
+<svg class="dgm dRecv" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:730px">
+<defs>
+<marker id="fr1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--accent)"/></marker>
+<marker id="fr2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#cf5c36"/></marker>
+<marker id="frm" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--muted)"/></marker>
+</defs>
+<path d="M420,42 L372,86" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5,4" fill="none" marker-end="url(#frm)"/>
+<circle cx="350" cy="150" r="60" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="1.8"/>
+<text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="350" y="138">Wait for</tspan><tspan x="350" y="156">call from</tspan><tspan x="350" y="174">below</tspan></text>
+<g class="ar b1">
+<path d="M304,112 C198,72 198,228 304,188" stroke="var(--accent)" stroke-width="1.8" fill="none" marker-end="url(#fr1)"/>
+<text text-anchor="end" font-size="14" fill="var(--accent)" font-weight="600"><tspan x="188" y="145">correct packet</tspan><tspan x="188" y="163">&amp; sends ACK</tspan></text>
+</g>
+<g class="ar b2">
+<path d="M396,112 C502,72 502,228 396,188" stroke="#cf5c36" stroke-width="1.8" fill="none" marker-end="url(#fr2)"/>
+<text font-size="14" fill="#cf5c36" font-weight="600"><tspan x="512" y="145">corrupted packet</tspan><tspan x="512" y="163">&amp; sends NAK</tspan></text>
+</g>
+</svg>
+
         </div>
       </div>
-      <div style="flex:0 0 400px;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <p class="frag q3" style="margin:0;font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--muted)">RECEIVER</p>
-        <div class="fsmB">
-<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px">
-<defs><marker id="fr1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--accent)"/></marker>
-<marker id="fr2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#cf5c36"/></marker>
-<marker id="frm" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--muted)"/></marker></defs>
-<path d="M330,42 L282,86" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5,4" fill="none" marker-end="url(#frm)"/>
-<circle cx="260" cy="150" r="60" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="1.8"/>
-<text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="260" y="138">Wait for</tspan><tspan x="260" y="156">call from</tspan><tspan x="260" y="174">below</tspan></text>
-<path d="M214,112 C120,74 120,226 214,188" stroke="var(--accent)" stroke-width="1.8" fill="none" marker-end="url(#fr1)"/>
-<text text-anchor="end" font-size="13.5" fill="var(--accent)" font-weight="600"><tspan x="110" y="145">correct packet</tspan><tspan x="110" y="163">&amp; sends ACK</tspan></text>
-<path d="M306,112 C400,74 400,226 306,188" stroke="#cf5c36" stroke-width="1.8" fill="none" marker-end="url(#fr2)"/>
-<text font-size="13.5" fill="#cf5c36" font-weight="600"><tspan x="410" y="145">corrupted packet</tspan><tspan x="410" y="163">&amp; sends NAK</tspan></text>
-</svg>
+
+      <div style="flex:1;min-height:314px">
+
+        <div class="frag hot s2 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
+          <p><b>The sender has two states.</b></p>
+          <p><b>Wait for call from above</b> &mdash; idle, ready to take the next packet from the application.</p>
+          <p><b>Wait for ACK / NAK</b> &mdash; a packet is out on the channel, and nothing else may be sent yet.</p>
         </div>
+
+        <div class="frag hot s3 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
+          <p><span class="evt">data from above &amp; sends packet</span></p>
+          <p>The application hands data down. The sender builds the packet, transmits it, and moves to the waiting state.</p>
+        </div>
+
+        <div class="frag hot s4 card" style="padding:16px 20px;border-left:3px solid #cf5c36">
+          <p><span class="evtb">receives NAK &amp; retransmits</span></p>
+          <p>The receiver reported a corrupted packet, so the sender retransmits <b>the same packet</b> &mdash; and comes straight back to the same waiting state.</p>
+        </div>
+
+        <div class="frag hot s5 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
+          <p><span class="evt">receives ACK</span></p>
+          <p>The packet got through. The sender returns to the idle state, ready for the next packet from above.</p>
+        </div>
+
+        <div class="frag hot s6 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
+          <p><b>The receiver has one state.</b></p>
+          <p><b>Wait for call from below</b> &mdash; it has nothing to do but wait for the next packet to arrive from the channel.</p>
+        </div>
+
+        <div class="frag hot s7 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
+          <p><span class="evt">correct packet &amp; sends ACK</span></p>
+          <p>The checksum passes: deliver the data to the application above, and send an ACK back.</p>
+        </div>
+
+        <div class="frag hot s8 card" style="padding:16px 20px;border-left:3px solid #cf5c36">
+          <p><span class="evtb">corrupted packet &amp; sends NAK</span></p>
+          <p>The checksum fails: discard the packet and send a NAK, which asks the sender to try again.</p>
+        </div>
+
+        <div class="frag hot s9 card accent" style="padding:16px 20px">
+          <p>This is the <b>stop-and-wait</b> strategy: the sender transmits one packet, then <b>stops</b> and does nothing at all until it hears back from the receiver.</p>
+        </div>
+
       </div>
     </div>
 
