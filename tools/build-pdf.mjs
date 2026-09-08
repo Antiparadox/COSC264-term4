@@ -7,11 +7,19 @@
  *   node tools/build-pdf.mjs            # every module
  *   node tools/build-pdf.mjs week10     # just these
  *
- * One page per slide, at the deck's own 1280x720 geometry so the printed
- * layout is the one that was verified on screen. Slides whose fragments
- * REPLACE each other (hot-fragment cards, a badge that flips from 0 to 1)
- * would lose content if we simply revealed everything, so those get one page
- * per state -- the fewest pages that still show every fragment at least once.
+ * Each deck is driven with real arrow keys, exactly as it is presented, and
+ * snapshotted at every beat. That matters because the decks are not uniform:
+ * Module 1 recomputes 25 slides from JS on each step, Module 2 drives content
+ * off a data-step attribute, Module 3 updates through a MutationObserver, and
+ * Module 5 runs a different engine entirely (data-step + .visible rather than
+ * .frag + .on). Toggling classes by hand reproduced none of that; pressing
+ * ArrowRight reproduces all of it, because it is the same code path.
+ *
+ * One page per slide at the deck's own 1280x720 geometry, so the printed
+ * layout is the one verified on screen and the text stays selectable. Slides
+ * whose beats REPLACE content -- hot-fragment cards, a badge flipping 0 to 1,
+ * a table cell being rewritten -- get one page per state, using the fewest
+ * pages that still show everything at least once.
  */
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
@@ -22,6 +30,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PDF_PORT || 4321);
 const OUT = path.join(ROOT, 'public', 'pdf');
+const MAX_STEPS = 4000;
 
 const MODULES = [
   { dir: 'week7', n: 1 },
@@ -36,50 +45,40 @@ const STAMP = new Date().toLocaleDateString('en-NZ', {
   day: 'numeric', month: 'short', year: 'numeric',
 });
 
-/* Lay each slide out statically at its designed size, one per page. The deck
-   ships its own A4 @media print rules; we render as `screen` so those never
-   apply and this geometry is the only one in play. */
 const PRINT_CSS = `
   #hud, #progress, #counter, #seclabel, .navzone, #jump, #stage,
-  #toast, #contents, #remotepanel { display: none !important; }
-  /* Any stray width past 1280px makes Chrome shrink the whole page to fit,
-     which would letterbox every slide inside a larger sheet. */
+  #toast, #contents, #remotepanel, .deck, #deck { display: none !important; }
+  /* Any stray width past 1280px makes Chrome shrink the sheet to fit, which
+     would letterbox every slide. */
   html, body { background: #fff !important; overflow: visible !important;
                margin: 0 !important; padding: 0 !important;
                width: 1280px !important; height: auto !important; }
-  #pdfroot { width: 1280px; margin: 0; padding: 0; }
+  #pdfroot { width: 1280px; margin: 0; padding: 0; display: block !important; }
+  /* Deliberately no display here: the clones carry .active, so each deck's
+     own rule decides. Modules 1-4 and 6 lay a slide out as flex, Module 5 as
+     block, and forcing either one squashes the other. */
   #pdfroot .slide {
     position: relative !important; inset: auto !important;
-    display: flex !important; width: 1280px !important; height: 720px !important;
-    min-height: 0 !important; max-height: none !important;
+    width: 1280px !important; height: 720px !important;
+    min-height: 0 !important; max-height: none !important; opacity: 1 !important;
     transform: none !important; margin: 0 !important; overflow: hidden !important;
+    visibility: visible !important;
     break-after: page; page-break-after: always;
   }
   #pdfroot .slide:last-child { break-after: auto; page-break-after: auto; }
-  #pdfroot .frag { transition: none !important; }
+  /* Below the decks' own .footnote, which every one of them pins 30px up. */
   #pdfroot .pdfstamp {
-    position: absolute; left: 92px; right: 92px; bottom: 26px;
+    position: absolute; left: 92px; right: 92px; bottom: 7px;
     display: flex; justify-content: space-between;
-    font-family: var(--mono); font-size: 12.5px; color: var(--faint);
-    pointer-events: none;
+    font-family: var(--mono, monospace); font-size: 11px;
+    color: var(--faint, #888); opacity: .75; pointer-events: none;
   }
 `;
 
-/**
- * Runs inside the page, BEFORE the print CSS goes in: a slide is
- * `display:none` until it is the current one, so it has to be made visible
- * for its fragment states to be measurable at all.
- *
- * Returns one entry per printed page, in order.
- */
-function planPages() {
-  const slides = [...document.querySelectorAll('.slide')];
+/* ---- installed in the page once, before the walk ---- */
+function installRecorder() {
+  const PAINTS = new Set(['line', 'path', 'circle', 'rect', 'polygon', 'polyline', 'ellipse', 'image']);
 
-  let idx = 0;
-  document.querySelectorAll('.slide *').forEach((el) => { el.dataset.pidx = String(idx++); });
-
-  // Opacity and display are inherited down the tree in effect but not in
-  // computed style, so visibility has to be resolved against the ancestors.
   const shows = (el, root) => {
     for (let n = el; n && n !== root.parentElement; n = n.parentElement) {
       const cs = getComputedStyle(n);
@@ -89,80 +88,84 @@ function planPages() {
     return true;
   };
 
-  const PAINTS = new Set(['line', 'path', 'circle', 'rect', 'polygon', 'polyline', 'ellipse', 'image', 'tspan']);
+  // Keyed by content, not node identity: several decks rebuild nodes between
+  // beats, and identity keys would read every rebuild as content being lost.
   const signature = (slide) => {
     const seen = new Set();
     slide.querySelectorAll('*').forEach((el) => {
       const tag = el.tagName.toLowerCase();
-      if (tag === 'style' || tag === 'defs' || tag === 'marker') return;
+      if (tag === 'style' || tag === 'script' || tag === 'defs' || tag === 'marker') return;
       if (el.closest('defs')) return;
-      const leaf = el.children.length === 0;
-      if (!(leaf && (el.textContent.trim() || PAINTS.has(tag)))) return;
-      if (shows(el, slide)) seen.add(el.dataset.pidx);
+      if (el.children.length) return;
+      let key = null;
+      const text = el.textContent.trim().replace(/\s+/g, ' ');
+      if (text) key = 't:' + text;
+      else if (PAINTS.has(tag)) {
+        try {
+          const b = el.getBBox();
+          key = `s:${tag}:${Math.round(b.x)},${Math.round(b.y)},${Math.round(b.width)},${Math.round(b.height)}`;
+        } catch { key = 's:' + tag; }
+      }
+      if (key && shows(el, slide)) seen.add(key);
     });
     return seen;
   };
 
-  const plan = [];
-  const report = [];
+  const P = {
+    pages: [], acc: new Set(), prevClone: null, prevSlide: null,
+    slides: () => [...document.querySelectorAll('.slide')],
+    signature,
+  };
+  window.__pdf = P;
 
-  slides.forEach((slide, si) => {
-    const frags = [...slide.querySelectorAll('.frag')];
-    if (!frags.length) { plan.push({ si, beat: -1 }); report.push(1); return; }
+  P.step = function () {
+    const all = P.slides();
+    let slide = document.querySelector('.slide.active');
+    if (!slide) slide = all.find((s) => getComputedStyle(s).display !== 'none');
+    if (!slide) return { end: true };
+    const idx = all.indexOf(slide);
+    const sig = signature(slide);
 
-    const wasActive = slide.classList.contains('active');
-    slide.classList.add('active');
-    const sigs = [];
-    for (let i = 0; i < frags.length; i++) {
-      frags.forEach((f, j) => f.classList.toggle('on', j <= i));
-      sigs.push(signature(slide));
+    if (P.prevSlide !== null && P.prevSlide !== idx) {
+      P.pages.push({ idx: P.prevSlide, node: P.prevClone });
+      P.acc = new Set();
+    } else if (P.prevSlide !== null) {
+      const lost = [...P.acc].some((k) => !sig.has(k));
+      if (lost) { P.pages.push({ idx, node: P.prevClone }); P.acc = new Set(); }
     }
-    if (!wasActive) slide.classList.remove('active');
+    sig.forEach((k) => P.acc.add(k));
+    P.prevClone = slide.cloneNode(true);
+    P.prevSlide = idx;
+    return { idx, key: idx + '|' + [...sig].sort().join('') };
+  };
 
-    // Walk the beats accumulating what has been shown. The moment something
-    // already shown disappears, close a page at the previous beat and start
-    // accumulating again -- the fewest pages that lose nothing.
-    const beats = [];
-    let acc = new Set();
-    for (let i = 0; i < sigs.length; i++) {
-      const lost = [...acc].some((k) => !sigs[i].has(k));
-      if (lost && i > 0) { beats.push(i - 1); acc = new Set(sigs[i]); }
-      else sigs[i].forEach((k) => acc.add(k));
-    }
-    beats.push(sigs.length - 1);
-    beats.forEach((b) => plan.push({ si, beat: b }));
-    report.push(beats.length);
-  });
-
-  const multi = report
-    .map((c, i) => (c > 1 ? { slide: i + 1, pages: c } : null))
-    .filter(Boolean);
-  return { slides: slides.length, plan, multi };
+  P.finish = function () {
+    if (P.prevClone) P.pages.push({ idx: P.prevSlide, node: P.prevClone });
+    return { reached: P.prevSlide };
+  };
 }
 
-/** Runs inside the page, after the print CSS: clone each planned page out. */
-function buildPrintRoot({ plan, label, stamp, total }) {
-  const slides = [...document.querySelectorAll('.slide')];
+/* ---- run after the walk, once the print CSS is in ---- */
+function buildPrintRoot({ label, stamp, total }) {
+  const P = window.__pdf;
   const root = document.createElement('div');
   root.id = 'pdfroot';
-  plan.forEach(({ si, beat }) => {
-    const slide = slides[si];
-    const frags = [...slide.querySelectorAll('.frag')];
-    frags.forEach((f, j) => f.classList.toggle('on', beat < 0 || j <= beat));
-    const clone = slide.cloneNode(true);
+  P.pages.forEach(({ idx, node }) => {
+    const clone = node;
     clone.classList.add('active');
+    clone.removeAttribute('hidden');
     const foot = document.createElement('div');
     foot.className = 'pdfstamp';
-    foot.innerHTML = `<span>${label}</span><span>${stamp} &middot; ${si + 1} / ${total}</span>`;
+    foot.innerHTML = `<span>${label}</span><span>${stamp} &middot; ${idx + 1} / ${total}</span>`;
     clone.appendChild(foot);
     root.appendChild(clone);
   });
   document.body.appendChild(root);
 
   // Chrome's PDF renderer drops arrowheads whose marker paints with
-  // `context-stroke`, and cloning a slide duplicates its marker ids besides.
-  // Give every arrow its own marker with the colour already resolved.
-  // Runs after the root is in the document so stroke colours compute.
+  // `context-stroke`, and cloning duplicates marker ids besides. Give every
+  // arrow its own marker with the colour already resolved. Runs after the
+  // root is in the document so stroke colours compute.
   const SVGNS = 'http://www.w3.org/2000/svg';
   let n = 0;
   root.querySelectorAll('svg').forEach((svg) => {
@@ -176,9 +179,8 @@ function buildPrintRoot({ plan, label, stamp, total }) {
         if (!src) return;
         const copy = src.cloneNode(true);
         copy.id = `pdfmk${n++}`;
-        copy.querySelectorAll('path, polygon, circle, rect, ellipse').forEach((p) => {
-          p.setAttribute('fill', colour);
-        });
+        copy.querySelectorAll('path, polygon, circle, rect, ellipse')
+          .forEach((p) => p.setAttribute('fill', colour));
         if (!defs) {
           defs = document.createElementNS(SVGNS, 'defs');
           svg.insertBefore(defs, svg.firstChild);
@@ -188,6 +190,15 @@ function buildPrintRoot({ plan, label, stamp, total }) {
       });
     });
   });
+
+  const counts = {};
+  P.pages.forEach((p) => { counts[p.idx] = (counts[p.idx] || 0) + 1; });
+  return {
+    pages: P.pages.length,
+    multi: Object.entries(counts)
+      .filter(([, c]) => c > 1)
+      .map(([slide, c]) => ({ slide: Number(slide) + 1, pages: c })),
+  };
 }
 
 async function waitForServer(url, tries = 60) {
@@ -203,44 +214,68 @@ async function waitForServer(url, tries = 60) {
 
 async function main() {
   const want = process.argv.slice(2);
-  const targets = want.length ? MODULES.filter((m) => want.includes(m.dir) || want.includes(String(m.n))) : MODULES;
+  const targets = want.length
+    ? MODULES.filter((m) => want.includes(m.dir) || want.includes(String(m.n)))
+    : MODULES;
   if (!targets.length) throw new Error(`no such module: ${want.join(' ')}`);
 
   await mkdir(OUT, { recursive: true });
-
   const server = spawn(process.execPath, [path.join(ROOT, 'server.js')], {
     env: { ...process.env, PORT: String(PORT) },
     stdio: 'ignore',
   });
   const base = `http://127.0.0.1:${PORT}`;
-
   const browser = await chromium.launch();
+
   try {
     await waitForServer(`${base}/healthz`);
-    const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
-    // The deck's own @media print rules reflow to A4; render as screen so the
-    // fixed geometry above is the only layout in play.
-    await page.emulateMedia({ media: 'screen' });
 
     for (const m of targets) {
-      await page.goto(`${base}/${m.dir}/?print`, { waitUntil: 'networkidle' });
-      await page.evaluate(() => {
-        document.documentElement.setAttribute('data-theme', 'light');
-      });
-      const title = await page.title();
-      const label = title.replace(/^COSC264\s*[·:-]\s*/, '').trim() || `Module ${m.n}`;
-
-      // Fragment reveals are transitions. Computed opacity read immediately
-      // after a class change is still the pre-transition value, which would
-      // make every opacity-driven swap look like nothing had changed.
+      // A fresh context each time: the decks restore their last position from
+      // localStorage, and we need to start at the very first slide.
+      const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+      const page = await ctx.newPage();
+      await page.emulateMedia({ media: 'screen' });
+      await page.goto(`${base}/${m.dir}/#0`, { waitUntil: 'networkidle' });
+      await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'));
       await page.addStyleTag({
         content: '*, *::before, *::after { transition: none !important; animation: none !important; }',
       });
-      const info = await page.evaluate(planPages);
+
+      const total = await page.evaluate(() => document.querySelectorAll('.slide').length);
+      const title = await page.title();
+      const label = title.replace(/^COSC264\s*[·:-]\s*/, '').trim() || `Module ${m.n}`;
+
+      await page.evaluate(installRecorder);
+      await page.locator('body').click({ position: { x: 2, y: 2 } }).catch(() => {});
+
+      // Some beats reveal nothing visible -- spacer fragments that only exist
+      // to give a JS-driven slide another step -- so an unchanged snapshot is
+      // not by itself the end of the deck. Only stop once we are on the last
+      // slide and pressing on changes nothing.
+      let last = null;
+      let stall = 0;
+      let steps = 0;
+      for (; steps < MAX_STEPS; steps++) {
+        const st = await page.evaluate(() => window.__pdf.step());
+        if (st.end) break;
+        stall = st.key === last ? stall + 1 : 0;
+        if (stall >= 2 && st.idx >= total - 1) break;
+        if (stall >= 15) break; // wedged; bail rather than spin
+        last = st.key;
+        await page.keyboard.press('ArrowRight');
+        await page.waitForTimeout(12);
+      }
+      const { reached } = await page.evaluate(() => window.__pdf.finish());
+      if (reached !== total - 1) {
+        throw new Error(
+          `Module ${m.n}: the walk stopped on slide ${reached + 1} of ${total}. ` +
+          `The PDF would be missing the rest, so nothing was written.`
+        );
+      }
+
       await page.addStyleTag({ content: PRINT_CSS });
-      await page.evaluate(buildPrintRoot, {
-        plan: info.plan, label, stamp: STAMP, total: info.slides,
-      });
+      const info = await page.evaluate(buildPrintRoot, { label, stamp: STAMP, total });
 
       const file = path.join(OUT, `cosc264-module${m.n}.pdf`);
       await page.pdf({
@@ -249,19 +284,21 @@ async function main() {
         height: '720px',
         margin: { top: '0', right: '0', bottom: '0', left: '0' },
         printBackground: true,
-        preferCSSPageSize: false,
       });
+      await ctx.close();
 
       const { size } = await stat(file);
       const extra = info.multi.length
-        ? `  (${info.multi.length} slide${info.multi.length > 1 ? 's' : ''} split: ` +
-          info.multi.slice(0, 8).map((x) => `${x.slide}×${x.pages}`).join(', ') +
-          (info.multi.length > 8 ? ', …' : '') + ')'
+        ? `  (${info.multi.length} split: ` +
+          info.multi.slice(0, 6).map((x) => `${x.slide}×${x.pages}`).join(', ') +
+          (info.multi.length > 6 ? ', …' : '') + ')'
         : '';
       console.log(
-        `Module ${m.n}  ${String(info.slides).padStart(3)} slides -> ` +
-        `${String(info.plan.length).padStart(3)} pages  ${(size / 1e6).toFixed(1)} MB${extra}`
+        `Module ${m.n}  ${String(total).padStart(3)} slides -> ` +
+        `${String(info.pages).padStart(3)} pages  ${(size / 1e6).toFixed(1)} MB` +
+        `  [${steps} beats]${extra}`
       );
+      if (steps >= MAX_STEPS) console.warn(`  ! Module ${m.n} hit the step cap; deck may be truncated`);
     }
   } finally {
     await browser.close();
