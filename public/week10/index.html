@@ -619,13 +619,13 @@ svg text{font-family:var(--sans)}
     #rdt2-flaw:has(.v3.on) .ackc { opacity:1 }
     #rdt2-flaw:has(.v4.on) .resend { opacity:1 }
     #rdt2-flaw .flawdgm { display:flex }
-    #rdt2-flaw .flawcol { max-width:350px }
+    #rdt2-flaw .flawcol { max-width:430px }
   </style>
   <div class="kicker">rdt 2.0</div>
   <h2>A fatal flaw</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div class="flawdgm" style="flex:0 0 470px;justify-content:center">
-<svg viewBox="0 0 520 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px">
+    <div class="flawdgm" style="flex:0 0 560px;justify-content:center">
+<svg viewBox="90 8 345 194" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px">
 <defs><marker id="f11a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
@@ -650,11 +650,11 @@ svg text{font-family:var(--sans)}
 </svg>
     </div>
     <div class="flawcol" style="flex:1;display:flex;flex-direction:column;gap:14px">
-      <p class="frag v1" style="margin:0;font-size:17px;line-height:1.55">We assume that the <b>data</b> sent from the sender can be corrupted. But the <b>ACK and NAK</b> messages sent by the receiver also travel back through the <b>same channel</b> &mdash; so they can also be corrupted.</p>
-      <p class="frag v2" style="margin:0;font-size:17px;line-height:1.55">Suppose the sender sends &ldquo;Hello&rdquo;. The receiver gets it intact and sends back an <b>ACK</b>.</p>
-      <p class="frag v3" style="margin:0;font-size:17px;line-height:1.55">But the ACK gets <b>corrupted</b> in transit.</p>
-      <p class="frag v3b" style="margin:0;font-size:19px;line-height:1.5;font-weight:700;color:var(--accent)">What should the sender do?</p>
-      <p class="frag v4" style="margin:0;font-size:17px;line-height:1.55">The sender cannot tell whether the receiver said ACK or NAK. Its only safe option is to <b>resend</b>.</p>
+      <p class="frag v1" style="margin:0;font-size:19px;line-height:1.55">We assume that the <b>data</b> sent from the sender can be corrupted. But the <b>ACK and NAK</b> messages sent by the receiver also travel back through the <b>same channel</b> &mdash; so they can also be corrupted.</p>
+      <p class="frag v2" style="margin:0;font-size:19px;line-height:1.55">Suppose the sender sends &ldquo;Hello&rdquo;. The receiver gets it intact and sends back an <b>ACK</b>.</p>
+      <p class="frag v3" style="margin:0;font-size:19px;line-height:1.55">But the ACK gets <b>corrupted</b> in transit.</p>
+      <p class="frag v3b" style="margin:0;font-size:20px;line-height:1.5;font-weight:700;color:var(--accent)">What should the sender do?</p>
+      <p class="frag v4" style="margin:0;font-size:19px;line-height:1.55">The sender cannot tell whether the receiver said ACK or NAK. Its only safe option is to <b>resend</b>.</p>
     </div>
   </div>
 </section>
@@ -675,7 +675,7 @@ svg text{font-family:var(--sans)}
   <h2>A fatal flaw</h2>
   <div style="flex:1;display:flex;gap:22px;align-items:flex-start">
     <div style="flex:0 0 620px">
-<svg viewBox="0 0 700 302" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px">
+<svg viewBox="88 0 408 298" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="fdup" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Receiver</text>
@@ -740,7 +740,7 @@ svg text{font-family:var(--sans)}
   <h2>A fatal flaw</h2>
   <div style="flex:1;display:flex;gap:22px;align-items:flex-start">
     <div style="flex:0 0 620px">
-<svg viewBox="0 0 700 302" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px">
+<svg viewBox="88 0 408 298" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="fdup2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Receiver</text>
@@ -790,8 +790,8 @@ svg text{font-family:var(--sans)}
       <p class="frag d4" style="margin:0;font-size:19px;line-height:1.55">Receiver has no idea this is a resend &mdash; it <b>delivers &ldquo;very&rdquo; again</b>.</p>
       <p class="frag d5" style="margin:0;font-size:19px;line-height:1.55"><b>&ldquo;tired&rdquo;</b> eventually gets through and is delivered.</p>
       <div class="frag card" style="padding:14px 18px;border-left:3px solid #cf5c36">
-        <p style="margin:0 0 7px;font-size:18px;line-height:1.6">Receiver got: &ldquo;I am <b style="color:#cf5c36">very very</b> tired&rdquo;</p>
-        <p style="margin:0;font-size:18px;line-height:1.6">Regardless, this is the wrong message &mdash; it <b>contains a duplicate</b>.</p>
+        <p style="margin:0 0 7px;font-size:18px;line-height:1.6">In the end, the receiver delivers &ldquo;I am <b style="color:#cf5c36">very very</b> tired&rdquo;.</p>
+        <p style="margin:0;font-size:18px;line-height:1.6">This is the wrong message &mdash; it contains a <b>duplicate &ldquo;very&rdquo;</b>.</p>
       </div>
     </div>
   </div>
