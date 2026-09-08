@@ -367,17 +367,10 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<!-- ══ Section: perfectly reliable channel ══ -->
-<section class="slide sec-title" data-sec="Reliable Data Transfer" data-anchor="rdt10">
-  <div class="kicker">rdt 1.0</div>
-  <h1>Reliable data transfer over a perfectly reliable channel</h1>
-  <div class="rule"></div>
-</section>
-
 <!-- ── rdt 1.0 ── -->
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">rdt 1.0</div>
-  <h2>Error-free transmission</h2>
+  <h2>rdt 1.0 &mdash; a perfectly reliable channel</h2>
   <div style="flex:1;display:flex;gap:34px;align-items:flex-start">
     <div style="flex:1;display:flex;flex-direction:column;gap:16px">
       <div class="frag">
@@ -389,7 +382,7 @@ svg text{font-family:var(--sans)}
         </ul>
       </div>
       <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:17px;line-height:1.6">Nothing can go wrong, so the protocol does nothing clever: the sender sends whenever data is available, and the receiver passes what arrives straight up to its upper-layer protocol.</p>
+        <p style="margin:0;font-size:17px;line-height:1.6">Nothing can go wrong, so there is nothing for the protocol to do: the sender just sends, and the receiver just delivers what arrives.</p>
       </div>
     </div>
     <div style="flex:0 0 420px;display:flex;justify-content:center">
