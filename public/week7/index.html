@@ -3656,8 +3656,11 @@ function updateDijkstraDescSlide(){
      + 'itself.</li>'
      + '<li style="margin:0 0 7px"><b class="mono">d<sub>s</sub>(v) = c(s,v)</b> for each neighbour v '
      + '&mdash; the best cost we know so far.</li>'
-     + '<li style="margin:0"><b class="mono">d<sub>s</sub>(v) = &infin;</b> for everyone else &mdash; '
-     + 'we know nothing about them yet.</li></ul></div>';
+     + '<li style="margin:0 0 7px"><b class="mono">d<sub>s</sub>(v) = &infin;</b> for everyone else &mdash; '
+     + 'we know nothing about them yet.</li>'
+     + '<li style="margin:0"><b class="mono">pred<sub>s</sub>(v) = s</b> for each neighbour v &mdash; we '
+     + 'reach it straight from s; <b class="mono">nil</b> for everyone else, since we have no path to '
+     + 'them yet.</li></ul></div>';
   C[3]='<div class="djcard">'+HD+'The settled set S</p>'
      + '<p style="margin:0">S holds the nodes whose distance is <b>final</b>: once u is in S we have '
      + '<b class="mono">d<sub>s</sub>(u) = d<sub>s</sub>*(u)</b>, the optimal cost.</p>'
