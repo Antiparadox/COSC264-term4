@@ -29,7 +29,6 @@
 
   let ws = null;
   let code = null;
-  let revealed = false;   // the code is covered until it is actually needed
   let lastSeq = 0;          // dedupe lives here, not on the server
   let retry = RETRY_MIN;
   let retryTimer = null;
@@ -79,16 +78,10 @@
   const panel = el('div', { id: 'rc-panel' });
   panel.innerHTML = `
     <div id="rc-backdrop"></div>
-    <div id="rc-card" role="dialog" aria-modal="true" aria-labelledby="rc-title">
+    <div id="rc-card" role="dialog" aria-modal="true" aria-label="Pairing code">
       <button id="rc-close" aria-label="Close">&times;</button>
-      <p id="rc-title">Slide remote</p>
-      <p class="rc-step">Open this on your phone once, then add it to your home screen.</p>
-      <div id="rc-link" class="rc-hidden">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</div>
-      <div id="rc-actions">
-        <button id="rc-reveal" type="button">Show link</button>
-        <button id="rc-rotate" type="button" title="Use a different code from now on">New code</button>
-      </div>
-      <p id="rc-status">Connecting…</p>
+      <div id="rc-code">&bull;&bull;&bull;&bull;</div>
+      <button id="rc-rotate" type="button" title="Use a different code from now on">new code</button>
     </div>`;
 
   const capBand = el('div', { id: 'rc-cap' });
@@ -132,18 +125,15 @@
       font-family:var(--sans,system-ui,sans-serif)}
     #rc-close{position:absolute;top:10px;right:14px;border:0;background:none;
       font-size:26px;line-height:1;color:var(--faint,#84939d);cursor:pointer}
-    #rc-title{margin:0 0 18px;font-family:var(--serif,Georgia,serif);
-      font-size:22px;font-weight:600}
-    .rc-step{margin:0 0 8px;font-size:15px;color:var(--muted,#54646f);text-align:left}
-    #rc-link{font-family:var(--mono,monospace);font-size:21px;font-weight:700;
-      color:var(--accent,#0f8f83);margin:12px 0 14px;word-break:break-all;line-height:1.45}
-    #rc-link.rc-hidden{color:var(--border,#d4dde3);letter-spacing:.22em}
-    #rc-actions{display:flex;gap:8px;justify-content:center;margin:0 0 14px}
-    #rc-actions button{border:1px solid var(--border,#d4dde3);background:var(--surface,#fff);
-      color:var(--muted,#54646f);border-radius:8px;padding:6px 12px;font-size:13px;
-      font-family:var(--mono,monospace);cursor:pointer}
-    #rc-actions button:hover{border-color:var(--accent,#0f8f83);color:var(--accent,#0f8f83)}
-    #rc-status{margin:0;font-size:14px;color:var(--faint,#84939d)}
+    /* Nothing but the code: this opens on a projector, and the phone's
+       address does not change from one lecture to the next. */
+    #rc-code{font-family:var(--mono,monospace);font-size:76px;font-weight:700;
+      letter-spacing:.2em;color:var(--accent,#0f8f83);margin:6px 0 0;
+      text-indent:.2em;line-height:1.05}
+    #rc-rotate{display:block;margin:14px auto 0;border:0;background:none;
+      color:var(--faint,#84939d);font-family:var(--mono,monospace);font-size:12px;
+      cursor:pointer;opacity:.7}
+    #rc-rotate:hover{color:var(--accent,#0f8f83);opacity:1}
     /* Captions, in the shape a video player uses: a block that floats over
        the slide rather than a bar bolted to the bottom of it, with the dark
        ground painted only behind the words. Nothing is drawn when there is
@@ -378,15 +368,8 @@
   // The code is a term-long credential now, and this panel opens on a
   // projector, so it stays covered until asked for and re-covers on close.
   function paintCode() {
-    const c = document.getElementById('rc-link');
-    const b = document.getElementById('rc-reveal');
-    if (c) {
-      c.textContent = revealed && code
-        ? `${location.host}/remote/?c=${code}`
-        : '\u2022'.repeat(12);
-      c.classList.toggle('rc-hidden', !revealed);
-    }
-    if (b) b.textContent = revealed ? 'Hide link' : 'Show link';
+    const c = document.getElementById('rc-code');
+    if (c) c.textContent = code || '\u2022'.repeat(4);
   }
 
   let toastTimer = null;
@@ -412,7 +395,6 @@
   }
 
   function openPanel() {
-    revealed = false;
     paintCode();
     panel.classList.add('rc-open');
     startRemote();
@@ -589,16 +571,11 @@
     document.body.appendChild(toastEl);
     hud.appendChild(pill);
 
-    document.getElementById('rc-reveal').addEventListener('click', () => {
-      revealed = !revealed;
-      paintCode();
-    });
     document.getElementById('rc-rotate').addEventListener('click', () => {
       // Forget it and reconnect with no code: the relay mints a fresh one.
       // The only way back from a code that has been seen by the wrong people.
       code = null;
       try { localStorage.removeItem(STORE_KEY); } catch {}
-      revealed = true;
       try { ws && ws.close(); } catch {}
       paint('Getting a new code…', false);
       connect();
@@ -622,7 +599,12 @@
       if (e.key === 'Escape' && panel.classList.contains('rc-open')) closePanel();
     });
 
-    try { code = localStorage.getItem(STORE_KEY); } catch {}
+    try {
+      const saved = localStorage.getItem(STORE_KEY);
+      // Anything not of the current shape is a leftover the relay will refuse.
+      code = /^[0-9]{4}$/.test(saved || '') ? saved : null;
+      if (!code) localStorage.removeItem(STORE_KEY);
+    } catch {}
 
     watchDeck();
   }

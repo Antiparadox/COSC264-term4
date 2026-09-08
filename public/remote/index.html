@@ -99,10 +99,10 @@
 
   <section id="pair">
     <h1>Slide remote</h1>
-    <input id="code" inputmode="latin" autocomplete="off" autocapitalize="characters"
-           spellcheck="false" maxlength="6" placeholder="······" aria-label="Session code">
+    <input id="code" inputmode="numeric" pattern="[0-9]*" autocomplete="off"
+           spellcheck="false" maxlength="4" placeholder="····" aria-label="Session code">
     <button id="go" disabled>Connect</button>
-    <p id="msg">Enter the code shown on the slide.</p>
+    <p id="msg">Enter the 4-digit code shown on the slide.</p>
   </section>
 
   <section id="pad">
@@ -427,8 +427,8 @@
   /* ---------- wiring ---------- */
   const input = $('code');
   input.addEventListener('input', () => {
-    input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
-    $('go').disabled = input.value.length !== 6;
+    input.value = input.value.replace(/[^0-9]/g, '').slice(0, 4);
+    $('go').disabled = input.value.length !== 4;
   });
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && !$('go').disabled) $('go').click(); });
 
@@ -470,28 +470,23 @@
   // the right one: join it straight away rather than asking for a tap that has
   // only one sensible answer. A stale code just falls back to the pairing
   // screen, which is where we would have started anyway.
-  // ?c=CODE carries the pairing, so the deck can hand over a link instead of
-  // six characters to squint at. The code is left in the URL on purpose: it
-  // is what makes this page bookmarkable as a one-tap remote, and it has to
-  // keep working after the browser clears site data.
-  let fromUrl = '';
-  try {
-    fromUrl = (new URLSearchParams(location.search).get('c') || '')
-      .toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
-  } catch {}
-
+  // The deck keeps its code between lectures, so the remembered one is almost
+  // always still right: join it rather than asking for a tap with only one
+  // sensible answer. A leftover in the old format is dropped rather than
+  // offered, since the relay would only refuse it.
   let start = '';
-  try { start = fromUrl || localStorage.getItem(STORE) || ''; } catch { start = fromUrl; }
+  try {
+    start = localStorage.getItem(STORE) || '';
+    if (!/^[0-9]{4}$/.test(start)) { start = ''; localStorage.removeItem(STORE); }
+  } catch { start = ''; }
 
   if (start) {
     input.value = start;
-    $('go').disabled = start.length !== 6;
-    if (start.length === 6) {
-      code = start;
-      waiting = true;
-      $('msg').textContent = 'Connecting…';
-      connect();
-    }
+    $('go').disabled = false;
+    code = start;
+    waiting = true;
+    $('msg').textContent = 'Connecting…';
+    connect();
   }
 })();
 </script>

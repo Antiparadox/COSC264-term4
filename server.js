@@ -50,16 +50,30 @@ const server = app.listen(PORT, () => console.log(`COSC264 site listening on :${
  * reconnect -- both ends resume exactly where they were.
  * ------------------------------------------------------------------ */
 
-// No I/O/0/1: these get misread off a projector.
-const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-// Six, not four. The deck now keeps its code across sessions so the phone can
-// rejoin without being retyped, which turns the code from a 50-minute
-// credential into a term-long one: 32^6 is about 1.1 billion rather than a
-// million. The deck also keeps it off the projector unless asked.
-const CODE_LEN = 6;
-// A wrong code costs a socket; this stops that socket being used to hunt for
-// a right one.
+// Digits only: read off a projector and typed on a phone's number pad.
+const ALPHABET = '0123456789';
+const CODE_LEN = 4;
+const CODE_RE = /^[0-9]{4}$/;
+// Four digits is ten thousand codes, and the deck keeps its code between
+// lectures so the phone can rejoin without being retyped. Guessing is
+// therefore the thing to make expensive: a wrong code costs a socket, and
+// wrong codes from one address are capped per minute. At this rate finding a
+// live code takes days of sustained traffic, and a session only exists while
+// the remote is actually switched on.
 const MAX_BAD_JOINS = 5;
+const BAD_PER_MIN = 12;
+const badByIp = new Map();   // ip -> { n, resetAt }
+
+function tooManyBadJoins(ip) {
+  const now = Date.now();
+  let e = badByIp.get(ip);
+  if (!e || now > e.resetAt) { e = { n: 0, resetAt: now + 60000 }; badByIp.set(ip, e); }
+  e.n += 1;
+  if (badByIp.size > 5000) {           // never let this become the leak
+    for (const [k, v] of badByIp) if (now > v.resetAt) badByIp.delete(k);
+  }
+  return e.n > BAD_PER_MIN;
+}
 const GRACE_MS = 5 * 60 * 1000;   // keep a session alive across an iPad reload
 const HEARTBEAT_MS = 30 * 1000;
 
@@ -92,7 +106,11 @@ function scheduleReaper(code, session) {
 
 const wss = new WebSocketServer({ server, path: '/rc' });
 
-wss.on('connection', (ws) => {
+wss.on('connection', (ws, req) => {
+  // Behind Railway's proxy the socket address is the proxy's, so prefer the
+  // forwarded one; it is only ever used to rate-limit wrong codes.
+  ws.ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim()
+    || req.socket.remoteAddress || 'unknown';
   ws.isAlive = true;
   ws.on('pong', () => { ws.isAlive = true; });
 
@@ -107,7 +125,10 @@ wss.on('connection', (ws) => {
     if (msg.role === 'presenter') {
       // Reuse the requested code when possible so an iPad reload rejoins the
       // same session and any paired phone stays paired.
-      let code = typeof msg.code === 'string' ? msg.code.toUpperCase() : null;
+      // Only ever honour a code of our own shape. Otherwise a client could
+      // hold on to an old-format code, or simply ask for a weak one.
+      let code = typeof msg.code === 'string' && CODE_RE.test(msg.code.trim())
+        ? msg.code.trim() : null;
       let session = code ? sessions.get(code) : null;
 
       if (session && session.presenter && session.presenter !== ws) {
@@ -131,10 +152,11 @@ wss.on('connection', (ws) => {
 
     if (msg.role === 'remote') {
       const code = typeof msg.code === 'string' ? msg.code.toUpperCase().trim() : '';
-      const session = sessions.get(code);
+      const session = CODE_RE.test(code) ? sessions.get(code) : null;
       if (!session) {
         send(ws, { type: 'nosession' });
-        if ((ws.badJoins = (ws.badJoins || 0) + 1) >= MAX_BAD_JOINS) ws.close();
+        const flooding = tooManyBadJoins(ws.ip);
+        if (flooding || (ws.badJoins = (ws.badJoins || 0) + 1) >= MAX_BAD_JOINS) ws.close();
         return;
       }
 
