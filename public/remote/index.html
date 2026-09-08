@@ -470,19 +470,29 @@
   // the right one: join it straight away rather than asking for a tap that has
   // only one sensible answer. A stale code just falls back to the pairing
   // screen, which is where we would have started anyway.
+  // ?c=CODE carries the pairing, so the deck can hand over a link instead of
+  // six characters to squint at. The code is left in the URL on purpose: it
+  // is what makes this page bookmarkable as a one-tap remote, and it has to
+  // keep working after the browser clears site data.
+  let fromUrl = '';
   try {
-    const last = localStorage.getItem(STORE);
-    if (last) {
-      input.value = last;
-      $('go').disabled = last.length !== 6;
-      if (last.length === 6) {
-        code = last;
-        waiting = true;
-        $('msg').textContent = 'Reconnecting…';
-        connect();
-      }
-    }
+    fromUrl = (new URLSearchParams(location.search).get('c') || '')
+      .toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
   } catch {}
+
+  let start = '';
+  try { start = fromUrl || localStorage.getItem(STORE) || ''; } catch { start = fromUrl; }
+
+  if (start) {
+    input.value = start;
+    $('go').disabled = start.length !== 6;
+    if (start.length === 6) {
+      code = start;
+      waiting = true;
+      $('msg').textContent = 'Connecting…';
+      connect();
+    }
+  }
 })();
 </script>
 </body>

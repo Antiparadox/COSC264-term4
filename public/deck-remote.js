@@ -82,11 +82,10 @@
     <div id="rc-card" role="dialog" aria-modal="true" aria-labelledby="rc-title">
       <button id="rc-close" aria-label="Close">&times;</button>
       <p id="rc-title">Slide remote</p>
-      <p class="rc-step">1 &nbsp;Open <b id="rc-url"></b> on your phone</p>
-      <p class="rc-step">2 &nbsp;Enter this code &mdash; once. Your phone remembers it.</p>
-      <div id="rc-code" class="rc-hidden">••••••</div>
+      <p class="rc-step">Open this on your phone once, then add it to your home screen.</p>
+      <div id="rc-link" class="rc-hidden">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</div>
       <div id="rc-actions">
-        <button id="rc-reveal" type="button">Show code</button>
+        <button id="rc-reveal" type="button">Show link</button>
         <button id="rc-rotate" type="button" title="Use a different code from now on">New code</button>
       </div>
       <p id="rc-status">Connecting…</p>
@@ -100,6 +99,7 @@
     '</div></div>';
 
   const dot = el('div', { id: 'rc-dot' });
+  const toastEl = el('div', { id: 'rc-toast' });
 
   const pill = el('button', {
     id: 'b-remote',
@@ -111,6 +111,15 @@
   const style = el('style');
   style.textContent = `
     #b-remote.rc-live{color:var(--accent,#0f8f83);border-color:var(--accent,#0f8f83)}
+    /* Connecting no longer opens the dialog, so the click needs an answer of
+       its own; the pill going live is the other half of it. */
+    #rc-toast{position:fixed;top:52px;right:14px;z-index:900;opacity:0;
+      transform:translateY(-4px);transition:opacity .18s ease,transform .18s ease;
+      pointer-events:none;background:var(--surface,#fff);color:var(--muted,#54646f);
+      border:1px solid var(--border,#d4dde3);border-radius:8px;padding:7px 12px;
+      font-family:var(--mono,monospace);font-size:13px;
+      box-shadow:0 6px 20px rgba(8,14,18,.16)}
+    #rc-toast.on{opacity:1;transform:none}
     #rc-panel{display:none}
     #rc-panel.rc-open{display:block}
     #rc-backdrop{position:fixed;inset:0;background:rgba(8,14,18,.55);
@@ -126,11 +135,9 @@
     #rc-title{margin:0 0 18px;font-family:var(--serif,Georgia,serif);
       font-size:22px;font-weight:600}
     .rc-step{margin:0 0 8px;font-size:15px;color:var(--muted,#54646f);text-align:left}
-    #rc-url{font-family:var(--mono,monospace);color:var(--accent,#0f8f83)}
-    #rc-code{font-family:var(--mono,monospace);font-size:52px;font-weight:700;
-      letter-spacing:.18em;color:var(--accent,#0f8f83);margin:10px 0 14px;
-      text-indent:.18em}
-    #rc-code.rc-hidden{color:var(--border,#d4dde3);letter-spacing:.1em;text-indent:.1em}
+    #rc-link{font-family:var(--mono,monospace);font-size:21px;font-weight:700;
+      color:var(--accent,#0f8f83);margin:12px 0 14px;word-break:break-all;line-height:1.45}
+    #rc-link.rc-hidden{color:var(--border,#d4dde3);letter-spacing:.22em}
     #rc-actions{display:flex;gap:8px;justify-content:center;margin:0 0 14px}
     #rc-actions button{border:1px solid var(--border,#d4dde3);background:var(--surface,#fff);
       color:var(--muted,#54646f);border-radius:8px;padding:6px 12px;font-size:13px;
@@ -371,13 +378,23 @@
   // The code is a term-long credential now, and this panel opens on a
   // projector, so it stays covered until asked for and re-covers on close.
   function paintCode() {
-    const c = document.getElementById('rc-code');
+    const c = document.getElementById('rc-link');
     const b = document.getElementById('rc-reveal');
     if (c) {
-      c.textContent = revealed && code ? code : '\u2022'.repeat(6);
+      c.textContent = revealed && code
+        ? `${location.host}/remote/?c=${code}`
+        : '\u2022'.repeat(12);
       c.classList.toggle('rc-hidden', !revealed);
     }
-    if (b) b.textContent = revealed ? 'Hide code' : 'Show code';
+    if (b) b.textContent = revealed ? 'Hide link' : 'Show link';
+  }
+
+  let toastTimer = null;
+  function toast(text) {
+    toastEl.textContent = text;
+    toastEl.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('on'), 2600);
   }
 
   function paint(text, live) {
@@ -386,13 +403,19 @@
     pill.classList.toggle('rc-live', !!live);
   }
 
+  // Turn the remote on without putting anything on the projector.
+  function startRemote() {
+    wantOpen = true;
+    keepAwake();
+    connect();
+    toast('Remote on \u00b7 waiting for your phone\u2026');
+  }
+
   function openPanel() {
     revealed = false;
     paintCode();
     panel.classList.add('rc-open');
-    wantOpen = true;
-    keepAwake();
-    connect();
+    startRemote();
   }
   function closePanel() { panel.classList.remove('rc-open'); }
 
@@ -425,6 +448,9 @@
         paintCode();
         if (m.remotes) lastSeq = 0;
         paint(m.remotes ? 'Phone connected.' : 'Waiting for your phone…', m.remotes > 0);
+        // Rejoining a session the phone never left arrives as 'ready' with a
+        // remote already in it, not as a 'remote' event, so say so here too.
+        if (m.remotes) toast('Phone connected.');
         return;
       }
 
@@ -441,7 +467,8 @@
         // stranded on the projector with nothing able to clear it.
         if (!m.connected) showPointer(false);
         paint(m.connected ? statusLine() : 'Waiting for your phone…', m.connected);
-        // Hide the code once paired: it is on a projector in front of a class.
+        toast(m.connected ? 'Phone connected.' : 'Phone disconnected.');
+        // Hide the link once paired: it is on a projector in front of a class.
         if (m.connected) setTimeout(closePanel, 900);
         return;
       }
@@ -559,10 +586,8 @@
     document.body.appendChild(panel);
     document.body.appendChild(capBand);
     document.body.appendChild(dot);
+    document.body.appendChild(toastEl);
     hud.appendChild(pill);
-
-    const url = document.getElementById('rc-url');
-    if (url) url.textContent = `${location.host}/remote/`;
 
     document.getElementById('rc-reveal').addEventListener('click', () => {
       revealed = !revealed;
@@ -579,7 +604,18 @@
       connect();
     });
 
-    pill.addEventListener('click', openPanel);
+    // A paired phone needs no dialog: the first click just brings the remote
+    // up and says so. The panel is for pairing and for managing the code, so
+    // it opens on a later click -- or straight away when there is no code yet
+    // and one is therefore about to be needed.
+    pill.addEventListener('click', () => {
+      if (!wantOpen) {
+        startRemote();
+        if (!code) openPanel();
+        return;
+      }
+      openPanel();
+    });
     document.getElementById('rc-close').addEventListener('click', closePanel);
     document.getElementById('rc-backdrop').addEventListener('click', closePanel);
     document.addEventListener('keydown', (e) => {
