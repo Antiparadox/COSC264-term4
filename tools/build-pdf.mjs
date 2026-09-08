@@ -25,14 +25,14 @@ import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
 import { mkdir, stat } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PDF_PORT || 4321);
 const OUT = path.join(ROOT, 'public', 'pdf');
 const MAX_STEPS = 4000;
 
-const MODULES = [
+export const MODULES = [
   { dir: 'week7', n: 1 },
   { dir: 'week8', n: 2 },
   { dir: 'week9', n: 3 },
@@ -41,11 +41,11 @@ const MODULES = [
   { dir: 'week12', n: 6 },
 ];
 
-const STAMP = new Date().toLocaleDateString('en-NZ', {
+export const STAMP = new Date().toLocaleDateString('en-NZ', {
   day: 'numeric', month: 'short', year: 'numeric',
 });
 
-const PRINT_CSS = `
+export const PRINT_CSS = `
   #hud, #progress, #counter, #seclabel, .navzone, #jump, #stage,
   #toast, #contents, #remotepanel, .deck, #deck { display: none !important; }
   /* Any stray width past 1280px makes Chrome shrink the sheet to fit, which
@@ -76,7 +76,7 @@ const PRINT_CSS = `
 `;
 
 /* ---- installed in the page once, before the walk ---- */
-function installRecorder() {
+export function installRecorder() {
   const PAINTS = new Set(['line', 'path', 'circle', 'rect', 'polygon', 'polyline', 'ellipse', 'image']);
 
   const shows = (el, root) => {
@@ -136,7 +136,11 @@ function installRecorder() {
     sig.forEach((k) => P.acc.add(k));
     P.prevClone = slide.cloneNode(true);
     P.prevSlide = idx;
-    return { idx, key: idx + '|' + [...sig].sort().join('') };
+    return {
+      idx,
+      key: idx + '|' + [...sig].sort().join('\u0001'),
+      texts: [...sig].filter((k) => k.startsWith('t:')).map((k) => k.slice(2)),
+    };
   };
 
   P.finish = function () {
@@ -146,7 +150,7 @@ function installRecorder() {
 }
 
 /* ---- run after the walk, once the print CSS is in ---- */
-function buildPrintRoot({ label, stamp, total }) {
+export function buildPrintRoot({ label, stamp, total }) {
   const P = window.__pdf;
   const root = document.createElement('div');
   root.id = 'pdfroot';
@@ -201,7 +205,31 @@ function buildPrintRoot({ label, stamp, total }) {
   };
 }
 
-async function waitForServer(url, tries = 60) {
+/* ---- the same visibility test, applied to the finished print root ---- */
+export function collectRootText() {
+  const shows = (el, root) => {
+    for (let n = el; n && n !== root.parentElement; n = n.parentElement) {
+      const cs = getComputedStyle(n);
+      if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+      if (parseFloat(cs.opacity) < 0.05) return false;
+    }
+    return true;
+  };
+  const out = new Set();
+  document.querySelectorAll('#pdfroot .slide').forEach((page) => {
+    page.querySelectorAll('*').forEach((el) => {
+      if (el.children.length) return;
+      const tag = el.tagName.toLowerCase();
+      if (tag === 'style' || tag === 'script' || el.closest('defs')) return;
+      if (el.closest('.pdfstamp')) return;
+      const t = el.textContent.trim().replace(/\s+/g, ' ');
+      if (t && shows(el, page)) out.add(t);
+    });
+  });
+  return [...out];
+}
+
+export async function waitForServer(url, tries = 60) {
   for (let i = 0; i < tries; i++) {
     try {
       const r = await fetch(url, { signal: AbortSignal.timeout(500) });
@@ -306,4 +334,6 @@ async function main() {
   }
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((e) => { console.error(e); process.exit(1); });
+}

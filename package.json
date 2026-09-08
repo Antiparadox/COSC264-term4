@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "pdf": "node tools/build-pdf.mjs"
+    "pdf": "node tools/build-pdf.mjs",
+    "pdf:verify": "node tools/verify-pdf.mjs"
   },
   "dependencies": {
     "express": "^4.21.2",
