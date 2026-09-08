@@ -438,15 +438,16 @@ svg text{font-family:var(--sans)}
 </g>
 <g class="m2">
   <line x1="402" y1="112" x2="118" y2="140" stroke="var(--accent)" stroke-width="2" marker-end="url(#ca)"/>
-  <text x="260.0" y="105" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">Yes (ACK)</text>
+  <text x="260.0" y="105" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">ACK</text>
 </g>
 <g class="m3">
   <line x1="118" y1="164" x2="402" y2="192" stroke="#cf5c36" stroke-width="2" marker-end="url(#ca)"/>
   <text x="260.0" y="157" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">Can we meet at @#%&amp;</text>
+  <text x="410" y="207" text-anchor="start" font-size="12" fill="#cf5c36" font-weight="700">error detected</text>
 </g>
 <g class="m4">
   <line x1="402" y1="216" x2="118" y2="244" stroke="#cf5c36" stroke-width="2" marker-end="url(#ca)"/>
-  <text x="260.0" y="209" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">Pardon? (NAK)</text>
+  <text x="260.0" y="209" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">NAK</text>
 </g>
 <g class="m5">
   <line x1="118" y1="268" x2="402" y2="296" stroke="var(--accent)" stroke-width="2" marker-end="url(#ca)"/>
@@ -455,7 +456,7 @@ svg text{font-family:var(--sans)}
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:340px">
-      <p class="frag k1" style="margin:0;font-size:16.5px;line-height:1.55">Bits can now be flipped in transit &mdash; think of it as a conversation over a bad line.</p>
+      <p class="frag k1" style="margin:0;font-size:16.5px;line-height:1.55">Bits can now be flipped in transit.</p>
       <div class="frag k2 card" style="padding:11px 15px">
         <p style="margin:0;font-size:16px;line-height:1.55">Here&rsquo;s one idea: the receiver runs an <b>error detection code</b> &mdash; a checksum or CRC &mdash; exactly what we learned in Module 3.</p>
       </div>
