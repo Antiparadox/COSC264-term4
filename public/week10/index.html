@@ -980,19 +980,19 @@ svg text{font-family:var(--sans)}
     #rdt22:has(.w3.on) .n1,#rdt22:has(.w3.on) .n2 { opacity:1 }
     #rdt22:has(.w3.on):not(:has(.w4.on)) .n3a { opacity:1 }
     #rdt22:has(.w4.on) .n3b { opacity:1 }
-    #rdt22:has(.w3.on):not(:has(.w5.on)) .n4a { opacity:1 }
-    #rdt22:has(.w5.on) .n4b { opacity:1 }
-    #rdt22:has(.w6.on) .n5,#rdt22:has(.w6.on) .n6 { opacity:1 }
-    #rdt22:has(.w4.on):not(:has(.w6.on)) .sq1 { opacity:1 }
-    #rdt22:has(.w4.on):not(:has(.w6.on)) .rq1 { opacity:1 }
-    #rdt22:has(.w6.on) .sq0 { opacity:1 }
-    #rdt22:has(.w6.on) .rq0 { opacity:1 }
+    #rdt22:has(.w3.on):not(:has(.w4.on)) .n4a { opacity:1 }
+    #rdt22:has(.w6.on) .n4b { opacity:1 }
+    #rdt22:has(.w7.on) .n5,#rdt22:has(.w7.on) .n6 { opacity:1 }
+    #rdt22:has(.w4.on):not(:has(.w7.on)) .sq1 { opacity:1 }
+    #rdt22:has(.w4.on):not(:has(.w7.on)) .rq1 { opacity:1 }
+    #rdt22:has(.w7.on) .sq0 { opacity:1 }
+    #rdt22:has(.w7.on) .rq0 { opacity:1 }
   </style>
   <div class="kicker">rdt 2.2</div>
   <h2>Numbering the ACKs too</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:0 0 620px;display:flex;justify-content:center">
-<svg viewBox="16 8 489 312" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+    <div style="flex:0 0 560px;display:flex;justify-content:center">
+<svg viewBox="16 8 489 312" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px">
 <defs><marker id="g17a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
@@ -1012,16 +1012,17 @@ svg text{font-family:var(--sans)}
 <g class="n6"><line x1="402" y1="266" x2="118" y2="293" stroke="var(--accent)" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="260" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">1</tspan></text></g>
 </svg>
     </div>
-    <div style="flex:1;display:flex;flex-direction:column;gap:9px;max-width:440px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:8px;max-width:500px">
       <p class="frag w1" style="margin:0;font-size:18px;line-height:1.55"><b>rdt 2.2</b> adds a neat trick: number the <b>receiver&rsquo;s</b> messages too.</p>
       <p class="frag w2" style="margin:0;font-size:18px;line-height:1.55">Every ACK now carries a sequence number. <b>ACK 0</b> means &ldquo;I received your packet <b>0</b>&rdquo;.</p>
       <p class="frag w3" style="margin:0;font-size:18px;line-height:1.55">With nothing corrupted, the exchange simply alternates.</p>
       <p class="frag w4" style="margin:0;font-size:18px;line-height:1.55">Now suppose that second packet arrives <b>corrupted</b>.</p>
-      <p class="frag w5" style="margin:0;font-size:18px;line-height:1.55">Instead of a NAK, the receiver <b>re-sends its previous ACK</b>: &ldquo;I still only have packet <b>0</b>&rdquo;.</p>
-      <div class="frag w6 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
+      <p class="frag w5" style="margin:0;font-size:18px;line-height:1.55">This time the receiver should send a <b>NAK</b>, as usual.</p>
+      <p class="frag w6" style="margin:0;font-size:18px;line-height:1.55">But its messages are numbered now &mdash; so instead of a NAK it can just <b>re-send its previous ACK</b>: &ldquo;I still only have packet <b>0</b>&rdquo;.</p>
+      <div class="frag w7 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
         <p style="margin:0;font-size:18px;line-height:1.6">The sender sees <b>ACK 0 twice</b>. A duplicate ACK says exactly what a NAK would, so it <b>retransmits</b>.</p>
       </div>
-      <p class="frag w7" style="margin:0;font-size:18px;line-height:1.55">So <b>NAKs are unnecessary</b>: one message type does both jobs &mdash; the design <b>TCP</b> uses.</p>
+      <p class="frag w8" style="margin:0;font-size:18px;line-height:1.55">So <b>NAKs are unnecessary</b>: one message type does both jobs &mdash; the design <b>TCP</b> uses.</p>
     </div>
   </div>
 </section>
