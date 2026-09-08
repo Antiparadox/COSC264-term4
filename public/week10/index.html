@@ -975,79 +975,53 @@ svg text{font-family:var(--sans)}
 <!-- ── rdt 2.2: ACKs carry the sequence number ── -->
 <section class="slide" id="rdt22" data-sec="Reliable Data Transfer">
   <style>
-    #rdt22 .diagram-wrap { opacity:0; transition:opacity 0.3s }
-    #rdt22:has(.w4.on) .diagram-wrap { opacity:1 }
-    #rdt22 .j1,#rdt22 .j2,#rdt22 .j3,#rdt22 .j4 { opacity:0; transition:opacity 0.3s }
-    #rdt22:has(.d1.on) .j1 { opacity:1 }
-    #rdt22:has(.d2.on) .j2 { opacity:1 }
-    #rdt22:has(.d3.on) .j3 { opacity:1 }
-    #rdt22:has(.d4.on) .j4 { opacity:1 }
+    #rdt22 .n1,#rdt22 .n2,#rdt22 .n3a,#rdt22 .n3b,#rdt22 .n4a,#rdt22 .n4b,#rdt22 .n5,#rdt22 .n6,
+    #rdt22 .sq1,#rdt22 .sq0,#rdt22 .rq1,#rdt22 .rq0 { opacity:0; transition:opacity 0.3s }
+    #rdt22:has(.w3.on) .n1,#rdt22:has(.w3.on) .n2 { opacity:1 }
+    #rdt22:has(.w3.on):not(:has(.w4.on)) .n3a { opacity:1 }
+    #rdt22:has(.w4.on) .n3b { opacity:1 }
+    #rdt22:has(.w3.on):not(:has(.w5.on)) .n4a { opacity:1 }
+    #rdt22:has(.w5.on) .n4b { opacity:1 }
+    #rdt22:has(.w6.on) .n5,#rdt22:has(.w6.on) .n6 { opacity:1 }
+    #rdt22:has(.w4.on):not(:has(.w6.on)) .sq1 { opacity:1 }
+    #rdt22:has(.w4.on):not(:has(.w6.on)) .rq1 { opacity:1 }
+    #rdt22:has(.w6.on) .sq0 { opacity:1 }
+    #rdt22:has(.w6.on) .rq0 { opacity:1 }
   </style>
   <div class="kicker">rdt 2.2</div>
   <h2>Numbering the ACKs too</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:440px">
-      <p class="frag w1" style="margin:0;font-size:18px;line-height:1.55">So far the data carries a sequence number but the ACK does not &mdash; it just says &ldquo;yes&rdquo;, without saying <b>to what</b>.</p>
-      <p class="frag w2" style="margin:0;font-size:18px;line-height:1.55">In stop-and-wait this is actually fine &mdash; the sender can only have <b>one packet outstanding</b> at a time, so it always knows which packet the ACK is referring to.</p>
-      <div class="frag w3 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:18px;line-height:1.6">Still, in <b>rdt 2.2</b> the receiver puts the <b>sequence number in the ACK</b>: &ldquo;ACK 0&rdquo; means &ldquo;I received packet 0&rdquo;.</p>
-      </div>
-      <p class="frag w4" style="margin:0;font-size:18px;line-height:1.55">With nothing corrupted, the exchange simply alternates:</p>
-      <span class="frag d1"></span>
-      <span class="frag d2"></span>
-      <span class="frag d3"></span>
-      <span class="frag d4"></span>
-    </div>
-    <div class="diagram-wrap" style="flex:0 0 520px;display:flex;justify-content:center">
-<svg viewBox="90 8 345 224" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px">
+    <div style="flex:0 0 620px;display:flex;justify-content:center">
+<svg viewBox="16 8 489 312" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="g17a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
-<text x="118" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
-<text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
-<line x1="118" y1="38" x2="118" y2="227" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-<line x1="402" y1="38" x2="402" y2="227" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-<g class="j1"><line x1="118" y1="56" x2="402" y2="83" stroke="currentColor" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
-<g class="j2"><line x1="402" y1="98" x2="118" y2="125" stroke="var(--accent)" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="92" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan></text></g>
-<g class="j3"><line x1="118" y1="140" x2="402" y2="167" stroke="currentColor" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="134" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Everyone, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
-<g class="j4"><line x1="402" y1="182" x2="118" y2="209" stroke="var(--accent)" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="176" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">1</tspan></text></g>
-</svg>
-    </div>
-  </div>
-</section>
-
-<!-- ── rdt 2.2: duplicate ACK replaces NAK ── -->
-<section class="slide" id="rdt22-dup" data-sec="Reliable Data Transfer">
-  <style>
-    #rdt22-dup .k1,#rdt22-dup .k2,#rdt22-dup .k3,#rdt22-dup .k4 { opacity:0; transition:opacity 0.3s }
-    #rdt22-dup:has(.x1.on) .k1 { opacity:1 }
-    #rdt22-dup:has(.x2.on) .k2 { opacity:1 }
-    #rdt22-dup:has(.x3.on) .k3 { opacity:1 }
-    #rdt22-dup:has(.x4.on) .k4 { opacity:1 }
-  </style>
-  <div class="kicker">rdt 2.2</div>
-  <h2>A duplicate ACK <em>is</em> a NAK</h2>
-  <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:0 0 470px;display:flex;justify-content:center">
-<svg viewBox="0 0 520 333" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px">
-<defs><marker id="g18a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="118" y1="38" x2="118" y2="311" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="402" y1="38" x2="402" y2="311" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-<g class="k1"><line x1="118" y1="56" x2="402" y2="83" stroke="currentColor" stroke-width="2" marker-end="url(#g18a)"/><text x="260" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
-<g class="k1"><line x1="402" y1="98" x2="118" y2="125" stroke="var(--accent)" stroke-width="2" marker-end="url(#g18a)"/><text x="260" y="92" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan></text></g>
-<g class="k2"><line x1="118" y1="140" x2="402" y2="167" stroke="#cf5c36" stroke-width="2" marker-end="url(#g18a)"/><text x="260" y="134" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">Every @#%&amp;!, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
-<g class="k3"><line x1="402" y1="182" x2="118" y2="209" stroke="#cf5c36" stroke-width="2" marker-end="url(#g18a)"/><text x="260" y="176" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ACK <tspan font-weight="700">0</tspan> &mdash; again!</text></g>
-<g class="k4"><line x1="118" y1="224" x2="402" y2="251" stroke="var(--accent)" stroke-width="2" marker-end="url(#g18a)"/><text x="260" y="218" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Everyone, <tspan fill="var(--accent)" font-weight="700">1</tspan> &mdash; resent</text></g>
-<g class="k4"><line x1="402" y1="266" x2="118" y2="293" stroke="var(--accent)" stroke-width="2" marker-end="url(#g18a)"/><text x="260" y="260" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">1</tspan></text></g>
+<g class="sq1"><rect x="20" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="64" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">current 1</text></g>
+<g class="sq0"><rect x="20" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="64" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">current 0</text></g>
+<g class="rq1"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 1</text></g>
+<g class="rq0"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 0</text></g>
+<g class="n1"><line x1="118" y1="56" x2="402" y2="83" stroke="currentColor" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="n2"><line x1="402" y1="98" x2="118" y2="125" stroke="var(--accent)" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="92" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan></text></g>
+<g class="n3a"><line x1="118" y1="140" x2="402" y2="167" stroke="currentColor" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="134" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Everyone, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
+<g class="n3b"><line x1="118" y1="140" x2="402" y2="167" stroke="#cf5c36" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="134" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">Every @#%&amp;!, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
+<g class="n4a"><line x1="402" y1="182" x2="118" y2="209" stroke="var(--accent)" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="176" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">1</tspan></text></g>
+<g class="n4b"><line x1="402" y1="182" x2="118" y2="209" stroke="#cf5c36" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="176" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ACK <tspan font-weight="700">0</tspan> &mdash; again!</text></g>
+<g class="n5"><line x1="118" y1="224" x2="402" y2="251" stroke="var(--accent)" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="218" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Everyone, <tspan fill="var(--accent)" font-weight="700">1</tspan> &mdash; resent</text></g>
+<g class="n6"><line x1="402" y1="266" x2="118" y2="293" stroke="var(--accent)" stroke-width="2" marker-end="url(#g17a)"/><text x="260" y="260" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">1</tspan></text></g>
 </svg>
     </div>
-    <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:350px">
-      <p class="frag x1" style="margin:0;font-size:16.5px;line-height:1.55">&ldquo;Hello&rdquo; gets through intact and is acknowledged.</p>
-      <p class="frag x2" style="margin:0;font-size:16.5px;line-height:1.55">&ldquo;Everyone&rdquo; arrives <b>corrupted</b>. Instead of sending a NAK, the receiver <b>re-sends ACK 0</b> &mdash; the sequence number of the last good packet it received.</p>
-      <div class="frag x3 card" style="padding:12px 16px;border-left:3px solid #cf5c36">
-        <p style="margin:0;font-size:16.5px;line-height:1.6">The sender sees <b>ACK 0 twice</b>. A duplicate ACK can only mean &ldquo;the next packet did not get through&rdquo; &mdash; so it retransmits.</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:9px;max-width:440px">
+      <p class="frag w1" style="margin:0;font-size:18px;line-height:1.55"><b>rdt 2.2</b> adds a neat trick: number the <b>receiver&rsquo;s</b> messages too.</p>
+      <p class="frag w2" style="margin:0;font-size:18px;line-height:1.55">Every ACK now carries a sequence number. <b>ACK 0</b> means &ldquo;I received your packet <b>0</b>&rdquo;.</p>
+      <p class="frag w3" style="margin:0;font-size:18px;line-height:1.55">With nothing corrupted, the exchange simply alternates.</p>
+      <p class="frag w4" style="margin:0;font-size:18px;line-height:1.55">Now suppose that second packet arrives <b>corrupted</b>.</p>
+      <p class="frag w5" style="margin:0;font-size:18px;line-height:1.55">Instead of a NAK, the receiver <b>re-sends its previous ACK</b>: &ldquo;I still only have packet <b>0</b>&rdquo;.</p>
+      <div class="frag w6 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
+        <p style="margin:0;font-size:18px;line-height:1.6">The sender sees <b>ACK 0 twice</b>. A duplicate ACK says exactly what a NAK would, so it <b>retransmits</b>.</p>
       </div>
-      <p class="frag x4" style="margin:0;font-size:16.5px;line-height:1.55">NAKs are <b>unnecessary</b>: instead of a separate NAK message, the receiver simply re-ACKs the <b>previous sequence number</b>. One message type does both jobs &mdash; this is the design TCP uses.</p>
+      <p class="frag w7" style="margin:0;font-size:18px;line-height:1.55">So <b>NAKs are unnecessary</b>: one message type does both jobs &mdash; the design <b>TCP</b> uses.</p>
     </div>
   </div>
 </section>
