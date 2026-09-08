@@ -1,0 +1,13 @@
+#!/bin/sh
+# Rebuild the PDF for any deck in this commit, so the download can never be a
+# version behind the slides. Only changed modules are rebuilt (~2s each).
+# Skip with `git commit --no-verify` if you need to.
+set -e
+
+decks=$(git diff --cached --name-only --diff-filter=ACM \
+        | sed -n 's|^public/\(week[0-9]*\)/index\.html$|\1|p' | sort -u)
+[ -z "$decks" ] && exit 0
+
+echo "pre-commit: rebuilding PDFs for: $decks"
+node tools/build-pdf.mjs $decks
+git add public/pdf

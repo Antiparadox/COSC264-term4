@@ -7,10 +7,14 @@
     "node": ">=20"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "pdf": "node tools/build-pdf.mjs"
   },
   "dependencies": {
     "express": "^4.21.2",
     "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
   }
 }

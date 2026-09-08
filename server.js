@@ -20,7 +20,9 @@ app.use(express.static(PUBLIC, {
     // The decks and the scripts that drive them change together; a stale
     // cached deck-remote.js on the iPad would silently disable features that
     // the deck HTML expects to be there.
-    if (/\.(html|js)$/.test(filePath)) res.setHeader('Cache-Control', 'no-cache');
+    // PDFs are regenerated from the decks, so a cached copy can silently be
+    // a version behind the slides it was built from.
+    if (/\.(html|js|pdf)$/.test(filePath)) res.setHeader('Cache-Control', 'no-cache');
   },
 }));
 
