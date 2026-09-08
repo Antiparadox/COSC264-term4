@@ -585,6 +585,10 @@ svg text{font-family:var(--sans)}
           <p>The packet got through. The sender returns to the idle state, ready for the next packet from above.</p>
         </div>
 
+        <div class="frag hot s5b card accent" style="padding:16px 20px">
+          <p>This is the <b>stop-and-wait</b> strategy: the sender transmits one packet, then <b>stops</b> and does nothing at all until it hears back from the receiver.</p>
+        </div>
+
         <div class="frag hot s6 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
           <p><b>The receiver's state machine has one state.</b></p>
           <p><b>Wait for data from the sender</b> &mdash; it just waits for the next packet to arrive from the channel.</p>
@@ -598,10 +602,6 @@ svg text{font-family:var(--sans)}
         <div class="frag hot s8 card" style="padding:16px 20px;border-left:3px solid #cf5c36">
           <p><span class="evtb">error detected &amp; sends NAK</span></p>
           <p>Discard the packet, and send a NAK.</p>
-        </div>
-
-        <div class="frag hot s9 card accent" style="padding:16px 20px">
-          <p>This is the <b>stop-and-wait</b> strategy: the sender transmits one packet, then <b>stops</b> and does nothing at all until it hears back from the receiver.</p>
         </div>
 
       </div>
