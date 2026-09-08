@@ -337,16 +337,18 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">ARQ</div>
   <h2>ARQ &mdash; Automatic Repeat reQuest</h2>
-  <div style="display:flex;flex-direction:column;gap:20px;max-width:1040px">
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:1040px">
+
     <p class="frag" style="margin:0;font-size:19px;line-height:1.6">Most RDT protocols are built on a core idea: if the sender does not hear back, it <b>retransmits</b>. Protocols following this pattern are called <b>ARQ</b> (Automatic Repeat reQuest) protocols.</p>
-    <div class="frag" style="display:flex;flex-direction:column;gap:11px">
-      <p style="margin:0;font-size:19px">By the end of this module, we will learn three ARQ protocols, in increasing sophistication:</p>
-      <ul style="margin:0;padding-left:26px;font-size:19px;line-height:2">
-        <li><b>Stop-and-wait</b> ARQ <span style="color:var(--muted);font-size:16px">(a.k.a. rdt 3.0)</span></li>
-        <li><b>Go-back-N</b> ARQ <span style="color:var(--muted);font-size:16px">(pipelined &mdash; more efficient than stop-and-wait)</span></li>
-        <li><b>Selective repeat / reject</b> ARQ <span style="color:var(--muted);font-size:16px">(pipelined &mdash; even more efficient)</span></li>
-      </ul>
-    </div>
+
+    <p class="frag" style="margin:0;font-size:19px">By the end of this module, we will learn three ARQ protocols, in increasing sophistication:</p>
+
+    <ul style="margin:0;padding-left:26px">
+      <li class="frag" style="font-size:19px;line-height:1.55;margin-bottom:11px"><b>Stop-and-wait</b> ARQ &mdash; the basic version, the ARQ underlying <b>rdt 3.0</b>.</li>
+      <li class="frag" style="font-size:19px;line-height:1.55;margin-bottom:11px">Building on it, a <b>pipelined</b> and more efficient version: <b>go-back-N</b> ARQ.</li>
+      <li class="frag" style="font-size:19px;line-height:1.55"><b>Selective repeat</b> ARQ &mdash; pipelined, and more efficient still.</li>
+    </ul>
+
   </div>
 </section>
 
