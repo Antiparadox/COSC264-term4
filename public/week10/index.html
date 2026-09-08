@@ -269,12 +269,24 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="Reliable Data Transfer">
   <div class="kicker">The bigger picture</div>
   <h2>What error correction cannot solve</h2>
-  <div style="display:flex;flex-direction:column;gap:24px;max-width:1040px">
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">A packet arrives corrupted. The receiver detects the error and discards it &mdash; but the sender receives no signal. As far as the sender is concerned, the packet was delivered. <b>It has no idea anything went wrong.</b></p>
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">A packet never arrives at all. There is nothing to detect an error in. Error correction is completely silent &mdash; and again, <b>the sender has no idea.</b></p>
-    <div class="frag card accent" style="padding:16px 22px">
-      <p style="margin:0;font-size:19px;line-height:1.6">Error correction alone is not enough. We need a <b>concrete protocol between the sender and the receiver</b> to address all those problems.</p>
+  <div style="display:flex;flex-direction:column;gap:18px;max-width:1040px">
+
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">Error correction alone cannot handle every failure. Two cases in particular:</p>
+
+    <div class="frag card" style="padding:16px 22px;border-left:4px solid var(--current)">
+      <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--current)">Case 1 &mdash; corrupted beyond repair</p>
+      <p style="margin:0;font-size:19px;line-height:1.6">The packet arrives corrupted, and the corruption is <b>beyond correction</b>, so the receiver discards it. The sender receives <b>no signal</b> &mdash; as far as it knows, the packet was delivered.</p>
     </div>
+
+    <div class="frag card" style="padding:16px 22px;border-left:4px solid var(--current)">
+      <p style="margin:0 0 7px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--current)">Case 2 &mdash; never arrives</p>
+      <p style="margin:0;font-size:19px;line-height:1.6">The packet is <b>lost in transit</b> and never arrives at all. There is nothing to correct and nothing to detect &mdash; and again, <b>the sender has no idea</b>.</p>
+    </div>
+
+    <div class="frag card accent" style="padding:16px 22px">
+      <p style="margin:0;font-size:19px;line-height:1.6">Error correction alone is not enough. We need a <b>concrete protocol between the sender and the receiver</b> to coordinate and handle both cases.</p>
+    </div>
+
   </div>
 </section>
 
