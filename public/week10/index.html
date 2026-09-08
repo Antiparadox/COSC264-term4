@@ -548,14 +548,14 @@ svg text{font-family:var(--sans)}
 </defs>
 <path d="M420,42 L372,86" stroke="var(--muted)" stroke-width="1.6" stroke-dasharray="5,4" fill="none" marker-end="url(#frm)"/>
 <circle cx="350" cy="150" r="60" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="1.8"/>
-<text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="350" y="138">Wait for</tspan><tspan x="350" y="156">call from</tspan><tspan x="350" y="174">below</tspan></text>
+<text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="350" y="138">Wait for</tspan><tspan x="350" y="156">data from</tspan><tspan x="350" y="174">the sender</tspan></text>
 <g class="ar b1">
 <path d="M304,112 C198,72 198,228 304,188" stroke="var(--accent)" stroke-width="1.8" fill="none" marker-end="url(#fr1)"/>
-<text text-anchor="end" font-size="14" fill="var(--accent)" font-weight="600"><tspan x="188" y="145">correct packet</tspan><tspan x="188" y="163">&amp; sends ACK</tspan></text>
+<text text-anchor="end" font-size="14" fill="var(--accent)" font-weight="600"><tspan x="188" y="145">no error detected</tspan><tspan x="188" y="163">&amp; sends ACK</tspan></text>
 </g>
 <g class="ar b2">
 <path d="M396,112 C502,72 502,228 396,188" stroke="#cf5c36" stroke-width="1.8" fill="none" marker-end="url(#fr2)"/>
-<text font-size="14" fill="#cf5c36" font-weight="600"><tspan x="512" y="145">corrupted packet</tspan><tspan x="512" y="163">&amp; sends NAK</tspan></text>
+<text font-size="14" fill="#cf5c36" font-weight="600"><tspan x="512" y="145">error detected</tspan><tspan x="512" y="163">&amp; sends NAK</tspan></text>
 </g>
 </svg>
 
@@ -586,18 +586,18 @@ svg text{font-family:var(--sans)}
         </div>
 
         <div class="frag hot s6 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
-          <p><b>The receiver has one state.</b></p>
-          <p><b>Wait for call from below</b> &mdash; it has nothing to do but wait for the next packet to arrive from the channel.</p>
+          <p><b>The receiver's state machine has one state.</b></p>
+          <p><b>Wait for data from the sender</b> &mdash; it just waits for the next packet to arrive from the channel.</p>
         </div>
 
         <div class="frag hot s7 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
-          <p><span class="evt">correct packet &amp; sends ACK</span></p>
-          <p>The checksum passes: deliver the data to the application above, and send an ACK back.</p>
+          <p><span class="evt">no error detected &amp; sends ACK</span></p>
+          <p>Deliver the data to its application, and send an ACK back to the sender.</p>
         </div>
 
         <div class="frag hot s8 card" style="padding:16px 20px;border-left:3px solid #cf5c36">
-          <p><span class="evtb">corrupted packet &amp; sends NAK</span></p>
-          <p>The checksum fails: discard the packet and send a NAK, which asks the sender to try again.</p>
+          <p><span class="evtb">error detected &amp; sends NAK</span></p>
+          <p>Discard the packet, and send a NAK.</p>
         </div>
 
         <div class="frag hot s9 card accent" style="padding:16px 20px">
