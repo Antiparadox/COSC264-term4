@@ -825,6 +825,7 @@ svg text{font-family:var(--sans)}
         </div>
       </div>
     </div>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.55">This protocol is known as <b>rdt 2.1</b>.</p>
   </div>
 </section>
 
@@ -832,22 +833,30 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="rdt21-dup" data-sec="Reliable Data Transfer">
   <style>
     #rdt21-dup .m1,#rdt21-dup .m2,#rdt21-dup .m3,#rdt21-dup .m4,
-    #rdt21-dup .m5,#rdt21-dup .m6,#rdt21-dup .m7 { opacity:0; transition:opacity 0.3s }
+    #rdt21-dup .m5,#rdt21-dup .m6,#rdt21-dup .m7,
+    #rdt21-dup .x0a,#rdt21-dup .x1,#rdt21-dup .x0b,#rdt21-dup .x1b { opacity:0; transition:opacity 0.3s }
     #rdt21-dup:has(.c2.on) .m1 { opacity:1 }
     #rdt21-dup:has(.c3.on) .m2 { opacity:1 }
     #rdt21-dup:has(.c4.on) .m3 { opacity:1 }
     #rdt21-dup:has(.c5.on) .m4 { opacity:1 }
+    #rdt21-dup:has(.c2.on):not(:has(.c3.on)) .x0a { opacity:1 }
+    #rdt21-dup:has(.c3.on):not(:has(.c5.on)) .x1 { opacity:1 }
+    #rdt21-dup:has(.c5.on) .x0b { opacity:1 }
   </style>
   <div class="kicker">rdt 2.1</div>
   <h2>Case 1 &mdash; a real duplicate</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:0 0 500px;display:flex;justify-content:center">
-<svg viewBox="90 8 345 336" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px">
+    <div style="flex:0 0 550px;display:flex;justify-content:center">
+<svg viewBox="90 8 415 336" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:550px">
 <defs><marker id="g15a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="118" y1="38" x2="118" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="402" y1="38" x2="402" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<g class="x0a"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 0</text></g>
+<g class="x1"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 1</text></g>
+<g class="x0b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 0</text></g>
+<g class="x1b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 1</text></g>
 <g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">she is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 <g class="m2"><line x1="402" y1="96" x2="118" y2="122" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="90" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m3"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
@@ -859,31 +868,39 @@ svg text{font-family:var(--sans)}
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:15px;max-width:440px">
       <p class="frag c1" style="margin:0;font-size:18px;line-height:1.55">Same story as before: the sender wants to deliver <b>&ldquo;she is my ex girlfriend&rdquo;</b>.</p>
-      <p class="frag c2" style="margin:0;font-size:18px;line-height:1.55">The two sides start from sequence number <b>0</b>. The sender tags <b>&ldquo;she is my&rdquo;</b> with <b>0</b> and sends it.</p>
-      <p class="frag c3" style="margin:0;font-size:18px;line-height:1.55">The receiver has not seen <b>0</b> before, so this is <b>new data</b>: it delivers the chunk and sends an ACK.</p>
+      <p class="frag c2" style="margin:0;font-size:18px;line-height:1.55">Both sides start from <b>0</b> &mdash; the receiver is <b>expecting 0</b>. The sender tags <b>&ldquo;she is my&rdquo;</b> with <b>0</b> and sends it.</p>
+      <p class="frag c3" style="margin:0;font-size:18px;line-height:1.55">That is the number the receiver expects, so this is <b>new data</b>: it delivers the chunk, sends an ACK, and now <b>expects 1</b>.</p>
       <p class="frag c4" style="margin:0;font-size:18px;line-height:1.55"><b>&ldquo;ex&rdquo;</b> is new data too, so the sender <b>flips the bit</b> to <b>1</b> and sends it.</p>
-      <p class="frag c5" style="margin:0;font-size:18px;line-height:1.55">This time the ACK comes back <b>corrupted</b>.</p>
+      <p class="frag c5" style="margin:0;font-size:18px;line-height:1.55">The receiver takes it and <b>expects 0</b> next &mdash; but its ACK comes back <b>corrupted</b>.</p>
     </div>
   </div>
 </section>
 
 <section class="slide" id="rdt21-dup2" data-sec="Reliable Data Transfer">
   <style>
-    #rdt21-dup2 .m5,#rdt21-dup2 .m6,#rdt21-dup2 .m7 { opacity:0; transition:opacity 0.3s }
+    #rdt21-dup2 .m5,#rdt21-dup2 .m6,#rdt21-dup2 .m7,
+    #rdt21-dup2 .x0a,#rdt21-dup2 .x1,#rdt21-dup2 .x1b { opacity:0; transition:opacity 0.3s }
+    #rdt21-dup2 .x0b { opacity:1; transition:opacity 0.3s }
     #rdt21-dup2:has(.c6.on) .m5 { opacity:1 }
     #rdt21-dup2:has(.c7.on) .m6 { opacity:1 }
     #rdt21-dup2:has(.c8.on) .m7 { opacity:1 }
+    #rdt21-dup2:has(.c8.on) .x0b { opacity:0 }
+    #rdt21-dup2:has(.c8.on) .x1b { opacity:1 }
   </style>
   <div class="kicker">rdt 2.1</div>
   <h2>Case 1 &mdash; a real duplicate</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:0 0 500px;display:flex;justify-content:center">
-<svg viewBox="90 8 345 336" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px">
+    <div style="flex:0 0 550px;display:flex;justify-content:center">
+<svg viewBox="90 8 415 336" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:550px">
 <defs><marker id="g15b" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="118" y1="38" x2="118" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="402" y1="38" x2="402" y2="340" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<g class="x0a"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 0</text></g>
+<g class="x1"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 1</text></g>
+<g class="x0b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 0</text></g>
+<g class="x1b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="12.5" fill="var(--accent)" font-weight="700">expect 1</text></g>
 <g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">she is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 <g class="m2"><line x1="402" y1="96" x2="118" y2="122" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="90" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m3"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
@@ -894,11 +911,11 @@ svg text{font-family:var(--sans)}
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:15px;max-width:440px">
-      <p class="frag c6" style="margin:0;font-size:18px;line-height:1.55">The sender cannot tell what the receiver said, so it <b>resends</b>. This is a retransmission, not new data &mdash; so the number <b>stays at 1</b>.</p>
+      <p class="frag c6" style="margin:0;font-size:18px;line-height:1.55">The sender cannot tell what the receiver said, so it <b>resends</b> &mdash; a retransmission, not new data, so the number <b>stays at 1</b>.</p>
       <div class="frag c7 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:18px;line-height:1.6">The receiver already has number <b>1</b>. The same number again means a <b>duplicate</b>: it <b>discards the copy</b> and just re-acknowledges.</p>
+        <p style="margin:0;font-size:18px;line-height:1.6">But the receiver is <b>expecting 0</b>, and this packet carries <b>1</b> &mdash; so it is the copy it already has. It <b>discards the copy</b> and just re-acknowledges.</p>
       </div>
-      <p class="frag c8" style="margin:0;font-size:18px;line-height:1.55"><b>&ldquo;girlfriend&rdquo;</b> is new data, so the bit <b>flips back to 0</b>.</p>
+      <p class="frag c8" style="margin:0;font-size:18px;line-height:1.55"><b>&ldquo;girlfriend&rdquo;</b> is new data, so the bit <b>flips back to 0</b> &mdash; the number the receiver is waiting for. It delivers the chunk and <b>expects 1</b>.</p>
       <div class="frag c9 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
         <p style="margin:0 0 7px;font-size:18px;line-height:1.6">Delivered:</p>
         <p style="margin:0;font-size:19px">&ldquo;she is my ex girlfriend&rdquo; <b style="color:var(--accent)">&#10003;</b></p>
