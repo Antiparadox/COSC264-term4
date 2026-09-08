@@ -475,6 +475,7 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="rdt2-fsm" data-sec="Reliable Data Transfer">
   <style>
     #rdt2-fsm .dgm { display:none; width:100% }
+    #rdt2-fsm:has(.s2.on) .intro { display:none }
     #rdt2-fsm .dlab { opacity:0; transition:opacity 0.3s }
     #rdt2-fsm:has(.s2.on) .dSend { display:block }
     #rdt2-fsm:has(.s2.on) .labSend { opacity:1 }
@@ -500,7 +501,7 @@ svg text{font-family:var(--sans)}
   <h2>The protocol as a state machine</h2>
   <div style="display:flex;flex-direction:column;gap:14px">
 
-    <p class="frag s1" style="margin:0;font-size:19px;line-height:1.6;max-width:1160px">We can describe what each side does with a <b>finite-state machine</b>: each circle is a <b>state</b> the side can sit in, and each arrow is a <b>transition</b>, labelled with the event that triggers it and the action it takes.</p>
+    <p class="frag s1 intro" style="margin:0;font-size:21px;line-height:1.65;max-width:1120px">We describe what the sender does and what the receiver does with one <b>finite-state machine</b> each: a machine that sits in one of several <b>states</b>, with arrows for the <b>transitions</b> between them &mdash; and each arrow is labelled with the event that triggers that transition.</p>
 
     <div style="display:flex;gap:24px;align-items:flex-start;margin-top:8px">
 
@@ -518,7 +519,7 @@ svg text{font-family:var(--sans)}
 <marker id="fs2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#cf5c36"/></marker>
 </defs>
 <circle cx="150" cy="150" r="60" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="1.8"/>
-<text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="150" y="138">Wait for</tspan><tspan x="150" y="156">call from</tspan><tspan x="150" y="174">above</tspan></text>
+<text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="150" y="138">Wait for</tspan><tspan x="150" y="156">data from</tspan><tspan x="150" y="174">above</tspan></text>
 <circle cx="400" cy="150" r="60" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="1.8"/>
 <text text-anchor="middle" font-size="14" fill="currentColor" font-weight="600"><tspan x="400" y="144">Wait for</tspan><tspan x="400" y="162">ACK / NAK</tspan></text>
 <g class="ar a1">
@@ -561,9 +562,9 @@ svg text{font-family:var(--sans)}
       <div style="flex:1;min-height:314px">
 
         <div class="frag hot s2 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
-          <p><b>The sender has two states.</b></p>
-          <p><b>Wait for call from above</b> &mdash; idle, ready to take the next packet from the application.</p>
-          <p><b>Wait for ACK / NAK</b> &mdash; a packet is out on the channel, and nothing else may be sent yet.</p>
+          <p><b>The sender's state machine has two states.</b></p>
+          <p><b>Wait for data from above</b> &mdash; the sender is idle, waiting for the next packet from the application.</p>
+          <p><b>Wait for ACK / NAK</b> &mdash; the sender has just sent a packet to the receiver, and has not heard back yet.</p>
         </div>
 
         <div class="frag hot s3 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
