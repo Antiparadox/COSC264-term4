@@ -20,6 +20,8 @@
 
   const WS_PATH = '/rc';
   const STORE_KEY = 'cosc264-remote-code';
+  // localStorage, not sessionStorage: a code that changed with every tab is
+  // exactly why the phone had to be paired again each time.
   const HIDE_KEY = 'cosc264-hide-remote';
   const CAP_WORDS = 30;     // roughly the three lines the caption box holds
   const RETRY_MIN = 1000;
@@ -27,6 +29,7 @@
 
   let ws = null;
   let code = null;
+  let revealed = false;   // the code is covered until it is actually needed
   let lastSeq = 0;          // dedupe lives here, not on the server
   let retry = RETRY_MIN;
   let retryTimer = null;
@@ -80,8 +83,12 @@
       <button id="rc-close" aria-label="Close">&times;</button>
       <p id="rc-title">Slide remote</p>
       <p class="rc-step">1 &nbsp;Open <b id="rc-url"></b> on your phone</p>
-      <p class="rc-step">2 &nbsp;Enter this code</p>
-      <div id="rc-code">····</div>
+      <p class="rc-step">2 &nbsp;Enter this code &mdash; once. Your phone remembers it.</p>
+      <div id="rc-code" class="rc-hidden">••••••</div>
+      <div id="rc-actions">
+        <button id="rc-reveal" type="button">Show code</button>
+        <button id="rc-rotate" type="button" title="Use a different code from now on">New code</button>
+      </div>
       <p id="rc-status">Connecting…</p>
     </div>`;
 
@@ -123,6 +130,12 @@
     #rc-code{font-family:var(--mono,monospace);font-size:52px;font-weight:700;
       letter-spacing:.18em;color:var(--accent,#0f8f83);margin:10px 0 14px;
       text-indent:.18em}
+    #rc-code.rc-hidden{color:var(--border,#d4dde3);letter-spacing:.1em;text-indent:.1em}
+    #rc-actions{display:flex;gap:8px;justify-content:center;margin:0 0 14px}
+    #rc-actions button{border:1px solid var(--border,#d4dde3);background:var(--surface,#fff);
+      color:var(--muted,#54646f);border-radius:8px;padding:6px 12px;font-size:13px;
+      font-family:var(--mono,monospace);cursor:pointer}
+    #rc-actions button:hover{border-color:var(--accent,#0f8f83);color:var(--accent,#0f8f83)}
     #rc-status{margin:0;font-size:14px;color:var(--faint,#84939d)}
     /* Captions, in the shape a video player uses: a block that floats over
        the slide rather than a bar bolted to the bottom of it, with the dark
@@ -355,6 +368,18 @@
       : 'Phone connected · captions on · nothing heard yet';
   }
 
+  // The code is a term-long credential now, and this panel opens on a
+  // projector, so it stays covered until asked for and re-covers on close.
+  function paintCode() {
+    const c = document.getElementById('rc-code');
+    const b = document.getElementById('rc-reveal');
+    if (c) {
+      c.textContent = revealed && code ? code : '\u2022'.repeat(6);
+      c.classList.toggle('rc-hidden', !revealed);
+    }
+    if (b) b.textContent = revealed ? 'Hide code' : 'Show code';
+  }
+
   function paint(text, live) {
     const s = document.getElementById('rc-status');
     if (s) s.textContent = text;
@@ -362,6 +387,8 @@
   }
 
   function openPanel() {
+    revealed = false;
+    paintCode();
     panel.classList.add('rc-open');
     wantOpen = true;
     keepAwake();
@@ -394,9 +421,8 @@
 
       if (m.type === 'ready') {
         code = m.code;
-        try { sessionStorage.setItem(STORE_KEY, code); } catch {}
-        const c = document.getElementById('rc-code');
-        if (c) c.textContent = code;
+        try { localStorage.setItem(STORE_KEY, code); } catch {}
+        paintCode();
         if (m.remotes) lastSeq = 0;
         paint(m.remotes ? 'Phone connected.' : 'Waiting for your phone…', m.remotes > 0);
         return;
@@ -538,6 +564,21 @@
     const url = document.getElementById('rc-url');
     if (url) url.textContent = `${location.host}/remote/`;
 
+    document.getElementById('rc-reveal').addEventListener('click', () => {
+      revealed = !revealed;
+      paintCode();
+    });
+    document.getElementById('rc-rotate').addEventListener('click', () => {
+      // Forget it and reconnect with no code: the relay mints a fresh one.
+      // The only way back from a code that has been seen by the wrong people.
+      code = null;
+      try { localStorage.removeItem(STORE_KEY); } catch {}
+      revealed = true;
+      try { ws && ws.close(); } catch {}
+      paint('Getting a new code…', false);
+      connect();
+    });
+
     pill.addEventListener('click', openPanel);
     document.getElementById('rc-close').addEventListener('click', closePanel);
     document.getElementById('rc-backdrop').addEventListener('click', closePanel);
@@ -545,7 +586,7 @@
       if (e.key === 'Escape' && panel.classList.contains('rc-open')) closePanel();
     });
 
-    try { code = sessionStorage.getItem(STORE_KEY); } catch {}
+    try { code = localStorage.getItem(STORE_KEY); } catch {}
 
     watchDeck();
   }

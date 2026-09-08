@@ -52,7 +52,14 @@ const server = app.listen(PORT, () => console.log(`COSC264 site listening on :${
 
 // No I/O/0/1: these get misread off a projector.
 const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-const CODE_LEN = 4;
+// Six, not four. The deck now keeps its code across sessions so the phone can
+// rejoin without being retyped, which turns the code from a 50-minute
+// credential into a term-long one: 32^6 is about 1.1 billion rather than a
+// million. The deck also keeps it off the projector unless asked.
+const CODE_LEN = 6;
+// A wrong code costs a socket; this stops that socket being used to hunt for
+// a right one.
+const MAX_BAD_JOINS = 5;
 const GRACE_MS = 5 * 60 * 1000;   // keep a session alive across an iPad reload
 const HEARTBEAT_MS = 30 * 1000;
 
@@ -125,7 +132,11 @@ wss.on('connection', (ws) => {
     if (msg.role === 'remote') {
       const code = typeof msg.code === 'string' ? msg.code.toUpperCase().trim() : '';
       const session = sessions.get(code);
-      if (!session) { send(ws, { type: 'nosession' }); return; }
+      if (!session) {
+        send(ws, { type: 'nosession' });
+        if ((ws.badJoins = (ws.badJoins || 0) + 1) >= MAX_BAD_JOINS) ws.close();
+        return;
+      }
 
       cancelReaper(session);
       session.remotes.add(ws);

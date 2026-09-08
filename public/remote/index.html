@@ -100,7 +100,7 @@
   <section id="pair">
     <h1>Slide remote</h1>
     <input id="code" inputmode="latin" autocomplete="off" autocapitalize="characters"
-           spellcheck="false" maxlength="4" placeholder="····" aria-label="Session code">
+           spellcheck="false" maxlength="6" placeholder="······" aria-label="Session code">
     <button id="go" disabled>Connect</button>
     <p id="msg">Enter the code shown on the slide.</p>
   </section>
@@ -127,6 +127,9 @@
   const STORE = 'cosc264-remote-last-code';
 
   let ws = null, code = '', seq = 0, retry = 1000, retryTimer = null, quit = false;
+  // Set while reconnecting to a remembered code, so 'no such session' means
+  // 'the deck has not opened its remote yet' rather than 'you typed it wrong'.
+  let waiting = false;
 
   /* ---------- connection ---------- */
   function connect() {
@@ -144,12 +147,21 @@
       let m; try { m = JSON.parse(ev.data); } catch { return; }
 
       if (m.type === 'nosession') {
-        quit = true;
         try { sock.close(); } catch {}
+        if (waiting) {
+          // The phone is allowed to be open first. Sit on the code until the
+          // deck's remote panel creates the session.
+          $('msg').textContent = 'Waiting for the deck… open the remote on your slides.';
+          clearTimeout(retryTimer);
+          retryTimer = setTimeout(connect, 2500);
+          return;
+        }
+        quit = true;
         showPair('No session with that code. Check the slide and try again.');
         return;
       }
       if (m.type === 'joined') {
+        waiting = false;
         try { localStorage.setItem(STORE, code); } catch {}
         showPad();
         setState(m.presenter);
@@ -415,14 +427,15 @@
   /* ---------- wiring ---------- */
   const input = $('code');
   input.addEventListener('input', () => {
-    input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
-    $('go').disabled = input.value.length !== 4;
+    input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+    $('go').disabled = input.value.length !== 6;
   });
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && !$('go').disabled) $('go').click(); });
 
   $('go').addEventListener('click', () => {
     code = input.value;
     quit = false;
+    waiting = false;
     $('msg').textContent = 'Connecting…';
     connect();
   });
@@ -431,6 +444,8 @@
     if (capOn) setCaptions(false);
     pointUp();
     quit = true;
+    waiting = false;
+    clearTimeout(retryTimer);
     try { ws && ws.close(); } catch {}
     try { localStorage.removeItem(STORE); } catch {}
     showPair();
@@ -451,11 +466,22 @@
     }
   });
 
-  // Offer the last code back, but never auto-join: rejoining a stale session
-  // silently would be worse than one extra tap.
+  // The deck keeps its code now, so the remembered one is almost always still
+  // the right one: join it straight away rather than asking for a tap that has
+  // only one sensible answer. A stale code just falls back to the pairing
+  // screen, which is where we would have started anyway.
   try {
     const last = localStorage.getItem(STORE);
-    if (last) { input.value = last; $('go').disabled = false; }
+    if (last) {
+      input.value = last;
+      $('go').disabled = last.length !== 6;
+      if (last.length === 6) {
+        code = last;
+        waiting = true;
+        $('msg').textContent = 'Reconnecting…';
+        connect();
+      }
+    }
   } catch {}
 })();
 </script>
