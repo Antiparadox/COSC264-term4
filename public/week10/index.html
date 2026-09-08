@@ -228,7 +228,7 @@ svg text{font-family:var(--sans)}
 <div id="stage">
 
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Reliable Data Transfer: ARQ Protocols">
   <div class="center" style="align-items:flex-start">
     <div class="kicker">COSC264 · Introduction to Computer Networks and the Internet · Term 4</div>
     <h1>Module 4<br>Reliable Data Transfer: ARQ Protocols</h1>
@@ -237,7 +237,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Module 3 recap ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Recap and overview">
   <div class="kicker">Recall &middot; Module 3</div>
   <h2>A quick recap</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
@@ -250,7 +250,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Motivating problems ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Recap and overview">
   <div class="kicker">The bigger picture</div>
   <h2>What error correction cannot solve</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:1040px">
@@ -275,7 +275,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ══ Concept 1 ══ -->
-<section class="slide sec-title" data-sec="Reliable Data Transfer" data-anchor="rdt">
+<section class="slide sec-title" data-sec="What is reliable data transfer?" data-anchor="rdt">
   <div class="kicker">Module 4 &middot; Concept 1 of 4</div>
   <h1>Reliable Data Transfer over an Unreliable Channel</h1>
   <div class="rule"></div>
@@ -289,7 +289,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: RDT definition ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="What is reliable data transfer?">
   <div class="kicker">This module</div>
   <h2>Reliable Data Transfer (RDT)</h2>
   <div style="display:flex;flex-direction:column;gap:24px;max-width:1040px">
@@ -300,7 +300,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Outline ── -->
-<section class="slide" data-sec="Reliable Data Transfer" data-anchor="outline">
+<section class="slide" data-sec="What is reliable data transfer?" data-anchor="outline">
   <div class="kicker">Module 4</div>
   <h2>Outline</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
@@ -318,7 +318,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: ARQ ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="What is reliable data transfer?">
   <div class="kicker">ARQ</div>
   <h2>ARQ &mdash; Automatic Repeat reQuest</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:1040px">
@@ -338,7 +338,7 @@ svg text{font-family:var(--sans)}
 
 
 <!-- ══ Concept 2 ══ -->
-<section class="slide sec-title" data-sec="Reliable Data Transfer" data-anchor="stop-and-wait">
+<section class="slide sec-title" data-sec="Stop-and-wait: a perfect channel" data-anchor="stop-and-wait">
   <div class="kicker">Module 4 &middot; Concept 2 of 4</div>
   <h1>Stop-and-wait RDT</h1>
   <div class="rule"></div>
@@ -352,7 +352,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── rdt 1.0 ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Stop-and-wait: a perfect channel">
   <div class="kicker">rdt 1.0</div>
   <h2>rdt 1.0 &mdash; a perfectly reliable channel</h2>
   <div style="flex:1;display:flex;gap:34px;align-items:flex-start">
@@ -397,7 +397,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── A channel with only bit errors ── -->
-<section class="slide" id="biterr-chat" data-sec="Reliable Data Transfer">
+<section class="slide" id="biterr-chat" data-sec="What if bits are corrupted?">
   <style>
     #biterr-chat .m1, #biterr-chat .m2, #biterr-chat .m3, #biterr-chat .m4, #biterr-chat .m5 { opacity:0; transition:opacity 0.35s }
     #biterr-chat:has(.k1.on) .m1 { opacity:1 }
@@ -456,7 +456,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Stop-and-wait: rdt 2.0 behaviour ── -->
-<section class="slide" id="rdt2-fsm" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt2-fsm" data-sec="What if bits are corrupted?">
   <style>
     #rdt2-fsm .dgm { display:none; width:100% }
     #rdt2-fsm:has(.s2.on) .intro { display:none }
@@ -595,7 +595,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── rdt 2.0: a fatal flaw ── -->
-<section class="slide" id="rdt2-flaw" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt2-flaw" data-sec="What if bits are corrupted?">
   <style>
     #rdt2-flaw .hello, #rdt2-flaw .ack, #rdt2-flaw .ackc, #rdt2-flaw .resend { opacity:0; transition:opacity 0.35s }
     #rdt2-flaw:has(.v2.on) .hello { opacity:1 }
@@ -644,7 +644,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── rdt 2.0: the duplicate problem ── -->
-<section class="slide" id="rdt2-dup" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt2-dup" data-sec="What if bits are corrupted?">
   <style>
     #rdt2-dup .s1,#rdt2-dup .a1,#rdt2-dup .s2,#rdt2-dup .a2,#rdt2-dup .a2c,
     #rdt2-dup .s3,#rdt2-dup .a3,#rdt2-dup .s4,
@@ -713,7 +713,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="rdt2-dup2" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt2-dup2" data-sec="What if bits are corrupted?">
   <style>
     #rdt2-dup2 .a2,#rdt2-dup2 .a3,#rdt2-dup2 .s4,
     #rdt2-dup2 .r4,#rdt2-dup2 .r5 { opacity:0; transition:opacity 0.3s }
@@ -783,7 +783,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── rdt 2.1: sequence numbers ── -->
-<section class="slide" id="rdt21" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt21" data-sec="What if bits are corrupted?">
   <div class="kicker">rdt 2.1</div>
   <h2>The fix: a 1-bit sequence number</h2>
   <div style="display:flex;flex-direction:column;gap:22px;max-width:1000px">
@@ -814,7 +814,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── rdt 2.1: duplicate suppressed ── -->
-<section class="slide" id="rdt21-dup" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt21-dup" data-sec="What if bits are corrupted?">
   <style>
     #rdt21-dup .m1,#rdt21-dup .m2,#rdt21-dup .m3,#rdt21-dup .m4ok,#rdt21-dup .m4,#rdt21-dup .m5,#rdt21-dup .m6,#rdt21-dup .m7,
     #rdt21-dup .x0a,#rdt21-dup .x1,#rdt21-dup .x0b,#rdt21-dup .x1b,
@@ -864,7 +864,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="rdt21-dup2" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt21-dup2" data-sec="What if bits are corrupted?">
   <style>
     #rdt21-dup2 .m4ok,#rdt21-dup2 .m4,#rdt21-dup2 .m5,#rdt21-dup2 .m6,#rdt21-dup2 .m7,
     #rdt21-dup2 .x0a,#rdt21-dup2 .x0b,#rdt21-dup2 .x1b,
@@ -914,7 +914,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="rdt21-dup3" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt21-dup3" data-sec="What if bits are corrupted?">
   <style>
     #rdt21-dup3 .m4ok,#rdt21-dup3 .m6,#rdt21-dup3 .m7,
     #rdt21-dup3 .x0a,#rdt21-dup3 .x1,#rdt21-dup3 .x1b,
@@ -973,7 +973,7 @@ svg text{font-family:var(--sans)}
 
 
 <!-- ── rdt 2.2: ACKs carry the sequence number ── -->
-<section class="slide" id="rdt22" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt22" data-sec="What if bits are corrupted?">
   <style>
     #rdt22 .n1,
     #rdt22 .n2,
@@ -1026,7 +1026,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="rdt22b" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt22b" data-sec="What if bits are corrupted?">
   <style>
     #rdt22b .n3a,
     #rdt22b .n3b,
@@ -1078,7 +1078,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="rdt22c" data-sec="Reliable Data Transfer">
+<section class="slide" id="rdt22c" data-sec="What if bits are corrupted?">
   <style>
     #rdt22c .n3a,
     #rdt22c .n4a,
@@ -1134,7 +1134,7 @@ svg text{font-family:var(--sans)}
 
 
 <!-- ── Three new things that can go wrong ── -->
-<section class="slide" id="lossy3" data-sec="Reliable Data Transfer">
+<section class="slide" id="lossy3" data-sec="What if packets are lost?">
   <div class="kicker">rdt 3.0</div>
   <h2>Four new ways to fail</h2>
   <div style="display:flex;flex-direction:column;gap:8px">
@@ -1165,7 +1165,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── How long to wait ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="What if packets are lost?">
   <div class="kicker">rdt 3.0</div>
   <h2>How can the sender detect a loss or delay?</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:1030px">
@@ -1193,7 +1193,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Timeout + retransmission ── -->
-<section class="slide" id="tmo-ex" data-sec="Reliable Data Transfer">
+<section class="slide" id="tmo-ex" data-sec="What if packets are lost?">
   <style>
     #tmo-ex .t1,#tmo-ex .t2,#tmo-ex .t3 { opacity:0; transition:opacity 0.35s }
     #tmo-ex:has(.z1.on) .t1 { opacity:1 }
@@ -1238,7 +1238,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Timeout handles the other three cases ── -->
-<section class="slide" id="tmo-all" data-sec="Reliable Data Transfer">
+<section class="slide" id="tmo-all" data-sec="What if packets are lost?">
   <div class="kicker">rdt 3.0</div>
   <h2>The timer applies to all other cases too</h2>
   <p style="margin:0 0 4px;font-size:17px;line-height:1.55;font-weight:700;color:var(--accent)">If the expected ACK does not arrive before the timer expires, the sender retransmits &mdash; regardless of why.</p>
@@ -1265,7 +1265,7 @@ svg text{font-family:var(--sans)}
 
 
 <!-- ── premature timeout ── -->
-<section class="slide" id="prem-tmo" data-sec="Reliable Data Transfer">
+<section class="slide" id="prem-tmo" data-sec="What if packets are lost?">
   <style>
     #prem-tmo .pd1,#prem-tmo .pd2,#prem-tmo .pd3,#prem-tmo .pd4,
     #prem-tmo .pd5,#prem-tmo .pd6,#prem-tmo .pd7,#prem-tmo .pd8 { opacity:0; transition:opacity 0.3s }
@@ -1325,7 +1325,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── stop-and-wait performance ── -->
-<section class="slide" id="saw-perf" data-sec="Reliable Data Transfer">
+<section class="slide" id="saw-perf" data-sec="The cost of stop-and-wait">
   <style>
     #saw-perf .sw1,#saw-perf .sw2 { opacity:0; transition:opacity 0.3s }
     #saw-perf:has(.f2.on) .sw1 { opacity:1 }
@@ -1373,7 +1373,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── worked utilisation example ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="The cost of stop-and-wait">
   <div class="kicker">Performance</div>
   <h2>How bad is it? A worked example</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
@@ -1395,7 +1395,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Concept 1 recap ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="The cost of stop-and-wait">
   <div class="kicker">Recap &middot; Stop-and-wait</div>
   <h2>What we covered</h2>
   <div style="display:flex;flex-direction:column;gap:12px;max-width:1040px">
@@ -1418,7 +1418,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ══ Concept 2 ══ -->
-<section class="slide sec-title" data-sec="Reliable Data Transfer" data-anchor="pipelined">
+<section class="slide sec-title" data-sec="Go-back-N" data-anchor="pipelined">
   <div class="kicker">Module 4 &middot; Concept 3 of 4</div>
   <h1>Go-back-N</h1>
   <div class="rule"></div>
@@ -1432,7 +1432,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Pipelining: the idea ── -->
-<section class="slide" id="pipe1" data-sec="Reliable Data Transfer">
+<section class="slide" id="pipe1" data-sec="Go-back-N">
   <div class="kicker">Pipelining</div>
   <h2>Stop waiting: send several at once</h2>
   <div style="display:flex;flex-direction:column;gap:8px">
@@ -1477,7 +1477,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── What pipelining costs ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Go-back-N">
   <div class="kicker">Pipelining</div>
   <h2>What pipelining demands in return</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:1030px">
@@ -1500,7 +1500,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Go-back-N overview ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Go-back-N">
   <div class="kicker">Go-back-N</div>
   <h2>Go-back-N</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
@@ -1513,7 +1513,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Go-back-N sliding window ── -->
-<section class="slide" id="gbn-sw" data-sec="Reliable Data Transfer">
+<section class="slide" id="gbn-sw" data-sec="Go-back-N">
   <style>
     #gbn-sw .gbn-p { opacity:0; transition:opacity 0.3s }
     #gbn-sw:has(.f1.on) .gbn-p-acked  { opacity:1 }
@@ -1623,7 +1623,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Go-back-N">
   <div class="kicker">Go-back-N</div>
   <h2>The window in motion</h2>
   <div style="display:flex;flex-direction:column;gap:4px">
@@ -1647,7 +1647,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Cumulative acknowledgements ── -->
-<section class="slide" id="cum-ack" data-sec="Reliable Data Transfer">
+<section class="slide" id="cum-ack" data-sec="Go-back-N">
   <style>
     #cum-ack .cum-p { opacity:0; transition:opacity 0.3s }
     #cum-ack:has(.f2.on) .cum-p-base { opacity:1 }
@@ -1715,7 +1715,7 @@ svg text{font-family:var(--sans)}
 
 <!-- ── receiver discards out of order ── -->
 <!-- ── Slide A: receiver's rule ── -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Go-back-N">
   <div class="kicker">Go-back-N</div>
   <h2>The receiver&rsquo;s rule in Go-back-N, informally</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:880px">
@@ -1732,7 +1732,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide B: receiver in action ── -->
-<section class="slide" id="rcv-action" data-sec="Reliable Data Transfer">
+<section class="slide" id="rcv-action" data-sec="Go-back-N">
   <style>
     #rcv-action .rcv-p { opacity:0; transition:opacity 0.3s }
     #rcv-action:has(.f1.on) .rcv-p-transit { opacity:1 }
@@ -1824,7 +1824,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="rcv-fsm" data-sec="Reliable Data Transfer">
+<section class="slide" id="rcv-fsm" data-sec="Go-back-N">
   <style>
     #rcv-fsm .fsm-inorder { opacity:0; transition:opacity 0.3s }
     #rcv-fsm .fsm-default { opacity:0; transition:opacity 0.3s }
@@ -1901,7 +1901,7 @@ svg text{font-family:var(--sans)}
 
 
 <!-- ── timeout: go back N ── -->
-<section class="slide" id="timeout-gbn" data-sec="Reliable Data Transfer">
+<section class="slide" id="timeout-gbn" data-sec="Go-back-N">
   <style>
     @keyframes timer-blink {
       0%,100% { opacity:1 }
@@ -1981,7 +1981,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Go-back-N">
   <div class="kicker">Go-back-N</div>
   <h2>The sender&rsquo;s rule in Go-back-N, informally</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:880px">
@@ -2013,7 +2013,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="snd-fsm" data-sec="Reliable Data Transfer">
+<section class="slide" id="snd-fsm" data-sec="Go-back-N">
   <style>
     #snd-fsm .fsm-send    { opacity:0; transition:opacity 0.3s }
     #snd-fsm .fsm-timeout { opacity:0; transition:opacity 0.3s }
@@ -2126,7 +2126,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Go-back-N">
   <div class="kicker">Recap &middot; Go-back-N</div>
   <h2>What we covered</h2>
   <ul style="margin:0;padding-left:28px;font-size:16.5px;line-height:1.7;max-width:1020px">
@@ -2136,7 +2136,7 @@ else:
   </ul>
 </section>
 
-<section class="slide sec-title" data-sec="Reliable Data Transfer" data-anchor="selective-repeat">
+<section class="slide sec-title" data-sec="Selective repeat" data-anchor="selective-repeat">
   <div class="kicker">Module 4 &middot; Concept 4 of 4</div>
   <h1>Selective repeat</h1>
   <div class="rule"></div>
@@ -2151,7 +2151,7 @@ else:
 
 
 <!-- ══ GBN inefficiency ══ -->
-<section class="slide" id="gbn-cost" data-sec="Reliable Data Transfer">
+<section class="slide" id="gbn-cost" data-sec="Selective repeat">
   <style>
     #gbn-cost .g-pkt1{opacity:0;transition:opacity .35s}
     #gbn-cost .g-pkt2{opacity:0;transition:opacity .35s}
@@ -2204,7 +2204,7 @@ else:
 </section>
 
 <!-- ══ Selective Repeat overview ══ -->
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>Introducing Selective Repeat</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
@@ -2220,7 +2220,7 @@ else:
   </div>
 </section>
 
-<section class="slide" id="sw-slide" data-sec="Reliable Data Transfer">
+<section class="slide" id="sw-slide" data-sec="Selective repeat">
   <style>
     @keyframes sw-pulse{0%,100%{opacity:1}50%{opacity:0.25}}
     #sw-slide .g-acked{opacity:0;transition:opacity .4s}
@@ -2252,7 +2252,7 @@ else:
     </div>
   </div>
 </section>
-<section class="slide" id="rw-slide" data-sec="Reliable Data Transfer">
+<section class="slide" id="rw-slide" data-sec="Selective repeat">
   <style>
     #rw-slide .g-rcv-base{opacity:0;transition:opacity .4s}
     #rw-slide .g-buffered{opacity:0;transition:opacity .4s}
@@ -2311,7 +2311,7 @@ else:
 </section>
 
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>How the sender&rsquo;s window slides forward</h2>
   <div style="display:flex;flex-direction:column;gap:8px">
@@ -2334,7 +2334,7 @@ else:
   </div>
 </section>
 
-<section class="slide" id="timeout-slide" data-sec="Reliable Data Transfer">
+<section class="slide" id="timeout-slide" data-sec="Selective repeat">
   <style>
     @keyframes blink-timer{0%,100%{opacity:1}50%{opacity:0.1}}
     #timeout-slide .g-timers4{opacity:0;transition:opacity .35s}
@@ -2365,7 +2365,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>The sender&rsquo;s rules</h2>
   <div style="display:flex;flex-direction:column;gap:15px;max-width:1030px">
@@ -2390,7 +2390,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>How the receiver&rsquo;s window slides forward</h2>
   <div style="display:flex;flex-direction:column;gap:10px">
@@ -2420,7 +2420,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>Corner cases for the receiver</h2>
   <div style="display:flex;flex-direction:column;gap:10px">
@@ -2448,7 +2448,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s rules</h2>
   <div id="recv-rules-col" style="display:flex;flex-direction:column;gap:14px;max-width:1030px">
@@ -2507,7 +2507,7 @@ else:
 </section>
 
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>A dilemma when window size exceeds the seq# space</h2>
   <div style="display:flex;flex-direction:column;gap:9px">
@@ -2531,7 +2531,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>Window size vs. seq-number space</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:1000px;justify-content:center">
@@ -2645,7 +2645,7 @@ else:
   .courseurl a{font-size:14px;padding:7px 12px}}
 </style>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Recap and references">
   <div class="kicker">Recap</div>
   <h2>Module 4 &mdash; what we covered</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1030px">
@@ -2662,7 +2662,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Recap and references">
   <h2>References</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:1000px">
     <div><p style="margin:0;font-size:18px;line-height:1.5"><b>James F. Kurose &amp; Keith W. Ross</b>, <em>Computer Networking: a Top-Down Approach Featuring the Internet</em>, Addison Wesley, 3rd edition, 2005.</p>
@@ -2674,7 +2674,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Recap and references">
   <h2>Acknowledgements</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1000px">
     <p style="margin:0;font-size:18px">These lecture notes are developed based on slides from the following sources:</p>
@@ -2688,7 +2688,7 @@ else:
   </div>
 </section>
 
-<section class="slide" data-sec="Reliable Data Transfer">
+<section class="slide" data-sec="Recap and references">
   <h2>Lineage &amp; colophon</h2>
   <p style="max-width:900px">These lecture notes modernise COSC264 material developed by
     <b>Dr&nbsp;Barry Wu</b> (2024&ndash;25), building on notes by <b>Dr&nbsp;Mengmeng Ge</b> (2024) and
