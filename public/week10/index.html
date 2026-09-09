@@ -440,7 +440,7 @@ svg text{font-family:var(--sans)}
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:340px">
-      <p class="frag k1" style="margin:0;font-size:16.5px;line-height:1.55">Bits can now be flipped in transit.</p>
+      <p class="frag k1" style="margin:0;font-size:18px;line-height:1.55">Bits can now be flipped in transit.</p>
       <div class="frag k2 card" style="padding:11px 15px">
         <p style="margin:0;font-size:16px;line-height:1.55">Here&rsquo;s one idea: the receiver runs an <b>error detection code</b> &mdash; a checksum or CRC &mdash; exactly what we learned in Module 3.</p>
       </div>
@@ -450,7 +450,7 @@ svg text{font-family:var(--sans)}
       <div class="frag k4 card" style="padding:11px 15px;border-left:3px solid #cf5c36">
         <p style="margin:0;font-size:16px;line-height:1.55">If an error is spotted, the receiver sends a <b>negative acknowledgement (NAK)</b>.</p>
       </div>
-      <p class="frag k5" style="margin:0;font-size:16.5px;line-height:1.55">On receiving a NAK, the sender <b>retransmits</b>.</p>
+      <p class="frag k5" style="margin:0;font-size:18px;line-height:1.55">On receiving a NAK, the sender <b>retransmits</b>.</p>
     </div>
   </div>
 </section>
@@ -608,8 +608,8 @@ svg text{font-family:var(--sans)}
   <div class="kicker">rdt 2.0</div>
   <h2>A fatal flaw</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div class="flawdgm" style="flex:0 0 560px;justify-content:center">
-<svg viewBox="90 8 345 194" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px">
+    <div class="flawdgm" style="flex:0 0 620px;justify-content:center">
+<svg viewBox="90 8 345 194" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="f11a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="118" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="402" y="26" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
@@ -1403,9 +1403,9 @@ svg text{font-family:var(--sans)}
       </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:10px;max-width:430px">
-      <p class="frag g1" style="margin:0;font-size:16.5px;line-height:1.55">The second ACK 0 now arrives. What should the sender do?</p>
+      <p class="frag g1" style="margin:0;font-size:18px;line-height:1.55">The second ACK 0 now arrives. What should the sender do?</p>
       <div class="frag g2 card" style="padding:10px 16px;border-left:3px solid #cf5c36"><p style="margin:0;font-size:15.5px;line-height:1.6">By the <b>rdt 2.2</b> rule, a second ACK 0 is a <b>duplicate ACK</b> &mdash; a NAK in disguise. So the sender should <b>retransmit Everyone, 1</b>.</p></div>
-      <p class="frag g3" style="margin:0;font-size:16.5px;line-height:1.55">But here that would be <b>wrong</b>.</p>
+      <p class="frag g3" style="margin:0;font-size:18px;line-height:1.55">But here that would be <b>wrong</b>.</p>
       <div class="frag g4 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:15.5px;line-height:1.6">This ACK 0 acknowledges the <b>previous</b> message, Hello, 0. It is a duplicate only because the first ACK 0 was <b>delayed</b>.</p><p style="margin:7px 0 0;font-size:15.5px;line-height:1.6">It was never meant to say that Everyone, 1 was corrupted, so it must <b>not</b> be treated as a NAK.</p></div>
       <div class="frag g5 card" style="padding:11px 16px;border-left:3px solid var(--accent);background:var(--accent-soft)">
         <p style="margin:0 0 5px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink,var(--accent))">The retransmission rule in rdt 3.0</p>
@@ -1989,21 +1989,76 @@ svg text{font-family:var(--sans)}
     #rcv-action .rcv-p { opacity:0; transition:opacity 0.3s }
     #rcv-action:has(.f2.on) .rcv-p-transit { opacity:1 }
     #rcv-action:has(.f3.on) .rcv-p-esn0    { opacity:1 }
-    #rcv-action:has(.f4.on) .rcv-p-esn0    { opacity:0 }
-    #rcv-action:has(.f4.on) .rcv-p-esn1    { opacity:1 }
-    #rcv-action:has(.f4.on) .rcv-p-d0      { opacity:1 }
-    #rcv-action:has(.f5.on) .rcv-p-d1      { opacity:1 }
-    #rcv-action:has(.f6.on) .rcv-p-d2      { opacity:1 }
-    #rcv-action:has(.f7.on) .rcv-p-reack   { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>The receiver in action</h2>
   <div style="flex:1;display:flex;gap:24px;align-items:flex-start">
 
     <!-- LEFT: SVG -->
-    <div style="flex:0 0 560px;display:flex;justify-content:center">
-      <svg viewBox="40 9 472 287" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px">
+    <div style="flex:0 0 620px;display:flex;justify-content:center">
+      <svg viewBox="40 9 472 287" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
         <defs><marker id="rc2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
+
+        <!-- always: labels + timelines -->
+        <text x="150" y="26" text-anchor="middle" font-size="14.5" font-weight="700" fill="currentColor">Sender</text>
+        <text x="410" y="26" text-anchor="middle" font-size="14.5" font-weight="700" fill="currentColor">Receiver</text>
+        <line x1="150" y1="60" x2="150" y2="288" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+        <line x1="410" y1="60" x2="410" y2="288" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+
+        <!-- expectedseqnum badge, beside the receiver -->
+        <g class="rcv-p rcv-p-esn0"><rect x="366" y="34" width="88" height="21" rx="5" fill="rgba(124,179,66,0.15)" stroke="#7cb342" stroke-width="1"/><text x="410" y="49" text-anchor="middle" font-size="13" fill="#7cb342" font-weight="700">expect 0</text></g>
+
+        <!-- f2: all three sent at once, still in flight -->
+        <g class="rcv-p rcv-p-transit">
+          <line x1="150" y1="80"  x2="280" y2="110" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <line x1="150" y1="110" x2="280" y2="140" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <line x1="150" y1="140" x2="280" y2="170" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <text x="142" y="84"  text-anchor="end" font-size="13.5" fill="currentColor" font-weight="600">Data A (seq 0)</text>
+          <text x="142" y="114" text-anchor="end" font-size="13.5" fill="currentColor" font-weight="600">Data B (seq 1)</text>
+          <text x="142" y="144" text-anchor="end" font-size="13.5" fill="currentColor" font-weight="600">Data C (seq 2)</text>
+        </g>
+
+        <!-- f4: Data A arrives, is delivered, ACK 0 goes back -->
+
+        <!-- f5: Data B never gets there -->
+
+        <!-- f6: Data C arrives out of order and is discarded -->
+
+        <!-- f7: the last in-order ACK goes out again -->
+      </svg>
+    </div>
+
+    <!-- RIGHT: one beat per event -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:11px;padding-top:2px">
+      <p class="frag f1" style="margin:0;font-size:18px;line-height:1.55">Suppose the sender is running Go-back-N with a window of <em>N</em>&nbsp;=&nbsp;5, and the application hands it three packets: <b>Data A</b>, <b>B</b> and <b>C</b>.</p>
+      <p class="frag f2" style="margin:0;font-size:18px;line-height:1.55">Three is fewer than five, so all three fit in the window. The sender numbers them <b>0</b>, <b>1</b>, <b>2</b> and sends them together &mdash; all three are now in flight.</p>
+      <p class="frag f3" style="margin:0;font-size:18px;line-height:1.55">The receiver is waiting for the first in-order packet, so <span style="font-family:var(--mono)">expectedseqnum</span> is <b>0</b>.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Slide C: the receiver when a packet goes missing ── -->
+<section class="slide" id="rcv-act2" data-sec="Go-back-N">
+  <style>
+    #rcv-act2 .rcv-p { opacity:0; transition:opacity 0.3s }
+    /* The diagram carries straight on from the previous frame. */
+    #rcv-act2 .rcv-p-transit,#rcv-act2 .rcv-p-esn0 { opacity:1 }
+    #rcv-act2:has(.g1.on) .rcv-p-esn0  { opacity:0 }
+    #rcv-act2:has(.g1.on) .rcv-p-esn1  { opacity:1 }
+    #rcv-act2:has(.g1.on) .rcv-p-d0    { opacity:1 }
+    #rcv-act2:has(.g2.on) .rcv-p-d1    { opacity:1 }
+    #rcv-act2:has(.g3.on) .rcv-p-d2    { opacity:1 }
+    #rcv-act2:has(.g4.on) .rcv-p-reack { opacity:1 }
+  </style>
+  <div class="kicker">Go-back-N</div>
+  <h2>When a packet goes missing</h2>
+  <div style="flex:1;display:flex;gap:24px;align-items:flex-start">
+
+    <!-- LEFT: SVG -->
+    <div style="flex:0 0 620px;display:flex;justify-content:center">
+      <svg viewBox="40 9 472 287" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+        <defs><marker id="rc3" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 
         <!-- always: labels + timelines -->
         <text x="150" y="26" text-anchor="middle" font-size="14.5" font-weight="700" fill="currentColor">Sender</text>
@@ -2027,9 +2082,9 @@ svg text{font-family:var(--sans)}
 
         <!-- f4: Data A arrives, is delivered, ACK 0 goes back -->
         <g class="rcv-p rcv-p-d0">
-          <line x1="150" y1="80" x2="410" y2="140" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc2)"/>
+          <line x1="150" y1="80" x2="410" y2="140" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc3)"/>
           <text x="418" y="137" text-anchor="start" font-size="12" fill="var(--muted)">deliver, ACK 0</text>
-          <line x1="410" y1="150" x2="150" y2="210" stroke="var(--accent)" stroke-width="2" marker-end="url(#rc2)"/>
+          <line x1="410" y1="150" x2="150" y2="210" stroke="var(--accent)" stroke-width="2" marker-end="url(#rc3)"/>
           <text x="142" y="214" text-anchor="end" font-size="13.5" fill="var(--accent)" font-weight="600">ACK 0</text>
         </g>
 
@@ -2042,7 +2097,7 @@ svg text{font-family:var(--sans)}
 
         <!-- f6: Data C arrives out of order and is discarded -->
         <g class="rcv-p rcv-p-d2">
-          <line x1="150" y1="140" x2="410" y2="200" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc2)"/>
+          <line x1="150" y1="140" x2="410" y2="200" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc3)"/>
           <line x1="406" y1="196" x2="414" y2="204" stroke="#cf5c36" stroke-width="2.2"/>
           <line x1="406" y1="204" x2="414" y2="196" stroke="#cf5c36" stroke-width="2.2"/>
           <text x="418" y="203" text-anchor="start" font-size="12" fill="#cf5c36">discard</text>
@@ -2050,7 +2105,7 @@ svg text{font-family:var(--sans)}
 
         <!-- f7: the last in-order ACK goes out again -->
         <g class="rcv-p rcv-p-reack">
-          <line x1="410" y1="212" x2="150" y2="272" stroke="#cf5c36" stroke-width="2" marker-end="url(#rc2)"/>
+          <line x1="410" y1="212" x2="150" y2="272" stroke="#cf5c36" stroke-width="2" marker-end="url(#rc3)"/>
           <text x="142" y="276" text-anchor="end" font-size="13.5" fill="#cf5c36" font-weight="600">ACK 0 again</text>
         </g>
       </svg>
@@ -2058,13 +2113,13 @@ svg text{font-family:var(--sans)}
 
     <!-- RIGHT: one beat per event -->
     <div style="flex:1;display:flex;flex-direction:column;gap:11px;padding-top:2px">
-      <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.55">Suppose the sender is running Go-back-N with a window of <em>N</em>&nbsp;=&nbsp;5, and the application hands it three packets: <b>Data A</b>, <b>B</b> and <b>C</b>.</p>
-      <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.55">Three is fewer than five, so all three fit in the window. The sender numbers them <b>0</b>, <b>1</b>, <b>2</b> and sends them together &mdash; all three are now in flight.</p>
-      <p class="frag f3" style="margin:0;font-size:16.5px;line-height:1.55">The receiver is waiting for the first in-order packet, so <span style="font-family:var(--mono)">expectedseqnum</span> is <b>0</b>.</p>
-      <p class="frag f4" style="margin:0;font-size:16.5px;line-height:1.55"><b>Data A (seq 0)</b> arrives. It is the expected one, so the receiver delivers it, sends <b>ACK 0</b>, and advances <span style="font-family:var(--mono)">expectedseqnum</span> to <b>1</b>.</p>
-      <p class="frag f5" style="margin:0;font-size:16.5px;line-height:1.55"><b>Data B (seq 1)</b> is <b>lost</b> in transit. The receiver never sees it, so it is still expecting <b>1</b>.</p>
-      <p class="frag f6" style="margin:0;font-size:16.5px;line-height:1.55"><b>Data C (seq 2)</b> arrives, but seq&nbsp;2 is not the 1 it expects. Out of order, so it is <b>discarded</b>.</p>
-      <p class="frag f7" style="margin:0;font-size:16.5px;line-height:1.55">The receiver then re-sends the ACK for the last in-order packet it delivered &mdash; here, <b>ACK 0</b>.</p>
+      <p class="frag g1" style="margin:0;font-size:18px;line-height:1.55"><b>Data A (seq 0)</b> arrives. It is the expected one, so the receiver delivers it, sends <b>ACK 0</b>, and advances <span style="font-family:var(--mono)">expectedseqnum</span> to <b>1</b>.</p>
+      <p class="frag g2" style="margin:0;font-size:18px;line-height:1.55"><b>Data B (seq 1)</b> is <b>lost</b> in transit. The receiver never sees it, so it is still expecting <b>1</b>.</p>
+      <p class="frag g3" style="margin:0;font-size:18px;line-height:1.55"><b>Data C (seq 2)</b> arrives, but seq&nbsp;2 is not the 1 it expects. Out of order, so it is <b>discarded</b>.</p>
+      <p class="frag g4" style="margin:0;font-size:18px;line-height:1.55">The receiver then re-sends the ACK for the last in-order packet it delivered &mdash; here, <b>ACK 0</b>.</p>
+      <div class="frag g5 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
+        <p style="margin:0;font-size:18px;line-height:1.55">That second <b>ACK 0</b> says: <i>I have still received everything up to sequence number 0, and nothing beyond it.</i> Data C is gone, even though it arrived safely.</p>
+      </div>
     </div>
 
   </div>
@@ -2477,7 +2532,7 @@ else:
   <div class="kicker">Selective repeat</div>
   <h2>The sender&rsquo;s window in Selective Repeat</h2>
   <div style="display:flex;flex-direction:column;gap:12px">
-    <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px"><defs><marker id="w1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><line x1="161.0" y1="32" x2="161.0" y2="48" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#w1)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="var(--accent)" font-family="var(--mono)" font-weight="700">send_base</text><line x1="321.0" y1="32" x2="321.0" y2="48" stroke="#7cb342" stroke-width="1.4" marker-end="url(#w1)"/><text x="310.0" y="26" text-anchor="start" font-size="11.5" fill="#7cb342" font-family="var(--mono)" font-weight="700">nextseqnum</text><path d="M148.0,97 L148.0,105 L398.0,105 L398.0,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="123" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text>
+    <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px"><defs><marker id="w1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><line x1="161.0" y1="32" x2="161.0" y2="48" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#w1)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="var(--accent)" font-family="var(--mono)" font-weight="700">send_base</text><line x1="321.0" y1="32" x2="321.0" y2="48" stroke="#7cb342" stroke-width="1.4" marker-end="url(#w1)"/><text x="310.0" y="26" text-anchor="start" font-size="11.5" fill="#7cb342" font-family="var(--mono)" font-weight="700">nextseqnum</text><path d="M148.0,97 L148.0,105 L398.0,105 L398.0,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="123" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text>
       <g class="g-acked"><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/></g>
       <g class="g-highlight"><rect x="145" y="49" width="32" height="44" rx="5" fill="none" stroke="var(--accent)" stroke-width="3"/></g>
     </svg></div>
@@ -2508,7 +2563,7 @@ else:
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s window in Selective Repeat</h2>
   <div style="display:flex;flex-direction:column;gap:12px">
-    <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
+    <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
       <!-- delivered (left of window, always visible) -->
       <rect x="20"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
       <rect x="52"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
@@ -2674,7 +2729,7 @@ else:
     <div class="frag" style="display:flex;gap:20px;align-items:flex-start">
       <div style="flex:0 0 520px"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px"><defs><marker id="cc1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="208" y="47" width="34" height="48" rx="4" fill="none" stroke="#cf5c36" stroke-width="2.4"/><line x1="225" y1="34" x2="225" y2="46" stroke="#cf5c36" stroke-width="1.2" marker-end="url(#cc1)"/><text x="225" y="28" text-anchor="middle" font-size="9.5" fill="#cf5c36" font-family="var(--mono)" font-weight="600">arrives again</text><line x1="161.0" y1="32" x2="161.0" y2="44" stroke="#e53935" stroke-width="1.4" marker-end="url(#cc1)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="#e53935" font-family="var(--mono)" font-weight="700">rcv_base</text><path d="M148.0,99 L148.0,107 L398.0,107 L398.0,99" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="125" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text></svg></div>
       <div style="display:flex;flex-direction:column;gap:6px">
-        <p style="margin:0;font-size:16.5px;line-height:1.55"><b>A packet that is already buffered arrives again.</b></p>
+        <p style="margin:0;font-size:18px;line-height:1.55"><b>A packet that is already buffered arrives again.</b></p>
         <p class="frag" style="margin:0;font-size:16px;line-height:1.55">&#x2022; The first selective ACK clearly did not get through. The sender <b>times out</b> on this one, and retransmits.</p>
         <p class="frag" style="margin:0;font-size:16px;line-height:1.55">&#x2022; <b>Ignore</b> the duplicate. Re-send the <b>lost selective ACK</b>.</p>
       </div>
@@ -2683,7 +2738,7 @@ else:
     <div class="frag" style="display:flex;gap:20px;align-items:flex-start">
       <div style="flex:0 0 520px"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px"><defs><marker id="cc2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs><rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(33,150,243,0.35)" stroke="#2196f3" stroke-width="1.5"/><rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.5"/><rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(229,57,53,0.45)" stroke="#e53935" stroke-width="1.5"/><rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/><rect x="48" y="47" width="34" height="48" rx="4" fill="none" stroke="#cf5c36" stroke-width="2.4"/><line x1="65" y1="34" x2="65" y2="46" stroke="#cf5c36" stroke-width="1.2" marker-end="url(#cc2)"/><text x="65" y="28" text-anchor="middle" font-size="9.5" fill="#cf5c36" font-family="var(--mono)" font-weight="600">arrives again</text><line x1="161.0" y1="32" x2="161.0" y2="44" stroke="#e53935" stroke-width="1.4" marker-end="url(#cc2)"/><text x="172.0" y="26" text-anchor="end" font-size="11.5" fill="#e53935" font-family="var(--mono)" font-weight="700">rcv_base</text><path d="M148.0,99 L148.0,107 L398.0,107 L398.0,99" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/><text x="273.0" y="125" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text></svg></div>
       <div style="display:flex;flex-direction:column;gap:6px">
-        <p style="margin:0;font-size:16.5px;line-height:1.55"><b>A packet from <em>below</em> the receiver&rsquo;s window arrives again.</b></p>
+        <p style="margin:0;font-size:18px;line-height:1.55"><b>A packet from <em>below</em> the receiver&rsquo;s window arrives again.</b></p>
         <p class="frag" style="margin:0;font-size:16px;line-height:1.55">&#x2022; The selective ACK for this old packet clearly did not get through &mdash; the sender timed out and retransmitted.</p>
         <p class="frag" style="margin:0;font-size:16px;line-height:1.55">&#x2022; <b>Re-send the lost ACK</b>.</p>
       </div>
