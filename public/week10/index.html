@@ -1304,7 +1304,7 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="prem-tmo" data-sec="What if packets are lost?">
   <style>
     #prem-tmo .pd1,#prem-tmo .pd2,#prem-tmo .pd3,#prem-tmo .pd4,
-    #prem-tmo .pd5,#prem-tmo .pd6,#prem-tmo .pd7,#prem-tmo .pd8 { opacity:0; transition:opacity 0.3s }
+    #prem-tmo .pd5,#prem-tmo .pd5b,#prem-tmo .pd6,#prem-tmo .pd7,#prem-tmo .pd8 { opacity:0; transition:opacity 0.3s }
     #prem-tmo:has(.f1.on) .pd1,#prem-tmo:has(.f1.on) .pd2 { opacity:1 }
     #prem-tmo:has(.f2.on) .pd3 { opacity:1 }
     #prem-tmo:has(.f3.on) .pd4 { opacity:1 }
@@ -1343,7 +1343,8 @@ svg text{font-family:var(--sans)}
         <g class="pd2"><text x="358" y="122" text-anchor="start" font-size="11.5" fill="currentColor" opacity="0.75">rcv Hello, 0</text><text x="358" y="134" text-anchor="start" font-size="11.5" fill="var(--accent)" opacity="0.75">send ACK 0</text><text x="210" y="190" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK 0</text><line x1="350" y1="126" x2="120" y2="306" stroke="var(--accent)" stroke-width="1.9" stroke-dasharray="6,4" marker-end="url(#pdt)"/></g>
         <g class="pd3"><path d="M120,76 L88,76 L88,198 L120,198" fill="none" stroke="var(--accent)" stroke-width="1.4"/><text x="80" y="141" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="700">timeout</text></g>
         <g class="pd4"><text x="112" y="218" text-anchor="end" font-size="11.5" fill="var(--accent)" opacity="0.75">resend Hello</text><text x="235" y="236" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, 0 &mdash; resent</text><line x1="120" y1="222" x2="350" y2="264" stroke="currentColor" stroke-width="1.9" marker-end="url(#pdt)"/></g>
-        <g class="pd5"><text x="358" y="268" text-anchor="start" font-size="11.5" fill="currentColor" opacity="0.75">rcv Hello, 0 (dup)</text><text x="358" y="280" text-anchor="start" font-size="11.5" fill="var(--accent)" opacity="0.75">send ACK 0</text><text x="256" y="306" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK 0</text><line x1="350" y1="272" x2="120" y2="378" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#pdt)"/></g>
+        <g class="pd5"><text x="358" y="268" text-anchor="start" font-size="11.5" fill="currentColor" opacity="0.75">rcv Hello, 0 (dup)</text><text x="358" y="280" text-anchor="start" font-size="11.5" fill="var(--accent)" opacity="0.75">send ACK 0</text><text x="256" y="306" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK 0</text><line x1="350" y1="272" x2="235" y2="325" stroke="var(--accent)" stroke-width="1.9"/></g>
+        <g class="pd5b"><line x1="235" y1="325" x2="120" y2="378" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#pdt)"/></g>
         <g class="pd6"><text x="112" y="302" text-anchor="end" font-size="11.5" fill="var(--accent)" opacity="0.75">rcv ACK</text><circle cx="120" cy="306" r="5" fill="var(--accent)" opacity="0.8"/></g>
         <g class="pd7"><text x="112" y="312" text-anchor="end" font-size="11.5" fill="currentColor" opacity="0.75">send Everyone</text><text x="180" y="318" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Everyone, 1</text><line x1="120" y1="314" x2="240" y2="336" stroke="currentColor" stroke-width="1.9" marker-end="url(#pdt)"/></g>
         <g class="pd8"><text x="112" y="374" text-anchor="end" font-size="11.5" fill="#cf5c36" opacity="0.75">rcv ACK</text><text x="112" y="386" text-anchor="end" font-size="11.5" fill="#cf5c36" opacity="0.75">(do nothing)</text><circle cx="120" cy="378" r="5" fill="#cf5c36" opacity="0.8"/></g>
@@ -1367,8 +1368,8 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="dup3" data-sec="What if packets are lost?">
   <style>
     /* The diagram carries straight on from the previous frame. */
-    #dup3 .pd8 { opacity:0; transition:opacity 0.3s }
-    #dup3:has(.g5.on) .pd8 { opacity:1 }
+    #dup3 .pd8,#dup3 .pd5b { opacity:0; transition:opacity 0.3s }
+    #dup3:has(.g5.on) .pd8,#dup3:has(.g5.on) .pd5b { opacity:1 }
     #dup3 .bs0,#dup3 .br0 { opacity:0 }
     @keyframes prem-qa-pulse {
       0%,100% { opacity:0.9; transform:scale(1); }
@@ -1395,7 +1396,8 @@ svg text{font-family:var(--sans)}
         <g class="pd2"><text x="358" y="122" text-anchor="start" font-size="11.5" fill="currentColor" opacity="0.75">rcv Hello, 0</text><text x="358" y="134" text-anchor="start" font-size="11.5" fill="var(--accent)" opacity="0.75">send ACK 0</text><text x="210" y="190" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK 0</text><line x1="350" y1="126" x2="120" y2="306" stroke="var(--accent)" stroke-width="1.9" stroke-dasharray="6,4" marker-end="url(#pdt2)"/></g>
         <g class="pd3"><path d="M120,76 L88,76 L88,198 L120,198" fill="none" stroke="var(--accent)" stroke-width="1.4"/><text x="80" y="141" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="700">timeout</text></g>
         <g class="pd4"><text x="112" y="218" text-anchor="end" font-size="11.5" fill="var(--accent)" opacity="0.75">resend Hello</text><text x="235" y="236" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, 0 &mdash; resent</text><line x1="120" y1="222" x2="350" y2="264" stroke="currentColor" stroke-width="1.9" marker-end="url(#pdt2)"/></g>
-        <g class="pd5"><text x="358" y="268" text-anchor="start" font-size="11.5" fill="currentColor" opacity="0.75">rcv Hello, 0 (dup)</text><text x="358" y="280" text-anchor="start" font-size="11.5" fill="var(--accent)" opacity="0.75">send ACK 0</text><text x="256" y="306" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK 0</text><line x1="350" y1="272" x2="120" y2="378" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#pdt2)"/></g>
+        <g class="pd5"><text x="358" y="268" text-anchor="start" font-size="11.5" fill="currentColor" opacity="0.75">rcv Hello, 0 (dup)</text><text x="358" y="280" text-anchor="start" font-size="11.5" fill="var(--accent)" opacity="0.75">send ACK 0</text><text x="256" y="306" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK 0</text><line x1="350" y1="272" x2="235" y2="325" stroke="var(--accent)" stroke-width="1.9"/></g>
+        <g class="pd5b"><line x1="235" y1="325" x2="120" y2="378" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#pdt2)"/></g>
         <g class="pd6"><text x="112" y="302" text-anchor="end" font-size="11.5" fill="var(--accent)" opacity="0.75">rcv ACK</text><circle cx="120" cy="306" r="5" fill="var(--accent)" opacity="0.8"/></g>
         <g class="pd7"><text x="112" y="312" text-anchor="end" font-size="11.5" fill="currentColor" opacity="0.75">send Everyone</text><text x="180" y="318" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Everyone, 1</text><line x1="120" y1="314" x2="240" y2="336" stroke="currentColor" stroke-width="1.9" marker-end="url(#pdt2)"/></g>
         <g class="pd8"><text x="112" y="374" text-anchor="end" font-size="11.5" fill="#cf5c36" opacity="0.75">rcv ACK</text><text x="112" y="386" text-anchor="end" font-size="11.5" fill="#cf5c36" opacity="0.75">(do nothing)</text><circle cx="120" cy="378" r="5" fill="#cf5c36" opacity="0.8"/></g>
