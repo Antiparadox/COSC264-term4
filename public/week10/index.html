@@ -1456,7 +1456,7 @@ svg text{font-family:var(--sans)}
     #saw-util .sw2,#saw-util .sw3,#saw-util .sw4 { opacity:0; transition:opacity 0.3s }
     #saw-util:has(.g1.on) .sw2 { opacity:1 }
     #saw-util:has(.g2.on) .sw3 { opacity:1 }
-    #saw-util:has(.g3.on) .sw4 { opacity:1 }
+    #saw-util:has(.g4.on) .sw4 { opacity:1 }
   </style>
   <div class="kicker">Performance</div>
   <h2>How much of that time is the sender busy?</h2>
@@ -1496,10 +1496,11 @@ svg text{font-family:var(--sans)}
 </g>
 </svg></div>
     <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:340px">
-      <p class="frag g1" style="margin:0;font-size:17.5px;line-height:1.55">After that the sender must wait a full <b>RTT</b> for the ACK to come in before it may send again.</p>
-      <p class="frag g2" style="margin:0;font-size:17.5px;line-height:1.55">Therefore, sending one packet of length <b>L</b> takes the sender <b>RTT + L/R</b> seconds.</p>
-      <p class="frag g3" style="margin:0;font-size:17.5px;line-height:1.55">Of that, the sender is busy for only the first <b>L/R</b>, while it is transmitting. Every moment after that it is <b>idle</b>.</p>
-      <div class="frag g4 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
+      <p class="frag g1" style="margin:0;font-size:17.5px;line-height:1.55">After that the sender must wait a full <b>RTT</b> for the ACK to come in.</p>
+      <p class="frag g2" style="margin:0;font-size:17.5px;line-height:1.55">Only then may it send again.</p>
+      <p class="frag g3" style="margin:0;font-size:17.5px;line-height:1.55">Therefore, sending one packet of length <b>L</b> takes the sender <b>RTT + L/R</b> seconds.</p>
+      <p class="frag g4" style="margin:0;font-size:17.5px;line-height:1.55">Of that, the sender is busy for only the first <b>L/R</b>, while it is transmitting. Every moment after that it is <b>idle</b>.</p>
+      <div class="frag g5 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
         <p style="margin:0 0 5px;font-size:16px;line-height:1.5">Fraction of the time the sender is busy:</p>
         <p style="margin:0;font-size:19px;font-family:var(--mono);color:var(--accent)">U = (L/R) &divide; (RTT + L/R)</p>
       </div>
