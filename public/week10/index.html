@@ -1416,6 +1416,43 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
+<!-- ── Concept 2 recap ── -->
+<section class="slide" data-sec="Recap: stop-and-wait">
+  <div class="kicker">Recap &middot; Stop-and-wait</div>
+  <h2>What we covered</h2>
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:1040px">
+    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
+      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 1.0</b> &mdash; over a perfectly reliable channel. No error handling needed: just send and forget.</p>
+    </div>
+    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
+      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 2.0</b> &mdash; over a channel with bit errors. The receiver sends <b>ACK</b> or <b>NAK</b>; the sender retransmits on NAK.</p>
+    </div>
+    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
+      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 2.1</b> &mdash; adds a <b>1-bit sequence number</b> to distinguish a resent packet from a new one.</p>
+    </div>
+    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
+      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 2.2</b> &mdash; drops NAKs altogether. The receiver ACKs the <b>sequence number</b> it accepted, so a duplicate ACK is a NAK in disguise.</p>
+    </div>
+    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
+      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 3.0</b> &mdash; over a lossy channel. A <b>timer</b> triggers retransmission if no expected ACK arrives in time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ Concept 3 ══ -->
+<section class="slide sec-title" data-sec="The cost of stop-and-wait" data-anchor="pipelined">
+  <div class="kicker">Module 4 &middot; Concept 3 of 4</div>
+  <h1>Go-back-N</h1>
+  <div class="rule"></div>
+  <p class="sub">Pipelined reliable data transfer</p>
+  <div class="roadmap" aria-label="Module 4 concept roadmap">
+    <span class="rmi">1 &middot; Reliable data transfer</span>
+    <span class="rmi">2 &middot; Stop-and-wait RDT</span>
+    <span class="rmi here">3 &middot; Go-back-N</span>
+    <span class="rmi">4 &middot; Selective repeat</span>
+  </div>
+</section>
+
 <!-- ── stop-and-wait performance ── -->
 <section class="slide" id="saw-perf" data-sec="The cost of stop-and-wait">
   <style>
@@ -1527,43 +1564,6 @@ svg text{font-family:var(--sans)}
 
     <p class="frag" style="margin:0;font-size:18px;line-height:1.6;color:var(--accent)">Next, we will see how sending multiple packets at once &mdash; <b>pipelining</b> &mdash; keeps the link busy and dramatically improves utilisation.</p>
 
-  </div>
-</section>
-
-<!-- ── Concept 1 recap ── -->
-<section class="slide" data-sec="The cost of stop-and-wait">
-  <div class="kicker">Recap &middot; Stop-and-wait</div>
-  <h2>What we covered</h2>
-  <div style="display:flex;flex-direction:column;gap:12px;max-width:1040px">
-    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 1.0</b> &mdash; over a perfectly reliable channel. No error handling needed: just send and forget.</p>
-    </div>
-    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 2.0</b> &mdash; over a channel with bit errors. The receiver sends <b>ACK</b> or <b>NAK</b>; the sender retransmits on NAK.</p>
-    </div>
-    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 2.1</b> &mdash; adds a <b>1-bit sequence number</b> to distinguish a resent packet from a new one.</p>
-    </div>
-    <div class="frag card" style="padding:11px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:16.5px;line-height:1.6"><b>rdt 3.0</b> &mdash; over a lossy channel. A <b>timer</b> triggers retransmission if no expected ACK arrives in time.</p>
-    </div>
-    <div class="frag card" style="padding:11px 20px;border-left:3px solid #cf5c36">
-      <p style="margin:0;font-size:16.5px;line-height:1.6">All three use a <b>stop-and-wait</b> design &mdash; one packet in flight at a time. This causes severe inefficiency: the sender idles for almost the entire round trip.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ Concept 2 ══ -->
-<section class="slide sec-title" data-sec="Go-back-N" data-anchor="pipelined">
-  <div class="kicker">Module 4 &middot; Concept 3 of 4</div>
-  <h1>Go-back-N</h1>
-  <div class="rule"></div>
-  <p class="sub">Pipelined reliable data transfer</p>
-  <div class="roadmap" aria-label="Module 4 concept roadmap">
-    <span class="rmi">1 &middot; Reliable data transfer</span>
-    <span class="rmi">2 &middot; Stop-and-wait RDT</span>
-    <span class="rmi here">3 &middot; Go-back-N</span>
-    <span class="rmi">4 &middot; Selective repeat</span>
   </div>
 </section>
 
