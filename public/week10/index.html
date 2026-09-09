@@ -1272,6 +1272,7 @@ svg text{font-family:var(--sans)}
 
       <div class="frag hot f7 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
         <p>After the timer expires, the sender <b>still assumes the worst</b> &mdash; that the data was lost &mdash; and resends the <b>same packet</b> again.</p>
+        <p>The same happens if the ACK is merely <b>delayed</b> rather than lost: the sender cannot tell the difference, so it resends either way.</p>
       </div>
 
       <div class="frag hot f8" style="display:block">
@@ -1292,32 +1293,6 @@ svg text{font-family:var(--sans)}
       </div>
 
     </div>
-  </div>
-</section>
-
-<!-- ── Timeout handles the other three cases ── -->
-<section class="slide" id="tmo-all" data-sec="What if packets are lost?">
-  <div class="kicker">rdt 3.0</div>
-  <h2>The timer applies to all other cases too</h2>
-  <p style="margin:0 0 4px;font-size:17px;line-height:1.55;font-weight:700;color:var(--accent)">If the expected ACK does not arrive before the timer expires, the sender retransmits &mdash; regardless of why.</p>
-  <div style="display:flex;flex-direction:column;gap:7px">
-
-    <div style="display:flex;gap:16px;align-items:flex-start">
-      <div class="frag q1" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <p style="margin:0;font-size:14px;font-weight:700;color:var(--accent)">ACK lost</p>
-        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="0 0 320 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px"><defs><marker id="ya" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><text x="92" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">Sender</text><text x="252" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">Receiver</text><line x1="92" y1="44" x2="92" y2="346" stroke="currentColor" stroke-width="1.3" opacity="0.5"/><line x1="252" y1="44" x2="252" y2="346" stroke="currentColor" stroke-width="1.3" opacity="0.5"/><text x="172" y="62" text-anchor="middle" font-size="10.5" fill="currentColor" font-weight="600">Hello, 0</text><line x1="92" y1="70" x2="252" y2="92" stroke="currentColor" stroke-width="1.9" marker-end="url(#ya)"/><text x="196" y="112" text-anchor="middle" font-size="10.5" fill="var(--accent)" font-weight="600">ACK, 0</text><line x1="252" y1="118" x2="152" y2="140" stroke="#cf5c36" stroke-width="1.9"/><line x1="138" y1="137" x2="150" y2="149" stroke="#cf5c36" stroke-width="2.4"/><line x1="138" y1="149" x2="150" y2="137" stroke="#cf5c36" stroke-width="2.4"/><path d="M92,70 L58,70 L58,190 L92,190" fill="none" stroke="var(--accent)" stroke-width="1.4"/><text x="52" y="134.0" text-anchor="end" font-size="10.5" fill="var(--accent)" font-weight="700">timeout</text><text x="172" y="190" text-anchor="middle" font-size="10.5" fill="var(--accent)" font-weight="600">Hello, 0 &mdash; resent</text><line x1="92" y1="198" x2="252" y2="220" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#ya)"/><text x="258" y="226" text-anchor="start" font-size="10" fill="#cf5c36" font-weight="600">duplicate</text></svg></div>
-      </div>
-      <div class="frag q3" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <p style="margin:0;font-size:14px;font-weight:700;color:var(--accent)">ACK delayed</p>
-        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="0 0 320 360" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px"><defs><marker id="yc" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><text x="92" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">Sender</text><text x="252" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">Receiver</text><line x1="92" y1="44" x2="92" y2="346" stroke="currentColor" stroke-width="1.3" opacity="0.5"/><line x1="252" y1="44" x2="252" y2="346" stroke="currentColor" stroke-width="1.3" opacity="0.5"/><text x="172" y="62" text-anchor="middle" font-size="10.5" fill="currentColor" font-weight="600">Hello, 0</text><line x1="92" y1="70" x2="252" y2="92" stroke="currentColor" stroke-width="1.9" marker-end="url(#yc)"/><text x="120" y="132" text-anchor="middle" font-size="10.5" fill="var(--accent)" font-weight="600">ACK, 0</text><line x1="252" y1="100" x2="92" y2="236" stroke="var(--accent)" stroke-width="1.9" stroke-dasharray="6,4" marker-end="url(#yc)"/><path d="M92,70 L58,70 L58,186 L92,186" fill="none" stroke="var(--accent)" stroke-width="1.4"/><text x="52" y="132.0" text-anchor="end" font-size="10.5" fill="var(--accent)" font-weight="700">timeout</text><text x="196" y="188" text-anchor="middle" font-size="10.5" fill="var(--accent)" font-weight="600">Hello, 0 &mdash; resent</text><line x1="92" y1="196" x2="252" y2="252" stroke="var(--accent)" stroke-width="1.9" marker-end="url(#yc)"/><text x="258" y="258" text-anchor="start" font-size="10" fill="#cf5c36" font-weight="600">duplicate</text></svg></div>
-      </div>
-    </div>
-
-    <p class="frag" style="margin:0;font-size:17px;line-height:1.6">In all three cases the retransmitted data eventually arrives &mdash; does this cause the receiver to accept a duplicate?</p>
-    <div class="frag card" style="padding:11px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:16.5px;line-height:1.6">No &mdash; this is fine because the <b>sequence number</b> prevents the receiver from accepting a duplicate.</p>
-    </div>
-
   </div>
 </section>
 
