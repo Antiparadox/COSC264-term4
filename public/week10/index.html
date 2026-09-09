@@ -2306,21 +2306,19 @@ svg text{font-family:var(--sans)}
 
     <!-- f2: call from above — plain language -->
     <div class="frag f2 card" style="padding:16px 22px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 8px;font-size:18px;line-height:1.65">&bull;&ensp;<b>Call from above</b> &mdash; application layer requests sending a new packet.</p>
-      <ul style="margin:0;padding-left:28px;font-size:17px;line-height:1.8">
-        <li>If the window is not full (<span style="font-family:var(--mono)">nextseqnum &lt; base + N</span>): assign sequence number <span style="font-family:var(--mono)">nextseqnum</span> to the packet, store it in the buffer, send it, and advance <span style="font-family:var(--mono)">nextseqnum</span>.</li>
-        <li>Otherwise: the window is full &mdash; refuse and wait.</li>
-      </ul>
+      <p style="margin:0 0 8px;font-size:18px;line-height:1.65">&bull;&ensp;<b>Call from above</b> &mdash; the application layer asks to send a new packet.</p>
+      <p style="margin:0 0 0 28px;font-size:18px;line-height:1.65">&mdash;&ensp;If the window is not full (<span style="font-family:var(--mono);white-space:nowrap">nextseqnum &lt; base + <em>N</em></span>): give the packet sequence number <span style="font-family:var(--mono)">nextseqnum</span>, store it in the buffer, send it, and advance <span style="font-family:var(--mono)">nextseqnum</span>.</p>
+      <p class="frag" style="margin:8px 0 0 28px;font-size:18px;line-height:1.65">&mdash;&ensp;Otherwise the window is full &mdash; refuse, and wait.</p>
     </div>
 
     <!-- f3: ACK arrives — separate card -->
     <div class="frag f3 card" style="padding:16px 22px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:18px;line-height:1.65">&bull;&ensp;<b>ACK <em>n</em> arrives</b> &mdash; advance <span style="font-family:var(--mono)">base</span> to <em>n</em>&nbsp;+&nbsp;1, and restart the timer (or stop it if nothing is left outstanding).</p>
+      <p style="margin:0;font-size:18px;line-height:1.65">&bull;&ensp;<b>ACK <em>n</em> arrives</b> &mdash; if <span style="font-family:var(--mono);white-space:nowrap"><em>n</em> &ge; base</span>, advance <span style="font-family:var(--mono)">base</span> to <em>n</em>&nbsp;+&nbsp;1 and restart the timer. An older ACK, with <span style="font-family:var(--mono);white-space:nowrap"><em>n</em> &lt; base</span>, changes nothing.</p>
     </div>
 
     <!-- f4: timeout — separate card (red accent) -->
     <div class="frag f4 card" style="padding:16px 22px;border-left:3px solid #cf5c36">
-      <p style="margin:0;font-size:18px;line-height:1.65">&bull;&ensp;<b>Timeout</b> &mdash; resend every buffered packet in <span style="font-family:var(--mono)">[base,&thinsp;nextseqnum)</span>.</p>
+      <p style="margin:0;font-size:18px;line-height:1.65">&bull;&ensp;<b>Timeout</b> &mdash; resend every buffered packet in the window.</p>
     </div>
 
   </div>
