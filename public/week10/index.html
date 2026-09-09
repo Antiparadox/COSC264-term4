@@ -1419,9 +1419,10 @@ svg text{font-family:var(--sans)}
 <!-- ── stop-and-wait performance ── -->
 <section class="slide" id="saw-perf" data-sec="The cost of stop-and-wait">
   <style>
-    #saw-perf .sw1,#saw-perf .sw2 { opacity:0; transition:opacity 0.3s }
-    #saw-perf:has(.f2.on) .sw1 { opacity:1 }
-    #saw-perf:has(.f3.on) .sw2 { opacity:1 }
+    #saw-perf .sw1,#saw-perf .sw2,#saw-perf .sw3 { opacity:0; transition:opacity 0.3s }
+    #saw-perf:has(.f4.on) .sw1 { opacity:1 }
+    #saw-perf:has(.f5.on) .sw2 { opacity:1 }
+    #saw-perf:has(.f6.on) .sw3 { opacity:1 }
   </style>
   <div class="kicker">Performance</div>
   <h2>The cost of stopping and waiting</h2>
@@ -1446,18 +1447,23 @@ svg text{font-family:var(--sans)}
   <text x="360" y="229" text-anchor="middle" font-size="12" font-style="italic" fill="currentColor">ACK</text>
   <path d="M190,72 L176,72 L176,294 L190,294" fill="none" stroke="#cf5c36" stroke-width="1.5"/>
   <text x="168" y="187" text-anchor="end" font-size="14" fill="#cf5c36" font-weight="700">RTT</text>
+  <text font-size="12" fill="currentColor" opacity="0.75"><tspan x="480" y="338">RTT &mdash; round-trip time</tspan></text>
+</g>
+<g class="sw3">
   <text text-anchor="end" font-size="12" fill="var(--accent)" font-weight="600"><tspan x="150" y="292">ACK in, next packet sent,</tspan><tspan x="150" dy="14">t = RTT + L/R</tspan></text>
   <line x1="206" y1="294" x2="468" y2="294" stroke="currentColor" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
   <path d="M206,294 L468,372 L468,398 L206,320 Z" fill="rgba(0,200,180,0.30)" stroke="var(--accent)" stroke-width="1"/>
-  <text font-size="12" fill="currentColor" opacity="0.75"><tspan x="480" y="338">RTT &mdash; round-trip time</tspan></text>
 </g>
 </svg></div>
-    <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:330px">
-      <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.55">Every protocol we have built, rdt 2.0 through rdt 3.0, is <b>stop-and-wait</b>: one packet, then silence until the ACK returns.</p>
-      <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.55">Suppose every packet is <b>L</b> bits, sent at transmission rate <b>R</b>. Therefore, sending each packet takes <b>L/R</b> seconds.</p>
-      <p class="frag f3" style="margin:0;font-size:16.5px;line-height:1.55">In stop-and-wait, the sender must wait a full <b>RTT</b> (round-trip time &mdash; the time for a packet to reach the receiver and for its ACK to return) before it can send again.</p>
-      <div class="frag f4 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0 0 6px;font-size:16px;line-height:1.5">Fraction of the time the sender is actually busy:</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:330px">
+      <p class="frag f1" style="margin:0;font-size:16px;line-height:1.55">Every protocol we have built, rdt 2.0 through rdt 3.0, is <b>stop-and-wait</b>: send one packet, then sit idle until its ACK comes back.</p>
+      <p class="frag f2" style="margin:0;font-size:16px;line-height:1.55">That idle time is not free. How much of the sender&rsquo;s capacity does it cost?</p>
+      <p class="frag f3" style="margin:0;font-size:16px;line-height:1.55">Say every packet is <b>L</b> bits and the sender transmits at <b>R</b> bits per second.</p>
+      <p class="frag f4" style="margin:0;font-size:16px;line-height:1.55">Putting one packet onto the channel then takes <b>L/R</b> seconds.</p>
+      <p class="frag f5" style="margin:0;font-size:16px;line-height:1.55">After that the sender must wait a full <b>RTT</b> before it may send again.</p>
+      <p class="frag f6" style="margin:0;font-size:16px;line-height:1.55">So one packet occupies <b>RTT + L/R</b> seconds &mdash; first bit out to ACK back in.</p>
+      <div class="frag f7 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
+        <p style="margin:0 0 5px;font-size:15.5px;line-height:1.5">Of that, the sender is busy for only <b>L/R</b>:</p>
         <p style="margin:0;font-size:18px;font-family:var(--mono);color:var(--accent)">U = (L/R) &divide; (RTT + L/R)</p>
       </div>
     </div>
