@@ -1662,11 +1662,11 @@ svg text{font-family:var(--sans)}
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>The sliding window</h2>
-  <div style="flex:1;display:flex;gap:32px;align-items:flex-start">
+  <div style="flex:1;display:flex;gap:22px;align-items:flex-start">
 
     <!-- LEFT: diagram + legend -->
-    <div style="flex:0 0 520px;display:flex;flex-direction:column;gap:16px">
-      <svg viewBox="0 0 560 236" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px">
+    <div style="flex:0 0 528px;display:flex;flex-direction:column;gap:16px">
+      <svg viewBox="18 24 534 204" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:528px">
         <defs><marker id="gbn-wn" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
 
         <!-- Always visible: faint outlines for all 16 slots -->
@@ -1746,14 +1746,14 @@ svg text{font-family:var(--sans)}
     </div>
 
     <!-- RIGHT: synchronized fragments -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:11px;padding-top:6px">
-      <p style="margin:0;font-size:16.5px;line-height:1.55;color:var(--muted)">What the sender is working with: a stream of packets handed down from the application layer. In the diagram, each rectangle is one packet.</p>
-      <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.55"><b>Acknowledged</b> &mdash; the receiver has these intact and has sent an ACK for each of them.</p>
-      <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.55"><b>base</b> &mdash; the oldest packet not yet acknowledged. This is where the window begins.</p>
-      <p class="frag f3" style="margin:0;font-size:16.5px;line-height:1.55"><b>Window of size <em>N</em></b> &mdash; more data keeps arriving from the application, so the sender allows at most <em>N</em> unacknowledged packets in flight at once.</p>
-      <p class="frag f4" style="margin:0;font-size:16.5px;line-height:1.55"><b>Sent, not yet ACK&rsquo;d</b> &mdash; say five packets have arrived and all five fit in the window, so the sender sends them all. They are now in transit with no ACK yet, and it keeps a copy of each in case it has to retransmit.</p>
-      <p class="frag f5" style="margin:0;font-size:16.5px;line-height:1.55"><b>Usable, not yet sent</b> &mdash; three window slots are still free. Whatever the application hands down next can go straight out.</p>
-      <p class="frag f6" style="margin:0;font-size:16.5px;line-height:1.55"><b>nextseqnum</b> &mdash; the first of those free slots: the next sequence number the sender will use.</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:9px;padding-top:0">
+      <p style="margin:0;font-size:16px;line-height:1.55;color:var(--muted)">The sender is fed a stream of packets from the application layer; each rectangle in the diagram is one packet.</p>
+      <p class="frag f1" style="margin:0;font-size:16px;line-height:1.55"><b>Acknowledged</b> &mdash; the receiver has these intact and has sent an ACK for each of them.</p>
+      <p class="frag f2" style="margin:0;font-size:16px;line-height:1.55"><b>base</b> &mdash; the oldest packet not yet acknowledged. This is where the window begins.</p>
+      <p class="frag f3" style="margin:0;font-size:16px;line-height:1.55"><b>Window of size <em>N</em></b> &mdash; more data may arrive from the application, and the sender would like to send it straight away. But the pipeline must be capped: the window allows at most <em>N</em> unacknowledged packets in flight at once.</p>
+      <p class="frag f4" style="margin:0;font-size:16px;line-height:1.55"><b>Sent, not yet ACK&rsquo;d</b> &mdash; suppose the application hands down five packets. The window here is eight slots wide, so all five fit and go out at once. They are in transit and unacknowledged, so the sender keeps a copy of each in case it must retransmit.</p>
+      <p class="frag f5" style="margin:0;font-size:16px;line-height:1.55"><b>Usable, not yet sent</b> &mdash; three window slots are still free, so the next three packets the application hands down can go straight out.</p>
+      <p class="frag f6" style="margin:0;font-size:16px;line-height:1.55"><b>nextseqnum</b> &mdash; the first of those free slots: the next sequence number the sender will use.</p>
     </div>
 
   </div>
