@@ -2428,7 +2428,7 @@ svg text{font-family:var(--sans)}
     #gbn-cost:has(.f2.on) .g-pkt2{opacity:1}
   </style>
   <div class="kicker">Go-back-N</div>
-  <h2>The cost of the receiver&rsquo;s rule</h2>
+  <h2>The cost of Go-back-<em>N</em></h2>
   <div style="display:flex;gap:48px;align-items:flex-start;max-width:1100px">
     <div style="display:flex;flex-direction:column;gap:18px;flex:1">
       <p style="margin:0;font-size:18px;line-height:1.6">Go-back-N wastes network capacity whenever packets arrive out of order.</p>
@@ -2436,36 +2436,37 @@ svg text{font-family:var(--sans)}
       <div class="frag f2 card" style="padding:12px 17px;border-left:3px solid var(--accent)">
         <p style="margin:0;font-size:17px;line-height:1.6">pkt&nbsp;1 and pkt&nbsp;2 arrive correctly &mdash; but because <span style="font-family:var(--mono)">expectedseqnum</span>&nbsp;=&nbsp;0, both are <b>discarded</b>.</p>
       </div>
+      <p class="frag f3" style="margin:0;font-size:18px;line-height:1.6;color:var(--accent)">Can we do better?</p>
     </div>
-    <div style="flex:0 0 370px;display:flex;justify-content:center">
-      <svg viewBox="0 0 380 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:370px">
+    <div style="flex:0 0 520px;display:flex;justify-content:center">
+      <svg viewBox="40 0 337 268" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px">
         <defs>
           <marker id="gc-arr" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
             <path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/>
           </marker>
         </defs>
-        <text x="70" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
-        <text x="310" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
-        <text x="310" y="33" text-anchor="middle" font-size="11" fill="var(--muted)">esn&nbsp;=&nbsp;0</text>
+        <text x="70" y="18" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Sender</text>
+        <text x="310" y="18" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Receiver</text>
+        <text x="310" y="33" text-anchor="middle" font-size="13.5" fill="var(--muted)">esn&nbsp;=&nbsp;0</text>
         <line x1="70" y1="40" x2="70" y2="260" stroke="currentColor" stroke-width="1.3" opacity="0.35"/>
         <line x1="310" y1="40" x2="310" y2="260" stroke="currentColor" stroke-width="1.3" opacity="0.35"/>
         <!-- pkt 0: sent, lost -->
-        <text x="128" y="62" text-anchor="middle" font-size="12" fill="currentColor" font-weight="600">pkt&nbsp;0</text>
+        <text x="128" y="62" text-anchor="middle" font-size="15" fill="currentColor" font-weight="600">pkt&nbsp;0</text>
         <line x1="70" y1="67" x2="186" y2="90" stroke="#cf5c36" stroke-width="2"/>
         <line x1="178" y1="84" x2="194" y2="98" stroke="#cf5c36" stroke-width="2.5"/>
         <line x1="194" y1="84" x2="178" y2="98" stroke="#cf5c36" stroke-width="2.5"/>
-        <text x="197" y="112" font-size="11" fill="#cf5c36" font-style="italic">lost</text>
+        <text x="197" y="112" font-size="13.5" fill="#cf5c36" font-style="italic">lost</text>
         <!-- pkt 1: arrives, dropped -->
         <g class="g-pkt1">
-          <text x="187" y="128" text-anchor="middle" font-size="12" fill="currentColor" font-weight="600">pkt&nbsp;1</text>
+          <text x="187" y="128" text-anchor="middle" font-size="15" fill="currentColor" font-weight="600">pkt&nbsp;1</text>
           <line x1="70" y1="133" x2="303" y2="158" stroke="currentColor" stroke-width="2" marker-end="url(#gc-arr)"/>
-          <text x="314" y="157" font-size="11" fill="#cf5c36" font-weight="600">dropped</text>
+          <text x="314" y="157" font-size="13.5" fill="#cf5c36" font-weight="600">dropped</text>
         </g>
         <!-- pkt 2: arrives, dropped -->
         <g class="g-pkt2">
-          <text x="187" y="200" text-anchor="middle" font-size="12" fill="currentColor" font-weight="600">pkt&nbsp;2</text>
+          <text x="187" y="200" text-anchor="middle" font-size="15" fill="currentColor" font-weight="600">pkt&nbsp;2</text>
           <line x1="70" y1="205" x2="303" y2="230" stroke="currentColor" stroke-width="2" marker-end="url(#gc-arr)"/>
-          <text x="314" y="229" font-size="11" fill="#cf5c36" font-weight="600">dropped</text>
+          <text x="314" y="229" font-size="13.5" fill="#cf5c36" font-weight="600">dropped</text>
         </g>
       </svg>
     </div>
