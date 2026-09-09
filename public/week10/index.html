@@ -1419,52 +1419,89 @@ svg text{font-family:var(--sans)}
 <!-- ── stop-and-wait performance ── -->
 <section class="slide" id="saw-perf" data-sec="The cost of stop-and-wait">
   <style>
-    #saw-perf .sw1,#saw-perf .sw2,#saw-perf .sw3 { opacity:0; transition:opacity 0.3s }
+    #saw-perf .sw1 { opacity:0; transition:opacity 0.3s }
     #saw-perf:has(.f4.on) .sw1 { opacity:1 }
-    #saw-perf:has(.f5.on) .sw2 { opacity:1 }
-    #saw-perf:has(.f6.on) .sw3 { opacity:1 }
   </style>
   <div class="kicker">Performance</div>
   <h2>The cost of stopping and waiting</h2>
-  <div style="flex:1;display:flex;gap:26px;align-items:flex-start">
-    <div style="flex:0 0 620px;display:flex;justify-content:center"><svg viewBox="0 0 690 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px">
-<defs><marker id="saw-pf" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
-<text x="206" y="42" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
-<text x="468" y="42" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
+  <div style="flex:1;display:flex;gap:20px;align-items:flex-start">
+    <div style="flex:0 0 700px;display:flex;justify-content:center"><svg viewBox="-10 26 636 398" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px">
+<text x="206" y="42" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Sender</text>
+<text x="468" y="42" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="206" y1="56" x2="206" y2="406" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
 <line x1="468" y1="56" x2="468" y2="406" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
 <g class="sw1">
   <path d="M206,72 L468,150 L468,176 L206,98 Z" fill="rgba(0,200,180,0.30)" stroke="var(--accent)" stroke-width="1"/>
   <line x1="206" y1="72" x2="468" y2="72" stroke="currentColor" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
-  <text text-anchor="end" font-size="12" fill="currentColor"><tspan x="150" y="68">first bit sent,</tspan><tspan x="150" dy="14">t = 0</tspan></text>
-  <text text-anchor="end" font-size="12" fill="currentColor"><tspan x="150" y="106">last bit sent,</tspan><tspan x="150" dy="14">t = L/R</tspan></text>
-  <text x="480" y="154" font-size="12" fill="currentColor">first bit arrives</text>
-  <text x="480" y="180" font-size="12" fill="currentColor">last bit arrives</text>
-  <text font-size="12" fill="currentColor" opacity="0.75"><tspan x="480" y="354">L &mdash; packet size</tspan><tspan x="480" dy="16">R &mdash; transmission rate</tspan></text>
+  <text text-anchor="end" font-size="13" fill="currentColor"><tspan x="150" y="68">first bit sent,</tspan><tspan x="150" dy="15">t = 0</tspan></text>
+  <text text-anchor="end" font-size="13" fill="currentColor"><tspan x="150" y="106">last bit sent,</tspan><tspan x="150" dy="15">t = L/R</tspan></text>
+  <text x="480" y="154" font-size="13" fill="currentColor">first bit arrives</text>
+  <text x="480" y="180" font-size="13" fill="currentColor">last bit arrives</text>
+  <text font-size="13" fill="currentColor" opacity="0.75"><tspan x="480" y="354">L &mdash; packet size</tspan><tspan x="480" dy="17">R &mdash; transmission rate</tspan></text>
+</g>
+</svg></div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:340px">
+      <p class="frag f1" style="margin:0;font-size:17.5px;line-height:1.55">Every protocol we have built, rdt 2.0 through rdt 3.0, is <b>stop-and-wait</b>: send one packet, then sit idle until its ACK comes back.</p>
+      <p class="frag f2" style="margin:0;font-size:17.5px;line-height:1.55">That idle time is not free. Let us try to measure what it costs us.</p>
+      <p class="frag f3" style="margin:0;font-size:17.5px;line-height:1.55">Say every packet is <b>L</b> bits and the sender transmits at <b>R</b> bits per second.</p>
+      <p class="frag f4" style="margin:0;font-size:17.5px;line-height:1.55">Putting one packet onto the channel then takes <b>L/R</b> seconds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── utilisation: the same picture, carried on ── -->
+<section class="slide" id="saw-util" data-sec="The cost of stop-and-wait">
+  <style>
+    /* The diagram carries straight on from the previous frame. */
+    #saw-util .sw2,#saw-util .sw3,#saw-util .sw4 { opacity:0; transition:opacity 0.3s }
+    #saw-util:has(.g1.on) .sw2 { opacity:1 }
+    #saw-util:has(.g2.on) .sw3 { opacity:1 }
+    #saw-util:has(.g3.on) .sw4 { opacity:1 }
+  </style>
+  <div class="kicker">Performance</div>
+  <h2>How much of that time is the sender busy?</h2>
+  <div style="flex:1;display:flex;gap:20px;align-items:flex-start">
+    <div style="flex:0 0 700px;display:flex;justify-content:center"><svg viewBox="-10 26 636 398" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px">
+<defs><marker id="saw-pf2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
+<text x="206" y="42" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Sender</text>
+<text x="468" y="42" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">Receiver</text>
+<line x1="206" y1="56" x2="206" y2="406" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
+<line x1="468" y1="56" x2="468" y2="406" stroke="currentColor" stroke-width="1.4" opacity="0.6"/>
+<g class="sw1">
+  <path d="M206,72 L468,150 L468,176 L206,98 Z" fill="rgba(0,200,180,0.30)" stroke="var(--accent)" stroke-width="1"/>
+  <line x1="206" y1="72" x2="468" y2="72" stroke="currentColor" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+  <text text-anchor="end" font-size="13" fill="currentColor"><tspan x="150" y="68">first bit sent,</tspan><tspan x="150" dy="15">t = 0</tspan></text>
+  <text text-anchor="end" font-size="13" fill="currentColor"><tspan x="150" y="106">last bit sent,</tspan><tspan x="150" dy="15">t = L/R</tspan></text>
+  <text x="480" y="154" font-size="13" fill="currentColor">first bit arrives</text>
+  <text x="480" y="180" font-size="13" fill="currentColor">last bit arrives</text>
+  <text font-size="13" fill="currentColor" opacity="0.75"><tspan x="480" y="354">L &mdash; packet size</tspan><tspan x="480" dy="17">R &mdash; transmission rate</tspan></text>
 </g>
 <g class="sw2">
-  <line x1="468" y1="176" x2="206" y2="294" stroke="currentColor" stroke-width="1.7" marker-end="url(#saw-pf)"/>
-  <text x="360" y="229" text-anchor="middle" font-size="12" font-style="italic" fill="currentColor">ACK</text>
+  <line x1="468" y1="176" x2="206" y2="294" stroke="currentColor" stroke-width="1.7" marker-end="url(#saw-pf2)"/>
+  <text x="360" y="229" text-anchor="middle" font-size="13" font-style="italic" fill="currentColor">ACK</text>
   <path d="M190,98 L176,98 L176,294 L190,294" fill="none" stroke="#cf5c36" stroke-width="1.5"/>
-  <text x="168" y="201" text-anchor="end" font-size="14" fill="#cf5c36" font-weight="700">RTT</text>
-  <text font-size="12" fill="currentColor" opacity="0.75"><tspan x="480" y="338">RTT &mdash; round-trip time</tspan></text>
+  <text x="168" y="201" text-anchor="end" font-size="15" fill="#cf5c36" font-weight="700">RTT</text>
+  <text x="480" y="332" font-size="13" fill="currentColor" opacity="0.75">RTT &mdash; round-trip time</text>
 </g>
 <g class="sw3">
-  <text text-anchor="end" font-size="12" fill="var(--accent)" font-weight="600"><tspan x="150" y="292">ACK in, next packet sent,</tspan><tspan x="150" dy="14">t = RTT + L/R</tspan></text>
+  <text text-anchor="end" font-size="13" fill="var(--accent)" font-weight="600"><tspan x="150" y="290">ACK in, next packet sent,</tspan><tspan x="150" dy="15">t = RTT + L/R</tspan></text>
   <line x1="206" y1="294" x2="468" y2="294" stroke="currentColor" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
   <path d="M206,294 L468,372 L468,398 L206,320 Z" fill="rgba(0,200,180,0.30)" stroke="var(--accent)" stroke-width="1"/>
 </g>
+<g class="sw4">
+  <line x1="206" y1="72" x2="206" y2="98" stroke="var(--accent)" stroke-width="9"/>
+  <line x1="206" y1="98" x2="206" y2="294" stroke="#cf5c36" stroke-width="9" opacity="0.32"/>
+  <rect x="480" y="381" width="11" height="11" fill="var(--accent)"/><text x="498" y="391" font-size="13" fill="currentColor" opacity="0.75">sender transmitting</text>
+  <rect x="480" y="400" width="11" height="11" fill="#cf5c36" opacity="0.45"/><text x="498" y="410" font-size="13" fill="currentColor" opacity="0.75">sender idle</text>
+</g>
 </svg></div>
-    <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:330px">
-      <p class="frag f1" style="margin:0;font-size:16px;line-height:1.55">Every protocol we have built, rdt 2.0 through rdt 3.0, is <b>stop-and-wait</b>: send one packet, then sit idle until its ACK comes back.</p>
-      <p class="frag f2" style="margin:0;font-size:16px;line-height:1.55">That idle time is not free. Let us try to measure what it costs us.</p>
-      <p class="frag f3" style="margin:0;font-size:16px;line-height:1.55">Say every packet is <b>L</b> bits and the sender transmits at <b>R</b> bits per second.</p>
-      <p class="frag f4" style="margin:0;font-size:16px;line-height:1.55">Putting one packet onto the channel then takes <b>L/R</b> seconds.</p>
-      <p class="frag f5" style="margin:0;font-size:16px;line-height:1.55">After that the sender must wait a full <b>RTT</b> before it may send again.</p>
-      <p class="frag f6" style="margin:0;font-size:16px;line-height:1.55">So one packet occupies <b>RTT + L/R</b> seconds &mdash; first bit out to ACK back in.</p>
-      <div class="frag f7 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0 0 5px;font-size:15.5px;line-height:1.5">Of that, the sender is busy for only <b>L/R</b>:</p>
-        <p style="margin:0;font-size:18px;font-family:var(--mono);color:var(--accent)">U = (L/R) &divide; (RTT + L/R)</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:340px">
+      <p class="frag g1" style="margin:0;font-size:17.5px;line-height:1.55">After that the sender must wait a full <b>RTT</b> before it may send again.</p>
+      <p class="frag g2" style="margin:0;font-size:17.5px;line-height:1.55">So one packet occupies <b>RTT + L/R</b> seconds &mdash; first bit out to ACK back in.</p>
+      <p class="frag g3" style="margin:0;font-size:17.5px;line-height:1.55">Of that, the sender is busy for only the first <b>L/R</b>, while it is transmitting. Every moment after that it is <b>idle</b>.</p>
+      <div class="frag g4 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
+        <p style="margin:0 0 5px;font-size:16px;line-height:1.5">Fraction of the time the sender is busy:</p>
+        <p style="margin:0;font-size:19px;font-family:var(--mono);color:var(--accent)">U = (L/R) &divide; (RTT + L/R)</p>
       </div>
     </div>
   </div>
