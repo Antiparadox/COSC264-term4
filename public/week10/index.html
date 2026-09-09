@@ -1894,62 +1894,67 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="cum-ack" data-sec="Go-back-N">
   <style>
     #cum-ack .cum-p { opacity:0; transition:opacity 0.3s }
-    #cum-ack:has(.f2.on) .cum-p-base { opacity:1 }
-    #cum-ack:has(.f3.on) .cum-p-ack3 { opacity:1 }
+    #cum-ack:has(.f3.on) .cum-p-data { opacity:1 }
+    #cum-ack:has(.f4.on) .cum-p-lost { opacity:1 }
+    #cum-ack:has(.f5.on) .cum-p-ack3 { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>Cumulative acknowledgements</h2>
-  <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
+  <div style="flex:1;display:flex;gap:24px;align-items:flex-start">
 
     <!-- LEFT: frags -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:370px;padding-top:8px">
-      <div class="frag f1 card" style="padding:13px 17px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:17px;line-height:1.6">An <b>ACK <em>n</em></b> means: <b>every</b> packet up to and including <em>n</em> has been received correctly &mdash; not just packet <em>n</em>, but everything before it too. That is what makes it <b>cumulative</b>.</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:13px;max-width:470px;padding-top:4px">
+      <p class="frag f1" style="margin:0;font-size:17.5px;line-height:1.55">In Go-back-N the receiver does not acknowledge packets one at a time. It uses a <b>cumulative acknowledgement</b>.</p>
+      <div class="frag f2 card" style="padding:12px 17px;border-left:3px solid var(--accent)">
+        <p style="margin:0;font-size:17.5px;line-height:1.55">An <b>ACK <em>n</em></b> means every packet up to and including <em>n</em> has arrived correctly &mdash; not just packet <em>n</em>, but everything before it too. That is what makes it <b>cumulative</b>.</p>
       </div>
-      <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.55">Suppose <b>ACK 1</b> and <b>ACK 2</b> are both lost in transit.</p>
-      <div class="frag f3 card" style="padding:13px 17px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:17px;line-height:1.6"><b>ACK 3 arrives</b> &mdash; and it alone tells the sender that 1, 2 and 3 all got through, even though ACK 1 and ACK 2 were lost.</p>
+      <p class="frag f3" style="margin:0;font-size:17.5px;line-height:1.55">Suppose the sender sends <b>Data 1, 2 and 3</b> back to back.</p>
+      <p class="frag f4" style="margin:0;font-size:17.5px;line-height:1.55"><b>ACK 1</b> and <b>ACK 2</b> are both lost in transit.</p>
+      <div class="frag f5 card" style="padding:12px 17px;border-left:3px solid var(--accent)">
+        <p style="margin:0;font-size:17.5px;line-height:1.55"><b>ACK 3 arrives</b> &mdash; and it alone tells the sender that 1, 2 and 3 all got through, even though ACK 1 and ACK 2 never made it.</p>
       </div>
     </div>
 
     <!-- RIGHT: SVG -->
-    <div style="flex:0 0 470px;display:flex;justify-content:center">
-      <svg viewBox="0 0 520 312" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:480px">
+    <div style="flex:0 0 664px;display:flex;justify-content:center">
+      <svg viewBox="-4 14 502 246" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:664px">
         <defs><marker id="cu" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 
         <!-- always visible: labels + timelines -->
-        <text x="118" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
-        <text x="402" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
-        <line x1="118" y1="34" x2="118" y2="296" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-        <line x1="402" y1="34" x2="402" y2="296" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+        <text x="120" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Sender</text>
+        <text x="440" y="30" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Receiver</text>
+        <line x1="120" y1="42" x2="120" y2="250" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+        <line x1="440" y1="42" x2="440" y2="250" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 
-        <!-- f2: Data 1, ACK 1×, Data 2, ACK 2×, Data 3 -->
-        <g class="cum-p cum-p-base">
-          <!-- Data 1 -->
-          <line x1="118" y1="52" x2="402" y2="78" stroke="currentColor" stroke-width="2" marker-end="url(#cu)"/>
-          <text x="260" y="46" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Data 1</text>
-          <!-- ACK 1 lost -->
-          <line x1="402" y1="92" x2="246" y2="106" stroke="#cf5c36" stroke-width="2"/>
-          <line x1="240" y1="100" x2="252" y2="112" stroke="#cf5c36" stroke-width="2.4"/>
-          <line x1="240" y1="112" x2="252" y2="100" stroke="#cf5c36" stroke-width="2.4"/>
-          <text x="260" y="86" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ACK 1</text>
-          <!-- Data 2 -->
-          <line x1="118" y1="132" x2="402" y2="158" stroke="currentColor" stroke-width="2" marker-end="url(#cu)"/>
-          <text x="260" y="126" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Data 2</text>
-          <!-- ACK 2 lost -->
-          <line x1="402" y1="172" x2="246" y2="186" stroke="#cf5c36" stroke-width="2"/>
-          <line x1="240" y1="180" x2="252" y2="192" stroke="#cf5c36" stroke-width="2.4"/>
-          <line x1="240" y1="192" x2="252" y2="180" stroke="#cf5c36" stroke-width="2.4"/>
-          <text x="260" y="166" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ACK 2</text>
-          <!-- Data 3 -->
-          <line x1="118" y1="212" x2="402" y2="238" stroke="currentColor" stroke-width="2" marker-end="url(#cu)"/>
-          <text x="260" y="206" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Data 3</text>
+        <!-- f3: three data packets, sent back to back -->
+        <g class="cum-p cum-p-data">
+          <line x1="120" y1="60" x2="440" y2="108" stroke="currentColor" stroke-width="2" marker-end="url(#cu)"/>
+          <line x1="120" y1="84" x2="440" y2="132" stroke="currentColor" stroke-width="2" marker-end="url(#cu)"/>
+          <line x1="120" y1="108" x2="440" y2="156" stroke="currentColor" stroke-width="2" marker-end="url(#cu)"/>
+          <text x="112" y="64" text-anchor="end" font-size="14" fill="currentColor" font-weight="600">Data 1</text>
+          <text x="112" y="88" text-anchor="end" font-size="14" fill="currentColor" font-weight="600">Data 2</text>
+          <text x="112" y="112" text-anchor="end" font-size="14" fill="currentColor" font-weight="600">Data 3</text>
         </g>
 
-        <!-- f3: ACK 3 -->
+        <!-- f4: ACK 1 and ACK 2, both lost on the way back -->
+        <g class="cum-p cum-p-lost">
+          <line x1="440" y1="120" x2="286" y2="143" stroke="#cf5c36" stroke-width="2"/>
+          <line x1="274" y1="139" x2="286" y2="151" stroke="#cf5c36" stroke-width="2.4"/>
+          <line x1="274" y1="151" x2="286" y2="139" stroke="#cf5c36" stroke-width="2.4"/>
+          <line x1="440" y1="144" x2="286" y2="167" stroke="#cf5c36" stroke-width="2"/>
+          <line x1="274" y1="163" x2="286" y2="175" stroke="#cf5c36" stroke-width="2.4"/>
+          <line x1="274" y1="175" x2="286" y2="163" stroke="#cf5c36" stroke-width="2.4"/>
+          <text x="448" y="124" text-anchor="start" font-size="14" fill="#cf5c36" font-weight="600">ACK 1</text>
+          <text x="448" y="148" text-anchor="start" font-size="14" fill="#cf5c36" font-weight="600">ACK 2</text>
+          <text x="266" y="149" text-anchor="end" font-size="12.5" fill="#cf5c36">lost</text>
+          <text x="266" y="173" text-anchor="end" font-size="12.5" fill="#cf5c36">lost</text>
+        </g>
+
+        <!-- f5: ACK 3 gets through, and covers all three -->
         <g class="cum-p cum-p-ack3">
-          <line x1="402" y1="252" x2="118" y2="278" stroke="var(--accent)" stroke-width="2" marker-end="url(#cu)"/>
-          <text x="260" y="246" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK 3</text>
+          <line x1="440" y1="168" x2="120" y2="216" stroke="var(--accent)" stroke-width="2" marker-end="url(#cu)"/>
+          <text x="448" y="172" text-anchor="start" font-size="14" fill="var(--accent)" font-weight="600">ACK 3</text>
+          <text x="112" y="220" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="700">1, 2, 3 confirmed</text>
         </g>
       </svg>
     </div>
