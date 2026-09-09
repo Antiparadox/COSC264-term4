@@ -1618,21 +1618,21 @@ svg text{font-family:var(--sans)}
   <h2>What pipelining demands in return</h2>
   <div style="display:flex;flex-direction:column;gap:18px;max-width:1030px">
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">Pipelining is not free. Two things have to grow.</p>
+    <p class="frag" style="margin:0;font-size:19.5px;line-height:1.6">Pipelining is not free. Two things have to grow.</p>
 
     <div class="frag card" style="padding:14px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 6px;font-size:17.5px;font-weight:700">A bigger sequence space</p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">In stop-and-wait only one packet is ever in flight, so a single bit is enough: the receiver only has to tell &ldquo;this one&rdquo; from &ldquo;the next one&rdquo;.</p>
-      <p class="frag" style="margin:8px 0 0;font-size:16.5px;line-height:1.6">With pipelining, however, we may have several packets in flight at once. If we pipeline three, the receiver has to tell the <b>first</b> from the <b>third</b> &mdash; one bit cannot do that.</p>
+      <p style="margin:0 0 6px;font-size:19px;font-weight:700">A bigger sequence space</p>
+      <p style="margin:0;font-size:18px;line-height:1.6">In stop-and-wait only one packet is ever in flight, so a single bit is enough: the receiver only has to tell &ldquo;this one&rdquo; from &ldquo;the next one&rdquo;.</p>
+      <p class="frag" style="margin:8px 0 0;font-size:18px;line-height:1.6">With pipelining, however, we may have several packets in flight at once. If we pipeline three, the receiver has to tell the <b>first</b> from the <b>third</b> &mdash; one bit cannot do that.</p>
     </div>
 
     <div class="frag card" style="padding:14px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 6px;font-size:17.5px;font-weight:700">Buffering</p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">The sender cannot retransmit what it no longer has, so it must keep <b>every packet still unacknowledged</b> &mdash; with pipelining, that is everything in flight, not just one.</p>
-      <p class="frag" style="margin:8px 0 0;font-size:16.5px;line-height:1.6">Depending on the protocol, the receiver may also have to buffer packets that arrive <b>out of order</b>.</p>
+      <p style="margin:0 0 6px;font-size:19px;font-weight:700">Buffering</p>
+      <p style="margin:0;font-size:18px;line-height:1.6">The sender cannot retransmit what it no longer has, so it must keep <b>every packet still unacknowledged</b> &mdash; with pipelining, that is everything in flight, not just one.</p>
+      <p class="frag" style="margin:8px 0 0;font-size:18px;line-height:1.6">Depending on the protocol, the receiver may also have to buffer packets that arrive <b>out of order</b>.</p>
     </div>
 
-    <p class="frag" style="margin:0;font-size:17.5px;line-height:1.6">We will now learn about two pipelined protocols: <b>go-back-N</b> and <b>selective repeat</b>.</p>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">We will now learn about two pipelined protocols: <b>go-back-N</b> and <b>selective repeat</b>.</p>
 
   </div>
 </section>
