@@ -2133,21 +2133,23 @@ svg text{font-family:var(--sans)}
   <style>
     #rcv-fsm .fsm-inorder { opacity:0; transition:opacity 0.3s }
     #rcv-fsm .fsm-default { opacity:0; transition:opacity 0.3s }
-    #rcv-fsm:has(.f1.on) .fsm-inorder { opacity:1 }
-    #rcv-fsm:has(.f2.on) .fsm-default { opacity:1 }
-    /* One card visible at a time — card-inorder shows at f1 only; card-default replaces it at f2 */
+    #rcv-fsm:has(.f2.on) .fsm-inorder { opacity:1 }
+    #rcv-fsm:has(.f3.on) .fsm-default { opacity:1 }
+    /* One card visible at a time */
+    #rcv-fsm .card-state,
     #rcv-fsm .card-inorder,
     #rcv-fsm .card-default { opacity:0; transition:opacity 0.3s }
-    #rcv-fsm:has(.f1.on):not(:has(.f2.on)) .card-inorder { opacity:1 }
-    #rcv-fsm:has(.f2.on) .card-default { opacity:1 }
+    #rcv-fsm:has(.f1.on):not(:has(.f2.on)) .card-state   { opacity:1 }
+    #rcv-fsm:has(.f2.on):not(:has(.f3.on)) .card-inorder { opacity:1 }
+    #rcv-fsm:has(.f3.on) .card-default { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>Receiver: the state machine</h2>
   <div style="flex:1;display:flex;gap:0;align-items:stretch">
 
     <!-- LEFT 60%: FSM SVG — large, readable, full height -->
-    <div style="flex:0 0 60%;display:flex;align-items:center;justify-content:center">
-      <svg viewBox="0 0 820 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:490px">
+    <div style="flex:0 0 66%;display:flex;align-items:center;justify-content:center">
+      <svg viewBox="2 -12 768 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:490px">
         <defs>
           <marker id="rf"  markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker>
           <marker id="rfm" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--muted)"/></marker>
@@ -2155,48 +2157,53 @@ svg text{font-family:var(--sans)}
 
         <!-- State circle — always visible -->
         <circle cx="315" cy="248" r="128" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="2.5"/>
-        <text x="315" y="232" text-anchor="middle" font-size="19" font-weight="700" fill="currentColor">Waiting for the</text>
-        <text x="315" y="255" text-anchor="middle" font-size="16" fill="currentColor">next in-order packet</text>
-        <text x="315" y="278" text-anchor="middle" font-size="14" font-family="var(--mono)" fill="var(--accent)">(seq = expectedseqnum)</text>
+        <text x="315" y="232" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor">Waiting for the</text>
+        <text x="315" y="255" text-anchor="middle" font-size="19" fill="currentColor">next in-order packet</text>
+        <text x="315" y="278" text-anchor="middle" font-size="16" font-family="var(--mono)" fill="var(--accent)">(seq = expectedseqnum)</text>
 
         <!-- Init arrow — always visible -->
         <path d="M62,192 L187,235" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#rfm)"/>
-        <text x="8" y="152" text-anchor="start" font-size="14" fill="var(--muted)" font-family="var(--mono)">&Lambda;</text>
-        <text x="8" y="172" text-anchor="start" font-size="14" fill="var(--muted)" font-family="var(--mono)">esn = 0</text>
+        <text x="8" y="152" text-anchor="start" font-size="16" fill="var(--muted)" font-family="var(--mono)">&Lambda;</text>
+        <text x="8" y="172" text-anchor="start" font-size="16" fill="var(--muted)" font-family="var(--mono)">esn = 0</text>
 
         <!-- f1: in-order — right self-loop (accent); revealed at f1 -->
         <g class="fsm-inorder">
           <path d="M443,218 C552,200 552,296 443,278" fill="none" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#rf)"/>
-          <text x="564" y="225" text-anchor="start" font-size="16" fill="var(--accent)" font-weight="700">arrives with seq = esn</text>
-          <text x="564" y="248" text-anchor="start" font-size="14" fill="currentColor">deliver(data)</text>
-          <text x="564" y="266" text-anchor="start" font-size="14" fill="currentColor">send ACK(esn)</text>
-          <text x="564" y="284" text-anchor="start" font-size="14" fill="currentColor">esn = esn + 1</text>
+          <text x="566" y="222" text-anchor="start" font-size="19" fill="var(--accent)" font-weight="700">arrives with seq = esn</text>
+          <text x="566" y="249" text-anchor="start" font-size="16.5" fill="currentColor">deliver(data)</text>
+          <text x="566" y="271" text-anchor="start" font-size="16.5" fill="currentColor">send ACK(esn)</text>
+          <text x="566" y="293" text-anchor="start" font-size="16.5" fill="currentColor">esn = esn + 1</text>
         </g>
 
         <!-- f2: default — top self-loop (red); revealed at f2 -->
         <g class="fsm-default">
           <path d="M283,122 C265,38 367,38 347,122" fill="none" stroke="#cf5c36" stroke-width="2.5" marker-end="url(#rf)"/>
-          <text x="315" y="14" text-anchor="middle" font-size="16" fill="#cf5c36" font-weight="700">seq &ne; esn, or corrupted</text>
-          <text x="315" y="36" text-anchor="middle" font-size="14" fill="currentColor">discard &middot; re-send last ACK</text>
+          <text x="315" y="14" text-anchor="middle" font-size="19" fill="#cf5c36" font-weight="700">seq &ne; esn, or corrupted</text>
+          <text x="315" y="36" text-anchor="middle" font-size="16.5" fill="currentColor">discard &middot; re-send last ACK</text>
         </g>
       </svg>
     </div>
 
     <!-- RIGHT 40%: algorithm cards stacked in same grid cell — one visible at a time -->
-    <div style="flex:0 0 40%;display:flex;align-items:center;padding-left:20px">
+    <div style="flex:0 0 34%;display:flex;align-items:center;padding-left:18px">
       <div style="width:100%;display:grid;grid-template:1fr / 1fr">
-        <div class="card-inorder frag f1 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
+        <div class="card-state frag f1 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
+          <p style="margin:0 0 8px;font-size:14px;color:var(--muted)">The state:</p>
+          <p style="margin:0;font-size:16.5px;line-height:1.6">The receiver keeps a single number, <span style="font-family:var(--mono)">expectedseqnum</span> &mdash; the sequence number of the next in-order packet.</p>
+          <p style="margin:8px 0 0;font-size:16.5px;line-height:1.6">It sits in <b>one state</b>, waiting for that packet, and judges everything that arrives against that one number.</p>
+        </div>
+        <div class="card-inorder frag f2 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
           <p style="margin:0 0 8px;font-size:14px;color:var(--muted)">In-order packet:</p>
-          <pre style="margin:0;font-family:var(--mono);font-size:13.5px;line-height:1.7">if pkt.seq == expected_seq_num:
+          <pre style="margin:0;font-family:var(--mono);font-size:14.5px;line-height:1.75">if pkt.seq == expected_seq_num:
     deliver(pkt.data)
     send_ack(expected_seq_num)
-    expected_seq_num = (expected_seq_num + 1) % seq_space</pre>
+    expected_seq_num += 1</pre>
         </div>
-        <div class="card-default frag f2 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid #cf5c36">
+        <div class="card-default frag f3 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid #cf5c36">
           <p style="margin:0 0 8px;font-size:14px;color:var(--muted)">Out of order or corrupted:</p>
-          <pre style="margin:0;font-family:var(--mono);font-size:13.5px;line-height:1.7">else:
+          <pre style="margin:0;font-family:var(--mono);font-size:14.5px;line-height:1.75">else:
     discard(pkt)
-    send_ack((expected_seq_num - 1) % seq_space)</pre>
+    send_ack(expected_seq_num - 1)</pre>
         </div>
       </div>
     </div>
