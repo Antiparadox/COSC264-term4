@@ -1987,90 +1987,84 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="rcv-action" data-sec="Go-back-N">
   <style>
     #rcv-action .rcv-p { opacity:0; transition:opacity 0.3s }
-    #rcv-action:has(.f1.on) .rcv-p-transit { opacity:1 }
-    #rcv-action:has(.f3.on) .rcv-p-d0      { opacity:1 }
-    #rcv-action:has(.f4.on) .rcv-p-d1      { opacity:1 }
-    #rcv-action:has(.f5.on) .rcv-p-d2      { opacity:1 }
+    #rcv-action:has(.f2.on) .rcv-p-transit { opacity:1 }
+    #rcv-action:has(.f3.on) .rcv-p-esn0    { opacity:1 }
+    #rcv-action:has(.f4.on) .rcv-p-esn0    { opacity:0 }
+    #rcv-action:has(.f4.on) .rcv-p-esn1    { opacity:1 }
+    #rcv-action:has(.f4.on) .rcv-p-d0      { opacity:1 }
+    #rcv-action:has(.f5.on) .rcv-p-d1      { opacity:1 }
+    #rcv-action:has(.f6.on) .rcv-p-d2      { opacity:1 }
+    #rcv-action:has(.f7.on) .rcv-p-reack   { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>The receiver in action</h2>
-  <div style="flex:1;display:flex;gap:28px;align-items:flex-start">
+  <div style="flex:1;display:flex;gap:24px;align-items:flex-start">
 
-    <!-- LEFT: SVG (taller viewBox, 80px packet spacing) -->
-    <div style="flex:0 0 390px;display:flex;justify-content:center">
-      <svg viewBox="0 0 430 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:390px">
+    <!-- LEFT: SVG -->
+    <div style="flex:0 0 560px;display:flex;justify-content:center">
+      <svg viewBox="40 9 472 287" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px">
         <defs><marker id="rc2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 
         <!-- always: labels + timelines -->
-        <text x="85" y="18" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Sender</text>
-        <text x="360" y="18" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor">Receiver</text>
-        <text x="360" y="30" text-anchor="middle" font-size="9.5" font-family="var(--mono)" fill="var(--muted)" font-style="italic">( expectedseqnum )</text>
-        <line x1="85"  y1="36" x2="85"  y2="330" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-        <line x1="360" y1="36" x2="360" y2="330" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+        <text x="150" y="26" text-anchor="middle" font-size="14.5" font-weight="700" fill="currentColor">Sender</text>
+        <text x="410" y="26" text-anchor="middle" font-size="14.5" font-weight="700" fill="currentColor">Receiver</text>
+        <line x1="150" y1="60" x2="150" y2="288" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+        <line x1="410" y1="60" x2="410" y2="288" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 
-        <!-- f1: three packets in transit — dashed half-arrows -->
-        <!-- Data 0,0 at sender y=72; Data 1,1 at y=150; Data 2,2 at y=228 -->
-        <!-- Half-arrow goes Δx=137 to x=222, Δy≈20 to show time progression -->
+        <!-- expectedseqnum badge, beside the receiver -->
+        <g class="rcv-p rcv-p-esn0"><rect x="366" y="34" width="88" height="21" rx="5" fill="rgba(124,179,66,0.15)" stroke="#7cb342" stroke-width="1"/><text x="410" y="49" text-anchor="middle" font-size="13" fill="#7cb342" font-weight="700">expect 0</text></g>
+        <g class="rcv-p rcv-p-esn1"><rect x="366" y="34" width="88" height="21" rx="5" fill="rgba(124,179,66,0.15)" stroke="#7cb342" stroke-width="1"/><text x="410" y="49" text-anchor="middle" font-size="13" fill="#7cb342" font-weight="700">expect 1</text></g>
+
+        <!-- f2: all three sent at once, still in flight -->
         <g class="rcv-p rcv-p-transit">
-          <line x1="85" y1="72"  x2="222" y2="92"  stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
-          <text x="150" y="67"  text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Data A (seq 0)</text>
-          <line x1="85" y1="150" x2="222" y2="170" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
-          <text x="150" y="145" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Data B (seq 1)</text>
-          <line x1="85" y1="228" x2="222" y2="248" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
-          <text x="150" y="223" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Data C (seq 2)</text>
+          <line x1="150" y1="80"  x2="280" y2="110" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <line x1="150" y1="110" x2="280" y2="140" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <line x1="150" y1="140" x2="280" y2="170" stroke="currentColor" stroke-width="1.8" stroke-dasharray="5 4"/>
+          <text x="142" y="84"  text-anchor="end" font-size="13.5" fill="currentColor" font-weight="600">Data A (seq 0)</text>
+          <text x="142" y="114" text-anchor="end" font-size="13.5" fill="currentColor" font-weight="600">Data B (seq 1)</text>
+          <text x="142" y="144" text-anchor="end" font-size="13.5" fill="currentColor" font-weight="600">Data C (seq 2)</text>
         </g>
 
-        <!-- f3: Data 0,0 arrives (solid full) + ACK 0 back -->
-        <!-- Arrives at receiver y=72+42=114; ACK sent y=122, arrives y=164 -->
+        <!-- f4: Data A arrives, is delivered, ACK 0 goes back -->
         <g class="rcv-p rcv-p-d0">
-          <line x1="85" y1="72"  x2="360" y2="114" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc2)"/>
-          <text x="363" y="113" text-anchor="start" font-size="10" fill="var(--muted)">deliver; ACK 0</text>
-          <line x1="360" y1="122" x2="85" y2="164" stroke="var(--accent)" stroke-width="2" marker-end="url(#rc2)"/>
-          <text x="222" y="136" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="600">ACK 0</text>
+          <line x1="150" y1="80" x2="410" y2="140" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc2)"/>
+          <text x="418" y="137" text-anchor="start" font-size="12" fill="var(--muted)">deliver, ACK 0</text>
+          <line x1="410" y1="150" x2="150" y2="210" stroke="var(--accent)" stroke-width="2" marker-end="url(#rc2)"/>
+          <text x="142" y="214" text-anchor="end" font-size="13.5" fill="var(--accent)" font-weight="600">ACK 0</text>
         </g>
 
-        <!-- f4: Data 1,1 lost (× at midpoint x=222, y=170) -->
+        <!-- f5: Data B never gets there -->
         <g class="rcv-p rcv-p-d1">
-          <line x1="218" y1="166" x2="226" y2="174" stroke="#cf5c36" stroke-width="2.4"/>
-          <line x1="218" y1="174" x2="226" y2="166" stroke="#cf5c36" stroke-width="2.4"/>
-          <text x="229" y="174" text-anchor="start" font-size="10" fill="#cf5c36">lost</text>
+          <line x1="274" y1="134" x2="286" y2="146" stroke="#cf5c36" stroke-width="2.4"/>
+          <line x1="274" y1="146" x2="286" y2="134" stroke="#cf5c36" stroke-width="2.4"/>
+          <text x="292" y="138" text-anchor="start" font-size="12" fill="#cf5c36">lost</text>
         </g>
 
-        <!-- f5: Data 2,2 arrives + discard × at receiver + red ACK 0 re-sent -->
-        <!-- Arrives at receiver y=228+42=270; × at receiver; ACK sent y=284, arrives y=326 -->
+        <!-- f6: Data C arrives out of order and is discarded -->
         <g class="rcv-p rcv-p-d2">
-          <line x1="85" y1="228" x2="360" y2="270" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc2)"/>
-          <line x1="356" y1="266" x2="364" y2="274" stroke="#cf5c36" stroke-width="2.2"/>
-          <line x1="356" y1="274" x2="364" y2="266" stroke="#cf5c36" stroke-width="2.2"/>
-          <text x="363" y="264" text-anchor="start" font-size="10" fill="#cf5c36">seq 2 &ne; esn 1</text>
-          <text x="363" y="276" text-anchor="start" font-size="10" fill="#cf5c36">discard</text>
-          <line x1="360" y1="284" x2="85" y2="326" stroke="#cf5c36" stroke-width="2" marker-end="url(#rc2)"/>
-          <text x="222" y="300" text-anchor="middle" font-size="12" fill="#cf5c36" font-weight="600">ACK 0</text>
+          <line x1="150" y1="140" x2="410" y2="200" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc2)"/>
+          <line x1="406" y1="196" x2="414" y2="204" stroke="#cf5c36" stroke-width="2.2"/>
+          <line x1="406" y1="204" x2="414" y2="196" stroke="#cf5c36" stroke-width="2.2"/>
+          <text x="418" y="203" text-anchor="start" font-size="12" fill="#cf5c36">discard</text>
+        </g>
+
+        <!-- f7: the last in-order ACK goes out again -->
+        <g class="rcv-p rcv-p-reack">
+          <line x1="410" y1="212" x2="150" y2="272" stroke="#cf5c36" stroke-width="2" marker-end="url(#rc2)"/>
+          <text x="142" y="276" text-anchor="end" font-size="13.5" fill="#cf5c36" font-weight="600">ACK 0 again</text>
         </g>
       </svg>
     </div>
 
-    <!-- RIGHT: frag rows + expectedseqnum chips -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:4px">
-      <div class="frag f1">
-        <p style="margin:0;font-size:15.5px;line-height:1.55">The sender pipelines three packets simultaneously &mdash; <b>Data A</b> (seq&nbsp;0), <b>Data B</b> (seq&nbsp;1), <b>Data C</b> (seq&nbsp;2) &mdash; all in flight at once.</p>
-      </div>
-      <div class="frag f2" style="display:flex;gap:12px;align-items:center">
-        <p style="margin:0;flex:1;font-size:15.5px;line-height:1.55">The receiver is waiting for the first in-order packet.</p>
-        <div style="flex:0 0 200px;text-align:right"><span style="font-family:var(--mono);font-size:13px;background:rgba(124,179,66,0.18);border:1.5px solid #7cb342;color:#7cb342;border-radius:5px;padding:3px 10px;white-space:nowrap">expectedseqnum = <b>0</b></span></div>
-      </div>
-      <div class="frag f3" style="display:flex;gap:12px;align-items:center">
-        <p style="margin:0;flex:1;font-size:15.5px;line-height:1.55">Data A (seq&nbsp;0) arrives. Seq&nbsp;0 = expectedseqnum &mdash; delivered and acknowledged.</p>
-        <div style="flex:0 0 210px;text-align:right"><span style="font-family:var(--mono);font-size:12.5px;background:rgba(124,179,66,0.18);border:1.5px solid #7cb342;color:#7cb342;border-radius:5px;padding:3px 10px;white-space:nowrap">expectedseqnum: <b>0</b>&thinsp;&rarr;&thinsp;<b>1</b></span></div>
-      </div>
-      <div class="frag f4" style="display:flex;gap:12px;align-items:center">
-        <p style="margin:0;flex:1;font-size:15.5px;line-height:1.55">Data B (seq&nbsp;1) is <b>lost</b>. The receiver never sees it.</p>
-        <div style="flex:0 0 200px;text-align:right"><span style="font-family:var(--mono);font-size:13px;background:rgba(124,179,66,0.10);border:1.5px solid var(--muted);color:var(--muted);border-radius:5px;padding:3px 10px;white-space:nowrap">expectedseqnum = <b>1</b></span></div>
-      </div>
-      <div class="frag f5" style="display:flex;gap:12px;align-items:center">
-        <p style="margin:0;flex:1;font-size:15.5px;line-height:1.55">Data C (seq&nbsp;2) arrives &mdash; but seq&nbsp;2 &ne; expectedseqnum&nbsp;1. Out of order: <b>discarded</b>. ACK&nbsp;0 re-sent.</p>
-        <div style="flex:0 0 200px;text-align:right"><span style="font-family:var(--mono);font-size:13px;background:rgba(124,179,66,0.10);border:1.5px solid var(--muted);color:var(--muted);border-radius:5px;padding:3px 10px;white-space:nowrap">expectedseqnum = <b>1</b></span></div>
-      </div>
+    <!-- RIGHT: one beat per event -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:11px;padding-top:2px">
+      <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.55">Suppose the sender is running Go-back-N with a window of <em>N</em>&nbsp;=&nbsp;5, and the application hands it three packets: <b>Data A</b>, <b>B</b> and <b>C</b>.</p>
+      <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.55">Three is fewer than five, so all three fit in the window. The sender numbers them <b>0</b>, <b>1</b>, <b>2</b> and sends them together &mdash; all three are now in flight.</p>
+      <p class="frag f3" style="margin:0;font-size:16.5px;line-height:1.55">The receiver is waiting for the first in-order packet, so <span style="font-family:var(--mono)">expectedseqnum</span> is <b>0</b>.</p>
+      <p class="frag f4" style="margin:0;font-size:16.5px;line-height:1.55"><b>Data A (seq 0)</b> arrives. It is the expected one, so the receiver delivers it, sends <b>ACK 0</b>, and advances <span style="font-family:var(--mono)">expectedseqnum</span> to <b>1</b>.</p>
+      <p class="frag f5" style="margin:0;font-size:16.5px;line-height:1.55"><b>Data B (seq 1)</b> is <b>lost</b> in transit. The receiver never sees it, so it is still expecting <b>1</b>.</p>
+      <p class="frag f6" style="margin:0;font-size:16.5px;line-height:1.55"><b>Data C (seq 2)</b> arrives, but seq&nbsp;2 is not the 1 it expects. Out of order, so it is <b>discarded</b>.</p>
+      <p class="frag f7" style="margin:0;font-size:16.5px;line-height:1.55">The receiver then re-sends the ACK for the last in-order packet it delivered &mdash; here, <b>ACK 0</b>.</p>
     </div>
 
   </div>
