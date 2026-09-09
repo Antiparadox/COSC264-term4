@@ -2521,7 +2521,7 @@ svg text{font-family:var(--sans)}
 
 
 
-<section class="slide" data-sec="Module overview">
+<section class="slide" data-sec="Routing and Addressing at Internet Scale">
   <div class="center" style="align-items:flex-start">
     <div class="kicker">COSC264 · Introduction to Computer Networks and the Internet · Term 4</div>
     <h1>Module 2<br>Routing and Addressing<br>at Internet Scale</h1>
@@ -2535,7 +2535,7 @@ svg text{font-family:var(--sans)}
   <div class="courseurl"><a href="../">cosc264.up.railway.app</a></div>
 </section>
 
-<section class="slide stateful matrix-slide" data-sec="Recap: routing" data-anchor="c1">
+<section class="slide stateful matrix-slide" data-sec="Recap and overview" data-anchor="c1">
   <div class="kicker">Recap · Module 1</div>
   <h2>A quick recap of routing protocols</h2>
   <div class="pm-lead">
@@ -2569,7 +2569,7 @@ svg text{font-family:var(--sans)}
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
-<section class="slide stateful as-intro-slide" data-sec="The inter-AS problem">
+<section class="slide stateful as-intro-slide" data-sec="Why is routing between ASes different?">
   <div class="kicker">The inter-AS routing problem</div>
   <h2>The Internet is a network of autonomous systems</h2>
   <div class="pv-topology wide-as-map" role="img"
@@ -2609,7 +2609,7 @@ svg text{font-family:var(--sans)}
 
 
 
-<section class="slide stateful bgp-jobs-slide" data-sec="What BGP does">
+<section class="slide stateful bgp-jobs-slide" data-sec="BGP">
   <div class="kicker">A systematic solution to the inter-AS problem</div>
   <h2>BGP is the Internet's inter-AS routing protocol</h2>
 
@@ -2662,7 +2662,7 @@ svg text{font-family:var(--sans)}
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
-<section class="slide stateful bgp-speakers-slide" data-sec="BGP speakers">
+<section class="slide stateful bgp-speakers-slide" data-sec="BGP">
   <div class="kicker">Who participates in BGP?</div>
   <h2>BGP is run by BGP-speaking routers</h2>
   <div class="mot-topology" role="img"
@@ -2712,7 +2712,7 @@ svg text{font-family:var(--sans)}
   <div class="source">BGP speaker definition: RFC 4271 §1.1</div>
 </section>
 
-<section class="slide stateful bgp-scopes-slide" data-sec="eBGP and iBGP">
+<section class="slide stateful bgp-scopes-slide" data-sec="BGP">
   <div class="kicker">Two peer relationships · the same protocol</div>
   <h2>A BGP session is external or internal</h2>
   <div class="mot-topology" role="img"
@@ -2774,7 +2774,7 @@ svg text{font-family:var(--sans)}
   <div class="source">eBGP, iBGP and BGP speaker definitions: RFC 4271 §§1.1, 3</div>
 </section>
 
-<section class="slide stateful session-conversation-slide" data-sec="BGP sessions">
+<section class="slide stateful session-conversation-slide" data-sec="BGP">
   <div class="kicker">A structured conversation between two BGP speakers</div>
   <h2>A BGP session is a structured conversation</h2>
   <div class="session-conversation-stage" role="img"
@@ -2810,7 +2810,7 @@ svg text{font-family:var(--sans)}
   <div class="source">BGP transport and messages: RFC 4271 §§4.1-4.4, 8</div>
 </section>
 
-<section class="slide stateful pv-fields-slide" data-sec="BGP path vector">
+<section class="slide stateful pv-fields-slide" data-sec="BGP">
   <div class="kicker">The route information carried by an UPDATE</div>
   <h2>A closer look at a BGP path vector</h2>
   <div class="pv-format-layout frag">
@@ -2837,7 +2837,7 @@ svg text{font-family:var(--sans)}
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
 </section>
 
-<section class="slide stateful pv-walk-slide" data-sec="BGP path-vector walkthrough">
+<section class="slide stateful pv-walk-slide" data-sec="BGP">
   <div class="kicker">Worked example · one route from AS D to AS A</div>
   <h2>Watch one BGP route travel across three ASes</h2>
   <div class="pv-walk-stage" role="img"
@@ -2923,7 +2923,7 @@ svg text{font-family:var(--sans)}
     4.3, 5.1.2-5.1.3, 9.1-9.2</div>
 </section>
 
-<section class="slide stateful import-policy-slide" data-sec="Import policy">
+<section class="slide stateful import-policy-slide" data-sec="BGP">
   <div class="kicker">AS-wide routing intention · received routes</div>
   <h2>eBGP import policy: which routes an AS prefers</h2>
   <div class="import-policy-stage import-as-stage" role="img"
@@ -2970,7 +2970,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Import policy and LOCAL_PREF: RFC 4271 §§5.1.5, 9.1.1</div>
 </section>
 
-<section class="slide stateful export-policy-slide" data-sec="Export policy">
+<section class="slide stateful export-policy-slide" data-sec="BGP">
   <div class="kicker">AS-wide routing intention · outgoing advertisements</div>
   <h2>eBGP export policy: what an AS advertises</h2>
   <div class="export-policy-stage export-as-stage" role="img"
@@ -3028,7 +3028,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
 
-<section class="slide stateful speaker-decision-slide" data-sec="Building the forwarding table">
+<section class="slide stateful speaker-decision-slide" data-sec="BGP">
   <div class="kicker">One next hop per prefix · LOCAL_PREF → AS_PATH → intra-AS cost</div>
   <h2>How each BGP router builds its forwarding table</h2>
   <div class="speaker-decision-stage" role="img"
@@ -3106,7 +3106,7 @@ svg text{font-family:var(--sans)}
   <div class="source">iBGP, distributed selection, LOCAL_PREF, and IGP cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
 </section>
 
-<section class="slide stateful relationship-slide" data-sec="Inter-AS business relationships">
+<section class="slide stateful relationship-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">The business model behind inter-AS route policy</div>
   <h2>Business relationships between ASes</h2>
   <div class="relationship-stage" role="img"
@@ -3142,7 +3142,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Customer–provider and peer relationships: CAIDA AS Relationships; RFC 9234</div>
 </section>
 
-<section class="slide stateful hierarchy-slide" data-sec="Commercial AS hierarchy">
+<section class="slide stateful hierarchy-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">How customer, provider, and peer relationships repeat across the Internet</div>
   <h2>These relationships create a commercial AS hierarchy</h2>
   <div class="hierarchy-stage" role="img"
@@ -3176,7 +3176,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Simplified AS hierarchy and valley-free path model: CAIDA AS Relationships; Gao, 2001</div>
 </section>
 
-<section class="slide stateful policy-table-slide import-table-slide" data-sec="Common import policy">
+<section class="slide stateful policy-table-slide import-table-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">A common commercial ordering—not fixed BGP values</div>
   <h2>Import policy: which route should the AS prefer?</h2>
   <div class="policy-table-stage">
@@ -3199,7 +3199,7 @@ svg text{font-family:var(--sans)}
   <div class="source">LOCAL_PREF: RFC 4271 §5.1.5; common commercial ordering: Gao–Rexford policy model</div>
 </section>
 
-<section class="slide stateful policy-table-slide export-matrix-slide" data-sec="Common export policy">
+<section class="slide stateful policy-table-slide export-matrix-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">A common commercial guideline—not a rule enforced by BGP</div>
   <h2>Export policy: where should the route be advertised?</h2>
   <div class="policy-table-stage">
@@ -3222,7 +3222,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Common relationship-based propagation guideline: RFC 7908; relationship roles: RFC 9234</div>
 </section>
 
-<section class="slide lecture-recap-slide" data-sec="Inter-AS routing recap">
+<section class="slide lecture-recap-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">Module 2 · Inter-AS routing</div>
   <h2>Inter-AS routing recap</h2>
   <ul class="lecture-recap-list">
@@ -3233,7 +3233,7 @@ svg text{font-family:var(--sans)}
   </ul>
 </section>
 
-<section class="slide sec-title" data-sec="Intra-AS routing protocols" data-anchor="c2">
+<section class="slide sec-title" data-sec="Routing inside one AS" data-anchor="c2">
   <div class="kicker">Module 2 · Routing inside one administrative domain</div>
   <h1>Intra-AS Routing<br>Protocols</h1>
   <div class="rule"></div>
@@ -3246,7 +3246,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 
-<section class="slide" data-sec="Intra-AS routing protocols">
+<section class="slide" data-sec="Routing inside one AS">
   <div class="kicker">Routing within one autonomous system</div>
   <h2>An overview of intra-AS routing protocols</h2>
   <div class="igp-grid" aria-label="Examples of intra-AS routing protocols">
@@ -3262,7 +3262,7 @@ svg text{font-family:var(--sans)}
   <div class="source">IGP definition: RFC 1812 §7.2.1; RIP, OSPF and IS-IS: RFC 6518; EIGRP: RFC 7868</div>
 </section>
 
-<section class="slide" data-sec="RIP overview">
+<section class="slide" data-sec="RIP">
   <div class="kicker">A concrete distance-vector intra-AS protocol</div>
   <h2>RIP is a concrete distance-vector protocol</h2>
   <ul class="rip-overview-list">
@@ -3286,7 +3286,7 @@ svg text{font-family:var(--sans)}
   <div class="source">RIP distance-vector operation and hop-count metric: RFC 2453 §§3.4, 3.9.2</div>
 </section>
 
-<section class="slide stateful riptable-slide" data-sec="The RIP routing table">
+<section class="slide stateful riptable-slide" data-sec="RIP">
   <div class="kicker">RIP&rsquo;s own database, and the table the datagrams use</div>
   <h2>A RIP router keeps two tables</h2>
   <div class="rt-layout">
@@ -3341,7 +3341,7 @@ svg text{font-family:var(--sans)}
   <div class="source">RIP routing-table entries and timers: RFC 2453 &sect;&sect;3.5, 3.8</div>
 </section>
 
-<section class="slide" data-sec="RIP messages">
+<section class="slide" data-sec="RIP">
   <div class="kicker">Two message types &middot; three reasons to send a Response</div>
   <h2>RIP carries Request and Response messages over UDP</h2>
   <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
@@ -3365,7 +3365,7 @@ svg text{font-family:var(--sans)}
     3.10&ndash;3.10.2</div>
 </section>
 
-<section class="slide stateful rip-example-slide rip-learn-slide" data-sec="RIP route maintenance">
+<section class="slide stateful rip-example-slide rip-learn-slide" data-sec="RIP">
   <div class="kicker">Worked example &middot; learning, refreshing, and losing a route</div>
   <h2>An example of running RIP</h2>
   <div class="rip-learn-layout">
@@ -3456,7 +3456,7 @@ svg text{font-family:var(--sans)}
     &sect;&sect;3.8, 3.9.2, 3.10</div>
 </section>
 
-<section class="slide" data-sec="RIP stability">
+<section class="slide" data-sec="RIP">
   <div class="kicker">RIP&rsquo;s protections</div>
   <h2>How RIP limits count to infinity</h2>
   <p class="frag rip-protection-lead">Recall from Module 1: a distance-vector protocol suffers from
@@ -3487,7 +3487,7 @@ svg text{font-family:var(--sans)}
     3.4.2&ndash;3.4.4, 3.9.2</div>
 </section>
 
-<section class="slide" data-sec="OSPF overview">
+<section class="slide" data-sec="OSPF">
   <div class="kicker">Introducing another intra-AS protocol</div>
   <h2>OSPF · Open Shortest Path First</h2>
   <div class="ospf-intro-list">
@@ -3499,7 +3499,7 @@ svg text{font-family:var(--sans)}
   <div class="source">OSPF architecture and packet encapsulation: RFC 2328 §§1, 4.3</div>
 </section>
 
-<section class="slide" data-sec="OSPF link-state refresher">
+<section class="slide" data-sec="OSPF">
   <div class="kicker">Quick refresher · from Module 1</div>
   <h2>A quick recap of the link-state routing protocol</h2>
   <div class="ospf-flow refresher" aria-label="Four-step link-state routing process used by OSPF">
@@ -3513,7 +3513,7 @@ svg text{font-family:var(--sans)}
   <div class="source">OSPF link-state operation: RFC 2328 §§2, 12–16</div>
 </section>
 
-<section class="slide" data-sec="OSPF capabilities">
+<section class="slide" data-sec="OSPF">
   <div class="kicker">Why choose OSPF?</div>
   <h2>OSPF provides useful features for a large AS</h2>
   <div class="ospf-feature-grid">
@@ -3534,7 +3534,7 @@ svg text{font-family:var(--sans)}
   <div class="source">OSPF capabilities: RFC 2328 §§2.4, 3, 8 and Appendix D</div>
 </section>
 
-<section class="slide" data-sec="Why OSPF uses areas">
+<section class="slide" data-sec="OSPF">
   <div class="kicker">The scaling problem</div>
   <h2>Why can a large AS strain OSPF?</h2>
   <div class="ospf-topology-stage flat" aria-label="A large autonomous system using one shared OSPF topology">
@@ -3562,7 +3562,7 @@ svg text{font-family:var(--sans)}
   <div class="source">OSPF area motivation and topology scope: RFC 2328 §§2.3, 3</div>
 </section>
 
-<section class="slide ospf-area-slide" data-sec="Hierarchical OSPF areas">
+<section class="slide ospf-area-slide" data-sec="OSPF">
   <h2>OSPF divides one AS into smaller areas</h2>
   <div class="ospf-topology-stage divided areas-only" aria-label="The same autonomous system divided into OSPF areas 2, 0, and 1">
     <div class="ospf-zone z2"><span class="ospf-zone-name">Area 2<small>non-backbone area</small></span></div>
@@ -3594,7 +3594,7 @@ svg text{font-family:var(--sans)}
   <div class="source">OSPF areas and backbone operation: RFC 2328 §§3, 3.1–3.3</div>
 </section>
 
-<section class="slide ospf-operation-slide" data-sec="Hierarchical OSPF operation">
+<section class="slide ospf-operation-slide" data-sec="OSPF">
   <h2>How does hierarchical OSPF fit together?</h2>
   <div class="ospf-topology-stage divided roles" aria-label="Internal routers run OSPF within areas while area border routers connect the areas through Area 0">
     <div class="ospf-zone z2"><span class="ospf-zone-name">Area 2</span></div>
@@ -3635,7 +3635,7 @@ svg text{font-family:var(--sans)}
   <div class="source">OSPF areas and inter-area routing: RFC 2328 §§3, 3.1–3.3, 4.1</div>
 </section>
 
-<section class="slide lecture-recap-slide" data-sec="Intra-AS routing recap">
+<section class="slide lecture-recap-slide" data-sec="OSPF">
   <div class="kicker">Module 2 &middot; Intra-AS routing</div>
   <h2>Intra-AS routing recap</h2>
   <ul class="lecture-recap-list">
@@ -3652,7 +3652,7 @@ svg text{font-family:var(--sans)}
   </ul>
 </section>
 
-<section class="slide sec-title" data-sec="IP addressing scaling" data-anchor="c3">
+<section class="slide sec-title" data-sec="How did the Internet adapt to IPv4 scarcity?" data-anchor="c3">
   <div class="kicker">Module 2 · Keeping the Internet addressable</div>
   <h1>IP Addressing Scaling:<br>Aggregation, NAT and IPv6</h1>
   <div class="rule"></div>
@@ -3664,7 +3664,7 @@ svg text{font-family:var(--sans)}
     </div>
 </section>
 
-<section class="slide ipv4-history-slide" data-sec="IPv4 history and scarcity">
+<section class="slide ipv4-history-slide" data-sec="How did the Internet adapt to IPv4 scarcity?">
   <div class="kicker">A brief history</div>
   <h2>IPv4's address space became scarce as the Internet grew</h2>
   <div class="frag ipv4-scarcity-lead">
@@ -3692,7 +3692,7 @@ svg text{font-family:var(--sans)}
   <div class="source">RFC Editor: RFCs 791 and 1631 · IANA central-pool exhaustion: ICANN, 3 February 2011</div>
 </section>
 
-<section class="slide" data-sec="Learning objectives">
+<section class="slide" data-sec="How did the Internet adapt to IPv4 scarcity?">
   <div class="kicker">This concept&rsquo;s roadmap</div>
   <h2>How did the Internet adapt to IPv4 scarcity?</h2>
   <p class="frag addressing-objective-lead">We will study three responses that extended IPv4&rsquo;s useful life and kept the Internet growing.</p>
@@ -3706,7 +3706,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide stateful cidr-recap-slide" data-sec="CIDR recap">
+<section class="slide stateful cidr-recap-slide" data-sec="How did the Internet adapt to IPv4 scarcity?">
   <div class="kicker">A quick recap from Term 3</div>
   <h2>CIDR stopped IPv4 address space going to waste</h2>
   <div class="cidr-ruler classful" aria-label="Under classful addressing a Class B address splits 32 bits into 16 network bits and 16 host bits">
@@ -3752,7 +3752,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Classless Inter-Domain Routing: RFC 4632 &sect;&sect;3&ndash;4</div>
 </section>
 
-<section class="slide stateful agg-how-slide" data-sec="Address aggregation">
+<section class="slide stateful agg-how-slide" data-sec="How did the Internet adapt to IPv4 scarcity?">
   <div class="kicker">What CIDR costs the routers</div>
   <h2>IPv4 address aggregation</h2>
   <table class="agg-fib2" aria-label="A forwarding table holding one entry per department, then one aggregated entry">
@@ -3801,7 +3801,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Classless Inter-Domain Routing and aggregation: RFC 4632 &sect;&sect;1, 3&ndash;4</div>
 </section>
 
-<section class="slide stateful agg-lpm-slide" data-sec="Longest-prefix match">
+<section class="slide stateful agg-lpm-slide" data-sec="How did the Internet adapt to IPv4 scarcity?">
   <div class="kicker">When one network is reached another way</div>
   <h2>What if two entries both match?</h2>
   <table class="agg-fib2 lpm" aria-label="Two forwarding-table entries that both match one destination address">
@@ -3842,7 +3842,7 @@ svg text{font-family:var(--sans)}
   <div class="rule"></div>
 </section>
 
-<section class="slide nat-motivation-slide" data-sec="NAT motivation">
+<section class="slide nat-motivation-slide" data-sec="NAT">
   <div class="kicker">A familiar address</div>
   <h2>Why do so many local networks use addresses like 192.168.1.10?</h2>
   <ul class="nat-motivation-list">
@@ -3851,7 +3851,7 @@ svg text{font-family:var(--sans)}
   </ul>
 </section>
 
-<section class="slide stateful nat-intro-slide" data-sec="NAT introduction">
+<section class="slide stateful nat-intro-slide" data-sec="NAT">
   <div class="kicker">Network Address Translation</div>
   <h2>NAT lets many private hosts share scarce public IPv4 addresses</h2>
   <div class="nat-answer-stage">
@@ -3895,7 +3895,7 @@ svg text{font-family:var(--sans)}
   <div class="source">Private IPv4 space: RFC 1918 · Traditional NAT: RFC 3022</div>
 </section>
 
-<section class="slide" data-sec="NAT mapping">
+<section class="slide" data-sec="NAT">
   <div class="kicker">A closer look at one home web request</div>
   <h2>NAT translates both the address and the port</h2>
   <div class="nat-parallel-stage napt-example napt-outbound-layout" aria-label="A home host accesses a web server through a NAT gateway">
@@ -3928,7 +3928,7 @@ svg text{font-family:var(--sans)}
   <div class="source">NAT translation: RFC 3022 §§2.2, 3–4 · Documentation addresses: RFC 5737</div>
 </section>
 
-<section class="slide" data-sec="NAT walkthrough">
+<section class="slide" data-sec="NAT">
   <div class="kicker">The server's reply</div>
   <h2>How does the reply reach the correct home device?</h2>
   <div class="nat-parallel-stage napt-return-layout" aria-label="A server reply returns through the home NAT gateway">
@@ -3954,7 +3954,7 @@ svg text{font-family:var(--sans)}
   <div class="source">NAT return translation: RFC 3022 §§3–4</div>
 </section>
 
-<section class="slide" data-sec="NAT motivations and trade-offs">
+<section class="slide" data-sec="NAT">
   <div class="kicker">Why NAT became widespread</div>
   <h2>Advantages and disadvantages of NAT</h2>
   <div class="nat-balance-grid">
@@ -3987,7 +3987,7 @@ svg text{font-family:var(--sans)}
   <div class="source">IPv6 address architecture: RFC 4291</div>
 </section>
 
-<section class="slide stateful ipv6-address-walkthrough" data-sec="IPv6 address meaning">
+<section class="slide stateful ipv6-address-walkthrough" data-sec="IPv6">
   <div class="kicker">Reading a 128-bit address</div>
   <h2>IPv6 address</h2>
   <div class="ipv6-address-walkthrough-layout">
@@ -4012,7 +4012,7 @@ svg text{font-family:var(--sans)}
   <div class="source">IPv6 text representation: RFC 5952 · Address architecture: RFC 4291 · Documentation prefix: RFC 3849</div>
 </section>
 
-<section class="slide stateful ipv6-header-slide" data-sec="IPv6 header format">
+<section class="slide stateful ipv6-header-slide" data-sec="IPv6">
   <div class="kicker">IPv6 header format</div>
   <h2>A breakdown of the IPv6 header</h2>
   <p class="ipv6-header-lead">Every IPv6 packet begins with the same <b>fixed 40-byte base
@@ -4045,7 +4045,7 @@ svg text{font-family:var(--sans)}
     Flow Label: RFC 6437</div>
 </section>
 
-<section class="slide stateful transition-problem-slide" data-sec="IPv4 and IPv6 coexistence problem">
+<section class="slide stateful transition-problem-slide" data-sec="IPv6">
   <div class="kicker">The IPv4–IPv6 coexistence problem</div>
   <h2>IPv6 traffic may encounter IPv4-only routers</h2>
   <div class="coexistence-topology" aria-label="IPv6 routers A and F separated by IPv4-only routers C and D, with dual-stack routers B and E at the edges">
@@ -4066,7 +4066,7 @@ svg text{font-family:var(--sans)}
   <div class="source">IPv4 and IPv6 coexistence during incremental deployment: RFC 4213 §1</div>
 </section>
 
-<section class="slide stateful tunnel-solution-slide" data-sec="Dual stack and tunnelling">
+<section class="slide stateful tunnel-solution-slide" data-sec="IPv6">
   <div class="kicker">Dual-stack routers at the boundary</div>
   <h2>Two ways across the IPv4-only region</h2>
   <div class="coexistence-topology" aria-label="Dual-stack routers B and E use encapsulation to carry an IPv6 packet across IPv4-only routers C and D">
@@ -4140,7 +4140,7 @@ svg text{font-family:var(--sans)}
     Stateless IP/ICMP translation: RFC 7915</div>
 </section>
 
-<section class="slide lecture2-recap-slide" data-sec="Module 2 recap">
+<section class="slide lecture2-recap-slide" data-sec="Recap and references">
   <div class="kicker">Three concepts, one connected story</div>
   <h2>Module 2 recap</h2>
   <ul class="lecture-recap-list">
@@ -4150,7 +4150,7 @@ svg text{font-family:var(--sans)}
   </ul>
 </section>
 
-<section class="slide" data-sec="References">
+<section class="slide" data-sec="Recap and references">
   <div class="kicker">Books, standards, and current registry material</div>
   <h2>References</h2>
   <div class="reference-grid">
@@ -4168,7 +4168,7 @@ svg text{font-family:var(--sans)}
   <div class="footnote">Standards and registry sources are identified on the frames where they are used.</div>
 </section>
 
-<section class="slide" data-sec="Acknowledgements" data-anchor="colophon">
+<section class="slide" data-sec="Recap and references" data-anchor="colophon">
   <h2>Acknowledgements</h2>
   <div class="ack-grid">
     <div class="ack-card"><h3>Barry Wu</h3><p>Provided the current COSC264 slides that formed the content baseline for this deck.</p></div>
