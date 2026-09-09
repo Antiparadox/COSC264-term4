@@ -2301,25 +2301,23 @@ svg text{font-family:var(--sans)}
     #snd-fsm .fsm-ack     { opacity:0; transition:opacity 0.3s }
     #snd-fsm .fsm-corrupt { opacity:0; transition:opacity 0.3s }
     #snd-fsm:has(.f4.on)  .fsm-send    { opacity:1 }
-    #snd-fsm:has(.f10.on) .fsm-timeout { opacity:1 }
-    #snd-fsm:has(.f12.on) .fsm-ack     { opacity:1 }
-    #snd-fsm:has(.f15.on) .fsm-corrupt { opacity:1 }
+    #snd-fsm:has(.f9.on)  .fsm-ack     { opacity:1 }
+    #snd-fsm:has(.f12.on) .fsm-corrupt { opacity:1 }
+    #snd-fsm:has(.f13.on) .fsm-timeout { opacity:1 }
     /* one card visible at a time */
     #snd-fsm .card-send,
-    #snd-fsm .card-timeout,
     #snd-fsm .card-ack,
-    #snd-fsm .card-corrupt { opacity:0; transition:opacity 0.3s }
-    #snd-fsm:has(.f4.on):not(:has(.f10.on))  .card-send    { opacity:1 }
-    #snd-fsm:has(.f10.on):not(:has(.f12.on)) .card-timeout { opacity:1 }
-    #snd-fsm:has(.f12.on):not(:has(.f15.on)) .card-ack     { opacity:1 }
-    #snd-fsm:has(.f15.on)                    .card-corrupt { opacity:1 }
+    #snd-fsm .card-timeout { opacity:0; transition:opacity 0.3s }
+    #snd-fsm:has(.f4.on):not(:has(.f9.on))   .card-send    { opacity:1 }
+    #snd-fsm:has(.f9.on):not(:has(.f13.on))  .card-ack     { opacity:1 }
+    #snd-fsm:has(.f13.on)                    .card-timeout { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>Sender: the state machine</h2>
   <div style="flex:1;display:flex;gap:0;align-items:stretch">
 
     <!-- LEFT 60%: FSM SVG -->
-    <div style="flex:0 0 60%;display:flex;align-items:center;justify-content:center">
+    <div style="flex:0 0 57%;display:flex;align-items:center;justify-content:center">
       <svg viewBox="4 -2 652 466" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:490px">
         <defs>
           <marker id="sf"  markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker>
@@ -2350,7 +2348,7 @@ svg text{font-family:var(--sans)}
     </div>
 
     <!-- RIGHT 40%: f1 state description + stacked algorithm cards f2–f5 -->
-    <div style="flex:0 0 40%;display:flex;align-items:center;padding-left:20px">
+    <div style="flex:0 0 43%;display:flex;align-items:center;padding-left:20px">
       <div style="width:100%">
 
         <!-- f1-f3: what the machine holds, before any transition -->
@@ -2362,40 +2360,31 @@ svg text{font-family:var(--sans)}
         <div style="display:grid;grid-template:1fr / 1fr">
 
           <div class="card-send frag f4 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
-            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">Data from app layer:</p>
-            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
+            <p style="margin:0 0 8px;font-size:16px;color:var(--muted)">Data from app layer:</p>
+            <div style="font-family:var(--mono);font-size:16px;line-height:1.9">
               <div>if window not full (nextseqnum &lt; base + <em>N</em>):</div>
-              <div class="frag f5"  style="padding-left:2.2em">assign seq = nextseqnum</div>
-              <div class="frag f6"  style="padding-left:2.2em">buffer the packet and send it</div>
-              <div class="frag f7"  style="padding-left:2.2em">if base == nextseqnum: start timer</div>
-              <div class="frag f8"  style="padding-left:2.2em">nextseqnum += 1</div>
-              <div class="frag f9"><div>else:</div><div style="padding-left:2.2em">reject &mdash; window is full</div></div>
+              <div class="frag f5" style="padding-left:2.2em">assign seq = nextseqnum</div>
+              <div class="frag f6" style="padding-left:2.2em">buffer the packet and send it</div>
+              <div class="frag f7" style="padding-left:2.2em">nextseqnum += 1</div>
+              <div class="frag f8"><div>else:</div><div style="padding-left:2.2em">reject &mdash; window is full</div></div>
             </div>
           </div>
 
-          <div class="card-timeout frag f10 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid #cf5c36">
-            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">Timer fires:</p>
-            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
-              <div>restart timer</div>
-              <div class="frag f11"><div>for every seq in [base, nextseqnum):</div><div style="padding-left:2.2em">re-send the buffered packet</div></div>
-            </div>
-          </div>
-
-          <div class="card-ack frag f12 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
-            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">An ACK arrives, carrying <span style="font-family:var(--mono)">n</span>:</p>
-            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
+          <div class="card-ack frag f9 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
+            <p style="margin:0 0 8px;font-size:16px;color:var(--muted)">An ACK arrives, carrying <span style="font-family:var(--mono)">n</span>:</p>
+            <div style="font-family:var(--mono);font-size:16px;line-height:1.9">
               <div>if n &ge; base:</div>
-              <div class="frag f13" style="padding-left:2.2em">base = n + 1&ensp;&mdash; slide the window</div>
-              <div class="frag f14" style="padding-left:2.2em">restart timer for the new oldest</div>
+              <div class="frag f10" style="padding-left:2.2em">base = n + 1&ensp;&mdash; slide the window</div>
+              <div class="frag f11" style="padding-left:2.2em">restart timer for the new oldest</div>
+              <div class="frag f12"><div>else:</div><div style="padding-left:2.2em">ignore it &mdash; do nothing</div></div>
             </div>
           </div>
 
-          <div class="card-corrupt frag f15 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--muted)">
-            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">All other cases:</p>
-            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
-              <div>&bull; the ACK is corrupted</div>
-              <div>&bull; n &lt; base &mdash; a stale ACK</div>
-              <div class="frag f16" style="padding-top:6px">&rarr; do nothing</div>
+          <div class="card-timeout frag f13 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid #cf5c36">
+            <p style="margin:0 0 8px;font-size:16px;color:var(--muted)">Timer fires:</p>
+            <div style="font-family:var(--mono);font-size:16px;line-height:1.9">
+              <div>restart timer</div>
+              <div class="frag f14"><div>for every seq in [base, nextseqnum):</div><div style="padding-left:2.2em">re-send the buffered packet</div></div>
             </div>
           </div>
 
