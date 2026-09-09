@@ -1272,7 +1272,10 @@ svg text{font-family:var(--sans)}
 
       <div class="frag hot f7 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
         <p>After the timer expires, the sender <b>still assumes the worst</b> &mdash; that the data was lost &mdash; and resends the <b>same packet</b> again.</p>
-        <p>The same happens if the ACK is merely <b>delayed</b> rather than lost: the sender cannot tell the difference, so it resends either way.</p>
+      </div>
+
+      <div class="frag hot f7b card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>The same happens if the ACK is merely <b>delayed</b> rather than lost: as long as the timer expires with no ACK heard, the sender always assumes the worst and <b>retransmits</b>.</p>
       </div>
 
       <div class="frag hot f8" style="display:block">
