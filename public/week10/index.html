@@ -1248,7 +1248,7 @@ svg text{font-family:var(--sans)}
     </div>
     <div style="flex:1;min-height:300px;max-width:430px">
 
-      <p class="frag hot f1" style="margin:0;font-size:21px;line-height:1.55;font-weight:700;color:var(--accent)">How can the sender tell that a packet never arrived?</p>
+      <p class="frag hot f1" style="margin:0;font-size:21px;line-height:1.55;font-weight:700;color:var(--accent)">How do we resolve these problems?</p>
 
       <div class="frag hot f2 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
         <p>Surprisingly simply. The sender keeps a <b>timer</b>.</p>
@@ -1271,8 +1271,7 @@ svg text{font-family:var(--sans)}
       </div>
 
       <div class="frag hot f7 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p>The sender cannot tell the two apart. Its timer expires, it assumes the worst, and resends the <b>same packet</b> again.</p>
-        <p>The receiver sees sequence <b>0</b> a second time, discards the duplicate, and re-sends <b>ACK 0</b>.</p>
+        <p>After the timer expires, the sender <b>still assumes the worst</b> &mdash; that the data was lost &mdash; and resends the <b>same packet</b> again.</p>
       </div>
 
       <div class="frag hot f8" style="display:block">
