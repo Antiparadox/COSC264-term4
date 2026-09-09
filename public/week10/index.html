@@ -1165,53 +1165,34 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── How long to wait ── -->
-<section class="slide" data-sec="What if packets are lost?">
-  <div class="kicker">rdt 3.0</div>
-  <h2>How can the sender detect a loss or delay?</h2>
-  <div style="display:flex;flex-direction:column;gap:18px;max-width:1030px">
-
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">The sender uses a <b>timer</b>: send the packet, start a clock, and if nothing comes back, assume the worst and resend.</p>
-
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">But <b>how long should it wait?</b></p>
-
-    <div class="frag" style="display:flex;gap:18px">
-      <div class="card" style="flex:1;padding:14px 18px;border-left:3px solid #cf5c36">
-        <p style="margin:0 0 5px;font-size:17px;font-weight:700">Too short</p>
-        <p style="margin:0;font-size:16.5px;line-height:1.6">The ACK was merely slow, so the sender resends unnecessarily &mdash; <b>duplicate packets</b>.</p>
-      </div>
-      <div class="card" style="flex:1;padding:14px 18px;border-left:3px solid #cf5c36">
-        <p style="margin:0 0 5px;font-size:17px;font-weight:700">Too long</p>
-        <p style="margin:0;font-size:16.5px;line-height:1.6">The sender sits idle long after the packet really was lost &mdash; <b>wasted throughput</b>.</p>
-      </div>
-    </div>
-
-    <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:17px;line-height:1.6">In practice, the timer is set to expire after roughly <b>one RTT</b> (round-trip time &mdash; the time for a packet to reach the receiver and for its ACK to come back).</p>
-        <p style="margin:8px 0 0;font-size:17px;line-height:1.6;color:var(--muted)">How that interval is actually chosen is a question in its own right &mdash; we will come back to it in a later lecture, when we look at TCP.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── Timeout + retransmission ── -->
 <section class="slide" id="tmo-ex" data-sec="What if packets are lost?">
   <style>
     #tmo-ex .t1,#tmo-ex .t2,#tmo-ex .t3 { opacity:0; transition:opacity 0.35s }
-    #tmo-ex:has(.z1.on) .t1 { opacity:1 }
-    #tmo-ex:has(.z2.on) .t2 { opacity:1 }
-    #tmo-ex:has(.z3.on) .t3 { opacity:1 }
+    #tmo-ex:has(.a1.on) .t1 { opacity:1 }
+    #tmo-ex:has(.a2.on) .t2 { opacity:1 }
+    #tmo-ex:has(.a3.on) .t3 { opacity:1 }
+    /* One slot: each beat replaces the last, so the diagram can have the room. */
+    #tmo-ex .hot { display:none }
+    #tmo-ex .hot.on { display:block }
+    #tmo-ex .hot.on:has(~ .hot.on) { display:none }
+    #tmo-ex .hot p { margin:0; font-size:19px; line-height:1.6 }
+    #tmo-ex .hot p + p { margin-top:9px }
   </style>
   <div class="kicker">rdt 3.0</div>
   <h2>Timeout and retransmission</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:0 0 500px;display:flex;justify-content:center">
-<svg viewBox="0 0 540 306" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px">
+    <div style="flex:0 0 620px;display:flex;justify-content:center">
+<svg viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="tm" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
 <text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="140" y1="40" x2="140" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="420" y1="40" x2="420" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <g class="t1">
+  <!-- the clock the sender starts as the packet goes out -->
+  <circle cx="112" cy="54" r="11" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+  <line x1="112" y1="54" x2="112" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="112" y1="54" x2="117" y2="57" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
   <text x="280" y="66" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text>
   <line x1="140" y1="74" x2="300" y2="100" stroke="#cf5c36" stroke-width="2"/>
   <line x1="301" y1="97" x2="315" y2="111" stroke="#cf5c36" stroke-width="2.6"/>
@@ -1228,12 +1209,38 @@ svg text{font-family:var(--sans)}
 </g>
 </svg>
     </div>
-    <div style="flex:1;display:flex;flex-direction:column;gap:13px;max-width:330px">
-      <p class="frag z1" style="margin:0;font-size:16.5px;line-height:1.55">The packet is lost, so no ACK will ever arrive.</p>
-      <p class="frag z2" style="margin:0;font-size:16.5px;line-height:1.55">The sender&rsquo;s <b>timer</b> expires &mdash; loss detected!</p>
-      <div class="frag z3 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:16.5px;line-height:1.6">It <b>retransmits</b> the same packet, still numbered 0.</p>
+    <div style="flex:1;min-height:300px;max-width:430px">
+
+      <div class="frag hot a1 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>The sender sends the packet and <b>starts a timer</b>.</p>
+        <p>Here the packet is lost, so no ACK will ever arrive.</p>
       </div>
+
+      <div class="frag hot a2 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>The timer expires. The sender cannot tell <i>why</i> nothing came back, so it assumes the worst: <b>the packet is gone</b>.</p>
+      </div>
+
+      <div class="frag hot a3 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>So it <b>retransmits</b> the same packet, still numbered <b>0</b>.</p>
+      </div>
+
+      <div class="frag hot a4" style="display:block">
+        <p style="margin:0 0 12px;font-size:19px;line-height:1.6">But <b>how long should the timer wait?</b></p>
+        <div class="card" style="padding:12px 16px;border-left:3px solid #cf5c36;margin-bottom:10px">
+          <p style="margin:0 0 4px;font-size:17px;font-weight:700">Too short</p>
+          <p style="margin:0;font-size:17px;line-height:1.55">The ACK was merely slow, so the sender resends for nothing &mdash; <b>duplicate packets</b>.</p>
+        </div>
+        <div class="card" style="padding:12px 16px;border-left:3px solid #cf5c36">
+          <p style="margin:0 0 4px;font-size:17px;font-weight:700">Too long</p>
+          <p style="margin:0;font-size:17px;line-height:1.55">The sender sits idle long after the packet was lost &mdash; <b>wasted throughput</b>.</p>
+        </div>
+      </div>
+
+      <div class="frag hot a5 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>About <b>one RTT</b> &mdash; the time for a packet to reach the receiver and its ACK to come back.</p>
+        <p style="color:var(--muted)">How that interval is actually chosen is a question in its own right &mdash; we will come back to it when we look at TCP.</p>
+      </div>
+
     </div>
   </div>
 </section>
