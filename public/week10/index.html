@@ -1972,10 +1972,10 @@ svg text{font-family:var(--sans)}
       <p style="margin:0;font-size:19px;line-height:1.6">&bull;&ensp;Just as in rdt 3.0, the receiver keeps track of a single number, <span style="font-family:var(--mono)">expectedseqnum</span> &mdash; the sequence number of the <b>next in-order</b> packet it expects. <span style="color:var(--muted);font-size:16px">(e.g. if it has received and delivered 4, 5 and 6 &rarr; <span style="font-family:var(--mono)">expectedseqnum = 7</span>)</span></p>
     </div>
     <div class="frag f2 card" style="padding:12px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:19px;line-height:1.6">&bull;&ensp;If the arriving packet <b>is</b> the expected one: <b>deliver</b> it and send an <b>ACK carrying its sequence number</b>.</p>
+      <p style="margin:0;font-size:19px;line-height:1.6">&bull;&ensp;If the arriving packet is <b>intact</b> and is the <b>expected</b> one: <b>deliver</b> it and send an <b>ACK carrying its sequence number</b>.</p>
     </div>
     <div class="frag f3 card" style="padding:12px 20px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:19px;line-height:1.6">&bull;&ensp;Otherwise: <b>discard</b> the packet and <b>re-ACK</b> the last in-order sequence number &mdash; that is, <span style="font-family:var(--mono);white-space:nowrap">expectedseqnum &minus; 1</span>.</p>
+      <p style="margin:0;font-size:19px;line-height:1.6">&bull;&ensp;Otherwise &mdash; <b>corrupt</b>, or <b>not</b> the expected sequence number &mdash; <b>discard</b> the packet and <b>re-ACK</b> the last in-order sequence number, <span style="font-family:var(--mono);white-space:nowrap">expectedseqnum &minus; 1</span>.</p>
     </div>
     <div class="frag f4 card" style="padding:12px 20px;border-left:3px solid var(--accent)">
       <p style="margin:0;font-size:19px;line-height:1.6">&bull;&ensp;In other words, the receiver accepts <b>in-order packets only</b> and discards everything else. It keeps <b>no buffer</b>.</p>
