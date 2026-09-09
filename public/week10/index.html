@@ -1702,7 +1702,7 @@ svg text{font-family:var(--sans)}
 
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:0">
       <p style="margin:0;font-size:17px;line-height:1.55;color:var(--muted)">The sender is fed a stream of packets from the application layer; each rectangle in the diagram is one packet.</p>
-      <p class="frag f1" style="margin:0;font-size:17px;line-height:1.55"><b>Acknowledged</b> &mdash; the receiver has these intact and has sent an ACK for each of them.</p>
+      <p class="frag f1" style="margin:0;font-size:17px;line-height:1.55"><b>Acknowledged</b> &mdash; the sender has sent these packets, the receiver has received them intact, and an ACK has come back for each of them.</p>
       <p class="frag f2" style="margin:0;font-size:17px;line-height:1.55">More data may arrive from the application, and in a pipelined protocol the sender would like to send it straight away. But how do we stop too many packets being in flight at once? This is what the <b>window</b> is for.</p>
       <p class="frag f3" style="margin:0;font-size:17px;line-height:1.55">To place the window we first need a marker. <b>base</b> points to the oldest packet not yet acknowledged.</p>
       <p class="frag f4" style="margin:0;font-size:17px;line-height:1.55"><b>Window of size <em>N</em></b> &mdash; the window starts at <b>base</b> and spans the next <em>N</em> packets, so at most <em>N</em> unacknowledged packets are ever in flight.</p>
