@@ -1562,7 +1562,7 @@ svg text{font-family:var(--sans)}
       <p style="margin:0;font-size:17.5px;line-height:1.6">The sender is busy <b>0.027%</b> of the time. Put another way: a <b>gigabit</b> link delivers about <b>267 kbps</b> &mdash; roughly a thousandth of its capacity.</p>
     </div>
 
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6;color:var(--accent)">Next, we will see how sending multiple packets at once &mdash; <b>pipelining</b> &mdash; keeps the link busy and dramatically improves utilisation.</p>
+    <p class="frag" style="margin:0;font-size:18px;line-height:1.6;color:var(--accent)">So how do we fix this?</p>
 
   </div>
 </section>
@@ -1570,7 +1570,7 @@ svg text{font-family:var(--sans)}
 <!-- ── Pipelining: the idea ── -->
 <section class="slide" id="pipe1" data-sec="Go-back-N">
   <div class="kicker">Pipelining</div>
-  <h2>Stop waiting: send several at once</h2>
+  <h2>Send several before you wait</h2>
   <div style="display:flex;flex-direction:column;gap:8px">
     <div style="display:flex;gap:30px;align-items:flex-start">
       <div class="frag" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
