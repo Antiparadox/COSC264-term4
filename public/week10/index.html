@@ -1717,10 +1717,8 @@ svg text{font-family:var(--sans)}
     /* The diagram carries straight on from the previous frame. */
     #gbn-sw2 .gbn-p { opacity:0; transition:opacity 0.3s }
     #gbn-sw2 .gbn-p-acked,#gbn-sw2 .gbn-p-base,#gbn-sw2 .gbn-p-win { opacity:1 }
-    #gbn-sw2:has(.g1.on) .gbn-p-sent   { opacity:1 }
-    #gbn-sw2:has(.g2.on) .gbn-p-next   { opacity:1 }
-    #gbn-sw2:has(.g3.on) .gbn-p-flight { opacity:1 }
-    #gbn-sw2:has(.g5.on) .gbn-p-usable { opacity:1 }
+    #gbn-sw2:has(.g1.on) .gbn-p-sent { opacity:1 }
+    #gbn-sw2:has(.g2.on) .gbn-p-next { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>Filling the window</h2>
@@ -1758,6 +1756,77 @@ svg text{font-family:var(--sans)}
         </g><g class="gbn-p gbn-p-win">
           <path d="M158,182 L158,192 L416,192 L416,182" fill="none" stroke="currentColor" stroke-width="1.4"/>
           <text x="287" y="208" text-anchor="middle" font-size="13" fill="currentColor" font-weight="700">window of size <tspan font-style="italic">N</tspan></text>
+        </g><g class="gbn-p gbn-p-sent">
+          <rect x="158" y="96" width="27" height="42" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.6"/>
+          <rect x="191" y="96" width="27" height="42" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.6"/>
+          <rect x="224" y="96" width="27" height="42" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.6"/>
+          <rect x="257" y="96" width="27" height="42" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.6"/>
+          <rect x="290" y="96" width="27" height="42" rx="3" fill="rgba(128,128,128,0.38)" stroke="var(--muted)" stroke-width="1.6"/>
+        </g><g class="gbn-p gbn-p-next">
+          <line x1="336.5" y1="58" x2="336.5" y2="90" stroke="#7cb342" stroke-width="1.5" marker-end="url(#gbn-wn2)"/>
+          <text x="336.5" y="50" text-anchor="middle" font-size="12" fill="#7cb342" font-weight="700">nextseqnum</text>
+          <text x="336.5" y="34" text-anchor="middle" font-size="10.5" fill="var(--muted)">smallest unused</text>
+        </g>
+        <line x1="488" y1="234" x2="26" y2="234" stroke="currentColor" stroke-width="1.2" marker-end="url(#gbn-wn2)" opacity="0.5"/>
+        <text x="257" y="252" text-anchor="middle" font-size="11.5" fill="var(--muted)">older packets</text>
+      </svg>
+      <div style="display:flex;flex-direction:column;gap:7px;padding-left:4px"><div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:20px;border-radius:2px;border:1.6px solid var(--accent);background:rgba(0,200,180,0.55);flex-shrink:0"></span><span style="font-size:14px">acknowledged</span></div><div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:20px;border-radius:2px;border:1.6px solid var(--muted);background:rgba(128,128,128,0.38);flex-shrink:0"></span><span style="font-size:14px">sent, not yet acknowledged</span></div><div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:20px;border-radius:2px;border:1.6px solid currentColor;opacity:0.25;background:none;flex-shrink:0"></span><span style="font-size:14px">not usable yet</span></div></div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:0">
+      <p class="frag g1" style="margin:0;font-size:16.5px;line-height:1.55"><b>Sent, not yet ACK&rsquo;d</b> &mdash; suppose the application hands down five packets. The window is eight slots wide, so all five fit and go out at once. They are in transit and unacknowledged, so the sender keeps a copy of each in case it must retransmit.</p>
+      <p class="frag g2" style="margin:0;font-size:16.5px;line-height:1.55">Every packet sent uses up a sequence number, so after those five the next number to use sits here: <b>nextseqnum</b>.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Go-back-N sliding window: what is in flight ── -->
+<section class="slide" id="gbn-sw3" data-sec="Go-back-N">
+  <style>
+    /* The diagram carries straight on from the previous frame. */
+    #gbn-sw3 .gbn-p { opacity:0; transition:opacity 0.3s }
+    #gbn-sw3 .gbn-p-acked,#gbn-sw3 .gbn-p-base,#gbn-sw3 .gbn-p-win,
+    #gbn-sw3 .gbn-p-sent,#gbn-sw3 .gbn-p-next { opacity:1 }
+    #gbn-sw3:has(.h2.on) .gbn-p-flight { opacity:1 }
+    #gbn-sw3:has(.h4.on) .gbn-p-usable { opacity:1 }
+  </style>
+  <div class="kicker">Go-back-N</div>
+  <h2>What is in flight?</h2>
+  <div style="flex:1;display:flex;gap:22px;align-items:flex-start">
+
+    <div style="flex:0 0 616px;display:flex;flex-direction:column;gap:16px">
+      <svg viewBox="18 21 534 241" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:616px">
+        <defs><marker id="gbn-wn3" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
+        <!-- Always visible: faint outlines for all 16 slots -->
+        <rect x="26"  y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="59"  y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="92"  y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="125" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="158" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="191" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="224" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="257" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="290" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="323" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="356" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="389" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="422" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="455" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="488" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <rect x="521" y="96" width="27" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+        <g class="gbn-p gbn-p-acked">
+          <rect x="26"  y="96" width="27" height="42" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.6"/>
+          <rect x="59"  y="96" width="27" height="42" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.6"/>
+          <rect x="92"  y="96" width="27" height="42" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.6"/>
+          <rect x="125" y="96" width="27" height="42" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.6"/>
+        </g><g class="gbn-p gbn-p-base">
+          <line x1="171.5" y1="58" x2="171.5" y2="90" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#gbn-wn3)"/>
+          <text x="171.5" y="50" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">base</text>
+          <text x="171.5" y="34" text-anchor="middle" font-size="10.5" fill="var(--muted)">oldest unACK&rsquo;d</text>
+        </g><g class="gbn-p gbn-p-win">
+          <path d="M158,182 L158,192 L416,192 L416,182" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="287" y="208" text-anchor="middle" font-size="13" fill="currentColor" font-weight="700">window of size <tspan font-style="italic">N</tspan></text>
         </g><g class="gbn-p gbn-p-flight">
           <path d="M158,144 L158,154 L317,154 L317,144" fill="none" stroke="var(--muted)" stroke-width="1.6"/>
           <text x="237.5" y="170" text-anchor="middle" font-size="13" fill="currentColor" font-weight="700">in flight: [base, nextseqnum)</text>
@@ -1773,22 +1842,25 @@ svg text{font-family:var(--sans)}
           <rect x="356" y="96" width="27" height="42" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.6"/>
           <rect x="389" y="96" width="27" height="42" rx="3" fill="rgba(124,179,66,0.42)" stroke="#7cb342" stroke-width="1.6"/>
         </g><g class="gbn-p gbn-p-next">
-          <line x1="336.5" y1="58" x2="336.5" y2="90" stroke="#7cb342" stroke-width="1.5" marker-end="url(#gbn-wn2)"/>
+          <line x1="336.5" y1="58" x2="336.5" y2="90" stroke="#7cb342" stroke-width="1.5" marker-end="url(#gbn-wn3)"/>
           <text x="336.5" y="50" text-anchor="middle" font-size="12" fill="#7cb342" font-weight="700">nextseqnum</text>
           <text x="336.5" y="34" text-anchor="middle" font-size="10.5" fill="var(--muted)">smallest unused</text>
         </g>
-        <line x1="488" y1="234" x2="26" y2="234" stroke="currentColor" stroke-width="1.2" marker-end="url(#gbn-wn2)" opacity="0.5"/>
+        <line x1="488" y1="234" x2="26" y2="234" stroke="currentColor" stroke-width="1.2" marker-end="url(#gbn-wn3)" opacity="0.5"/>
         <text x="257" y="252" text-anchor="middle" font-size="11.5" fill="var(--muted)">older packets</text>
       </svg>
       <div style="display:flex;flex-direction:column;gap:7px;padding-left:4px"><div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:20px;border-radius:2px;border:1.6px solid var(--accent);background:rgba(0,200,180,0.55);flex-shrink:0"></span><span style="font-size:14px">acknowledged</span></div><div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:20px;border-radius:2px;border:1.6px solid var(--muted);background:rgba(128,128,128,0.38);flex-shrink:0"></span><span style="font-size:14px">sent, not yet acknowledged</span></div><div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:20px;border-radius:2px;border:1.6px solid #7cb342;background:rgba(124,179,66,0.42);flex-shrink:0"></span><span style="font-size:14px">usable, not yet sent</span></div><div style="display:flex;align-items:center;gap:9px"><span style="width:18px;height:20px;border-radius:2px;border:1.6px solid currentColor;opacity:0.25;background:none;flex-shrink:0"></span><span style="font-size:14px">not usable yet</span></div></div>
     </div>
 
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:0">
-      <p class="frag g1" style="margin:0;font-size:16.5px;line-height:1.55"><b>Sent, not yet ACK&rsquo;d</b> &mdash; suppose the application hands down five packets. The window is eight slots wide, so all five fit and go out at once. They are in transit and unacknowledged, so the sender keeps a copy of each in case it must retransmit.</p>
-      <p class="frag g2" style="margin:0;font-size:16.5px;line-height:1.55">Every packet sent uses up a sequence number, so after those five the next number to use sits here: <b>nextseqnum</b>.</p>
-      <p class="frag g3" style="margin:0;font-size:16.5px;line-height:1.55">So <b>base</b> marks the end of the acknowledged data and <b>nextseqnum</b> the end of the sent data. Everything between them &mdash; the range <span style="font-family:var(--mono)">[base, nextseqnum)</span> &mdash; is exactly what is <b>in flight</b>.</p>
-      <p class="frag g4" style="margin:0;font-size:16.5px;line-height:1.55">The window is the cap on that range: <span style="font-family:var(--mono);color:var(--accent);white-space:nowrap">nextseqnum &minus; base &le; <em>N</em></span>. The sender may not send again until an ACK moves <b>base</b> forward.</p>
-      <p class="frag g5" style="margin:0;font-size:16.5px;line-height:1.55"><b>Usable, not yet sent</b> &mdash; three window slots are still free, so the next three packets the application hands down can go straight out.</p>
+      <p class="frag h1" style="margin:0;font-size:17.5px;line-height:1.55">The sender now tracks two numbers, <b>base</b> and <b>nextseqnum</b>. What does the range <span style="font-family:var(--mono);white-space:nowrap">[base, nextseqnum)</span> represent?</p>
+      <p class="frag h2" style="margin:0;font-size:16.5px;line-height:1.55"><b>base</b> marks the end of the acknowledged data and <b>nextseqnum</b> the end of the sent data. Everything between them is exactly what is <b>in flight</b>.</p>
+      <div class="frag h3 card" style="padding:11px 16px;border-left:3px solid var(--accent);background:var(--accent-soft)">
+        <p style="margin:0 0 6px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink,var(--accent))">The window constraint</p>
+        <p style="margin:0;font-size:19px;font-family:var(--mono);color:var(--accent);white-space:nowrap">nextseqnum &minus; base &le; <em>N</em></p>
+        <p style="margin:7px 0 0;font-size:16px;line-height:1.55">Once the range is full, the sender may not send again until an ACK moves <b>base</b> forward.</p>
+      </div>
+      <p class="frag h4" style="margin:0;font-size:16.5px;line-height:1.55"><b>Usable, not yet sent</b> &mdash; three window slots are still free, so the next three packets the application hands down can go straight out.</p>
     </div>
 
   </div>
