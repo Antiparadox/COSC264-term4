@@ -1457,7 +1457,7 @@ svg text{font-family:var(--sans)}
 </svg></div>
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;max-width:330px">
       <p class="frag f1" style="margin:0;font-size:16px;line-height:1.55">Every protocol we have built, rdt 2.0 through rdt 3.0, is <b>stop-and-wait</b>: send one packet, then sit idle until its ACK comes back.</p>
-      <p class="frag f2" style="margin:0;font-size:16px;line-height:1.55">That idle time is not free. How much of the sender&rsquo;s capacity does it cost?</p>
+      <p class="frag f2" style="margin:0;font-size:16px;line-height:1.55">That idle time is not free. Let us try to measure what it costs us.</p>
       <p class="frag f3" style="margin:0;font-size:16px;line-height:1.55">Say every packet is <b>L</b> bits and the sender transmits at <b>R</b> bits per second.</p>
       <p class="frag f4" style="margin:0;font-size:16px;line-height:1.55">Putting one packet onto the channel then takes <b>L/R</b> seconds.</p>
       <p class="frag f5" style="margin:0;font-size:16px;line-height:1.55">After that the sender must wait a full <b>RTT</b> before it may send again.</p>
