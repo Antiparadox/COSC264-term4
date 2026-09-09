@@ -1403,10 +1403,10 @@ svg text{font-family:var(--sans)}
       </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:10px;max-width:430px">
-      <p class="frag g1" style="margin:0;font-size:16.5px;line-height:1.55">The second ACK 0 now arrives &mdash; the delayed one. What should the sender do?</p>
+      <p class="frag g1" style="margin:0;font-size:16.5px;line-height:1.55">The second ACK 0 now arrives. What should the sender do?</p>
       <div class="frag g2 card" style="padding:10px 16px;border-left:3px solid #cf5c36"><p style="margin:0;font-size:15.5px;line-height:1.6">By the <b>rdt 2.2</b> rule, a second ACK 0 is a <b>duplicate ACK</b> &mdash; a NAK in disguise. So the sender should <b>retransmit Everyone, 1</b>.</p></div>
       <p class="frag g3" style="margin:0;font-size:16.5px;line-height:1.55">But here that would be <b>wrong</b>.</p>
-      <div class="frag g4 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:15.5px;line-height:1.6">This ACK 0 is <b>stale</b> &mdash; the delayed first copy, sent before Everyone, 1 even existed. It says nothing about whether Everyone, 1 arrived.</p></div>
+      <div class="frag g4 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:15.5px;line-height:1.6">This ACK 0 acknowledges the <b>previous</b> message, Hello, 0. It is a duplicate only because the first ACK 0 was <b>delayed</b>.</p><p style="margin:7px 0 0;font-size:15.5px;line-height:1.6">It was never meant to say that Everyone, 1 was corrupted, so it must <b>not</b> be treated as a NAK.</p></div>
       <div class="frag g5 card" style="padding:11px 16px;border-left:3px solid var(--accent);background:var(--accent-soft)">
         <p style="margin:0 0 5px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink,var(--accent))">The rule in rdt 3.0</p>
         <p style="margin:0;font-size:15.5px;line-height:1.6">The sender retransmits <b>only when its timer expires</b>. Any ACK that is corrupt, or carries the wrong sequence number, is <b>ignored</b>.</p>
