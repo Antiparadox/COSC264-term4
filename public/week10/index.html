@@ -1701,11 +1701,11 @@ svg text{font-family:var(--sans)}
     </div>
 
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:0">
-      <p style="margin:0;font-size:17px;line-height:1.55;color:var(--muted)">The sender is fed a stream of packets from the application layer; each rectangle in the diagram is one packet.</p>
-      <p class="frag f1" style="margin:0;font-size:17px;line-height:1.55"><b>Acknowledged</b> &mdash; the sender has sent these packets, the receiver has received them intact, and an ACK has come back for each of them.</p>
-      <p class="frag f2" style="margin:0;font-size:17px;line-height:1.55">More data may arrive from the application, and in a pipelined protocol the sender would like to send it straight away. But how do we stop too many packets being in flight at once? This is what the <b>window</b> is for.</p>
-      <p class="frag f3" style="margin:0;font-size:17px;line-height:1.55">To place the window we first need a marker. <b>base</b> points to the oldest packet not yet acknowledged.</p>
-      <p class="frag f4" style="margin:0;font-size:17px;line-height:1.55"><b>Window of size <em>N</em></b> &mdash; the window starts at <b>base</b> and spans the next <em>N</em> packets, so at most <em>N</em> unacknowledged packets are ever in flight.</p>
+      <p style="margin:0;font-size:18.5px;line-height:1.55;color:var(--muted)">The sender is fed a stream of packets from the application layer; each rectangle in the diagram is one packet.</p>
+      <p class="frag f1" style="margin:0;font-size:18.5px;line-height:1.55"><b>Acknowledged</b> &mdash; the sender has sent these packets, the receiver has received them intact, and an ACK has come back for each of them.</p>
+      <p class="frag f2" style="margin:0;font-size:18.5px;line-height:1.55">More data may arrive from the application, and in a pipelined protocol the sender would like to send it straight away. But how do we stop too many packets being in flight at once? This is what the <b>window</b> is for.</p>
+      <p class="frag f3" style="margin:0;font-size:18.5px;line-height:1.55">To place the window we first need a marker. <b>base</b> points to the oldest packet not yet acknowledged.</p>
+      <p class="frag f4" style="margin:0;font-size:18.5px;line-height:1.55"><b>Window of size <em>N</em></b> &mdash; the window starts at <b>base</b> and spans the next <em>N</em> packets, so at most <em>N</em> unacknowledged packets are ever in flight.</p>
     </div>
 
   </div>
@@ -1774,8 +1774,8 @@ svg text{font-family:var(--sans)}
     </div>
 
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:0">
-      <p class="frag g1" style="margin:0;font-size:16.5px;line-height:1.55"><b>Sent, not yet ACK&rsquo;d</b> &mdash; suppose the application hands down five packets. The window is eight slots wide, so all five fit and go out at once. They are in transit and unacknowledged, so the sender keeps a copy of each in case it must retransmit.</p>
-      <p class="frag g2" style="margin:0;font-size:16.5px;line-height:1.55">Every packet sent uses up a sequence number, so after those five the next number to use sits here: <b>nextseqnum</b>.</p>
+      <p class="frag g1" style="margin:0;font-size:20.5px;line-height:1.55"><b>Sent, not yet ACK&rsquo;d</b> &mdash; suppose the application hands down five packets. The window is eight slots wide, so all five fit and go out at once. They are in transit and unacknowledged, so the sender keeps a copy of each in case it must retransmit.</p>
+      <p class="frag g2" style="margin:0;font-size:20.5px;line-height:1.55">Every packet sent uses up a sequence number, so after those five the next number to use sits here: <b>nextseqnum</b>.</p>
     </div>
 
   </div>
@@ -1853,14 +1853,14 @@ svg text{font-family:var(--sans)}
     </div>
 
     <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:0">
-      <p class="frag h1" style="margin:0;font-size:17.5px;line-height:1.55">The sender now tracks two numbers, <b>base</b> and <b>nextseqnum</b>. What does the range <span style="font-family:var(--mono);white-space:nowrap">[base, nextseqnum)</span> represent?</p>
-      <p class="frag h2" style="margin:0;font-size:16.5px;line-height:1.55"><b>base</b> marks the end of the acknowledged data and <b>nextseqnum</b> the end of the sent data. Everything between them is exactly what is <b>in flight</b>.</p>
+      <p class="frag h1" style="margin:0;font-size:19px;line-height:1.55">The sender now tracks two numbers, <b>base</b> and <b>nextseqnum</b>. What does the range <span style="font-family:var(--mono);white-space:nowrap">[base, nextseqnum)</span> represent?</p>
+      <p class="frag h2" style="margin:0;font-size:18px;line-height:1.55"><b>base</b> marks the end of the acknowledged data and <b>nextseqnum</b> the end of the sent data. Everything between them is exactly what is <b>in flight</b>.</p>
       <div class="frag h3 card" style="padding:11px 16px;border-left:3px solid var(--accent);background:var(--accent-soft)">
         <p style="margin:0 0 6px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink,var(--accent))">The window constraint</p>
-        <p style="margin:0;font-size:19px;font-family:var(--mono);color:var(--accent);white-space:nowrap">nextseqnum &minus; base &le; <em>N</em></p>
-        <p style="margin:7px 0 0;font-size:16px;line-height:1.55">Once the range is full, the sender may not send again until an ACK moves <b>base</b> forward.</p>
+        <p style="margin:0;font-size:20px;font-family:var(--mono);color:var(--accent);white-space:nowrap">nextseqnum &minus; base &le; <em>N</em></p>
+        <p style="margin:7px 0 0;font-size:17px;line-height:1.55">Once the range is full, the sender may not send again.</p>
       </div>
-      <p class="frag h4" style="margin:0;font-size:16.5px;line-height:1.55"><b>Usable, not yet sent</b> &mdash; three window slots are still free, so the next three packets the application hands down can go straight out.</p>
+      <p class="frag h4" style="margin:0;font-size:18px;line-height:1.55"><b>Usable, not yet sent</b> &mdash; three window slots are still free, so the next three packets the application hands down can go straight out.</p>
     </div>
 
   </div>
