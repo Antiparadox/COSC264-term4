@@ -1496,8 +1496,8 @@ svg text{font-family:var(--sans)}
 </g>
 </svg></div>
     <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:340px">
-      <p class="frag g1" style="margin:0;font-size:17.5px;line-height:1.55">After that the sender must wait a full <b>RTT</b> before it may send again.</p>
-      <p class="frag g2" style="margin:0;font-size:17.5px;line-height:1.55">So one packet occupies <b>RTT + L/R</b> seconds &mdash; first bit out to ACK back in.</p>
+      <p class="frag g1" style="margin:0;font-size:17.5px;line-height:1.55">After that the sender must wait a full <b>RTT</b> for the ACK to come in before it may send again.</p>
+      <p class="frag g2" style="margin:0;font-size:17.5px;line-height:1.55">Therefore, sending one packet of length <b>L</b> takes the sender <b>RTT + L/R</b> seconds.</p>
       <p class="frag g3" style="margin:0;font-size:17.5px;line-height:1.55">Of that, the sender is busy for only the first <b>L/R</b>, while it is transmitting. Every moment after that it is <b>idle</b>.</p>
       <div class="frag g4 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
         <p style="margin:0 0 5px;font-size:16px;line-height:1.5">Fraction of the time the sender is busy:</p>
