@@ -1654,11 +1654,11 @@ svg text{font-family:var(--sans)}
   <style>
     #gbn-sw .gbn-p { opacity:0; transition:opacity 0.3s }
     #gbn-sw:has(.f1.on) .gbn-p-acked  { opacity:1 }
-    #gbn-sw:has(.f2.on) .gbn-p-win    { opacity:1 }
-    #gbn-sw:has(.f3.on) .gbn-p-sent   { opacity:1 }
-    #gbn-sw:has(.f4.on) .gbn-p-usable { opacity:1 }
-    #gbn-sw:has(.f5.on) .gbn-p-base { opacity:1 }
-    #gbn-sw:has(.f6.on) .gbn-p-next { opacity:1 }
+    #gbn-sw:has(.f2.on) .gbn-p-base   { opacity:1 }
+    #gbn-sw:has(.f3.on) .gbn-p-win    { opacity:1 }
+    #gbn-sw:has(.f4.on) .gbn-p-sent   { opacity:1 }
+    #gbn-sw:has(.f5.on) .gbn-p-usable { opacity:1 }
+    #gbn-sw:has(.f6.on) .gbn-p-next   { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>The sliding window</h2>
@@ -1746,14 +1746,14 @@ svg text{font-family:var(--sans)}
     </div>
 
     <!-- RIGHT: synchronized fragments -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:14px;padding-top:40px">
-      <p style="margin:0;font-size:17px;line-height:1.6;color:var(--muted)">The data the sender works with: a stream of packets fed from the application layer, each rectangle one packet.</p>
-      <p class="frag f1" style="margin:0;font-size:17px;line-height:1.6"><b>Acknowledged</b> &mdash; packets the receiver has confirmed. The sender has delivered these and no longer needs to keep them.</p>
-      <p class="frag f2" style="margin:0;font-size:17px;line-height:1.6"><b>Window of size <em>N</em></b> &mdash; the sender keeps at most <em>N</em> unACK&rsquo;d packets in flight at once.</p>
-      <p class="frag f3" style="margin:0;font-size:17px;line-height:1.6"><b>Sent, not yet ACK&rsquo;d</b> &mdash; packets currently in transit. The sender holds these in its buffer in case a retransmission is needed.</p>
-      <p class="frag f4" style="margin:0;font-size:17px;line-height:1.6"><b>Usable, not yet sent</b> &mdash; within the window, so the sender can transmit these now.</p>
-      <p class="frag f5" style="margin:0;font-size:17px;line-height:1.6"><b>base</b> &mdash; points to the oldest unACK&rsquo;d packet. The window begins here.</p>
-      <p class="frag f6" style="margin:0;font-size:17px;line-height:1.6"><b>nextseqnum</b> &mdash; the next packet to transmit.</p>
+    <div style="flex:1;display:flex;flex-direction:column;gap:11px;padding-top:6px">
+      <p style="margin:0;font-size:16.5px;line-height:1.55;color:var(--muted)">What the sender is working with: a stream of packets handed down from the application layer. In the diagram, each rectangle is one packet.</p>
+      <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.55"><b>Acknowledged</b> &mdash; the receiver has these intact and has sent an ACK for each of them.</p>
+      <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.55"><b>base</b> &mdash; the oldest packet not yet acknowledged. This is where the window begins.</p>
+      <p class="frag f3" style="margin:0;font-size:16.5px;line-height:1.55"><b>Window of size <em>N</em></b> &mdash; more data keeps arriving from the application, so the sender allows at most <em>N</em> unacknowledged packets in flight at once.</p>
+      <p class="frag f4" style="margin:0;font-size:16.5px;line-height:1.55"><b>Sent, not yet ACK&rsquo;d</b> &mdash; say five packets have arrived and all five fit in the window, so the sender sends them all. They are now in transit with no ACK yet, and it keeps a copy of each in case it has to retransmit.</p>
+      <p class="frag f5" style="margin:0;font-size:16.5px;line-height:1.55"><b>Usable, not yet sent</b> &mdash; three window slots are still free. Whatever the application hands down next can go straight out.</p>
+      <p class="frag f6" style="margin:0;font-size:16.5px;line-height:1.55"><b>nextseqnum</b> &mdash; the first of those free slots: the next sequence number the sender will use.</p>
     </div>
 
   </div>
