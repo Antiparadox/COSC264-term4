@@ -1139,7 +1139,9 @@ svg text{font-family:var(--sans)}
   <h2>Four new ways to fail</h2>
   <div style="display:flex;flex-direction:column;gap:8px">
 
-    <p style="margin:0;font-size:17px;line-height:1.55">Packets can now be <b>lost</b> or badly <b>delayed</b>, not merely corrupted. Four things can happen:</p>
+    <p class="frag" style="margin:0;font-size:18px;line-height:1.55">In <b>rdt 3.0</b> the channel does not merely corrupt bits. It can also <b>lose</b> a packet outright, or <b>delay</b> one so long that the sender has given up waiting by the time it lands.</p>
+
+    <p class="frag" style="margin:0;font-size:18px;line-height:1.55">More specifically, four things can happen:</p>
 
     <div style="display:flex;gap:14px;align-items:flex-start;margin-top:2px">
       <div class="frag y1" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px">
