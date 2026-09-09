@@ -1358,7 +1358,7 @@ svg text{font-family:var(--sans)}
       <p class="frag f2" style="margin:0;font-size:16px;line-height:1.55">Timer fires before ACK 0 arrives. What does the sender do?</p>
       <div class="frag f3 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:15.5px;line-height:1.6">Recall: if the expected ACK does not arrive before the timer expires, the sender retransmits.</p></div>
       <p class="frag f4" style="margin:0;font-size:16px;line-height:1.55">The receiver gets Hello, 0 a second time. What does it do?</p>
-      <div class="frag f5 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:15.5px;line-height:1.6">Recognises the duplicate &mdash; sequence 0 already delivered &mdash; and re-sends ACK 0.</p></div>
+      <div class="frag f5 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:15.5px;line-height:1.6">The <b>rdt 2.2 receiver rule</b>, unchanged: deliver and ACK a packet carrying the number it expects; discard anything else and <b>re-send the previous ACK</b>.</p><p style="margin:7px 0 0;font-size:15.5px;line-height:1.6">It is expecting <b>1</b>, so this Hello, 0 is discarded and <b>ACK 0</b> goes back again.</p></div>
       <p class="frag f6" style="margin:0;font-size:16px;line-height:1.55">The first ACK 0 arrives. What does the sender do?</p>
       <div class="frag f7 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:15.5px;line-height:1.6">Move on &mdash; send the next packet, Everyone, 1 (flipped sequence number), and restart the timer.</p></div>
     </div>
@@ -1411,6 +1411,7 @@ svg text{font-family:var(--sans)}
       <div class="frag g5 card" style="padding:11px 16px;border-left:3px solid var(--accent);background:var(--accent-soft)">
         <p style="margin:0 0 5px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink,var(--accent))">The rule in rdt 3.0</p>
         <p style="margin:0;font-size:15.5px;line-height:1.6">The sender retransmits <b>only when its timer expires</b>. Any ACK that is corrupt, or that does not carry the sequence number it is waiting for, is <b>ignored</b>.</p>
+        <p style="margin:7px 0 0;font-size:15.5px;line-height:1.6;color:var(--muted)">The receiver&rsquo;s rule is <b>unchanged</b> from rdt 2.2. Everything rdt 3.0 adds is on the sender&rsquo;s side.</p>
       </div>
     </div>
   </div>
