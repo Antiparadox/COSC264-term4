@@ -1622,12 +1622,14 @@ svg text{font-family:var(--sans)}
 
     <div class="frag card" style="padding:14px 20px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 6px;font-size:17.5px;font-weight:700">A bigger sequence space</p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">One bit is no longer enough &mdash; with several packets in flight the receiver must distinguish more than &ldquo;this one&rdquo; from &ldquo;the next one&rdquo;. In practice the sequence number is <b><em>k</em> bits</b>, counting 0 to 2<sup><em>k</em></sup>&minus;1. <b>TCP uses 32 bits.</b></p>
+      <p style="margin:0;font-size:16.5px;line-height:1.6">In stop-and-wait only one packet is ever in flight, so a single bit is enough: the receiver only has to tell &ldquo;this one&rdquo; from &ldquo;the next one&rdquo;.</p>
+      <p class="frag" style="margin:8px 0 0;font-size:16.5px;line-height:1.6">With pipelining several packets are in flight at once. Send three, and the receiver has to tell the <b>first</b> from the <b>third</b> &mdash; one bit cannot do that.</p>
     </div>
 
     <div class="frag card" style="padding:14px 20px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 6px;font-size:17.5px;font-weight:700">Buffering</p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">The sender must keep every unacknowledged packet in case it needs to retransmit. Depending on the protocol, the receiver may also be required to buffer out-of-order packets on its side.</p>
+      <p style="margin:0;font-size:16.5px;line-height:1.6">The sender may have to retransmit, and it cannot retransmit what it no longer has. So it must hold on to <b>every packet it has sent but not yet seen acknowledged</b> &mdash; with pipelining, that is everything currently in flight, not just one packet.</p>
+      <p class="frag" style="margin:8px 0 0;font-size:16.5px;line-height:1.6">Depending on the protocol, the receiver may also have to buffer packets that arrive <b>out of order</b>.</p>
     </div>
 
     <p class="frag" style="margin:0;font-size:17.5px;line-height:1.6">We will now learn about two pipelined protocols: <b>go-back-N</b> and <b>selective repeat</b>.</p>
