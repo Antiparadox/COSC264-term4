@@ -2400,7 +2400,7 @@ svg text{font-family:var(--sans)}
   <h2>What we covered</h2>
   <ul style="margin:0;padding-left:28px;font-size:16.5px;line-height:1.7;max-width:1020px">
     <li class="frag"><b>Sliding window</b> &mdash; the sender keeps a sliding window of at most <em>N</em> unacknowledged packets in flight.</li>
-    <li class="frag"><b>Receiver rule</b> &mdash; the receiver sends a cumulative ACK and only accepts the next expected packet (<span style="font-family:var(--mono)">expectedseqnum</span>); it does not buffer out-of-order packets.</li>
+    <li class="frag"><b>Receiver rule</b> &mdash; the receiver sends a cumulative ACK and only accepts the next expected packet (<span style="font-family:var(--mono)">expectedseqnum</span>); it discards all out-of-order packets.</li>
     <li class="frag"><b>Timeout</b> &mdash; one timer covers the entire window; when it fires, the sender retransmits every packet currently in flight.</li>
   </ul>
 </section>
