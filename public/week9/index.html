@@ -257,7 +257,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Learning objectives & module plan (merged) ── -->
-<section class="slide" data-sec="Error Detection and Correction" data-anchor="objectives">
+<section class="slide" data-sec="Overview" data-anchor="objectives">
   <div class="kicker">Module 3</div>
   <h2>Learning objectives &amp; module plan</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:flex-start">
@@ -337,7 +337,7 @@ svg text{font-family:var(--sans)}
 }());
 </script>
 
-<section class="slide sec-title" data-sec="Error Detection" data-anchor="c1-det">
+<section class="slide sec-title" data-sec="How does error detection work?" data-anchor="c1-det">
   <div class="kicker">Module 3 · Concept 1 of 3</div>
   <h1>Error Detection</h1>
   <div class="rule"></div>
@@ -349,7 +349,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="How does error detection work?">
   <div class="kicker">Motivation</div>
   <h2>The journey of a packet</h2>
   <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:flex-start">
@@ -406,7 +406,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="How does error detection work?">
   <div class="kicker">Motivation</div>
   <h2>Three categories of problem</h2>
   <div style="display:flex;flex-direction:column;gap:18px;flex:1;justify-content:flex-start;max-width:960px">
@@ -432,7 +432,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="How does error detection work?">
   <div class="kicker">Error types</div>
   <h2>Types of bit errors</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:14px">
@@ -547,7 +547,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="How does error detection work?">
   <div class="kicker">Error detection process &mdash; sending</div>
   <h2>The error detection process</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:18px">
@@ -597,7 +597,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="How does error detection work?">
   <div class="kicker">Error detection process &mdash; receiving</div>
   <h2>The error detection process</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px">
@@ -673,7 +673,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="Parity checks">
   <div class="kicker">Parity check</div>
   <h2>Parity check</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:18px;max-width:960px">
@@ -757,7 +757,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="Parity checks">
   <div class="kicker">Parity check</div>
   <h2>Parity check &mdash; can it be fooled?</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:12px;max-width:960px">
@@ -835,7 +835,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="twod-build" data-sec="Error Detection">
+<section class="slide" id="twod-build" data-sec="Parity checks">
   <style>
     #twod-build .rp, #twod-build .cp, #twod-build .pp { opacity:0; transition:opacity 0.35s }
     #twod-build .rp-border { border-left:2px solid transparent !important; transition:border-color 0.35s }
@@ -910,7 +910,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: 2-D parity — what it catches, and what slips through ── -->
-<section class="slide" id="twod-limits" data-sec="Error Detection">
+<section class="slide" id="twod-limits" data-sec="Parity checks">
   <style>
     #twod-limits .flip { display:none }
     #twod-limits:has(.show-2bit.on) .e2 .orig { display:none }
@@ -1007,7 +1007,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: 2-D parity — correcting a single-bit error ── -->
-<section class="slide" id="twod-correct" data-sec="Error Detection">
+<section class="slide" id="twod-correct" data-sec="Parity checks">
   <style>
     #twod-correct .corr-bit, #twod-correct .fix-bit { display:none }
     #twod-correct:has(.show-err.on) .orig-bit { display:none }
@@ -1097,7 +1097,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Internet checksum ── -->
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="Internet checksum">
   <div class="kicker">Internet checksum</div>
   <h2>Internet checksum</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px">
@@ -1156,7 +1156,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="Internet checksum">
   <div class="kicker">Internet checksum</div>
   <h2>One&rsquo;s complement arithmetic</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px;max-width:1060px">
@@ -1210,7 +1210,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="checksum-sender" data-sec="Error Detection">
+<section class="slide" id="checksum-sender" data-sec="Internet checksum">
   <style>
     #checksum-sender .lbl { opacity:0; transition:opacity 0.3s; margin:0; font-size:18px; line-height:1.5 }
     #checksum-sender:has(.f1.on) .lbl1 { opacity:1 }
@@ -1265,7 +1265,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="checksum-receiver" data-sec="Error Detection">
+<section class="slide" id="checksum-receiver" data-sec="Internet checksum">
   <style>
     #checksum-receiver .lbl { opacity:0; transition:opacity 0.3s; margin:0; font-size:18px; line-height:1.5 }
     #checksum-receiver:has(.g1.on) .lbl1 { opacity:1 }
@@ -1313,7 +1313,7 @@ svg text{font-family:var(--sans)}
     </div>
   </div>
 </section>
-<section class="slide" data-sec="Error Detection">
+<section class="slide" data-sec="Internet checksum">
   <div class="kicker">Internet checksum</div>
   <h2>Efficiency and limitations</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:flex-start">
@@ -1681,7 +1681,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: CRC — Polynomial encoding, both directions ── -->
-<section class="slide" data-sec="CRC">
+<section class="slide" data-sec="CRC as polynomials">
   <div class="kicker">CRC</div>
   <h2>Bit strings as polynomials</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1080px">
@@ -1714,7 +1714,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: CRC — Polynomial division (same example) ── -->
-<section class="slide" id="crc-two-views" data-sec="CRC">
+<section class="slide" id="crc-two-views" data-sec="CRC as polynomials">
   <style>
     #crc-two-views .row { display:flex; align-items:center }
     #crc-two-views .lft { flex:0 0 360px; padding:6px 16px 6px 0 }
@@ -1773,7 +1773,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: CRC — What it is guaranteed to catch (optional) ── -->
-<section class="slide" data-sec="CRC">
+<section class="slide" data-sec="CRC as polynomials">
   <div class="kicker">CRC &middot; optional</div>
   <h2>What can this representation tell us?</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:18px;max-width:1060px">
@@ -1796,7 +1796,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: CRC — Short burst example (optional) ── -->
-<section class="slide" id="crc-burst" data-sec="CRC">
+<section class="slide" id="crc-burst" data-sec="CRC as polynomials">
   <style>
     /* one slot, four cards: each step replaces the one before it */
     #crc-burst .hot { display:none }
@@ -1952,7 +1952,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: CRC — Standard Polynomials ── -->
-<section class="slide" data-sec="CRC">
+<section class="slide" data-sec="CRC as polynomials">
   <div class="kicker">CRC</div>
   <h2>Some Standard Polynomials</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;justify-content:flex-start">
@@ -1998,7 +1998,7 @@ svg text{font-family:var(--sans)}
 
 
 <!-- ── Recap: CRC ── -->
-<section class="slide" data-sec="CRC">
+<section class="slide" data-sec="Error detection: what we covered">
   <div class="kicker">Recap</div>
   <h2>Error detection &mdash; what we covered</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;max-width:1040px">
@@ -2011,7 +2011,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide sec-title" data-sec="Error Correction" data-anchor="c3-corr">
+<section class="slide sec-title" data-sec="Forward error correction" data-anchor="c3-corr">
   <div class="kicker">Module 3 · Concept 3 of 3</div>
   <h1>Error Correction</h1>
   <div class="rule"></div>
@@ -2023,7 +2023,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Forward Error Correction (FEC) ── -->
-<section class="slide" data-sec="Error Correction">
+<section class="slide" data-sec="Forward error correction">
   <div class="kicker">Error correction</div>
   <h2>Forward Error Correction (FEC)</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;justify-content:flex-start">
@@ -2054,7 +2054,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: FEC Process ── -->
-<section class="slide" id="fec-tx" data-sec="Error Correction">
+<section class="slide" id="fec-tx" data-sec="Forward error correction">
   <style>
     #fec-tx .gA1, #fec-tx .gA2, #fec-tx .gA3 { opacity:0; transition:opacity 0.35s }
     #fec-tx:has(.a1.on) .gA1 { opacity:1 }
@@ -2133,7 +2133,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="fec-rx" data-sec="Error Correction">
+<section class="slide" id="fec-rx" data-sec="Forward error correction">
   <style>
     #fec-rx .gB1, #fec-rx .gB2, #fec-rx .gB3, #fec-rx .gB4 { opacity:0; transition:opacity 0.35s }
     #fec-rx:has(.b1.on) .gB1 { opacity:1 }
@@ -2220,7 +2220,7 @@ svg text{font-family:var(--sans)}
 
 <!-- ── Slide: FEC — An Example (k=2, n=3) ── -->
 <!-- ── Slide: Block Code Principles — Hamming Distance ── -->
-<section class="slide" data-sec="Error Correction">
+<section class="slide" data-sec="Forward error correction">
   <div class="kicker">FEC</div>
   <h2>Block Code Principles — Hamming Distance</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;justify-content:flex-start">
@@ -2271,7 +2271,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="fec-encdec" data-sec="Error Correction">
+<section class="slide" id="fec-encdec" data-sec="Forward error correction">
   <style>
     #fec-encdec td, #fec-encdec th { border:1px solid var(--border); padding:7px 20px; font-size:18px; text-align:center }
     #fec-encdec th { background:rgba(0,200,180,0.12); font-size:14px; font-weight:600 }
@@ -2302,7 +2302,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── FEC: what the decoder does with a received pattern ── -->
-<section class="slide" data-sec="Error Correction">
+<section class="slide" data-sec="Forward error correction">
   <div class="kicker">FEC</div>
   <h2>Minimum Hamming distance decoding</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;max-width:1040px">
@@ -2325,7 +2325,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Block Code Principles — Minimum-Distance Decoding Example ── -->
-<section class="slide" id="mdd-ex" data-sec="Error Correction">
+<section class="slide" id="mdd-ex" data-sec="How many errors can we correct?">
   <style>
     #mdd-ex td, #mdd-ex th { border:1px solid var(--border); padding:7px 18px; font-size:18px }
     #mdd-ex th { background:rgba(0,200,180,0.12); font-size:15px; font-weight:600 }
@@ -2376,7 +2376,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Block Code Principles — Minimum-Distance Principle ── -->
-<section class="slide" id="mdd-fail" data-sec="Error Correction">
+<section class="slide" id="mdd-fail" data-sec="How many errors can we correct?">
   <style>
     #mdd-fail td, #mdd-fail th { border:1px solid var(--border); padding:7px 18px; font-size:18px }
     #mdd-fail th { background:rgba(0,200,180,0.12); font-size:15px; font-weight:600 }
@@ -2429,7 +2429,7 @@ svg text{font-family:var(--sans)}
 
 <!-- ── Slide: Block Code Principles — Decoding Regions ── -->
 <!-- ── Slide: An Example of Invalid Codewords ── -->
-<section class="slide" id="fullpic" data-sec="Error Correction">
+<section class="slide" id="fullpic" data-sec="How many errors can we correct?">
   <style>
     #fullpic .pat { font-family:monospace; font-size:16px; padding:5px 10px; border:1px solid var(--border); border-radius:4px; background:var(--surface-2); transition:all 0.3s }
     #fullpic:has(.p2.on) .pat.valid { border-color:var(--accent); background:rgba(0,200,180,0.16); color:var(--accent); font-weight:700 }
@@ -2466,7 +2466,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Pairwise Distances between Valid Codewords ── -->
-<section class="slide" id="dmin" data-sec="Error Correction">
+<section class="slide" id="dmin" data-sec="How many errors can we correct?">
   <style>
     #dmin td, #dmin th { border:1px solid var(--border); padding:6px 20px; font-size:18px; text-align:center }
     #dmin th { background:rgba(0,200,180,0.12); font-size:15px; font-weight:600 }
@@ -2504,7 +2504,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="dwalk" data-sec="Error Correction">
+<section class="slide" id="dwalk" data-sec="How many errors can we correct?">
   <style>
     #dwalk .hot { display:none }
     #dwalk .hot.on { display:block }
@@ -2663,7 +2663,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="dcorrect" data-sec="Error Correction">
+<section class="slide" id="dcorrect" data-sec="How many errors can we correct?">
   <style>
     #dcorrect .hot { display:none }
     #dcorrect .hot.on { display:block }
@@ -2797,7 +2797,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" id="ddetect" data-sec="Error Correction">
+<section class="slide" id="ddetect" data-sec="How many errors can we correct?">
   <style>
     #ddetect .gWalk { opacity:0; transition:opacity 0.35s }
     #ddetect:has(.n2.on) .gWalk { opacity:1 }
@@ -2921,7 +2921,7 @@ svg text{font-family:var(--sans)}
 
   </div>
 </section>
-<section class="slide" data-sec="Error Correction">
+<section class="slide" data-sec="How many errors can we correct?">
   <div class="kicker">FEC</div>
   <h2>The rule</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:1020px">
@@ -2943,7 +2943,7 @@ svg text{font-family:var(--sans)}
 
 
 <!-- ── Slide: Summary ── -->
-<section class="slide" data-sec="Error Correction">
+<section class="slide" data-sec="Error correction: what we covered">
   <div class="kicker">Recap</div>
   <h2>Error correction &mdash; what we covered</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;max-width:1030px">
@@ -2955,7 +2955,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: References ── -->
-<section class="slide" data-sec="Error Correction">
+<section class="slide" data-sec="References and colophon">
   <div class="kicker">References</div>
   <h2>References</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:flex-start">
@@ -2975,7 +2975,7 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Acknowledgements ── -->
-<section class="slide" data-sec="Error Correction">
+<section class="slide" data-sec="References and colophon">
   <div class="kicker">Acknowledgements</div>
   <h2>Acknowledgements</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:flex-start">
@@ -3003,7 +3003,7 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Error Detection and Correction">
+<section class="slide" data-sec="References and colophon">
   <h2>Lineage &amp; colophon</h2>
   <p style="max-width:900px">These lecture notes modernise COSC264 material developed by
     <b>Dr&nbsp;Barry Wu</b> (2024&ndash;25), building on notes by <b>Dr&nbsp;Mengmeng Ge</b> (2023) and
