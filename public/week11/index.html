@@ -1750,6 +1750,9 @@
     .jump-item { width: 100%; padding: 15px 17px; border: 0; border-radius: 12px; background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
     .jump-item:hover, .jump-item.current { background: var(--teal-soft); }
     .jump-number { margin-right: 14px; color: var(--teal); font-family: var(--mono); }
+    .jump-section { margin: 22px 0 4px; font-family: var(--serif, Georgia, serif);
+      font-size: 22px; color: var(--teal-ink, var(--teal)); }
+    .jump-section:first-child { margin-top: 0; }
 
 
     .tcp-ack-layout,
@@ -1983,7 +1986,7 @@
 <body>
   <main id="viewport">
     <div id="stage" aria-live="polite">
-      <section class="slide title-slide" data-title="Transport Layer Protocols" data-section="Module 5">
+      <section class="slide title-slide" data-title="Transport Layer Protocols" data-section="Transport Layer Protocols">
         <div>
           <p class="kicker">COSC264 · Term 4</p>
           <div class="module-badge">Module 5</div>
@@ -1994,7 +1997,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Module 4 — what we covered" data-section="Module 5 · Recap">
+      <section class="slide" data-title="Module 4 — what we covered" data-section="Recap and overview">
         <header class="content-header">
           <p class="kicker">Recap · Module 4</p>
           <h2>Module 4 — what we covered</h2>
@@ -2006,7 +2009,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Module 5 roadmap" data-section="Module 5 · Overview">
+      <section class="slide" data-title="Module 5 roadmap" data-section="Recap and overview">
         <header class="content-header">
           <p class="kicker">Our route through the transport layer</p>
           <h2>Module 5 roadmap</h2>
@@ -2035,7 +2038,7 @@
         </div>
       </section>
 
-      <section class="slide divider-slide" data-title="Transport-layer services" data-section="Module 5 · Concept 1">
+      <section class="slide divider-slide" data-title="Transport-layer services" data-section="What does the transport layer do?">
         <div class="divider-wrap">
           <p class="kicker">From hosts to application processes</p>
           <span class="concept-label">Concept 1 of 4</span>
@@ -2045,7 +2048,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Transport layer provides an end-to-end channel between applications" data-section="Transport-layer services">
+      <section class="slide" data-title="Transport layer provides an end-to-end channel between applications" data-section="What does the transport layer do?">
         <header class="content-header">
           <p class="kicker">End-to-end abstraction</p>
           <h2>Transport layer provides an end-to-end channel between applications</h2>
@@ -2099,7 +2102,7 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Mechanisms utilized by transport-layer protocols" data-section="Transport-layer services">
+      <section class="slide" data-title="Mechanisms utilized by transport-layer protocols" data-section="What does the transport layer do?">
         <header class="content-header">
           <p class="kicker">How the abstraction is delivered</p>
           <h2>Mechanisms utilized by transport-layer protocols</h2>
@@ -2280,7 +2283,7 @@
         </div>
       </section>
 
-      <section class="slide divider-slide" data-title="UDP and TCP" data-section="Module 5 · Concept 2">
+      <section class="slide divider-slide" data-title="UDP and TCP" data-section="UDP">
         <div class="divider-wrap">
           <p class="kicker">The two transport protocols</p>
           <span class="concept-label">Concept 2 of 4</span>
@@ -3207,7 +3210,7 @@
       </section>
 
       <!-- Concept 2 opener -->
-      <section class="slide divider-slide" data-title="TCP Flow Control" data-section="Module 5 · Concept 3">
+      <section class="slide divider-slide" data-title="TCP Flow Control" data-section="Flow control">
         <div class="divider-wrap">
           <p class="kicker">Matching the sender to the receiver</p>
           <span class="concept-label">Concept 3 of 4</span>
@@ -3474,7 +3477,7 @@
       </section>
 
       <!-- ── Frame 34: Congestion control section opener ── -->
-      <section class="slide divider-slide" data-title="Congestion Control" data-section="Module 5 · Concept 4">
+      <section class="slide divider-slide" data-title="Congestion Control" data-section="Congestion control">
         <div class="divider-wrap">
           <p class="kicker">Matching the sender to the network</p>
           <span class="concept-label">Concept 4 of 4</span>
@@ -4624,7 +4627,16 @@
       }
       function toggleTheme() { const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = nextTheme; localStorage.setItem(`${KEY}-theme`, nextTheme); }
 
+      let outlineSection = null;
       slides.forEach((slide, i) => {
+        const section = slide.dataset.section || '';
+        if (section && section !== outlineSection) {
+          outlineSection = section;
+          const heading = document.createElement('h3');
+          heading.className = 'jump-section';
+          heading.textContent = section;
+          jumpList.appendChild(heading);
+        }
         const button = document.createElement('button');
         button.className = 'jump-item';
         button.innerHTML = `<span class="jump-number">${String(i + 1).padStart(2, '0')}</span>${slide.dataset.title || `Slide ${i + 1}`}`;
