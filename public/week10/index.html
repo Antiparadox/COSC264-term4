@@ -1575,7 +1575,7 @@ svg text{font-family:var(--sans)}
     <div style="display:flex;gap:30px;align-items:flex-start">
       <div class="frag" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
         <p style="margin:0;font-size:15px;font-weight:700;color:#cf5c36">Stop-and-wait &mdash; one at a time</p>
-        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="0 0 380 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:340px">
+        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="50 13 272 332" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:226px">
 <defs><marker id="sw" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="currentColor"/></marker></defs>
 <text x="90" y="30" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="290" y="30" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Receiver</text>
@@ -1591,7 +1591,7 @@ svg text{font-family:var(--sans)}
       </div>
       <div class="frag" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
         <p style="margin:0;font-size:15px;font-weight:700;color:var(--accent)">Pipelined &mdash; several in flight</p>
-        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="0 0 380 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:340px">
+        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="50 13 272 332" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:226px">
 <defs><marker id="pl" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="currentColor"/></marker></defs>
 <text x="90" y="30" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Sender</text>
 <text x="290" y="30" text-anchor="middle" font-size="12.5" font-weight="700" fill="currentColor">Receiver</text>
@@ -1604,10 +1604,10 @@ svg text{font-family:var(--sans)}
       </div>
     </div>
     <div class="frag card" style="padding:12px 18px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 10px;font-size:16.5px;line-height:1.6">Consider the <b>sender utilisation</b> U &mdash; the fraction of time the sender is actually busy. With three packets in flight:</p>
-      <p style="margin:0;font-size:16.5px;font-family:var(--mono);color:var(--muted)">U<sub>SW</sub>&nbsp;&nbsp;&nbsp;= (L/R) &divide; (RTT + L/R)</p>
-      <p style="margin:4px 0 0;font-size:16.5px;font-family:var(--mono);color:var(--accent)">U<sub>pipe</sub> = <b style="font-size:19px">3</b>(L/R) &divide; (RTT + L/R)</p>
-      <p style="margin:10px 0 0;font-size:16px;line-height:1.55">In this case, pipelining is <b>3&times; more efficient</b>.</p>
+      <p style="margin:0;font-size:16px;line-height:1.55">Recall the stop-and-wait utilisation: &nbsp;<span style="font-size:16.5px;font-family:var(--mono);color:var(--muted)">U<sub>SW</sub> = (L/R) &divide; (RTT + L/R)</span></p>
+      <p style="margin:8px 0 4px;font-size:16px;line-height:1.55">The channel has not changed, so the first ACK still returns at <b>RTT + L/R</b> &mdash; same denominator. But in that one window the sender has now sent <b>three</b> packets, so it was busy for <b>3(L/R)</b>:</p>
+      <p style="margin:0;font-size:16.5px;font-family:var(--mono);color:var(--accent)">U<sub>pipe</sub> = <b style="font-size:19px">3</b>(L/R) &divide; (RTT + L/R)</p>
+      <p style="margin:7px 0 0;font-size:16px;line-height:1.55">Three times the work in the same round trip &mdash; <b>3&times; more efficient</b>, as long as the three packets still fit inside it.</p>
     </div>
   </div>
 </section>
