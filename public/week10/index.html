@@ -2044,12 +2044,13 @@ svg text{font-family:var(--sans)}
     #rcv-act2 .rcv-p { opacity:0; transition:opacity 0.3s }
     /* The diagram carries straight on from the previous frame. */
     #rcv-act2 .rcv-p-transit,#rcv-act2 .rcv-p-esn0 { opacity:1 }
-    #rcv-act2:has(.g1.on) .rcv-p-esn0  { opacity:0 }
-    #rcv-act2:has(.g1.on) .rcv-p-esn1  { opacity:1 }
-    #rcv-act2:has(.g1.on) .rcv-p-d0    { opacity:1 }
-    #rcv-act2:has(.g2.on) .rcv-p-d1    { opacity:1 }
-    #rcv-act2:has(.g3.on) .rcv-p-d2    { opacity:1 }
-    #rcv-act2:has(.g4.on) .rcv-p-reack { opacity:1 }
+    #rcv-act2:has(.g1.on) .rcv-p-d0a   { opacity:1 }
+    #rcv-act2:has(.g2.on) .rcv-p-esn0  { opacity:0 }
+    #rcv-act2:has(.g2.on) .rcv-p-esn1  { opacity:1 }
+    #rcv-act2:has(.g2.on) .rcv-p-d0b   { opacity:1 }
+    #rcv-act2:has(.g3.on) .rcv-p-d1    { opacity:1 }
+    #rcv-act2:has(.g4.on) .rcv-p-d2    { opacity:1 }
+    #rcv-act2:has(.g5.on) .rcv-p-reack { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>When a packet goes missing</h2>
@@ -2081,9 +2082,11 @@ svg text{font-family:var(--sans)}
         </g>
 
         <!-- f4: Data A arrives, is delivered, ACK 0 goes back -->
-        <g class="rcv-p rcv-p-d0">
+        <g class="rcv-p rcv-p-d0a">
           <line x1="150" y1="80" x2="410" y2="140" stroke="currentColor" stroke-width="2.2" marker-end="url(#rc3)"/>
-          <text x="418" y="137" text-anchor="start" font-size="12" fill="var(--muted)">deliver, ACK 0</text>
+          <text x="418" y="137" text-anchor="start" font-size="12" fill="var(--muted)">deliver</text>
+        </g>
+        <g class="rcv-p rcv-p-d0b">
           <line x1="410" y1="150" x2="150" y2="210" stroke="var(--accent)" stroke-width="2" marker-end="url(#rc3)"/>
           <text x="142" y="214" text-anchor="end" font-size="13.5" fill="var(--accent)" font-weight="600">ACK 0</text>
         </g>
@@ -2113,12 +2116,13 @@ svg text{font-family:var(--sans)}
 
     <!-- RIGHT: one beat per event -->
     <div style="flex:1;display:flex;flex-direction:column;gap:11px;padding-top:2px">
-      <p class="frag g1" style="margin:0;font-size:18px;line-height:1.55"><b>Data A (seq 0)</b> arrives. It is the expected one, so the receiver delivers it, sends <b>ACK 0</b>, and advances <span style="font-family:var(--mono)">expectedseqnum</span> to <b>1</b>.</p>
-      <p class="frag g2" style="margin:0;font-size:18px;line-height:1.55"><b>Data B (seq 1)</b> is <b>lost</b> in transit. The receiver never sees it, so it is still expecting <b>1</b>.</p>
-      <p class="frag g3" style="margin:0;font-size:18px;line-height:1.55"><b>Data C (seq 2)</b> arrives, but seq&nbsp;2 is not the 1 it expects. Out of order, so it is <b>discarded</b>.</p>
-      <p class="frag g4" style="margin:0;font-size:18px;line-height:1.55">The receiver then re-sends the ACK for the last in-order packet it delivered &mdash; here, <b>ACK 0</b>.</p>
-      <div class="frag g5 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:18px;line-height:1.55">That second <b>ACK 0</b> says: <i>I have still received everything up to sequence number 0, and nothing beyond it.</i> Data C is gone, even though it arrived safely.</p>
+      <p class="frag g1" style="margin:0;font-size:18px;line-height:1.55"><b>Data A (seq 0)</b> arrives. It is the expected one, so the receiver <b>delivers</b> it.</p>
+      <p class="frag g2" style="margin:0;font-size:18px;line-height:1.55">It then sends <b>ACK 0</b> and advances <span style="font-family:var(--mono)">expectedseqnum</span> to <b>1</b>.</p>
+      <p class="frag g3" style="margin:0;font-size:18px;line-height:1.55"><b>Data B (seq 1)</b> is <b>lost</b> in transit. The receiver never sees it, so it is still expecting <b>1</b>.</p>
+      <p class="frag g4" style="margin:0;font-size:18px;line-height:1.55"><b>Data C (seq 2)</b> arrives, but seq&nbsp;2 is not the 1 it expects. Out of order, so it is <b>discarded</b>.</p>
+      <p class="frag g5" style="margin:0;font-size:18px;line-height:1.55">The receiver then re-sends the ACK for the last in-order packet it delivered &mdash; here, <b>ACK 0</b>.</p>
+      <div class="frag g6 card" style="padding:11px 16px;border-left:3px solid var(--accent)">
+        <p style="margin:0;font-size:18px;line-height:1.55">That second <b>ACK 0</b> says: <i>I have still received everything up to sequence number 0, and nothing beyond it.</i></p>
       </div>
     </div>
 
