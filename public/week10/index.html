@@ -1167,11 +1167,19 @@ svg text{font-family:var(--sans)}
 <!-- ── How long to wait ── -->
 <section class="slide" id="tmo-ex" data-sec="What if packets are lost?">
   <style>
-    #tmo-ex .t1,#tmo-ex .t2,#tmo-ex .t3 { opacity:0; transition:opacity 0.35s }
-    #tmo-ex:has(.a1.on) .t1 { opacity:1 }
-    #tmo-ex:has(.a2.on) .t2 { opacity:1 }
-    #tmo-ex:has(.a3.on) .t3 { opacity:1 }
-    /* One slot: each beat replaces the last, so the diagram can have the room. */
+    /* The diagram arrives with the answer, not with the question. */
+    #tmo-ex .dgm { display:none; width:100% }
+    #tmo-ex:has(.f2.on) .dA { display:block }
+    #tmo-ex:has(.f6.on) .dA { display:none }
+    #tmo-ex:has(.f6.on) .dB { display:block }
+    #tmo-ex .sA1,#tmo-ex .sA2,#tmo-ex .sA3,
+    #tmo-ex .sB1,#tmo-ex .sB2 { opacity:0; transition:opacity 0.35s }
+    #tmo-ex:has(.f3.on) .sA1 { opacity:1 }
+    #tmo-ex:has(.f4.on) .sA2 { opacity:1 }
+    #tmo-ex:has(.f5.on) .sA3 { opacity:1 }
+    #tmo-ex:has(.f6.on) .sB1 { opacity:1 }
+    #tmo-ex:has(.f7.on) .sB2 { opacity:1 }
+    /* One slot for the narration, so the diagram can have the room. */
     #tmo-ex .hot { display:none }
     #tmo-ex .hot.on { display:block }
     #tmo-ex .hot.on:has(~ .hot.on) { display:none }
@@ -1181,51 +1189,94 @@ svg text{font-family:var(--sans)}
   <div class="kicker">rdt 3.0</div>
   <h2>Timeout and retransmission</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:0 0 620px;display:flex;justify-content:center">
-<svg viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
-<defs><marker id="tm" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
+    <div style="flex:0 0 620px;min-height:432px;display:flex;justify-content:center">
+
+<svg class="dgm dA" viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<defs><marker id="tmA" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
 <text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
 <line x1="140" y1="40" x2="140" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="420" y1="40" x2="420" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
-<g class="t1">
-  <!-- the clock the sender starts as the packet goes out -->
-  <circle cx="112" cy="54" r="11" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
-  <line x1="112" y1="54" x2="112" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
-  <line x1="112" y1="54" x2="117" y2="57" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<circle cx="112" cy="54" r="11" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+<line x1="112" y1="54" x2="112" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="112" y1="54" x2="117" y2="57" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<g class="sA1">
   <text x="280" y="66" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text>
   <line x1="140" y1="74" x2="300" y2="100" stroke="#cf5c36" stroke-width="2"/>
   <line x1="301" y1="97" x2="315" y2="111" stroke="#cf5c36" stroke-width="2.6"/>
   <line x1="301" y1="111" x2="315" y2="97" stroke="#cf5c36" stroke-width="2.6"/>
   <text x="308" y="130" text-anchor="middle" font-size="12" fill="#cf5c36" font-weight="600">lost</text>
 </g>
-<g class="t2">
+<g class="sA2">
   <path d="M140,74 L104,74 L104,196 L140,196" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
   <text x="96" y="139" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="700">timeout</text>
 </g>
-<g class="t3">
+<g class="sA3">
   <text x="280" y="196" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Hello, <tspan font-weight="700">0</tspan> &mdash; resent</text>
-  <line x1="140" y1="204" x2="420" y2="230" stroke="var(--accent)" stroke-width="2" marker-end="url(#tm)"/>
+  <line x1="140" y1="204" x2="420" y2="230" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmA)"/>
 </g>
 </svg>
+
+<svg class="dgm dB" viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<defs><marker id="tmB" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
+<text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
+<text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
+<line x1="140" y1="40" x2="140" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<line x1="420" y1="40" x2="420" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<circle cx="112" cy="54" r="11" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+<line x1="112" y1="54" x2="112" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="112" y1="54" x2="117" y2="57" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<g class="sB1">
+  <text x="280" y="62" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text>
+  <line x1="140" y1="70" x2="420" y2="94" stroke="currentColor" stroke-width="2" marker-end="url(#tmB)"/>
+  <text x="304" y="118" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ACK <tspan font-weight="700">0</tspan></text>
+  <line x1="420" y1="104" x2="278" y2="128" stroke="#cf5c36" stroke-width="2"/>
+  <line x1="263" y1="124" x2="277" y2="138" stroke="#cf5c36" stroke-width="2.6"/>
+  <line x1="263" y1="138" x2="277" y2="124" stroke="#cf5c36" stroke-width="2.6"/>
+  <text x="256" y="154" text-anchor="middle" font-size="12" fill="#cf5c36" font-weight="600">lost</text>
+</g>
+<g class="sB2">
+  <path d="M140,70 L104,70 L104,192 L140,192" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+  <text x="96" y="135" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="700">timeout</text>
+  <text x="280" y="192" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Hello, <tspan font-weight="700">0</tspan> &mdash; resent</text>
+  <line x1="140" y1="200" x2="420" y2="224" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmB)"/>
+  <text x="280" y="252" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan></text>
+  <line x1="420" y1="258" x2="140" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmB)"/>
+</g>
+</svg>
+
     </div>
     <div style="flex:1;min-height:300px;max-width:430px">
 
-      <div class="frag hot a1 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p>The sender sends the packet and <b>starts a timer</b>.</p>
-        <p>Here the packet is lost, so no ACK will ever arrive.</p>
+      <p class="frag hot f1" style="margin:0;font-size:21px;line-height:1.55;font-weight:700;color:var(--accent)">How can the sender tell that a packet never arrived?</p>
+
+      <div class="frag hot f2 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>Surprisingly simply. The sender keeps a <b>timer</b>.</p>
       </div>
 
-      <div class="frag hot a2 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p>The timer expires. The sender cannot tell <i>why</i> nothing came back, so it assumes the worst: <b>the packet is gone</b>.</p>
+      <div class="frag hot f3 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>It sends a packet and starts the clock. Here the packet is <b>lost</b>, so no ACK will ever arrive.</p>
       </div>
 
-      <div class="frag hot a3 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p>So it <b>retransmits</b> the same packet, still numbered <b>0</b>.</p>
+      <div class="frag hot f4 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>After a while the timer <b>expires</b>.</p>
       </div>
 
-      <div class="frag hot a4" style="display:block">
-        <p style="margin:0 0 12px;font-size:19px;line-height:1.6">But <b>how long should the timer wait?</b></p>
+      <div class="frag hot f5 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>The sender assumes the worst &mdash; the packet is gone &mdash; and <b>retransmits it</b>, with the <b>same sequence number</b>.</p>
+      </div>
+
+      <div class="frag hot f6 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>Now a different case: the data <b>does</b> arrive, but the <b>ACK is lost</b> on the way back.</p>
+      </div>
+
+      <div class="frag hot f7 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+        <p>The sender cannot tell the two apart. Its timer expires, it assumes the worst, and resends the <b>same packet</b> again.</p>
+        <p>The receiver sees sequence <b>0</b> a second time, discards the duplicate, and re-sends <b>ACK 0</b>.</p>
+      </div>
+
+      <div class="frag hot f8" style="display:block">
+        <p style="margin:0 0 12px;font-size:19px;line-height:1.6">But <b>how long should the sender wait?</b></p>
         <div class="card" style="padding:12px 16px;border-left:3px solid #cf5c36;margin-bottom:10px">
           <p style="margin:0 0 4px;font-size:17px;font-weight:700">Too short</p>
           <p style="margin:0;font-size:17px;line-height:1.55">The ACK was merely slow, so the sender resends for nothing &mdash; <b>duplicate packets</b>.</p>
@@ -1236,9 +1287,9 @@ svg text{font-family:var(--sans)}
         </div>
       </div>
 
-      <div class="frag hot a5 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
+      <div class="frag hot f9 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
         <p>About <b>one RTT</b> &mdash; the time for a packet to reach the receiver and its ACK to come back.</p>
-        <p style="color:var(--muted)">How that interval is actually chosen is a question in its own right &mdash; we will come back to it when we look at TCP.</p>
+        <p style="color:var(--muted)">We will come back to how that interval is chosen when we look at TCP.</p>
       </div>
 
     </div>
