@@ -2300,20 +2300,19 @@ svg text{font-family:var(--sans)}
     #snd-fsm .fsm-timeout { opacity:0; transition:opacity 0.3s }
     #snd-fsm .fsm-ack     { opacity:0; transition:opacity 0.3s }
     #snd-fsm .fsm-corrupt { opacity:0; transition:opacity 0.3s }
-    /* transitions revealed at f2–f5 (f1 is the state description fragment) */
-    #snd-fsm:has(.f2.on) .fsm-send    { opacity:1 }
-    #snd-fsm:has(.f3.on) .fsm-timeout { opacity:1 }
-    #snd-fsm:has(.f4.on) .fsm-ack     { opacity:1 }
-    #snd-fsm:has(.f5.on) .fsm-corrupt { opacity:1 }
+    #snd-fsm:has(.f4.on)  .fsm-send    { opacity:1 }
+    #snd-fsm:has(.f10.on) .fsm-timeout { opacity:1 }
+    #snd-fsm:has(.f12.on) .fsm-ack     { opacity:1 }
+    #snd-fsm:has(.f15.on) .fsm-corrupt { opacity:1 }
     /* one card visible at a time */
     #snd-fsm .card-send,
     #snd-fsm .card-timeout,
     #snd-fsm .card-ack,
     #snd-fsm .card-corrupt { opacity:0; transition:opacity 0.3s }
-    #snd-fsm:has(.f2.on):not(:has(.f3.on)) .card-send    { opacity:1 }
-    #snd-fsm:has(.f3.on):not(:has(.f4.on)) .card-timeout { opacity:1 }
-    #snd-fsm:has(.f4.on):not(:has(.f5.on)) .card-ack     { opacity:1 }
-    #snd-fsm:has(.f5.on)                   .card-corrupt { opacity:1 }
+    #snd-fsm:has(.f4.on):not(:has(.f10.on))  .card-send    { opacity:1 }
+    #snd-fsm:has(.f10.on):not(:has(.f12.on)) .card-timeout { opacity:1 }
+    #snd-fsm:has(.f12.on):not(:has(.f15.on)) .card-ack     { opacity:1 }
+    #snd-fsm:has(.f15.on)                    .card-corrupt { opacity:1 }
   </style>
   <div class="kicker">Go-back-N</div>
   <h2>Sender: the state machine</h2>
@@ -2354,50 +2353,50 @@ svg text{font-family:var(--sans)}
     <div style="flex:0 0 40%;display:flex;align-items:center;padding-left:20px">
       <div style="width:100%">
 
-        <!-- f1: state description — spoken before any transition is revealed -->
-        <p class="frag f1" style="margin:0 0 14px;font-size:18px;line-height:1.6">The sender sits in one <b>Wait</b> state, holding a window of at most <em>N</em> unacknowledged packets and tracking three things: <span style="font-family:var(--mono)">base</span> (oldest unACK&rsquo;d), <span style="font-family:var(--mono)">nextseqnum</span> (next sequence number to assign), and <span style="font-family:var(--mono)">pkt_buffer</span> (a copy of every sent-but-unACK&rsquo;d packet).</p>
+        <!-- f1-f3: what the machine holds, before any transition -->
+        <p class="frag f1" style="margin:0 0 9px;font-size:18px;line-height:1.6">The sender sits in one <b>Wait</b> state, holding a window of at most <em>N</em> unacknowledged packets.</p>
+        <p class="frag f2" style="margin:0 0 9px;font-size:18px;line-height:1.6">It tracks <span style="font-family:var(--mono)">base</span>, the oldest unACK&rsquo;d packet, and <span style="font-family:var(--mono)">nextseqnum</span>, the next sequence number to assign.</p>
+        <p class="frag f3" style="margin:0 0 14px;font-size:18px;line-height:1.6">It also keeps <span style="font-family:var(--mono)">pkt_buffer</span> &mdash; a copy of every packet sent but not yet acknowledged.</p>
 
-        <!-- f2–f5: stacked cards, one at a time -->
+        <!-- f4-f16: stacked cards, one at a time, each walked line by line -->
         <div style="display:grid;grid-template:1fr / 1fr">
 
-          <!-- f2: data from app layer — English-style pseudo -->
-          <div class="card-send frag f2 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
+          <div class="card-send frag f4 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
             <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">Data from app layer:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">if window not full (nextseqnum &lt; base + N):
-    buffer packet at seq = nextseqnum
-    send it
-    if nothing was in flight &rarr; start timer
-    nextseqnum += 1
-else:
-    reject &mdash; window full</pre>
+            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
+              <div>if window not full (nextseqnum &lt; base + <em>N</em>):</div>
+              <div class="frag f5"  style="padding-left:2.2em">assign seq = nextseqnum</div>
+              <div class="frag f6"  style="padding-left:2.2em">buffer the packet and send it</div>
+              <div class="frag f7"  style="padding-left:2.2em">if base == nextseqnum: start timer</div>
+              <div class="frag f8"  style="padding-left:2.2em">nextseqnum += 1</div>
+              <div class="frag f9"><div>else:</div><div style="padding-left:2.2em">reject &mdash; window is full</div></div>
+            </div>
           </div>
 
-          <!-- f3: timeout -->
-          <div class="card-timeout frag f3 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid #cf5c36">
+          <div class="card-timeout frag f10 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid #cf5c36">
             <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">Timer fires:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">restart timer
-for every seq in [base, nextseqnum):
-    re-send buffered packet at seq</pre>
+            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
+              <div>restart timer</div>
+              <div class="frag f11"><div>for every seq in [base, nextseqnum):</div><div style="padding-left:2.2em">re-send the buffered packet</div></div>
+            </div>
           </div>
 
-          <!-- f4: valid ACK — specific definition -->
-          <div class="card-ack frag f4 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
-            <p style="margin:0 0 6px;font-size:15px;color:var(--muted)">Valid ACK &mdash; <em>not corrupted</em> AND <span style="font-family:var(--mono)">pkt.ack &ge; base</span>:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">slide window &rarr; base = pkt.ack + 1
-free buffer slots now below base
-if nothing outstanding (base == nextseqnum):
-    stop timer
-else:
-    restart timer for the new oldest</pre>
+          <div class="card-ack frag f12 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
+            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">An ACK arrives, carrying <span style="font-family:var(--mono)">n</span>:</p>
+            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
+              <div>if n &ge; base:</div>
+              <div class="frag f13" style="padding-left:2.2em">base = n + 1&ensp;&mdash; slide the window</div>
+              <div class="frag f14" style="padding-left:2.2em">restart timer for the new oldest</div>
+            </div>
           </div>
 
-          <!-- f5: corrupted reply -->
-          <div class="card-corrupt frag f5 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--muted)">
+          <div class="card-corrupt frag f15 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--muted)">
             <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">All other cases:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">&bull; ACK packet is corrupted
-&bull; ACK number &lt; base &mdash; stale ACK
-
-&rarr; do nothing</pre>
+            <div style="font-family:var(--mono);font-size:14px;line-height:1.9">
+              <div>&bull; the ACK is corrupted</div>
+              <div>&bull; n &lt; base &mdash; a stale ACK</div>
+              <div class="frag f16" style="padding-top:6px">&rarr; do nothing</div>
+            </div>
           </div>
 
         </div>
