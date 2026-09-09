@@ -2294,36 +2294,6 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="Go-back-N">
-  <div class="kicker">Go-back-N</div>
-  <h2>The sender&rsquo;s rule in Go-back-N, informally</h2>
-  <div style="display:flex;flex-direction:column;gap:16px;max-width:880px">
-
-    <!-- f1: window state -->
-    <div class="frag f1 card" style="padding:16px 22px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:18px;line-height:1.65">&bull;&ensp;The sender keeps a <b>window</b> of at most <em>N</em> unacknowledged packets, tracked with two variables: <span style="font-family:var(--mono)">base</span> (oldest unACK&rsquo;d) and <span style="font-family:var(--mono)">nextseqnum</span> (next to send).</p>
-    </div>
-
-    <!-- f2: call from above — plain language -->
-    <div class="frag f2 card" style="padding:16px 22px;border-left:3px solid var(--accent)">
-      <p style="margin:0 0 8px;font-size:18px;line-height:1.65">&bull;&ensp;<b>Call from above</b> &mdash; the application layer asks to send a new packet.</p>
-      <p style="margin:0 0 0 28px;font-size:18px;line-height:1.65">&mdash;&ensp;If the window is not full (<span style="font-family:var(--mono);white-space:nowrap">nextseqnum &lt; base + <em>N</em></span>): give the packet sequence number <span style="font-family:var(--mono)">nextseqnum</span>, store it in the buffer, send it, and advance <span style="font-family:var(--mono)">nextseqnum</span>.</p>
-      <p class="frag" style="margin:8px 0 0 28px;font-size:18px;line-height:1.65">&mdash;&ensp;Otherwise the window is full &mdash; refuse, and wait.</p>
-    </div>
-
-    <!-- f3: ACK arrives — separate card -->
-    <div class="frag f3 card" style="padding:16px 22px;border-left:3px solid var(--accent)">
-      <p style="margin:0;font-size:18px;line-height:1.65">&bull;&ensp;<b>ACK <em>n</em> arrives</b> &mdash; if <span style="font-family:var(--mono);white-space:nowrap"><em>n</em> &ge; base</span>, advance <span style="font-family:var(--mono)">base</span> to <em>n</em>&nbsp;+&nbsp;1 and restart the timer. An older ACK, with <span style="font-family:var(--mono);white-space:nowrap"><em>n</em> &lt; base</span>, changes nothing.</p>
-    </div>
-
-    <!-- f4: timeout — separate card (red accent) -->
-    <div class="frag f4 card" style="padding:16px 22px;border-left:3px solid #cf5c36">
-      <p style="margin:0;font-size:18px;line-height:1.65">&bull;&ensp;<b>Timeout</b> &mdash; resend every buffered packet in the window.</p>
-    </div>
-
-  </div>
-</section>
-
 <section class="slide" id="snd-fsm" data-sec="Go-back-N">
   <style>
     #snd-fsm .fsm-send    { opacity:0; transition:opacity 0.3s }
@@ -2351,31 +2321,31 @@ svg text{font-family:var(--sans)}
 
     <!-- LEFT 60%: FSM SVG -->
     <div style="flex:0 0 60%;display:flex;align-items:center;justify-content:center">
-      <svg viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:490px">
+      <svg viewBox="4 -2 652 466" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:490px">
         <defs>
           <marker id="sf"  markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker>
           <marker id="sfm" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--muted)"/></marker>
         </defs>
         <circle cx="350" cy="234" r="108" fill="rgba(0,200,180,0.12)" stroke="var(--accent)" stroke-width="2.5"/>
-        <text x="350" y="230" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor">Wait</text>
-        <text x="350" y="254" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--mono)">base = nextseqnum = 0</text>
+        <text x="350" y="230" text-anchor="middle" font-size="26" font-weight="700" fill="currentColor">Wait</text>
+        <text x="350" y="254" text-anchor="middle" font-size="15" fill="var(--muted)" font-family="var(--mono)">base = nextseqnum = 0</text>
         <path d="M110,95 L274,158" fill="none" stroke="var(--muted)" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#sfm)"/>
-        <text x="44" y="62" text-anchor="start" font-size="13" fill="var(--muted)" font-family="var(--mono)">&Lambda;</text>
+        <text x="44" y="62" text-anchor="start" font-size="16" fill="var(--muted)" font-family="var(--mono)">&Lambda;</text>
         <g class="fsm-send">
           <path d="M320,128 C300,44 400,44 380,128" fill="none" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#sf)"/>
-          <text x="350" y="20" text-anchor="middle" font-size="15" fill="var(--accent)" font-weight="700">data from app layer</text>
+          <text x="350" y="20" text-anchor="middle" font-size="18" fill="var(--accent)" font-weight="700">data from app layer</text>
         </g>
         <g class="fsm-timeout">
           <path d="M455,207 C570,187 570,281 455,261" fill="none" stroke="#cf5c36" stroke-width="2.5" marker-end="url(#sf)"/>
-          <text x="582" y="228" text-anchor="start" font-size="15" fill="#cf5c36" font-weight="700">timeout</text>
+          <text x="582" y="228" text-anchor="start" font-size="18" fill="#cf5c36" font-weight="700">timeout</text>
         </g>
         <g class="fsm-ack">
           <path d="M380,342 C400,428 300,428 320,342" fill="none" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#sf)"/>
-          <text x="350" y="454" text-anchor="middle" font-size="15" fill="var(--accent)" font-weight="700">valid ACK arrives</text>
+          <text x="350" y="454" text-anchor="middle" font-size="18" fill="var(--accent)" font-weight="700">valid ACK arrives</text>
         </g>
         <g class="fsm-corrupt">
           <path d="M245,261 C130,281 130,187 245,207" fill="none" stroke="var(--muted)" stroke-width="2.5" marker-end="url(#sf)"/>
-          <text x="8" y="234" text-anchor="start" font-size="14" fill="var(--muted)">all other cases</text>
+          <text x="8" y="234" text-anchor="start" font-size="17" fill="var(--muted)">all other cases</text>
         </g>
       </svg>
     </div>
@@ -2385,15 +2355,15 @@ svg text{font-family:var(--sans)}
       <div style="width:100%">
 
         <!-- f1: state description — spoken before any transition is revealed -->
-        <p class="frag f1" style="margin:0 0 14px;font-size:16px;line-height:1.6">The sender sits in one <b>Wait</b> state, tracking three things: <span style="font-family:var(--mono)">base</span> (oldest unACK&rsquo;d), <span style="font-family:var(--mono)">nextseqnum</span> (next sequence number to assign), and <span style="font-family:var(--mono)">pkt_buffer</span> (a copy of every sent-but-unACK&rsquo;d packet).</p>
+        <p class="frag f1" style="margin:0 0 14px;font-size:18px;line-height:1.6">The sender sits in one <b>Wait</b> state, holding a window of at most <em>N</em> unacknowledged packets and tracking three things: <span style="font-family:var(--mono)">base</span> (oldest unACK&rsquo;d), <span style="font-family:var(--mono)">nextseqnum</span> (next sequence number to assign), and <span style="font-family:var(--mono)">pkt_buffer</span> (a copy of every sent-but-unACK&rsquo;d packet).</p>
 
         <!-- f2–f5: stacked cards, one at a time -->
         <div style="display:grid;grid-template:1fr / 1fr">
 
           <!-- f2: data from app layer — English-style pseudo -->
           <div class="card-send frag f2 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
-            <p style="margin:0 0 8px;font-size:14px;color:var(--muted)">Data from app layer:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:13px;line-height:1.85">if window not full  (nextseqnum &lt; base + N):
+            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">Data from app layer:</p>
+            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">if window not full (nextseqnum &lt; base + N):
     buffer packet at seq = nextseqnum
     send it
     if nothing was in flight &rarr; start timer
@@ -2404,16 +2374,16 @@ else:
 
           <!-- f3: timeout -->
           <div class="card-timeout frag f3 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid #cf5c36">
-            <p style="margin:0 0 8px;font-size:14px;color:var(--muted)">Timer fires:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:13px;line-height:1.85">restart timer
+            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">Timer fires:</p>
+            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">restart timer
 for every seq in [base, nextseqnum):
     re-send buffered packet at seq</pre>
           </div>
 
           <!-- f4: valid ACK — specific definition -->
           <div class="card-ack frag f4 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--accent)">
-            <p style="margin:0 0 6px;font-size:14px;color:var(--muted)">Valid ACK &mdash; <em>not corrupted</em> AND <span style="font-family:var(--mono)">pkt.ack &ge; base</span>:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:13px;line-height:1.85">slide window &rarr; base = pkt.ack + 1
+            <p style="margin:0 0 6px;font-size:15px;color:var(--muted)">Valid ACK &mdash; <em>not corrupted</em> AND <span style="font-family:var(--mono)">pkt.ack &ge; base</span>:</p>
+            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">slide window &rarr; base = pkt.ack + 1
 free buffer slots now below base
 if nothing outstanding (base == nextseqnum):
     stop timer
@@ -2423,8 +2393,8 @@ else:
 
           <!-- f5: corrupted reply -->
           <div class="card-corrupt frag f5 card" style="grid-area:1/1;padding:16px 18px;border-left:3px solid var(--muted)">
-            <p style="margin:0 0 8px;font-size:14px;color:var(--muted)">All other cases:</p>
-            <pre style="margin:0;font-family:var(--mono);font-size:13px;line-height:1.85">&bull; ACK packet is corrupted
+            <p style="margin:0 0 8px;font-size:15px;color:var(--muted)">All other cases:</p>
+            <pre style="margin:0;font-family:var(--mono);font-size:14px;line-height:1.85">&bull; ACK packet is corrupted
 &bull; ACK number &lt; base &mdash; stale ACK
 
 &rarr; do nothing</pre>
