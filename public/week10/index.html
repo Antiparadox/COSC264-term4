@@ -2925,10 +2925,16 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="Selective repeat">
   <div class="kicker">Selective repeat</div>
   <h2>Window size vs. seq-number space</h2>
-  <div style="display:flex;flex-direction:column;gap:18px;max-width:1000px;justify-content:center">
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">The dilemma arises because the sender&rsquo;s window and the receiver&rsquo;s window can drift far enough apart to <b>overlap after wrap-around</b>.</p>
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:1000px;justify-content:center">
+    <p class="frag" style="margin:0;font-size:18px;line-height:1.55">The dilemma arises because the sender&rsquo;s window and the receiver&rsquo;s window can drift far enough apart to <b>overlap after wrap-around</b>.</p>
     <div class="frag" style="display:flex;flex-direction:column;align-items:center;padding:4px 0">
-      <div id="sr56-bad" style="display:flex;justify-content:center;width:100%"><svg viewBox="0 0 560 105" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;display:block;margin:0 auto">
+      <div id="sr56-bad" style="display:flex;justify-content:center;width:100%"><svg viewBox="0 -28 560 164" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:430px;display:block;margin:0 auto">
+        <defs><marker id="sbA" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
+        <text x="115" y="-13" text-anchor="middle" font-size="12.5" font-family="var(--mono)" font-weight="700" fill="#cf5c36">send_base</text>
+        <line x1="115" y1="-8" x2="115" y2="18" stroke="#cf5c36" stroke-width="1.6" marker-end="url(#sbA)"/>
+        <text x="277" y="132" text-anchor="middle" font-size="12.5" font-family="var(--mono)" font-weight="700" fill="#3a80c0">rcv_base</text>
+        <line x1="277" y1="124" x2="277" y2="106" stroke="#3a80c0" stroke-width="1.6" marker-end="url(#sbA)"/>
+        
         <!-- Row labels -->
         <text x="84" y="39" text-anchor="end" font-size="11" font-weight="700" fill="currentColor" opacity="0.65">Sender seq#</text>
         <text x="84" y="85" text-anchor="end" font-size="11" font-weight="700" fill="currentColor" opacity="0.65">Receiver seq#</text>
@@ -2968,7 +2974,13 @@ svg text{font-family:var(--sans)}
         <text x="493" y="85" text-anchor="middle" dominant-baseline="middle" font-size="17" font-weight="700" fill="#bbb">1</text>
       </svg></div>
       <div id="sr56-good" style="justify-content:center;width:100%">
-        <svg viewBox="0 0 560 105" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;display:block;margin:0 auto">
+        <svg viewBox="0 -28 560 164" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:430px;display:block;margin:0 auto">
+        <defs><marker id="sbB" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
+        <text x="115" y="-13" text-anchor="middle" font-size="12.5" font-family="var(--mono)" font-weight="700" fill="#cf5c36">send_base</text>
+        <line x1="115" y1="-8" x2="115" y2="18" stroke="#cf5c36" stroke-width="1.6" marker-end="url(#sbB)"/>
+        <text x="277" y="132" text-anchor="middle" font-size="12.5" font-family="var(--mono)" font-weight="700" fill="#3a80c0">rcv_base</text>
+        <line x1="277" y1="124" x2="277" y2="106" stroke="#3a80c0" stroke-width="1.6" marker-end="url(#sbB)"/>
+        
           <text x="84" y="39" text-anchor="end" font-size="11" font-weight="700" fill="currentColor" opacity="0.65">Sender seq#</text>
           <text x="84" y="85" text-anchor="end" font-size="11" font-weight="700" fill="currentColor" opacity="0.65">Receiver seq#</text>
           <rect x="90" y="22" width="50" height="34" rx="3" fill="rgba(207,92,54,0.15)" stroke="#cf5c36" stroke-width="1.5"/>
@@ -3006,15 +3018,17 @@ svg text{font-family:var(--sans)}
         </svg>
       </div>
     </div>
-    <div id="sr56-rule" class="frag card" style="padding:16px 24px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:18px">
+    <p class="frag" style="margin:0;font-size:17px;line-height:1.55">The sender&rsquo;s window starts at <span style="font-family:var(--mono)">send_base</span>&nbsp;=&nbsp;<b>0</b>. The receiver&rsquo;s window starts at <span style="font-family:var(--mono)">rcv_base</span>, also labelled <b>0</b> &mdash; but three sequence numbers further along. After wrap-around the two carry the <b>same label</b>.</p>
+    <p class="frag" style="margin:0;font-size:17px;line-height:1.55">So if the sender retransmits its first packet because the ACK was lost, the receiver sees a <b>0</b> that falls inside its own window, and takes it for new data.</p>
+    <div id="sr56-rule" class="frag card" style="padding:12px 24px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:18px">
       <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;line-height:1.6">The<br>rule</div>
       <div style="width:1px;background:currentColor;opacity:0.2;align-self:stretch"></div>
       <div>
-        <p style="margin:0;font-size:21px;line-height:1.6">window size &nbsp;&le;&nbsp; &frac12; &times; seq# space</p>
+        <p style="margin:0;font-size:19px;line-height:1.5">window size &nbsp;&le;&nbsp; &frac12; &times; seq# space</p>
       </div>
     </div>
     <p id="sr56-ex" class="frag" style="margin:0;font-size:15px;line-height:1.5"><span style="opacity:0.75">e.g. if the window size is <b>3</b>, the seq# space should be at least 0&ndash;5</span></p>
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6"><b>Think about it:</b> why is this exactly the right requirement?</p>
+    <p class="frag" style="margin:0;font-size:17px;line-height:1.55"><b>Think about it:</b> why is this exactly the right requirement?</p>
   </div>
 </section>
 <style>
