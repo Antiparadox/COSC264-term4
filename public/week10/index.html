@@ -2518,7 +2518,7 @@ svg text{font-family:var(--sans)}
       <p style="margin:0;font-size:18.5px;line-height:1.6">Selective Repeat uses <b>individual</b> ACKs, not cumulative ones &mdash; each ACK names exactly one packet.</p>
     </div>
     <div class="frag f3 card" style="padding:10px 18px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:18.5px;line-height:1.6">So <b>some slots within the window can be acknowledged while earlier ones are not</b> &mdash; the window can have <b>holes</b>.</p>
+      <p style="margin:0;font-size:18.5px;line-height:1.6">Here the two packets <b>after</b> <span style="font-family:var(--mono)">send_base</span> are acknowledged while <span style="font-family:var(--mono)">send_base</span> itself is not. So the sender&rsquo;s window can have <b>holes</b>.</p>
     </div>
     <div class="frag f4 card" style="padding:10px 18px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
       <p style="margin:0;font-size:18.5px;line-height:1.6">In Go-back-N this was impossible &mdash; a cumulative ACK can never skip over an unacknowledged packet, so there could never be a hole inside the window.</p>
