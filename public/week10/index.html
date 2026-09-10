@@ -2892,15 +2892,13 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="sr-drift" data-sec="Selective repeat">
   <style>
     #sr-drift .sq-win-s,#sr-drift .sq-align,#sr-drift .sq-drift,#sr-drift .sq-abs,#sr-drift .sq-mod { opacity:0; transition:opacity .35s }
-    #sr-drift:has(.f1.on) .sq-win-s,#sr-drift:has(.f1.on) .sq-align,#sr-drift:has(.f1.on) .sq-abs { opacity:1 }
-    #sr-drift:has(.f2.on) .sq-align { opacity:0 }
-    #sr-drift:has(.f2.on) .sq-drift { opacity:1 }
-    #sr-drift:has(.f4.on) .sq-abs { opacity:0 }
-    #sr-drift:has(.f4.on) .sq-mod { opacity:1 }
+    #sr-drift:has(.f2.on) .sq-win-s,#sr-drift:has(.f2.on) .sq-align,#sr-drift:has(.f2.on) .sq-abs { opacity:1 }
+    #sr-drift:has(.f3.on) .sq-align { opacity:0 }
+    #sr-drift:has(.f3.on) .sq-drift { opacity:1 }
   </style>
   <div class="kicker">Selective repeat</div>
-  <h2>Why the two windows drift apart</h2>
-  <div style="display:flex;flex-direction:column;gap:13px;max-width:1000px">
+  <h2>Why the windows drift apart</h2>
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:1000px">
     <div style="display:flex;justify-content:center;padding:2px 0">
       <svg viewBox="0 -32 560 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:600px;display:block;margin:0 auto">
         <defs><marker id="dr1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
@@ -2981,10 +2979,108 @@ svg text{font-family:var(--sans)}
         </g>
       </svg>
     </div>
-    <p class="frag f1" style="margin:0;font-size:19px;line-height:1.55">Sequence numbers come from a <b>finite</b> space, so they wrap around &mdash; say modulo <b>3</b>. Take a window of <b>3</b>, and number the packets straight through.</p>
-    <p class="frag f2" style="margin:0;font-size:19px;line-height:1.55">Packets 0, 1 and 2 all arrive, but the <b>ACK for packet 0 is lost</b>: the receiver delivers all three and moves <span style="font-family:var(--mono)">rcv_base</span> to <b>3</b>, while the sender is still waiting on <b>0</b>.</p>
-    <p class="frag f3" style="margin:0;font-size:19px;line-height:1.55">The windows have <b>drifted</b> &mdash; and so far that is fine, since 3 and 0 are plainly different.</p>
-    <p class="frag f4" style="margin:0;font-size:19px;line-height:1.55">But the labels are modulo 3. Both bases now read <b>0</b>, though they are three packets apart: the wrap-around has <b>hidden the gap</b>.</p>
+    <p class="frag f1" style="margin:0;font-size:19px;line-height:1.55">Sometimes the sender&rsquo;s window and the receiver&rsquo;s window <b>drift apart</b>.</p>
+    <p class="frag f2" style="margin:0;font-size:19px;line-height:1.55">Suppose they start aligned: with a window of <b>3</b>, <span style="font-family:var(--mono)">send_base</span> and <span style="font-family:var(--mono)">rcv_base</span> point at the same packet.</p>
+    <p class="frag f3" style="margin:0;font-size:19px;line-height:1.55">Packets 0, 1 and 2 all arrive, but the <b>ACK for packet 0 is lost</b>. The receiver delivers all three and advances <span style="font-family:var(--mono)">rcv_base</span> to <b>3</b>; <span style="font-family:var(--mono)">send_base</span> does not move.</p>
+    <p class="frag f4" style="margin:0;font-size:19px;line-height:1.55">The two windows have <b>drifted</b>.</p>
+  </div>
+</section>
+
+<section class="slide" id="sr-wrap" data-sec="Selective repeat">
+  <style>
+    /* The strip carries straight on from the previous frame. */
+    #sr-wrap .sq-win-s,#sr-wrap .sq-drift,#sr-wrap .sq-abs { opacity:1 }
+    #sr-wrap .sq-align,#sr-wrap .sq-mod { opacity:0; transition:opacity .35s }
+    #sr-wrap:has(.g2.on) .sq-abs { opacity:0 }
+    #sr-wrap:has(.g2.on) .sq-mod { opacity:1 }
+  </style>
+  <div class="kicker">Selective repeat</div>
+  <h2>When the sequence space is finite</h2>
+  <div style="display:flex;flex-direction:column;gap:14px;max-width:1000px">
+    <div style="display:flex;justify-content:center;padding:2px 0">
+      <svg viewBox="0 -32 560 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:600px;display:block;margin:0 auto">
+        <defs><marker id="dr2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
+        <text x="82" y="39" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Sender</text>
+        <text x="82" y="85" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Receiver</text>
+        <rect x="90" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="144" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="198" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="252" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="306" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="360" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="414" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="468" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="90" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="144" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="198" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="252" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="306" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="360" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="414" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <rect x="468" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
+        <g class="sq-win-s">
+          <rect x="90" y="22" width="50" height="34" rx="3" fill="rgba(207,92,54,0.15)" stroke="#cf5c36" stroke-width="2"/>
+          <rect x="144" y="22" width="50" height="34" rx="3" fill="rgba(207,92,54,0.15)" stroke="#cf5c36" stroke-width="2"/>
+          <rect x="198" y="22" width="50" height="34" rx="3" fill="rgba(207,92,54,0.15)" stroke="#cf5c36" stroke-width="2"/>
+          <text x="115" y="-16" text-anchor="middle" font-size="13.5" font-family="var(--mono)" font-weight="700" fill="#cf5c36">send_base</text>
+          <line x1="115" y1="-11" x2="115" y2="17" stroke="#cf5c36" stroke-width="1.8" marker-end="url(#dr2)"/>
+        </g>
+        <g class="sq-align">
+          <rect x="90" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
+          <rect x="144" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
+          <rect x="198" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
+          <text x="115" y="136" text-anchor="middle" font-size="13.5" font-family="var(--mono)" font-weight="700" fill="#3a80c0">rcv_base</text>
+          <line x1="115" y1="127" x2="115" y2="107" stroke="#3a80c0" stroke-width="1.8" marker-end="url(#dr2)"/>
+        </g>
+        <g class="sq-drift">
+          <rect x="252" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
+          <rect x="306" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
+          <rect x="360" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
+          <text x="277" y="136" text-anchor="middle" font-size="13.5" font-family="var(--mono)" font-weight="700" fill="#3a80c0">rcv_base</text>
+          <line x1="277" y1="127" x2="277" y2="107" stroke="#3a80c0" stroke-width="1.8" marker-end="url(#dr2)"/>
+        </g>
+        <g class="sq-abs">
+          <text x="115" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="169" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+          <text x="223" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
+          <text x="277" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">3</text>
+          <text x="331" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">4</text>
+          <text x="385" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">5</text>
+          <text x="439" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">6</text>
+          <text x="493" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">7</text>
+          <text x="115" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="169" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+          <text x="223" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
+          <text x="277" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">3</text>
+          <text x="331" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">4</text>
+          <text x="385" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">5</text>
+          <text x="439" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">6</text>
+          <text x="493" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">7</text>
+        </g>
+      <g class="sq-mod">
+          <text x="115" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="169" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+          <text x="223" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
+          <text x="277" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="331" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+          <text x="385" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
+          <text x="439" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="493" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+          <text x="115" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="169" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+          <text x="223" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
+          <text x="277" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="331" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+          <text x="385" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
+          <text x="439" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
+          <text x="493" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
+        </g>
+      </svg>
+    </div>
+    <p class="frag g1" style="margin:0;font-size:19px;line-height:1.55">On its own that is fine: <span style="font-family:var(--mono)">rcv_base</span> is <b>3</b> and <span style="font-family:var(--mono)">send_base</span> is <b>0</b>, plainly different.</p>
+    <p class="frag g2" style="margin:0;font-size:19px;line-height:1.55">But sequence numbers come from a <b>finite</b> space and wrap around. Suppose here the space is just <b>0, 1, 2</b>.</p>
+    <p class="frag g3" style="margin:0;font-size:19px;line-height:1.55">Now both bases read <b>0</b>, though they are three packets apart &mdash; the wrap-around has <b>hidden the gap</b>.</p>
+    <p class="frag g4" style="margin:0;font-size:19px;line-height:1.55">So what will the receiver make of a packet labelled <b>0</b>?</p>
   </div>
 </section>
 
