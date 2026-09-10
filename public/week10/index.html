@@ -2840,7 +2840,6 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s rules</h2>
   <div id="recv-rules-col" style="display:flex;flex-direction:column;gap:14px;max-width:1030px">
-    <p style="margin:0;font-size:17.5px;line-height:1.5">When a new packet arrives, look at its seq#, then:</p>
     <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:-6px"><div style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:18px;border-radius:2px;border:1.5px solid #e53935;background:rgba(229,57,53,0.45);flex-shrink:0"></span><span style="font-size:13px;color:var(--muted)">expected, not yet received</span></div><div style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:18px;border-radius:2px;border:1.5px solid #7cb342;background:rgba(124,179,66,0.42);flex-shrink:0"></span><span style="font-size:13px;color:var(--muted)">buffered</span></div><div style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:18px;border-radius:2px;border:1.5px solid #2196f3;background:rgba(33,150,243,0.35);flex-shrink:0"></span><span style="font-size:13px;color:var(--muted)">delivered</span></div></div>
 
     <style>
@@ -2861,6 +2860,7 @@ svg text{font-family:var(--sans)}
         </div>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px">
+        <p style="margin:0 0 8px;font-size:17.5px;line-height:1.5">When a new packet arrives, look at its seq#, then:</p>
         <p style="margin:0 0 4px;font-size:17.5px;font-weight:700;line-height:1.4">seq# in [<span style="font-family:var(--mono)">rcv_base</span>, <span style="font-family:var(--mono)">rcv_base+N&minus;1</span>]</p>
         <p class="frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; Send an <b>individual ACK</b>.</p>
         <p class="frag" id="buf-it-frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; Out of order and not yet buffered? <b>Buffer it.</b></p>
@@ -2883,12 +2883,6 @@ svg text{font-family:var(--sans)}
         <p style="margin:0 0 4px;font-size:17.5px;font-weight:700;line-height:1.4">seq# in [<span style="font-family:var(--mono)">rcv_base&minus;N</span>, <span style="font-family:var(--mono)">rcv_base&minus;1</span>]</p>
         <p class="frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; <b>Re-send the ACK</b> &mdash; even though this packet was already acknowledged.</p>
       </div>
-    </div>
-
-    <!-- frag 4: all other cases -->
-    <div class="frag" style="display:flex;gap:20px;align-items:center">
-      <div style="flex:0 0 452px"></div>
-      <p style="margin:0;font-size:17px;line-height:1.55">&#x2022; <b>Otherwise</b>: <b>ignore</b> the packet.</p>
     </div>
 
   </div>
