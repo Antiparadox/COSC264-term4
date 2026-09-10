@@ -2889,52 +2889,20 @@ svg text{font-family:var(--sans)}
 </section>
 
 
-<section class="slide" data-sec="Selective repeat">
-  <div class="kicker">Selective repeat</div>
-  <h2>A dilemma when window size exceeds the seq# space</h2>
-  <div style="display:flex;flex-direction:column;gap:9px">
-    <div style="display:flex;flex-direction:column;gap:16px">
-      <p class="frag" style="margin:0;font-size:24px;line-height:1.55">In practice sequence numbers come from a <b>finite</b> space, so they <b>wrap around</b>.</p>
-      <p class="frag" style="margin:0;font-size:24px;line-height:1.55">Say they are modulo <b>3</b>. Then they run &hellip;, 0, 1, 2, 0, 1, 2, &hellip;</p>
-      <p class="frag" style="margin:0;font-size:24px;line-height:1.55">What problem could that cause? Take a window of size <b>3</b>, and consider two different histories.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide" data-sec="Selective repeat">
-  <div class="kicker">Selective repeat</div>
-  <h2>The receiver cannot tell which</h2>
-  <div style="display:flex;flex-direction:column;gap:9px">
-    <div style="display:flex;gap:26px;align-items:flex-start">
-      <div class="frag" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-        <p style="margin:0;font-size:18px;font-weight:700;color:#cf5c36">All three ACKs lost &rarr; retransmission</p>
-        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="61 2 300 288" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:296px"><defs><marker id="d1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><text x="90" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Sender</text><text x="330" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Receiver</text><line x1="90" y1="30" x2="90" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="330" y1="30" x2="330" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="90" y1="44" x2="330" y2="66" stroke="currentColor" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="40" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktA, seq#=0</text><line x1="90" y1="78" x2="330" y2="100" stroke="currentColor" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="74" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktB, seq#=1</text><line x1="90" y1="112" x2="330" y2="134" stroke="currentColor" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="108" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktC, seq#=2</text><line x1="330" y1="146" x2="198" y2="158" stroke="#cf5c36" stroke-width="1.8"/><line x1="193" y1="153" x2="203" y2="163" stroke="#cf5c36" stroke-width="2.2"/><line x1="193" y1="163" x2="203" y2="153" stroke="#cf5c36" stroke-width="2.2"/><text x="210.0" y="142" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">ACK0</text><line x1="330" y1="180" x2="198" y2="192" stroke="#cf5c36" stroke-width="1.8"/><line x1="193" y1="187" x2="203" y2="197" stroke="#cf5c36" stroke-width="2.2"/><line x1="193" y1="197" x2="203" y2="187" stroke="#cf5c36" stroke-width="2.2"/><text x="210.0" y="176" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">ACK1</text><line x1="330" y1="214" x2="198" y2="226" stroke="#cf5c36" stroke-width="1.8"/><line x1="193" y1="221" x2="203" y2="231" stroke="#cf5c36" stroke-width="2.2"/><line x1="193" y1="231" x2="203" y2="221" stroke="#cf5c36" stroke-width="2.2"/><text x="210.0" y="210" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">ACK2</text><line x1="90" y1="248" x2="330" y2="270" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="244" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">pktA, seq#=0 (retransmit)</text></svg></div>
-      </div>
-      <div class="frag" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-        <p style="margin:0;font-size:18px;font-weight:700;color:var(--accent)">All ACKs arrive &rarr; genuinely new data</p>
-        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="61 2 300 288" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:296px"><defs><marker id="d2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><text x="90" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Sender</text><text x="330" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Receiver</text><line x1="90" y1="30" x2="90" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="330" y1="30" x2="330" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="90" y1="44" x2="330" y2="66" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="40" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktA, seq#=0</text><line x1="90" y1="78" x2="330" y2="100" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="74" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktB, seq#=1</text><line x1="90" y1="112" x2="330" y2="134" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="108" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktC, seq#=2</text><line x1="330" y1="146" x2="90" y2="168" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="142" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">ACK0</text><line x1="330" y1="180" x2="90" y2="202" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="176" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">ACK1</text><line x1="330" y1="214" x2="90" y2="236" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="210" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">ACK2</text><line x1="90" y1="248" x2="330" y2="270" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="244" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktD, seq#=0 &mdash; brand new</text></svg></div>
-      </div>
-    </div>
-    <div class="frag card" style="padding:12px 18px;border-left:3px solid #cf5c36">
-      <p style="margin:0;font-size:18.5px;line-height:1.6">The <b>sender</b> knows which history it is in &mdash; it knows whether it is retransmitting or sending genuinely new data.</p>
-      <p class="frag" style="margin:9px 0 0;font-size:18.5px;line-height:1.6">The <b>receiver</b> sees only a packet with <b>seq#&nbsp;=&nbsp;0</b>. The two histories look identical to it &mdash; just as in <b>rdt 2.0</b>, it cannot tell a retransmission from genuinely new data. The ambiguity is back because the sequence space is <b>not large enough</b> to keep the two apart.</p>
-    </div>
-  </div>
-</section>
-
 <section class="slide" id="sr-drift" data-sec="Selective repeat">
   <style>
-    #sr-drift .sq-win-s,#sr-drift .sq-align,#sr-drift .sq-drift,#sr-drift .sq-abs { opacity:0; transition:opacity .35s }
-    #sr-drift:has(.f2.on) .sq-win-s,#sr-drift:has(.f2.on) .sq-align,#sr-drift:has(.f2.on) .sq-abs { opacity:1 }
-    #sr-drift:has(.f3.on) .sq-align { opacity:0 }
-    #sr-drift:has(.f3.on) .sq-drift { opacity:1 }
+    #sr-drift .sq-win-s,#sr-drift .sq-align,#sr-drift .sq-drift,#sr-drift .sq-abs,#sr-drift .sq-mod { opacity:0; transition:opacity .35s }
+    #sr-drift:has(.f1.on) .sq-win-s,#sr-drift:has(.f1.on) .sq-align,#sr-drift:has(.f1.on) .sq-abs { opacity:1 }
+    #sr-drift:has(.f2.on) .sq-align { opacity:0 }
+    #sr-drift:has(.f2.on) .sq-drift { opacity:1 }
+    #sr-drift:has(.f4.on) .sq-abs { opacity:0 }
+    #sr-drift:has(.f4.on) .sq-mod { opacity:1 }
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>Why the two windows drift apart</h2>
-  <div style="display:flex;flex-direction:column;gap:12px;max-width:1000px">
-    <p class="frag f1" style="margin:0;font-size:19px;line-height:1.55">The deeper reason is that the sender&rsquo;s window and the receiver&rsquo;s window can <b>drift far enough apart to overlap after wrap-around</b>.</p>
+  <div style="display:flex;flex-direction:column;gap:13px;max-width:1000px">
     <div style="display:flex;justify-content:center;padding:2px 0">
-      <svg viewBox="0 -32 560 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;display:block;margin:0 auto">
+      <svg viewBox="0 -32 560 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:600px;display:block;margin:0 auto">
         <defs><marker id="dr1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
         <text x="82" y="39" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Sender</text>
         <text x="82" y="85" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Receiver</text>
@@ -2993,78 +2961,7 @@ svg text{font-family:var(--sans)}
           <text x="439" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">6</text>
           <text x="493" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">7</text>
         </g>
-      </svg>
-    </div>
-    <p class="frag f2" style="margin:0;font-size:19px;line-height:1.55">Suppose the window size is <b>3</b>, and number the packets straight through, 0, 1, 2, 3, &hellip; At first the two windows line up &mdash; <span style="font-family:var(--mono)">send_base</span> and <span style="font-family:var(--mono)">rcv_base</span> point at the same packet.</p>
-    <p class="frag f3" style="margin:0;font-size:19px;line-height:1.55">Now packets 0, 1 and 2 all arrive, but the <b>ACK for packet 0 is lost</b>. The receiver delivers all three and moves <span style="font-family:var(--mono)">rcv_base</span> to 3, while the sender is still waiting on 0 &mdash; the windows have <b>drifted</b>.</p>
-    <p class="frag f4" style="margin:0;font-size:19px;line-height:1.55">So far this is fine: <span style="font-family:var(--mono)">rcv_base</span> is <b>3</b> and <span style="font-family:var(--mono)">send_base</span> is <b>0</b>, so the two are plainly different.</p>
-  </div>
-</section>
-
-<section class="slide" id="sr-wrap" data-sec="Selective repeat">
-  <style>
-    /* The picture carries straight on from the previous frame. */
-    #sr-wrap .sq-mod { opacity:0; transition:opacity .35s }
-    #sr-wrap:has(.g1.on) .sq-abs { opacity:0 }
-    #sr-wrap:has(.g1.on) .sq-mod { opacity:1 }
-  </style>
-  <div class="kicker">Selective repeat</div>
-  <h2>When the sequence space is too small</h2>
-  <div style="display:flex;flex-direction:column;gap:14px;max-width:1000px">
-    <div style="display:flex;justify-content:center;padding:2px 0">
-      <svg viewBox="0 -32 560 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;display:block;margin:0 auto">
-        <defs><marker id="dr2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
-        <text x="82" y="39" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Sender</text>
-        <text x="82" y="85" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Receiver</text>
-        <rect x="90" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="144" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="198" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="252" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="306" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="360" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="414" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="468" y="22" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="90" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="144" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="198" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="252" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="306" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="360" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="414" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <rect x="468" y="68" width="50" height="34" rx="3" fill="rgba(128,128,128,0.08)" stroke="#bbb" stroke-width="1"/>
-        <g class="sq-win-s">
-          <rect x="90" y="22" width="50" height="34" rx="3" fill="rgba(207,92,54,0.15)" stroke="#cf5c36" stroke-width="2"/>
-          <rect x="144" y="22" width="50" height="34" rx="3" fill="rgba(207,92,54,0.15)" stroke="#cf5c36" stroke-width="2"/>
-          <rect x="198" y="22" width="50" height="34" rx="3" fill="rgba(207,92,54,0.15)" stroke="#cf5c36" stroke-width="2"/>
-          <text x="115" y="-16" text-anchor="middle" font-size="13.5" font-family="var(--mono)" font-weight="700" fill="#cf5c36">send_base</text>
-          <line x1="115" y1="-11" x2="115" y2="17" stroke="#cf5c36" stroke-width="1.8" marker-end="url(#dr2)"/>
-        </g>
-        <g class="sq-drift">
-          <rect x="252" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
-          <rect x="306" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
-          <rect x="360" y="68" width="50" height="34" rx="3" fill="rgba(58,128,192,0.18)" stroke="#3a80c0" stroke-width="2"/>
-          <text x="277" y="136" text-anchor="middle" font-size="13.5" font-family="var(--mono)" font-weight="700" fill="#3a80c0">rcv_base</text>
-          <line x1="277" y1="127" x2="277" y2="107" stroke="#3a80c0" stroke-width="1.8" marker-end="url(#dr2)"/>
-        </g>
-        <g class="sq-abs">
-          <text x="115" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
-          <text x="169" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
-          <text x="223" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
-          <text x="277" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">3</text>
-          <text x="331" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">4</text>
-          <text x="385" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">5</text>
-          <text x="439" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">6</text>
-          <text x="493" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">7</text>
-          <text x="115" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
-          <text x="169" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
-          <text x="223" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
-          <text x="277" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">3</text>
-          <text x="331" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">4</text>
-          <text x="385" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">5</text>
-          <text x="439" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">6</text>
-          <text x="493" y="85" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">7</text>
-        </g>
-        <g class="sq-mod">
+      <g class="sq-mod">
           <text x="115" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">0</text>
           <text x="169" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">1</text>
           <text x="223" y="39" text-anchor="middle" dominant-baseline="middle" font-size="20" font-weight="700" fill="currentColor" opacity="0.8">2</text>
@@ -3084,9 +2981,29 @@ svg text{font-family:var(--sans)}
         </g>
       </svg>
     </div>
-    <p class="frag g1" style="margin:0;font-size:19px;line-height:1.55">This would be a problem if the sequence number space is <b>small</b> &mdash; e.g. if it is modulo <b>3</b>, so the labels run 0, 1, 2, 0, 1, 2, &hellip;</p>
-    <p class="frag g2" style="margin:0;font-size:19px;line-height:1.55">Now notice that <span style="font-family:var(--mono)">send_base</span> and <span style="font-family:var(--mono)">rcv_base</span> both read <b>0</b>, even though they are three packets apart. The wrap-around has hidden the gap.</p>
-    <p class="frag g3" style="margin:0;font-size:19px;line-height:1.55">So if the sender retransmits its first packet after the lost ACK, the receiver sees a <b>0</b> that falls inside its own window, and takes it for new data.</p>
+    <p class="frag f1" style="margin:0;font-size:19px;line-height:1.55">Sequence numbers come from a <b>finite</b> space, so they wrap around &mdash; say modulo <b>3</b>. Take a window of <b>3</b>, and number the packets straight through.</p>
+    <p class="frag f2" style="margin:0;font-size:19px;line-height:1.55">Packets 0, 1 and 2 all arrive, but the <b>ACK for packet 0 is lost</b>: the receiver delivers all three and moves <span style="font-family:var(--mono)">rcv_base</span> to <b>3</b>, while the sender is still waiting on <b>0</b>.</p>
+    <p class="frag f3" style="margin:0;font-size:19px;line-height:1.55">The windows have <b>drifted</b> &mdash; and so far that is fine, since 3 and 0 are plainly different.</p>
+    <p class="frag f4" style="margin:0;font-size:19px;line-height:1.55">But the labels are modulo 3. Both bases now read <b>0</b>, though they are three packets apart: the wrap-around has <b>hidden the gap</b>.</p>
+  </div>
+</section>
+
+<section class="slide" id="sr-ambig" data-sec="Selective repeat">
+  <div class="kicker">Selective repeat</div>
+  <h2>So the receiver cannot tell</h2>
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:1030px">
+    <div style="display:flex;gap:26px;align-items:flex-start">
+      <div class="frag g1" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+        <p style="margin:0;font-size:17px;font-weight:700;color:#cf5c36">The sender <b>retransmits</b> packet 0</p>
+        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="61 2 300 288" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:296px"><defs><marker id="d1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><text x="90" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Sender</text><text x="330" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Receiver</text><line x1="90" y1="30" x2="90" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="330" y1="30" x2="330" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="90" y1="44" x2="330" y2="66" stroke="currentColor" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="40" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktA, seq#=0</text><line x1="90" y1="78" x2="330" y2="100" stroke="currentColor" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="74" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktB, seq#=1</text><line x1="90" y1="112" x2="330" y2="134" stroke="currentColor" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="108" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktC, seq#=2</text><line x1="330" y1="146" x2="198" y2="158" stroke="#cf5c36" stroke-width="1.8"/><line x1="193" y1="153" x2="203" y2="163" stroke="#cf5c36" stroke-width="2.2"/><line x1="193" y1="163" x2="203" y2="153" stroke="#cf5c36" stroke-width="2.2"/><text x="210.0" y="142" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">ACK0</text><line x1="330" y1="180" x2="198" y2="192" stroke="#cf5c36" stroke-width="1.8"/><line x1="193" y1="187" x2="203" y2="197" stroke="#cf5c36" stroke-width="2.2"/><line x1="193" y1="197" x2="203" y2="187" stroke="#cf5c36" stroke-width="2.2"/><text x="210.0" y="176" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">ACK1</text><line x1="330" y1="214" x2="198" y2="226" stroke="#cf5c36" stroke-width="1.8"/><line x1="193" y1="221" x2="203" y2="231" stroke="#cf5c36" stroke-width="2.2"/><line x1="193" y1="231" x2="203" y2="221" stroke="#cf5c36" stroke-width="2.2"/><text x="210.0" y="210" text-anchor="middle" font-size="13.5" fill="#cf5c36" font-weight="600">ACK2</text><line x1="90" y1="248" x2="330" y2="270" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d1)"/><text x="210.0" y="244" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">pktA, seq#=0 (retransmit)</text></svg></div>
+      </div>
+      <div class="frag g2" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+        <p style="margin:0;font-size:17px;font-weight:700;color:var(--accent)">The sender sends <b>brand-new</b> data</p>
+        <div style="width:100%;display:flex;justify-content:center"><svg viewBox="61 2 300 288" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:296px"><defs><marker id="d2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs><text x="90" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Sender</text><text x="330" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Receiver</text><line x1="90" y1="30" x2="90" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="330" y1="30" x2="330" y2="286" stroke="currentColor" stroke-width="1.2" opacity="0.55"/><line x1="90" y1="44" x2="330" y2="66" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="40" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktA, seq#=0</text><line x1="90" y1="78" x2="330" y2="100" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="74" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktB, seq#=1</text><line x1="90" y1="112" x2="330" y2="134" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="108" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktC, seq#=2</text><line x1="330" y1="146" x2="90" y2="168" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="142" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">ACK0</text><line x1="330" y1="180" x2="90" y2="202" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="176" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">ACK1</text><line x1="330" y1="214" x2="90" y2="236" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="210" text-anchor="middle" font-size="13.5" fill="var(--accent)" font-weight="600">ACK2</text><line x1="90" y1="248" x2="330" y2="270" stroke="currentColor" stroke-width="1.8" marker-end="url(#d2)"/><text x="210.0" y="244" text-anchor="middle" font-size="13.5" fill="currentColor" font-weight="600">pktD, seq#=0 &mdash; brand new</text></svg></div>
+      </div>
+    </div>
+    <p class="frag g3" style="margin:0;font-size:19px;line-height:1.55">Both put a packet labelled <b>seq&nbsp;0</b> on the wire, and the receiver&rsquo;s window accepts either. On the wire the two are <b>identical</b>.</p>
+    <p class="frag g4" style="margin:0;font-size:19px;line-height:1.55">So, just as in <b>rdt 2.0</b>, the receiver cannot tell a retransmission from genuinely new data.</p>
   </div>
 </section>
 
