@@ -3138,18 +3138,16 @@ svg text{font-family:var(--sans)}
 
 <section class="slide" data-sec="Recap and references">
   <div class="kicker">Recap</div>
-  <h2>Module 4 &mdash; what we covered</h2>
+  <h2>Pipelined protocols &mdash; what we covered</h2>
   <div style="display:flex;flex-direction:column;gap:16px;max-width:1030px">
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">RDT aims to transfer data reliably over an unreliable channel; it is built on <b>ARQ</b> (Automatic Repeat reQuest).</p>
-    <ul class="frag" style="margin:0;padding-left:22px;font-size:18px;line-height:1.6;display:flex;flex-direction:column;gap:5px">
-      <li><b>rdt 2.x</b> assumes the channel may incur <b>bit errors</b>, so it adds checksums, ACKs and additionally, a sequence number distinguishes a retransmission from new data.</li>
-      <li><b>rdt 3.0</b> assumes the channel may <b>lose packets</b>, so it adds a timer to handle packet loss.</li>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">Stop-and-wait sends one packet at a time, which leaves the link idle for almost the whole round trip. <b>Pipelining</b> keeps several packets in flight, capped by a <b>window</b>.</p>
+    <ul class="frag" style="margin:0;padding-left:24px;font-size:19px;line-height:1.6;display:flex;flex-direction:column;gap:7px">
+      <li><b>Go-back-N</b> &mdash; cumulative ACKs, one timer for the whole window, and a receiver that discards anything out of order. A single loss resends everything in flight.</li>
     </ul>
-    <p class="frag" style="margin:0;font-size:18px;line-height:1.6">In all those versions we used <b>stop-and-wait</b> &mdash; sending one packet at a time &mdash; which is rather inefficient, so we <b>pipelined</b> with a window:</p>
-    <ul class="frag" style="margin:0;padding-left:22px;font-size:18px;line-height:1.6;display:flex;flex-direction:column;gap:5px">
-      <li><b>Go-back-N</b> uses cumulative ACKs; if a packet arrives out of order, the sender resends the whole window.</li>
-      <li><b>Selective repeat</b> uses receiver buffering and individual ACKs, so the sender resends only what was lost.</li>
+    <ul class="frag" style="margin:0;padding-left:24px;font-size:19px;line-height:1.6;display:flex;flex-direction:column;gap:7px">
+      <li><b>Selective repeat</b> &mdash; individual ACKs, a timer per packet, and a receiver that buffers out-of-order packets. Only what was actually lost is resent.</li>
     </ul>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">Selective repeat costs buffering at both ends, and it needs <span style="font-family:var(--mono);white-space:nowrap">window size &le; &frac12; &times; seq# space</span> so the two windows can never be confused after wrap-around.</p>
   </div>
 </section>
 
