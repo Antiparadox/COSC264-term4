@@ -2550,9 +2550,9 @@ svg text{font-family:var(--sans)}
 </section>
 <section class="slide" id="rw-slide" data-sec="Selective repeat">
   <style>
-    #rw-slide .g-buffered,#rw-slide .g-window,#rw-slide .g-base,#rw-slide .g-eight{opacity:0;transition:opacity .4s}
-    #rw-slide:has(.f1.on) .g-buffered{opacity:1}
-    #rw-slide:has(.f2.on) .g-window{opacity:1}
+    #rw-slide .g-winslots,#rw-slide .g-window,#rw-slide .g-base,#rw-slide .g-buffered,#rw-slide .g-eight{opacity:0;transition:opacity .4s}
+    #rw-slide:has(.f3.on) .g-winslots,
+    #rw-slide:has(.f3.on) .g-window,
     #rw-slide:has(.f3.on) .g-base{opacity:1}
   </style>
   <div class="kicker">Selective repeat</div>
@@ -2560,24 +2560,31 @@ svg text{font-family:var(--sans)}
   <div style="display:flex;flex-direction:column;gap:9px">
     <div style="display:flex;justify-content:center"><svg viewBox="14 12 496 138" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:592px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
       <!-- delivered (left of window, always visible) -->
-      <rect x="20"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
-      <rect x="52"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
-      <rect x="84"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
       <rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
-      <!-- window: all gray initially -->
-      <rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="2"/>
-      <rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <!-- outside window (right) -->
+      <rect x="148" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="180" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="212" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="244" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="276" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="308" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="340" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="372" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
-      <!-- g-rcv-base: pointer + bracket (revealed at f1, hidden at f3) -->
+      <g class="g-winslots">
+        <rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="2"/>
+        <rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      </g>
       <g class="g-window">
         <path d="M148,97 L148,108 L398,108 L398,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
         <text x="273" y="126" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text>
@@ -2617,7 +2624,8 @@ svg text{font-family:var(--sans)}
 <section class="slide" id="rw-slide2" data-sec="Selective repeat">
   <style>
     /* The window strip carries straight on from the previous frame. */
-    #rw-slide2 .g-eight{opacity:0;transition:opacity .4s}
+    #rw-slide2 .g-buffered,#rw-slide2 .g-eight{opacity:0;transition:opacity .4s}
+    #rw-slide2:has(.g1.on) .g-buffered,
     #rw-slide2:has(.g1.on) .g-eight{opacity:1}
   </style>
   <div class="kicker">Selective repeat</div>
@@ -2625,24 +2633,31 @@ svg text{font-family:var(--sans)}
   <div style="display:flex;flex-direction:column;gap:9px">
     <div style="display:flex;justify-content:center"><svg viewBox="14 12 496 138" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:592px"><defs><marker id="w3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
       <!-- delivered (left of window, always visible) -->
-      <rect x="20"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
-      <rect x="52"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
-      <rect x="84"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="52" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="84" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
       <rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
-      <!-- window: all gray initially -->
-      <rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="2"/>
-      <rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
-      <!-- outside window (right) -->
+      <rect x="148" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="180" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="212" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="244" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="276" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="308" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="340" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="372" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
-      <!-- g-rcv-base: pointer + bracket (revealed at f1, hidden at f3) -->
+      <g class="g-winslots">
+        <rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="2"/>
+        <rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+        <rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      </g>
       <g class="g-window">
         <path d="M148,97 L148,108 L398,108 L398,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
         <text x="273" y="126" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text>
@@ -2667,7 +2682,7 @@ svg text{font-family:var(--sans)}
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet acceptable</span></div>
     </div>
     <div class="frag g1 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:17.5px;line-height:1.6">Here the window is of size <b>8</b>, so the receiver is willing to buffer the next <b>8</b> packets after <span style="font-family:var(--mono)">rcv_base</span> if they arrive out of order &mdash; instead of discarding them, as Go-back-N would.</p>
+      <p style="margin:0;font-size:17.5px;line-height:1.6">Here the window is of size <b>8</b>, so the receiver is willing to buffer the next <b>8</b> packets after <span style="font-family:var(--mono)">rcv_base</span> if they arrive out of order &mdash; instead of discarding them, as Go-back-N would. In this diagram, two packets have arrived inside the window and are being <b>buffered</b>.</p>
     </div>
     <div class="frag g2 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
       <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver&rsquo;s window is normally the <b>same size as the sender&rsquo;s</b>, so it can buffer every packet the sender may have in flight.</p>
