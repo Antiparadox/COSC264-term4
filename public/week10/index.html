@@ -3028,8 +3028,8 @@ svg text{font-family:var(--sans)}
   <style>
     /* The picture carries straight on from the previous frame. */
     #sr-rule .sq-six { opacity:0; transition:opacity .35s }
-    #sr-rule:has(.g2.on) .sq-mod { opacity:0 }
-    #sr-rule:has(.g2.on) .sq-six { opacity:1 }
+    #sr-rule:has(.g3.on) .sq-mod { opacity:0 }
+    #sr-rule:has(.g3.on) .sq-six { opacity:1 }
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>Window size vs. seq-number space</h2>
@@ -3107,13 +3107,14 @@ svg text{font-family:var(--sans)}
         </g>
       </svg>
     </div>
-    <div class="frag g1 card" style="padding:12px 24px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:18px;align-self:center">
+    <p class="frag g1" style="margin:0;font-size:17px;line-height:1.5">So how do we stop the two windows colliding?</p>
+    <div class="frag g2 card" style="padding:12px 24px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:18px;align-self:center">
       <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;line-height:1.6">The<br>rule</div>
       <div style="width:1px;background:currentColor;opacity:0.2;align-self:stretch"></div>
       <p style="margin:0;font-size:20px;line-height:1.5">window size &nbsp;&le;&nbsp; &frac12; &times; seq# space</p>
     </div>
-    <p class="frag g2" style="margin:0;font-size:17.5px;line-height:1.55">With a window of <b>3</b>, the sequence space must run at least <b>0&ndash;5</b>. Then <span style="font-family:var(--mono)">send_base</span> reads <b>0</b> and <span style="font-family:var(--mono)">rcv_base</span> reads <b>3</b> &mdash; the two can no longer be confused.</p>
-    <p class="frag g3" style="margin:0;font-size:17.5px;line-height:1.55"><b>Think about it:</b> why is this exactly the right requirement?</p>
+    <p class="frag g3" style="margin:0;font-size:17px;line-height:1.5">With a window of <b>3</b>, the sequence space must run at least <b>0&ndash;5</b>. Then <span style="font-family:var(--mono)">send_base</span> reads <b>0</b> and <span style="font-family:var(--mono)">rcv_base</span> reads <b>3</b> &mdash; the two can no longer be confused.</p>
+    <p class="frag g4" style="margin:0;font-size:17px;line-height:1.5"><b>Think about it:</b> why is this exactly the right requirement?</p>
   </div>
 </section>
 <style>
