@@ -2937,7 +2937,7 @@ svg text{font-family:var(--sans)}
   <div style="display:flex;flex-direction:column;gap:9px;max-width:1000px">
     <p class="frag f1" style="margin:0;font-size:17.5px;line-height:1.55">The deeper reason is that the sender&rsquo;s window and the receiver&rsquo;s window can <b>drift far enough apart to overlap after wrap-around</b>.</p>
     <div style="display:flex;justify-content:center;padding:2px 0">
-      <svg viewBox="0 -32 560 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:584px;display:block;margin:0 auto">
+      <svg viewBox="0 -32 560 172" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;display:block;margin:0 auto">
         <defs><marker id="dr1" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="context-stroke"/></marker></defs>
         <text x="82" y="39" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Sender</text>
         <text x="82" y="85" text-anchor="end" font-size="13" font-weight="700" fill="currentColor" opacity="0.65">Receiver</text>
@@ -3016,8 +3016,8 @@ svg text{font-family:var(--sans)}
         </g>
       </svg>
     </div>
-    <p class="frag f2" style="margin:0;font-size:17.5px;line-height:1.55">Number the packets straight through, 0, 1, 2, 3, &hellip; At first the two windows line up &mdash; <span style="font-family:var(--mono)">send_base</span> and <span style="font-family:var(--mono)">rcv_base</span> point at the same packet.</p>
-    <p class="frag f3" style="margin:0;font-size:17.5px;line-height:1.55">But lost ACKs let them <b>drift</b>: the receiver moves on while the sender is still waiting on its oldest packet.</p>
+    <p class="frag f2" style="margin:0;font-size:17.5px;line-height:1.55">Suppose the window size is <b>3</b>, and number the packets straight through, 0, 1, 2, 3, &hellip; At first the two windows line up &mdash; <span style="font-family:var(--mono)">send_base</span> and <span style="font-family:var(--mono)">rcv_base</span> point at the same packet.</p>
+    <p class="frag f3" style="margin:0;font-size:17.5px;line-height:1.55">Now packets 0, 1 and 2 all arrive, but the <b>ACK for packet 0 is lost</b>. The receiver delivers all three and moves <span style="font-family:var(--mono)">rcv_base</span> to 3, while the sender is still waiting on 0 &mdash; the windows have <b>drifted</b>.</p>
     <p class="frag f4" style="margin:0;font-size:17.5px;line-height:1.55">That only becomes a problem when the sequence space is <b>small</b>. Say it is modulo <b>3</b>, so the labels run 0, 1, 2, 0, 1, 2, &hellip;</p>
     <p class="frag f5" style="margin:0;font-size:17.5px;line-height:1.55">Now <span style="font-family:var(--mono)">send_base</span> and <span style="font-family:var(--mono)">rcv_base</span> both read <b>0</b>, even though they are three packets apart. The wrap-around has hidden the gap.</p>
     <p class="frag f6" style="margin:0;font-size:17.5px;line-height:1.55">So if the sender retransmits its first packet after a lost ACK, the receiver sees a <b>0</b> that falls inside its own window, and takes it for new data.</p>
