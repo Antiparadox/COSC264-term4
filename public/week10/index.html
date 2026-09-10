@@ -2541,7 +2541,7 @@ svg text{font-family:var(--sans)}
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet usable</span></div>
     </div>
     <div class="frag f3 card" style="padding:12px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:18.5px;line-height:1.6">Here the two packets <b>after</b> <span style="font-family:var(--mono)">send_base</span> are acknowledged while <span style="font-family:var(--mono)">send_base</span> itself is not. So the sender&rsquo;s window can have <b>holes</b>.</p>
+      <p style="margin:0;font-size:18.5px;line-height:1.6">Because ACKs are individual, the sender&rsquo;s window can have <b>holes</b>. Here, for example, the two packets after <span style="font-family:var(--mono)">send_base</span> are acknowledged while <span style="font-family:var(--mono)">send_base</span> itself is not, leaving a hole at the front of the window.</p>
     </div>
     <div class="frag f4 card" style="padding:12px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
       <p style="margin:0;font-size:18.5px;line-height:1.6">In Go-back-N this is impossible: a cumulative ACK acknowledges <b>every</b> packet before it, so there can never be a hole in the sender&rsquo;s window.</p>
