@@ -2991,8 +2991,8 @@ svg text{font-family:var(--sans)}
     /* The strip carries straight on from the previous frame. */
     #sr-wrap .sq-win-s,#sr-wrap .sq-drift,#sr-wrap .sq-abs { opacity:1 }
     #sr-wrap .sq-align,#sr-wrap .sq-mod { opacity:0; transition:opacity .35s }
-    #sr-wrap:has(.g2.on) .sq-abs { opacity:0 }
-    #sr-wrap:has(.g2.on) .sq-mod { opacity:1 }
+    #sr-wrap:has(.g3.on) .sq-abs { opacity:0 }
+    #sr-wrap:has(.g3.on) .sq-mod { opacity:1 }
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>When the sequence space is finite</h2>
@@ -3077,10 +3077,10 @@ svg text{font-family:var(--sans)}
         </g>
       </svg>
     </div>
-    <p class="frag g1" style="margin:0;font-size:19px;line-height:1.55">On its own that is fine: <span style="font-family:var(--mono)">rcv_base</span> is <b>3</b> and <span style="font-family:var(--mono)">send_base</span> is <b>0</b>, plainly different.</p>
-    <p class="frag g2" style="margin:0;font-size:19px;line-height:1.55">But sequence numbers come from a <b>finite</b> space and wrap around. Suppose here the space is just <b>0, 1, 2</b>.</p>
-    <p class="frag g3" style="margin:0;font-size:19px;line-height:1.55">Now both bases read <b>0</b>, though they are three packets apart &mdash; the wrap-around has <b>hidden the gap</b>.</p>
-    <p class="frag g4" style="margin:0;font-size:19px;line-height:1.55">So what will the receiver make of a packet labelled <b>0</b>?</p>
+    <p class="frag g1" style="margin:0;font-size:19px;line-height:1.55">So far, no problem: <span style="font-family:var(--mono)">rcv_base</span> is <b>3</b> and <span style="font-family:var(--mono)">send_base</span> is <b>0</b>, plainly different.</p>
+    <p class="frag g2" style="margin:0;font-size:19px;line-height:1.55">But here is the thing. In reality sequence numbers are not the natural numbers running on for ever &mdash; they come from a <b>finite</b> space and wrap around.</p>
+    <p class="frag g3" style="margin:0;font-size:19px;line-height:1.55">Suppose that space is just <b>0, 1, 2</b>. Mapped onto the picture, the packets are labelled like this.</p>
+    <p class="frag g4" style="margin:0;font-size:19px;line-height:1.55">Now notice that both bases read <b>0</b>. What might go wrong? Can you think of a scenario where this bites?</p>
   </div>
 </section>
 
@@ -3193,8 +3193,7 @@ svg text{font-family:var(--sans)}
       <p style="margin:0;font-size:20px;line-height:1.5">window size &nbsp;&le;&nbsp; &frac12; &times; seq# space</p>
     </div>
     <p class="frag g3" style="margin:0;font-size:17px;line-height:1.5">With a window of <b>3</b>, the sequence space must run at least <b>0&ndash;5</b>. Then <span style="font-family:var(--mono)">send_base</span> reads <b>0</b> and <span style="font-family:var(--mono)">rcv_base</span> reads <b>3</b> &mdash; the two can no longer be confused.</p>
-    <p class="frag g4" style="margin:0;font-size:17px;line-height:1.5"><b>Think about it:</b> why is this exactly the right requirement?</p>
-  </div>
+      </div>
 </section>
 <style>
   #sr56-good { display: none !important; }
