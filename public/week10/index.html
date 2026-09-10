@@ -2744,6 +2744,7 @@ svg text{font-family:var(--sans)}
       <p class="frag f1" style="margin:0;font-size:16.5px;line-height:1.6">Each outstanding packet has <b>its own timer</b>.</p>
       <p class="frag f2" style="margin:0;font-size:16.5px;line-height:1.6">When any timer expires, the sender resends <b>that packet only</b> and restarts <b>that</b> timer. Everything else in the window is untouched.</p>
       <p class="frag f3" style="margin:0;font-size:16.5px;line-height:1.6">This is in contrast with Go-back-N, where one timer covered the whole window and one expiry resent all packets in flight.</p>
+      <p class="frag f4" style="margin:0;font-size:16.5px;line-height:1.6">This is where Selective Repeat wins: only the packets that were <b>truly lost</b> go out again, so far fewer retransmissions than Go-back-N.</p>
     </div>
   </div>
 </section>
