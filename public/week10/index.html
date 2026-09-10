@@ -2550,15 +2550,15 @@ svg text{font-family:var(--sans)}
 </section>
 <section class="slide" id="rw-slide" data-sec="Selective repeat">
   <style>
-    #rw-slide .g-rcv-base{opacity:0;transition:opacity .4s}
-    #rw-slide .g-buffered{opacity:0;transition:opacity .4s}
-    #rw-slide:has(.f1.on) .g-rcv-base{opacity:1}
-    #rw-slide:has(.f2.on) .g-buffered{opacity:1}
+    #rw-slide .g-buffered,#rw-slide .g-window,#rw-slide .g-base,#rw-slide .g-eight{opacity:0;transition:opacity .4s}
+    #rw-slide:has(.f1.on) .g-buffered{opacity:1}
+    #rw-slide:has(.f2.on) .g-window{opacity:1}
+    #rw-slide:has(.f3.on) .g-base{opacity:1}
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s window in Selective Repeat</h2>
   <div style="display:flex;flex-direction:column;gap:9px">
-    <div style="display:flex;justify-content:center"><svg viewBox="14 12 496 126" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:512px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
+    <div style="display:flex;justify-content:center"><svg viewBox="14 12 496 138" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:592px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
       <!-- delivered (left of window, always visible) -->
       <rect x="20"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
       <rect x="52"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
@@ -2578,11 +2578,16 @@ svg text{font-family:var(--sans)}
       <rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
       <!-- g-rcv-base: pointer + bracket (revealed at f1, hidden at f3) -->
-      <g class="g-rcv-base">
-        <line x1="161" y1="32" x2="161" y2="48" stroke="var(--muted)" stroke-width="1.4" marker-end="url(#w2)"/>
-        <text x="161" y="26" text-anchor="middle" font-size="11.5" fill="var(--muted)" font-family="var(--mono)" font-weight="700">rcv_base</text>
+      <g class="g-window">
         <path d="M148,97 L148,108 L398,108 L398,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
         <text x="273" y="126" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text>
+      </g>
+      <g class="g-base">
+        <line x1="161" y1="32" x2="161" y2="48" stroke="var(--muted)" stroke-width="1.4" marker-end="url(#w2)"/>
+        <text x="161" y="26" text-anchor="middle" font-size="11.5" fill="var(--muted)" font-family="var(--mono)" font-weight="700">rcv_base</text>
+      </g>
+      <g class="g-eight">
+        <text x="273" y="140" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">here, <tspan font-style="italic">N</tspan> = 8</text>
       </g>
       <!-- g-buffered: out-of-order buffered packets (revealed at f2, persists at f3) -->
       <g class="g-buffered">
@@ -2597,17 +2602,77 @@ svg text{font-family:var(--sans)}
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet acceptable</span></div>
     </div>
     <div class="frag f1 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver&rsquo;s buffer is finite, so it keeps a <b>window</b> of the packets it is willing to accept and buffer.</p>
+      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver <b>buffers</b> out-of-order packets rather than discarding them. But its buffer is finite, so it can only accept a finite number of them.</p>
     </div>
     <div class="frag f2 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:17.5px;line-height:1.6"><span style="font-family:var(--mono)">rcv_base</span> points to the <b>first packet not yet delivered</b> &mdash; all packets below it have been received in order and passed to the application.</p>
+      <p style="margin:0;font-size:17.5px;line-height:1.6">That is why the receiver has a <b>window</b>: it fixes the range of out-of-order packets it is willing to buffer.</p>
     </div>
     <div class="frag f3 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver window is also of size <em>N</em> &mdash; the same as the sender&rsquo;s window, so it can buffer <b>every packet the sender may have in flight</b>.</p>
+      <p style="margin:0;font-size:17.5px;line-height:1.6">The window starts at <span style="font-family:var(--mono)">rcv_base</span>, which points to the <b>first packet not yet delivered</b> &mdash; everything below it has arrived in order and gone to the application.</p>
     </div>
-    <div class="frag f4 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver can accept and buffer any packet that falls within <span style="font-family:var(--mono)">[rcv_base,&thinsp;rcv_base+<em>N</em>)</span>, even if earlier packets have not arrived yet.</p>
+</div>
+  </div>
+</section>
+
+<section class="slide" id="rw-slide2" data-sec="Selective repeat">
+  <style>
+    /* The window strip carries straight on from the previous frame. */
+    #rw-slide2 .g-eight{opacity:0;transition:opacity .4s}
+    #rw-slide2:has(.g1.on) .g-eight{opacity:1}
+  </style>
+  <div class="kicker">Selective repeat</div>
+  <h2>How much will the receiver buffer?</h2>
+  <div style="display:flex;flex-direction:column;gap:9px">
+    <div style="display:flex;justify-content:center"><svg viewBox="14 12 496 138" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:592px"><defs><marker id="w3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
+      <!-- delivered (left of window, always visible) -->
+      <rect x="20"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="52"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="84"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <rect x="116" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
+      <!-- window: all gray initially -->
+      <rect x="148" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="2"/>
+      <rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="212" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="276" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="308" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="340" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="372" y="52" width="26" height="38" rx="3" fill="rgba(128,128,128,0.28)" stroke="var(--muted)" stroke-width="1.5"/>
+      <!-- outside window (right) -->
+      <rect x="404" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="436" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <rect x="468" y="52" width="26" height="38" rx="3" fill="none" stroke="var(--muted)" stroke-width="1.5"/>
+      <!-- g-rcv-base: pointer + bracket (revealed at f1, hidden at f3) -->
+      <g class="g-window">
+        <path d="M148,97 L148,108 L398,108 L398,97" fill="none" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
+        <text x="273" y="126" text-anchor="middle" font-size="12" fill="currentColor" opacity="0.85">window of size <tspan font-style="italic">N</tspan></text>
+      </g>
+      <g class="g-base">
+        <line x1="161" y1="32" x2="161" y2="48" stroke="var(--muted)" stroke-width="1.4" marker-end="url(#w3)"/>
+        <text x="161" y="26" text-anchor="middle" font-size="11.5" fill="var(--muted)" font-family="var(--mono)" font-weight="700">rcv_base</text>
+      </g>
+      <g class="g-eight">
+        <text x="273" y="140" text-anchor="middle" font-size="12" fill="var(--accent)" font-weight="700">here, <tspan font-style="italic">N</tspan> = 8</text>
+      </g>
+      <!-- g-buffered: out-of-order buffered packets (revealed at f2, persists at f3) -->
+      <g class="g-buffered">
+        <rect x="180" y="52" width="26" height="38" rx="3" fill="rgba(255,152,0,0.42)" stroke="#ff9800" stroke-width="1.5"/>
+        <rect x="244" y="52" width="26" height="38" rx="3" fill="rgba(255,152,0,0.42)" stroke="#ff9800" stroke-width="1.5"/>
+      </g>
+    </svg></div>
+    <div style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--accent);background:rgba(0,200,180,0.55);flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">delivered to app layer</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:rgba(128,128,128,0.28);flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet received</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid #ff9800;background:rgba(255,152,0,0.42);flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">received &amp; buffered</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet acceptable</span></div>
     </div>
+    <div class="frag g1 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+      <p style="margin:0;font-size:17.5px;line-height:1.6">Here the window is of size <b>8</b>, so the receiver is willing to buffer the next <b>8</b> packets after <span style="font-family:var(--mono)">rcv_base</span> if they arrive out of order &mdash; instead of discarding them, as Go-back-N would.</p>
+    </div>
+    <div class="frag g2 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver&rsquo;s window is normally the <b>same size as the sender&rsquo;s</b>, so it can buffer every packet the sender may have in flight.</p>
+    </div>
+</div>
   </div>
 </section>
 
