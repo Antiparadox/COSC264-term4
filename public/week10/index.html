@@ -2816,7 +2816,8 @@ svg text{font-family:var(--sans)}
       <div style="display:flex;flex-direction:column;gap:6px">
         <p style="margin:0;font-size:19px;line-height:1.55"><b>A packet that is already buffered arrives again.</b></p>
         <p class="frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; Why would the sender send it a second time?</p>
-        <p class="frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; The first individual ACK clearly did not get through. The sender <b>timed out</b> on this packet and retransmitted it.</p>
+        <p class="frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; The first individual ACK may have been <b>lost or corrupted</b> in transit, so the sender <b>timed out</b> on this packet and retransmitted it.</p>
+        <p class="frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; What should the receiver do?</p>
         <p class="frag" style="margin:0;font-size:17px;line-height:1.55">&#x2022; <b>Ignore</b> the duplicate. Re-send the <b>lost individual ACK</b>.</p>
       </div>
     </div>
