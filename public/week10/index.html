@@ -2557,8 +2557,8 @@ svg text{font-family:var(--sans)}
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s window in Selective Repeat</h2>
-  <div style="display:flex;flex-direction:column;gap:12px">
-    <div style="display:flex;justify-content:center"><svg viewBox="0 0 520 142" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
+  <div style="display:flex;flex-direction:column;gap:9px">
+    <div style="display:flex;justify-content:center"><svg viewBox="14 12 496 126" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:512px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
       <!-- delivered (left of window, always visible) -->
       <rect x="20"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
       <rect x="52"  y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
@@ -2596,13 +2596,17 @@ svg text{font-family:var(--sans)}
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid #ff9800;background:rgba(255,152,0,0.42);flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">received &amp; buffered</span></div>
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:14px;line-height:1.4">not yet acceptable</span></div>
     </div>
-    <p class="frag f0" style="margin:0 auto;max-width:1000px;font-size:17.5px;line-height:1.6">The receiver&rsquo;s buffer is finite, so it keeps a <b>window</b> of the packets it is willing to accept and buffer.</p>
-    <div class="frag f1 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
-      <p style="margin:0 0 6px;font-size:16.5px;line-height:1.6"><span style="font-family:var(--mono)">rcv_base</span> points to the <b>first packet not yet delivered</b> &mdash; all packets below it have been received in order and passed to the application.</p>
-      <p style="margin:0;font-size:16.5px;line-height:1.6">The receiver window is also of size <em>N</em> &mdash; the same as the sender&rsquo;s window.</p>
+    <div class="frag f1 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver&rsquo;s buffer is finite, so it keeps a <b>window</b> of the packets it is willing to accept and buffer.</p>
     </div>
-    <div class="frag f2 card" style="padding:12px 18px;border-left:3px solid var(--accent);max-width:1000px;align-self:center">
-      <p style="margin:0;font-size:16.5px;line-height:1.6">The receiver can accept and buffer any packet that falls within <span style="font-family:var(--mono)">[rcv_base,&thinsp;rcv_base+<em>N</em>)</span>, even if earlier packets have not arrived yet.</p>
+    <div class="frag f2 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+      <p style="margin:0;font-size:17.5px;line-height:1.6"><span style="font-family:var(--mono)">rcv_base</span> points to the <b>first packet not yet delivered</b> &mdash; all packets below it have been received in order and passed to the application.</p>
+    </div>
+    <div class="frag f3 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver window is also of size <em>N</em> &mdash; the same as the sender&rsquo;s window, so it can buffer <b>every packet the sender may have in flight</b>.</p>
+    </div>
+    <div class="frag f4 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+      <p style="margin:0;font-size:17.5px;line-height:1.6">The receiver can accept and buffer any packet that falls within <span style="font-family:var(--mono)">[rcv_base,&thinsp;rcv_base+<em>N</em>)</span>, even if earlier packets have not arrived yet.</p>
     </div>
   </div>
 </section>
