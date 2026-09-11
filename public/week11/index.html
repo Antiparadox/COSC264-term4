@@ -412,7 +412,10 @@
     .motivation-node .motivation-link { grid-row: 2; grid-column: 1; }
     .motivation-node { grid-template-rows: auto 34px auto; gap: 6px; }
     .motivation-node .motivation-link { grid-row: 2; grid-column: 1; min-height: 34px; }
-    .motivation-sockets { grid-row: 3; display: flex; justify-content: center; gap: 6px; }
+    .motivation-sockets { grid-row: 3; display: flex; justify-content: center; gap: 6px; opacity: 0; transition: opacity .24s ease; }
+    .motivation-sockets.is-active { opacity: 1; }
+    .socket-extra { opacity: 0; transition: opacity .24s ease; }
+    .socket-extra.is-active { opacity: 1; }
     .motivation-sockets .mini-socket { width: auto; padding: 0 10px; height: 30px; font-size: 12px; }
     .motivation-link { display: grid; place-items: center; min-height: 64px; color: var(--amber); font: 800 30px/1 var(--sans); }
     .motivation-chaos, .motivation-clean { transition: opacity .24s ease, transform .24s ease; }
@@ -2189,32 +2192,51 @@
         </div>
       </section>
 
-      <section class="slide" data-title="Why multiplexing is needed" data-section="Multiplexing and demultiplexing">
+      <section class="slide" data-title="Processes reach the network through sockets" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
-          <p class="kicker">One host · many application processes</p>
-          <h2>Why multiplexing is needed</h2>
+          <p class="kicker">One host &middot; many application processes</p>
+          <h2>Processes reach the network through sockets</h2>
         </header>
         <div class="motivation-layout">
           <div class="motivation-copy">
             <p class="motivation-lead frag" data-step="1">A single host can run many network applications over multiple processes. Each process may need to send and receive traffic through the network.</p>
-            <p class="motivation-lead frag" data-step="2">A process does not talk to the network directly. It sends and receives through a <strong>socket</strong> &mdash; and it may hold <strong>more than one</strong>.</p>
-            <p class="motivation-callout motivation-problem frag" data-step="3">The network layer delivers data only to the host, so it cannot tell which socket the data belongs to.</p>
-            <p class="motivation-callout motivation-answer frag" data-step="4">The transport layer coordinates this traffic in both directions so each socket gets exactly its own data. This is known as multiplexing/demultiplexing.</p>
+            <p class="motivation-lead frag" data-step="2">A process does not talk to the network directly. It sends and receives through a <strong>socket</strong>.</p>
+            <p class="motivation-lead frag" data-step="3">A socket is the transport layer&rsquo;s endpoint &mdash; the door a process writes its outgoing data into, and reads its incoming data out of.</p>
+            <p class="motivation-lead frag" data-step="4">A process may hold <strong>more than one</strong>.</p>
           </div>
           <div class="motivation-scene frag" data-step="1" aria-label="Three application processes enclosed within one host above the network layer">
             <h3>processes and network layer</h3>
             <div class="host-shell">
               <div class="host-shell-label"><span>Host A</span><span>three application processes</span></div>
-              <div class="motivation-process-row"><div class="motivation-node"><span class="mini-process">P1<small>process 1</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="3">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="4">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div><div class="motivation-node"><span class="mini-process">P2<small>process 2</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="3">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="4">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span><span class="mini-socket">socket</span></span></div><div class="motivation-node"><span class="mini-process">P3<small>process 3</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="3">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="4">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div></div>
-              <div class="host-transport-slot stateful" data-active-at="4"><div class="transport-band">transport layer</div></div>
+              <div class="motivation-process-row"><div class="motivation-node"><span class="mini-process">P1<small>process 1</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div><div class="motivation-node"><span class="mini-process">P2<small>process 2</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span><span class="mini-socket socket-extra stateful" data-active-at="4">socket</span></span></div><div class="motivation-node"><span class="mini-process">P3<small>process 3</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div></div>
+            </div>
+            <p class="motivation-note">many processes ↔ one shared path</p>
+                    </div>
+      </section>
+
+      <section class="slide" data-title="Why multiplexing is needed" data-section="Multiplexing and demultiplexing">
+        <header class="content-header">
+          <p class="kicker">Many sockets &middot; one shared path</p>
+          <h2>Why multiplexing is needed</h2>
+        </header>
+        <div class="motivation-layout">
+          <div class="motivation-copy">
+            <p class="motivation-callout motivation-problem frag" data-step="1">The network layer delivers data only to the host, so it cannot tell which socket the data belongs to.</p>
+            <p class="motivation-callout motivation-answer frag" data-step="2">The transport layer coordinates this traffic in both directions so each socket gets exactly its own data. This is known as <strong>multiplexing/demultiplexing</strong>.</p>
+          </div>
+          <div class="motivation-scene" aria-label="Three application processes enclosed within one host above the network layer">
+            <h3>processes and network layer</h3>
+            <div class="host-shell">
+              <div class="host-shell-label"><span>Host A</span><span>three application processes</span></div>
+              <div class="motivation-process-row"><div class="motivation-node"><span class="mini-process">P1<small>process 1</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="0" data-hide-after="1">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="2">↓</span><span class="motivation-sockets stateful" data-active-at="0"><span class="mini-socket">socket</span></span></div><div class="motivation-node"><span class="mini-process">P2<small>process 2</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="0" data-hide-after="1">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="2">↓</span><span class="motivation-sockets stateful" data-active-at="0"><span class="mini-socket">socket</span><span class="mini-socket socket-extra stateful" data-active-at="0">socket</span></span></div><div class="motivation-node"><span class="mini-process">P3<small>process 3</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="0" data-hide-after="1">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="2">↓</span><span class="motivation-sockets stateful" data-active-at="0"><span class="mini-socket">socket</span></span></div></div>
+              <div class="host-transport-slot stateful" data-active-at="2"><div class="transport-band">transport layer</div></div>
             </div>
             <div class="motivation-shared">
-              <div class="motivation-layer-slot"><div class="host-delivery-arrow stateful" data-active-at="3" data-hide-after="3" aria-label="data delivered from the network layer to Host A">↑</div><div class="transport-network-arrow stateful" data-active-at="4" aria-label="data delivered from the network layer to the transport layer">↑</div></div>
+              <div class="motivation-layer-slot"><div class="host-delivery-arrow stateful" data-active-at="1" data-hide-after="1" aria-label="data delivered from the network layer to Host A">↑</div><div class="transport-network-arrow stateful" data-active-at="2" aria-label="data delivered from the network layer to the transport layer">↑</div></div>
               <div class="motivation-network-row"><div class="network-band">network layer</div></div>
             </div>
             <p class="motivation-note">many processes ↔ one shared path</p>
-          </div>
-        </div>
+                    </div>
       </section>
 
       <section class="slide" data-title="Multiplexing and demultiplexing" data-section="Multiplexing and demultiplexing">
