@@ -2514,15 +2514,15 @@
 
       <section class="slide" data-title="TCP three-way handshake" data-section="TCP">
         <header class="content-header">
-          <p class="kicker">Connection establishment · SYN consumes one sequence number</p>
+          <p class="kicker">Connection establishment · three messages</p>
           <h2>TCP establishes a connection with a three-way handshake</h2>
         </header>
         <div class="tcp-handshake-layout">
           <div class="tcp-handshake-points">
-            <div class="teaching-point frag" data-step="1"><strong>1 · SYN.</strong> The client chooses a random sequence number <strong>x</strong> and sends <strong>SYN</strong> with <strong>seq = x</strong>.</div>
-            <div class="teaching-point frag" data-step="2"><strong>2 · SYN + ACK.</strong> The server chooses a random sequence number <strong>y</strong> and sends <strong>SYN + ACK</strong> with <strong>seq = y</strong> and <strong>ack = x + 1</strong>.</div>
-            <div class="teaching-point frag" data-step="3"><strong>3 · ACK.</strong> The client sends <strong>ACK</strong> with <strong>seq = x + 1</strong> and <strong>ack = y + 1</strong>.</div>
-            <div class="tcp-recall frag" data-step="4"><strong>Recall Module 4 · RDT:</strong> TCP also uses sequence numbers and acknowledgments.</div>
+            <div class="teaching-point frag" data-step="1"><strong>1 · SYN.</strong> The client sends a segment with the <strong>SYN</strong> flag set, asking to open a conversation.</div>
+            <div class="teaching-point frag" data-step="2"><strong>2 · SYN + ACK.</strong> The server agrees: in one segment it sets its own <strong>SYN</strong> flag and an <strong>ACK</strong> for the client&rsquo;s request.</div>
+            <div class="teaching-point frag" data-step="3"><strong>3 · ACK.</strong> The client acknowledges the server&rsquo;s half, and the connection is open.</div>
+            <div class="tcp-recall frag" data-step="4">Each side has now heard from the other, so both know the connection exists before any data is sent.</div>
           </div>
           <div class="tcp-handshake-scene" aria-label="TCP three-way handshake between a client and server">
             <div class="tcp-timeline-head">
@@ -2533,21 +2533,21 @@
               <div class="tcp-time-line left"></div>
               <div class="tcp-time-line right"></div>
               <div class="tcp-message to-right step-one stateful" data-active-at="1">
-                <div class="tcp-message-label"><strong>SYN</strong><span>seq = x</span></div>
+                <div class="tcp-message-label"><strong>SYN</strong><span>open a connection?</span></div>
                 <div class="tcp-message-line"></div>
               </div>
               <div class="tcp-message to-left step-two stateful" data-active-at="2">
-                <div class="tcp-message-label"><strong>SYN + ACK</strong><span>seq = y · ack = x + 1</span></div>
+                <div class="tcp-message-label"><strong>SYN + ACK</strong><span>yes &mdash; and open mine too</span></div>
                 <div class="tcp-message-line"></div>
               </div>
               <div class="tcp-message to-right step-three stateful" data-active-at="3">
-                <div class="tcp-message-label"><strong>ACK</strong><span>seq = x + 1 · ack = y + 1</span></div>
+                <div class="tcp-message-label"><strong>ACK</strong><span>agreed</span></div>
                 <div class="tcp-message-line"></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tcp-handshake-result frag" data-step="5">Now both endpoints have synchronized their sequence numbers and know the next number expected, so application data can flow.</div>
+        <div class="tcp-handshake-result frag" data-step="5">Only now can application data flow.</div>
       </section>
 
       <section class="slide" data-title="How TCP closes a connection" data-section="TCP">
