@@ -2464,41 +2464,18 @@
         <p class="udp-examples-note frag" data-step="5">Common UDP examples include DNS lookups, real-time media, and online games.</p>
       </section>
 
-      <section class="slide" data-title="TCP: an overview" data-section="TCP">
-        <header class="content-header">
-          <p class="kicker">Transmission Control Protocol · RFC 9293</p>
-          <h2>TCP: an overview</h2>
-        </header>
-        <div class="udp-intro-cards tcp-overview-cards">
-          <article class="udp-intro-card frag" data-step="1">
-            <h3>Connection-oriented and point-to-point</h3>
-            <p>TCP provides an end-to-end connection between exactly two endpoints, established with a handshake.</p>
-          </article>
-          <article class="udp-intro-card frag" data-step="2">
-            <h3>Byte stream and full duplex</h3>
-            <p>TCP carries a continuous byte stream without application message boundaries, and both endpoints can send and receive simultaneously.</p>
-          </article>
-          <article class="udp-intro-card frag" data-step="3">
-            <h3>Reliable and ordered</h3>
-            <p>Unlike UDP's best-effort service, TCP delivers the byte stream reliably and in order.</p>
-          </article>
-          <article class="udp-intro-card frag" data-step="4">
-            <h3>Controlled pipelining</h3>
-            <p>Like the pipelined RDT studied in Module 4, TCP keeps data in flight, subject to flow and congestion control.</p>
-          </article>
-        </div>
-      </section>
 
-      <section class="slide" data-title="TCP is connection-oriented" data-section="TCP">
+      <section class="slide" data-title="TCP is reliable and connection-oriented" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP communication model</p>
-          <h2>TCP is connection-oriented</h2>
+          <h2>TCP is reliable and connection-oriented</h2>
         </header>
         <div class="udp-rule-points tcp-rule-points">
-          <div class="udp-rule-point frag" data-step="1"><div>TCP identifies each connection by four values: source IP address, source port, destination IP address, and destination port.</div></div>
-          <div class="udp-rule-point frag" data-step="2"><div>Whereas UDP allows multiple clients to send to the same destination socket, TCP keeps each connection in a separate connected socket.</div></div>
+          <div class="udp-rule-point frag" data-step="1"><div><strong>Reliable.</strong> TCP delivers the byte stream without loss, duplication or reordering.</div></div>
+          <div class="udp-rule-point frag" data-step="2"><div><strong>Connection-oriented.</strong> TCP identifies a connection by <strong>four</strong> values &mdash; source IP address and port, destination IP address and port &mdash; so a connection ties one particular sender to one particular receiver.</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div>So when several clients reach the same destination socket, TCP gives each its <strong>own connected socket</strong> &mdash; where UDP had them all sharing one.</div></div>
         </div>
-        <div class="tcp-example frag" data-step="2">
+        <div class="tcp-example frag" data-step="3">
           <div class="tcp-clients">
             <article class="host-card">
               <h3>Client A</h3>
