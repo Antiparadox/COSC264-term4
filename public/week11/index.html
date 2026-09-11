@@ -2522,7 +2522,7 @@
             <div class="teaching-point frag" data-step="1"><strong>1 · SYN.</strong> The client sends a segment with the <strong>SYN</strong> flag set, asking to open a conversation.</div>
             <div class="teaching-point frag" data-step="2"><strong>2 · SYN + ACK.</strong> The server agrees: in one segment it sets its own <strong>SYN</strong> flag and an <strong>ACK</strong> for the client&rsquo;s request.</div>
             <div class="teaching-point frag" data-step="3"><strong>3 · ACK.</strong> The client acknowledges the server&rsquo;s half, and the connection is open.</div>
-            <div class="tcp-recall frag" data-step="4">Each side has now heard from the other, so both know the connection exists before any data is sent.</div>
+            <div class="tcp-recall frag" data-step="4">Now that both sides have heard from each other, they can start sending packets to one another.</div>
           </div>
           <div class="tcp-handshake-scene" aria-label="TCP three-way handshake between a client and server">
             <div class="tcp-timeline-head">
@@ -2547,8 +2547,7 @@
             </div>
           </div>
         </div>
-        <div class="tcp-handshake-result frag" data-step="5">Only now can application data flow.</div>
-      </section>
+              </section>
 
       <section class="slide" data-title="How TCP closes a connection" data-section="TCP">
         <header class="content-header">
