@@ -230,7 +230,7 @@
 
     .transport-scene {
       position: relative;
-      height: 322px;
+      height: 366px;
       padding: 20px 22px 16px;
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -240,9 +240,9 @@
     }
     .logical-beam {
       position: absolute;
-      top: 86px;
-      left: 118px;
-      right: 118px;
+      top: 108px;
+      left: 182px;
+      right: 182px;
       height: 5px;
       border-radius: 6px;
       background: color-mix(in srgb, var(--teal) 22%, var(--line));
@@ -254,8 +254,9 @@
       content: "logical process-to-process communication";
       position: absolute;
       left: 50%;
-      top: -22px;
-      width: 100%;
+      top: -21px;
+      width: max-content;
+      white-space: nowrap;
       transform: translateX(-50%);
       text-align: center;
       color: var(--faint);
@@ -273,7 +274,7 @@
     .device-label { margin: 0 auto 6px; color: var(--faint); text-align: center; font: 800 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
     .process {
       width: 118px;
-      margin: 0 auto 10px;
+      margin: 0 auto 48px;
       padding: 10px 8px;
       border: 2px solid var(--teal);
       border-radius: 13px;
