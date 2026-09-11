@@ -655,7 +655,10 @@
     .udp-connectionless-example .host-card { padding: 11px; }
     .udp-connectionless-example .host-card + .host-card { margin-top: 9px !important; }
     .udp-connectionless-example .host-socket { margin-top: 7px; }
-    .udp-connectionless-example .datagram-card { padding: 9px 12px; }
+    .udp-connectionless-example .datagram-card { padding: 12px 15px; font-size: 15px; }
+    .udp-connectionless-example .host-card h3 { font-size: 28px; }
+    .udp-connectionless-example .host-socket { width: 190px; padding: 13px 12px; font-size: 16px; }
+    .udp-connectionless-example .host-socket span { font-size: 14px; }
     .udp-example .host-card + .host-card { margin-top: 12px !important; }
     .udp-example .host-socket { margin-top: 10px; }
     .udp-example .udp-paths { gap: 10px; }
@@ -710,6 +713,9 @@
     .udp-rule-point > div { min-width: 0; }
     .udp-rule-point span { display: block; margin-top: 4px; color: var(--muted); font-size: 19px; }
     .udp-rule-ask { color: var(--teal); font-weight: 750; }
+    .udp-rule-points-large { gap: 20px; }
+    .udp-rule-points-large .udp-rule-point { font-size: 25px; }
+    .udp-rule-points-large .udp-rule-point::before { font-size: 32px; }
     .udp-example.udp-socket-example { margin-top: 22px; }
     .udp-socket-example:not(.visible) { display: none; }
     .udp-client-b { opacity: 0; transform: translateY(10px); transition: opacity .24s ease, transform .24s ease; }
@@ -2360,34 +2366,45 @@
           <p class="kicker">UDP communication model</p>
           <h2>UDP is unreliable and connectionless</h2>
         </header>
-        <div class="udp-rule-points">
+        <div class="udp-rule-points udp-rule-points-large">
           <div class="udp-rule-point frag" data-step="1"><div><strong>Unreliable.</strong> UDP does not guarantee delivery, ordering, or protection against duplicates.</div></div>
-          <div class="udp-rule-point frag" data-step="2"><div><strong>Connectionless.</strong> A datagram names its destination socket by IP address and port, and that is all the sender needs &mdash; so it can send without first establishing a connection.</div></div>
-          <div class="udp-rule-point frag" data-step="3"><div>Different sources can therefore send to the <strong>same destination socket</strong>.</div></div>
-          <div class="udp-rule-point frag" data-step="4"><div class="udp-rule-ask">So how does the destination reply to each of them?</div></div>
-          <div class="udp-rule-point frag" data-step="5"><div>Using the <strong>source IP address and port</strong> carried in each datagram.</div></div>
-          <div class="udp-last-point frag" data-step="2">
+          <div class="udp-rule-point frag" data-step="2"><div><strong>Connectionless.</strong> A sender does not set up a connection before sending.</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div>Why not? Because UDP delivers on the <strong>destination alone</strong>. Put a destination IP address and port in the header, and UDP hands the datagram to that socket.</div></div>
+          <div class="udp-rule-point frag" data-step="4"><div>It does not care where the datagram came from, so there is <strong>no binding</strong> between a particular sender and a particular receiver.</div></div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Different sources, one socket" data-section="UDP">
+        <header class="content-header">
+          <p class="kicker">UDP communication model</p>
+          <h2>Different sources, one socket</h2>
+        </header>
+        <div class="udp-rule-points">
+          <div class="udp-rule-point frag" data-step="1"><div>Two senders can therefore address the <strong>same destination socket</strong>, with no arrangement between them.</div></div>
+          <div class="udp-rule-point frag" data-step="2"><div class="udp-rule-ask">But then how does the destination reply to each of them?</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div>Every datagram also carries its <strong>source IP address and port</strong> &mdash; the return address the destination replies to.</div></div>
+          <div class="udp-last-point frag" data-step="1">
             <div class="udp-example udp-connectionless-example">
               <div>
                 <article class="host-card">
                   <h3>Client A</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 203.0.113.10</span><span>Port: 46428</span></div>
                 </article>
-                <article class="host-card udp-client-b frag stateful" data-step="3" data-active-at="3" style="margin-top: 18px;">
+                <article class="host-card udp-client-b frag stateful" data-step="2" data-active-at="2" style="margin-top: 18px;">
                   <h3>Client B</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 198.51.100.23</span><span>Port: 42345</span></div>
                 </article>
               </div>
               <div class="udp-paths">
                 <div class="datagram-card stateful" data-active-at="2"><strong>UDP datagram from A</strong><br>source socket<br>203.0.113.10:46428<br>destination socket<br>192.0.2.80:19157</div>
-                <div class="datagram-card udp-datagram-b frag stateful" data-step="3" data-active-at="3"><strong>UDP datagram from B</strong><br>source socket<br>198.51.100.23:42345<br>destination socket<br>192.0.2.80:19157</div>
+                <div class="datagram-card udp-datagram-b frag stateful" data-step="2" data-active-at="2"><strong>UDP datagram from B</strong><br>source socket<br>198.51.100.23:42345<br>destination socket<br>192.0.2.80:19157</div>
               </div>
               <article class="host-card server">
                 <h3>Server C</h3>
                 <div class="host-socket"><strong>socket</strong><span>IP address: 192.0.2.80</span><span>Port: 19157</span></div>
               </article>
             </div>
-          </div>
+                    </div>
         </div>
       </section>
 
