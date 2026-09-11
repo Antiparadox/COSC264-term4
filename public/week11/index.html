@@ -2470,12 +2470,23 @@
           <p class="kicker">TCP communication model</p>
           <h2>TCP is reliable and connection-oriented</h2>
         </header>
-        <div class="udp-rule-points tcp-rule-points">
-          <div class="udp-rule-point frag" data-step="1"><div><strong>Reliable.</strong> TCP delivers the byte stream without loss, duplication or reordering.</div></div>
-          <div class="udp-rule-point frag" data-step="2"><div><strong>Connection-oriented.</strong> TCP identifies a connection by <strong>four</strong> values &mdash; source IP address and port, destination IP address and port &mdash; so a connection ties one particular sender to one particular receiver.</div></div>
-          <div class="udp-rule-point frag" data-step="3"><div>So when several clients reach the same destination socket, TCP gives each its <strong>own connected socket</strong> &mdash; where UDP had them all sharing one.</div></div>
+        <div class="udp-rule-points udp-rule-points-large">
+          <div class="udp-rule-point frag" data-step="1"><div><strong>Reliable.</strong> TCP delivers the byte stream without loss, duplication or reordering &mdash; it has an RDT mechanism built in.</div></div>
+          <div class="udp-rule-point frag" data-step="2"><div><strong>Connection-oriented.</strong> TCP identifies a connection by <strong>four</strong> values: source IP address and port, destination IP address and port.</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div>So a sender must first run a <strong>handshake</strong> to set the connection up, and that connection ties one particular sender to one particular receiver.</div></div>
         </div>
-        <div class="tcp-example frag" data-step="3">
+      </section>
+
+      <section class="slide" data-title="One connected socket per client" data-section="TCP">
+        <header class="content-header">
+          <p class="kicker">TCP communication model</p>
+          <h2>One connected socket per client</h2>
+        </header>
+        <div class="udp-rule-points tcp-rule-points">
+          <div class="udp-rule-point frag" data-step="1"><div>When several clients reach the same destination socket, TCP gives each one its <strong>own connected socket</strong>, keeping their traffic apart.</div></div>
+          <div class="udp-rule-point frag" data-step="2"><div>Compare with <strong>UDP</strong>: being connectionless, it lets many clients share a single socket.</div></div>
+        </div>
+        <div class="tcp-example frag" data-step="1">
           <div class="tcp-clients">
             <article class="host-card">
               <h3>Client A</h3>
@@ -2499,7 +2510,7 @@
             <div class="connected-socket"><strong>Connected socket B</strong>198.51.100.23:42345 ↔ 192.0.2.80:80</div>
           </article>
         </div>
-      </section>
+            </section>
 
       <section class="slide" data-title="TCP three-way handshake" data-section="TCP">
         <header class="content-header">
