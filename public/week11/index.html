@@ -2025,7 +2025,7 @@
         </header>
         <div class="recap-list">
           <div class="recap-item frag" data-step="1"><span>Reliable Data Transfer (RDT) moves data reliably over an unreliable channel.</span></div>
-          <div class="recap-item frag" data-step="2"><span>RDT uses checksums, acknowledgements (ACKs), sequence numbers, and a timer to detect errors and loss.</span></div>
+          <div class="recap-item frag" data-step="2"><span>From rdt 1.0 to rdt 3.0 we used checksums, acknowledgements (ACKs), sequence numbers, and a timer to detect errors and loss.</span></div>
           <div class="recap-item frag" data-step="3"><span>RDT up to rdt 3.0 is <b>stop-and-wait</b>, which is inefficient, so we added <b>pipelining</b> &mdash; several packets in flight at once, capped by a <b>sender window</b>.</span></div>
         <div class="recap-item recap-sub frag" data-step="4"><span><b>Go-back-N</b> uses a sender window and <b>cumulative ACKs</b>; the receiver discards anything that arrives out of order.</span></div>
         <div class="recap-item recap-sub frag" data-step="5"><span><b>Selective repeat</b> improves on that with a <b>receiver buffer</b>, so out-of-order packets are kept rather than thrown away.</span></div>
