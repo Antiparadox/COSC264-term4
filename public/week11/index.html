@@ -410,6 +410,10 @@
     .motivation-node .mini-process { background: var(--teal-soft); }
     .motivation-node .mini-socket { background: color-mix(in srgb, var(--amber) 18%, var(--surface)); }
     .motivation-node .motivation-link { grid-row: 2; grid-column: 1; }
+    .motivation-node { grid-template-rows: auto 34px auto; gap: 6px; }
+    .motivation-node .motivation-link { grid-row: 2; grid-column: 1; min-height: 34px; }
+    .motivation-sockets { grid-row: 3; display: flex; justify-content: center; gap: 6px; }
+    .motivation-sockets .mini-socket { width: auto; padding: 0 10px; height: 30px; font-size: 12px; }
     .motivation-link { display: grid; place-items: center; min-height: 64px; color: var(--amber); font: 800 30px/1 var(--sans); }
     .motivation-chaos, .motivation-clean { transition: opacity .24s ease, transform .24s ease; }
     .motivation-chaos { opacity: 0; }
@@ -443,12 +447,12 @@
     .motivation-scene h3 { font-size: 15px; }
     .motivation-scene .host-shell-label { font-size: 14px; }
     .motivation-scene .host-shell-label span:last-child { font-size: 12px; }
-    .motivation-scene .mini-process { width: 106px; height: 80px; font-size: 20px; }
+    .motivation-scene .mini-process { width: 100px; height: 72px; font-size: 19px; }
     .motivation-scene .mini-process small { margin-top: 3px; font-size: 11.5px; }
     .motivation-scene .transport-band { padding: 15px; font-size: 20px; }
     .motivation-scene .network-band { padding: 13px; font-size: 18px; }
-    .motivation-scene .motivation-note { font-size: 15px; }
-    .motivation-scene .motivation-link { min-height: 46px; font-size: 32px; }
+    .motivation-scene .motivation-note { margin-top: 12px; font-size: 15px; }
+    .motivation-scene .motivation-link { min-height: 34px; font-size: 28px; }
     .motivation-scene h3 { margin-bottom: 14px; }
     .mux-panel {
       min-height: 342px;
@@ -465,6 +469,8 @@
     .mux-panel .mini-process small { margin-top: 3px; font-size: 11.5px; }
     .mux-panel .transport-band { padding: 15px; font-size: 20px; }
     .mux-panel .network-band { padding: 13px; font-size: 18px; }
+    .mux-panel .mini-socket { width: auto; padding: 0 12px; height: 32px; font-size: 13px; }
+    .mux-panel .direction-arrows.tiny { min-height: 0; margin: 4px 0; font-size: 18px; }
     .mux-panel h3 { margin: 0; font: 700 30px/1.1 var(--serif); }
     .mux-panel > p { min-height: 50px; margin: 8px 0 18px; color: var(--muted); font-size: 18px; line-height: 1.35; }
     .process-row, .socket-row { display: grid; grid-template-columns: repeat(3, 1fr); justify-items: center; gap: 12px; }
@@ -2191,22 +2197,19 @@
         <div class="motivation-layout">
           <div class="motivation-copy">
             <p class="motivation-lead frag" data-step="1">A single host can run many network applications over multiple processes. Each process may need to send and receive traffic through the network.</p>
-            <p class="motivation-callout motivation-problem frag" data-step="2">The network layer delivers data only to the host, so it cannot identify the destination process.</p>
-            <p class="motivation-callout motivation-answer frag" data-step="3">The transport layer coordinates this traffic in both directions so each process can talk to the network individually. This is known as multiplexing/demultiplexing.</p>
+            <p class="motivation-lead frag" data-step="2">A process does not talk to the network directly. It sends and receives through a <strong>socket</strong> &mdash; and it may hold <strong>more than one</strong>.</p>
+            <p class="motivation-callout motivation-problem frag" data-step="3">The network layer delivers data only to the host, so it cannot tell which socket the data belongs to.</p>
+            <p class="motivation-callout motivation-answer frag" data-step="4">The transport layer coordinates this traffic in both directions so each socket gets exactly its own data. This is known as multiplexing/demultiplexing.</p>
           </div>
           <div class="motivation-scene frag" data-step="1" aria-label="Three application processes enclosed within one host above the network layer">
             <h3>processes and network layer</h3>
             <div class="host-shell">
               <div class="host-shell-label"><span>Host A</span><span>three application processes</span></div>
-              <div class="motivation-process-row">
-                <div class="motivation-node"><span class="mini-process">P1<small>process 1</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="2">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="3">↓</span></div>
-                <div class="motivation-node"><span class="mini-process">P2<small>process 2</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="2">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="3">↓</span></div>
-                <div class="motivation-node"><span class="mini-process">P3<small>process 3</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="2">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="3">↓</span></div>
-              </div>
-              <div class="host-transport-slot stateful" data-active-at="3"><div class="transport-band">transport layer</div></div>
+              <div class="motivation-process-row"><div class="motivation-node"><span class="mini-process">P1<small>process 1</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="3">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="4">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div><div class="motivation-node"><span class="mini-process">P2<small>process 2</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="3">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="4">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span><span class="mini-socket">socket</span></span></div><div class="motivation-node"><span class="mini-process">P3<small>process 3</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="3">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="4">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div></div>
+              <div class="host-transport-slot stateful" data-active-at="4"><div class="transport-band">transport layer</div></div>
             </div>
             <div class="motivation-shared">
-              <div class="motivation-layer-slot"><div class="host-delivery-arrow stateful" data-active-at="2" data-hide-after="2" aria-label="data delivered from the network layer to Host A">↑</div><div class="transport-network-arrow stateful" data-active-at="3" aria-label="data delivered from the network layer to the transport layer">↑</div></div>
+              <div class="motivation-layer-slot"><div class="host-delivery-arrow stateful" data-active-at="3" data-hide-after="3" aria-label="data delivered from the network layer to Host A">↑</div><div class="transport-network-arrow stateful" data-active-at="4" aria-label="data delivered from the network layer to the transport layer">↑</div></div>
               <div class="motivation-network-row"><div class="network-band">network layer</div></div>
             </div>
             <p class="motivation-note">many processes ↔ one shared path</p>
@@ -2222,8 +2225,10 @@
         <div class="mux-definition-grid">
           <article class="mux-panel frag stateful" data-step="1" data-active-at="1">
             <h3>Multiplexing</h3>
-            <p>The sender gathers data from multiple application processes and passes transport units to the network layer.</p>
+            <p>The sender gathers data from the sockets of its application processes and passes transport units to the network layer.</p>
             <div class="process-row"><span class="mini-process">P1<small>process 1</small></span><span class="mini-process">P2<small>process 2</small></span><span class="mini-process">P3<small>process 3</small></span></div>
+            <div class="direction-arrows tiny"><span>↓</span><span>↓</span><span>↓</span></div>
+            <div class="socket-row"><span class="mini-socket">socket</span><span class="mini-socket">socket</span><span class="mini-socket">socket</span></div>
             <div class="direction-arrows"><span>↘</span><span>↓</span><span>↙</span></div>
             <div class="transport-band">transport layer</div>
             <div class="direction-arrows"><span></span><span>↓</span><span></span></div>
@@ -2232,39 +2237,18 @@
 
           <article class="mux-panel demux frag stateful" data-step="2" data-active-at="2">
             <h3>Demultiplexing</h3>
-            <p>The receiver uses transport-header information to deliver data to the correct application process.</p>
+            <p>The receiver uses transport-header information to deliver data to the correct socket.</p>
             <div class="network-band">network layer</div>
             <div class="direction-arrows"><span></span><span>↓</span><span></span></div>
             <div class="transport-band">transport layer</div>
             <div class="direction-arrows"><span>↙</span><span>↓</span><span>↘</span></div>
+            <div class="socket-row"><span class="mini-socket">socket</span><span class="mini-socket">socket</span><span class="mini-socket">socket</span></div>
+            <div class="direction-arrows tiny"><span>↑</span><span>↑</span><span>↑</span></div>
             <div class="process-row"><span class="mini-process">P1<small>process 1</small></span><span class="mini-process">P2<small>process 2</small></span><span class="mini-process">P3<small>process 3</small></span></div>
           </article>
         </div>
       </section>
 
-      <section class="slide" data-title="Sockets: the transport endpoint" data-section="Multiplexing and demultiplexing">
-        <header class="content-header">
-          <p class="kicker">Before demultiplexing</p>
-          <h2>Sockets are transport-layer endpoints</h2>
-        </header>
-        <div class="socket-concept-layout">
-      <div class="socket-concept-points">
-        <div class="teaching-point frag" data-step="1"><strong>A process talks through sockets.</strong> A socket is the transport-layer endpoint an application sends and receives through.</div>
-        <div class="teaching-point frag" data-step="2"><strong>A process may have several.</strong> One socket per connection is normal &mdash; a web server holds one for every client it is talking to.</div>
-        <div class="teaching-point frag" data-step="3"><strong>To demultiplex is to find the right socket.</strong> The transport layer uses header information to pick the socket the data belongs to &mdash; not just the process.</div>
-          </div>
-          <div class="socket-concept-scene frag" data-step="1" aria-label="An application process using a socket to access the transport layer">
-            <div class="socket-host">
-              <p class="socket-host-label">Host A</p>
-              <div class="socket-process-box">application process</div>
-              <div class="socket-connector socket-fork"><span>↕</span><span>↕</span></div>
-              <div class="socket-pair"><div class="socket-gateway">socket<small>one connection</small></div><div class="socket-gateway">socket<small>another connection</small></div></div>
-              <div class="socket-connector socket-fork"><span>↕</span><span>↕</span></div>
-              <div class="socket-transport">transport layer</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section class="slide" data-title="UDP demultiplexing" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
