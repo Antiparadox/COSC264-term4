@@ -1152,6 +1152,10 @@
     .tcp-window-strip span.in-flight { background: var(--amber); }
     .tcp-scene-caption { margin-top: 11px; color: var(--faint); text-align: center; font: 700 13px/1.3 var(--mono); }
 
+    .hot-stack { align-content: start; min-height: 210px; }
+    .hot-stack .teaching-point { display: none; font-size: 21px; }
+    .hot-stack .teaching-point.visible { display: block; }
+    .hot-stack .teaching-point.visible:has(~ .teaching-point.visible) { display: none; }
     .tcp-header-layout {
       display: grid;
       grid-template-columns: 42% 58%;
@@ -1167,7 +1171,7 @@
       line-height: 1.32;
     }
     .tcp-header-card {
-      padding: 25px;
+      padding: 20px;
       border: 1px solid var(--line);
       border-radius: 23px;
       background: var(--surface);
@@ -1192,8 +1196,8 @@
     .tcp-field {
       display: grid;
       place-items: center;
-      min-height: 57px;
-      padding: 9px 10px;
+      min-height: 50px;
+      padding: 8px 10px;
       border-right: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
       color: var(--muted);
@@ -1227,10 +1231,10 @@
       text-transform: uppercase;
     }
     .tcp-header-note {
-      margin-top: 13px;
+      margin-top: 10px;
       color: var(--faint);
       text-align: center;
-      font: 700 12px/1.35 var(--mono);
+      font: 700 13.5px/1.35 var(--mono);
     }
 
     .tcp-handshake-layout {
@@ -2585,29 +2589,30 @@
           <h2>Key TCP header fields</h2>
         </header>
         <div class="tcp-header-layout">
-          <div class="tcp-header-points compact">
-            <div class="teaching-point frag" data-step="1"><strong>Sequence and acknowledgment numbers.</strong> They identify the first byte sent and the next byte expected.</div>
-            <div class="teaching-point frag" data-step="2"><strong>Control flags.</strong> Each is a one-bit field; a segment sets the relevant bit to 1 to signal an action such as SYN, ACK, FIN, or RST.</div>
-            <div class="teaching-point frag" data-step="3"><strong>Receive window.</strong> It tells the peer how many more data bytes the receiver can accept.</div>
-            <div class="teaching-point frag" data-step="4"><strong>Checksum.</strong> It detects corruption in the TCP header and payload.</div>
-            <div class="teaching-point frag" data-step="5"><strong>Header length and options.</strong> Header length shows where data begins; options carry extra capabilities such as MSS.</div>
+          <div class="tcp-header-points compact hot-stack">
+            <div class="teaching-point frag" data-step="1"><strong>20 bytes, or more.</strong> Without options a TCP header is 20 bytes &mdash; two and a half times UDP&rsquo;s 8 &mdash; and options can make it longer.</div>
+            <div class="teaching-point frag" data-step="2"><strong>Sequence and acknowledgment numbers.</strong> They identify the byte sent and the next byte expected. We come back to them next lecture.</div>
+            <div class="teaching-point frag" data-step="3"><strong>Control flags.</strong> Each is a one-bit field; a segment sets the relevant bit to 1 to signal SYN, ACK, FIN or RST.</div>
+            <div class="teaching-point frag" data-step="4"><strong>Receive window.</strong> We come back to this when we reach flow control.</div>
+            <div class="teaching-point frag" data-step="5"><strong>Checksum.</strong> It detects corruption in the TCP header and payload.</div>
+            <div class="teaching-point frag" data-step="6"><strong>Header length and options.</strong> Header length shows where the data begins; options carry extra capabilities such as MSS.</div>
           </div>
           <div class="tcp-header-card" aria-label="Simplified TCP header highlighting the key fields as they are introduced">
             <div class="tcp-header-width">32 bits per row</div>
             <div class="tcp-header-grid">
               <div class="tcp-field span-2"><small>16 bits</small>Source port</div>
               <div class="tcp-field span-2 no-right"><small>16 bits</small>Destination port</div>
-              <div class="tcp-field span-4 amber stateful" data-active-at="1"><small>32 bits</small>Sequence number</div>
-              <div class="tcp-field span-4 amber stateful" data-active-at="1"><small>32 bits</small>Acknowledgment number</div>
-              <div class="tcp-field amber stateful" data-active-at="5"><small>4 bits</small>Header length</div>
-              <div class="tcp-field span-2 red stateful" data-active-at="2"><small>Control flags</small>SYN · ACK · FIN · RST</div>
-              <div class="tcp-field amber no-right stateful" data-active-at="3"><small>16 bits</small>Receive window</div>
-              <div class="tcp-field span-2 stateful" data-active-at="4"><small>16 bits</small>Checksum</div>
+              <div class="tcp-field span-4 amber stateful" data-active-at="2"><small>32 bits</small>Sequence number</div>
+              <div class="tcp-field span-4 amber stateful" data-active-at="2"><small>32 bits</small>Acknowledgment number</div>
+              <div class="tcp-field amber stateful" data-active-at="6"><small>4 bits</small>Header length</div>
+              <div class="tcp-field span-2 red stateful" data-active-at="3"><small>Control flags</small>SYN · ACK · FIN · RST</div>
+              <div class="tcp-field amber no-right stateful" data-active-at="4"><small>16 bits</small>Receive window</div>
+              <div class="tcp-field span-2 stateful" data-active-at="5"><small>16 bits</small>Checksum</div>
               <div class="tcp-field span-2 no-right">Urgent pointer</div>
-              <div class="tcp-field span-4 amber stateful" data-active-at="5">Options · variable length</div>
+              <div class="tcp-field span-4 amber stateful" data-active-at="6">Options · variable length</div>
               <div class="tcp-field span-4 data-field">Application data · variable length</div>
             </div>
-            <div class="tcp-header-note">Sequence and acknowledgment numbers count bytes—not segments.</div>
+            <div class="tcp-header-note">TCP header · 20 bytes without options</div>
           </div>
         </div>
       </section>
