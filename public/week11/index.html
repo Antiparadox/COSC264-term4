@@ -2380,7 +2380,7 @@
           <h2>Different sources, one socket</h2>
         </header>
         <div class="udp-rule-points">
-          <div class="udp-rule-point frag" data-step="1"><div>Two senders can therefore address the <strong>same destination socket</strong>, with no arrangement between them.</div></div>
+          <div class="udp-rule-point frag" data-step="1"><div>Since UDP is connectionless, two different senders can send to the <strong>same destination socket</strong>, as depicted in this diagram.</div></div>
           <div class="udp-rule-point frag" data-step="2"><div class="udp-rule-ask">But then how does the destination reply to each of them?</div></div>
           <div class="udp-rule-point frag" data-step="3"><div>Every datagram also carries its <strong>source IP address and port</strong> &mdash; the return address the destination replies to.</div></div>
           <div class="udp-last-point frag" data-step="1">
