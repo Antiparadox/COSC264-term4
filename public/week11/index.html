@@ -2369,7 +2369,7 @@
         <div class="udp-rule-points udp-rule-points-large">
           <div class="udp-rule-point frag" data-step="1"><div><strong>Unreliable.</strong> UDP does not guarantee delivery, ordering, or protection against duplicates.</div></div>
           <div class="udp-rule-point frag" data-step="2"><div><strong>Connectionless.</strong> A sender does not set up a connection before sending.</div></div>
-          <div class="udp-rule-point frag" data-step="3"><div>Why not? Because UDP delivers on the <strong>destination alone</strong>. Put a destination IP address and port in the header, and UDP hands the datagram to that socket.</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div>Why not? Because UDP identifies the socket by the <strong>destination alone</strong>. Put a destination IP address and port in the header, and UDP hands the datagram to that socket.</div></div>
           <div class="udp-rule-point frag" data-step="4"><div>It does not care where the datagram came from, so there is <strong>no binding</strong> between a particular sender and a particular receiver.</div></div>
         </div>
       </section>
@@ -2390,14 +2390,14 @@
                   <h3>Client A</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 203.0.113.10</span><span>Port: 46428</span></div>
                 </article>
-                <article class="host-card udp-client-b frag stateful" data-step="2" data-active-at="2" style="margin-top: 18px;">
+                <article class="host-card udp-client-b stateful" data-active-at="1" style="margin-top: 18px;">
                   <h3>Client B</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 198.51.100.23</span><span>Port: 42345</span></div>
                 </article>
               </div>
               <div class="udp-paths">
                 <div class="datagram-card stateful" data-active-at="2"><strong>UDP datagram from A</strong><br>source socket<br>203.0.113.10:46428<br>destination socket<br>192.0.2.80:19157</div>
-                <div class="datagram-card udp-datagram-b frag stateful" data-step="2" data-active-at="2"><strong>UDP datagram from B</strong><br>source socket<br>198.51.100.23:42345<br>destination socket<br>192.0.2.80:19157</div>
+                <div class="datagram-card udp-datagram-b stateful" data-active-at="1"><strong>UDP datagram from B</strong><br>source socket<br>198.51.100.23:42345<br>destination socket<br>192.0.2.80:19157</div>
               </div>
               <article class="host-card server">
                 <h3>Server C</h3>
