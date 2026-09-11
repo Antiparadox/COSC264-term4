@@ -507,6 +507,14 @@
     .socket-gateway { width: 240px; margin: 0 auto; padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--amber) 18%, var(--surface)); color: var(--amber); text-align: center; font: 800 16px/1.2 var(--mono); }
     .socket-gateway small { display: block; margin-top: 4px; color: color-mix(in srgb, var(--amber) 72%, var(--ink)); font: 700 11px/1.15 var(--mono); }
     .socket-transport { padding: 11px; border-radius: 10px; background: var(--teal); color: #fff; text-align: center; font: 800 16px/1 var(--mono); }
+    .socket-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .socket-fork { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .socket-concept-scene .socket-host { max-width: 520px; }
+    .socket-concept-scene .socket-host-label { font-size: 14px; }
+    .socket-concept-scene .socket-process-box { width: 270px; padding: 13px; font-size: 18px; }
+    .socket-concept-scene .socket-gateway { width: auto; padding: 13px 8px; font-size: 18px; }
+    .socket-concept-scene .socket-gateway small { margin-top: 5px; font-size: 12px; }
+    .socket-concept-scene .socket-transport { padding: 13px; font-size: 19px; }
     .demux-layout {
       display: grid;
       grid-template-columns: 43% 57%;
@@ -2241,16 +2249,17 @@
         </header>
         <div class="socket-concept-layout">
       <div class="socket-concept-points">
-        <div class="teaching-point frag" data-step="1"><strong>A process uses a socket.</strong> A socket is the transport-layer endpoint through which an application sends and receives data.</div>
-        <div class="teaching-point frag" data-step="2"><strong>To demultiplex is to find the right socket.</strong> For incoming data, the transport layer uses header information to identify the socket that should receive it.</div>
+        <div class="teaching-point frag" data-step="1"><strong>A process talks through sockets.</strong> A socket is the transport-layer endpoint an application sends and receives through.</div>
+        <div class="teaching-point frag" data-step="2"><strong>A process may have several.</strong> One socket per connection is normal &mdash; a web server holds one for every client it is talking to.</div>
+        <div class="teaching-point frag" data-step="3"><strong>To demultiplex is to find the right socket.</strong> The transport layer uses header information to pick the socket the data belongs to &mdash; not just the process.</div>
           </div>
           <div class="socket-concept-scene frag" data-step="1" aria-label="An application process using a socket to access the transport layer">
             <div class="socket-host">
               <p class="socket-host-label">Host A</p>
               <div class="socket-process-box">application process</div>
-              <div class="socket-connector">↕</div>
-              <div class="socket-gateway">socket<small>send / receive endpoint</small></div>
-              <div class="socket-connector">↕</div>
+              <div class="socket-connector socket-fork"><span>↕</span><span>↕</span></div>
+              <div class="socket-pair"><div class="socket-gateway">socket<small>one connection</small></div><div class="socket-gateway">socket<small>another connection</small></div></div>
+              <div class="socket-connector socket-fork"><span>↕</span><span>↕</span></div>
               <div class="socket-transport">transport layer</div>
             </div>
           </div>
