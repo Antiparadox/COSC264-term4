@@ -2282,6 +2282,7 @@
             <p class="scenario-opening">Suppose the network layer uses the destination IP address to deliver the following IP packet to some host.</p>
             <div class="demux-question static-question">How does UDP perform demultiplexing afterwards?</div>
             <div class="teaching-point frag" data-step="1"><strong>UDP looks at two fields.</strong> UDP uses the <span class="inline-highlight">destination IP address</span> in the IP header and the <span class="inline-highlight">destination port</span> in the <span class="inline-highlight">UDP header</span> to identify the correct socket.</div>
+            <div class="teaching-point frag" data-step="2"><strong>Here that pair is 192.0.2.80 : 19157.</strong> So the datagram is handed to the UDP socket bound to those two values &mdash; the one named under the packet.</div>
           </div>
           <div class="packet-anatomy udp-demux-packet" aria-label="An IP packet containing a UDP datagram and application data">
             <p class="packet-caption">One IP packet carrying one UDP datagram</p>
@@ -2300,8 +2301,8 @@
               </div>
             </div>
             <div class="packet-payload">application data</div>
-            <div class="packet-socket-target stateful" data-active-at="1">↓ UDP socket · 192.0.2.80:19157</div>
-            <div class="packet-endpoint-outline destination stateful" data-active-at="1"></div>
+            <div class="packet-socket-target stateful" data-active-at="2">↓ UDP socket · 192.0.2.80:19157</div>
+            <div class="packet-endpoint-outline destination stateful" data-active-at="2"></div>
           </div>
         </div>
       </section>
