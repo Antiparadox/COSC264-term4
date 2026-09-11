@@ -2415,17 +2415,18 @@
         </header>
         <div class="udp-segment-layout">
           <div class="udp-segment-points">
-            <div class="teaching-point frag" data-step="1"><strong>Ports.</strong> The 16-bit source and destination ports identify the sending and receiving application endpoints.</div>
-            <div class="teaching-point frag" data-step="2"><strong>Length.</strong> The total number of bytes in the UDP header and application data; the minimum is eight.</div>
-            <div class="teaching-point frag" data-step="3"><strong>Checksum.</strong> Covers the UDP header and the entire payload data to detect corruption.</div>
+            <div class="teaching-point frag" data-step="1"><strong>Always 8 bytes.</strong> Four 16-bit fields and nothing optional, so a UDP header is the same size on every datagram.</div>
+            <div class="teaching-point frag" data-step="2"><strong>Ports.</strong> The 16-bit source and destination ports identify the sending and receiving application endpoints.</div>
+            <div class="teaching-point frag" data-step="3"><strong>Length.</strong> The total number of bytes in the UDP header and application data; the minimum is eight.</div>
+            <div class="teaching-point frag" data-step="4"><strong>Checksum.</strong> Covers the UDP header and the entire payload data to detect corruption.</div>
           </div>
           <div class="udp-segment-card" aria-label="UDP segment with source port, destination port, length, checksum, and application data">
             <div class="udp-width">32 bits per row</div>
             <div class="udp-header-grid">
-              <div class="udp-header-field stateful" data-active-at="1"><small>16 bits</small><strong>Source port</strong></div>
-              <div class="udp-header-field stateful" data-active-at="1"><small>16 bits</small><strong>Destination port</strong></div>
-              <div class="udp-header-field amber stateful" data-active-at="2"><small>16 bits</small><strong>Length</strong></div>
-              <div class="udp-header-field amber stateful" data-active-at="3"><small>16 bits</small><strong>Checksum</strong></div>
+              <div class="udp-header-field stateful" data-active-at="2"><small>16 bits</small><strong>Source port</strong></div>
+              <div class="udp-header-field stateful" data-active-at="2"><small>16 bits</small><strong>Destination port</strong></div>
+              <div class="udp-header-field amber stateful" data-active-at="3"><small>16 bits</small><strong>Length</strong></div>
+              <div class="udp-header-field amber stateful" data-active-at="4"><small>16 bits</small><strong>Checksum</strong></div>
             </div>
             <div class="udp-payload">Application data<br><span style="font: 600 16px/1.3 var(--mono); color: var(--faint);">variable length</span></div>
             <div class="udp-header-size">UDP header · 8 bytes</div>
