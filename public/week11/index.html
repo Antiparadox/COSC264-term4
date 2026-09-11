@@ -440,6 +440,16 @@
     .fast-retransmit-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .fast-retransmit-slide .stateful.is-active { opacity: 1; }
     .motivation-note { margin: 18px 0 0; color: var(--faint); text-align: center; font: 700 13px/1.3 var(--mono); }
+    .motivation-scene h3 { font-size: 15px; }
+    .motivation-scene .host-shell-label { font-size: 14px; }
+    .motivation-scene .host-shell-label span:last-child { font-size: 12px; }
+    .motivation-scene .mini-process { width: 106px; height: 80px; font-size: 20px; }
+    .motivation-scene .mini-process small { margin-top: 3px; font-size: 11.5px; }
+    .motivation-scene .transport-band { padding: 15px; font-size: 20px; }
+    .motivation-scene .network-band { padding: 13px; font-size: 18px; }
+    .motivation-scene .motivation-note { font-size: 15px; }
+    .motivation-scene .motivation-link { min-height: 46px; font-size: 32px; }
+    .motivation-scene h3 { margin-bottom: 14px; }
     .mux-panel {
       min-height: 342px;
       padding: 22px 24px 20px;
@@ -2167,7 +2177,7 @@
         </header>
         <div class="motivation-layout">
           <div class="motivation-copy">
-            <p class="motivation-lead frag" data-step="1">A single host can run many network application processes. Each process needs to send and receive traffic through the network.</p>
+            <p class="motivation-lead frag" data-step="1">A single host can run many network applications over multiple processes. Each process may need to send and receive traffic through the network.</p>
             <p class="motivation-callout motivation-problem frag" data-step="2">The network layer delivers data only to the host, so it cannot identify the destination process.</p>
             <p class="motivation-callout motivation-answer frag" data-step="3">The transport layer coordinates this traffic in both directions so each process can talk to the network individually. This is known as multiplexing/demultiplexing.</p>
           </div>
