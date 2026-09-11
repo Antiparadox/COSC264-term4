@@ -2039,29 +2039,42 @@
           <p class="kicker">Our route through the transport layer</p>
           <h2>Module 5 roadmap</h2>
         </header>
-        <p class="roadmap-lead">Module 4 built reliable transfer from first principles. This module is about the layer that puts it to work.</p>
-        <svg class="roadmap-svg" viewBox="0 0 1000 420" style="width:100%;max-width:940px;display:block;margin:18px auto 0">
+        <svg class="roadmap-svg" viewBox="0 0 940 468" style="width:100%;max-width:930px;display:block;margin:14px auto 0">
           <defs><marker id="rm-a" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="var(--teal)"/></marker></defs>
-          <g class="frag" data-step="1"><rect x="24" y="44" width="190" height="50" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="119" y="74" text-anchor="middle" font-size="16" font-weight="650" fill="var(--muted)">Application</text><rect x="24" y="101" width="190" height="50" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="119" y="131" text-anchor="middle" font-size="16" font-weight="650" fill="var(--muted)">Transport</text><rect x="24" y="158" width="190" height="50" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="119" y="188" text-anchor="middle" font-size="16" font-weight="650" fill="var(--muted)">Network</text><rect x="24" y="215" width="190" height="50" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="119" y="245" text-anchor="middle" font-size="16" font-weight="650" fill="var(--muted)">Link</text><rect x="24" y="272" width="190" height="50" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="119" y="302" text-anchor="middle" font-size="16" font-weight="650" fill="var(--muted)">Physical</text></g>
+          <g class="frag" data-step="1">
+            <text x="20" y="38" font-size="16.5" fill="var(--faint)">Recall: the Internet stack has five layers</text>
+            <rect x="20" y="60" width="170" height="52" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="105" y="92" text-anchor="middle" font-size="17" font-weight="650" fill="var(--muted)">Application</text><rect x="20" y="118" width="170" height="52" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="105" y="150" text-anchor="middle" font-size="17" font-weight="650" fill="var(--muted)">Transport</text><rect x="20" y="176" width="170" height="52" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="105" y="208" text-anchor="middle" font-size="17" font-weight="650" fill="var(--muted)">Network</text><rect x="20" y="234" width="170" height="52" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="105" y="266" text-anchor="middle" font-size="17" font-weight="650" fill="var(--muted)">Link</text><rect x="20" y="292" width="170" height="52" rx="9" fill="var(--surface)" stroke="var(--line)" stroke-width="1.6"/><text x="105" y="324" text-anchor="middle" font-size="17" font-weight="650" fill="var(--muted)">Physical</text>
+          </g>
           <g class="frag" data-step="2">
-            <rect x="24" y="101" width="190" height="50" rx="9" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="2.4"/>
-            <text x="119" y="131" text-anchor="middle" font-size="16" font-weight="750" fill="var(--ink)">Transport</text>
-            <line x1="224" y1="126" x2="308" y2="104" stroke="var(--teal)" stroke-width="2.2" marker-end="url(#rm-a)"/>
-            <rect x="320" y="66" width="320" height="70" rx="12" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="2"/><text x="480.0" y="97.0" text-anchor="middle" font-size="21" font-weight="750" fill="var(--ink)">Transport layer</text><text x="480.0" y="121.0" text-anchor="middle" font-size="14.5" fill="var(--muted)">sockets &middot; multiplexing and demultiplexing</text>
+            <rect x="20" y="118" width="170" height="52" rx="9" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="2.6"/>
+            <text x="105" y="150" text-anchor="middle" font-size="17" font-weight="750" fill="var(--ink)">Transport</text>
+            <line x1="200" y1="144" x2="308" y2="118" stroke="var(--teal)" stroke-width="2.4" marker-end="url(#rm-a)"/>
+            <rect x="320" y="62" width="390" height="104" rx="13" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="2.2"/>
+            <text x="515" y="97" text-anchor="middle" font-size="25" font-weight="750" fill="var(--ink)">Transport layer</text>
+            <text x="515" y="124" text-anchor="middle" font-size="16.5" fill="var(--muted)">connects applications to the network</text>
+            <text x="515" y="148" text-anchor="middle" font-size="16.5" fill="var(--muted)">sockets &middot; multiplexing &middot; demultiplexing</text>
           </g>
           <g class="frag" data-step="3">
-            <path d="M480,136 L480,166 L430,166 L430,196" fill="none" stroke="var(--line)" stroke-width="2.2"/>
-            <rect x="320" y="196" width="220" height="76" rx="12" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/><text x="430.0" y="230.0" text-anchor="middle" font-size="21" font-weight="750" fill="var(--ink)">UDP</text><text x="430.0" y="254.0" text-anchor="middle" font-size="14.5" fill="var(--muted)">no connection, no reliability</text>
+            <path d="M515,166 L515,196 L355,196 L355,226" fill="none" stroke="var(--line)" stroke-width="2.4"/>
+            <rect x="230" y="226" width="250" height="88" rx="13" fill="var(--surface)" stroke="var(--line)" stroke-width="2.2"/>
+            <text x="355" y="262" text-anchor="middle" font-size="25" font-weight="750" fill="var(--ink)">UDP</text>
           </g>
           <g class="frag" data-step="4">
-            <path d="M480,166 L750,166 L750,196" fill="none" stroke="var(--line)" stroke-width="2.2"/>
-            <rect x="600" y="196" width="300" height="76" rx="12" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="2"/><text x="750.0" y="230.0" text-anchor="middle" font-size="21" font-weight="750" fill="var(--ink)">TCP</text><text x="750.0" y="254.0" text-anchor="middle" font-size="14.5" fill="var(--muted)">connection-oriented &mdash; Module 4&rsquo;s RDT in practice</text>
+            <path d="M515,196 L680,196 L680,226" fill="none" stroke="var(--line)" stroke-width="2.4"/>
+            <rect x="530" y="226" width="300" height="88" rx="13" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="2.2"/>
+            <text x="680" y="262" text-anchor="middle" font-size="25" font-weight="750" fill="var(--ink)">TCP</text>
           </g>
           <g class="frag" data-step="5">
-            <path d="M750,272 L750,300 L670,300 L670,330" fill="none" stroke="var(--line)" stroke-width="2.2"/>
-            <path d="M750,300 L865,300 L865,330" fill="none" stroke="var(--line)" stroke-width="2.2"/>
-            <rect x="600" y="330" width="140" height="62" rx="12" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/><text x="670.0" y="357.0" text-anchor="middle" font-size="17" font-weight="750" fill="var(--ink)">Flow control</text><text x="670.0" y="381.0" text-anchor="middle" font-size="12.5" fill="var(--muted)">not swamping the receiver</text>
-            <rect x="770" y="330" width="190" height="62" rx="12" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/><text x="865.0" y="357.0" text-anchor="middle" font-size="17" font-weight="750" fill="var(--ink)">Congestion control</text><text x="865.0" y="381.0" text-anchor="middle" font-size="12.5" fill="var(--muted)">not swamping the network</text>
+            <text x="355" y="294" text-anchor="middle" font-size="14.5" fill="var(--muted)">delivers data, no reliability</text>
+            <text x="680" y="294" text-anchor="middle" font-size="14.5" fill="var(--muted)">reliable delivery &mdash; Module 4&rsquo;s RDT</text>
+          </g>
+          <g class="frag" data-step="6">
+            <path d="M680,314 L680,344 L610,344 L610,374" fill="none" stroke="var(--line)" stroke-width="2.4"/>
+            <path d="M680,344 L815,344 L815,374" fill="none" stroke="var(--line)" stroke-width="2.4"/>
+            <rect x="520" y="374" width="180" height="62" rx="13" fill="var(--surface)" stroke="var(--line)" stroke-width="2.2"/>
+            <text x="610" y="412" text-anchor="middle" font-size="19" font-weight="750" fill="var(--ink)">Flow control</text>
+            <rect x="720" y="374" width="190" height="62" rx="13" fill="var(--surface)" stroke="var(--line)" stroke-width="2.2"/>
+            <text x="815" y="412" text-anchor="middle" font-size="19" font-weight="750" fill="var(--ink)">Congestion control</text>
           </g>
         </svg>
       </section>
