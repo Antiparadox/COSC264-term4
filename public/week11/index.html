@@ -1254,8 +1254,8 @@
       margin-bottom: 12px;
       text-align: center;
     }
-    .tcp-timeline-head strong { font: 700 23px/1.1 var(--serif); }
-    .tcp-timeline-head span { display: block; margin-top: 5px; color: var(--faint); font: 700 11px/1 var(--mono); }
+    .tcp-timeline-head strong { font: 700 25px/1.1 var(--serif); }
+    .tcp-timeline-head span { display: block; margin-top: 5px; color: var(--faint); font: 700 13px/1 var(--mono); }
     .tcp-timeline {
       position: relative;
       min-height: 325px;
@@ -1320,8 +1320,8 @@
       transform: translateX(-50%);
       box-shadow: 0 5px 13px rgba(21, 36, 47, .05);
     }
-    .tcp-message-label strong { color: var(--teal); font: 800 15px/1.1 var(--mono); }
-    .tcp-message-label span { display: block; margin-top: 4px; color: var(--muted); font: 700 12px/1.2 var(--mono); }
+    .tcp-message-label strong { color: var(--teal); font: 800 18px/1.1 var(--mono); }
+    .tcp-message-label span { display: block; margin-top: 5px; color: var(--muted); font: 700 14px/1.2 var(--mono); }
     .tcp-handshake-result {
       margin-top: 13px;
       padding: 12px 15px;
@@ -1506,8 +1506,8 @@
       margin-bottom: 10px;
       text-align: center;
     }
-    .tcp-close-head strong { font: 700 22px/1.1 var(--serif); }
-    .tcp-close-head span { display: block; margin-top: 4px; color: var(--faint); font: 700 10px/1 var(--mono); }
+    .tcp-close-head strong { font: 700 25px/1.1 var(--serif); }
+    .tcp-close-head span { display: block; margin-top: 5px; color: var(--faint); font: 700 13px/1 var(--mono); }
     .tcp-close-timeline {
       position: relative;
       min-height: 340px;
@@ -1582,11 +1582,11 @@
       background: var(--surface);
       color: var(--teal);
       text-align: center;
-      font: 800 14px/1.1 var(--mono);
+      font: 800 18px/1.1 var(--mono);
       transform: translateX(-50%);
       box-shadow: 0 4px 12px rgba(21, 36, 47, .05);
     }
-    .tcp-close-label small { display: block; margin-top: 3px; color: var(--muted); font: 700 10px/1.15 var(--mono); }
+    .tcp-close-label small { display: block; margin-top: 5px; color: var(--muted); font: 700 14px/1.15 var(--mono); }
     .tcp-time-wait {
       position: absolute;
       left: -31px;
@@ -2551,15 +2551,15 @@
 
       <section class="slide" data-title="How TCP closes a connection" data-section="TCP">
         <header class="content-header">
-          <p class="kicker">Connection teardown · each direction closes independently</p>
+          <p class="kicker">Connection teardown · four messages</p>
           <h2>How TCP closes a connection</h2>
         </header>
         <div class="tcp-close-layout">
           <div class="tcp-close-points">
-            <div class="teaching-point frag" data-step="1"><strong>1 · FIN.</strong> The client sends <strong>FIN</strong> to say it has no more bytes to send.</div>
-            <div class="teaching-point frag" data-step="2"><strong>2 · ACK.</strong> The server sends <strong>ACK</strong>; it may still send data before closing its direction.</div>
-            <div class="teaching-point frag" data-step="3"><strong>3 · FIN.</strong> When the server is finished sending, it sends <strong>FIN</strong>.</div>
-            <div class="teaching-point frag" data-step="4"><strong>4 · ACK.</strong> The client sends the final <strong>ACK</strong>, completing the close.</div>
+            <div class="teaching-point frag" data-step="1"><strong>1 · FIN.</strong> The client sets the <strong>FIN</strong> flag to say it has nothing more to send.</div>
+            <div class="teaching-point frag" data-step="2"><strong>2 · ACK.</strong> The server acknowledges. Its own direction stays open, so it may still have things to send.</div>
+            <div class="teaching-point frag" data-step="3"><strong>3 · FIN.</strong> When the server has finished too, it sets its own <strong>FIN</strong> flag.</div>
+            <div class="teaching-point frag" data-step="4"><strong>4 · ACK.</strong> The client acknowledges, and the connection is closed.</div>
           </div>
           <div class="tcp-close-board" aria-label="Four-segment TCP connection closing sequence">
             <div class="tcp-close-head">
@@ -2569,15 +2569,15 @@
             <div class="tcp-close-timeline">
               <div class="tcp-close-line left"></div>
               <div class="tcp-close-line right"></div>
-              <div class="tcp-close-message to-right m1 stateful" data-active-at="1"><div class="tcp-close-label"><strong>FIN</strong><small>client send side closes</small></div><div class="tcp-close-arrow"></div></div>
-              <div class="tcp-close-message to-left m2 stateful" data-active-at="2"><div class="tcp-close-label"><strong>ACK</strong><small>FIN acknowledged</small></div><div class="tcp-close-arrow"></div></div>
+              <div class="tcp-close-message to-right m1 stateful" data-active-at="1"><div class="tcp-close-label"><strong>FIN</strong><small>I am done sending</small></div><div class="tcp-close-arrow"></div></div>
+              <div class="tcp-close-message to-left m2 stateful" data-active-at="2"><div class="tcp-close-label"><strong>ACK</strong><small>understood</small></div><div class="tcp-close-arrow"></div></div>
               <div class="tcp-close-gap stateful" data-active-at="2">⋮</div>
-              <div class="tcp-close-message to-left m3 stateful" data-active-at="3"><div class="tcp-close-label"><strong>FIN</strong><small>server send side closes</small></div><div class="tcp-close-arrow"></div></div>
-              <div class="tcp-close-message to-right m4 stateful" data-active-at="4"><div class="tcp-close-label"><strong>ACK</strong><small>server FIN acknowledged</small></div><div class="tcp-close-arrow"></div></div>
+              <div class="tcp-close-message to-left m3 stateful" data-active-at="3"><div class="tcp-close-label"><strong>FIN</strong><small>I am done too</small></div><div class="tcp-close-arrow"></div></div>
+              <div class="tcp-close-message to-right m4 stateful" data-active-at="4"><div class="tcp-close-label"><strong>ACK</strong><small>understood</small></div><div class="tcp-close-arrow"></div></div>
             </div>
           </div>
         </div>
-        <div class="tcp-handshake-result tcp-close-result frag" data-step="4">Both directions are closed, so the TCP connection is finished.</div>
+        <div class="tcp-handshake-result tcp-close-result frag" data-step="4">Each direction is closed separately, which is why it takes four messages rather than three.</div>
       </section>
 
       <section class="slide" data-title="TCP header fields" data-section="TCP">
