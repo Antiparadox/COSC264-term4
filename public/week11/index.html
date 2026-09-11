@@ -652,6 +652,10 @@
       margin-top: 14px;
     }
     .udp-example .host-card { padding: 14px; }
+    .udp-connectionless-example .host-card { padding: 11px; }
+    .udp-connectionless-example .host-card + .host-card { margin-top: 9px !important; }
+    .udp-connectionless-example .host-socket { margin-top: 7px; }
+    .udp-connectionless-example .datagram-card { padding: 9px 12px; }
     .udp-example .host-card + .host-card { margin-top: 12px !important; }
     .udp-example .host-socket { margin-top: 10px; }
     .udp-example .udp-paths { gap: 10px; }
@@ -699,12 +703,13 @@
       font-size: 18px;
       line-height: 1.35;
     }
-    .udp-rule-points { display: grid; gap: 12px; max-width: 980px; margin: 28px auto 0; }
-    .udp-rule-point { display: flex; gap: 16px; align-items: flex-start; color: var(--ink); font-size: 23px; line-height: 1.28; }
-    .udp-rule-point::before { content: "•"; flex: 0 0 auto; color: var(--teal); font-size: 32px; line-height: .8; }
+    .udp-rule-points { display: grid; gap: 9px; max-width: 1000px; margin: 20px auto 0; }
+    .udp-rule-point { display: flex; gap: 14px; align-items: flex-start; color: var(--ink); font-size: 20.5px; line-height: 1.3; }
+    .udp-rule-point::before { content: "•"; flex: 0 0 auto; color: var(--teal); font-size: 27px; line-height: .9; }
     .udp-rule-point strong { color: var(--teal); }
     .udp-rule-point > div { min-width: 0; }
     .udp-rule-point span { display: block; margin-top: 4px; color: var(--muted); font-size: 19px; }
+    .udp-rule-ask { color: var(--teal); font-weight: 750; }
     .udp-example.udp-socket-example { margin-top: 22px; }
     .udp-socket-example:not(.visible) { display: none; }
     .udp-client-b { opacity: 0; transform: translateY(10px); transition: opacity .24s ease, transform .24s ease; }
@@ -2349,36 +2354,18 @@
       </section>
 
 
-      <section class="slide" data-title="User Datagram Protocol: an overview" data-section="UDP">
-        <header class="content-header">
-          <p class="kicker">User Datagram Protocol · RFC 768</p>
-          <h2>User Datagram Protocol: an overview</h2>
-        </header>
-        <div class="udp-intro-cards">
-          <article class="udp-intro-card frag" data-step="1">
-            <h3>UDP mechanism</h3>
-            <p>UDP adds port-based multiplexing, demultiplexing, and error detection on top of IP.</p>
-          </article>
-          <article class="udp-intro-card frag" data-step="2">
-            <h3>Best-effort delivery</h3>
-            <p>UDP does not guarantee delivery, ordering, or protection against duplicates. Applications are responsible for any recovery or ordering they need.</p>
-          </article>
-          <article class="udp-intro-card frag" data-step="3">
-            <h3>No connection setup</h3>
-            <p>A host can send a UDP message without first establishing a transport-layer handshake.</p>
-          </article>
-        </div>
-      </section>
 
-      <section class="slide" data-title="UDP is connectionless" data-section="UDP">
+      <section class="slide" data-title="UDP is unreliable and connectionless" data-section="UDP">
         <header class="content-header">
           <p class="kicker">UDP communication model</p>
-          <h2>UDP is connectionless</h2>
+          <h2>UDP is unreliable and connectionless</h2>
         </header>
         <div class="udp-rule-points">
-          <div class="udp-rule-point frag" data-step="1"><div>Any sender can send a UDP datagram to another host without first establishing a connection.</div></div>
-          <div class="udp-rule-point frag" data-step="2"><div>Different sources can send UDP datagrams to the same destination socket.</div></div>
-          <div class="udp-rule-point frag" data-step="3"><div>In this case, the destination host can reply to each source socket by using the source IP address and port number carried in that UDP datagram.</div></div>
+          <div class="udp-rule-point frag" data-step="1"><div><strong>Unreliable.</strong> UDP does not guarantee delivery, ordering, or protection against duplicates.</div></div>
+          <div class="udp-rule-point frag" data-step="2"><div><strong>Connectionless.</strong> A datagram names its destination socket by IP address and port, and that is all the sender needs &mdash; so it can send without first establishing a connection.</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div>Different sources can therefore send to the <strong>same destination socket</strong>.</div></div>
+          <div class="udp-rule-point frag" data-step="4"><div class="udp-rule-ask">So how does the destination reply to each of them?</div></div>
+          <div class="udp-rule-point frag" data-step="5"><div>Using the <strong>source IP address and port</strong> carried in each datagram.</div></div>
           <div class="udp-last-point frag" data-step="2">
             <div class="udp-example udp-connectionless-example">
               <div>
@@ -2386,14 +2373,14 @@
                   <h3>Client A</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 203.0.113.10</span><span>Port: 46428</span></div>
                 </article>
-                <article class="host-card udp-client-b frag stateful" data-step="2" data-active-at="2" style="margin-top: 18px;">
+                <article class="host-card udp-client-b frag stateful" data-step="3" data-active-at="3" style="margin-top: 18px;">
                   <h3>Client B</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 198.51.100.23</span><span>Port: 42345</span></div>
                 </article>
               </div>
               <div class="udp-paths">
                 <div class="datagram-card stateful" data-active-at="2"><strong>UDP datagram from A</strong><br>source socket<br>203.0.113.10:46428<br>destination socket<br>192.0.2.80:19157</div>
-                <div class="datagram-card udp-datagram-b frag stateful" data-step="2" data-active-at="2"><strong>UDP datagram from B</strong><br>source socket<br>198.51.100.23:42345<br>destination socket<br>192.0.2.80:19157</div>
+                <div class="datagram-card udp-datagram-b frag stateful" data-step="3" data-active-at="3"><strong>UDP datagram from B</strong><br>source socket<br>198.51.100.23:42345<br>destination socket<br>192.0.2.80:19157</div>
               </div>
               <article class="host-card server">
                 <h3>Server C</h3>
