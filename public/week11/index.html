@@ -2327,6 +2327,7 @@
             <p class="scenario-opening">Suppose the network layer uses the destination IP address to deliver the following IP packet to some host.</p>
             <div class="demux-question static-question">How does TCP perform demultiplexing afterwards?</div>
             <div class="teaching-point frag" data-step="1"><strong>TCP looks at four fields.</strong> TCP uses the <span class="inline-highlight">source IP address</span> and <span class="inline-highlight">destination IP address</span> in the IP header, plus the <span class="inline-highlight">source port</span> and <span class="inline-highlight">destination port</span> in the <span class="inline-highlight">TCP header</span>, to identify the correct connected socket.</div>
+            <div class="teaching-point frag" data-step="2">For this packet, the identified socket is the one bound to <strong>203.0.113.10 : 46428 &harr; 192.0.2.80 : 80</strong>.</div>
           </div>
           <div class="four-tuple-scene" aria-label="The four values that identify a connected TCP socket">
             <p class="packet-caption">TCP connection identity</p>
@@ -2342,7 +2343,7 @@
                 <div class="endpoint-value"><small>Destination port</small><strong>80</strong></div>
               </article>
             </div>
-            <div class="connection-identity frag" data-step="1">203.0.113.10:46428 ↔ 192.0.2.80:80</div>
+            <div class="connection-identity frag" data-step="2">203.0.113.10:46428 ↔ 192.0.2.80:80</div>
           </div>
         </div>
       </section>
