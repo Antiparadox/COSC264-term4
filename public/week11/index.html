@@ -2557,7 +2557,7 @@
         <div class="tcp-close-layout">
           <div class="tcp-close-points">
             <div class="teaching-point frag" data-step="1"><strong>1 · FIN.</strong> The client sets the <strong>FIN</strong> flag to say it has nothing more to send.</div>
-            <div class="teaching-point frag" data-step="2"><strong>2 · ACK.</strong> The server acknowledges. Its own direction stays open, so it may still have things to send.</div>
+            <div class="teaching-point frag" data-step="2"><strong>2 · ACK.</strong> The server acknowledges. But its own direction stays open, so it may still have things to send.</div>
             <div class="teaching-point frag" data-step="3"><strong>3 · FIN.</strong> When the server has finished too, it sets its own <strong>FIN</strong> flag.</div>
             <div class="teaching-point frag" data-step="4"><strong>4 · ACK.</strong> The client acknowledges, and the connection is closed.</div>
           </div>
@@ -2577,8 +2577,7 @@
             </div>
           </div>
         </div>
-        <div class="tcp-handshake-result tcp-close-result frag" data-step="4">Each direction is closed separately, which is why it takes four messages rather than three.</div>
-      </section>
+              </section>
 
       <section class="slide" data-title="TCP header fields" data-section="TCP">
         <header class="content-header">
