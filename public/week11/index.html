@@ -577,6 +577,16 @@
     .packet-payload { padding: 24px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); color: var(--muted); text-align: center; font: 750 16px/1 var(--mono); }
     .packet-socket-target { margin-top: 13px; padding: 13px; border-radius: 13px; background: var(--teal-soft); color: var(--teal); text-align: center; font: 800 15px/1.25 var(--mono); opacity: 0; transform: translateY(8px); transition: opacity .24s ease, transform .24s ease; }
     .packet-socket-target.is-active { opacity: 1; transform: none; }
+    .udp-demux-packet .packet-caption { font-size: 15px; }
+    .udp-demux-packet .packet-section-title { padding: 11px 14px; font-size: 15px; }
+    .udp-demux-packet .packet-field small { margin-bottom: 7px; font-size: 13px; }
+    .udp-demux-packet .packet-field strong { font-size: 20px; }
+    .udp-demux-packet .packet-payload { padding: 22px 14px; font-size: 18px; }
+    .udp-demux-packet .packet-socket-target { padding: 15px; font-size: 18px; }
+    .four-tuple-scene .packet-caption { font-size: 15px; }
+    .four-tuple-scene .endpoint-pair h3 { font-size: 24px; }
+    .four-tuple-scene .endpoint-value small { margin-bottom: 8px; font-size: 13px; }
+    .four-tuple-scene .endpoint-value strong { font-size: 19px; }
     .udp-demux-packet { position: relative; }
     .udp-demux-packet .packet-section { opacity: 1; }
     .packet-endpoint-outline { position: absolute; z-index: 3; top: 80px; width: calc(50% - 24px); height: 174px; border: 3px solid; border-radius: 14px; opacity: 0; pointer-events: none; transition: opacity .24s ease; }
@@ -2329,7 +2339,7 @@
               <article class="endpoint-pair remote stateful" data-active-at="1">
                 <h3>Destination endpoint</h3>
                 <div class="endpoint-value"><small>Destination IP address</small><strong>192.0.2.80</strong></div>
-                <div class="endpoint-value tcp-destination-port stateful" data-active-at="1"><small>Destination port</small><strong>80</strong></div>
+                <div class="endpoint-value"><small>Destination port</small><strong>80</strong></div>
               </article>
             </div>
             <div class="connection-identity frag" data-step="1">203.0.113.10:46428 ↔ 192.0.2.80:80</div>
