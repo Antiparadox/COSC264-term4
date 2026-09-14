@@ -3520,30 +3520,27 @@ svg text{font-family:var(--sans)}
     <div class="pv-walk-card wide s1"><b>1 &middot; AS D owns the prefix</b><span>
       <code>203.0.113.0/24</code> is one of the subnets inside AS D. For hosts elsewhere on the
       Internet to reach it, AS D has to <b>advertise this destination prefix to the other ASes</b>.</span></div>
-    <div class="pv-walk-card policy-only s2"><b>2 &middot; AS D export policy</b><span>AS D has a
-      neighbour it could advertise to &mdash; AS B. But before it does, it consults its
-      <span class="policy-term">export policy</span>: is advertising this prefix to this neighbour
-      something AS D is willing to do?<span class="policy-preview">We will return to export policy
-      later.</span></span></div>
+    <div class="pv-walk-card policy-only s2"><b>2 &middot; AS D export policy</b><span>Before advertising to AS B, AS D
+      consults its <span class="policy-term">export policy</span>: is telling this neighbour
+      something AS D is willing to do?<span class="policy-preview">We come back to import and
+      export policy shortly.</span></span></div>
     <div class="pv-walk-card s3"><b>3 &middot; eBGP: D &rarr; B</b><span>Suppose AS D permits the export.
       D1 sends an UPDATE to B4 over their established eBGP session.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS D</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">D1</span></div></div></div>
     <div class="pv-walk-card policy-only s4"><b>4 &middot; AS B import policy</b><span>AS B applies its
-      <span class="policy-term">import policy</span>. B4 may accept or reject D1's
-      advertisement.<span class="policy-preview">We will return to import policy later.</span></span></div>
+      <span class="policy-term">import policy</span>: B4 may accept or reject the
+      advertisement.</span></div>
     <div class="pv-walk-card s5"><b>5 &middot; iBGP inside B</b><span>Suppose AS B accepts. B4 then shares
       the accepted route using <b>internal BGP (iBGP)</b> with AS B's other BGP speakers; in
       particular, B3 learns it.</span>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS D &middot; unchanged</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">D1</span></div></div></div>
-    <div class="pv-walk-card policy-only s6"><b>6 &middot; AS B export policy</b><span>AS B now knows it
-      can reach the prefix, and it would like its own neighbours to know that too. It has a
-      neighbour it could advertise to &mdash; AS A. But first it consults its
-      <span class="policy-term">export policy</span>: is carrying other ASes' traffic to this prefix
-      something AS B is willing to do?</span></div>
+    <div class="pv-walk-card policy-only s6"><b>6 &middot; AS B export policy</b><span>AS B can now reach the prefix. Before
+      passing it to AS A, its <span class="policy-term">export policy</span> asks: is carrying other
+      ASes&rsquo; traffic to this prefix something AS B is willing to do?</span></div>
     <div class="pv-walk-card s7"><b>7 &middot; eBGP: B &rarr; A</b><span>Suppose AS B permits the export. B3
       <b>prepends AS B</b> onto the <code>AS_PATH</code> and sets <code>NEXT_HOP</code> to its own IP
       address, then sends this path vector in an UPDATE to AS A's border router A4.</span>
