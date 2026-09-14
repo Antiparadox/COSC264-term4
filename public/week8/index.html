@@ -2122,13 +2122,22 @@ svg text{font-family:var(--sans)}
 .bgp-setup-slide:is([data-step="5"],[data-step="6"]) .lit-prefix{opacity:1}
 @keyframes bgp-in-pulse{0%,100%{stroke:var(--current)}50%{stroke:var(--good)}}
 .bgp-setup-slide[data-step="6"] .lit-in{animation:bgp-in-pulse 1.2s ease-in-out infinite}
-.bgp-setup-lead{flex:0 0 auto;width:100%;max-width:1010px;margin:10px auto 0;min-height:62px;position:relative}
+.bgp-setup-lead{flex:0 0 auto;width:100%;max-width:1010px;margin:10px auto 0;min-height:104px;position:relative}
 .bgp-setup-line{position:absolute;inset:0;display:block;opacity:0;
   transition:opacity .28s;font-size:20px;line-height:1.4;color:var(--muted)}
 .bgp-setup-line b{color:var(--ink)}
 .bgp-setup-slide[data-step="1"] .bs1,.bgp-setup-slide[data-step="2"] .bs2,
-.bgp-setup-slide[data-step="3"] .bs3,.bgp-setup-slide[data-step="4"] .bs4,
-.bgp-setup-slide[data-step="5"] .bs5,.bgp-setup-slide[data-step="6"] .bs6{opacity:1}
+.bgp-setup-slide[data-step="3"] .bs3,.bgp-setup-slide[data-step="4"] .bs4{opacity:1}
+.bgp-setup-card{position:absolute;inset:0;display:grid;grid-template-columns:150px 1fr;gap:16px;
+  align-items:center;padding:10px 16px;border:1px solid var(--accent);border-left:6px solid
+  var(--accent);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
+  opacity:0;transform:translateY(7px);transition:opacity .22s ease,transform .22s ease}
+.bgp-setup-card > b{display:grid;place-items:center;min-height:42px;padding:6px 9px;border-radius:8px;
+  background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;text-align:center;
+  text-transform:uppercase;letter-spacing:.04em}
+.bgp-setup-slide:is([data-step="5"],[data-step="6"]) .bgp-setup-card{opacity:1;transform:none}
+.bgp-setup-slide:is([data-step="5"],[data-step="6"]) .bgp-setup-card .q1,
+.bgp-setup-slide[data-step="6"] .bgp-setup-card .q2{opacity:1}
 .import-policy-status,.export-policy-status{position:relative;height:130px;margin-top:10px}
 .import-policy-card .ipl{display:block}
 .import-policy-card .ipl + .ipl{margin-top:5px;opacity:0;transition:opacity .25s}
@@ -3687,10 +3696,13 @@ svg text{font-family:var(--sans)}
     established <b>eBGP</b> session with a router in an adjacent AS &mdash; four sessions in all.</span>
     <span class="bgp-setup-line bs4">Inside AS A, these are the <b>BGP speakers</b>, and they maintain
     <b>iBGP</b> sessions with each other &mdash; so whatever one of them learns can reach them all.</span>
-    <span class="bgp-setup-line bs5">Now take a destination: <span class="mono">203.0.113.0/24</span>,
-    a subnet inside <b>AS D</b>.</span>
-    <span class="bgp-setup-line bs6">Suppose <b>AS B and AS E can both reach it</b> &mdash; AS B
-    directly, AS E through AS H &mdash; and each advertises it to AS A.</span>
+    <div class="bgp-setup-card"><b>The setting</b>
+      <ul class="pv-q-list">
+        <li class="q1">Now suppose we have the following destination:
+          <span class="mono">203.0.113.0/24</span>, a subnet inside <b>AS D</b>.</li>
+        <li class="q2">Suppose <b>both AS B and AS E can reach it</b> &mdash; and both would like to
+          advertise this destination to AS A.</li>
+      </ul></div>
   </div>
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
   <div class="source">BGP speakers, sessions and NLRI: RFC 4271 §§1.1, 3</div>
