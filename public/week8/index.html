@@ -2712,9 +2712,8 @@ svg text{font-family:var(--sans)}
       RIP installs its chosen route &mdash; the destination and the next hop &mdash; into
       A&rsquo;s forwarding table.</span></div>
     <div class="rt-card s3"><b>Two tables, not one</b><span>They are kept separately, and may not
-      always agree.<br>
-      <i>e.g.</i> a route may be removed from the forwarding table, yet still be kept temporarily
-      in the routing table.</span></div>
+      always agree &mdash; RIP may hold on to an entry for its own <b>bookkeeping</b> after the
+      forwarding table has dropped it. We will see an example of this shortly.</span></div>
   </div>
   <span class="frag rt-trigger" aria-hidden="true"></span>
   <span class="frag rt-trigger" aria-hidden="true"></span>
