@@ -2037,13 +2037,13 @@ svg text{font-family:var(--sans)}
 .import-policy-rule b{display:block;margin-bottom:2px;font-family:var(--mono);font-size:11px;
   color:var(--accent-ink);text-transform:uppercase}
 .import-trigger,.export-policy-trigger{position:absolute;width:0;height:0;pointer-events:none}
-.import-policy-slide:is([data-step="1"],[data-step="2"]) .import-route{opacity:1}
-.import-policy-slide[data-step="2"] .import-policy-core{
+.import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-route{opacity:1}
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-policy-core{
   box-shadow:0 0 0 5px var(--current-soft),var(--shadow)}
-.import-policy-slide[data-step="2"] .import-policy-rule{
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-policy-rule{
   border-color:var(--current)}
-.import-policy-slide[data-step="2"] .import-localpref{display:grid}
-.import-policy-slide[data-step="2"] .import-route.route2{border-color:var(--good);
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-localpref{display:grid}
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-route.route2{border-color:var(--good);
   box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
 .import-policy-stage.import-as-stage{position:relative;display:block;height:345px;padding:0}
 .import-as-boundary{position:absolute;left:365px;right:15px;top:15px;bottom:15px;border:3px solid
@@ -2052,7 +2052,7 @@ svg text{font-family:var(--sans)}
 .import-as-route{position:absolute;left:12px;width:326px;padding:25px 12px 11px;border:2px solid
   var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow);transition:.22s;
   opacity:0;z-index:7}.import-as-route.route1{top:26px}.import-as-route.route2{top:180px}
-.import-policy-slide:is([data-step="1"],[data-step="2"]) .import-as-route{opacity:1}
+.import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-as-route{opacity:1}
 .import-as-route > b{position:absolute;left:12px;top:-13px;padding:6px 10px;border-radius:8px;
   background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;font-weight:900;
   letter-spacing:.04em}
@@ -2089,17 +2089,20 @@ svg text{font-family:var(--sans)}
   border-radius:50%;color:#fff;font-size:19px;font-weight:900;opacity:0;transform:scale(.7);
   transition:.22s;z-index:10}.import-verdict.top{top:80px}.import-verdict.bottom{top:212px}
 .import-verdict.reject{background:var(--bad)}.import-verdict.accept{background:var(--good)}
-.import-policy-slide:is([data-step="1"],[data-step="2"]) .import-ebgp::after{opacity:1}
-.import-policy-slide[data-step="2"] .import-verdict.accept.top,
-.import-policy-slide[data-step="2"] .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
-.import-policy-slide[data-step="2"] .import-as-route{border-color:var(--good);
+.import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-ebgp::after{opacity:1}
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-verdict.accept.top,
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-as-route{border-color:var(--good);
   box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.import-policy-slide[data-step="2"] .import-as-route .route-card .import-localpref{display:grid;
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-as-route .route-card .import-localpref{display:grid;
   margin:0 -5px;padding:3px 5px;border-radius:7px;background:#332b1f;
   box-shadow:inset 0 0 0 2px var(--current)}
-.import-policy-slide[data-step="2"] .import-localpref .key{color:#f5bd63;font-weight:900}
-.import-policy-slide[data-step="2"] .import-localpref .value{color:#fff;font-weight:900}
-.import-policy-status,.export-policy-status{position:relative;height:90px;margin-top:10px}
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-localpref .key{color:#f5bd63;font-weight:900}
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-localpref .value{color:#fff;font-weight:900}
+.import-policy-status,.export-policy-status{position:relative;height:110px;margin-top:10px}
+.import-policy-card .ipl{display:block}
+.import-policy-card .ipl + .ipl{margin-top:6px;opacity:0;transition:opacity .25s}
+.import-policy-slide[data-step="3"] .import-policy-card .ipl + .ipl{opacity:1}
 .import-policy-card,.export-policy-card{position:absolute;inset:0;display:grid;
   grid-template-columns:215px 1fr;gap:18px;align-items:center;padding:12px 18px;border:1px solid
   var(--accent);border-left:7px solid var(--accent);border-radius:0 13px 13px 0;
@@ -2108,7 +2111,7 @@ svg text{font-family:var(--sans)}
 .import-policy-card > b,.export-policy-card > b{font-family:var(--mono);font-size:12px;
   color:var(--accent-ink);text-transform:uppercase}
 .import-policy-slide[data-step="1"] .import-policy-card.s1,
-.import-policy-slide[data-step="2"] .import-policy-card.s2,
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-policy-card.s2,
 .export-policy-slide[data-step="1"] .export-policy-card.s1,
 .export-policy-slide[data-step="2"] .export-policy-card.s2,
 .export-policy-slide[data-step="3"] .export-policy-card.s3{opacity:1;transform:none}
@@ -3567,74 +3570,19 @@ svg text{font-family:var(--sans)}
     <span class="import-verdict accept bottom">✓</span>
     <span class="frag import-trigger" aria-hidden="true"></span>
     <span class="frag import-trigger" aria-hidden="true"></span>
+    <span class="frag import-trigger" aria-hidden="true"></span>
   </div>
   <div class="import-policy-status">
     <div class="import-policy-card s1"><b>1 · One prefix, two routes</b><span>Two advertisements for
       the same prefix, <code>203.0.113.0/24</code>, arrive over separate eBGP sessions at two
       different AS A border gateways. <b>Which one should AS A allow to import?</b></span></div>
-    <div class="import-policy-card s2"><b>2 · Accept both, and rank them</b><span>AS A's import policy
-      accepts both routes and attaches a <code>LOCAL_PREF</code> to each &mdash; 100 and 200 &mdash;
-      for use inside AS A. The higher value is the one AS A prefers.</span></div>
+    <div class="import-policy-card s2"><b>2 · Accept both, and rank them</b><span><span class="ipl">Import policy
+      may also <b>reject</b> a route outright. Here it accepts both, attaching a
+      <code>LOCAL_PREF</code> to each &mdash; 100 and 200. The higher value is the one AS A
+      prefers.</span><span class="ipl">Why keep the loser? As a <b>backup</b>: if the preferred
+      route is withdrawn, AS A falls back to it at once, with nothing new to learn.</span></span></div>
   </div>
   <div class="source">Import policy and LOCAL_PREF: RFC 4271 §§5.1.5, 9.1.1</div>
-</section>
-
-<section class="slide stateful export-policy-slide" data-sec="BGP">
-  <div class="kicker">AS-wide routing intention · outgoing advertisements</div>
-  <h2>eBGP export policy: what an AS advertises</h2>
-  <div class="export-policy-stage export-as-stage" role="img"
-    aria-label="AS A selects a route through AS E, AS H, and AS D. Gateway routers A4 and A5 connect to AS X and AS Y. Fragments show an export policy that advertises the route to neither neighbour or selectively to AS X">
-    <div class="export-as-boundary"><b>AS A</b></div>
-    <div class="export-as-route rejected"><b>IMPORTED FROM AS B</b>
-      <div class="route-card">
-        <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field export-lp-lose"><span class="key">LOCAL_PREF</span><span class="value">100</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
-        <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
-      </div>
-      <span class="export-verdict lose">&times;</span>
-    </div>
-    <div class="export-as-route chosen"><b><span class="export-internal-state">IMPORTED FROM AS E</span>
-      <span class="export-outbound-state">ADVERTISEMENT TO AS X</span></b>
-      <span class="export-verdict win">&#10003;</span>
-      <div class="route-card">
-        <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field export-internal-only export-lp-win"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
-        <div class="field export-path-focus"><span class="key">AS_PATH</span><span class="value">
-          <span class="export-internal-state">AS E · AS H · AS D</span>
-          <span class="export-outbound-state">AS A · AS E · AS H · AS D</span></span></div>
-        <div class="field"><span class="key">NEXT_HOP</span><span class="value">
-          <span class="export-internal-state">E1</span><span class="export-outbound-state">A4</span></span></div>
-      </div>
-    </div>
-    <span class="export-as-internal l1"></span><span class="export-as-internal l2"></span>
-    <span class="export-as-internal l3"></span><span class="export-as-internal l4"></span>
-    <span class="export-as-internal l5"></span><span class="export-as-internal l6"></span>
-    <div class="export-as-node a1">A1</div><div class="export-as-node a2">A2</div>
-    <div class="export-as-node a3">A3</div><div class="export-as-node gateway a4">A4</div>
-    <div class="export-as-node gateway a5">A5</div>
-    <span class="export-ebgp-line top"></span><span class="export-ebgp-line bottom"></span>
-    <span class="export-ebgp-label top">eBGP</span><span class="export-ebgp-label bottom">eBGP</span>
-    <span class="export-update top">UPDATE · A E H D</span>
-    <span class="export-update bottom">UPDATE · A E H D</span>
-    <span class="export-policy-block top">×</span><span class="export-policy-block bottom">×</span>
-    <div class="export-external x">AS X</div><div class="export-external y">AS Y</div>
-    <span class="frag export-policy-trigger" aria-hidden="true"></span>
-    <span class="frag export-policy-trigger" aria-hidden="true"></span>
-    <span class="frag export-policy-trigger" aria-hidden="true"></span>
-  </div>
-  <div class="export-policy-status">
-    <div class="export-policy-card s1"><b>1 · Select an AS path</b><span>Both routes were imported,
-      but the one through AS E carries the higher <code>LOCAL_PREF</code>, so AS A selects
-      <strong>AS E · AS H · AS D</strong> for <code>203.0.113.0/24</code>.</span></div>
-    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>AS A can now reach the
-      prefix, and it has two neighbours it could tell &mdash; AS X and AS Y.
-      <b>Which of them should AS A advertise this route to?</b></span></div>
-    <div class="export-policy-card s3"><b>3 · Export policy decides</b><span>AS A's export policy
-      answers per neighbour: it prepends itself and advertises
-      <strong>AS A · AS E · AS H · AS D</strong> to AS X, while withholding it from AS Y.</span></div>
-  </div>
-  <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
 
 <section class="slide stateful speaker-decision-slide" data-sec="BGP">
@@ -3713,6 +3661,64 @@ svg text{font-family:var(--sans)}
       B3 at cost 2 beats E1 at cost 3, so <b>Route 1 wins</b> &mdash; <b>hot-potato routing</b>.</span></div>
   </div>
   <div class="source">iBGP, distributed selection, LOCAL_PREF, and intra-AS cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
+</section>
+
+<section class="slide stateful export-policy-slide" data-sec="BGP">
+  <div class="kicker">AS-wide routing intention · outgoing advertisements</div>
+  <h2>eBGP export policy: what an AS advertises</h2>
+  <div class="export-policy-stage export-as-stage" role="img"
+    aria-label="AS A selects a route through AS E, AS H, and AS D. Gateway routers A4 and A5 connect to AS X and AS Y. Fragments show an export policy that advertises the route to neither neighbour or selectively to AS X">
+    <div class="export-as-boundary"><b>AS A</b></div>
+    <div class="export-as-route rejected"><b>IMPORTED FROM AS B</b>
+      <div class="route-card">
+        <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
+        <div class="field export-lp-lose"><span class="key">LOCAL_PREF</span><span class="value">100</span></div>
+        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
+        <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
+      </div>
+      <span class="export-verdict lose">&times;</span>
+    </div>
+    <div class="export-as-route chosen"><b><span class="export-internal-state">IMPORTED FROM AS E</span>
+      <span class="export-outbound-state">ADVERTISEMENT TO AS X</span></b>
+      <span class="export-verdict win">&#10003;</span>
+      <div class="route-card">
+        <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
+        <div class="field export-internal-only export-lp-win"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
+        <div class="field export-path-focus"><span class="key">AS_PATH</span><span class="value">
+          <span class="export-internal-state">AS E · AS H · AS D</span>
+          <span class="export-outbound-state">AS A · AS E · AS H · AS D</span></span></div>
+        <div class="field"><span class="key">NEXT_HOP</span><span class="value">
+          <span class="export-internal-state">E1</span><span class="export-outbound-state">A4</span></span></div>
+      </div>
+    </div>
+    <span class="export-as-internal l1"></span><span class="export-as-internal l2"></span>
+    <span class="export-as-internal l3"></span><span class="export-as-internal l4"></span>
+    <span class="export-as-internal l5"></span><span class="export-as-internal l6"></span>
+    <div class="export-as-node a1">A1</div><div class="export-as-node a2">A2</div>
+    <div class="export-as-node a3">A3</div><div class="export-as-node gateway a4">A4</div>
+    <div class="export-as-node gateway a5">A5</div>
+    <span class="export-ebgp-line top"></span><span class="export-ebgp-line bottom"></span>
+    <span class="export-ebgp-label top">eBGP</span><span class="export-ebgp-label bottom">eBGP</span>
+    <span class="export-update top">UPDATE · A E H D</span>
+    <span class="export-update bottom">UPDATE · A E H D</span>
+    <span class="export-policy-block top">×</span><span class="export-policy-block bottom">×</span>
+    <div class="export-external x">AS X</div><div class="export-external y">AS Y</div>
+    <span class="frag export-policy-trigger" aria-hidden="true"></span>
+    <span class="frag export-policy-trigger" aria-hidden="true"></span>
+    <span class="frag export-policy-trigger" aria-hidden="true"></span>
+  </div>
+  <div class="export-policy-status">
+    <div class="export-policy-card s1"><b>1 · The selected route</b><span>AS A&rsquo;s border routers have selected the
+      route through AS E for <code>203.0.113.0/24</code>:
+      <strong>AS E · AS H · AS D</strong>.</span></div>
+    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>AS A can reach the
+      prefix, and it has two neighbours it could tell &mdash; AS X and AS Y.
+      <b>Which of them should AS A advertise this route to?</b></span></div>
+    <div class="export-policy-card s3"><b>3 · Export policy decides</b><span>AS A's export policy
+      answers per neighbour: it prepends itself and advertises
+      <strong>AS A · AS E · AS H · AS D</strong> to AS X, while withholding it from AS Y.</span></div>
+  </div>
+  <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
 
 <section class="slide stateful relationship-slide" data-sec="Why do ASes prefer some routes?">
