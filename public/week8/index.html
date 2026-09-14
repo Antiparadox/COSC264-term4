@@ -3432,8 +3432,9 @@ svg text{font-family:var(--sans)}
         the destination prefix being advertised.</span></div>
       <div class="field-explain f2"><b>AS_PATH</b><span>The complete <strong>AS-level path leading to
         that destination prefix</strong>.</span></div>
-      <div class="field-explain f3"><b>NEXT_HOP</b><span>The IP address of the next router to which
-        traffic should be forwarded towards that prefix.</span></div>
+      <div class="field-explain f3"><b>NEXT_HOP</b><span>The IP address of the <strong>border router to use as the
+        exit point</strong> towards that prefix &mdash; the AS's own routing protocol gets you
+        there.</span></div>
     </div>
   </div>
   <div class="source">BGP route, NLRI and path attributes: RFC 4271 §§1.1, 3.1, 4.3, 5.1.2-5.1.3</div>
@@ -3696,7 +3697,7 @@ svg text{font-family:var(--sans)}
       <b>two routes</b> to <code>203.0.113.0/24</code> &mdash; one from A4, one from A5.</span></div>
     <div class="speaker-card question s2"><b>The question</b><span>A1 must put <b>one</b> next hop for
       this prefix into its forwarding table. <b>Which of the two routes should it pick?</b></span></div>
-    <div class="speaker-card s3"><b>1 &middot; AS-wide policy first</b><span>The first tie-breaker is
+    <div class="speaker-card s3"><b>1 &middot; AS-wide policy first</b><span>The first criterion is
       <code>LOCAL_PREF</code>, the AS-wide preference from import policy: 200 beats 100, so
       <b>Route 2 wins</b>.</span></div>
     <div class="speaker-card s4"><b>2 &middot; Then AS_PATH length</b><span>If <code>LOCAL_PREF</code>
