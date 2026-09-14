@@ -1280,6 +1280,8 @@ svg text{font-family:var(--sans)}
 
 /* address aggregation and longest-prefix match */
 .agg-trigger{position:absolute;width:0;height:0;pointer-events:none}
+.agg-fib2 caption{caption-side:top;text-align:left;padding:0 0 7px;font-family:var(--mono);
+  font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
 .agg-fib2{flex:0 0 auto;border-collapse:collapse;width:100%;max-width:1020px;margin:14px auto 0;
   background:var(--surface);box-shadow:var(--shadow)}
 .agg-fib2 th,.agg-fib2 td{padding:8px 13px;border:1px solid var(--border);text-align:left;
@@ -1295,14 +1297,16 @@ svg text{font-family:var(--sans)}
 .agg-how-slide tr.agg{display:none}
 .agg-how-slide tr.agg td{background:var(--good-soft)}
 .agg-how-slide tr.agg td:is(.who,.cidr,.out){color:var(--good)}
-.agg-how-slide:not(:is([data-step="5"],[data-step="6"])) .agg-fib2 :is(th,td).bits{visibility:hidden}
+.agg-how-slide:not(:is([data-step="5"],[data-step="6"])) .agg-fib2 :is(th,td).bits,
+.agg-lpm-slide:is([data-step="0"],[data-step="1"]) .agg-fib2 :is(th,td).bits{display:none}
+.agg-how-slide:not(:is([data-step="5"],[data-step="6"])) .agg-fib2,
+.agg-lpm-slide:is([data-step="0"],[data-step="1"]) .agg-fib2{width:auto}
 .agg-how-slide:is([data-step="5"],[data-step="6"]) td.bits b{background:var(--current);color:#fff}
 .agg-how-slide[data-step="6"] tr.dept{display:none}
 .agg-how-slide[data-step="6"] tr.agg{display:table-row}
 .agg-fib2.lpm td.bits .m{font-family:var(--mono);font-size:13px;font-weight:900;color:var(--muted)}
 .agg-lpm-slide tr.e23{opacity:0;transition:opacity .22s}
 .agg-lpm-slide:not([data-step="0"]) tr.e23{opacity:1}
-.agg-lpm-slide:is([data-step="0"],[data-step="1"]) .agg-fib2 :is(th,td).bits{visibility:hidden}
 .agg-lpm-slide:is([data-step="2"],[data-step="3"]) tr:is(.e20,.e23) td{background:var(--current-soft)}
 .agg-lpm-slide[data-step="4"] tr.e23 td{background:var(--good-soft)}
 .agg-lpm-slide[data-step="4"] tr.e23 td .m{color:var(--good)}
@@ -4076,8 +4080,9 @@ svg text{font-family:var(--sans)}
 
 <section class="slide stateful agg-how-slide" data-sec="How did the Internet adapt to IPv4 scarcity?">
   <div class="kicker">What CIDR costs the routers</div>
-  <h2>IPv4 address aggregation</h2>
+  <h2>IPv4 address aggregation in the forwarding table</h2>
   <table class="agg-fib2" aria-label="A forwarding table holding one entry per department, then one aggregated entry">
+    <caption>a router&rsquo;s forwarding table</caption>
     <thead><tr><th class="who">network</th><th class="cidr">destination</th>
       <th class="out">next hop</th><th class="bits">in binary</th></tr></thead>
     <tbody>
@@ -4102,9 +4107,9 @@ svg text{font-family:var(--sans)}
     <div class="agg-card s1"><b>A new problem</b><ul class="agg-sub">
       <li class="q1">CIDR uses the address space far more efficiently &mdash; but it can create a
         problem for <b>router memory</b>.</li>
-      <li class="q2">For example, a router carrying traffic towards the university may need to keep
-        <b>all eight</b> of these entries, even though every one of them sends traffic to the
-        <b>same next hop</b>.</li>
+      <li class="q2">Suppose this is the <b>forwarding table</b> of a router carrying traffic towards
+        the university: it has to keep <b>all eight</b> of these entries, even though every one of
+        them sends traffic to the <b>same next hop</b>.</li>
       <li class="q3"><b>How do we solve this?</b></li>
       </ul></div>
     <div class="agg-card s2"><b>The answer</b><ul class="agg-sub">
@@ -4127,6 +4132,7 @@ svg text{font-family:var(--sans)}
   <div class="kicker">When one network is reached another way</div>
   <h2>What if two entries both match?</h2>
   <table class="agg-fib2 lpm" aria-label="Two forwarding-table entries that both match one destination address">
+    <caption>a router&rsquo;s forwarding table</caption>
     <thead><tr><th class="who">network</th><th class="cidr">destination</th>
       <th class="out">next hop</th><th class="bits">match for 200.23.18.5</th></tr></thead>
     <tbody>
