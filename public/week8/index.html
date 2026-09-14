@@ -2037,28 +2037,9 @@ svg text{font-family:var(--sans)}
   border:2px solid var(--border);border-radius:15px;background:var(--surface);box-shadow:var(--shadow);
   opacity:.34;transition:.22s}.import-route::after{content:"";position:absolute;right:-37px;top:50%;
   width:35px;height:5px;border-radius:4px;background:var(--edge)}
-.import-route > b{position:absolute;left:14px;top:-12px;padding:5px 9px;border-radius:7px;
-  background:var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.04em}
-.import-route.route2 > b{background:var(--good)}.import-route .route-card{padding:10px 13px;
-  border-radius:10px;font-size:12px;line-height:1.35}.import-route .route-card .field{
-  grid-template-columns:98px 1fr}.import-localpref{display:none}
-.import-policy-core{display:grid;align-content:center;gap:14px;min-height:240px;padding:22px;
-  border:3px solid var(--accent);border-radius:23px;background:var(--surface);box-shadow:var(--shadow)}
-.import-policy-core h3{margin:0;font-family:var(--serif);font-size:27px}.import-policy-core p{
-  margin:0;color:var(--muted);font-size:17px;line-height:1.35}
-.import-policy-rule{padding:12px 14px;border:2px solid var(--border);border-radius:12px;
-  background:var(--surface-2);font-size:16px;line-height:1.3;transition:.22s}
-.import-policy-rule b{display:block;margin-bottom:2px;font-family:var(--mono);font-size:11px;
-  color:var(--accent-ink);text-transform:uppercase}
+.import-localpref{display:none}
 .import-trigger,.export-policy-trigger{position:absolute;width:0;height:0;pointer-events:none}
-.import-policy-slide:not([data-step="0"]) .import-route{opacity:1}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-policy-core{
-  box-shadow:0 0 0 5px var(--current-soft),var(--shadow)}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-policy-rule{
-  border-color:var(--current)}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-localpref{display:grid}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-route.route2{border-color:var(--good);
-  box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-localpref{display:grid}
 .import-policy-stage.import-as-stage{position:relative;display:block;height:345px;padding:0}
 .import-as-boundary{position:absolute;left:365px;right:15px;top:15px;bottom:15px;border:3px solid
   var(--accent);border-radius:25px;background:var(--surface);box-shadow:var(--shadow);z-index:1}
@@ -2101,17 +2082,17 @@ svg text{font-family:var(--sans)}
 .import-verdict{position:absolute;left:488px;width:30px;height:30px;display:grid;place-items:center;
   border-radius:50%;color:#fff;font-size:19px;font-weight:900;opacity:0;transform:scale(.7);
   transition:.22s;z-index:10}.import-verdict.top{top:80px}.import-verdict.bottom{top:212px}
-.import-verdict.reject{background:var(--bad)}.import-verdict.accept{background:var(--good)}
+.import-verdict.accept{background:var(--good)}
 .import-policy-slide:not([data-step="0"]) .import-ebgp::after{opacity:1}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-verdict.accept.top,
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-as-route{border-color:var(--good);
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-verdict.accept.top,
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-as-route{border-color:var(--good);
   box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-as-route .route-card .import-localpref{display:grid;
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-as-route .route-card .import-localpref{display:grid;
   margin:0 -5px;padding:3px 5px;border-radius:7px;background:#332b1f;
   box-shadow:inset 0 0 0 2px var(--current)}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-localpref .key{color:#f5bd63;font-weight:900}
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-localpref .value{color:#fff;font-weight:900}
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-localpref .key{color:#f5bd63;font-weight:900}
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-localpref .value{color:#fff;font-weight:900}
 /* ── the picture the three policy frames all share ── */
 .bgp-setup-map{display:block;flex:0 0 auto;width:100%;max-width:1010px;margin:4px auto 0}
 .bgp-setup-map .gg{transition:opacity .3s ease,stroke .3s ease,fill .3s ease}
@@ -2143,9 +2124,9 @@ svg text{font-family:var(--sans)}
 .import-policy-status,.export-policy-status{position:relative;height:130px;margin-top:10px}
 .import-policy-card .ipl{display:block}
 .import-policy-card .ipl + .ipl{margin-top:5px;opacity:0;transition:opacity .25s}
-.import-policy-slide:is([data-step="3"],[data-step="4"]) .import-policy-card.s1 .ipl:nth-child(2),
+.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-policy-card.s1 .ipl:nth-child(2),
 .import-policy-slide[data-step="3"] .import-policy-card.s1 .ipl:nth-child(3),
-.import-policy-slide[data-step="6"] .import-policy-card.s2 .ipl + .ipl{opacity:1}
+.import-policy-slide[data-step="5"] .import-policy-card.s2 .ipl + .ipl{opacity:1}
 .import-policy-card,.export-policy-card{position:absolute;inset:0;display:grid;
   grid-template-columns:215px 1fr;gap:18px;align-items:center;padding:12px 18px;border:1px solid
   var(--accent);border-left:7px solid var(--accent);border-radius:0 13px 13px 0;
@@ -2153,13 +2134,8 @@ svg text{font-family:var(--sans)}
   transition:.22s;font-size:18px;line-height:1.28}
 .import-policy-card > b,.export-policy-card > b{font-family:var(--mono);font-size:12px;
   color:var(--accent-ink);text-transform:uppercase}
-.import-policy-slide[data-step="4"] .import-verdict.reject.top,
-.import-policy-slide[data-step="4"] .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
-.import-policy-slide[data-step="4"] .import-as-route.route1{opacity:.45;border-color:var(--bad)}
-.import-policy-slide[data-step="4"] .import-as-route.route2{border-color:var(--good)}
-.import-policy-slide:is([data-step="1"],[data-step="3"],[data-step="4"]) .import-policy-card.s1,
-.import-policy-slide[data-step="4"] .import-policy-card.s1b,
-.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-policy-card.s2,
+.import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-policy-card.s1,
+.import-policy-slide:is([data-step="4"],[data-step="5"]) .import-policy-card.s2,
 .export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-policy-card.s1,
 .export-policy-slide[data-step="4"] .export-policy-card.s2{opacity:1;transform:none}
 .export-policy-card .pv-q-list li{font-size:16.5px}
@@ -3831,10 +3807,8 @@ svg text{font-family:var(--sans)}
     <div class="import-as-node gateway a4">A4</div><div class="import-as-node gateway a5">A5</div>
     <div class="import-as-node a2">A2</div><div class="import-as-node a3">A3</div>
     <div class="import-as-node a1">A1</div><div class="import-as-node a6">A6</div>
-    <span class="import-verdict reject top">×</span>
     <span class="import-verdict accept top">✓</span>
     <span class="import-verdict accept bottom">✓</span>
-    <span class="frag import-trigger" aria-hidden="true"></span>
     <span class="frag import-trigger" aria-hidden="true"></span>
     <span class="frag import-trigger" aria-hidden="true"></span>
     <span class="frag import-trigger" aria-hidden="true"></span>
@@ -3847,15 +3821,11 @@ svg text{font-family:var(--sans)}
       class="ipl">The <b>paths</b> differ &mdash; <span class="mono">AS B · AS D</span> against
       <span class="mono">AS E · AS H · AS D</span> &mdash; but both end at <b>AS D</b>.</span><span
       class="ipl"><b>Which one should AS A allow to import?</b></span></span></div>
-    <div class="import-policy-card s1b"><b>2 · It may simply reject one</b><span>Import policy can
-      turn a route away outright. <b>AS B is AS A&rsquo;s provider</b>, so AS A pays for every byte
-      it sends that way &mdash; and it can already reach AS D through its <b>peer AS E</b> for
-      nothing. So it may refuse the paid route altogether: not a candidate at all, and AS A is left
-      with one way to the prefix.</span></div>
-    <div class="import-policy-card s2"><b>3 · Or accept both, and rank them</b><span><span class="ipl">More
-      usually it accepts both, attaching a <code>LOCAL_PREF</code> to each. <b>Peer over
-      provider</b>: the AS E route gets 200, the AS B route 100, and the higher value is the one
-      AS A prefers.</span><span class="ipl">Why keep the loser? As a <b>backup</b>: if the preferred
+    
+    <div class="import-policy-card s2"><b>2 · It accepts both, and ranks them</b><span><span class="ipl">AS A
+      accepts <b>both</b>, encoding its preference as a <code>LOCAL_PREF</code> on each. Recall the
+      import rule &mdash; <b>customer over peer over provider</b>: AS E is a peer and AS B a
+      provider, so 200 against 100.</span><span class="ipl">Why keep the loser? As a <b>backup</b>: if the preferred
       route is withdrawn, AS A falls back to it at once, with nothing new to learn.</span></span></div>
   </div>
   <div class="source">Import policy and LOCAL_PREF: RFC 4271 §§5.1.5, 9.1.1</div>
