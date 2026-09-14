@@ -2611,8 +2611,8 @@ svg text{font-family:var(--sans)}
     <b>distance vector</b> &mdash; its own best known cost to every destination, and the
     <b>next hop</b> on that path.</span></div>
     <div class="frag step-flow-step"><span class="step-flow-index">2</span><span>Each router sends its
-    vector <b>only to its direct neighbours</b>, and receives theirs in return. The algorithm is
-    <b>fully distributed</b>: no router ever learns the full topology.</span></div>
+    vector <b>only to its direct neighbours</b>, and receives theirs in return. No router ever
+    learns the full topology.</span></div>
     <div class="frag step-flow-step"><span class="step-flow-index">3</span><span>On a neighbour&rsquo;s
     vector the router applies <b>relaxation</b> &mdash; if that neighbour offers a cheaper path, take it:
     update the cost and make that neighbour the next hop. Any entry that changed is advertised
