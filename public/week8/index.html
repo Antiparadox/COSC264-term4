@@ -2626,8 +2626,8 @@ svg text{font-family:var(--sans)}
   <h2>A closer look at RIP</h2>
   <ul class="rip-overview-list">
     <li class="frag"><b>RIP is a distance-vector protocol</b><span>It runs the algorithm we have
-      just recapped, within a single AS. But that algorithm needs a <b>cost</b> for every link
-      &mdash; so what cost does RIP give one?</span></li>
+      just recapped, within a single AS. But how does RIP measure the <b>cost</b> of each
+      path?</span></li>
     <li class="frag"><b>Every link costs one hop</b><span>RIP measures distance in <b>router hops</b>:
       each router adds one to the metric it received. In the graph from Module 1, that is simply
       giving <b>every edge weight 1</b>.</span>
