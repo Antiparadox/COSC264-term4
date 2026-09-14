@@ -2975,17 +2975,12 @@ svg text{font-family:var(--sans)}
   <div class="ospf-intro-list">
     <div class="frag ospf-fact"><b>What it is.</b> OSPF is an intra-AS routing protocol which uses
     the <b>link-state</b> routing algorithm.</div>
-    <div class="frag ospf-fact"><b>What it sends.</b> Five message types: <b>Hello</b> to find and
-    keep neighbours, then <b>Database Description</b>, <b>Link State Request</b>, <b>Link State
-    Update</b> and <b>Link State Acknowledgment</b> to build and flood the database.</div>
-    <div class="frag ospf-fact"><b>Where the advertisements sit.</b> An advertisement &mdash; an
-    <b>LSA</b> &mdash; is not a message of its own. LSAs are the payload <b>inside</b> Link State
-    Update messages, and one message may carry several.</div>
-    <div class="frag ospf-fact"><b>Protocol channel.</b> These messages ride <b>directly on IP</b>,
-    without TCP or UDP. OSPF provides its own reliability: every LSA is acknowledged, and
-    retransmitted if it is not.</div>
+    <div class="frag ospf-fact"><b>Protocol channel.</b> OSPF carries its messages <b>directly over
+    IP</b>, without TCP or UDP.</div>
+    <div class="frag ospf-fact"><b>What they carry.</b> Those messages carry the <b>link-state
+    advertisements</b> &mdash; so before going further, a reminder of how link state works.</div>
   </div>
-  <div class="source">OSPF packet types, flooding and encapsulation: RFC 2328 §§1, 4.3, 13, A.3</div>
+  <div class="source">OSPF architecture and packet encapsulation: RFC 2328 §§1, 4.3</div>
 </section>
 
 <section class="slide" data-sec="OSPF">
