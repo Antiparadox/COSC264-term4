@@ -2160,8 +2160,9 @@ svg text{font-family:var(--sans)}
 .import-policy-slide:is([data-step="6"],[data-step="6"]) .import-policy-card.s2,
 .export-policy-slide[data-step="1"] .export-policy-card.s1,
 .export-policy-slide[data-step="2"] .export-policy-card.s2,
-.export-policy-slide[data-step="3"] .export-policy-card.s3,
-.export-policy-slide[data-step="4"] .export-policy-card.s4{opacity:1;transform:none}
+.export-policy-slide[data-step="3"] .export-policy-card.s3{opacity:1;transform:none}
+.export-policy-card .pv-q-list li{font-size:16.5px}
+.export-policy-slide[data-step="1"] .export-policy-card.s1 li{opacity:1}
 
 .export-policy-stage{display:grid;grid-template-columns:370px 315px 215px;gap:32px;align-items:center;
   width:100%;max-width:1070px;height:320px;margin:0 auto;padding:25px 32px;border:1px solid
@@ -2190,12 +2191,12 @@ svg text{font-family:var(--sans)}
   height:5px;border-radius:4px;background:var(--edge)}
 .export-policy-neighbour small{position:absolute;right:8px;bottom:7px;font-family:var(--mono);
   font-size:8px;color:var(--bad)}
-.export-policy-slide:is([data-step="1"],[data-step="3"],[data-step="4"]) .export-selected{opacity:1}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-policy-core{
+.export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-selected{opacity:1}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-core{
   box-shadow:0 0 0 5px var(--bad-soft),var(--shadow)}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-policy-rule{border-color:var(--bad)}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-policy-neighbour{opacity:1}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-policy-neighbour::before{background:var(--bad)}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-rule{border-color:var(--bad)}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-neighbour{opacity:1}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-neighbour::before{background:var(--bad)}
 .export-policy-stage.export-as-stage{position:relative;display:block;height:396px;padding:0}
 .export-as-boundary{position:absolute;left:112px;right:300px;top:8px;bottom:8px;border:3px solid
   var(--accent);border-radius:25px;background:var(--surface);box-shadow:var(--shadow);z-index:1}
@@ -2208,19 +2209,8 @@ svg text{font-family:var(--sans)}
   font-weight:900;letter-spacing:.04em}.export-as-route .route-card{padding:9px 11px;
   border-radius:10px;font-size:12.5px;line-height:1.34}
 .export-as-route .route-card .field{grid-template-columns:88px 1fr}
-.export-as-route.rejected{border-color:var(--bad)}
-.export-policy-slide:not([data-step="0"]) .export-as-route.chosen{
-  opacity:1}
-.export-as-route.rejected > b{background:var(--bad)}
-.export-verdict{position:absolute;right:-17px;top:50%;width:38px;height:38px;display:grid;
-  place-items:center;border-radius:50%;color:#fff;font-size:23px;font-weight:900;
-  border:3px solid var(--surface);opacity:0;transform:translateY(-50%) scale(.7);
-  transition:.22s;z-index:12}
-.export-verdict.win{background:var(--good)}.export-verdict.lose{background:var(--bad)}
-.export-policy-slide[data-step="1"] .export-as-route.rejected{opacity:1;left:124px}
-.export-policy-slide[data-step="1"] .export-as-route.chosen{left:464px}
-.export-policy-slide[data-step="1"] .export-verdict{opacity:1;transform:translateY(-50%) scale(1)}
-.export-policy-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .export-as-route.chosen{left:262px;width:400px}
+.export-policy-slide:not([data-step="0"]) .export-as-route.chosen{opacity:1}
+.export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-as-route.chosen{left:262px;width:400px}
 .export-path-focus{margin:0 -5px;padding:3px 5px;border-radius:7px;transition:.22s}
 .export-outbound-state{display:none}
 .export-as-node{position:absolute;width:62px;height:38px;display:grid;place-items:center;border:3px solid
@@ -2269,21 +2259,20 @@ svg text{font-family:var(--sans)}
   border-radius:50%;background:var(--bad);color:#fff;font-size:19px;font-weight:900;opacity:0;
   transform:scale(.7);transition:.22s;z-index:11}.export-policy-block.top{top:62px}
 .export-policy-block.bottom{top:138px}
-.export-policy-slide[data-step="1"] .export-path-focus,
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-path-focus{background:#20362f;
+.export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-path-focus{background:#20362f;
   box-shadow:inset 0 0 0 2px var(--good)}
-.export-policy-slide:is([data-step="1"],[data-step="4"]) .export-path-focus .key{
+.export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-path-focus .key{
   color:#8fe0bc;font-weight:900}
-.export-policy-slide:is([data-step="1"],[data-step="4"]) .export-path-focus .value{
+.export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-path-focus .value{
   color:#fff;font-weight:900}
-.export-policy-slide[data-step="2"] .export-ebgp-line{background:var(--current);height:7px}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-ebgp-line.top{height:7px;background:var(--good)}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-ebgp-line.bottom{height:3px;background:var(--bad)}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-update.top{opacity:1}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-policy-block.bottom{opacity:1;transform:scale(1)}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-internal-state{display:none}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-outbound-state{display:inline}
-.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-internal-only{display:none}
+
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-ebgp-line.top{height:7px;background:var(--good)}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-ebgp-line.bottom{height:3px;background:var(--bad)}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-update.top{opacity:1}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-block.bottom{opacity:1;transform:scale(1)}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-internal-state{display:none}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-outbound-state{display:inline}
+.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-internal-only{display:none}
 
 .speaker-decision-stage{display:grid;grid-template-columns:610px 1fr;gap:20px;width:100%;
   max-width:1070px;height:335px;margin:0 auto;padding:15px;border:1px solid var(--border);
@@ -3864,18 +3853,9 @@ svg text{font-family:var(--sans)}
     <span class="export-as-ext-label bottom">from AS E</span>
     <div class="export-as-ext b3">B3</div><div class="export-as-ext e1">E1</div>
     <span class="export-as-in top"></span><span class="export-as-in bottom"></span>
-    <div class="export-as-route rejected"><b>IMPORTED FROM AS B</b>
-      <div class="route-card">
-        <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
-        <div class="field export-lp-lose"><span class="key">LOCAL_PREF</span><span class="value">100</span></div>
-        <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
-        <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
-      </div>
-      <span class="export-verdict lose">&times;</span>
-    </div>
+    
     <div class="export-as-route chosen"><b><span class="export-internal-state">IMPORTED FROM AS E</span>
       <span class="export-outbound-state">ADVERTISEMENT TO AS X</span></b>
-      <span class="export-verdict win">&#10003;</span>
       <div class="route-card">
         <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field export-internal-only export-lp-win"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
@@ -3901,20 +3881,21 @@ svg text{font-family:var(--sans)}
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
-    <span class="frag export-policy-trigger" aria-hidden="true"></span>
   </div>
   <div class="export-policy-status">
-    <div class="export-policy-card s1"><b>1 · One route is advertised</b><span><b>A1</b> is the router we just watched
-      break the tie, and it is also the one peering with AS X and AS Y. It selected the route
-      through AS E, <strong>AS E · AS H · AS D</strong> &mdash; and a speaker can advertise only
-      the route it selected.</span></div>
-    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>A1 has an eBGP session to each of two
-      neighbours &mdash; AS X and AS Y.
-      <b>Which of them should AS A advertise this route to?</b></span></div>
-    <div class="export-policy-card s3"><b>3 · Export policy decides</b><span>AS A's export policy
+    <div class="export-policy-card s1"><b>1 · The setting</b>
+      <ul class="pv-q-list">
+        <li class="q1">Suppose A1 selected the route through AS E:
+          <strong>AS E · AS H · AS D</strong>.</li>
+        <li class="q2">A1 is a border router, so it can pass what it knows on to its neighbouring
+          ASes &mdash; <b>AS X</b> and <b>AS Y</b>.</li>
+        <li class="q3"><b>Should it? And to which of them?</b> That is what
+          <b>export policy</b> decides.</li>
+      </ul></div>
+    <div class="export-policy-card s2"><b>2 · Export policy decides</b><span>AS A's export policy
       answers per neighbour: it prepends itself and advertises
       <strong>AS A · AS E · AS H · AS D</strong> to AS X, while withholding it from AS Y.</span></div>
-    <div class="export-policy-card s4"><b>4 · Three decisions, one route</b><span>Whether to
+    <div class="export-policy-card s3"><b>3 · Three decisions, one route</b><span>Whether to
       <b>keep</b> it &mdash; import. Which one to <b>use</b> &mdash; selection. Who to <b>tell</b>
       &mdash; export. Only the middle one chooses between routes, and only part of it gives the
       same answer at every router.</span></div>
