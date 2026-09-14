@@ -602,11 +602,12 @@ svg text{font-family:var(--sans)}
   padding:3px 13px;border:1px solid var(--good);border-radius:20px;background:var(--good-soft);
   white-space:nowrap;font-family:var(--mono);font-size:12.5px;font-weight:600;
   letter-spacing:.04em;color:var(--good)}
-.rip-response-reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;flex:0 0 auto;
+.rip-response-reasons{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;flex:0 0 auto;
   width:100%;max-width:1050px;margin:15px auto 0}
 .rip-response-reason{min-height:126px;padding:14px 17px;border:1px solid var(--border);border-top:6px solid var(--accent);border-radius:14px;
-  background:var(--surface);box-shadow:var(--shadow)}.rip-response-reason:nth-child(2){border-top-color:var(--current)}
-.rip-response-reason:nth-child(3){border-top-color:var(--bad)}.rip-response-reason .reason-when{font-family:var(--mono);font-size:11px;
+  background:var(--surface);box-shadow:var(--shadow)}.rip-response-reason.periodic{border-top-color:var(--current)}
+.rip-response-reason.triggered{border-top-color:var(--bad)}
+.rip-response-reason.on-startup{border-top-color:var(--muted)}.rip-response-reason .reason-when{font-family:var(--mono);font-size:11px;
   font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}.rip-response-reason h3{margin:5px 0 4px;
   font-family:var(--serif);font-size:22px}.rip-response-reason p{margin:0;font-size:15px;line-height:1.34;color:var(--muted)}
 .rip-hop-rule{margin:0 0 16px;padding:13px 18px;border-left:6px solid var(--current);
@@ -2732,27 +2733,28 @@ svg text{font-family:var(--sans)}
 </section>
 
 <section class="slide" data-sec="RIP">
-  <div class="kicker">Two message types &middot; three reasons to send a Response</div>
+  <div class="kicker">Two message types &middot; when each one is sent</div>
   <h2>The RIP conversation: Request and Response</h2>
   <p class="frag rip-lead">Distance vector rests on routers <b>talking to their direct
   neighbours</b>. So how does RIP carry that conversation?</p>
   <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
     <div class="rip-dialogue-router left">R1</div>
     <div class="frag rip-message-lane request"><b>Request</b><span>Ask a neighbour for its
-    <b>distance vector</b>. A router does this when it <b>starts up</b>, so it need not wait for
-    the first advertisement to arrive.</span></div>
+    <b>distance vector</b> &mdash; the entries in that neighbour&rsquo;s RIP routing table.</span></div>
     <div class="frag rip-message-lane response"><b>Response</b><span class="lane-alias">also known as
     a RIP advertisement</span><span>Advertise the <b>distance vector</b> held in this router's RIP
     routing table.</span></div>
     <div class="frag rip-udp-note">this conversation is carried over UDP</div>
     <div class="rip-dialogue-router right">R2</div>
   </div>
-  <div class="rip-response-reasons" aria-label="Three situations that cause RIP to send a Response">
+  <div class="rip-response-reasons" aria-label="When RIP sends a Request, and three situations that cause it to send a Response">
+    <div class="frag rip-response-reason on-startup"><span class="reason-when">When a router starts up</span><h3>Request</h3>
+      <p>Its table is empty, so it asks its neighbours for theirs rather than waiting for the first advertisement.</p></div>
     <div class="frag rip-response-reason"><span class="reason-when">After a Request</span><h3>Requested</h3>
       <p>Return all routes or the selected routing-table entries requested by another router.</p></div>
-    <div class="frag rip-response-reason"><span class="reason-when">Roughly every 30 seconds</span><h3>Periodic</h3>
+    <div class="frag rip-response-reason periodic"><span class="reason-when">Roughly every 30 seconds</span><h3>Periodic</h3>
       <p>Send the current routing table to neighbouring RIP routers.</p></div>
-    <div class="frag rip-response-reason"><span class="reason-when">After a route changes</span><h3>Triggered</h3>
+    <div class="frag rip-response-reason triggered"><span class="reason-when">After a route changes</span><h3>Triggered</h3>
       <p>Send changed routing information shortly after the change occurs.</p></div>
   </div>
   <div class="source">RIP Request and Response processing: RFC 2453 §§3.8, 3.9.1&ndash;3.9.2,
