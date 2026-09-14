@@ -2597,10 +2597,10 @@ svg text{font-family:var(--sans)}
     First</span><span class="protocol-kind">Link state</span><span class="igp-tag">this lecture</span></div>
     <div class="frag igp-card"><strong>IS-IS</strong><span class="protocol-name">Intermediate
     System to Intermediate System</span><span class="protocol-kind">Link state</span>
-    <p>The other major link-state IGP, common in ISP backbones &mdash; we will not cover it in
-    this lecture.</p></div>
+    <p>A link-state alternative to OSPF, widely used inside ISP networks. It works so much like
+    OSPF that we will not cover it separately.</p></div>
   </div>
-  <div class="source">IGP definition: RFC 1812 §7.2.1; RIP, OSPF and IS-IS: RFC 6518</div>
+  <div class="source">Intra-AS routing definition: RFC 1812 §7.2.1; RIP, OSPF and IS-IS: RFC 6518</div>
 </section>
 
 <section class="slide" data-sec="RIP">
@@ -3554,7 +3554,7 @@ svg text{font-family:var(--sans)}
       tie, A1 turns to AS A's <b>own internal topology</b> and asks its own intra-AS routing protocol which next hop is closer:
       B3 at cost 2 beats E1 at cost 3, so <b>Route 1 wins</b> &mdash; <b>hot-potato routing</b>.</span></div>
   </div>
-  <div class="source">iBGP, distributed selection, LOCAL_PREF, and IGP cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
+  <div class="source">iBGP, distributed selection, LOCAL_PREF, and intra-AS cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
 </section>
 
 <section class="slide stateful relationship-slide" data-sec="Why do ASes prefer some routes?">
