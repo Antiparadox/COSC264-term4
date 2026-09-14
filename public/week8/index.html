@@ -253,7 +253,8 @@ svg text{font-family:var(--sans)}
 .matrix-slide[data-step="5"] .pm-pvrow{display:table-row}
 .matrix-slide[data-step="4"] .pm-rip,
 .matrix-slide[data-step="4"] .pm-ospf,
-.matrix-slide[data-step="5"] .pm-bgp{background:var(--accent-soft);
+.matrix-slide[data-step="5"] .pm-rip,
+.matrix-slide[data-step="5"] .pm-ospf{background:var(--accent-soft);
   box-shadow:inset 0 0 0 2px var(--accent)}
 .pm-lead{min-height:70px;max-width:840px;margin:0 0 18px}
 .pml{margin:0 0 6px;font-size:20px}
@@ -262,9 +263,9 @@ svg text{font-family:var(--sans)}
   opacity:0;transition:opacity .3s}
 .pm-tag2{color:var(--muted);background:var(--surface-2);border:1px solid var(--border)}
 .pm-tag1{color:var(--current);background:var(--current-soft);border:1px solid var(--current)}
-.matrix-slide[data-step="4"] .pm-tag2,
-.matrix-slide[data-step="5"] .pm-tag2,
-.matrix-slide[data-step="5"] .pm-tag1{opacity:1}
+.matrix-slide[data-step="4"] .pm-tag1,
+.matrix-slide[data-step="5"] .pm-tag1,
+.matrix-slide[data-step="5"] .pm-tag2{opacity:1}
 .pm-hit{background:var(--accent-soft);border-color:var(--accent)!important;
   box-shadow:inset 0 0 0 2px var(--accent)}
 .roadmap-slide[data-step="1"] .pm-bgp,
@@ -2535,7 +2536,7 @@ svg text{font-family:var(--sans)}
   <div class="courseurl"><a href="../">cosc264.up.railway.app</a></div>
 </section>
 
-<section class="slide stateful matrix-slide" data-sec="Recap and overview" data-anchor="c1">
+<section class="slide stateful matrix-slide" data-sec="Recap and overview">
   <div class="kicker">Recap · Module 1</div>
   <h2>A quick recap of routing protocols</h2>
   <div class="pm-lead">
@@ -2556,17 +2557,448 @@ svg text{font-family:var(--sans)}
     </thead>
     <tbody>
       <tr><th>distance vector</th>
-        <td class="pm-domain pm-rip"><span class="pm-fill">RIP<small>Routing Information Protocol</small></span><span class="pm-tag pm-tag2">next</span></td>
+        <td class="pm-domain pm-rip"><span class="pm-fill">RIP<small>Routing Information Protocol</small></span><span class="pm-tag pm-tag1">now</span></td>
         <td class="pm-domain pm-empty"></td></tr>
       <tr><th>link state</th>
-        <td class="pm-domain pm-ospf"><span class="pm-fill">OSPF<small>Open Shortest Path First</small></span><span class="pm-tag pm-tag2">next</span></td>
+        <td class="pm-domain pm-ospf"><span class="pm-fill">OSPF<small>Open Shortest Path First</small></span><span class="pm-tag pm-tag1">now</span></td>
         <td class="pm-domain pm-empty"></td></tr>
       <tr class="pm-pvrow"><th>path vector<small>a close relative of distance vector</small></th>
         <td class="pm-domain pm-empty"></td>
-        <td class="pm-domain pm-bgp">BGP<small>Border Gateway Protocol</small><span class="pm-tag pm-tag1">now</span></td></tr>
+        <td class="pm-domain pm-bgp">BGP<small>Border Gateway Protocol</small><span class="pm-tag pm-tag2">next</span></td></tr>
     </tbody>
   </table>
   <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+</section>
+
+<section class="slide sec-title" data-sec="Routing inside one AS" data-anchor="c1">
+  <div class="kicker">Module 2 · Routing inside one administrative domain</div>
+  <h1>Intra-AS Routing<br>Protocols</h1>
+  <div class="rule"></div>
+
+    <div class="roadmap" aria-label="Module 2 concept roadmap">
+      <span class="rmi here">1 &middot; Intra-AS routing protocols</span>
+      <span class="rmi">2 &middot; Inter-AS routing and AS policy</span>
+      <span class="rmi">3 &middot; Aggregation, NAT and IPv6</span>
+    </div>
+</section>
+
+
+<section class="slide" data-sec="Routing inside one AS">
+  <div class="kicker">Routing within one autonomous system</div>
+  <h2>An overview of intra-AS routing protocols</h2>
+  <div class="igp-grid" aria-label="Examples of intra-AS routing protocols">
+    <div class="frag igp-card"><strong>RIP</strong><span class="protocol-name">Routing Information
+    Protocol</span><span class="protocol-kind">Distance vector</span></div>
+    <div class="frag igp-card"><strong>OSPF</strong><span class="protocol-name">Open Shortest Path
+    First</span><span class="protocol-kind">Link state</span></div>
+    <div class="frag igp-card"><strong>IS-IS</strong><span class="protocol-name">Intermediate
+    System to Intermediate System</span><span class="protocol-kind">Link state</span></div>
+    <div class="frag igp-card"><strong>EIGRP</strong><span class="protocol-name">Enhanced Interior
+    Gateway Routing Protocol</span><span class="protocol-kind">Distance vector</span></div>
+  </div>
+  <div class="source">IGP definition: RFC 1812 §7.2.1; RIP, OSPF and IS-IS: RFC 6518; EIGRP: RFC 7868</div>
+</section>
+
+<section class="slide" data-sec="RIP">
+  <div class="kicker">A concrete distance-vector intra-AS protocol</div>
+  <h2>RIP is a concrete distance-vector protocol</h2>
+  <ul class="rip-overview-list">
+    <li class="frag"><b>A reminder: neighbour-to-neighbour exchange</b><span>Routers talk only to
+      their direct neighbours, and from that alone each learns the <b>best distance</b> and the
+      <b>next hop</b> to every destination. No router ever learns the full topology.</span></li>
+    <li class="frag"><b>Every link costs one hop</b><span>RIP measures distance in <b>router hops</b>:
+      each router adds one to the metric it received.</span>
+      <span class="rip-hopfig" role="img"
+        aria-label="Five routers A to E in a chain; the path from A to D crosses three links">
+        <span class="rhn on">A</span><span class="rhl on"></span>
+        <span class="rhn on">B</span><span class="rhl on"></span>
+        <span class="rhn on">C</span><span class="rhl on"></span>
+        <span class="rhn on">D</span><span class="rhl"></span>
+        <span class="rhn">E</span>
+        <b class="rhcap">distance from A to D = 3 hops</b>
+      </span></li>
+    <li class="frag"><b>15 hops is as far as RIP counts</b><span>A path of more than <b>15 hops</b> is
+      treated as unreachable &mdash; a metric of 16 means infinity.</span></li>
+  </ul>
+  <div class="source">RIP distance-vector operation and hop-count metric: RFC 2453 §§3.4, 3.9.2</div>
+</section>
+
+<section class="slide stateful riptable-slide" data-sec="RIP">
+  <div class="kicker">RIP&rsquo;s own database, and the table the datagrams use</div>
+  <h2>A RIP router keeps two tables</h2>
+  <div class="rt-layout">
+    <div class="rt-panel rip">
+      <b class="rt-cap">RIP routing table at A</b>
+      <table class="rt-table" aria-label="RIP routing table at router A">
+        <thead><tr><th class="c-dest">destination</th><th class="c-metric">metric</th>
+          <th class="c-hop">next hop</th><th class="c-timer">timer</th></tr></thead>
+        <tbody>
+          <tr><td class="c-dest">198.51.100.0/24</td><td class="c-metric">1</td>
+            <td class="c-hop">B</td><td class="c-timer">180 s</td></tr>
+          <tr><td class="c-dest">203.0.113.0/24</td><td class="c-metric">1</td>
+            <td class="c-hop">E</td><td class="c-timer">180 s</td></tr>
+          <tr><td class="c-dest">192.0.2.0/24</td><td class="c-metric">2</td>
+            <td class="c-hop">B</td><td class="c-timer">180 s</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rt-install"><span class="rt-arrow"></span><b>installs</b></div>
+    <div class="rt-panel fwd">
+      <b class="rt-cap">Forwarding table at A</b>
+      <table class="rt-table fwd" aria-label="IP forwarding table at router A">
+        <thead><tr><th class="f-dest">destination</th><th class="f-hop">next hop</th></tr></thead>
+        <tbody>
+          <tr><td class="f-dest">198.51.100.0/24</td><td class="f-hop">B</td></tr>
+          <tr><td class="f-dest">203.0.113.0/24</td><td class="f-hop">E</td></tr>
+          <tr><td class="f-dest">192.0.2.0/24</td><td class="f-hop">B</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="rt-status">
+    <div class="rt-card s1"><b>RIP routing table</b><ul class="rt-bullets">
+      <li class="b1">how far away each destination is &mdash; a <b>distance vector</b></li>
+      <li class="b2"><b>next hop</b> information</li>
+      <li class="b3">RIP&rsquo;s own bookkeeping, such as a <b>timer</b> giving the entry its time
+        to live</li>
+      </ul></div>
+    <div class="rt-card s2"><b>It feeds the forwarding table</b><span>For each destination, RIP
+      installs its chosen route into A&rsquo;s <b>forwarding table</b> &mdash; the table A consults
+      for every datagram it must forward.</span></div>
+    <div class="rt-card s3"><b>Two tables, not one</b><span>They are kept separately, and may not
+      always agree.<br>
+      <i>e.g.</i> a route may be removed from the forwarding table, yet still be kept temporarily
+      in the routing table.</span></div>
+  </div>
+  <span class="frag rt-trigger" aria-hidden="true"></span>
+  <span class="frag rt-trigger" aria-hidden="true"></span>
+  <span class="frag rt-trigger" aria-hidden="true"></span>
+  <span class="frag rt-trigger" aria-hidden="true"></span>
+  <span class="frag rt-trigger" aria-hidden="true"></span>
+  <div class="source">RIP routing-table entries and timers: RFC 2453 &sect;&sect;3.5, 3.8</div>
+</section>
+
+<section class="slide" data-sec="RIP">
+  <div class="kicker">Two message types &middot; three reasons to send a Response</div>
+  <h2>RIP carries Request and Response messages over UDP</h2>
+  <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
+    <div class="rip-dialogue-router left">R1</div>
+    <div class="frag rip-message-lane request"><b>Request</b><span>Ask a neighbour for its
+    <b>distance vector</b> &mdash; the entries in that neighbour's RIP routing table.</span></div>
+    <div class="frag rip-message-lane response"><b>Response</b><span class="lane-alias">also known as
+    a RIP advertisement</span><span>Advertise the <b>distance vector</b> held in this router's RIP
+    routing table.</span></div>
+    <div class="rip-dialogue-router right">R2</div>
+  </div>
+  <div class="rip-response-reasons" aria-label="Three situations that cause RIP to send a Response">
+    <div class="frag rip-response-reason"><span class="reason-when">After a Request</span><h3>Requested</h3>
+      <p>Return all routes or the selected routing-table entries requested by another router.</p></div>
+    <div class="frag rip-response-reason"><span class="reason-when">Roughly every 30 seconds</span><h3>Periodic</h3>
+      <p>Send the current routing table to neighbouring RIP routers.</p></div>
+    <div class="frag rip-response-reason"><span class="reason-when">After a route changes</span><h3>Triggered</h3>
+      <p>Send changed routing information shortly after the change occurs.</p></div>
+  </div>
+  <div class="source">RIP Request and Response processing: RFC 2453 §§3.8, 3.9.1&ndash;3.9.2,
+    3.10&ndash;3.10.2</div>
+</section>
+
+<section class="slide stateful rip-example-slide rip-learn-slide" data-sec="RIP">
+  <div class="kicker">Worked example &middot; learning, refreshing, and losing a route</div>
+  <h2>An example of running RIP</h2>
+  <div class="rip-learn-layout">
+    <div class="rip-learn-column">
+      <b class="rl-cap">RIP routing table at R1</b>
+      <table class="rt-table rl-table" aria-label="RIP routing table at R1, one entry">
+        <thead><tr><th class="c-dest">destination</th><th class="c-metric">metric</th>
+          <th class="c-hop">next hop</th><th class="c-timer">timer</th></tr></thead>
+        <tbody><tr>
+          <td class="c-dest">203.0.113.0/24</td>
+          <td class="c-metric"><span class="rl-a">6</span><span class="rl-b">3</span>
+            <span class="rl-c">16</span></td>
+          <td class="c-hop"><span class="rl-a">R5</span><span class="rl-b">R2</span></td>
+          <td class="c-timer"><span class="rl-a">132 s</span><span class="rl-b">180 s</span>
+            <span class="rl-x">expired</span><span class="rl-c">120 s</span>
+            <span class="rl-reset">&#8635;</span></td>
+        </tr></tbody>
+      </table>
+      <div class="rl-compare"><b>via R2</b><span>2 + 1 = <strong>3</strong></span>
+        <em>&lt;</em><span>current <strong>6</strong></span></div>
+    </div>
+    <div class="rip-learn-column">
+      <div class="rip-example-exchange" aria-label="RIP Request from R1 to R2 and Response from R2 to R1 over UDP">
+        <div class="rip-exchange-router r1">R1</div>
+        <div class="rip-exchange-arrow request"><span class="line"></span><b>Request</b></div>
+        <div class="rip-exchange-arrow response"><span class="line"></span><b>Response</b></div>
+        <div class="rip-exchange-router r2">R2</div>
+      </div>
+    </div>
+  </div>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <span class="frag rip-example-trigger" aria-hidden="true"></span>
+  <div class="rip-example-panel-stage">
+    <div class="rip-example-panel p1"><b>1 &middot; Can R2 do better?</b><span>R1 already reaches
+      <code>203.0.113.0/24</code> through next hop <strong>R5</strong> at <strong>cost metric 6</strong>,
+      with <strong>132 s</strong> left to live on the entry. But R1 would like to know whether R2 can
+      offer anything better for this destination.</span></div>
+    <div class="rip-example-panel p2"><b>2 &middot; Ask R2 what it has</b><span>R1 sends a RIP
+      <strong class="message-highlight">Request</strong> to R2 over UDP, asking for R2&rsquo;s entry
+      for this destination.</span></div>
+    <div class="rip-example-panel p3"><b>3 &middot; R2 advertises its distance vector</b><span>R2
+      replies with a <strong class="message-highlight">Response</strong>: it can reach
+      <code>203.0.113.0/24</code> at <strong>cost metric 2</strong>.</span></div>
+    <div class="rip-example-panel p4"><b>4 &middot; Is it any better?</b><span>R1 is one hop further
+      along, so going through R2 would cost <strong>2 + 1 = 3</strong>. That beats the current
+      <strong>6</strong>, so R1 takes it.</span></div>
+    <div class="rip-example-panel p5"><b>5 &middot; Replace the entry, then install it</b>
+      <ul class="rip-example-bullets">
+        <li class="b1"><strong>Rewrite the row.</strong> Next hop becomes R2, cost metric becomes 3,
+          and the 180-second timer starts again.</li>
+        <li class="b2"><strong>Install it.</strong> R1 puts the new route into its forwarding table,
+          and starts forwarding datagrams for this prefix to R2 instead of R5.</li>
+      </ul>
+    </div>
+    <div class="rip-example-panel p6"><b>6 &middot; R2 keeps it fresh</b>
+      <ul class="rip-example-bullets">
+        <li class="b1"><strong>Roughly every 30 seconds</strong>, R2 sends a
+          <strong class="message-highlight">periodic Response</strong> re-advertising the same route,
+          telling R1 it is still current.</li>
+        <li class="b2"><strong>Every refresh resets the timer</strong> back to 180 seconds.</li>
+      </ul>
+    </div>
+    <div class="rip-example-panel p7 alert"><b>7 &middot; What if R2 stops sending them?</b>
+      <ul class="rip-example-bullets">
+        <li class="b1"><strong>The timer runs out.</strong> No valid refresh arrives from R2, and
+          after 180 seconds the entry expires.</li>
+        <li class="b2"><strong>Mark it unreachable.</strong> R1 sets the cost metric to
+          <strong>16</strong> &mdash; RIP&rsquo;s infinity &mdash; and immediately drops the route
+          from its <strong>forwarding table</strong>.</li>
+        <li class="b3"><strong>Keep it, to tell the neighbours.</strong> The entry stays in the RIP
+          routing table for another <strong>120 seconds</strong>, advertised with metric 16 so the
+          neighbours learn the destination is gone.</li>
+        <li class="b4"><strong>Then remove it.</strong> After those 120 seconds, R1 deletes the
+          entry from its routing table altogether.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="source">RIP route maintenance, timeout and garbage collection: RFC 2453
+    &sect;&sect;3.8, 3.9.2, 3.10</div>
+</section>
+
+<section class="slide" data-sec="RIP">
+  <div class="kicker">RIP&rsquo;s protections</div>
+  <h2>How RIP limits count to infinity</h2>
+  <p class="frag rip-protection-lead">Recall from Module 1: a distance-vector protocol suffers from
+  the <b>count-to-infinity problem</b>. RIP guards against it in three ways.</p>
+  <div class="rip-protection-grid">
+    <div class="frag rip-protection-card split">
+      <span class="rip-protection-tag">Split horizon</span>
+      <h3>Do not send it back</h3>
+      <p>Never advertise a route back to the neighbour you learned it from. If R1&rsquo;s route to a
+      destination came from R2, R1 leaves that destination out of the updates it sends to R2.</p>
+    </div>
+    <div class="frag rip-protection-card poison">
+      <span class="rip-protection-tag">Poison reverse</span>
+      <h3>Send it back as infinity</h3>
+      <p>Stronger: R1 does advertise the route back to R2, but with a cost of
+      <b>infinity</b>.</p>
+      <p class="rip-protection-note">Both are only <b>heuristics</b>. They break a loop between
+      <b>two</b> routers, but not one running through three or more.</p>
+    </div>
+    <div class="frag rip-protection-card cap">
+      <span class="rip-protection-tag">Count only to 16</span>
+      <h3>Make infinity deliberately small</h3>
+      <p>Therefore, this is why in RIP the maximum path length is bounded to
+      <b>15 hops</b>.</p>
+    </div>
+  </div>
+  <div class="source">Split horizon, poisoned reverse and RIP infinity: RFC 2453 &sect;&sect;3.2,
+    3.4.2&ndash;3.4.4, 3.9.2</div>
+</section>
+
+<section class="slide" data-sec="OSPF">
+  <div class="kicker">Introducing another intra-AS protocol</div>
+  <h2>OSPF · Open Shortest Path First</h2>
+  <div class="ospf-intro-list">
+    <div class="frag ospf-fact"><b>What it is.</b> OSPF is an intra-AS routing protocol which uses
+    the <b>link-state</b> routing algorithm.</div>
+    <div class="frag ospf-fact"><b>Protocol channel.</b> OSPF carries its protocol packets directly
+    over IP, without TCP or UDP.</div>
+  </div>
+  <div class="source">OSPF architecture and packet encapsulation: RFC 2328 §§1, 4.3</div>
+</section>
+
+<section class="slide" data-sec="OSPF">
+  <div class="kicker">Quick refresher · from Module 1</div>
+  <h2>A quick recap of the link-state routing protocol</h2>
+  <div class="ospf-flow refresher" aria-label="Four-step link-state routing process used by OSPF">
+    <div class="frag ospf-flow-step"><span class="ospf-flow-index">1</span><span>Each router creates
+    an <b>advertisement</b> for its local information, and tells the others.</span></div>
+    <div class="frag ospf-flow-step"><span class="ospf-flow-index">2</span><span>Every router uses
+    all the advertisements to build the <b>same topology</b>.</span></div>
+    <div class="frag ospf-flow-step"><span class="ospf-flow-index">3</span><span>Each router runs a
+    <b>shortest-path algorithm</b> over that topology to derive its forwarding table.</span></div>
+  </div>
+  <div class="source">OSPF link-state operation: RFC 2328 §§2, 12–16</div>
+</section>
+
+<section class="slide" data-sec="OSPF">
+  <div class="kicker">Why choose OSPF?</div>
+  <h2>OSPF provides useful features for a large AS</h2>
+  <div class="ospf-feature-grid">
+    <div class="frag ospf-feature">
+      <h3>Authentication</h3>
+      <p>OSPF can authenticate protocol exchanges so routers accept updates only from
+      configured participants.</p>
+    </div>
+    <div class="frag ospf-feature">
+      <h3>Operator-defined costs</h3>
+      <p>The operator sets each link&rsquo;s cost, and so decides which paths OSPF prefers.</p>
+    </div>
+    <div class="frag ospf-feature">
+      <h3>Area routing</h3>
+      <p>A large AS can be divided into <b>areas</b>, so that OSPF scales.</p>
+    </div>
+  </div>
+  <div class="source">OSPF capabilities: RFC 2328 §§2.4, 3, 8 and Appendix D</div>
+</section>
+
+<section class="slide" data-sec="OSPF">
+  <div class="kicker">The scaling problem</div>
+  <h2>Why can a large AS strain OSPF?</h2>
+  <div class="ospf-topology-stage flat" aria-label="A large autonomous system using one shared OSPF topology">
+    <div class="ospf-domain-outline"></div>
+    <div class="ospf-domain-title">One large AS<small>many routers · one shared OSPF topology</small></div>
+    <div class="ospf-topology-link l1"></div><div class="ospf-topology-link l2"></div>
+    <div class="ospf-topology-link l3"></div><div class="ospf-topology-link l4"></div>
+    <div class="ospf-topology-link l5"></div><div class="ospf-topology-link l6"></div>
+    <div class="ospf-topology-link l7"></div><div class="ospf-topology-link l8"></div>
+    <div class="ospf-topology-link l9"></div><div class="ospf-topology-link l10"></div>
+    <div class="ospf-topology-link l11"></div><div class="ospf-topology-link l12"></div>
+    <div class="ospf-topology-link l13"></div>
+    <div class="ospf-topology-node r1">R1</div><div class="ospf-topology-node r2">R2</div>
+    <div class="ospf-topology-node r3">R3</div><div class="ospf-topology-node r4">R4</div>
+    <div class="ospf-topology-node r5">R5</div><div class="ospf-topology-node r6">R6</div>
+    <div class="ospf-topology-node r7">R7</div><div class="ospf-topology-node r8">R8</div>
+    <div class="ospf-topology-node r9">R9</div><div class="ospf-topology-node r10">R10</div>
+    <div class="ospf-topology-dots d1">···</div><div class="ospf-topology-dots d2">···</div>
+    <div class="ospf-topology-dots d3">···</div>
+  </div>
+  <div class="ospf-scale-points">
+    <div class="frag ospf-scale-point"><b>More memory</b>Every router stores the complete AS topology in its link-state database.</div>
+    <div class="frag ospf-scale-point"><b>Slower convergence</b>Every change must be flooded widely before all routers calculate the new topology.</div>
+  </div>
+  <div class="source">OSPF area motivation and topology scope: RFC 2328 §§2.3, 3</div>
+</section>
+
+<section class="slide ospf-area-slide" data-sec="OSPF">
+  <h2>OSPF divides one AS into smaller areas</h2>
+  <div class="ospf-topology-stage divided areas-only" aria-label="The same autonomous system divided into OSPF areas 2, 0, and 1">
+    <div class="ospf-zone z2"><span class="ospf-zone-name">Area 2<small>non-backbone area</small></span></div>
+    <div class="ospf-zone z0"><span class="ospf-zone-name">Area 0<small>backbone area</small></span></div>
+    <div class="ospf-zone z1"><span class="ospf-zone-name">Area 1<small>non-backbone area</small></span></div>
+    <div class="ospf-topology-link l1"></div><div class="ospf-topology-link l2"></div>
+    <div class="ospf-topology-link l3"></div><div class="ospf-topology-link l4"></div>
+    <div class="ospf-topology-link l5"></div><div class="ospf-topology-link l6"></div>
+    <div class="ospf-topology-link l7"></div><div class="ospf-topology-link l8"></div>
+    <div class="ospf-topology-link l9"></div><div class="ospf-topology-link l10"></div>
+    <div class="ospf-topology-link l11"></div><div class="ospf-topology-link l12"></div>
+    <div class="ospf-topology-link l13"></div>
+    <div class="ospf-topology-node r1">R1</div><div class="ospf-topology-node r2">R2</div>
+    <div class="ospf-topology-node r3">R3</div><div class="ospf-topology-node r4 abr">R4</div>
+    <div class="ospf-topology-node r5">R5</div><div class="ospf-topology-node r6">R6</div>
+    <div class="ospf-topology-node r7">R7</div><div class="ospf-topology-node r8 abr">R8</div>
+    <div class="ospf-topology-node r9">R9</div><div class="ospf-topology-node r10">R10</div>
+    <div class="ospf-topology-dots d1">···</div><div class="ospf-topology-dots d2">···</div>
+    <div class="ospf-topology-dots d3">···</div>
+  </div>
+  <div class="ospf-area-facts">
+    <div class="frag ospf-area-fact area-step-nonbackbone"><b>Non-backbone areas</b>
+      Areas 1 and 2 each contain a smaller group of routers and networks.</div>
+    <div class="frag ospf-area-fact area-step-backbone"><b>Backbone area</b>
+      Area 0 connects the non-backbone areas and carries inter-area reachability.</div>
+    <div class="frag ospf-area-fact area-step-abr"><b>Area border routers</b>
+      R4 and R8 each participate in Area 0 and one non-backbone area.</div>
+  </div>
+  <div class="source">OSPF areas and backbone operation: RFC 2328 §§3, 3.1–3.3</div>
+</section>
+
+<section class="slide ospf-operation-slide" data-sec="OSPF">
+  <h2>How does hierarchical OSPF fit together?</h2>
+  <div class="ospf-topology-stage divided roles" aria-label="Internal routers run OSPF within areas while area border routers connect the areas through Area 0">
+    <div class="ospf-zone z2"><span class="ospf-zone-name">Area 2</span></div>
+    <div class="ospf-zone z0"><span class="ospf-zone-name">Area 0 · backbone</span></div>
+    <div class="ospf-zone z1"><span class="ospf-zone-name">Area 1</span></div>
+    <div class="ospf-topology-link l1"></div><div class="ospf-topology-link l2"></div>
+    <div class="ospf-topology-link l3 path"></div><div class="ospf-topology-link l4"></div>
+    <div class="ospf-topology-link l5 path"></div><div class="ospf-topology-link l6"></div>
+    <div class="ospf-topology-link l7 path"></div><div class="ospf-topology-link l8"></div>
+    <div class="ospf-topology-link l9"></div><div class="ospf-topology-link l10 path"></div>
+    <div class="ospf-topology-link l11 path"></div><div class="ospf-topology-link l12"></div>
+    <div class="ospf-topology-link l13"></div>
+    <div class="ospf-topology-node r1">R1</div><div class="ospf-topology-node r2">R2</div>
+    <div class="ospf-topology-node r3">R3</div><div class="ospf-topology-node r4 abr">R4</div>
+    <div class="ospf-topology-node r5">R5</div><div class="ospf-topology-node r6">R6</div>
+    <div class="ospf-topology-node r7">R7</div><div class="ospf-topology-node r8 abr">R8</div>
+    <div class="ospf-topology-node r9">R9</div><div class="ospf-topology-node r10">R10</div>
+    <div class="ospf-topology-dots d1">···</div><div class="ospf-topology-dots d2">···</div>
+    <div class="ospf-topology-dots d3">···</div>
+  </div>
+  <div class="ospf-operation-grid">
+    <div class="ospf-operation-card">
+      <h3>Inside an area</h3>
+      <ul>
+        <li class="frag inside-area2">A router does its link-state flooding only within its own area, and stores that area&rsquo;s topology.</li>
+        <li class="frag inside-area-spf">Each router then runs the shortest-path algorithm over that topology to reach destinations inside its area.</li>
+      </ul>
+    </div>
+    <div class="ospf-operation-card">
+      <h3>Between areas</h3>
+      <ul>
+        <li class="frag between-area">ABRs carry condensed inter-area reachability through the backbone, Area 0.</li>
+        <li class="frag between-path">For example, a route from Area 2 to Area 1 can follow:
+          <span class="ospf-operation-path">Area 2 → R4 → Area 0 → R8 → Area 1</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="source">OSPF areas and inter-area routing: RFC 2328 §§3, 3.1–3.3, 4.1</div>
+</section>
+
+<section class="slide lecture-recap-slide" data-sec="OSPF">
+  <div class="kicker">Module 2 &middot; Intra-AS routing</div>
+  <h2>Intra-AS routing recap</h2>
+  <ul class="lecture-recap-list">
+    <li class="frag"><b>RIP is distance vector.</b>
+      <ul class="recap-sub">
+        <li>It measures distance in router hops, and caps a path at 15.</li>
+        <li>Neighbours exchange distance vectors, kept alive by periodic Responses.</li>
+      </ul></li>
+    <li class="frag"><b>OSPF is link state.</b>
+      <ul class="recap-sub">
+        <li>Routers flood advertisements, so each builds the same topology.</li>
+        <li>A large AS is divided into areas so that OSPF scales.</li>
+      </ul></li>
+  </ul>
+</section>
+
+<section class="slide sec-title" data-sec="Why is routing between ASes different?" data-anchor="c2">
+  <div class="kicker">Module 2 &middot; Routing between administrative domains</div>
+  <h1>Inter-AS Routing<br>and AS Policy</h1>
+  <div class="rule"></div>
+
+    <div class="roadmap" aria-label="Module 2 concept roadmap">
+      <span class="rmi">1 &middot; Intra-AS routing protocols</span>
+      <span class="rmi here">2 &middot; Inter-AS routing and AS policy</span>
+      <span class="rmi">3 &middot; Aggregation, NAT and IPv6</span>
+    </div>
 </section>
 
 <section class="slide stateful as-intro-slide" data-sec="Why is routing between ASes different?">
@@ -2590,10 +3022,10 @@ svg text{font-family:var(--sans)}
     <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>
   </div>
   <div class="as-mot-stage">
-    <div class="as-mot-card as-card-system"><b>Inside an AS</b>
+    <div class="as-mot-card as-card-system"><b>So far, inside one AS</b>
       <ul class="as-bullets">
-        <li class="as-b as-b1">An AS contains <b>many routers</b>, which together form
-        <b>several subnets</b>, all managed by a single organisation.</li>
+        <li class="as-b as-b1">RIP and OSPF both run <b>within a single AS</b> &mdash; many routers
+        forming <b>several subnets</b>, all managed by one organisation.</li>
         <li class="as-b as-b2">Each subnet is identified by a <b>network prefix</b>, written in
         <b>CIDR</b> notation &mdash; AS&nbsp;A holds <span class="mono">192.0.2.0/25</span> and
         <span class="mono">192.0.2.128/25</span>.</li>
@@ -3233,433 +3665,14 @@ svg text{font-family:var(--sans)}
   </ul>
 </section>
 
-<section class="slide sec-title" data-sec="Routing inside one AS" data-anchor="c2">
-  <div class="kicker">Module 2 · Routing inside one administrative domain</div>
-  <h1>Intra-AS Routing<br>Protocols</h1>
-  <div class="rule"></div>
-
-    <div class="roadmap" aria-label="Module 2 concept roadmap">
-      <span class="rmi">1 &middot; Inter-AS routing and AS policy</span>
-      <span class="rmi here">2 &middot; Intra-AS routing protocols</span>
-      <span class="rmi">3 &middot; Aggregation, NAT and IPv6</span>
-    </div>
-</section>
-
-
-<section class="slide" data-sec="Routing inside one AS">
-  <div class="kicker">Routing within one autonomous system</div>
-  <h2>An overview of intra-AS routing protocols</h2>
-  <div class="igp-grid" aria-label="Examples of intra-AS routing protocols">
-    <div class="frag igp-card"><strong>RIP</strong><span class="protocol-name">Routing Information
-    Protocol</span><span class="protocol-kind">Distance vector</span></div>
-    <div class="frag igp-card"><strong>OSPF</strong><span class="protocol-name">Open Shortest Path
-    First</span><span class="protocol-kind">Link state</span></div>
-    <div class="frag igp-card"><strong>IS-IS</strong><span class="protocol-name">Intermediate
-    System to Intermediate System</span><span class="protocol-kind">Link state</span></div>
-    <div class="frag igp-card"><strong>EIGRP</strong><span class="protocol-name">Enhanced Interior
-    Gateway Routing Protocol</span><span class="protocol-kind">Distance vector</span></div>
-  </div>
-  <div class="source">IGP definition: RFC 1812 §7.2.1; RIP, OSPF and IS-IS: RFC 6518; EIGRP: RFC 7868</div>
-</section>
-
-<section class="slide" data-sec="RIP">
-  <div class="kicker">A concrete distance-vector intra-AS protocol</div>
-  <h2>RIP is a concrete distance-vector protocol</h2>
-  <ul class="rip-overview-list">
-    <li class="frag"><b>A reminder: neighbour-to-neighbour exchange</b><span>Routers talk only to
-      their direct neighbours, and from that alone each learns the <b>best distance</b> and the
-      <b>next hop</b> to every destination. No router ever learns the full topology.</span></li>
-    <li class="frag"><b>Every link costs one hop</b><span>RIP measures distance in <b>router hops</b>:
-      each router adds one to the metric it received.</span>
-      <span class="rip-hopfig" role="img"
-        aria-label="Five routers A to E in a chain; the path from A to D crosses three links">
-        <span class="rhn on">A</span><span class="rhl on"></span>
-        <span class="rhn on">B</span><span class="rhl on"></span>
-        <span class="rhn on">C</span><span class="rhl on"></span>
-        <span class="rhn on">D</span><span class="rhl"></span>
-        <span class="rhn">E</span>
-        <b class="rhcap">distance from A to D = 3 hops</b>
-      </span></li>
-    <li class="frag"><b>15 hops is as far as RIP counts</b><span>A path of more than <b>15 hops</b> is
-      treated as unreachable &mdash; a metric of 16 means infinity.</span></li>
-  </ul>
-  <div class="source">RIP distance-vector operation and hop-count metric: RFC 2453 §§3.4, 3.9.2</div>
-</section>
-
-<section class="slide stateful riptable-slide" data-sec="RIP">
-  <div class="kicker">RIP&rsquo;s own database, and the table the datagrams use</div>
-  <h2>A RIP router keeps two tables</h2>
-  <div class="rt-layout">
-    <div class="rt-panel rip">
-      <b class="rt-cap">RIP routing table at A</b>
-      <table class="rt-table" aria-label="RIP routing table at router A">
-        <thead><tr><th class="c-dest">destination</th><th class="c-metric">metric</th>
-          <th class="c-hop">next hop</th><th class="c-timer">timer</th></tr></thead>
-        <tbody>
-          <tr><td class="c-dest">198.51.100.0/24</td><td class="c-metric">1</td>
-            <td class="c-hop">B</td><td class="c-timer">180 s</td></tr>
-          <tr><td class="c-dest">203.0.113.0/24</td><td class="c-metric">1</td>
-            <td class="c-hop">E</td><td class="c-timer">180 s</td></tr>
-          <tr><td class="c-dest">192.0.2.0/24</td><td class="c-metric">2</td>
-            <td class="c-hop">B</td><td class="c-timer">180 s</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="rt-install"><span class="rt-arrow"></span><b>installs</b></div>
-    <div class="rt-panel fwd">
-      <b class="rt-cap">Forwarding table at A</b>
-      <table class="rt-table fwd" aria-label="IP forwarding table at router A">
-        <thead><tr><th class="f-dest">destination</th><th class="f-hop">next hop</th></tr></thead>
-        <tbody>
-          <tr><td class="f-dest">198.51.100.0/24</td><td class="f-hop">B</td></tr>
-          <tr><td class="f-dest">203.0.113.0/24</td><td class="f-hop">E</td></tr>
-          <tr><td class="f-dest">192.0.2.0/24</td><td class="f-hop">B</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="rt-status">
-    <div class="rt-card s1"><b>RIP routing table</b><ul class="rt-bullets">
-      <li class="b1">how far away each destination is &mdash; a <b>distance vector</b></li>
-      <li class="b2"><b>next hop</b> information</li>
-      <li class="b3">RIP&rsquo;s own bookkeeping, such as a <b>timer</b> giving the entry its time
-        to live</li>
-      </ul></div>
-    <div class="rt-card s2"><b>It feeds the forwarding table</b><span>For each destination, RIP
-      installs its chosen route into A&rsquo;s <b>forwarding table</b> &mdash; the table A consults
-      for every datagram it must forward.</span></div>
-    <div class="rt-card s3"><b>Two tables, not one</b><span>They are kept separately, and may not
-      always agree.<br>
-      <i>e.g.</i> a route may be removed from the forwarding table, yet still be kept temporarily
-      in the routing table.</span></div>
-  </div>
-  <span class="frag rt-trigger" aria-hidden="true"></span>
-  <span class="frag rt-trigger" aria-hidden="true"></span>
-  <span class="frag rt-trigger" aria-hidden="true"></span>
-  <span class="frag rt-trigger" aria-hidden="true"></span>
-  <span class="frag rt-trigger" aria-hidden="true"></span>
-  <div class="source">RIP routing-table entries and timers: RFC 2453 &sect;&sect;3.5, 3.8</div>
-</section>
-
-<section class="slide" data-sec="RIP">
-  <div class="kicker">Two message types &middot; three reasons to send a Response</div>
-  <h2>RIP carries Request and Response messages over UDP</h2>
-  <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
-    <div class="rip-dialogue-router left">R1</div>
-    <div class="frag rip-message-lane request"><b>Request</b><span>Ask a neighbour for its
-    <b>distance vector</b> &mdash; the entries in that neighbour's RIP routing table.</span></div>
-    <div class="frag rip-message-lane response"><b>Response</b><span class="lane-alias">also known as
-    a RIP advertisement</span><span>Advertise the <b>distance vector</b> held in this router's RIP
-    routing table.</span></div>
-    <div class="rip-dialogue-router right">R2</div>
-  </div>
-  <div class="rip-response-reasons" aria-label="Three situations that cause RIP to send a Response">
-    <div class="frag rip-response-reason"><span class="reason-when">After a Request</span><h3>Requested</h3>
-      <p>Return all routes or the selected routing-table entries requested by another router.</p></div>
-    <div class="frag rip-response-reason"><span class="reason-when">Roughly every 30 seconds</span><h3>Periodic</h3>
-      <p>Send the current routing table to neighbouring RIP routers.</p></div>
-    <div class="frag rip-response-reason"><span class="reason-when">After a route changes</span><h3>Triggered</h3>
-      <p>Send changed routing information shortly after the change occurs.</p></div>
-  </div>
-  <div class="source">RIP Request and Response processing: RFC 2453 §§3.8, 3.9.1&ndash;3.9.2,
-    3.10&ndash;3.10.2</div>
-</section>
-
-<section class="slide stateful rip-example-slide rip-learn-slide" data-sec="RIP">
-  <div class="kicker">Worked example &middot; learning, refreshing, and losing a route</div>
-  <h2>An example of running RIP</h2>
-  <div class="rip-learn-layout">
-    <div class="rip-learn-column">
-      <b class="rl-cap">RIP routing table at R1</b>
-      <table class="rt-table rl-table" aria-label="RIP routing table at R1, one entry">
-        <thead><tr><th class="c-dest">destination</th><th class="c-metric">metric</th>
-          <th class="c-hop">next hop</th><th class="c-timer">timer</th></tr></thead>
-        <tbody><tr>
-          <td class="c-dest">203.0.113.0/24</td>
-          <td class="c-metric"><span class="rl-a">6</span><span class="rl-b">3</span>
-            <span class="rl-c">16</span></td>
-          <td class="c-hop"><span class="rl-a">R5</span><span class="rl-b">R2</span></td>
-          <td class="c-timer"><span class="rl-a">132 s</span><span class="rl-b">180 s</span>
-            <span class="rl-x">expired</span><span class="rl-c">120 s</span>
-            <span class="rl-reset">&#8635;</span></td>
-        </tr></tbody>
-      </table>
-      <div class="rl-compare"><b>via R2</b><span>2 + 1 = <strong>3</strong></span>
-        <em>&lt;</em><span>current <strong>6</strong></span></div>
-    </div>
-    <div class="rip-learn-column">
-      <div class="rip-example-exchange" aria-label="RIP Request from R1 to R2 and Response from R2 to R1 over UDP">
-        <div class="rip-exchange-router r1">R1</div>
-        <div class="rip-exchange-arrow request"><span class="line"></span><b>Request</b></div>
-        <div class="rip-exchange-arrow response"><span class="line"></span><b>Response</b></div>
-        <div class="rip-exchange-router r2">R2</div>
-      </div>
-    </div>
-  </div>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <span class="frag rip-example-trigger" aria-hidden="true"></span>
-  <div class="rip-example-panel-stage">
-    <div class="rip-example-panel p1"><b>1 &middot; Can R2 do better?</b><span>R1 already reaches
-      <code>203.0.113.0/24</code> through next hop <strong>R5</strong> at <strong>cost metric 6</strong>,
-      with <strong>132 s</strong> left to live on the entry. But R1 would like to know whether R2 can
-      offer anything better for this destination.</span></div>
-    <div class="rip-example-panel p2"><b>2 &middot; Ask R2 what it has</b><span>R1 sends a RIP
-      <strong class="message-highlight">Request</strong> to R2 over UDP, asking for R2&rsquo;s entry
-      for this destination.</span></div>
-    <div class="rip-example-panel p3"><b>3 &middot; R2 advertises its distance vector</b><span>R2
-      replies with a <strong class="message-highlight">Response</strong>: it can reach
-      <code>203.0.113.0/24</code> at <strong>cost metric 2</strong>.</span></div>
-    <div class="rip-example-panel p4"><b>4 &middot; Is it any better?</b><span>R1 is one hop further
-      along, so going through R2 would cost <strong>2 + 1 = 3</strong>. That beats the current
-      <strong>6</strong>, so R1 takes it.</span></div>
-    <div class="rip-example-panel p5"><b>5 &middot; Replace the entry, then install it</b>
-      <ul class="rip-example-bullets">
-        <li class="b1"><strong>Rewrite the row.</strong> Next hop becomes R2, cost metric becomes 3,
-          and the 180-second timer starts again.</li>
-        <li class="b2"><strong>Install it.</strong> R1 puts the new route into its forwarding table,
-          and starts forwarding datagrams for this prefix to R2 instead of R5.</li>
-      </ul>
-    </div>
-    <div class="rip-example-panel p6"><b>6 &middot; R2 keeps it fresh</b>
-      <ul class="rip-example-bullets">
-        <li class="b1"><strong>Roughly every 30 seconds</strong>, R2 sends a
-          <strong class="message-highlight">periodic Response</strong> re-advertising the same route,
-          telling R1 it is still current.</li>
-        <li class="b2"><strong>Every refresh resets the timer</strong> back to 180 seconds.</li>
-      </ul>
-    </div>
-    <div class="rip-example-panel p7 alert"><b>7 &middot; What if R2 stops sending them?</b>
-      <ul class="rip-example-bullets">
-        <li class="b1"><strong>The timer runs out.</strong> No valid refresh arrives from R2, and
-          after 180 seconds the entry expires.</li>
-        <li class="b2"><strong>Mark it unreachable.</strong> R1 sets the cost metric to
-          <strong>16</strong> &mdash; RIP&rsquo;s infinity &mdash; and immediately drops the route
-          from its <strong>forwarding table</strong>.</li>
-        <li class="b3"><strong>Keep it, to tell the neighbours.</strong> The entry stays in the RIP
-          routing table for another <strong>120 seconds</strong>, advertised with metric 16 so the
-          neighbours learn the destination is gone.</li>
-        <li class="b4"><strong>Then remove it.</strong> After those 120 seconds, R1 deletes the
-          entry from its routing table altogether.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="source">RIP route maintenance, timeout and garbage collection: RFC 2453
-    &sect;&sect;3.8, 3.9.2, 3.10</div>
-</section>
-
-<section class="slide" data-sec="RIP">
-  <div class="kicker">RIP&rsquo;s protections</div>
-  <h2>How RIP limits count to infinity</h2>
-  <p class="frag rip-protection-lead">Recall from Module 1: a distance-vector protocol suffers from
-  the <b>count-to-infinity problem</b>. RIP guards against it in three ways.</p>
-  <div class="rip-protection-grid">
-    <div class="frag rip-protection-card split">
-      <span class="rip-protection-tag">Split horizon</span>
-      <h3>Do not send it back</h3>
-      <p>Never advertise a route back to the neighbour you learned it from. If R1&rsquo;s route to a
-      destination came from R2, R1 leaves that destination out of the updates it sends to R2.</p>
-    </div>
-    <div class="frag rip-protection-card poison">
-      <span class="rip-protection-tag">Poison reverse</span>
-      <h3>Send it back as infinity</h3>
-      <p>Stronger: R1 does advertise the route back to R2, but with a cost of
-      <b>infinity</b>.</p>
-      <p class="rip-protection-note">Both are only <b>heuristics</b>. They break a loop between
-      <b>two</b> routers, but not one running through three or more.</p>
-    </div>
-    <div class="frag rip-protection-card cap">
-      <span class="rip-protection-tag">Count only to 16</span>
-      <h3>Make infinity deliberately small</h3>
-      <p>Therefore, this is why in RIP the maximum path length is bounded to
-      <b>15 hops</b>.</p>
-    </div>
-  </div>
-  <div class="source">Split horizon, poisoned reverse and RIP infinity: RFC 2453 &sect;&sect;3.2,
-    3.4.2&ndash;3.4.4, 3.9.2</div>
-</section>
-
-<section class="slide" data-sec="OSPF">
-  <div class="kicker">Introducing another intra-AS protocol</div>
-  <h2>OSPF · Open Shortest Path First</h2>
-  <div class="ospf-intro-list">
-    <div class="frag ospf-fact"><b>What it is.</b> OSPF is an intra-AS routing protocol which uses
-    the <b>link-state</b> routing algorithm.</div>
-    <div class="frag ospf-fact"><b>Protocol channel.</b> OSPF carries its protocol packets directly
-    over IP, without TCP or UDP.</div>
-  </div>
-  <div class="source">OSPF architecture and packet encapsulation: RFC 2328 §§1, 4.3</div>
-</section>
-
-<section class="slide" data-sec="OSPF">
-  <div class="kicker">Quick refresher · from Module 1</div>
-  <h2>A quick recap of the link-state routing protocol</h2>
-  <div class="ospf-flow refresher" aria-label="Four-step link-state routing process used by OSPF">
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">1</span><span>Each router creates
-    an <b>advertisement</b> for its local information, and tells the others.</span></div>
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">2</span><span>Every router uses
-    all the advertisements to build the <b>same topology</b>.</span></div>
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">3</span><span>Each router runs a
-    <b>shortest-path algorithm</b> over that topology to derive its forwarding table.</span></div>
-  </div>
-  <div class="source">OSPF link-state operation: RFC 2328 §§2, 12–16</div>
-</section>
-
-<section class="slide" data-sec="OSPF">
-  <div class="kicker">Why choose OSPF?</div>
-  <h2>OSPF provides useful features for a large AS</h2>
-  <div class="ospf-feature-grid">
-    <div class="frag ospf-feature">
-      <h3>Authentication</h3>
-      <p>OSPF can authenticate protocol exchanges so routers accept updates only from
-      configured participants.</p>
-    </div>
-    <div class="frag ospf-feature">
-      <h3>Operator-defined costs</h3>
-      <p>The operator sets each link&rsquo;s cost, and so decides which paths OSPF prefers.</p>
-    </div>
-    <div class="frag ospf-feature">
-      <h3>Area routing</h3>
-      <p>A large AS can be divided into <b>areas</b>, so that OSPF scales.</p>
-    </div>
-  </div>
-  <div class="source">OSPF capabilities: RFC 2328 §§2.4, 3, 8 and Appendix D</div>
-</section>
-
-<section class="slide" data-sec="OSPF">
-  <div class="kicker">The scaling problem</div>
-  <h2>Why can a large AS strain OSPF?</h2>
-  <div class="ospf-topology-stage flat" aria-label="A large autonomous system using one shared OSPF topology">
-    <div class="ospf-domain-outline"></div>
-    <div class="ospf-domain-title">One large AS<small>many routers · one shared OSPF topology</small></div>
-    <div class="ospf-topology-link l1"></div><div class="ospf-topology-link l2"></div>
-    <div class="ospf-topology-link l3"></div><div class="ospf-topology-link l4"></div>
-    <div class="ospf-topology-link l5"></div><div class="ospf-topology-link l6"></div>
-    <div class="ospf-topology-link l7"></div><div class="ospf-topology-link l8"></div>
-    <div class="ospf-topology-link l9"></div><div class="ospf-topology-link l10"></div>
-    <div class="ospf-topology-link l11"></div><div class="ospf-topology-link l12"></div>
-    <div class="ospf-topology-link l13"></div>
-    <div class="ospf-topology-node r1">R1</div><div class="ospf-topology-node r2">R2</div>
-    <div class="ospf-topology-node r3">R3</div><div class="ospf-topology-node r4">R4</div>
-    <div class="ospf-topology-node r5">R5</div><div class="ospf-topology-node r6">R6</div>
-    <div class="ospf-topology-node r7">R7</div><div class="ospf-topology-node r8">R8</div>
-    <div class="ospf-topology-node r9">R9</div><div class="ospf-topology-node r10">R10</div>
-    <div class="ospf-topology-dots d1">···</div><div class="ospf-topology-dots d2">···</div>
-    <div class="ospf-topology-dots d3">···</div>
-  </div>
-  <div class="ospf-scale-points">
-    <div class="frag ospf-scale-point"><b>More memory</b>Every router stores the complete AS topology in its link-state database.</div>
-    <div class="frag ospf-scale-point"><b>Slower convergence</b>Every change must be flooded widely before all routers calculate the new topology.</div>
-  </div>
-  <div class="source">OSPF area motivation and topology scope: RFC 2328 §§2.3, 3</div>
-</section>
-
-<section class="slide ospf-area-slide" data-sec="OSPF">
-  <h2>OSPF divides one AS into smaller areas</h2>
-  <div class="ospf-topology-stage divided areas-only" aria-label="The same autonomous system divided into OSPF areas 2, 0, and 1">
-    <div class="ospf-zone z2"><span class="ospf-zone-name">Area 2<small>non-backbone area</small></span></div>
-    <div class="ospf-zone z0"><span class="ospf-zone-name">Area 0<small>backbone area</small></span></div>
-    <div class="ospf-zone z1"><span class="ospf-zone-name">Area 1<small>non-backbone area</small></span></div>
-    <div class="ospf-topology-link l1"></div><div class="ospf-topology-link l2"></div>
-    <div class="ospf-topology-link l3"></div><div class="ospf-topology-link l4"></div>
-    <div class="ospf-topology-link l5"></div><div class="ospf-topology-link l6"></div>
-    <div class="ospf-topology-link l7"></div><div class="ospf-topology-link l8"></div>
-    <div class="ospf-topology-link l9"></div><div class="ospf-topology-link l10"></div>
-    <div class="ospf-topology-link l11"></div><div class="ospf-topology-link l12"></div>
-    <div class="ospf-topology-link l13"></div>
-    <div class="ospf-topology-node r1">R1</div><div class="ospf-topology-node r2">R2</div>
-    <div class="ospf-topology-node r3">R3</div><div class="ospf-topology-node r4 abr">R4</div>
-    <div class="ospf-topology-node r5">R5</div><div class="ospf-topology-node r6">R6</div>
-    <div class="ospf-topology-node r7">R7</div><div class="ospf-topology-node r8 abr">R8</div>
-    <div class="ospf-topology-node r9">R9</div><div class="ospf-topology-node r10">R10</div>
-    <div class="ospf-topology-dots d1">···</div><div class="ospf-topology-dots d2">···</div>
-    <div class="ospf-topology-dots d3">···</div>
-  </div>
-  <div class="ospf-area-facts">
-    <div class="frag ospf-area-fact area-step-nonbackbone"><b>Non-backbone areas</b>
-      Areas 1 and 2 each contain a smaller group of routers and networks.</div>
-    <div class="frag ospf-area-fact area-step-backbone"><b>Backbone area</b>
-      Area 0 connects the non-backbone areas and carries inter-area reachability.</div>
-    <div class="frag ospf-area-fact area-step-abr"><b>Area border routers</b>
-      R4 and R8 each participate in Area 0 and one non-backbone area.</div>
-  </div>
-  <div class="source">OSPF areas and backbone operation: RFC 2328 §§3, 3.1–3.3</div>
-</section>
-
-<section class="slide ospf-operation-slide" data-sec="OSPF">
-  <h2>How does hierarchical OSPF fit together?</h2>
-  <div class="ospf-topology-stage divided roles" aria-label="Internal routers run OSPF within areas while area border routers connect the areas through Area 0">
-    <div class="ospf-zone z2"><span class="ospf-zone-name">Area 2</span></div>
-    <div class="ospf-zone z0"><span class="ospf-zone-name">Area 0 · backbone</span></div>
-    <div class="ospf-zone z1"><span class="ospf-zone-name">Area 1</span></div>
-    <div class="ospf-topology-link l1"></div><div class="ospf-topology-link l2"></div>
-    <div class="ospf-topology-link l3 path"></div><div class="ospf-topology-link l4"></div>
-    <div class="ospf-topology-link l5 path"></div><div class="ospf-topology-link l6"></div>
-    <div class="ospf-topology-link l7 path"></div><div class="ospf-topology-link l8"></div>
-    <div class="ospf-topology-link l9"></div><div class="ospf-topology-link l10 path"></div>
-    <div class="ospf-topology-link l11 path"></div><div class="ospf-topology-link l12"></div>
-    <div class="ospf-topology-link l13"></div>
-    <div class="ospf-topology-node r1">R1</div><div class="ospf-topology-node r2">R2</div>
-    <div class="ospf-topology-node r3">R3</div><div class="ospf-topology-node r4 abr">R4</div>
-    <div class="ospf-topology-node r5">R5</div><div class="ospf-topology-node r6">R6</div>
-    <div class="ospf-topology-node r7">R7</div><div class="ospf-topology-node r8 abr">R8</div>
-    <div class="ospf-topology-node r9">R9</div><div class="ospf-topology-node r10">R10</div>
-    <div class="ospf-topology-dots d1">···</div><div class="ospf-topology-dots d2">···</div>
-    <div class="ospf-topology-dots d3">···</div>
-  </div>
-  <div class="ospf-operation-grid">
-    <div class="ospf-operation-card">
-      <h3>Inside an area</h3>
-      <ul>
-        <li class="frag inside-area2">A router does its link-state flooding only within its own area, and stores that area&rsquo;s topology.</li>
-        <li class="frag inside-area-spf">Each router then runs the shortest-path algorithm over that topology to reach destinations inside its area.</li>
-      </ul>
-    </div>
-    <div class="ospf-operation-card">
-      <h3>Between areas</h3>
-      <ul>
-        <li class="frag between-area">ABRs carry condensed inter-area reachability through the backbone, Area 0.</li>
-        <li class="frag between-path">For example, a route from Area 2 to Area 1 can follow:
-          <span class="ospf-operation-path">Area 2 → R4 → Area 0 → R8 → Area 1</span></li>
-      </ul>
-    </div>
-  </div>
-  <div class="source">OSPF areas and inter-area routing: RFC 2328 §§3, 3.1–3.3, 4.1</div>
-</section>
-
-<section class="slide lecture-recap-slide" data-sec="OSPF">
-  <div class="kicker">Module 2 &middot; Intra-AS routing</div>
-  <h2>Intra-AS routing recap</h2>
-  <ul class="lecture-recap-list">
-    <li class="frag"><b>RIP is distance vector.</b>
-      <ul class="recap-sub">
-        <li>It measures distance in router hops, and caps a path at 15.</li>
-        <li>Neighbours exchange distance vectors, kept alive by periodic Responses.</li>
-      </ul></li>
-    <li class="frag"><b>OSPF is link state.</b>
-      <ul class="recap-sub">
-        <li>Routers flood advertisements, so each builds the same topology.</li>
-        <li>A large AS is divided into areas so that OSPF scales.</li>
-      </ul></li>
-  </ul>
-</section>
-
 <section class="slide sec-title" data-sec="How did the Internet adapt to IPv4 scarcity?" data-anchor="c3">
   <div class="kicker">Module 2 · Keeping the Internet addressable</div>
   <h1>IP Addressing Scaling:<br>Aggregation, NAT and IPv6</h1>
   <div class="rule"></div>
 
     <div class="roadmap" aria-label="Module 2 concept roadmap">
-      <span class="rmi">1 &middot; Inter-AS routing and AS policy</span>
-      <span class="rmi">2 &middot; Intra-AS routing protocols</span>
+      <span class="rmi">1 &middot; Intra-AS routing protocols</span>
+      <span class="rmi">2 &middot; Inter-AS routing and AS policy</span>
       <span class="rmi here">3 &middot; Aggregation, NAT and IPv6</span>
     </div>
 </section>
@@ -4144,8 +4157,8 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Three concepts, one connected story</div>
   <h2>Module 2 recap</h2>
   <ul class="lecture-recap-list">
-    <li class="frag"><b>Inter-AS routing:</b> BGP learns AS-level paths, using eBGP between ASes and iBGP within an AS.</li>
     <li class="frag"><b>Intra-AS routing:</b> RIP uses distance vector, while OSPF uses link state and areas to route within an AS.</li>
+    <li class="frag"><b>Inter-AS routing:</b> BGP learns AS-level paths, using eBGP between ASes and iBGP within an AS.</li>
     <li class="frag"><b>IP addressing:</b> NAT conserves public IPv4 addresses, and IPv6 expands the address space.</li>
   </ul>
 </section>
