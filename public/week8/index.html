@@ -470,6 +470,12 @@ svg text{font-family:var(--sans)}
 .bgp-jobs-slide[data-step="5"] .bgp-mapwrap .pv-as.e,
 .bgp-jobs-slide[data-step="5"] .bgp-mapwrap .pv-as.d{border-color:var(--accent);background:var(--accent-soft)}
 .bgp-mapwrap{display:none;transform:scale(.78);transform-origin:top left;flex:0 0 auto;margin:2px 0 0}
+@keyframes bgp-prefix-blink{0%,100%{box-shadow:none;transform:scale(1)}
+  50%{box-shadow:0 0 0 6px var(--good-soft);transform:scale(1.1)}}
+@keyframes bgp-prefix-blink-local{0%,100%{box-shadow:none;transform:scale(1)}
+  50%{box-shadow:0 0 0 6px var(--accent-soft);transform:scale(1.1)}}
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-prefix{animation:bgp-prefix-blink 1.15s ease-in-out infinite}
+.bgp-jobs-slide[data-step="3"] .bgp-mapwrap .pv-prefix.local{animation-name:bgp-prefix-blink-local}
 .bgp-jobs-slide:is([data-step="2"],[data-step="3"],[data-step="4"],
   [data-step="5"]) .bgp-mapwrap{display:block}
 .bgp-job-list{margin:0;padding-left:22px;display:grid;gap:5px}
@@ -3214,9 +3220,9 @@ svg text{font-family:var(--sans)}
       subnets.</li>
       <li class="jb jb2">Unlike Module 1, a destination is not a single IP address. It is a
       <b>destination prefix</b> in CIDR notation, like <span class="mono">203.0.113.0/24</span>,
-      identifying a subnet inside some AS.</li>
-      <li class="jb jb3">For every <b>source&ndash;destination pair</b>, find a path across that graph &mdash; a path
-      made of several ASes.</li>
+      identifying a subnet inside some AS. <b>Every AS advertises its own prefixes</b> this way.</li>
+      <li class="jb jb3">So for each <b>destination prefix</b>, an AS must find a path to it across
+      that graph &mdash; a path made of several ASes.</li>
       <li class="jobeg">e.g. a path from AS&nbsp;A to AS&nbsp;D:
       <span class="mono">AS A &rarr; AS B &rarr; AS E &rarr; AS D</span></li>
     </ul>
