@@ -2116,18 +2116,20 @@ svg text{font-family:var(--sans)}
 .bgp-setup-map{display:block;flex:0 0 auto;width:100%;max-width:1010px;margin:4px auto 0}
 .bgp-setup-map .gg{transition:opacity .3s ease,stroke .3s ease,fill .3s ease}
 .bgp-setup-map .lit{opacity:0}
-.bgp-setup-slide:not(:is([data-step="0"],[data-step="1"])) .lit-node{opacity:1}
-.bgp-setup-slide:not(:is([data-step="0"],[data-step="1"],[data-step="3"])) .lit-ebgp{opacity:1}
-.bgp-setup-slide:is([data-step="5"],[data-step="6"],[data-step="6"]) .lit-ibgp{opacity:1}
-.bgp-setup-slide:is([data-step="6"],[data-step="6"]) .lit-prefix{opacity:1}
+.bgp-setup-slide:not(:is([data-step="0"],[data-step="1"])) .lit-rel{opacity:1}
+.bgp-setup-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"])) .lit-node{opacity:1}
+.bgp-setup-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"],[data-step="3"])) .lit-ebgp{opacity:1}
+.bgp-setup-slide:is([data-step="5"],[data-step="6"],[data-step="7"]) .lit-ibgp{opacity:1}
+.bgp-setup-slide[data-step="7"] .lit-prefix{opacity:1}
 @keyframes bgp-in-pulse{0%,100%{stroke:var(--current)}50%{stroke:var(--good)}}
-.bgp-setup-slide[data-step="6"] .lit-in{animation:bgp-in-pulse 1.2s ease-in-out infinite}
+.bgp-setup-slide[data-step="7"] .lit-in{animation:bgp-in-pulse 1.2s ease-in-out infinite}
 .bgp-setup-lead{flex:0 0 auto;width:100%;max-width:1010px;margin:10px auto 0;min-height:104px;position:relative}
 .bgp-setup-line{position:absolute;inset:0;display:block;opacity:0;
   transition:opacity .28s;font-size:20px;line-height:1.4;color:var(--muted)}
 .bgp-setup-line b{color:var(--ink)}
 .bgp-setup-slide[data-step="1"] .bs1,.bgp-setup-slide[data-step="2"] .bs2,
-.bgp-setup-slide[data-step="3"] .bs3,.bgp-setup-slide[data-step="4"] .bs4{opacity:1}
+.bgp-setup-slide[data-step="3"] .bs3,.bgp-setup-slide[data-step="4"] .bs4,
+.bgp-setup-slide[data-step="5"] .bs5{opacity:1}
 .bgp-setup-card{position:absolute;inset:0;display:grid;grid-template-columns:150px 1fr;gap:16px;
   align-items:center;padding:10px 16px;border:1px solid var(--accent);border-left:6px solid
   var(--accent);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
@@ -2135,9 +2137,9 @@ svg text{font-family:var(--sans)}
 .bgp-setup-card > b{display:grid;place-items:center;min-height:42px;padding:6px 9px;border-radius:8px;
   background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;text-align:center;
   text-transform:uppercase;letter-spacing:.04em}
-.bgp-setup-slide:is([data-step="6"],[data-step="6"]) .bgp-setup-card{opacity:1;transform:none}
-.bgp-setup-slide:is([data-step="6"],[data-step="6"]) .bgp-setup-card .q1,
-.bgp-setup-slide[data-step="6"] .bgp-setup-card .q2{opacity:1}
+.bgp-setup-slide:is([data-step="6"],[data-step="7"]) .bgp-setup-card{opacity:1;transform:none}
+.bgp-setup-slide:is([data-step="6"],[data-step="7"]) .bgp-setup-card .q1,
+.bgp-setup-slide[data-step="7"] .bgp-setup-card .q2{opacity:1}
 .import-policy-status,.export-policy-status{position:relative;height:130px;margin-top:10px}
 .import-policy-card .ipl{display:block}
 .import-policy-card .ipl + .ipl{margin-top:5px;opacity:0;transition:opacity .25s}
@@ -2195,9 +2197,10 @@ svg text{font-family:var(--sans)}
   border:2px dashed var(--edge);border-radius:20px;background:var(--surface);color:var(--muted);
   font-family:var(--mono);font-size:11px;font-weight:900;z-index:7}
 .export-as-ext.b3{top:50px}.export-as-ext.e1{top:150px}
-.export-as-ext-label{position:absolute;left:8px;font-family:var(--mono);font-size:10px;
+.export-as-ext-label{position:absolute;left:8px;width:100px;line-height:1.25;
+  font-family:var(--mono);font-size:10px;
   font-weight:900;letter-spacing:.04em;color:var(--faint);z-index:7}
-.export-as-ext-label.top{top:28px}.export-as-ext-label.bottom{top:128px}
+.export-as-ext-label.top{top:22px}.export-as-ext-label.bottom{top:122px}
 .export-as-in{position:absolute;left:74px;width:68px;height:5px;border-radius:4px;
   background:var(--edge);z-index:3}.export-as-in.top{top:65px}.export-as-in.bottom{top:165px}
 .export-as-internal{position:absolute;height:4px;border-radius:4px;background:var(--edge);
@@ -2213,6 +2216,8 @@ svg text{font-family:var(--sans)}
   border:2px solid var(--border);border-radius:18px;background:var(--surface);font-family:var(--serif);
   font-size:22px;font-weight:700;box-shadow:var(--shadow);z-index:7}
 .export-external.x{top:12px}.export-external.y{top:140px}
+.export-external small{display:block;margin-top:3px;font-family:var(--mono);font-size:10px;
+  font-weight:900;color:var(--muted)}
 .export-ebgp-line{position:absolute;left:752px;top:105px;height:5px;border-radius:4px;
   background:var(--edge);z-index:4;transform-origin:left center;transition:background .22s,height .22s}
 .export-ebgp-line.top{width:188px;transform:rotate(-18.3deg)}
@@ -2282,9 +2287,10 @@ svg text{font-family:var(--sans)}
 .speaker-ibgp.l4{left:354px;top:245px;width:170px;transform:rotate(-28deg)}
 .speaker-ibgp.l5{left:330px;top:92px;width:153px;transform:rotate(90deg)}
 @keyframes speaker-flow{from{left:0}to{left:calc(100% - 9px)}}
-.speaker-origin-label{position:absolute;left:13px;padding:4px 7px;border-radius:7px;
+.speaker-origin-label{position:absolute;left:13px;width:64px;line-height:1.3;
+  padding:4px 7px;border-radius:7px;
   background:var(--surface-2);color:var(--muted);font-family:var(--mono);font-size:9px;z-index:8}
-.speaker-origin-label.top{top:45px}.speaker-origin-label.bottom{top:253px}
+.speaker-origin-label.top{top:38px}.speaker-origin-label.bottom{top:253px}
 .speaker-legend{position:absolute;right:21px;padding:4px 8px;border-radius:8px;background:var(--surface-2);
   font-family:var(--mono);font-size:9px;font-weight:900;color:var(--muted);z-index:9}
 .speaker-legend.ibgp{top:18px;border:2px dashed var(--accent);color:var(--accent-ink)}
@@ -3599,15 +3605,135 @@ svg text{font-family:var(--sans)}
     4.3, 5.1.2-5.1.3, 9.1-9.2</div>
 </section>
 
-<section class="slide stateful bgp-setup-slide" data-sec="BGP">
+<section class="slide stateful relationship-slide" data-sec="Why do ASes prefer some routes?">
+  <div class="kicker">The business model behind inter-AS route policy</div>
+  <h2>Business relationships between ASes</h2>
+  <div class="relationship-stage" role="img"
+    aria-label="AS A buys transit from provider AS B, sells transit to customer AS X, and peers with AS E">
+    <div class="relationship-legend"><span><i class="peer"></i>peer-to-peer</span>
+      <span><i></i>customer–provider</span></div>
+    <div class="relationship-node a">AS A<small>our AS</small></div>
+    <div class="relationship-node provider">AS B<small>provider</small></div>
+    <div class="relationship-node customer">AS X<small>customer</small></div>
+    <div class="relationship-node peer">AS E<small>peer</small></div>
+    <span class="relationship-edge provider"></span><span class="relationship-edge customer"></span>
+    <span class="relationship-edge peer"></span>
+    <span class="relationship-label provider">AS A pays AS B</span>
+    <span class="relationship-label customer">AS X pays AS A</span>
+    <span class="relationship-label peer">exchange own/customer traffic</span>
+    <span class="frag relationship-trigger" aria-hidden="true"></span>
+    <span class="frag relationship-trigger" aria-hidden="true"></span>
+  </div>
+  <div class="relationship-status">
+    <div class="relationship-card intro"><b>The question</b><span>
+      <b>What drives an AS's import and export policy?</b><br>
+      The answer lies in the <b>business relationships</b> between ASes &mdash; who pays whom for
+      carrying traffic.</span></div>
+    <div class="relationship-card s1"><b>Customer &rarr; provider</b><span>The customer pays the
+      provider for transit to the wider Internet.<br>
+      <i>e.g.</i> AS A buys its connectivity to the rest of the Internet from AS B, and pays AS B
+      for it.</span></div>
+    <div class="relationship-card s2"><b>Peer &harr; peer</b><span>Peers commonly exchange traffic for
+      themselves and their customers&mdash;not general transit for one another.<br>
+      <i>e.g.</i> AS A and AS E exchange roughly as much traffic as each other, so neither pays the
+      other and neither depends on the other for connectivity.</span></div>
+  </div>
+  <div class="source">Customer–provider and peer relationships: CAIDA AS Relationships; RFC 9234</div>
+</section>
+
+<section class="slide stateful hierarchy-slide" data-sec="Why do ASes prefer some routes?">
+  <div class="kicker">How customer, provider, and peer relationships repeat across the Internet</div>
+  <h2>These relationships create a commercial AS hierarchy</h2>
+  <div class="hierarchy-stage" role="img"
+    aria-label="A simplified Internet hierarchy with transit autonomous systems at the top and middle, stub networks at the edge, customer-provider links, and peering at both Tier-1 and regional levels">
+    <span class="hierarchy-band t1">Tier 1</span><span class="hierarchy-band t2">Regional / Tier 2</span>
+    <span class="hierarchy-band stub">Stub AS</span>
+    <div class="hierarchy-node tier1 t1a">Tier-1 AS 1</div><div class="hierarchy-node tier1 t1b">Tier-1 AS 2</div>
+    <div class="hierarchy-node tier1 t1c">Tier-1 AS 3</div>
+    <div class="hierarchy-node tier2 t2a">Regional AS 4</div><div class="hierarchy-node tier2 t2b">Regional AS 5</div>
+    <div class="hierarchy-node tier2 t2c">Regional AS 6</div>
+    <div class="hierarchy-node stub s1">Stub AS 7</div><div class="hierarchy-node stub s2">Stub AS 8</div>
+    <div class="hierarchy-node stub s3">Stub AS 9</div>
+    <span class="hierarchy-edge peer1"></span><span class="hierarchy-edge peer2"></span>
+    <span class="hierarchy-edge regional-peer"></span>
+    <span class="hierarchy-edge p1"></span><span class="hierarchy-edge p2"></span><span class="hierarchy-edge p3"></span>
+    <span class="hierarchy-edge c1"></span><span class="hierarchy-edge c2"></span><span class="hierarchy-edge c3"></span>
+    <div class="hierarchy-legend"><span><i class="peer"></i>peering</span><span><i></i>customer–provider</span></div>
+    <span class="frag hierarchy-trigger" aria-hidden="true"></span><span class="frag hierarchy-trigger" aria-hidden="true"></span>
+    <span class="frag hierarchy-trigger" aria-hidden="true"></span><span class="frag hierarchy-trigger" aria-hidden="true"></span>
+  </div>
+  <div class="hierarchy-status">
+    <div class="hierarchy-card s1"><b>Tier-1 transit ASes</b><span>They commonly peer with one another and do not purchase upstream transit.</span></div>
+    <div class="hierarchy-card s2"><b>Regional transit ASes</b><span>They may buy transit upstream, sell it downstream, and peer with other regional ASes.</span></div>
+    <div class="hierarchy-card s3"><b>Stub ASes</b><span>A stub reaches the wider Internet through providers and does not carry transit between other ASes.</span></div>
+    <div class="hierarchy-card s4"><b>Valley-free paths</b><span>Whenever every AS's import and export
+      policy is guided by these relationships, a path takes an <b>up&ndash;across&ndash;down</b> shape
+      &mdash; a <b>valley-free path</b>.<br>
+      <i>e.g.</i> a datagram from stub AS 7 to stub AS 8 climbs through providers to the Tier-1
+      level, crosses one peer link, then descends to AS 8.</span></div>
+  </div>
+  <div class="source">Simplified AS hierarchy and valley-free path model: CAIDA AS Relationships; Gao, 2001</div>
+</section>
+
+<section class="slide stateful policy-table-slide import-table-slide" data-sec="Why do ASes prefer some routes?">
+  <div class="kicker">A common commercial ordering—not fixed BGP values</div>
+  <h2>Import policy: which route should the AS prefer?</h2>
+  <div class="policy-table-stage">
+    <table class="policy-table" aria-label="Common route preference by the relationship from which a route was learned">
+      <thead><tr><th>Route learned from</th><th>Common preference</th><th>Economic intuition</th></tr></thead>
+      <tbody>
+        <tr><td>Customer</td><td><span class="preference">High</span></td><td>The customer pays us for transit.</td></tr>
+        <tr><td>Peer</td><td><span class="preference">Medium</span></td><td>Usually settlement-free exchange.</td></tr>
+        <tr><td>Provider</td><td><span class="preference">Low</span></td><td>We pay the provider for transit.</td></tr>
+      </tbody>
+    </table>
+    <span class="frag policy-table-trigger" aria-hidden="true"></span><span class="frag policy-table-trigger" aria-hidden="true"></span>
+    <span class="frag policy-table-trigger" aria-hidden="true"></span>
+  </div>
+  <div class="policy-table-status">
+    <div class="policy-table-card s1"><b>1 · Customer route</b><span>Customer traffic earns revenue, so customer-learned routes commonly receive the highest preference.</span></div>
+    <div class="policy-table-card s2"><b>2 · Peer route</b><span>A peer route is commonly preferred over a route that incurs upstream transit cost.</span></div>
+    <div class="policy-table-card s3"><b>3 · Provider route</b><span>Provider-learned routes commonly receive low preference because the AS must pay the provider to carry that traffic.</span></div>
+  </div>
+  <div class="source">LOCAL_PREF: RFC 4271 §5.1.5; common commercial ordering: Gao–Rexford policy model</div>
+</section>
+
+<section class="slide stateful policy-table-slide export-matrix-slide" data-sec="Why do ASes prefer some routes?">
+  <div class="kicker">A common commercial guideline—not a rule enforced by BGP</div>
+  <h2>Export policy: where should the route be advertised?</h2>
+  <div class="policy-table-stage">
+    <table class="policy-table" aria-label="Common export policy matrix for routes learned from customers, peers, and providers">
+      <thead><tr><th>Route learned from</th><th>To customer</th><th>To peer</th><th>To provider</th></tr></thead>
+      <tbody>
+        <tr><td>Customer</td><td><span class="mark yes">✓</span></td><td><span class="mark yes">✓</span></td><td><span class="mark yes">✓</span></td></tr>
+        <tr><td>Peer</td><td><span class="mark yes">✓</span></td><td><span class="mark no">×</span></td><td><span class="mark no">×</span></td></tr>
+        <tr><td>Provider</td><td><span class="mark yes">✓</span></td><td><span class="mark no">×</span></td><td><span class="mark no">×</span></td></tr>
+      </tbody>
+    </table>
+    <span class="frag policy-table-trigger" aria-hidden="true"></span><span class="frag policy-table-trigger" aria-hidden="true"></span>
+    <span class="frag policy-table-trigger" aria-hidden="true"></span>
+  </div>
+  <div class="policy-table-status">
+    <div class="policy-table-card s1"><b>To customers</b><span>Customers pay for transit, so they can commonly receive every usable route.</span></div>
+    <div class="policy-table-card s2"><b>Customer-learned routes</b><span>These can commonly be advertised to peers and providers because the customer pays the AS for transit.</span></div>
+    <div class="policy-table-card s3"><b>Peer/provider routes</b><span>Do not normally export these to another peer or provider; doing so creates unpaid transit.</span></div>
+  </div>
+  <div class="source">Common relationship-based propagation guideline: RFC 7908; relationship roles: RFC 9234</div>
+</section>
+
+<section class="slide stateful bgp-setup-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">Zooming in on the AS that receives</div>
   <h2>One AS, two ways in, two ways out</h2>
   <svg class="bgp-setup-map" viewBox="0 0 1010 364" role="img" aria-label="Five autonomous systems: AS B and AS E on the left, AS A in the centre, AS X and AS Y on the right. A4, A5 and A1 are AS A's border routers, and the BGP speakers inside AS A maintain iBGP sessions with each other.">
   <rect class="gg" x="26" y="34" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="40" y="61" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS B</text>
+  <text class="gg lit lit-rel" x="40" y="86" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--muted)">our provider</text>
   <rect class="gg" x="26" y="242" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="40" y="269" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS E</text>
+  <text class="gg lit lit-rel" x="40" y="294" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--muted)">our peer</text>
   <rect class="gg" x="240" y="18" width="502" height="328" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="254" y="45" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS A</text>
   <rect class="gg" x="796" y="34" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="810" y="61" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS X</text>
+  <text class="gg lit lit-rel" x="810" y="86" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--muted)">our customer</text>
   <rect class="gg" x="796" y="242" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="810" y="269" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS Y</text>
+  <text class="gg lit lit-rel" x="810" y="294" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--muted)">our peer</text>
   <line class="gg lit lit-ibgp" x1="322" y1="78" x2="322" y2="286" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="5 6"/>
   <line class="gg lit lit-ibgp" x1="322" y1="78" x2="452" y2="122" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="5 6"/>
   <line class="gg lit lit-ibgp" x1="322" y1="78" x2="452" y2="248" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="5 6"/>
@@ -3653,11 +3779,14 @@ svg text{font-family:var(--sans)}
   <div class="bgp-setup-lead">
     <span class="bgp-setup-line bs1">In this example there are <b>five autonomous systems</b>. AS A
     sits in the middle, with AS B and AS E on one side and AS X and AS Y on the other.</span>
-    <span class="bgp-setup-line bs2">These are AS A&rsquo;s <b>six routers</b>. The solid links between them are its
+    <span class="bgp-setup-line bs2">Each neighbour stands in a <b>business relationship</b> with
+    AS A: it buys transit from <b>AS B</b>, sells transit to <b>AS X</b>, and peers with
+    <b>AS E</b> and <b>AS Y</b>.</span>
+    <span class="bgp-setup-line bs3">These are AS A&rsquo;s <b>six routers</b>. The solid links between them are its
     own internal topology.</span>
-    <span class="bgp-setup-line bs3"><b>A4, A5 and A1 are the border routers.</b> Each holds an
+    <span class="bgp-setup-line bs4"><b>A4, A5 and A1 are the border routers.</b> Each holds an
     established <b>eBGP</b> session with a router in an adjacent AS &mdash; four sessions in all.</span>
-    <span class="bgp-setup-line bs4">Inside AS A, these are the <b>BGP speakers</b>, and they maintain
+    <span class="bgp-setup-line bs5">Inside AS A, these are the <b>BGP speakers</b>, and they maintain
     <b>iBGP</b> sessions with each other &mdash; so whatever one of them learns can reach them all.</span>
     <div class="bgp-setup-card"><b>The setting</b>
       <ul class="pv-q-list">
@@ -3667,16 +3796,16 @@ svg text{font-family:var(--sans)}
           advertise this destination to AS A.</li>
       </ul></div>
   </div>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
   <div class="source">BGP speakers, sessions and NLRI: RFC 4271 §§1.1, 3</div>
 </section>
 
-<section class="slide stateful import-policy-slide" data-sec="BGP">
+<section class="slide stateful import-policy-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">AS-wide routing intention · received routes</div>
-  <h2>eBGP import policy: which routes an AS prefers</h2>
+  <h2>AS A applies its eBGP import policy</h2>
   <div class="import-policy-stage import-as-stage" role="img"
     aria-label="Two BGP advertisements arrive over eBGP at gateway routers A4 and A5 in AS A. One policy example rejects the first and accepts the second; another accepts both and assigns local preference values">
-    <div class="import-as-route route1"><b>ADVERTISEMENT FROM AS B</b>
+    <div class="import-as-route route1"><b>FROM AS B &middot; OUR PROVIDER</b>
         <div class="route-card">
           <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
           <div class="field import-localpref"><span class="key">LOCAL_PREF</span><span class="value">100</span></div>
@@ -3684,7 +3813,7 @@ svg text{font-family:var(--sans)}
           <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div>
         </div>
     </div>
-    <div class="import-as-route route2"><b>ADVERTISEMENT FROM AS E</b>
+    <div class="import-as-route route2"><b>FROM AS E &middot; OUR PEER</b>
         <div class="route-card">
           <div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
           <div class="field import-localpref"><span class="key">LOCAL_PREF</span><span class="value">200</span></div>
@@ -3719,24 +3848,26 @@ svg text{font-family:var(--sans)}
       <span class="mono">AS E · AS H · AS D</span> &mdash; but both end at <b>AS D</b>.</span><span
       class="ipl"><b>Which one should AS A allow to import?</b></span></span></div>
     <div class="import-policy-card s1b"><b>2 · It may simply reject one</b><span>Import policy can
-      turn a route away outright: AS A is not willing to reach the prefix through AS B. We will
-      come to what drives such a decision. The route is then not a candidate at all, and AS A is
-      left with one way to the prefix.</span></div>
+      turn a route away outright. <b>AS B is AS A&rsquo;s provider</b>, so AS A pays for every byte
+      it sends that way &mdash; and it can already reach AS D through its <b>peer AS E</b> for
+      nothing. So it may refuse the paid route altogether: not a candidate at all, and AS A is left
+      with one way to the prefix.</span></div>
     <div class="import-policy-card s2"><b>3 · Or accept both, and rank them</b><span><span class="ipl">More
-      usually it accepts both, attaching a <code>LOCAL_PREF</code> to each &mdash; 100 and 200. The
-      higher value is the one AS A prefers.</span><span class="ipl">Why keep the loser? As a <b>backup</b>: if the preferred
+      usually it accepts both, attaching a <code>LOCAL_PREF</code> to each. <b>Peer over
+      provider</b>: the AS E route gets 200, the AS B route 100, and the higher value is the one
+      AS A prefers.</span><span class="ipl">Why keep the loser? As a <b>backup</b>: if the preferred
       route is withdrawn, AS A falls back to it at once, with nothing new to learn.</span></span></div>
   </div>
   <div class="source">Import policy and LOCAL_PREF: RFC 4271 §§5.1.5, 9.1.1</div>
 </section>
 
-<section class="slide stateful speaker-decision-slide" data-sec="BGP">
+<section class="slide stateful speaker-decision-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">One next hop per prefix · LOCAL_PREF → AS_PATH → intra-AS cost</div>
   <h2>How does a single BGP router break a tie between routes?</h2>
   <div class="speaker-decision-stage" role="img"
     aria-label="BGP speakers A4 and A5 distribute two candidate routes to A1 using iBGP. A1 compares local preference, AS path length, and finally its intra-AS cost to the next hops B3 and E1">
     <div class="speaker-topology"><div class="speaker-as-boundary"><b>AS A</b></div>
-      <span class="speaker-origin-label top">from AS B</span><span class="speaker-origin-label bottom">from AS E</span>
+      <span class="speaker-origin-label top">from&nbsp;AS&nbsp;B<br>provider</span><span class="speaker-origin-label bottom">from&nbsp;AS&nbsp;E<br>peer</span>
       <div class="speaker-external b3">B3</div><div class="speaker-external e1">E1</div>
       <span class="speaker-ebgp top"></span><span class="speaker-ebgp bottom"></span>
       <span class="speaker-igp top t1"></span><span class="speaker-igp top t2"></span>
@@ -3803,7 +3934,7 @@ svg text{font-family:var(--sans)}
       this prefix into its forwarding table. <b>Which of the two routes should it pick?</b></span></div>
     <div class="speaker-card s3"><b>1 &middot; AS-wide policy first</b><span>The first criterion is
       <code>LOCAL_PREF</code>, the AS-wide preference from import policy: 200 beats 100, so
-      <b>Route 2 wins</b>.</span></div>
+      <b>Route 2 wins</b> &mdash; the peer route over the provider route.</span></div>
     <div class="speaker-card s4"><b>2 &middot; Then AS_PATH length</b><span>If <code>LOCAL_PREF</code>
       ties, A1 compares AS-level path lengths and takes the shorter: <b>Route 1 wins</b> with two ASes
       rather than three.</span></div>
@@ -3814,14 +3945,14 @@ svg text{font-family:var(--sans)}
   <div class="source">iBGP, distributed selection, LOCAL_PREF, and intra-AS cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
 </section>
 
-<section class="slide stateful export-policy-slide" data-sec="BGP">
+<section class="slide stateful export-policy-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">AS-wide routing intention · outgoing advertisements</div>
-  <h2>eBGP export policy: what an AS advertises</h2>
+  <h2>AS A applies its eBGP export policy</h2>
   <div class="export-policy-stage export-as-stage" role="img"
     aria-label="Routes from AS B and AS E enter AS A at A4 and A5, cross the AS, and reach border router A1, which has eBGP sessions to AS X and AS Y. Fragments show export policy advertising the route to AS X while withholding it from AS Y">
     <div class="export-as-boundary"><b>AS A</b></div>
-    <span class="export-as-ext-label top">from AS B</span>
-    <span class="export-as-ext-label bottom">from AS E</span>
+    <span class="export-as-ext-label top">from AS B<br>provider</span>
+    <span class="export-as-ext-label bottom">from AS E<br>peer</span>
     <div class="export-as-ext b3">B3</div><div class="export-as-ext e1">E1</div>
     <span class="export-as-in top"></span><span class="export-as-in bottom"></span>
     
@@ -3848,7 +3979,7 @@ svg text{font-family:var(--sans)}
     <span class="export-update top">UPDATE · A E H D</span>
     <span class="export-update bottom">UPDATE · A E H D</span>
     <span class="export-policy-block top">×</span><span class="export-policy-block bottom">×</span>
-    <div class="export-external x">AS X</div><div class="export-external y">AS Y</div>
+    <div class="export-external x">AS X<small>our customer</small></div><div class="export-external y">AS Y<small>our peer</small></div>
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
@@ -3860,132 +3991,16 @@ svg text{font-family:var(--sans)}
         <li class="q1">Suppose A1 selected the route through AS E:
           <strong>AS E · AS H · AS D</strong>.</li>
         <li class="q2">A1 is a border router, so it can pass what it knows on to its neighbouring
-          ASes &mdash; <b>AS X</b> and <b>AS Y</b>.</li>
+          ASes &mdash; <b>AS X</b>, our customer, and <b>AS Y</b>, another peer.</li>
         <li class="q3"><b>Should it? And to which of them?</b> That is what
           <b>export policy</b> decides.</li>
       </ul></div>
-    <div class="export-policy-card s2"><b>2 · Export policy decides</b><span>Suppose AS A's export
-      policy permits this route to <b>AS X</b> but withholds it from <b>AS Y</b>. Then A1 prepends
-      itself and sends <strong>AS A · AS E · AS H · AS D</strong> to AS X, and says nothing to
-      AS Y.</span></div>
+    <div class="export-policy-card s2"><b>2 · Export policy decides</b><span>AS A learned this route from a
+      <b>peer</b>. It may hand a peer route to a <b>paying customer</b>, so A1 prepends itself and
+      sends <strong>AS A · AS E · AS H · AS D</strong> to AS X. Giving it to <b>AS Y</b>, another
+      peer, would carry AS Y's traffic for free &mdash; so AS A says nothing.</span></div>
   </div>
   <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
-</section>
-
-<section class="slide stateful relationship-slide" data-sec="Why do ASes prefer some routes?">
-  <div class="kicker">The business model behind inter-AS route policy</div>
-  <h2>Business relationships between ASes</h2>
-  <div class="relationship-stage" role="img"
-    aria-label="AS A buys transit from provider AS D, sells transit to customer AS B, and peers with AS P">
-    <div class="relationship-legend"><span><i class="peer"></i>peer-to-peer</span>
-      <span><i></i>customer–provider</span></div>
-    <div class="relationship-node a">AS A<small>our AS</small></div>
-    <div class="relationship-node provider">AS D<small>provider</small></div>
-    <div class="relationship-node customer">AS B<small>customer</small></div>
-    <div class="relationship-node peer">AS P<small>peer</small></div>
-    <span class="relationship-edge provider"></span><span class="relationship-edge customer"></span>
-    <span class="relationship-edge peer"></span>
-    <span class="relationship-label provider">AS A pays AS D</span>
-    <span class="relationship-label customer">AS B pays AS A</span>
-    <span class="relationship-label peer">exchange own/customer traffic</span>
-    <span class="frag relationship-trigger" aria-hidden="true"></span>
-    <span class="frag relationship-trigger" aria-hidden="true"></span>
-  </div>
-  <div class="relationship-status">
-    <div class="relationship-card intro"><b>The question</b><span>
-      <b>What drives an AS's import and export policy?</b><br>
-      The answer lies in the <b>business relationships</b> between ASes &mdash; who pays whom for
-      carrying traffic.</span></div>
-    <div class="relationship-card s1"><b>Customer &rarr; provider</b><span>The customer pays the
-      provider for transit to the wider Internet.<br>
-      <i>e.g.</i> AS A buys its connectivity to the rest of the Internet from AS D, and pays AS D
-      for it.</span></div>
-    <div class="relationship-card s2"><b>Peer &harr; peer</b><span>Peers commonly exchange traffic for
-      themselves and their customers&mdash;not general transit for one another.<br>
-      <i>e.g.</i> AS A and AS P exchange roughly as much traffic as each other, so neither pays the
-      other and neither depends on the other for connectivity.</span></div>
-  </div>
-  <div class="source">Customer–provider and peer relationships: CAIDA AS Relationships; RFC 9234</div>
-</section>
-
-<section class="slide stateful hierarchy-slide" data-sec="Why do ASes prefer some routes?">
-  <div class="kicker">How customer, provider, and peer relationships repeat across the Internet</div>
-  <h2>These relationships create a commercial AS hierarchy</h2>
-  <div class="hierarchy-stage" role="img"
-    aria-label="A simplified Internet hierarchy with transit autonomous systems at the top and middle, stub networks at the edge, customer-provider links, and peering at both Tier-1 and regional levels">
-    <span class="hierarchy-band t1">Tier 1</span><span class="hierarchy-band t2">Regional / Tier 2</span>
-    <span class="hierarchy-band stub">Stub AS</span>
-    <div class="hierarchy-node tier1 t1a">Tier-1 AS A</div><div class="hierarchy-node tier1 t1b">Tier-1 AS B</div>
-    <div class="hierarchy-node tier1 t1c">Tier-1 AS C</div>
-    <div class="hierarchy-node tier2 t2a">Regional AS D</div><div class="hierarchy-node tier2 t2b">Regional AS E</div>
-    <div class="hierarchy-node tier2 t2c">Regional AS F</div>
-    <div class="hierarchy-node stub s1">Stub AS G</div><div class="hierarchy-node stub s2">Stub AS H</div>
-    <div class="hierarchy-node stub s3">Stub AS I</div>
-    <span class="hierarchy-edge peer1"></span><span class="hierarchy-edge peer2"></span>
-    <span class="hierarchy-edge regional-peer"></span>
-    <span class="hierarchy-edge p1"></span><span class="hierarchy-edge p2"></span><span class="hierarchy-edge p3"></span>
-    <span class="hierarchy-edge c1"></span><span class="hierarchy-edge c2"></span><span class="hierarchy-edge c3"></span>
-    <div class="hierarchy-legend"><span><i class="peer"></i>peering</span><span><i></i>customer–provider</span></div>
-    <span class="frag hierarchy-trigger" aria-hidden="true"></span><span class="frag hierarchy-trigger" aria-hidden="true"></span>
-    <span class="frag hierarchy-trigger" aria-hidden="true"></span><span class="frag hierarchy-trigger" aria-hidden="true"></span>
-  </div>
-  <div class="hierarchy-status">
-    <div class="hierarchy-card s1"><b>Tier-1 transit ASes</b><span>They commonly peer with one another and do not purchase upstream transit.</span></div>
-    <div class="hierarchy-card s2"><b>Regional transit ASes</b><span>They may buy transit upstream, sell it downstream, and peer with other regional ASes.</span></div>
-    <div class="hierarchy-card s3"><b>Stub ASes</b><span>A stub reaches the wider Internet through providers and does not carry transit between other ASes.</span></div>
-    <div class="hierarchy-card s4"><b>Valley-free paths</b><span>Whenever every AS's import and export
-      policy is guided by these relationships, a path takes an <b>up&ndash;across&ndash;down</b> shape
-      &mdash; a <b>valley-free path</b>.<br>
-      <i>e.g.</i> a datagram from stub AS G to stub AS H climbs through providers to the Tier-1
-      level, crosses one peer link, then descends to AS H.</span></div>
-  </div>
-  <div class="source">Simplified AS hierarchy and valley-free path model: CAIDA AS Relationships; Gao, 2001</div>
-</section>
-
-<section class="slide stateful policy-table-slide import-table-slide" data-sec="Why do ASes prefer some routes?">
-  <div class="kicker">A common commercial ordering—not fixed BGP values</div>
-  <h2>Import policy: which route should the AS prefer?</h2>
-  <div class="policy-table-stage">
-    <table class="policy-table" aria-label="Common route preference by the relationship from which a route was learned">
-      <thead><tr><th>Route learned from</th><th>Common preference</th><th>Economic intuition</th></tr></thead>
-      <tbody>
-        <tr><td>Customer</td><td><span class="preference">High</span></td><td>The customer pays us for transit.</td></tr>
-        <tr><td>Peer</td><td><span class="preference">Medium</span></td><td>Usually settlement-free exchange.</td></tr>
-        <tr><td>Provider</td><td><span class="preference">Low</span></td><td>We pay the provider for transit.</td></tr>
-      </tbody>
-    </table>
-    <span class="frag policy-table-trigger" aria-hidden="true"></span><span class="frag policy-table-trigger" aria-hidden="true"></span>
-    <span class="frag policy-table-trigger" aria-hidden="true"></span>
-  </div>
-  <div class="policy-table-status">
-    <div class="policy-table-card s1"><b>1 · Customer route</b><span>Customer traffic earns revenue, so customer-learned routes commonly receive the highest preference.</span></div>
-    <div class="policy-table-card s2"><b>2 · Peer route</b><span>A peer route is commonly preferred over a route that incurs upstream transit cost.</span></div>
-    <div class="policy-table-card s3"><b>3 · Provider route</b><span>Provider-learned routes commonly receive low preference because the AS must pay the provider to carry that traffic.</span></div>
-  </div>
-  <div class="source">LOCAL_PREF: RFC 4271 §5.1.5; common commercial ordering: Gao–Rexford policy model</div>
-</section>
-
-<section class="slide stateful policy-table-slide export-matrix-slide" data-sec="Why do ASes prefer some routes?">
-  <div class="kicker">A common commercial guideline—not a rule enforced by BGP</div>
-  <h2>Export policy: where should the route be advertised?</h2>
-  <div class="policy-table-stage">
-    <table class="policy-table" aria-label="Common export policy matrix for routes learned from customers, peers, and providers">
-      <thead><tr><th>Route learned from</th><th>To customer</th><th>To peer</th><th>To provider</th></tr></thead>
-      <tbody>
-        <tr><td>Customer</td><td><span class="mark yes">✓</span></td><td><span class="mark yes">✓</span></td><td><span class="mark yes">✓</span></td></tr>
-        <tr><td>Peer</td><td><span class="mark yes">✓</span></td><td><span class="mark no">×</span></td><td><span class="mark no">×</span></td></tr>
-        <tr><td>Provider</td><td><span class="mark yes">✓</span></td><td><span class="mark no">×</span></td><td><span class="mark no">×</span></td></tr>
-      </tbody>
-    </table>
-    <span class="frag policy-table-trigger" aria-hidden="true"></span><span class="frag policy-table-trigger" aria-hidden="true"></span>
-    <span class="frag policy-table-trigger" aria-hidden="true"></span>
-  </div>
-  <div class="policy-table-status">
-    <div class="policy-table-card s1"><b>To customers</b><span>Customers pay for transit, so they can commonly receive every usable route.</span></div>
-    <div class="policy-table-card s2"><b>Customer-learned routes</b><span>These can commonly be advertised to peers and providers because the customer pays the AS for transit.</span></div>
-    <div class="policy-table-card s3"><b>Peer/provider routes</b><span>Do not normally export these to another peer or provider; doing so creates unpaid transit.</span></div>
-  </div>
-  <div class="source">Common relationship-based propagation guideline: RFC 7908; relationship roles: RFC 9234</div>
 </section>
 
 <section class="slide lecture-recap-slide" data-sec="Why do ASes prefer some routes?">
