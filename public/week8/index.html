@@ -678,7 +678,8 @@ svg text{font-family:var(--sans)}
 .rip-learn-slide[data-step="9"] .rl-b{display:none}
 .rip-learn-slide[data-step="9"] .rl-table td.c-metric .rl-b{display:inline}
 .rip-learn-slide[data-step="9"] .rl-table td.c-hop .rl-b{display:inline}
-.rip-learn-slide[data-step="9"] .rl-x{display:inline;color:var(--bad);font-weight:900}
+.rip-learn-slide:is([data-step="9"],[data-step="10"],[data-step="11"],
+  [data-step="12"]) .rl-x{display:inline;color:var(--bad);font-weight:900}
 .rip-learn-slide:is([data-step="10"],[data-step="11"],[data-step="12"]) .rl-table td.c-hop .rl-b{
   display:inline;color:var(--ink);font-weight:400}
 .rip-learn-slide:is([data-step="9"],[data-step="10"],[data-step="11"],[data-step="12"])
@@ -724,6 +725,20 @@ svg text{font-family:var(--sans)}
 .rip-exchange-arrow.response .line::before{content:"";position:absolute;top:50%;right:0;width:11px;height:11px;
   margin-top:-5.5px;border-radius:50%;background:currentColor;animation:rip-advert-flow 2.2s linear infinite}
 @keyframes rip-advert-flow{from{right:0}to{right:calc(100% - 11px)}}
+.rip-poison-fan{position:absolute;left:76px;top:72px;width:0;height:0;opacity:0;transition:opacity .2s ease}
+.rip-learn-slide[data-step="11"] .rip-poison-fan{opacity:1}
+.rip-poison-fan .pf{position:absolute;left:0;top:-2px;width:44px;height:4px;border-radius:999px;
+  background:var(--bad);transform-origin:0 50%}
+.rip-poison-fan .pf.a{transform:rotate(-135deg)}
+.rip-poison-fan .pf.b{transform:rotate(-90deg)}
+.rip-poison-fan .pf.c{transform:rotate(-45deg)}
+.rip-poison-fan .pf::after{content:"";position:absolute;right:-8px;top:50%;width:0;height:0;
+  transform:translateY(-50%);border-top:6px solid transparent;border-bottom:6px solid transparent;
+  border-left:9px solid var(--bad)}
+.rip-poison-fan .pf::before{content:"";position:absolute;top:50%;left:0;width:9px;height:9px;
+  margin-top:-4.5px;border-radius:50%;background:var(--bad);animation:rip-poison-flow 1.6s linear infinite}
+.rip-poison-fan .pf.b::before{animation-delay:.2s}.rip-poison-fan .pf.c::before{animation-delay:.4s}
+@keyframes rip-poison-flow{from{left:0}to{left:calc(100% - 9px)}}
 .rip-learn-slide:is([data-step="9"],[data-step="10"],[data-step="11"],
   [data-step="12"]) .rip-exchange-arrow.response .line::before{display:none}
 .rip-example-trigger{position:absolute;width:1px;height:1px;overflow:hidden}.rip-example-panel-stage{position:relative;min-height:154px;
@@ -2785,7 +2800,7 @@ svg text{font-family:var(--sans)}
             <span class="rl-c">16</span></td>
           <td class="c-hop"><span class="rl-a">R5</span><span class="rl-b">R2</span></td>
           <td class="c-timer"><span class="rl-a">132 s</span><span class="rl-b">180 s</span>
-            <span class="rl-x">expired</span><span class="rl-c">120 s</span>
+            <span class="rl-x">expired</span>
             <span class="rl-reset">&#8635;</span></td>
         </tr></tbody>
       </table>
@@ -2795,6 +2810,8 @@ svg text{font-family:var(--sans)}
     <div class="rip-learn-column">
       <div class="rip-example-exchange" aria-label="RIP Response advertised from R2 to R1 over UDP">
         <div class="rip-exchange-router r1">R1</div>
+        <div class="rip-poison-fan" aria-hidden="true"><span class="pf a"></span>
+          <span class="pf b"></span><span class="pf c"></span></div>
         <div class="rip-exchange-arrow response"><span class="line"></span><b>Response</b></div>
         <div class="rip-exchange-router r2">R2</div>
       </div>
