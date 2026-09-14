@@ -708,13 +708,21 @@ svg text{font-family:var(--sans)}
   text-transform:uppercase;color:var(--current)}.rip-exchange-router{position:absolute;top:72px;display:grid;width:96px;height:72px;place-items:center;
   border:3px solid var(--accent);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);font-family:var(--serif);font-size:29px;
   font-weight:700;color:var(--accent-ink)}.rip-exchange-router.r1{left:28px}.rip-exchange-router.r2{right:28px}
-.rip-exchange-arrow{position:absolute;left:148px;right:148px;height:42px;color:var(--edge);transition:color .18s ease}
+.rip-exchange-arrow{position:absolute;left:148px;right:148px;height:42px;color:var(--edge);
+  opacity:0;transition:color .18s ease,opacity .2s ease}
 .rip-exchange-arrow.response{top:86px}.rip-exchange-arrow .line{position:absolute;left:0;right:0;top:20px;height:5px;
   border-radius:999px;background:currentColor}.rip-exchange-arrow .line::after{content:"";position:absolute;top:50%;width:0;height:0;transform:translateY(-50%)}
 .rip-exchange-arrow.response .line::after{left:-1px;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:12px solid currentColor}
 .rip-exchange-arrow b{position:absolute;left:50%;top:-2px;transform:translateX(-50%);padding:2px 7px;border-radius:6px;background:var(--surface-2);
   font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-.rip-learn-slide:is([data-step="2"],[data-step="3"],[data-step="4"],[data-step="6"],[data-step="7"]) .rip-exchange-arrow.response{color:var(--accent)}
+.rip-learn-slide:not(:is([data-step="0"],[data-step="1"])) .rip-exchange-arrow.response{opacity:1}
+.rip-learn-slide:is([data-step="2"],[data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],
+  [data-step="7"]) .rip-exchange-arrow.response{color:var(--accent)}
+.rip-exchange-arrow.response .line::before{content:"";position:absolute;top:50%;right:0;width:11px;height:11px;
+  margin-top:-5.5px;border-radius:50%;background:currentColor;animation:rip-advert-flow 2.2s linear infinite}
+@keyframes rip-advert-flow{from{right:0}to{right:calc(100% - 11px)}}
+.rip-learn-slide:is([data-step="8"],[data-step="9"],[data-step="10"],
+  [data-step="11"]) .rip-exchange-arrow.response .line::before{display:none}
 .rip-example-trigger{position:absolute;width:1px;height:1px;overflow:hidden}.rip-example-panel-stage{position:relative;min-height:154px;
   max-width:1050px;margin:0 auto}.rip-example-panel{display:none;padding:15px 20px;border-left:6px solid var(--accent);
   border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow)}.rip-example-panel.alert{border-left-color:var(--bad)}
@@ -2803,9 +2811,10 @@ svg text{font-family:var(--sans)}
     <div class="rip-example-panel p1"><b>1 &middot; The route R1 has now</b><span>R1 reaches
       <code>203.0.113.0/24</code> through next hop <strong>R5</strong> at <strong>cost metric 6</strong>,
       with <strong>132 s</strong> left to live on the entry.</span></div>
-    <div class="rip-example-panel p2"><b>2 &middot; R2 advertises, unprompted</b><span>R1 asks for
-      nothing. Each RIP router advertises to its neighbours on its own, and a
-      <strong class="message-highlight">Response</strong> from R2 now arrives over UDP.</span></div>
+    <div class="rip-example-panel p2"><b>2 &middot; Periodic advertisement</b><span>Every RIP router
+      periodically advertises its <strong>distance vector</strong> to its neighbours in a
+      <strong class="message-highlight">Response</strong>.<br>
+      Here R1 hears one such Response from R2.</span></div>
     <div class="rip-example-panel p3"><b>3 &middot; What R2&rsquo;s vector says</b><span>R2 can reach
       <code>203.0.113.0/24</code> at <strong>cost metric 2</strong> &mdash; that is R2&rsquo;s own
       best known distance to it.</span></div>
@@ -2814,7 +2823,7 @@ svg text{font-family:var(--sans)}
       <strong>6</strong>, so R1 takes it.</span></div>
     <div class="rip-example-panel p5"><b>5 &middot; Replace the entry, then install it</b>
       <ul class="rip-example-bullets">
-        <li class="b1"><strong>Rewrite the row.</strong> Next hop becomes R2, cost metric becomes 3,
+        <li class="b1"><strong>Rewrite its RIP routing table.</strong> Next hop becomes R2, cost metric becomes 3,
           and the 180-second timer starts again.</li>
         <li class="b2"><strong>Install it.</strong> R1 puts the new route into its forwarding table,
           and starts forwarding datagrams for this prefix to R2 instead of R5.</li>
