@@ -3015,15 +3015,15 @@ svg text{font-family:var(--sans)}
     </div>
     <div class="frag ospf-feature">
       <h3>Operator-defined costs</h3>
-      <p>The operator sets each link&rsquo;s cost, and so decides which paths OSPF prefers. Costs
-      can follow <b>bandwidth</b>, so a fast link beats a slow one &mdash; a distinction hop count
-      cannot make &mdash; or a metered link can be priced high to keep it as a backup.</p>
+      <ul class="ospf-feature-points">
+        <li>The operator sets each link&rsquo;s cost, and so decides which paths OSPF prefers.</li>
+        <li class="frag">Costs can follow <b>bandwidth</b>, so a fast link beats a slow one
+        &mdash; a distinction hop count cannot make.</li>
+      </ul>
     </div>
     <div class="frag ospf-feature">
       <h3>Area routing</h3>
-      <p>A large AS can be divided into <b>areas</b>, so that OSPF scales: flooding and the
-      shortest-path computation stay <b>inside</b> an area, and only summaries cross between
-      them.</p>
+      <p>A large AS can be divided into <b>areas</b>, so that OSPF scales.</p>
     </div>
   </div>
   <div class="source">OSPF capabilities: RFC 2328 §§2.4, 3, 8 and Appendix D</div>
