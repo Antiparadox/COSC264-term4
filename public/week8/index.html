@@ -745,19 +745,19 @@ svg text{font-family:var(--sans)}
   max-width:1080px;margin:8px auto 0}.ospf-facts{display:grid;gap:12px}
 .ospf-fact{padding:15px 18px;border:1px solid var(--border);border-left:6px solid var(--accent);
   border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow);font-size:19px;line-height:1.34}
-.ospf-fact b{color:var(--accent-ink)}.ospf-flow{display:grid;grid-auto-rows:1fr;gap:10px;
+.ospf-fact b{color:var(--accent-ink)}.step-flow{display:grid;grid-auto-rows:1fr;gap:10px;
   padding:18px;border:1px solid var(--border);border-radius:18px;background:var(--surface);box-shadow:var(--shadow)}
-.ospf-flow-step{position:relative;display:grid;grid-template-columns:54px 1fr;gap:13px;align-items:center;
+.step-flow-step{position:relative;display:grid;grid-template-columns:54px 1fr;gap:13px;align-items:center;
   padding:10px 14px;border-radius:12px;background:var(--surface-2);font-size:17px;line-height:1.25}
-.ospf-flow-step:not(:last-child)::after{content:"↓";position:absolute;left:31px;bottom:-17px;z-index:2;
-  color:var(--current);font-size:20px;font-weight:900}.ospf-flow-index{display:grid;width:38px;height:38px;place-items:center;
+.step-flow-step:not(:last-child)::after{content:"↓";position:absolute;left:31px;bottom:-17px;z-index:2;
+  color:var(--current);font-size:20px;font-weight:900}.step-flow-index{display:grid;width:38px;height:38px;place-items:center;
   border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-size:14px;font-weight:900}
 .ospf-intro-list{display:grid;gap:14px;width:100%;max-width:1000px;margin:18px auto 0}
-.ospf-intro-list .ospf-fact{padding:18px 23px;font-size:22px}.ospf-flow.refresher{width:100%;max-width:1000px;
-  margin:16px auto 0;padding:20px 24px;gap:12px}.ospf-flow.refresher .ospf-flow-step{min-height:78px;
+.ospf-intro-list .ospf-fact{padding:18px 23px;font-size:22px}.step-flow.refresher{width:100%;max-width:1000px;
+  margin:16px auto 0;padding:20px 24px;gap:12px}.step-flow.refresher .step-flow-step{min-height:78px;
   grid-template-columns:64px 1fr;padding:13px 18px;font-size:21px;line-height:1.32}
-.ospf-flow.refresher .ospf-flow-index{width:44px;height:44px;font-size:15px}
-.ospf-flow.refresher .ospf-flow-step:not(:last-child)::after{left:35px;bottom:-19px}
+.step-flow.refresher .step-flow-index{width:44px;height:44px;font-size:15px}
+.step-flow.refresher .step-flow-step:not(:last-child)::after{left:35px;bottom:-19px}
 
 .ospf-feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:1080px;margin:30px auto 0}
 .ospf-feature{position:relative;min-height:230px;padding:27px 25px 22px;border:1px solid var(--border);
@@ -2600,12 +2600,24 @@ svg text{font-family:var(--sans)}
 </section>
 
 <section class="slide" data-sec="RIP">
+  <div class="kicker">Quick refresher &middot; from Module 1</div>
+  <h2>A quick recap of the distance-vector routing protocol</h2>
+  <div class="step-flow refresher" aria-label="Three-step distance-vector routing process used by RIP">
+    <div class="frag step-flow-step"><span class="step-flow-index">1</span><span>Each router keeps a
+    <b>distance vector</b> &mdash; its own best known distance to every destination.</span></div>
+    <div class="frag step-flow-step"><span class="step-flow-index">2</span><span>Each router sends that
+    vector to its <b>direct neighbours</b> only, and receives theirs in return.</span></div>
+    <div class="frag step-flow-step"><span class="step-flow-index">3</span><span>From a neighbour&rsquo;s
+    vector a router <b>re-computes</b> its own, keeping the best distance and the <b>next hop</b> that
+    achieves it. No router ever learns the full topology.</span></div>
+  </div>
+  <div class="source">Distance-vector operation: RFC 2453 &sect;3.4</div>
+</section>
+
+<section class="slide" data-sec="RIP">
   <div class="kicker">A concrete distance-vector intra-AS protocol</div>
   <h2>RIP is a concrete distance-vector protocol</h2>
   <ul class="rip-overview-list">
-    <li class="frag"><b>A reminder: neighbour-to-neighbour exchange</b><span>Routers talk only to
-      their direct neighbours, and from that alone each learns the <b>best distance</b> and the
-      <b>next hop</b> to every destination. No router ever learns the full topology.</span></li>
     <li class="frag"><b>Every link costs one hop</b><span>RIP measures distance in <b>router hops</b>:
       each router adds one to the metric it received.</span>
       <span class="rip-hopfig" role="img"
@@ -2839,12 +2851,12 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="OSPF">
   <div class="kicker">Quick refresher · from Module 1</div>
   <h2>A quick recap of the link-state routing protocol</h2>
-  <div class="ospf-flow refresher" aria-label="Four-step link-state routing process used by OSPF">
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">1</span><span>Each router creates
+  <div class="step-flow refresher" aria-label="Three-step link-state routing process used by OSPF">
+    <div class="frag step-flow-step"><span class="step-flow-index">1</span><span>Each router creates
     an <b>advertisement</b> for its local information, and tells the others.</span></div>
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">2</span><span>Every router uses
+    <div class="frag step-flow-step"><span class="step-flow-index">2</span><span>Every router uses
     all the advertisements to build the <b>same topology</b>.</span></div>
-    <div class="frag ospf-flow-step"><span class="ospf-flow-index">3</span><span>Each router runs a
+    <div class="frag step-flow-step"><span class="step-flow-index">3</span><span>Each router runs a
     <b>shortest-path algorithm</b> over that topology to derive its forwarding table.</span></div>
   </div>
   <div class="source">OSPF link-state operation: RFC 2328 §§2, 12–16</div>
