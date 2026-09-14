@@ -3597,7 +3597,7 @@ svg text{font-family:var(--sans)}
 
 <section class="slide stateful speaker-decision-slide" data-sec="BGP">
   <div class="kicker">One next hop per prefix · LOCAL_PREF → AS_PATH → intra-AS cost</div>
-  <h2>How does BGP break a tie between routes?</h2>
+  <h2>How does a single BGP router break a tie between routes?</h2>
   <div class="speaker-decision-stage" role="img"
     aria-label="BGP speakers A4 and A5 distribute two candidate routes to A1 using iBGP. A1 compares local preference, AS path length, and finally its intra-AS cost to the next hops B3 and E1">
     <div class="speaker-topology"><div class="speaker-as-boundary"><b>AS A</b></div>
@@ -3718,9 +3718,10 @@ svg text{font-family:var(--sans)}
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
   </div>
   <div class="export-policy-status">
-    <div class="export-policy-card s1"><b>1 · One route is advertised</b><span>Both routes were accepted, but a BGP
-      speaker advertises only <b>one</b> for a prefix &mdash; the route it selected. Here that is
-      the one through AS E: <strong>AS E · AS H · AS D</strong>.</span></div>
+    <div class="export-policy-card s1"><b>1 · One route is advertised</b><span><b>Every</b> BGP speaker runs that same
+      tie-break. A4 and A5 &mdash; the routers peering with AS X and AS Y &mdash; both selected the
+      route through AS E, <strong>AS E · AS H · AS D</strong>, and a speaker can advertise only the
+      route it selected.</span></div>
     <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>AS A can reach the
       prefix, and it has two neighbours it could tell &mdash; AS X and AS Y.
       <b>Which of them should AS A advertise this route to?</b></span></div>
