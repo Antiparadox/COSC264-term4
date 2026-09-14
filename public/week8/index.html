@@ -2975,10 +2975,17 @@ svg text{font-family:var(--sans)}
   <div class="ospf-intro-list">
     <div class="frag ospf-fact"><b>What it is.</b> OSPF is an intra-AS routing protocol which uses
     the <b>link-state</b> routing algorithm.</div>
-    <div class="frag ospf-fact"><b>Protocol channel.</b> OSPF carries its protocol packets directly
-    over IP, without TCP or UDP.</div>
+    <div class="frag ospf-fact"><b>What it sends.</b> Five message types: <b>Hello</b> to find and
+    keep neighbours, then <b>Database Description</b>, <b>Link State Request</b>, <b>Link State
+    Update</b> and <b>Link State Acknowledgment</b> to build and flood the database.</div>
+    <div class="frag ospf-fact"><b>Where the advertisements sit.</b> An advertisement &mdash; an
+    <b>LSA</b> &mdash; is not a message of its own. LSAs are the payload <b>inside</b> Link State
+    Update messages, and one message may carry several.</div>
+    <div class="frag ospf-fact"><b>Protocol channel.</b> These messages ride <b>directly on IP</b>,
+    without TCP or UDP. OSPF provides its own reliability: every LSA is acknowledged, and
+    retransmitted if it is not.</div>
   </div>
-  <div class="source">OSPF architecture and packet encapsulation: RFC 2328 §§1, 4.3</div>
+  <div class="source">OSPF packet types, flooding and encapsulation: RFC 2328 §§1, 4.3, 13, A.3</div>
 </section>
 
 <section class="slide" data-sec="OSPF">
@@ -3001,16 +3008,21 @@ svg text{font-family:var(--sans)}
   <div class="ospf-feature-grid">
     <div class="frag ospf-feature">
       <h3>Authentication</h3>
-      <p>OSPF can authenticate protocol exchanges so routers accept updates only from
-      configured participants.</p>
+      <p>Routers accept updates only from configured participants. Without it, any host on the
+      segment could advertise a <b>cost-1 path</b> to a prefix and pull that traffic through
+      itself &mdash; to drop it, or to read it.</p>
     </div>
     <div class="frag ospf-feature">
       <h3>Operator-defined costs</h3>
-      <p>The operator sets each link&rsquo;s cost, and so decides which paths OSPF prefers.</p>
+      <p>The operator sets each link&rsquo;s cost, and so decides which paths OSPF prefers. Costs
+      can follow <b>bandwidth</b>, so a fast link beats a slow one &mdash; a distinction hop count
+      cannot make &mdash; or a metered link can be priced high to keep it as a backup.</p>
     </div>
     <div class="frag ospf-feature">
       <h3>Area routing</h3>
-      <p>A large AS can be divided into <b>areas</b>, so that OSPF scales.</p>
+      <p>A large AS can be divided into <b>areas</b>, so that OSPF scales: flooding and the
+      shortest-path computation stay <b>inside</b> an area, and only summaries cross between
+      them.</p>
     </div>
   </div>
   <div class="source">OSPF capabilities: RFC 2328 §§2.4, 3, 8 and Appendix D</div>
