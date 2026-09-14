@@ -837,6 +837,9 @@ svg text{font-family:var(--sans)}
 .ospf-feature{position:relative;min-height:230px;padding:27px 25px 22px;border:1px solid var(--border);
   border-radius:17px;background:var(--surface);box-shadow:var(--shadow)}.ospf-feature h3{margin:0 0 9px;
   font-family:var(--serif);font-size:30px}.ospf-feature p{margin:0;font-size:22px;line-height:1.4;color:var(--muted)}
+.ospf-feature-points{margin:0;padding-left:21px;display:grid;gap:10px}
+.ospf-feature-points li{font-size:22px;line-height:1.4;color:var(--muted)}
+.ospf-feature-points li b{color:var(--ink)}
 
 /* Frames 33–35 deliberately reuse one topology so the hierarchy feels like a transformation. */
 .ospf-topology-stage{position:relative;width:100%;height:318px;max-width:1080px;margin:0 auto;
@@ -3003,9 +3006,12 @@ svg text{font-family:var(--sans)}
   <div class="ospf-feature-grid">
     <div class="frag ospf-feature">
       <h3>Authentication</h3>
-      <p>Routers accept updates only from configured participants. Without it, any host on the
-      segment could advertise a <b>cost-1 path</b> to a prefix and pull that traffic through
-      itself &mdash; to drop it, or to read it.</p>
+      <ul class="ospf-feature-points">
+        <li>Routers accept updates only from configured participants.</li>
+        <li class="frag">Without it, an <b>attacker</b> on the segment could advertise a
+        <b>cost-1 path</b> to a prefix and pull that traffic through itself &mdash; to drop it,
+        or to read it.</li>
+      </ul>
     </div>
     <div class="frag ospf-feature">
       <h3>Operator-defined costs</h3>
