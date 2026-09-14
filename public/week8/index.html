@@ -3572,17 +3572,19 @@ svg text{font-family:var(--sans)}
       Every BGP speaker in AS A now knows that <code>203.0.113.0/24</code> is reachable
       <b>via AS B, then AS D</b> &mdash; carried between the ASes by <b>eBGP</b> and spread inside each
       one by <b>iBGP</b>.</span></div>
-    <div class="pv-walk-card wide policy-only s11"><b>11 &middot; But we skipped the decisions</b><span>Twice
-      we said &ldquo;suppose AS D permits the export&rdquo;. That is a real decision:
-      <span class="policy-term">export policy</span> settles whether D1 tells AS B at all, and
-      whether B3 passes it on to AS A.</span></div>
-    <div class="pv-walk-card wide policy-only s12"><b>12 &middot; And which one, if there are two?</b><span>An
-      AS may hear the <b>same prefix</b> from more than one neighbour. Its
-      <span class="policy-term">import policy</span> says which it prefers &mdash; one choice, made
-      for the whole AS.</span></div>
-    <div class="pv-walk-card wide policy-only s13"><b>13 &middot; And if the AS has no preference?</b><span><b>iBGP</b>
-      hands both routes to every speaker, so each router holds both. If the AS-wide preference does
-      not separate them, each router must choose for itself &mdash; on what basis?</span></div>
+    <div class="pv-walk-card wide policy-only s11"><b>11 &middot; We skipped some decisions</b><span>We said &ldquo;suppose AS D
+      permits the export&rdquo;, and moved on. But that was a decision, not a given: AS D&rsquo;s
+      <span class="policy-term">export policy</span> settles whether D1 advertises this prefix to
+      AS B at all. The same choice comes up again at the next hop &mdash; AS B may be unwilling to
+      pass it on to AS A.</span></div>
+    <div class="pv-walk-card wide policy-only s12"><b>12 &middot; And the receiver decides too</b><span>Even where AS D is willing
+      to advertise, AS B may be unwilling to accept &mdash; that is its
+      <span class="policy-term">import policy</span>. Both sit at the <b>AS level</b>: one
+      guideline that every BGP router in the AS follows.</span></div>
+    <div class="pv-walk-card wide policy-only s13"><b>13 &middot; But not every choice is AS-wide</b><span>Suppose two paths reach
+      the <b>same destination</b> and the AS has no preference between them. <b>iBGP</b> has given
+      every speaker both, so the choice falls to each <b>individual router</b> &mdash; and on what
+      basis?</span></div>
   </div>
   <div class="source">BGP UPDATE, path attributes, and import/export policy: RFC 4271 §§3,
     4.3, 5.1.2-5.1.3, 9.1-9.2</div>
