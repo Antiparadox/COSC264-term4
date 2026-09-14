@@ -500,6 +500,8 @@ svg text{font-family:var(--sans)}
 .rip-overview-list li:nth-child(1)::before{content:"1"}.rip-overview-list li:nth-child(2)::before{content:"2"}
 .rip-overview-list li:nth-child(3)::before{content:"3"}.rip-overview-list li > b{display:block;margin-bottom:3px;font-family:var(--serif);
   font-size:24px;color:var(--ink)}
+.rip-lead{max-width:980px;margin:2px auto 14px;font-size:20px;line-height:1.4;color:var(--muted)}
+.rip-lead b{color:var(--accent-ink)}
 .rip-why{display:block;margin-top:7px;color:var(--muted)}
 .rip-why b{color:var(--accent-ink)}
 .rip-hopfig{display:flex;align-items:center;gap:0;margin-top:11px;padding:9px 14px;border-radius:11px;
@@ -2729,6 +2731,8 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="RIP">
   <div class="kicker">Two message types &middot; three reasons to send a Response</div>
   <h2>RIP carries Request and Response messages over UDP</h2>
+  <p class="frag rip-lead">Distance vector rests on routers <b>talking to their direct
+  neighbours</b>. So how does RIP carry that conversation, and what does it send?</p>
   <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
     <div class="rip-dialogue-router left">R1</div>
     <div class="frag rip-message-lane request"><b>Request</b><span>Ask a neighbour for its
