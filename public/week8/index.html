@@ -2098,6 +2098,20 @@ svg text{font-family:var(--sans)}
   box-shadow:inset 0 0 0 2px var(--current)}
 .import-policy-slide:is([data-step="3"],[data-step="4"]) .import-localpref .key{color:#f5bd63;font-weight:900}
 .import-policy-slide:is([data-step="3"],[data-step="4"]) .import-localpref .value{color:#fff;font-weight:900}
+/* ── the picture the three policy frames all share ── */
+.bgp-setup-map{display:block;flex:0 0 auto;width:100%;max-width:1010px;margin:4px auto 0}
+.bgp-setup-map .gg{transition:opacity .3s ease,stroke .3s ease,fill .3s ease}
+.bgp-setup-map .lit{opacity:0}
+.bgp-setup-slide:is([data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"]) .lit-as{opacity:1}
+.bgp-setup-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .lit-border{opacity:1}
+.bgp-setup-slide:is([data-step="3"],[data-step="4"]) .lit-inside{opacity:1}
+.bgp-setup-slide[data-step="4"] .lit-prefix{opacity:1}
+.bgp-setup-lead{flex:0 0 auto;width:100%;max-width:1010px;margin:10px auto 0;min-height:62px;position:relative}
+.bgp-setup-line{position:absolute;inset:0;display:block;opacity:0;
+  transition:opacity .28s;font-size:20px;line-height:1.4;color:var(--muted)}
+.bgp-setup-line b{color:var(--ink)}
+.bgp-setup-slide[data-step="1"] .bs1,.bgp-setup-slide[data-step="2"] .bs2,
+.bgp-setup-slide[data-step="3"] .bs3,.bgp-setup-slide[data-step="4"] .bs4{opacity:1}
 .import-policy-status,.export-policy-status{position:relative;height:110px;margin-top:10px}
 .import-policy-card .ipl{display:block}
 .import-policy-card .ipl + .ipl{margin-top:6px;opacity:0;transition:opacity .25s}
@@ -3548,6 +3562,53 @@ svg text{font-family:var(--sans)}
   </div>
   <div class="source">BGP UPDATE, path attributes, and import/export policy: RFC 4271 §§3,
     4.3, 5.1.2-5.1.3, 9.1-9.2</div>
+</section>
+
+<section class="slide stateful bgp-setup-slide" data-sec="BGP">
+  <div class="kicker">The picture for the next three frames</div>
+  <h2>One AS, two ways in, two ways out</h2>
+  <svg class="bgp-setup-map" viewBox="0 0 1010 364" role="img" aria-label="AS A sits between AS B and AS E on the left and AS X and AS Y on the right. A4 peers with AS B, A5 with AS E, and A1 with both AS X and AS Y. A2, A3 and A6 carry traffic across AS A.">
+  <rect class="gg" x="26" y="34" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="40" y="61" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS B</text>
+  <rect class="gg" x="26" y="242" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="40" y="269" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS E</text>
+  <rect class="gg" x="240" y="18" width="502" height="328" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="254" y="45" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS A</text>
+  <rect class="gg" x="796" y="34" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="810" y="61" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS X</text>
+  <rect class="gg" x="796" y="242" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="810" y="269" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS Y</text>
+  <line class="gg lit lit-inside" x1="322" y1="78" x2="452" y2="122" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
+  <line class="gg lit lit-inside" x1="452" y1="122" x2="672" y2="182" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
+  <line class="gg lit lit-inside" x1="322" y1="286" x2="452" y2="248" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
+  <line class="gg lit lit-inside" x1="452" y1="248" x2="568" y2="248" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
+  <line class="gg lit lit-inside" x1="568" y1="248" x2="672" y2="182" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
+  <line class="gg lit lit-border" x1="139" y1="78" x2="291" y2="78" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
+  <line class="gg lit lit-border" x1="139" y1="286" x2="291" y2="286" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
+  <line class="gg lit lit-border" x1="700" y1="174" x2="796" y2="96" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
+  <line class="gg lit lit-border" x1="700" y1="190" x2="796" y2="270" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
+  <rect class="gg lit lit-border" x="77" y="63" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-border" x="108" y="83" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">B3</text>
+  <rect class="gg lit lit-border" x="77" y="271" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-border" x="108" y="291" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">E1</text>
+  <rect class="gg lit lit-inside" x="421" y="107" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-inside" x="452" y="127" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">A2</text>
+  <rect class="gg lit lit-inside" x="421" y="233" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-inside" x="452" y="253" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">A3</text>
+  <rect class="gg lit lit-inside" x="537" y="233" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-inside" x="568" y="253" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">A6</text>
+  <rect class="gg lit lit-border" x="291" y="63" width="62" height="30" rx="15" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/><text class="gg lit lit-border" x="322" y="83" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--current)">A4</text>
+  <rect class="gg lit lit-border" x="291" y="271" width="62" height="30" rx="15" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/><text class="gg lit lit-border" x="322" y="291" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--current)">A5</text>
+  <rect class="gg lit lit-border" x="641" y="167" width="62" height="30" rx="15" fill="var(--current-soft)" stroke="var(--current)" stroke-width="2.5"/><text class="gg lit lit-border" x="672" y="187" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--current)">A1</text>
+  <rect class="gg lit lit-border" x="190" y="47" width="50" height="21" rx="10" fill="var(--current)"/><text class="gg lit lit-border" x="215" y="62" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="900" fill="#fff">eBGP</text>
+  <rect class="gg lit lit-border" x="190" y="255" width="50" height="21" rx="10" fill="var(--current)"/><text class="gg lit lit-border" x="215" y="270" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="900" fill="#fff">eBGP</text>
+  <rect class="gg lit lit-border" x="745" y="109" width="50" height="21" rx="10" fill="var(--current)"/><text class="gg lit lit-border" x="770" y="124" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="900" fill="#fff">eBGP</text>
+  <rect class="gg lit lit-border" x="745" y="235" width="50" height="21" rx="10" fill="var(--current)"/><text class="gg lit lit-border" x="770" y="250" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="900" fill="#fff">eBGP</text>
+  <text class="gg lit lit-prefix" x="108" y="26" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--faint)">to AS D</text>
+  <text class="gg lit lit-prefix" x="108" y="350" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--faint)">to AS H, then AS D</text>
+  </svg>
+  <div class="bgp-setup-lead">
+    <span class="bgp-setup-line bs1"><b>Five autonomous systems.</b> AS A is the one we follow. On its left are
+    AS B and AS E; on its right, AS X and AS Y.</span>
+    <span class="bgp-setup-line bs2"><b>Three border routers.</b> A4 peers with AS B, A5 with AS E, and A1 with
+    <b>both</b> AS X and AS Y &mdash; four eBGP sessions in all.</span>
+    <span class="bgp-setup-line bs3"><b>Inside AS A.</b> A2, A3 and A6 carry traffic across the AS, so what A4 and
+    A5 learn can reach A1.</span>
+    <span class="bgp-setup-line bs4"><b>The destination.</b> The prefix we follow, <span class="mono">203.0.113.0/24</span>,
+    lives in <b>AS D</b> &mdash; reachable through AS B, or through AS E and then AS H.</span>
+  </div>
+  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
+  <div class="source">BGP speakers, sessions and NLRI: RFC 4271 §§1.1, 3</div>
 </section>
 
 <section class="slide stateful import-policy-slide" data-sec="BGP">
