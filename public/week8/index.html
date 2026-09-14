@@ -1297,19 +1297,16 @@ svg text{font-family:var(--sans)}
 .agg-how-slide tr.agg{display:none}
 .agg-how-slide tr.agg td{background:var(--good-soft)}
 .agg-how-slide tr.agg td:is(.who,.cidr,.out){color:var(--good)}
-.agg-how-slide:not(:is([data-step="5"],[data-step="6"])) .agg-fib2 :is(th,td).bits,
-.agg-lpm-slide:is([data-step="0"],[data-step="1"]) .agg-fib2 :is(th,td).bits{display:none}
+.agg-how-slide:not(:is([data-step="5"],[data-step="6"])) .agg-fib2 :is(th,td).bits{display:none}
 .agg-how-slide:not(:is([data-step="5"],[data-step="6"])) .agg-fib2,
-.agg-lpm-slide:is([data-step="0"],[data-step="1"]) .agg-fib2{width:auto}
+.agg-lpm-slide .agg-fib2{width:auto}
 .agg-how-slide:is([data-step="5"],[data-step="6"]) td.bits b{background:var(--current);color:#fff}
 .agg-how-slide[data-step="6"] tr.dept{display:none}
 .agg-how-slide[data-step="6"] tr.agg{display:table-row}
-.agg-fib2.lpm td.bits .m{font-family:var(--mono);font-size:13px;font-weight:900;color:var(--muted)}
 .agg-lpm-slide tr.e23{opacity:0;transition:opacity .22s}
 .agg-lpm-slide:not([data-step="0"]) tr.e23{opacity:1}
 .agg-lpm-slide:is([data-step="2"],[data-step="3"]) tr:is(.e20,.e23) td{background:var(--current-soft)}
 .agg-lpm-slide[data-step="4"] tr.e23 td{background:var(--good-soft)}
-.agg-lpm-slide[data-step="4"] tr.e23 td .m{color:var(--good)}
 .agg-lpm-slide[data-step="4"] tr.e20 td{opacity:.4}
 .agg-how-slide .agg-status{flex:0 0 152px;height:152px}
 .agg-how-slide .agg-sub .q3{color:var(--current)}
@@ -4134,12 +4131,12 @@ svg text{font-family:var(--sans)}
   <table class="agg-fib2 lpm" aria-label="Two forwarding-table entries that both match one destination address">
     <caption>a router&rsquo;s forwarding table</caption>
     <thead><tr><th class="who">network</th><th class="cidr">destination</th>
-      <th class="out">next hop</th><th class="bits">match for 200.23.18.5</th></tr></thead>
+      <th class="out">next hop</th></tr></thead>
     <tbody>
       <tr class="e20"><td class="who">the whole university</td><td class="cidr">200.23.16.0/20</td>
-        <td class="out">uc-gw</td><td class="bits"><span class="m">matches &mdash; 20 bits</span></td></tr>
+        <td class="out">uc-gw</td></tr>
       <tr class="e23"><td class="who">Science</td><td class="cidr">200.23.18.0/23</td>
-        <td class="out">cloud-gw</td><td class="bits"><span class="m">matches &mdash; 23 bits</span></td></tr>
+        <td class="out">cloud-gw</td></tr>
     </tbody>
   </table>
   <div class="agg-status">
