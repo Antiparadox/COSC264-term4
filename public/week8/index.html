@@ -1765,11 +1765,12 @@ svg text{font-family:var(--sans)}
   border-color:var(--accent);color:var(--accent-ink)}
 .wide-as-map .pv-prefix.local.second{top:233px}
 .as-intro-slide .pv-prefix{opacity:0;transition:opacity .25s}
-.as-intro-slide[data-step="4"] .pv-prefix{opacity:1}
+.as-intro-slide:is([data-step="4"],[data-step="5"]) .pv-prefix{opacity:1}
 .as-intro-slide[data-step="2"] .pv-prefix.local,
 .as-intro-slide[data-step="3"] .pv-prefix.local{opacity:1}
 .as-bullets{margin:0;padding-left:20px;display:grid;gap:7px}
 .as-bullets li{font-size:17px;line-height:1.4;opacity:0;transition:opacity .25s}
+.as-ask{display:block;margin-top:7px;opacity:0;transition:opacity .25s;color:var(--current);font-weight:700}
 .as-intro-slide[data-step="1"] .as-b1,
 .as-intro-slide[data-step="2"] .as-b1,.as-intro-slide[data-step="2"] .as-b2,
 .as-intro-slide[data-step="3"] .as-b1,.as-intro-slide[data-step="3"] .as-b2,
@@ -1777,18 +1778,19 @@ svg text{font-family:var(--sans)}
 .as-intro-slide[data-step="1"] .as-card-system,
 .as-intro-slide[data-step="2"] .as-card-system,
 .as-intro-slide[data-step="3"] .as-card-system,
-.as-intro-slide[data-step="4"] .as-card-packet,
+.as-intro-slide:is([data-step="4"],[data-step="5"]) .as-card-packet,
 .as-reach-slide[data-step="1"] .as-card-question{opacity:1;transform:none}
 .as-intro-slide[data-step="1"] .pv-as.a,
 .as-intro-slide[data-step="2"] .pv-as.a,
 .as-intro-slide[data-step="3"] .pv-as.a{border-color:var(--accent);background:var(--accent-soft);
   box-shadow:0 0 0 5px var(--accent-soft),var(--shadow)}
-.as-intro-slide[data-step="4"] .pv-as.a{box-shadow:0 0 0 5px var(--accent-soft),var(--shadow)}
-.as-intro-slide[data-step="4"] .pv-as.d{box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.as-intro-slide[data-step="4"] .pv-prefix:not(.local){box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.as-intro-slide[data-step="4"] .as-card-packet{border-color:var(--current)}
-.as-intro-slide[data-step="4"] .as-card-packet > b{background:var(--current)}
+.as-intro-slide:is([data-step="4"],[data-step="5"]) .pv-as.a{box-shadow:0 0 0 5px var(--accent-soft),var(--shadow)}
+.as-intro-slide:is([data-step="4"],[data-step="5"]) .pv-as.d{box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
+.as-intro-slide:is([data-step="4"],[data-step="5"]) .pv-prefix:not(.local){box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
+.as-intro-slide:is([data-step="4"],[data-step="5"]) .as-card-packet{border-color:var(--current)}
+.as-intro-slide:is([data-step="4"],[data-step="5"]) .as-card-packet > b{background:var(--current)}
 .as-reach-slide .remote-view{opacity:.16}
+.as-intro-slide[data-step="5"] .as-ask{opacity:1}
 .as-reach-slide .pv-prefix{opacity:1}
 .pv-unknown{position:absolute;z-index:7;font-family:var(--serif);font-size:38px;font-weight:800;
   color:var(--current);opacity:0;transition:.22s}
@@ -3176,7 +3178,7 @@ svg text{font-family:var(--sans)}
     <span class="pv-prefix local second">192.0.2.128/25</span>
     <span class="pv-prefix">203.0.113.0/24</span>
     <span class="pv-prefix second">198.51.100.0/24</span>
-    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>
+    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>    <span class="frag as-mot-trigger" aria-hidden="true"></span>
   </div>
   <div class="as-mot-stage">
     <div class="as-mot-card as-card-system"><b>So far, inside one AS</b>
@@ -3191,7 +3193,8 @@ svg text{font-family:var(--sans)}
         <b class="accent">intra-AS routing</b>.</li>
       </ul></div>
     <div class="as-mot-card as-card-packet"><b>Inter-AS routing problem</b><span>Now <span class="mono">192.0.2.1</span> sends
-    instead to <span class="mono">203.0.113.42</span> &mdash; an address in <b>AS&nbsp;D</b>.</span></div>
+    instead to <span class="mono">203.0.113.42</span> &mdash; an address in <b>AS&nbsp;D</b>.
+    <span class="as-ask">So how does it get there?</span></span></div>
   </div>
   <div class="source">AS and network-prefix concepts: RFC 4271 §§1, 3</div>
 </section>
