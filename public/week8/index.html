@@ -3584,8 +3584,9 @@ svg text{font-family:var(--sans)}
       the same prefix, <code>203.0.113.0/24</code>, arrive over separate eBGP sessions at two
       different AS A border gateways. <b>Which one should AS A allow to import?</b></span></div>
     <div class="import-policy-card s1b"><b>2 · It may simply reject one</b><span>Import policy can
-      turn a route away outright &mdash; say AS A does not expect this prefix from AS B. The route
-      is not a candidate at all, and AS A is left with one way to the prefix.</span></div>
+      turn a route away outright: AS A is not willing to reach the prefix through AS B. We will
+      come to what drives such a decision. The route is then not a candidate at all, and AS A is
+      left with one way to the prefix.</span></div>
     <div class="import-policy-card s2"><b>3 · Or accept both, and rank them</b><span><span class="ipl">More
       usually it accepts both, attaching a <code>LOCAL_PREF</code> to each &mdash; 100 and 200. The
       higher value is the one AS A prefers.</span><span class="ipl">Why keep the loser? As a <b>backup</b>: if the preferred
