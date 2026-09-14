@@ -787,6 +787,8 @@ svg text{font-family:var(--sans)}
 .rip-protection-note{margin-top:10px !important;padding-top:10px;border-top:1px dashed var(--border);
   font-size:17px !important;color:var(--bad) !important}
 .rip-protection-note b{color:var(--bad) !important}
+.rip-protection-note.key{border-top-color:var(--current);color:var(--accent-ink) !important}
+.rip-protection-note.key b{color:var(--accent-ink) !important}
 .rip-protection-card.poison{border-top:6px solid var(--accent)}
 .rip-protection-card.cap{border-top:6px solid var(--current)}
 .rip-protection-tag{display:inline-block;margin-bottom:10px;padding:5px 9px;border-radius:999px;background:var(--accent-soft);
@@ -2938,6 +2940,8 @@ svg text{font-family:var(--sans)}
       <h3>Make infinity deliberately small</h3>
       <p>So the counting cannot run away for long: at <b>16</b> a route is already infinity. That
       is why the maximum path length in RIP is <b>15 hops</b>.</p>
+      <p class="rip-protection-note key">This is RIP&rsquo;s real backstop. Poison reverse only
+      helps between two routers; the cap is what guarantees the counting always <b>ends</b>.</p>
     </div>
   </div>
   <div class="source">Count to infinity, poisoned reverse and RIP infinity: RFC 2453 &sect;&sect;3.2,
