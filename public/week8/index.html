@@ -2012,7 +2012,7 @@ svg text{font-family:var(--sans)}
   box-shadow:0 0 0 4px var(--bad-soft)}
 .policy-merge-slide[data-step="3"] .pm-neighbour{opacity:1}
 .policy-merge-slide[data-step="3"] .pm-neighbour::before{background:var(--bad)}
-.policy-merge-status,.speaker-status{position:relative;height:82px;margin-top:10px}
+.policy-merge-status,.speaker-status{position:relative;height:100px;margin-top:10px}
 .policy-merge-card,.speaker-card{position:absolute;inset:0;display:grid;grid-template-columns:210px 1fr;
   gap:18px;align-items:center;padding:12px 18px;border:1px solid var(--accent);
   border-left:7px solid var(--accent);border-radius:0 13px 13px 0;background:var(--surface);
@@ -2022,11 +2022,11 @@ svg text{font-family:var(--sans)}
 .policy-merge-slide[data-step="1"] .policy-merge-card.s1,
 .policy-merge-slide[data-step="2"] .policy-merge-card.s2,
 .policy-merge-slide[data-step="3"] .policy-merge-card.s3,
-.speaker-decision-slide[data-step="1"] .speaker-card.s1,
-.speaker-decision-slide[data-step="2"] .speaker-card.s2,
-.speaker-decision-slide[data-step="3"] .speaker-card.s3,
-.speaker-decision-slide[data-step="4"] .speaker-card.s4,
-.speaker-decision-slide[data-step="5"] .speaker-card.s5{opacity:1;transform:none}
+.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-card.s1,
+.speaker-decision-slide[data-step="3"] .speaker-card.s2,
+.speaker-decision-slide[data-step="4"] .speaker-card.s3,
+.speaker-decision-slide[data-step="5"] .speaker-card.s4,
+.speaker-decision-slide[data-step="6"] .speaker-card.s5{opacity:1;transform:none}
 .speaker-card.question{border-color:var(--current);border-left-color:var(--current)}
 .speaker-card.question > b{color:var(--current)}
 
@@ -2052,12 +2052,12 @@ svg text{font-family:var(--sans)}
   color:var(--accent-ink);text-transform:uppercase}
 .import-trigger,.export-policy-trigger{position:absolute;width:0;height:0;pointer-events:none}
 .import-policy-slide:not([data-step="0"]) .import-route{opacity:1}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-policy-core{
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-policy-core{
   box-shadow:0 0 0 5px var(--current-soft),var(--shadow)}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-policy-rule{
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-policy-rule{
   border-color:var(--current)}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-localpref{display:grid}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-route.route2{border-color:var(--good);
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-localpref{display:grid}
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-route.route2{border-color:var(--good);
   box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
 .import-policy-stage.import-as-stage{position:relative;display:block;height:345px;padding:0}
 .import-as-boundary{position:absolute;left:365px;right:15px;top:15px;bottom:15px;border:3px solid
@@ -2103,23 +2103,23 @@ svg text{font-family:var(--sans)}
   transition:.22s;z-index:10}.import-verdict.top{top:80px}.import-verdict.bottom{top:212px}
 .import-verdict.reject{background:var(--bad)}.import-verdict.accept{background:var(--good)}
 .import-policy-slide:not([data-step="0"]) .import-ebgp::after{opacity:1}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-verdict.accept.top,
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-as-route{border-color:var(--good);
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-verdict.accept.top,
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-as-route{border-color:var(--good);
   box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-as-route .route-card .import-localpref{display:grid;
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-as-route .route-card .import-localpref{display:grid;
   margin:0 -5px;padding:3px 5px;border-radius:7px;background:#332b1f;
   box-shadow:inset 0 0 0 2px var(--current)}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-localpref .key{color:#f5bd63;font-weight:900}
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-localpref .value{color:#fff;font-weight:900}
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-localpref .key{color:#f5bd63;font-weight:900}
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-localpref .value{color:#fff;font-weight:900}
 /* ── the picture the three policy frames all share ── */
 .bgp-setup-map{display:block;flex:0 0 auto;width:100%;max-width:1010px;margin:4px auto 0}
 .bgp-setup-map .gg{transition:opacity .3s ease,stroke .3s ease,fill .3s ease}
 .bgp-setup-map .lit{opacity:0}
 .bgp-setup-slide:not(:is([data-step="0"],[data-step="1"])) .lit-node{opacity:1}
-.bgp-setup-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"])) .lit-ebgp{opacity:1}
-.bgp-setup-slide:is([data-step="4"],[data-step="5"],[data-step="6"]) .lit-ibgp{opacity:1}
-.bgp-setup-slide:is([data-step="5"],[data-step="6"]) .lit-prefix{opacity:1}
+.bgp-setup-slide:not(:is([data-step="0"],[data-step="1"],[data-step="3"])) .lit-ebgp{opacity:1}
+.bgp-setup-slide:is([data-step="5"],[data-step="6"],[data-step="6"]) .lit-ibgp{opacity:1}
+.bgp-setup-slide:is([data-step="6"],[data-step="6"]) .lit-prefix{opacity:1}
 @keyframes bgp-in-pulse{0%,100%{stroke:var(--current)}50%{stroke:var(--good)}}
 .bgp-setup-slide[data-step="6"] .lit-in{animation:bgp-in-pulse 1.2s ease-in-out infinite}
 .bgp-setup-lead{flex:0 0 auto;width:100%;max-width:1010px;margin:10px auto 0;min-height:104px;position:relative}
@@ -2135,13 +2135,13 @@ svg text{font-family:var(--sans)}
 .bgp-setup-card > b{display:grid;place-items:center;min-height:42px;padding:6px 9px;border-radius:8px;
   background:var(--accent);color:#fff;font-family:var(--mono);font-size:12px;text-align:center;
   text-transform:uppercase;letter-spacing:.04em}
-.bgp-setup-slide:is([data-step="5"],[data-step="6"]) .bgp-setup-card{opacity:1;transform:none}
-.bgp-setup-slide:is([data-step="5"],[data-step="6"]) .bgp-setup-card .q1,
+.bgp-setup-slide:is([data-step="6"],[data-step="6"]) .bgp-setup-card{opacity:1;transform:none}
+.bgp-setup-slide:is([data-step="6"],[data-step="6"]) .bgp-setup-card .q1,
 .bgp-setup-slide[data-step="6"] .bgp-setup-card .q2{opacity:1}
 .import-policy-status,.export-policy-status{position:relative;height:130px;margin-top:10px}
 .import-policy-card .ipl{display:block}
 .import-policy-card .ipl + .ipl{margin-top:5px;opacity:0;transition:opacity .25s}
-.import-policy-slide:is([data-step="2"],[data-step="3"]) .import-policy-card.s1 .ipl:nth-child(2),
+.import-policy-slide:is([data-step="3"],[data-step="4"]) .import-policy-card.s1 .ipl:nth-child(2),
 .import-policy-slide[data-step="3"] .import-policy-card.s1 .ipl:nth-child(3),
 .import-policy-slide[data-step="6"] .import-policy-card.s2 .ipl + .ipl{opacity:1}
 .import-policy-card,.export-policy-card{position:absolute;inset:0;display:grid;
@@ -2155,9 +2155,9 @@ svg text{font-family:var(--sans)}
 .import-policy-slide[data-step="4"] .import-verdict.accept.bottom{opacity:1;transform:scale(1)}
 .import-policy-slide[data-step="4"] .import-as-route.route1{opacity:.45;border-color:var(--bad)}
 .import-policy-slide[data-step="4"] .import-as-route.route2{border-color:var(--good)}
-.import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-policy-card.s1,
+.import-policy-slide:is([data-step="1"],[data-step="3"],[data-step="4"]) .import-policy-card.s1,
 .import-policy-slide[data-step="4"] .import-policy-card.s1b,
-.import-policy-slide:is([data-step="5"],[data-step="6"]) .import-policy-card.s2,
+.import-policy-slide:is([data-step="6"],[data-step="6"]) .import-policy-card.s2,
 .export-policy-slide[data-step="1"] .export-policy-card.s1,
 .export-policy-slide[data-step="2"] .export-policy-card.s2,
 .export-policy-slide[data-step="3"] .export-policy-card.s3,
@@ -2190,12 +2190,12 @@ svg text{font-family:var(--sans)}
   height:5px;border-radius:4px;background:var(--edge)}
 .export-policy-neighbour small{position:absolute;right:8px;bottom:7px;font-family:var(--mono);
   font-size:8px;color:var(--bad)}
-.export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-selected{opacity:1}
-.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-core{
+.export-policy-slide:is([data-step="1"],[data-step="3"],[data-step="4"]) .export-selected{opacity:1}
+.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-policy-core{
   box-shadow:0 0 0 5px var(--bad-soft),var(--shadow)}
-.export-policy-slide:is([data-step="2"],[data-step="3"]) .export-policy-rule{border-color:var(--bad)}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-policy-neighbour{opacity:1}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-policy-neighbour::before{background:var(--bad)}
+.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-policy-rule{border-color:var(--bad)}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-policy-neighbour{opacity:1}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-policy-neighbour::before{background:var(--bad)}
 .export-policy-stage.export-as-stage{position:relative;display:block;height:396px;padding:0}
 .export-as-boundary{position:absolute;left:112px;right:300px;top:8px;bottom:8px;border:3px solid
   var(--accent);border-radius:25px;background:var(--surface);box-shadow:var(--shadow);z-index:1}
@@ -2220,7 +2220,7 @@ svg text{font-family:var(--sans)}
 .export-policy-slide[data-step="1"] .export-as-route.rejected{opacity:1;left:124px}
 .export-policy-slide[data-step="1"] .export-as-route.chosen{left:464px}
 .export-policy-slide[data-step="1"] .export-verdict{opacity:1;transform:translateY(-50%) scale(1)}
-.export-policy-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .export-as-route.chosen{left:262px;width:400px}
+.export-policy-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .export-as-route.chosen{left:262px;width:400px}
 .export-path-focus{margin:0 -5px;padding:3px 5px;border-radius:7px;transition:.22s}
 .export-outbound-state{display:none}
 .export-as-node{position:absolute;width:62px;height:38px;display:grid;place-items:center;border:3px solid
@@ -2270,20 +2270,20 @@ svg text{font-family:var(--sans)}
   transform:scale(.7);transition:.22s;z-index:11}.export-policy-block.top{top:62px}
 .export-policy-block.bottom{top:138px}
 .export-policy-slide[data-step="1"] .export-path-focus,
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-path-focus{background:#20362f;
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-path-focus{background:#20362f;
   box-shadow:inset 0 0 0 2px var(--good)}
-.export-policy-slide:is([data-step="1"],[data-step="3"]) .export-path-focus .key{
+.export-policy-slide:is([data-step="1"],[data-step="4"]) .export-path-focus .key{
   color:#8fe0bc;font-weight:900}
-.export-policy-slide:is([data-step="1"],[data-step="3"]) .export-path-focus .value{
+.export-policy-slide:is([data-step="1"],[data-step="4"]) .export-path-focus .value{
   color:#fff;font-weight:900}
 .export-policy-slide[data-step="2"] .export-ebgp-line{background:var(--current);height:7px}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-ebgp-line.top{height:7px;background:var(--good)}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-ebgp-line.bottom{height:3px;background:var(--bad)}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-update.top{opacity:1}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-policy-block.bottom{opacity:1;transform:scale(1)}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-internal-state{display:none}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-outbound-state{display:inline}
-.export-policy-slide:is([data-step="3"],[data-step="4"]) .export-internal-only{display:none}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-ebgp-line.top{height:7px;background:var(--good)}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-ebgp-line.bottom{height:3px;background:var(--bad)}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-update.top{opacity:1}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-policy-block.bottom{opacity:1;transform:scale(1)}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-internal-state{display:none}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-outbound-state{display:inline}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-internal-only{display:none}
 
 .speaker-decision-stage{display:grid;grid-template-columns:610px 1fr;gap:20px;width:100%;
   max-width:1070px;height:335px;margin:0 auto;padding:15px;border:1px solid var(--border);
@@ -2342,33 +2342,36 @@ svg text{font-family:var(--sans)}
 .speaker-result{position:absolute;right:11px;top:-12px;padding:5px 8px;border-radius:7px;
   background:var(--good);color:#fff;font-family:var(--mono);font-size:9px;font-weight:900;
   opacity:0;transition:.22s}.speaker-result.igp{background:var(--current)}
-.speaker-decision-slide:is([data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"],
-  [data-step="5"]) .speaker-node.a1{box-shadow:0 0 0 6px var(--current-soft)}
-.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-ibgp{opacity:.9;
+.speaker-decision-slide:is([data-step="1"],[data-step="3"],[data-step="4"],[data-step="5"],
+  [data-step="6"]) .speaker-node.a1{box-shadow:0 0 0 6px var(--current-soft)}
+.speaker-decision-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .speaker-ibgp{opacity:.9;
   border-top-width:5px}
-.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-ibgp::before,
-.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-ibgp::after{opacity:1}
-.speaker-decision-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .speaker-ibgp{opacity:.25}
-.speaker-decision-slide[data-step="5"] .speaker-ibgp{opacity:.08}
-.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .speaker-route{border-color:var(--current);
+.speaker-decision-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .speaker-ibgp::before,
+.speaker-decision-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .speaker-ibgp::after{opacity:1}
+.speaker-decision-slide:is([data-step="4"],[data-step="5"],[data-step="6"]) .speaker-ibgp{opacity:.25}
+.speaker-decision-slide[data-step="6"] .speaker-ibgp{opacity:.08}
+.speaker-decision-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .speaker-route{border-color:var(--current);
   box-shadow:0 0 0 4px var(--current-soft),var(--shadow)}
-.speaker-decision-slide[data-step="3"] .speaker-route.route2,
-.speaker-decision-slide:is([data-step="4"],[data-step="5"]) .speaker-route.route1{
+.speaker-decision-slide[data-step="4"] .speaker-route.route2,
+.speaker-decision-slide:is([data-step="5"],[data-step="6"]) .speaker-route.route1{
   border-color:var(--good);box-shadow:0 0 0 5px var(--good-soft),var(--shadow)}
-.speaker-decision-slide[data-step="3"] .speaker-route.route1,
-.speaker-decision-slide:is([data-step="4"],[data-step="5"]) .speaker-route.route2{opacity:.58}
-.speaker-decision-slide[data-step="3"] .route2 .speaker-result.lp,
-.speaker-decision-slide[data-step="4"] .route1 .speaker-result.path,
-.speaker-decision-slide[data-step="5"] .route1 .speaker-result.igp{opacity:1}
-.speaker-decision-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .decision-state.s1{display:none}
-.speaker-decision-slide[data-step="3"] .decision-state.s3,
-.speaker-decision-slide[data-step="4"] .decision-state.s4,
-.speaker-decision-slide[data-step="5"] .decision-state.s5{display:inline}
-.speaker-decision-slide[data-step="5"] .speaker-igp.top,
-.speaker-decision-slide[data-step="5"] .speaker-ebgp.top{height:7px;background:var(--current)}
-.speaker-decision-slide[data-step="5"] .speaker-cost{opacity:1}
-.speaker-decision-slide[data-step="5"] .speaker-next-hop{margin:0 -5px;padding:3px 5px;
+.speaker-decision-slide[data-step="4"] .speaker-route.route1,
+.speaker-decision-slide:is([data-step="5"],[data-step="6"]) .speaker-route.route2{opacity:.58}
+.speaker-decision-slide[data-step="4"] .route2 .speaker-result.lp,
+.speaker-decision-slide[data-step="5"] .route1 .speaker-result.path,
+.speaker-decision-slide[data-step="6"] .route1 .speaker-result.igp{opacity:1}
+.speaker-decision-slide:is([data-step="4"],[data-step="5"],[data-step="6"]) .decision-state.s1{display:none}
+.speaker-decision-slide[data-step="4"] .decision-state.s3,
+.speaker-decision-slide[data-step="5"] .decision-state.s4,
+.speaker-decision-slide[data-step="6"] .decision-state.s5{display:inline}
+.speaker-decision-slide[data-step="6"] .speaker-igp.top,
+.speaker-decision-slide[data-step="6"] .speaker-ebgp.top{height:7px;background:var(--current)}
+.speaker-decision-slide[data-step="6"] .speaker-cost{opacity:1}
+.speaker-decision-slide[data-step="6"] .speaker-next-hop{margin:0 -5px;padding:3px 5px;
   border-radius:7px;background:#332b1f;box-shadow:inset 0 0 0 2px var(--current)}
+.speaker-card .pv-q-list li{font-size:16.5px}
+.speaker-decision-slide:is([data-step="1"],[data-step="2"]) .s1 .q1,
+.speaker-decision-slide[data-step="2"] .s1 .q2{opacity:1}
 
 .hierarchy-stage{position:relative;width:100%;max-width:1070px;height:305px;margin:0 auto;
   border:1px solid var(--border);border-radius:18px;background:var(--surface-2);overflow:hidden}
@@ -3826,10 +3829,16 @@ svg text{font-family:var(--sans)}
     <span class="frag speaker-trigger" aria-hidden="true"></span>
     <span class="frag speaker-trigger" aria-hidden="true"></span>
     <span class="frag speaker-trigger" aria-hidden="true"></span>
+    <span class="frag speaker-trigger" aria-hidden="true"></span>
   </div>
   <div class="speaker-status">
-    <div class="speaker-card s1"><b>The setup</b><span>Over iBGP, router A1 has learned
-      <b>two routes</b> to <code>203.0.113.0/24</code> &mdash; one from A4, one from A5.</span></div>
+    <div class="speaker-card s1"><b>The setup</b>
+      <ul class="pv-q-list">
+        <li class="q1">Over <b>iBGP</b>, every BGP speaker in AS A learns <b>both</b> imported
+          routes &mdash; one from A4, one from A5.</li>
+        <li class="q2">So the decision falls to each <b>individual router</b>. Let us follow
+          <b>A1</b>.</li>
+      </ul></div>
     <div class="speaker-card question s2"><b>The question</b><span>A1 must put <b>one</b> next hop for
       this prefix into its forwarding table. <b>Which of the two routes should it pick?</b></span></div>
     <div class="speaker-card s3"><b>1 &middot; AS-wide policy first</b><span>The first criterion is
@@ -3838,9 +3847,9 @@ svg text{font-family:var(--sans)}
     <div class="speaker-card s4"><b>2 &middot; Then AS_PATH length</b><span>If <code>LOCAL_PREF</code>
       ties, A1 compares AS-level path lengths and takes the shorter: <b>Route 1 wins</b> with two ASes
       rather than three.</span></div>
-    <div class="speaker-card s5"><b>3 &middot; Then hot-potato routing</b><span>If both BGP attributes
-      tie, A1 turns to AS A's <b>own internal topology</b> and asks its own intra-AS routing protocol which next hop is closer:
-      B3 at cost 2 beats E1 at cost 3, so <b>Route 1 wins</b> &mdash; <b>hot-potato routing</b>.</span></div>
+    <div class="speaker-card s5"><b>3 &middot; Then hot-potato routing</b><span>If both tie, A1 asks its own
+      intra-AS routing protocol which next hop is closer: B3 at cost 2 beats E1 at cost 3, so
+      <b>Route 1 wins</b> &mdash; <b>hot-potato routing</b>.</span></div>
   </div>
   <div class="source">iBGP, distributed selection, LOCAL_PREF, and intra-AS cost to NEXT_HOP: RFC 4271 §§3, 5.1.5, 9.1.1-9.1.2</div>
 </section>
