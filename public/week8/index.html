@@ -2186,36 +2186,35 @@ svg text{font-family:var(--sans)}
   font-family:var(--mono);font-size:11px;font-weight:900;z-index:7}
 .export-as-node.gateway{border-color:var(--current);background:var(--current-soft);color:var(--current)}
 .export-as-node.a1{left:426px;top:137px}.export-as-node.a2{left:515px;top:64px}
-.export-as-node.a3{left:515px;top:225px}.export-as-node.a4{left:687px;top:76px}
-.export-as-node.a5{left:687px;top:210px}
+.export-as-node.a3{left:515px;top:225px}.export-as-node.a7{left:687px;top:143px}
 .export-as-internal{position:absolute;height:4px;border-radius:4px;background:var(--edge);
   transform-origin:left center;z-index:3}.export-as-internal.l1{left:456px;top:155px;width:110px;
   transform:rotate(-36deg)}.export-as-internal.l2{left:456px;top:155px;width:110px;
-  transform:rotate(43deg)}.export-as-internal.l3{left:546px;top:83px;width:174px;
-  transform:rotate(4deg)}.export-as-internal.l4{left:546px;top:244px;width:174px;
-  transform:rotate(-5deg)}.export-as-internal.l5{left:456px;top:155px;width:269px;
-  transform:rotate(-13deg)}.export-as-internal.l6{left:456px;top:155px;width:269px;
-  transform:rotate(16deg)}
+  transform:rotate(43deg)}.export-as-internal.l3{left:546px;top:83px;width:189px;
+  transform:rotate(25deg)}.export-as-internal.l4{left:546px;top:244px;width:190px;
+  transform:rotate(-26deg)}.export-as-internal.l5{left:456px;top:158px;width:262px;
+  transform:rotate(1deg)}.export-as-internal.l6{display:none}
 .export-external{position:absolute;left:927px;width:112px;height:72px;display:grid;place-items:center;
   border:2px solid var(--border);border-radius:18px;background:var(--surface);font-family:var(--serif);
   font-size:22px;font-weight:700;box-shadow:var(--shadow);z-index:7}
 .export-external.x{top:58px}.export-external.y{top:205px}
-.export-ebgp-line{position:absolute;left:747px;width:183px;height:5px;border-radius:4px;
-  background:var(--edge);z-index:4;transition:.22s}.export-ebgp-line.top{top:95px}
-.export-ebgp-line.bottom{top:229px}
+.export-ebgp-line{position:absolute;left:749px;top:160px;height:5px;border-radius:4px;
+  background:var(--edge);z-index:4;transform-origin:left center;transition:background .22s,height .22s}
+.export-ebgp-line.top{width:191px;transform:rotate(-20.9deg)}
+.export-ebgp-line.bottom{width:195px;transform:rotate(23.9deg)}
 .export-ebgp-label{position:absolute;left:799px;padding:5px 9px;border-radius:8px;
   background:var(--current);color:#fff;font-family:var(--mono);font-size:11px;font-weight:900;
-  letter-spacing:.04em;box-shadow:var(--shadow);z-index:9}.export-ebgp-label.top{top:67px}
-.export-ebgp-label.bottom{top:238px}
-.export-update{position:absolute;left:764px;padding:5px 8px;border-radius:10px;
+  letter-spacing:.04em;box-shadow:var(--shadow);z-index:9}.export-ebgp-label.top{left:866px;top:88px}
+.export-ebgp-label.bottom{left:866px;top:216px}
+.export-update{position:absolute;left:772px;padding:5px 8px;border-radius:10px;
   background:var(--good);color:#fff;font-family:var(--mono);font-size:8px;font-weight:900;
   opacity:0;z-index:10;animation:export-update-flow 1.7s ease-in-out infinite}
-.export-update.top{top:83px}.export-update.bottom{top:217px}
-@keyframes export-update-flow{from{transform:translateX(0)}to{transform:translateX(115px)}}
-.export-policy-block{position:absolute;left:825px;width:30px;height:30px;display:grid;place-items:center;
+.export-update.top{top:148px}.export-update.bottom{top:170px}
+@keyframes export-update-flow{from{transform:translate(0,0)}to{transform:translate(112px,-43px)}}
+.export-policy-block{position:absolute;left:838px;width:30px;height:30px;display:grid;place-items:center;
   border-radius:50%;background:var(--bad);color:#fff;font-size:19px;font-weight:900;opacity:0;
-  transform:scale(.7);transition:.22s;z-index:11}.export-policy-block.top{top:80px}
-.export-policy-block.bottom{top:214px}
+  transform:scale(.7);transition:.22s;z-index:11}.export-policy-block.top{top:113px}
+.export-policy-block.bottom{top:196px}
 .export-policy-slide[data-step="1"] .export-path-focus,
 .export-policy-slide[data-step="3"] .export-path-focus{background:#20362f;
   box-shadow:inset 0 0 0 2px var(--good)}
@@ -3698,15 +3697,14 @@ svg text{font-family:var(--sans)}
           <span class="export-internal-state">AS E · AS H · AS D</span>
           <span class="export-outbound-state">AS A · AS E · AS H · AS D</span></span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">
-          <span class="export-internal-state">E1</span><span class="export-outbound-state">A4</span></span></div>
+          <span class="export-internal-state">E1</span><span class="export-outbound-state">A7</span></span></div>
       </div>
     </div>
     <span class="export-as-internal l1"></span><span class="export-as-internal l2"></span>
     <span class="export-as-internal l3"></span><span class="export-as-internal l4"></span>
     <span class="export-as-internal l5"></span><span class="export-as-internal l6"></span>
     <div class="export-as-node a1">A1</div><div class="export-as-node a2">A2</div>
-    <div class="export-as-node a3">A3</div><div class="export-as-node gateway a4">A4</div>
-    <div class="export-as-node gateway a5">A5</div>
+    <div class="export-as-node a3">A3</div><div class="export-as-node gateway a7">A7</div>
     <span class="export-ebgp-line top"></span><span class="export-ebgp-line bottom"></span>
     <span class="export-ebgp-label top">eBGP</span><span class="export-ebgp-label bottom">eBGP</span>
     <span class="export-update top">UPDATE · A E H D</span>
@@ -3719,11 +3717,11 @@ svg text{font-family:var(--sans)}
   </div>
   <div class="export-policy-status">
     <div class="export-policy-card s1"><b>1 · One route is advertised</b><span><b>Every</b> BGP speaker runs that same
-      tie-break. A4 and A5 &mdash; the routers peering with AS X and AS Y &mdash; both selected the
-      route through AS E, <strong>AS E · AS H · AS D</strong>, and a speaker can advertise only the
-      route it selected.</span></div>
-    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>AS A can reach the
-      prefix, and it has two neighbours it could tell &mdash; AS X and AS Y.
+      tie-break, border routers included. <b>A7</b> ran it and selected the route through AS E,
+      <strong>AS E · AS H · AS D</strong> &mdash; and a speaker can advertise only the route it
+      selected.</span></div>
+    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>A7 has an eBGP session to each of two
+      neighbours &mdash; AS X and AS Y.
       <b>Which of them should AS A advertise this route to?</b></span></div>
     <div class="export-policy-card s3"><b>3 · Export policy decides</b><span>AS A's export policy
       answers per neighbour: it prepends itself and advertises
