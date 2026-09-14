@@ -473,7 +473,7 @@ svg text{font-family:var(--sans)}
 .lecture2-recap-slide .lecture-recap-list li{padding:22px 26px 22px 62px;font-size:27px;line-height:1.35}
 
 /* Intra-AS routing: modern terminology and RIP */
-.igp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:4px}
+.igp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:4px}
 .igp-card{min-height:165px;padding:21px 20px;border:1px solid var(--border);border-radius:16px;
   background:var(--surface);box-shadow:var(--shadow)}
 .igp-card strong{display:block;margin-bottom:5px;font-family:var(--serif);font-size:31px;color:var(--accent-ink)}
@@ -482,6 +482,10 @@ svg text{font-family:var(--sans)}
   background:var(--accent-soft);color:var(--accent-ink);font-family:var(--mono);font-size:12px;font-weight:800;
   letter-spacing:.04em;text-transform:uppercase}
 .igp-card p{margin:0;font-size:16px;line-height:1.35;color:var(--muted)}
+.igp-card.focus{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.igp-tag{display:block;margin:12px 0 0;width:fit-content;font-family:var(--mono);font-size:12.5px;
+  font-weight:600;letter-spacing:.04em;padding:2px 9px;border-radius:20px;
+  color:var(--current);background:var(--current-soft);border:1px solid var(--current)}
 
 .rip-fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1050px}
 .rip-fact{min-height:158px;padding:21px 23px;border:1px solid var(--border);border-radius:16px;
@@ -2587,16 +2591,14 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Routing within one autonomous system</div>
   <h2>An overview of intra-AS routing protocols</h2>
   <div class="igp-grid" aria-label="Examples of intra-AS routing protocols">
-    <div class="frag igp-card"><strong>RIP</strong><span class="protocol-name">Routing Information
-    Protocol</span><span class="protocol-kind">Distance vector</span></div>
-    <div class="frag igp-card"><strong>OSPF</strong><span class="protocol-name">Open Shortest Path
-    First</span><span class="protocol-kind">Link state</span></div>
+    <div class="frag igp-card focus"><strong>RIP</strong><span class="protocol-name">Routing Information
+    Protocol</span><span class="protocol-kind">Distance vector</span><span class="igp-tag">this lecture</span></div>
+    <div class="frag igp-card focus"><strong>OSPF</strong><span class="protocol-name">Open Shortest Path
+    First</span><span class="protocol-kind">Link state</span><span class="igp-tag">this lecture</span></div>
     <div class="frag igp-card"><strong>IS-IS</strong><span class="protocol-name">Intermediate
     System to Intermediate System</span><span class="protocol-kind">Link state</span></div>
-    <div class="frag igp-card"><strong>EIGRP</strong><span class="protocol-name">Enhanced Interior
-    Gateway Routing Protocol</span><span class="protocol-kind">Distance vector</span></div>
   </div>
-  <div class="source">IGP definition: RFC 1812 §7.2.1; RIP, OSPF and IS-IS: RFC 6518; EIGRP: RFC 7868</div>
+  <div class="source">IGP definition: RFC 1812 §7.2.1; RIP, OSPF and IS-IS: RFC 6518</div>
 </section>
 
 <section class="slide" data-sec="RIP">
