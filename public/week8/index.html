@@ -2185,8 +2185,8 @@ svg text{font-family:var(--sans)}
   var(--accent);border-radius:22px;background:var(--accent-soft);color:var(--accent-ink);
   font-family:var(--mono);font-size:11px;font-weight:900;z-index:7}
 .export-as-node.gateway{border-color:var(--current);background:var(--current-soft);color:var(--current)}
-.export-as-node.a1{left:426px;top:137px}.export-as-node.a2{left:515px;top:64px}
-.export-as-node.a3{left:515px;top:225px}.export-as-node.a7{left:687px;top:143px}
+.export-as-node.a6{left:426px;top:137px}.export-as-node.a2{left:515px;top:64px}
+.export-as-node.a3{left:515px;top:225px}.export-as-node.a1{left:687px;top:143px}
 .export-as-internal{position:absolute;height:4px;border-radius:4px;background:var(--edge);
   transform-origin:left center;z-index:3}.export-as-internal.l1{left:456px;top:155px;width:110px;
   transform:rotate(-36deg)}.export-as-internal.l2{left:456px;top:155px;width:110px;
@@ -3697,14 +3697,14 @@ svg text{font-family:var(--sans)}
           <span class="export-internal-state">AS E · AS H · AS D</span>
           <span class="export-outbound-state">AS A · AS E · AS H · AS D</span></span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">
-          <span class="export-internal-state">E1</span><span class="export-outbound-state">A7</span></span></div>
+          <span class="export-internal-state">E1</span><span class="export-outbound-state">A1</span></span></div>
       </div>
     </div>
     <span class="export-as-internal l1"></span><span class="export-as-internal l2"></span>
     <span class="export-as-internal l3"></span><span class="export-as-internal l4"></span>
     <span class="export-as-internal l5"></span><span class="export-as-internal l6"></span>
-    <div class="export-as-node a1">A1</div><div class="export-as-node a2">A2</div>
-    <div class="export-as-node a3">A3</div><div class="export-as-node gateway a7">A7</div>
+    <div class="export-as-node a6">A6</div><div class="export-as-node a2">A2</div>
+    <div class="export-as-node a3">A3</div><div class="export-as-node gateway a1">A1</div>
     <span class="export-ebgp-line top"></span><span class="export-ebgp-line bottom"></span>
     <span class="export-ebgp-label top">eBGP</span><span class="export-ebgp-label bottom">eBGP</span>
     <span class="export-update top">UPDATE · A E H D</span>
@@ -3716,11 +3716,11 @@ svg text{font-family:var(--sans)}
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
   </div>
   <div class="export-policy-status">
-    <div class="export-policy-card s1"><b>1 · One route is advertised</b><span><b>Every</b> BGP speaker runs that same
-      tie-break, border routers included. <b>A7</b> ran it and selected the route through AS E,
-      <strong>AS E · AS H · AS D</strong> &mdash; and a speaker can advertise only the route it
-      selected.</span></div>
-    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>A7 has an eBGP session to each of two
+    <div class="export-policy-card s1"><b>1 · One route is advertised</b><span><b>A1</b> is the router we just watched
+      break the tie, and it is also the one peering with AS X and AS Y. It selected the route
+      through AS E, <strong>AS E · AS H · AS D</strong> &mdash; and a speaker can advertise only
+      the route it selected.</span></div>
+    <div class="export-policy-card s2"><b>2 · Advertise it onward?</b><span>A1 has an eBGP session to each of two
       neighbours &mdash; AS X and AS Y.
       <b>Which of them should AS A advertise this route to?</b></span></div>
     <div class="export-policy-card s3"><b>3 · Export policy decides</b><span>AS A's export policy
