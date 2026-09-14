@@ -1295,7 +1295,8 @@ svg text{font-family:var(--sans)}
 .agg-how-slide tr.agg{display:none}
 .agg-how-slide tr.agg td{background:var(--good-soft)}
 .agg-how-slide tr.agg td:is(.who,.cidr,.out){color:var(--good)}
-.agg-how-slide:not([data-step="0"]) td.bits b{background:var(--current);color:#fff}
+.agg-how-slide:not(:is([data-step="5"],[data-step="6"])) .agg-fib2 :is(th,td).bits{visibility:hidden}
+.agg-how-slide:is([data-step="5"],[data-step="6"]) td.bits b{background:var(--current);color:#fff}
 .agg-how-slide[data-step="6"] tr.dept{display:none}
 .agg-how-slide[data-step="6"] tr.agg{display:table-row}
 .agg-fib2.lpm td.bits .m{font-family:var(--mono);font-size:13px;font-weight:900;color:var(--muted)}
@@ -4081,20 +4082,20 @@ svg text{font-family:var(--sans)}
       <th class="out">next hop</th><th class="bits">in binary</th></tr></thead>
     <tbody>
       <tr class="dept"><td class="who">Engineering</td><td class="cidr">200.23.16.0/23</td><td class="out">uc-gw</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>000<span class="tail">0&nbsp;00000000</span></td></tr>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>000<span class="tail">&hellip;</span></td></tr>
       <tr class="dept"><td class="who">Science</td><td class="cidr">200.23.18.0/23</td><td class="out">uc-gw</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>001<span class="tail">0&nbsp;00000000</span></td></tr>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>001<span class="tail">&hellip;</span></td></tr>
       <tr class="dept"><td class="who">Law</td><td class="cidr">200.23.20.0/23</td><td class="out">uc-gw</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>010<span class="tail">0&nbsp;00000000</span></td></tr>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>010<span class="tail">&hellip;</span></td></tr>
       <tr class="dept"><td class="who">Arts</td><td class="cidr">200.23.22.0/23</td><td class="out">uc-gw</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>011<span class="tail">0&nbsp;00000000</span></td></tr>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>011<span class="tail">&hellip;</span></td></tr>
       <tr class="dept"><td class="who">&hellip;</td><td class="cidr">&hellip;</td>
         <td class="out">uc-gw</td><td class="bits">&hellip;</td></tr>
       <tr class="dept"><td class="who">Library</td><td class="cidr">200.23.30.0/23</td><td class="out">uc-gw</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>111<span class="tail">0&nbsp;00000000</span></td></tr>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b>111<span class="tail">&hellip;</span></td></tr>
       <tr class="agg"><td class="who">the whole university</td><td class="cidr">200.23.16.0/20</td>
         <td class="out">uc-gw</td>
-        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b><span class="tail">0000&nbsp;00000000</span></td></tr>
+        <td class="bits"><b>11001000&nbsp;00010111&nbsp;0001</b><span class="tail">&hellip;</span></td></tr>
     </tbody>
   </table>
   <div class="agg-status">
