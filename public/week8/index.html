@@ -4003,18 +4003,6 @@ svg text{font-family:var(--sans)}
   <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
 
-<section class="slide lecture-recap-slide" data-sec="Why do ASes prefer some routes?">
-  <div class="kicker">Module 2 · Inter-AS routing</div>
-  <h2>Inter-AS routing recap</h2>
-  <ul class="lecture-recap-list">
-    <li class="frag"><b>BGP solves the inter-AS routing problem</b> by learning AS-level paths to destination network prefixes.</li>
-    <li class="frag"><b>eBGP exchanges routes between ASes</b>, while <b>iBGP distributes candidate routes inside an AS</b>.</li>
-    <li class="frag"><b>Both use BGP's path-vector mechanism</b>, carrying a destination prefix together with its AS-level path and next hop.</li>
-    <li class="frag"><b>Import and export policies express AS-wide routing choices</b>, often driven by customer, provider, and peer relationships.</li>
-    <li class="frag"><b>Each speaker then selects one route per prefix</b> &mdash; LOCAL_PREF first, then AS_PATH length, then its own intra-AS cost to the next hop.</li>
-  </ul>
-</section>
-
 <section class="slide sec-title" data-sec="How did the Internet adapt to IPv4 scarcity?" data-anchor="c3">
   <div class="kicker">Module 2 · Keeping the Internet addressable</div>
   <h1>IP Addressing Scaling:<br>Aggregation, NAT and IPv6</h1>
