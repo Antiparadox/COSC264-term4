@@ -1744,19 +1744,29 @@ svg text{font-family:var(--sans)}
 .pv-walk-slide[data-step="7"] .pv-walk-card.s7,
 .pv-walk-slide[data-step="8"] .pv-walk-card.s8,
 .pv-walk-slide[data-step="9"] .pv-walk-card.s9,
-.pv-walk-slide[data-step="10"] .pv-walk-card.s10{opacity:1;transform:none}
+.pv-walk-slide[data-step="10"] .pv-walk-card.s10,
+.pv-walk-slide[data-step="11"] .pv-walk-card.s11,
+.pv-walk-slide[data-step="12"] .pv-walk-card.s12,
+.pv-walk-slide[data-step="13"] .pv-walk-card.s13{opacity:1;transform:none}
+/* the gates pulse while the questions they raise are on screen */
+@keyframes pv-gate-blink{0%,100%{background:var(--current)}50%{background:var(--bad)}}
+.pv-walk-slide:is([data-step="11"],[data-step="12"]) .pv-ebgp-link.ab,
+.pv-walk-slide:is([data-step="11"],[data-step="12"]) .pv-ebgp-link.bc{
+  animation:pv-gate-blink 1.2s ease-in-out infinite}
+@keyframes pv-ibgp-blink{0%,100%{opacity:.35}50%{opacity:1}}
+.pv-walk-slide[data-step="13"] .pv-ibgp-link{animation:pv-ibgp-blink 1.2s ease-in-out infinite}
 .pv-walk-slide:not([data-step="0"]) .pv-walk-prefix{box-shadow:0 0 0 4px var(--good-soft)}
 .pv-walk-slide:is([data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],
   [data-step="7"],[data-step="8"],[data-step="9"],
-  [data-step="10"]) .pv-ebgp-link.bc,
+  [data-step="10"],[data-step="11"],[data-step="12"],[data-step="13"]) .pv-ebgp-link.bc,
 .pv-walk-slide:is([data-step="7"],[data-step="8"],[data-step="9"],
-  [data-step="10"]) .pv-ebgp-link.ab{
+  [data-step="10"],[data-step="11"],[data-step="12"],[data-step="13"]) .pv-ebgp-link.ab{
   height:7px;background:var(--current)}
 .pv-walk-slide[data-step="3"] .pv-route-message.cb,
 .pv-walk-slide[data-step="7"] .pv-route-message.ba{opacity:1}
 .pv-walk-slide:is([data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"],
-  [data-step="9"],[data-step="10"]) .pv-walk-as.b .pv-ibgp-link,
-.pv-walk-slide:is([data-step="9"],[data-step="10"]) .pv-walk-as.a .pv-ibgp-link{
+  [data-step="9"],[data-step="10"],[data-step="11"],[data-step="12"],[data-step="13"]) .pv-walk-as.b .pv-ibgp-link,
+.pv-walk-slide:is([data-step="9"],[data-step="10"],[data-step="11"],[data-step="12"],[data-step="13"]) .pv-walk-as.a .pv-ibgp-link{
   opacity:.9;border-top-width:5px}
 .pv-walk-slide[data-step="5"] .pv-walk-as.b .pv-ibgp-link::before,
 .pv-walk-slide[data-step="5"] .pv-walk-as.b .pv-ibgp-link::after,
@@ -2098,27 +2108,6 @@ svg text{font-family:var(--sans)}
   box-shadow:inset 0 0 0 2px var(--current)}
 .import-policy-slide:is([data-step="5"],[data-step="6"]) .import-localpref .key{color:#f5bd63;font-weight:900}
 .import-policy-slide:is([data-step="5"],[data-step="6"]) .import-localpref .value{color:#fff;font-weight:900}
-/* ── the questions the policy frames answer ── */
-.bgp-q-lead{max-width:1020px;margin:0 auto 22px;font-size:21px;line-height:1.4;color:var(--muted)}
-.bgp-q-lead b{color:var(--ink)}
-.bgp-q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1020px;margin:0 auto}
-.bgp-q{position:relative;padding:26px 22px 20px;border:1px solid var(--border);border-top:6px solid
-  var(--accent);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);opacity:0;
-  transform:translateY(8px);transition:opacity .24s ease,transform .24s ease}
-.bgp-q.q2{border-top-color:var(--current)}.bgp-q.q3{border-top-color:var(--good)}
-.bgp-q-tag{position:absolute;left:22px;top:-17px;display:grid;place-items:center;width:32px;height:32px;
-  border-radius:50%;background:var(--accent);color:#fff;font-family:var(--mono);font-size:15px;font-weight:900}
-.bgp-q.q2 .bgp-q-tag{background:var(--current)}.bgp-q.q3 .bgp-q-tag{background:var(--good)}
-.bgp-q h3{margin:0 0 9px;font-family:var(--serif);font-size:24px}
-.bgp-q p{margin:0;font-size:18.5px;line-height:1.4;color:var(--muted)}
-.bgp-q p b{color:var(--ink)}
-.bgp-q-close{max-width:1020px;margin:22px auto 0;font-size:21px;font-weight:700;
-  color:var(--accent-ink);opacity:0;transition:opacity .24s}
-.bgp-questions-slide:not([data-step="0"]) .q1,
-.bgp-questions-slide:not(:is([data-step="0"],[data-step="1"])) .q2,
-.bgp-questions-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"])) .q3{opacity:1;transform:none}
-.bgp-questions-slide[data-step="4"] .bgp-q-close{opacity:1}
-
 /* ── the picture the three policy frames all share ── */
 .bgp-setup-map{display:block;flex:0 0 auto;width:100%;max-width:1010px;margin:4px auto 0}
 .bgp-setup-map .gg{transition:opacity .3s ease,stroke .3s ease,fill .3s ease}
@@ -3536,6 +3525,9 @@ svg text{font-family:var(--sans)}
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
   </div>
   <div class="pv-walk-card-stage">
     <div class="pv-walk-card wide s1"><b>1 &middot; AS D owns the prefix</b><span>
@@ -3580,31 +3572,20 @@ svg text{font-family:var(--sans)}
       Every BGP speaker in AS A now knows that <code>203.0.113.0/24</code> is reachable
       <b>via AS B, then AS D</b> &mdash; carried between the ASes by <b>eBGP</b> and spread inside each
       one by <b>iBGP</b>.</span></div>
+    <div class="pv-walk-card wide policy-only s11"><b>11 &middot; But we skipped the decisions</b><span>Twice
+      we said &ldquo;suppose AS D permits the export&rdquo;. That is a real decision:
+      <span class="policy-term">export policy</span> settles whether D1 tells AS B at all, and
+      whether B3 passes it on to AS A.</span></div>
+    <div class="pv-walk-card wide policy-only s12"><b>12 &middot; And which one, if there are two?</b><span>An
+      AS may hear the <b>same prefix</b> from more than one neighbour. Its
+      <span class="policy-term">import policy</span> says which it prefers &mdash; one choice, made
+      for the whole AS.</span></div>
+    <div class="pv-walk-card wide policy-only s13"><b>13 &middot; And if the AS has no preference?</b><span><b>iBGP</b>
+      hands both routes to every speaker, so each router holds both. If the AS-wide preference does
+      not separate them, each router must choose for itself &mdash; on what basis?</span></div>
   </div>
   <div class="source">BGP UPDATE, path attributes, and import/export policy: RFC 4271 §§3,
     4.3, 5.1.2-5.1.3, 9.1-9.2</div>
-</section>
-
-<section class="slide stateful bgp-questions-slide" data-sec="BGP">
-  <div class="kicker">Before the example</div>
-  <h2>Three questions the next frames answer</h2>
-  <p class="bgp-q-lead">Every hand-off on the last frame was gated by <b>import</b> and <b>export policy</b>.
-  Now we look at what those policies actually decide &mdash; and at what is left for each router to
-  decide on its own.</p>
-  <div class="bgp-q-grid">
-    <div class="bgp-q q1"><span class="bgp-q-tag">1</span><h3>Which route?</h3>
-      <p>Two neighbours each offer a way to the <b>same prefix</b>. The AS can state a preference of
-      its own &mdash; that is <b>import policy</b>.</p></div>
-    <div class="bgp-q q2"><span class="bgp-q-tag">2</span><h3>And if the AS is indifferent?</h3>
-      <p>If the AS-wide preference does not separate them, each <b>router</b> must choose for itself.
-      On what basis?</p></div>
-    <div class="bgp-q q3"><span class="bgp-q-tag">3</span><h3>Who hears about it?</h3>
-      <p>Once a route is chosen, the AS decides which neighbours to pass it on to &mdash; that is
-      <b>export policy</b>.</p></div>
-  </div>
-  <p class="bgp-q-close">We answer all three with one concrete example.</p>
-  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>  <p class="frag" style="display:none"></p>
-  <div class="source">Import policy, route selection and dissemination: RFC 4271 §§9.1.1-9.1.3</div>
 </section>
 
 <section class="slide stateful bgp-setup-slide" data-sec="BGP">
