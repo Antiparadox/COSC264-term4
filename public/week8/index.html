@@ -1714,7 +1714,7 @@ svg text{font-family:var(--sans)}
 .pv-route-message.ba{left:341px;animation:pv-update-ba 1.8s ease-in-out infinite}
 @keyframes pv-update-cb{from{transform:translateX(0)}to{transform:translateX(-38px)}}
 @keyframes pv-update-ba{from{transform:translateX(0)}to{transform:translateX(-38px)}}
-.pv-walk-card-stage{position:relative;width:100%;max-width:1030px;height:140px;flex:0 0 140px;
+.pv-walk-card-stage{position:relative;width:100%;max-width:1030px;height:208px;flex:0 0 208px;
   margin:9px auto 0}
 .pv-walk-card{position:absolute;inset:0;display:grid;grid-template-columns:165px 1fr 410px;gap:15px;
   align-items:center;padding:11px 15px;border:1px solid var(--accent);border-left:7px solid
@@ -1735,45 +1735,48 @@ svg text{font-family:var(--sans)}
 .policy-preview{display:block;margin-top:5px;color:var(--muted);font-size:14px;font-style:italic}
 .pv-walk-trigger{position:absolute;width:0;height:0;pointer-events:none}
 .pv-walk-slide:not([data-step="0"]) .pv-walk-stage{opacity:1;transform:none}
-.pv-walk-slide[data-step="1"] .pv-walk-card.s1,
-.pv-walk-slide[data-step="2"] .pv-walk-card.s3,
-.pv-walk-slide[data-step="3"] .pv-walk-card.s5,
-.pv-walk-slide[data-step="4"] .pv-walk-card.s7,
-.pv-walk-slide[data-step="5"] .pv-walk-card.s9,
-.pv-walk-slide[data-step="6"] .pv-walk-card.s10,
-.pv-walk-slide:is([data-step="7"],[data-step="8"],[data-step="9"]) .pv-walk-card.s11,
-.pv-walk-slide:is([data-step="10"],[data-step="11"]) .pv-walk-card.s12,
-.pv-walk-slide:is([data-step="12"],[data-step="13"],[data-step="14"]) .pv-walk-card.s13{opacity:1;transform:none}
+.pv-walk-slide:is([data-step="1"],[data-step="2"]) .pv-walk-card.s1,
+.pv-walk-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .pv-walk-card.s3,
+.pv-walk-slide:is([data-step="6"],[data-step="7"]) .pv-walk-card.s5,
+.pv-walk-slide:is([data-step="8"],[data-step="9"],[data-step="10"],[data-step="11"]) .pv-walk-card.s7,
+.pv-walk-slide:is([data-step="12"],[data-step="13"]) .pv-walk-card.s9,
+.pv-walk-slide:is([data-step="14"],[data-step="15"]) .pv-walk-card.s10,
+.pv-walk-slide:is([data-step="16"],[data-step="17"],[data-step="18"]) .pv-walk-card.s11,
+.pv-walk-slide:is([data-step="19"],[data-step="20"]) .pv-walk-card.s12,
+.pv-walk-slide:is([data-step="21"],[data-step="22"],[data-step="23"]) .pv-walk-card.s13{opacity:1;transform:none}
 .pv-q-list{margin:0;padding-left:20px;display:grid;gap:5px;align-content:center}
 .pv-q-list li{font-size:17px;line-height:1.35;opacity:0;transition:opacity .24s}
-.pv-walk-slide:is([data-step="7"],[data-step="8"],[data-step="9"]) .s11 .q1,
-.pv-walk-slide:is([data-step="8"],[data-step="9"]) .s11 .q2,
-.pv-walk-slide[data-step="9"] .s11 .q3,
-.pv-walk-slide:is([data-step="10"],[data-step="11"]) .s12 .q1,
-.pv-walk-slide[data-step="11"] .s12 .q2,
-.pv-walk-slide:is([data-step="12"],[data-step="13"],[data-step="14"]) .s13 .q1,
-.pv-walk-slide:is([data-step="13"],[data-step="14"]) .s13 .q2,
-.pv-walk-slide[data-step="14"] .s13 .q3{opacity:1}
+.pv-walk-slide:is([data-step="1"],[data-step="2"]) .s1 .q1,      .pv-walk-slide[data-step="2"] .s1 .q2,
+.pv-walk-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .s3 .q1,    .pv-walk-slide:is([data-step="4"],[data-step="5"]) .s3 .q2,
+.pv-walk-slide[data-step="5"] .s3 .q3,
+.pv-walk-slide:is([data-step="6"],[data-step="7"]) .s5 .q1,      .pv-walk-slide[data-step="7"] .s5 .q2,
+.pv-walk-slide:is([data-step="8"],[data-step="9"],[data-step="10"],[data-step="11"]) .s7 .q1,.pv-walk-slide:is([data-step="9"],[data-step="10"],[data-step="11"]) .s7 .q2,
+.pv-walk-slide:is([data-step="10"],[data-step="11"]) .s7 .q3,    .pv-walk-slide[data-step="11"] .s7 .q4,
+.pv-walk-slide:is([data-step="12"],[data-step="13"]) .s9 .q1,    .pv-walk-slide[data-step="13"] .s9 .q2,
+.pv-walk-slide:is([data-step="14"],[data-step="15"]) .s10 .q1,   .pv-walk-slide[data-step="15"] .s10 .q2,
+.pv-walk-slide:is([data-step="16"],[data-step="17"],[data-step="18"]) .s11 .q1,.pv-walk-slide:is([data-step="17"],[data-step="18"]) .s11 .q2,
+.pv-walk-slide[data-step="18"] .s11 .q3,
+.pv-walk-slide:is([data-step="19"],[data-step="20"]) .s12 .q1,   .pv-walk-slide[data-step="20"] .s12 .q2,
+.pv-walk-slide:is([data-step="21"],[data-step="22"],[data-step="23"]) .s13 .q1,.pv-walk-slide:is([data-step="22"],[data-step="23"]) .s13 .q2,
+.pv-walk-slide[data-step="23"] .s13 .q3{opacity:1}
 /* the gates pulse while the questions they raise are on screen */
 @keyframes pv-gate-blink{0%,100%{background:var(--current)}50%{background:var(--bad)}}
-.pv-walk-slide:is([data-step="7"],[data-step="8"],[data-step="9"],[data-step="10"],[data-step="11"]) .pv-ebgp-link.ab,
-.pv-walk-slide:is([data-step="7"],[data-step="8"],[data-step="9"],[data-step="10"],[data-step="11"]) .pv-ebgp-link.bc{
+.pv-walk-slide:is([data-step="16"],[data-step="17"],[data-step="18"],[data-step="19"],[data-step="20"]) .pv-ebgp-link.ab,
+.pv-walk-slide:is([data-step="16"],[data-step="17"],[data-step="18"],[data-step="19"],[data-step="20"]) .pv-ebgp-link.bc{
   animation:pv-gate-blink 1.2s ease-in-out infinite}
 @keyframes pv-ibgp-blink{0%,100%{opacity:.35}50%{opacity:1}}
-.pv-walk-slide:is([data-step="12"],[data-step="13"],[data-step="14"]) .pv-ibgp-link{animation:pv-ibgp-blink 1.2s ease-in-out infinite}
+.pv-walk-slide:is([data-step="21"],[data-step="22"],[data-step="23"]) .pv-ibgp-link{animation:pv-ibgp-blink 1.2s ease-in-out infinite}
 .pv-walk-slide:not([data-step="0"]) .pv-walk-prefix{box-shadow:0 0 0 4px var(--good-soft)}
-.pv-walk-slide:not(:is([data-step="0"],[data-step="1"])) .pv-ebgp-link.bc,
-.pv-walk-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"],[data-step="3"])) .pv-ebgp-link.ab{
-  height:7px;background:var(--current)}
-.pv-walk-slide[data-step="2"] .pv-route-message.cb,
-.pv-walk-slide[data-step="4"] .pv-route-message.ba{opacity:1}
-.pv-walk-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"])) .pv-walk-as.b .pv-ibgp-link,
-.pv-walk-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"])) .pv-walk-as.a .pv-ibgp-link{
-  opacity:.9;border-top-width:5px}
-.pv-walk-slide[data-step="3"] .pv-walk-as.b .pv-ibgp-link::before,
-.pv-walk-slide[data-step="3"] .pv-walk-as.b .pv-ibgp-link::after,
-.pv-walk-slide[data-step="5"] .pv-walk-as.a .pv-ibgp-link::before,
-.pv-walk-slide[data-step="5"] .pv-walk-as.a .pv-ibgp-link::after{opacity:1}
+.pv-walk-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"])) .pv-ebgp-link.bc,
+.pv-walk-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"],[data-step="9"],[data-step="10"])) .pv-ebgp-link.ab{height:7px;background:var(--current)}
+.pv-walk-slide[data-step="5"] .pv-route-message.cb,
+.pv-walk-slide[data-step="11"] .pv-route-message.ba{opacity:1}
+.pv-walk-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"],[data-step="5"])) .pv-walk-as.b .pv-ibgp-link,
+.pv-walk-slide:not(:is([data-step="0"],[data-step="1"],[data-step="2"],[data-step="3"],[data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"],[data-step="8"],[data-step="9"],[data-step="10"],[data-step="11"])) .pv-walk-as.a .pv-ibgp-link{opacity:.9;border-top-width:5px}
+.pv-walk-slide:is([data-step="6"],[data-step="7"]) .pv-walk-as.b .pv-ibgp-link::before,
+.pv-walk-slide:is([data-step="6"],[data-step="7"]) .pv-walk-as.b .pv-ibgp-link::after,
+.pv-walk-slide:is([data-step="12"],[data-step="13"]) .pv-walk-as.a .pv-ibgp-link::before,
+.pv-walk-slide:is([data-step="12"],[data-step="13"]) .pv-walk-as.a .pv-ibgp-link::after{opacity:1}
 /* AS-level motivation preceding the BGP solution */
 .pv-prefix.second{top:251px}
 .as-mot-stage{position:relative;width:100%;max-width:1000px;height:148px;flex:0 0 148px;
@@ -3530,37 +3533,69 @@ svg text{font-family:var(--sans)}
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
     <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
+    <span class="frag pv-walk-trigger" aria-hidden="true"></span>
   </div>
   <div class="pv-walk-card-stage">
-    <div class="pv-walk-card wide s1"><b>1 &middot; AS D owns the prefix</b><span>
-      <code>203.0.113.0/24</code> is one of the subnets inside AS D. For hosts elsewhere on the
-      Internet to reach it, AS D has to <b>advertise this destination prefix to the other ASes</b>.</span></div>
-    <div class="pv-walk-card s3"><b>2 &middot; eBGP: D &rarr; B</b><span>Suppose AS D permits the export.
-      D1 sends an UPDATE to B4 over their established eBGP session.</span>
+    <div class="pv-walk-card wide s1"><b>1 &middot; AS D owns the prefix</b>
+      <ul class="pv-q-list">
+        <li class="q1"><code>203.0.113.0/24</code> is one of the subnets inside AS D.</li>
+        <li class="q2">For hosts elsewhere on the Internet to reach it, AS D has to <b>advertise
+          this destination prefix to the other ASes</b>.</li>
+      </ul></div>
+    <div class="pv-walk-card s3"><b>2 &middot; eBGP: D &rarr; B</b>
+      <ul class="pv-q-list">
+        <li class="q1">AS B is a <b>neighbour</b> of AS D.</li>
+        <li class="q2">Suppose AS D is willing to export this destination to AS B.</li>
+        <li class="q3">Then its border router D1 sends an <b>UPDATE</b> to B4 over their eBGP
+          session, carrying this path vector.</li>
+      </ul>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS D</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">D1</span></div></div></div>
-    <div class="pv-walk-card s5"><b>3 &middot; iBGP inside B</b><span>Suppose AS B accepts. B4 then shares
-      the accepted route using <b>internal BGP (iBGP)</b> with AS B's other BGP speakers; in
-      particular, B3 learns it.</span>
+    <div class="pv-walk-card s5"><b>3 &middot; iBGP inside B</b>
+      <ul class="pv-q-list">
+        <li class="q1">Suppose AS B accepts the route.</li>
+        <li class="q2">B4 shares it with AS B&rsquo;s other BGP speakers over <b>internal BGP
+          (iBGP)</b> &mdash; in particular, B3 learns it.</li>
+      </ul>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS D &middot; unchanged</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">D1</span></div></div></div>
-    <div class="pv-walk-card s7"><b>4 &middot; eBGP: B &rarr; A</b><span>Suppose AS B permits the export. B3
-      <b>prepends AS B</b> onto the <code>AS_PATH</code> and sets <code>NEXT_HOP</code> to its own IP
-      address, then sends this path vector in an UPDATE to AS A's border router A4.</span>
+    <div class="pv-walk-card s7"><b>4 &middot; eBGP: B &rarr; A</b>
+      <ul class="pv-q-list">
+        <li class="q1">AS A is a <b>neighbour</b> of AS B.</li>
+        <li class="q2">Suppose AS B is willing to export what it has just learned to AS A.</li>
+        <li class="q3">B3 <b>prepends AS B</b> onto the <code>AS_PATH</code> and sets
+          <code>NEXT_HOP</code> to its own address.</li>
+        <li class="q4">It sends this new path vector in an <b>UPDATE</b> to AS A&rsquo;s border
+          router A4.</li>
+      </ul>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div></div></div>
-    <div class="pv-walk-card s9"><b>5 &middot; iBGP inside A</b><span>Suppose AS A accepts. A4 then shares
-      the accepted route using <b>internal BGP (iBGP)</b> with AS A's other BGP speakers.</span>
+    <div class="pv-walk-card s9"><b>5 &middot; iBGP inside A</b>
+      <ul class="pv-q-list">
+        <li class="q1">Suppose AS A accepts.</li>
+        <li class="q2">A4 shares it over <b>iBGP</b> with AS A&rsquo;s other BGP speakers.</li>
+      </ul>
       <div class="route-card"><div class="field"><span class="key">NLRI</span><span class="value hot">203.0.113.0/24</span></div>
         <div class="field"><span class="key">AS_PATH</span><span class="value">AS B &middot; AS D</span></div>
         <div class="field"><span class="key">NEXT_HOP</span><span class="value">B3</span></div></div></div>
-    <div class="pv-walk-card wide recap s10"><b>6 &middot; Every router in AS A knows the way</b><span>
-      Every BGP speaker in AS A now knows that <code>203.0.113.0/24</code> is reachable
-      <b>via AS B, then AS D</b> &mdash; carried between the ASes by <b>eBGP</b> and spread inside each
-      one by <b>iBGP</b>.</span></div>
+    <div class="pv-walk-card wide recap s10"><b>6 &middot; Every router in AS A knows the way</b>
+      <ul class="pv-q-list">
+        <li class="q1">Every BGP speaker in AS A now knows that <code>203.0.113.0/24</code> is
+          reachable <b>via AS B, then AS D</b>.</li>
+        <li class="q2">Carried between the ASes by <b>eBGP</b>, and spread inside each one by
+          <b>iBGP</b>.</li>
+      </ul></div>
     <div class="pv-walk-card wide policy-only s11"><b>7 &middot; We assumed a decision away</b>
       <ul class="pv-q-list">
         <li class="q1">We assumed AS D was willing to export this route to AS B &mdash; but that is
