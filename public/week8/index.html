@@ -3630,7 +3630,7 @@ svg text{font-family:var(--sans)}
 <section class="slide stateful bgp-setup-slide" data-sec="BGP">
   <div class="kicker">Zooming in on the AS that receives</div>
   <h2>One AS, two ways in, two ways out</h2>
-  <svg class="bgp-setup-map" viewBox="0 0 1010 364" role="img" aria-label="Five autonomous systems: AS B and AS E on the left, AS A in the centre, AS X and AS Y on the right. A4, A5 and A1 are AS A's border routers, and every BGP speaker inside AS A runs iBGP with every other.">
+  <svg class="bgp-setup-map" viewBox="0 0 1010 364" role="img" aria-label="Five autonomous systems: AS B and AS E on the left, AS A in the centre, AS X and AS Y on the right. A4, A5 and A1 are AS A's border routers, and the BGP speakers inside AS A maintain iBGP sessions with each other.">
   <rect class="gg" x="26" y="34" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="40" y="61" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS B</text>
   <rect class="gg" x="26" y="242" width="164" height="88" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="40" y="269" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS E</text>
   <rect class="gg" x="240" y="18" width="502" height="328" rx="18" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/><text class="gg" x="254" y="45" font-family="var(--serif)" font-size="20" font-weight="700" fill="var(--ink)">AS A</text>
@@ -3656,12 +3656,11 @@ svg text{font-family:var(--sans)}
   <line class="gg lit lit-node" x1="322" y1="286" x2="452" y2="248" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
   <line class="gg lit lit-node" x1="452" y1="248" x2="568" y2="248" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
   <line class="gg lit lit-node" x1="568" y1="248" x2="672" y2="182" stroke="var(--edge)" stroke-width="4" stroke-linecap="round"/>
-  <line class="gg lit lit-ebgp lit-in" x1="139" y1="78" x2="291" y2="78" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
-  <line class="gg lit lit-ebgp lit-in" x1="139" y1="286" x2="291" y2="286" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
+  <line class="gg lit lit-ebgp lit-in" x1="190" y1="78" x2="291" y2="78" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
+  <line class="gg lit lit-ebgp lit-in" x1="190" y1="286" x2="291" y2="286" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
   <line class="gg lit lit-ebgp" x1="700" y1="174" x2="796" y2="96" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
   <line class="gg lit lit-ebgp" x1="700" y1="190" x2="796" y2="270" stroke="var(--current)" stroke-width="5" stroke-linecap="round"/>
-  <rect class="gg lit lit-node" x="77" y="63" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-node" x="108" y="83" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">B3</text>
-  <rect class="gg lit lit-node" x="77" y="271" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-node" x="108" y="291" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">E1</text>
+  
   <rect class="gg lit lit-node" x="421" y="107" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-node" x="452" y="127" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">A2</text>
   <rect class="gg lit lit-node" x="421" y="233" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-node" x="452" y="253" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">A3</text>
   <rect class="gg lit lit-node" x="537" y="233" width="62" height="30" rx="15" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/><text class="gg lit lit-node" x="568" y="253" text-anchor="middle" font-family="var(--mono)" font-size="14" font-weight="900" fill="var(--accent-ink)">A6</text>
@@ -3675,19 +3674,19 @@ svg text{font-family:var(--sans)}
   <rect class="gg lit lit-ebgp" x="190" y="255" width="50" height="21" rx="10" fill="var(--current)"/><text class="gg lit lit-ebgp" x="215" y="270" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="900" fill="#fff">eBGP</text>
   <rect class="gg lit lit-ebgp" x="745" y="109" width="50" height="21" rx="10" fill="var(--current)"/><text class="gg lit lit-ebgp" x="770" y="124" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="900" fill="#fff">eBGP</text>
   <rect class="gg lit lit-ebgp" x="745" y="235" width="50" height="21" rx="10" fill="var(--current)"/><text class="gg lit lit-ebgp" x="770" y="250" text-anchor="middle" font-family="var(--mono)" font-size="10.5" font-weight="900" fill="#fff">eBGP</text>
-  <text class="gg lit lit-ibgp" x="491" y="338" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--accent)">dashed &#183; iBGP, every speaker to every other</text>
+  <text class="gg lit lit-ibgp" x="491" y="338" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--accent)">dashed &#183; iBGP sessions</text>
   <text class="gg lit lit-prefix" x="108" y="26" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--faint)">to AS D</text>
   <text class="gg lit lit-prefix" x="108" y="356" text-anchor="middle" font-family="var(--mono)" font-size="12" font-weight="900" fill="var(--faint)">to AS H, then AS D</text>
   </svg>
   <div class="bgp-setup-lead">
     <span class="bgp-setup-line bs1">In this example there are <b>five autonomous systems</b>. AS A
     sits in the middle, with AS B and AS E on one side and AS X and AS Y on the other.</span>
-    <span class="bgp-setup-line bs2">These are the <b>routers</b>: six inside AS A, and one each in
-    AS B and AS E. The solid links are AS A&rsquo;s own internal topology.</span>
+    <span class="bgp-setup-line bs2">These are AS A&rsquo;s <b>six routers</b>. The solid links between them are its
+    own internal topology.</span>
     <span class="bgp-setup-line bs3"><b>A4, A5 and A1 are the border routers.</b> Each holds an
     established <b>eBGP</b> session with a router in an adjacent AS &mdash; four sessions in all.</span>
-    <span class="bgp-setup-line bs4">Inside AS A, every BGP speaker also runs <b>iBGP</b> with every
-    other &mdash; a full mesh, so whatever one of them learns can reach them all.</span>
+    <span class="bgp-setup-line bs4">Inside AS A, these are the <b>BGP speakers</b>, and they maintain
+    <b>iBGP</b> sessions with each other &mdash; so whatever one of them learns can reach them all.</span>
     <span class="bgp-setup-line bs5">Now take a destination: <span class="mono">203.0.113.0/24</span>,
     a subnet inside <b>AS D</b>.</span>
     <span class="bgp-setup-line bs6">Suppose <b>AS B and AS E can both reach it</b> &mdash; AS B
