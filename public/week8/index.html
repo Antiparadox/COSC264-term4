@@ -709,14 +709,12 @@ svg text{font-family:var(--sans)}
   border:3px solid var(--accent);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);font-family:var(--serif);font-size:29px;
   font-weight:700;color:var(--accent-ink)}.rip-exchange-router.r1{left:28px}.rip-exchange-router.r2{right:28px}
 .rip-exchange-arrow{position:absolute;left:148px;right:148px;height:42px;color:var(--edge);transition:color .18s ease}
-.rip-exchange-arrow.request{top:61px}.rip-exchange-arrow.response{top:123px}.rip-exchange-arrow .line{position:absolute;left:0;right:0;top:20px;height:5px;
+.rip-exchange-arrow.response{top:86px}.rip-exchange-arrow .line{position:absolute;left:0;right:0;top:20px;height:5px;
   border-radius:999px;background:currentColor}.rip-exchange-arrow .line::after{content:"";position:absolute;top:50%;width:0;height:0;transform:translateY(-50%)}
-.rip-exchange-arrow.request .line::after{right:-1px;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:12px solid currentColor}
 .rip-exchange-arrow.response .line::after{left:-1px;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:12px solid currentColor}
 .rip-exchange-arrow b{position:absolute;left:50%;top:-2px;transform:translateX(-50%);padding:2px 7px;border-radius:6px;background:var(--surface-2);
   font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
-.rip-learn-slide[data-step="2"] .rip-exchange-arrow.request{color:var(--current)}
-.rip-learn-slide:is([data-step="3"],[data-step="4"],[data-step="6"],[data-step="7"]) .rip-exchange-arrow.response{color:var(--accent)}
+.rip-learn-slide:is([data-step="2"],[data-step="3"],[data-step="4"],[data-step="6"],[data-step="7"]) .rip-exchange-arrow.response{color:var(--accent)}
 .rip-example-trigger{position:absolute;width:1px;height:1px;overflow:hidden}.rip-example-panel-stage{position:relative;min-height:154px;
   max-width:1050px;margin:0 auto}.rip-example-panel{display:none;padding:15px 20px;border-left:6px solid var(--accent);
   border-radius:0 13px 13px 0;background:var(--surface);box-shadow:var(--shadow)}.rip-example-panel.alert{border-left-color:var(--bad)}
@@ -2741,7 +2739,8 @@ svg text{font-family:var(--sans)}
   <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
     <div class="rip-dialogue-router left">R1</div>
     <div class="frag rip-message-lane request"><b>Request</b><span>Ask a neighbour for its
-    <b>distance vector</b> &mdash; the entries in that neighbour's RIP routing table.</span></div>
+    <b>distance vector</b>. A router does this when it <b>starts up</b>, so it need not wait for
+    the first advertisement to arrive.</span></div>
     <div class="frag rip-message-lane response"><b>Response</b><span class="lane-alias">also known as
     a RIP advertisement</span><span>Advertise the <b>distance vector</b> held in this router's RIP
     routing table.</span></div>
@@ -2783,9 +2782,8 @@ svg text{font-family:var(--sans)}
         <em>&lt;</em><span>current <strong>6</strong></span></div>
     </div>
     <div class="rip-learn-column">
-      <div class="rip-example-exchange" aria-label="RIP Request from R1 to R2 and Response from R2 to R1 over UDP">
+      <div class="rip-example-exchange" aria-label="RIP Response advertised from R2 to R1 over UDP">
         <div class="rip-exchange-router r1">R1</div>
-        <div class="rip-exchange-arrow request"><span class="line"></span><b>Request</b></div>
         <div class="rip-exchange-arrow response"><span class="line"></span><b>Response</b></div>
         <div class="rip-exchange-router r2">R2</div>
       </div>
@@ -2803,16 +2801,15 @@ svg text{font-family:var(--sans)}
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <span class="frag rip-example-trigger" aria-hidden="true"></span>
   <div class="rip-example-panel-stage">
-    <div class="rip-example-panel p1"><b>1 &middot; Can R2 do better?</b><span>R1 already reaches
+    <div class="rip-example-panel p1"><b>1 &middot; The route R1 has now</b><span>R1 reaches
       <code>203.0.113.0/24</code> through next hop <strong>R5</strong> at <strong>cost metric 6</strong>,
-      with <strong>132 s</strong> left to live on the entry. But R1 would like to know whether R2 can
-      offer anything better for this destination.</span></div>
-    <div class="rip-example-panel p2"><b>2 &middot; Ask R2 what it has</b><span>R1 sends a RIP
-      <strong class="message-highlight">Request</strong> to R2 over UDP, asking for R2&rsquo;s entry
-      for this destination.</span></div>
-    <div class="rip-example-panel p3"><b>3 &middot; R2 advertises its distance vector</b><span>R2
-      replies with a <strong class="message-highlight">Response</strong>: it can reach
-      <code>203.0.113.0/24</code> at <strong>cost metric 2</strong>.</span></div>
+      with <strong>132 s</strong> left to live on the entry.</span></div>
+    <div class="rip-example-panel p2"><b>2 &middot; R2 advertises, unprompted</b><span>R1 asks for
+      nothing. Each RIP router advertises to its neighbours on its own, and a
+      <strong class="message-highlight">Response</strong> from R2 now arrives over UDP.</span></div>
+    <div class="rip-example-panel p3"><b>3 &middot; What R2&rsquo;s vector says</b><span>R2 can reach
+      <code>203.0.113.0/24</code> at <strong>cost metric 2</strong> &mdash; that is R2&rsquo;s own
+      best known distance to it.</span></div>
     <div class="rip-example-panel p4"><b>4 &middot; Is it any better?</b><span>R1 is one hop further
       along, so going through R2 would cost <strong>2 + 1 = 3</strong>. That beats the current
       <strong>6</strong>, so R1 takes it.</span></div>
