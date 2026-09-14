@@ -1368,9 +1368,9 @@ svg text{font-family:var(--sans)}
   text-align:center;text-transform:uppercase;letter-spacing:.04em}
 .speaker-stage-card > span{min-width:0}
 .bgp-speakers-slide[data-step="1"] .speaker-definition,
-.bgp-speakers-slide[data-step="2"] .speaker-border,
-.bgp-speakers-slide[data-step="3"] .speaker-internal,
-.bgp-speakers-slide[data-step="4"] .speaker-boundary{opacity:1;transform:none}
+.bgp-speakers-slide:is([data-step="2"],[data-step="3"]) .speaker-border,
+.bgp-speakers-slide[data-step="4"] .speaker-internal,
+.bgp-speakers-slide[data-step="5"] .speaker-boundary{opacity:1;transform:none}
 .bgp-speakers-slide .mot-gateway{border-color:var(--edge);color:var(--ink);box-shadow:none}
 .bgp-speakers-slide .mot-gateway::after,.bgp-speakers-slide .internal-speaker::after,
 .bgp-scopes-slide .mot-gateway::after,.bgp-scopes-slide .internal-speaker::after{
@@ -1379,23 +1379,26 @@ svg text{font-family:var(--sans)}
   letter-spacing:.04em;box-shadow:0 0 0 3px var(--surface);opacity:0;transition:.2s;z-index:9}
 .bgp-speakers-slide[data-step="1"] .mot-gateway::after,
 .bgp-speakers-slide[data-step="1"] .internal-speaker::after,
-.bgp-speakers-slide[data-step="4"] .mot-gateway::after,
-.bgp-speakers-slide[data-step="4"] .internal-speaker::after,
+.bgp-speakers-slide[data-step="5"] .mot-gateway::after,
+.bgp-speakers-slide[data-step="5"] .internal-speaker::after,
 .bgp-scopes-slide .mot-gateway::after,.bgp-scopes-slide .internal-speaker::after{opacity:1}
 .bgp-speakers-slide[data-step="1"] .mot-gateway,
 .bgp-speakers-slide[data-step="1"] .internal-speaker,
-.bgp-speakers-slide[data-step="4"] .mot-gateway,
-.bgp-speakers-slide[data-step="4"] .internal-speaker{border-color:var(--accent);
+.bgp-speakers-slide[data-step="5"] .mot-gateway,
+.bgp-speakers-slide[data-step="5"] .internal-speaker{border-color:var(--accent);
   background:var(--accent-soft);color:var(--accent-ink);box-shadow:0 0 0 4px var(--accent-soft)}
-.bgp-speakers-slide[data-step="2"] .mot-gateway{border-color:var(--current);
+.bgp-speakers-slide:is([data-step="2"],[data-step="3"]) .mot-gateway{border-color:var(--current);
   background:var(--current-soft);color:var(--current);box-shadow:0 0 0 4px var(--current-soft)}
-.bgp-speakers-slide[data-step="2"] .mot-gateway::after{opacity:1;background:var(--current)}
-.bgp-speakers-slide[data-step="3"] .internal-speaker{border-color:var(--good);
+.bgp-speakers-slide:is([data-step="2"],[data-step="3"]) .mot-gateway::after{opacity:1;background:var(--current)}
+.bgp-speakers-slide[data-step="4"] .internal-speaker{border-color:var(--good);
   background:var(--good-soft);color:var(--good);box-shadow:0 0 0 4px var(--good-soft)}
-.bgp-speakers-slide[data-step="3"] .internal-speaker::after{opacity:1;background:var(--good)}
-.bgp-speakers-slide[data-step="4"] .non-speaker{opacity:.24}
-.bgp-speakers-slide[data-step="4"] .speaker-boundary{border-color:var(--current)}
-.bgp-speakers-slide[data-step="4"] .speaker-boundary > b:first-child{background:var(--current)}
+.bgp-speakers-slide[data-step="4"] .internal-speaker::after{opacity:1;background:var(--good)}
+.bgp-speakers-slide[data-step="5"] .non-speaker{opacity:.24}
+.bgp-speakers-slide[data-step="5"] .speaker-boundary{border-color:var(--current)}
+.bgp-speakers-slide[data-step="5"] .speaker-boundary > b:first-child{background:var(--current)}
+.speaker-stage-card .sbl{display:block}
+.speaker-stage-card .sbl + .sbl{margin-top:6px;opacity:0;transition:opacity .25s}
+.bgp-speakers-slide[data-step="3"] .speaker-border .sbl + .sbl{opacity:1}
 .mot-session-label,.mot-policy-badge,.mot-export-badge{
   position:absolute;z-index:8;padding:7px 11px;border-radius:9px;background:var(--surface);
   border:2px solid var(--border);box-shadow:var(--shadow);font-family:var(--mono);
@@ -3298,14 +3301,16 @@ svg text{font-family:var(--sans)}
     <span class="frag speaker-stage-trigger" aria-hidden="true"></span>
     <span class="frag speaker-stage-trigger" aria-hidden="true"></span>
     <span class="frag speaker-stage-trigger" aria-hidden="true"></span>
+    <span class="frag speaker-stage-trigger" aria-hidden="true"></span>
   </div>
   <div class="speaker-stage-panel">
     <div class="speaker-stage-card speaker-definition"><b>BGP speaker</b><span>A router that runs
     BGP and maintains configured BGP sessions with selected peer routers. Each AS decides which
     routers will participate.</span></div>
-    <div class="speaker-stage-card speaker-border"><b>Usually at the edge</b><span>A border or
-    gateway router links directly to a router in another AS. Such routers normally run BGP; here,
-    all six gateways are BGP speakers.</span></div>
+    <div class="speaker-stage-card speaker-border"><b>Usually at the edge</b><span><span class="sbl">A <b>border</b> or
+    <b>gateway</b> router is one that links directly to a router in another AS.</span><span
+    class="sbl">Such routers normally run BGP &mdash; here, all six gateways are BGP
+    speakers.</span></span></div>
     <div class="speaker-stage-card speaker-internal"><b>Not only gateways</b><span>BGP is not
     limited to gateways: internal routers such as A2, A4, B1, and C1 can also be BGP
     speakers.</span></div>
