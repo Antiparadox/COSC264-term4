@@ -769,23 +769,28 @@ svg text{font-family:var(--sans)}
 
 .rip-protection-lead{max-width:1090px;margin:6px auto 14px;padding:12px 18px;border-left:6px solid
   var(--accent);border-radius:0 12px 12px 0;background:var(--surface);box-shadow:var(--shadow);
-  font-size:20px;line-height:1.35;color:var(--muted)}
+  font-size:21px;line-height:1.4;color:var(--muted)}
 .rip-protection-lead b{color:var(--ink)}
-.rip-protection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;align-items:start;
-  max-width:1090px;margin:0 auto}
-.rip-protection-card{padding:18px 19px;border:1px solid var(--border);border-radius:17px;
+.rip-protection-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-items:start;
+  max-width:980px;margin:6px auto 0}
+.rip-protection-lead .cil{display:block}
+.rip-protection-lead .cil + .cil{margin-top:7px}
+.ci-example{max-width:1090px;margin:0 auto 14px;text-align:center}
+.ci-example p{max-width:1020px;margin:0 auto 6px;font-size:19px;line-height:1.35;color:var(--muted)}
+.ci-example p b{color:var(--ink)}
+.ci-loop{display:block;width:100%;max-width:780px;margin:2px auto 0}
+.rip-protection-card{padding:24px 26px;border:1px solid var(--border);border-radius:17px;
   background:var(--surface);box-shadow:var(--shadow)}
-.rip-protection-card h3{margin:0 0 8px;font-size:22px}
-.rip-protection-card p{margin:0;font-size:16px;line-height:1.4;color:var(--muted)}
+.rip-protection-card h3{margin:0 0 10px;font-size:26px}
+.rip-protection-card p{margin:0;font-size:19px;line-height:1.4;color:var(--muted)}
 .rip-protection-card p b{color:var(--ink)}
 .rip-protection-note{margin-top:10px !important;padding-top:10px;border-top:1px dashed var(--border);
-  font-size:15px !important;color:var(--bad) !important}
+  font-size:17px !important;color:var(--bad) !important}
 .rip-protection-note b{color:var(--bad) !important}
-.rip-protection-card.split{border-top:6px solid var(--good)}
 .rip-protection-card.poison{border-top:6px solid var(--accent)}
 .rip-protection-card.cap{border-top:6px solid var(--current)}
 .rip-protection-tag{display:inline-block;margin-bottom:10px;padding:5px 9px;border-radius:999px;background:var(--accent-soft);
-  color:var(--accent-ink);font-family:var(--mono);font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+  color:var(--accent-ink);font-family:var(--mono);font-size:12.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
 
 .ospf-overview-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:28px;align-items:stretch;
   max-width:1080px;margin:8px auto 0}.ospf-facts{display:grid;gap:12px}
@@ -2879,34 +2884,66 @@ svg text{font-family:var(--sans)}
 </section>
 
 <section class="slide" data-sec="RIP">
+  <div class="kicker">Recall from Module 1</div>
+  <h2>Why a distance vector can count to infinity</h2>
+  <div class="rip-protection-lead">
+    <span class="frag cil">A distance-vector protocol suffers from the
+    <b>count-to-infinity problem</b>.</span>
+    <span class="frag cil">The cause is what a distance vector carries: <b>distances, not
+    paths</b>. A neighbour is told <i>how far</i>, never <i>through whom</i> &mdash; so a router
+    cannot see that the route it is offered runs back through itself.</span>
+  </div>
+  <div class="frag ci-example">
+    <p>Suppose the link onward to <b>R3</b> fails. R2 hears that R1 can still reach R3, while
+    R1&rsquo;s own route to R3 runs through R2 &mdash; so each forwards to the other, and their
+    costs climb together, one hop at a time.</p>
+    <svg class="ci-loop" viewBox="0 0 520 176" role="img"
+      aria-label="R1 and R2 each forward towards R3 through the other, forming a loop, while the link onward to R3 is down">
+      <defs>
+        <marker id="ci-head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
+          orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--bad)"/></marker>
+      </defs>
+      <rect x="40" y="65" width="76" height="46" rx="13" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
+      <text x="78" y="96" text-anchor="middle" font-size="24" font-weight="700" fill="var(--accent-ink)">R1</text>
+      <rect x="222" y="65" width="76" height="46" rx="13" fill="var(--surface)" stroke="var(--accent)" stroke-width="3"/>
+      <text x="260" y="96" text-anchor="middle" font-size="24" font-weight="700" fill="var(--accent-ink)">R2</text>
+      <rect x="404" y="65" width="76" height="46" rx="13" fill="var(--surface)" stroke="var(--edge)" stroke-width="3"/>
+      <text x="442" y="96" text-anchor="middle" font-size="24" font-weight="700" fill="var(--muted)">R3</text>
+      <path d="M298,88 L404,88" stroke="var(--edge)" stroke-width="3" stroke-dasharray="7 7"/>
+      <path d="M341,76 L363,100 M363,76 L341,100" stroke="var(--bad)" stroke-width="4" stroke-linecap="round"/>
+      <text x="352" y="130" text-anchor="middle" font-size="16" font-weight="700" fill="var(--bad)">link down</text>
+      <path d="M100,65 Q169,16 238,65" fill="none" stroke="var(--bad)" stroke-width="3.5" marker-end="url(#ci-head)"/>
+      <text x="169" y="30" text-anchor="middle" font-size="16" font-weight="700" fill="var(--bad)">R1 forwards via R2</text>
+      <path d="M238,111 Q169,160 100,111" fill="none" stroke="var(--bad)" stroke-width="3.5" marker-end="url(#ci-head)"/>
+      <text x="169" y="170" text-anchor="middle" font-size="16" font-weight="700" fill="var(--bad)">R2 forwards via R1</text>
+    </svg>
+  </div>
+  <div class="source">Count to infinity: RFC 2453 &sect;3.2</div>
+</section>
+
+<section class="slide" data-sec="RIP">
   <div class="kicker">RIP&rsquo;s protections</div>
   <h2>How RIP limits count to infinity</h2>
-  <p class="frag rip-protection-lead">Recall from Module 1: a distance-vector protocol suffers from
-  the <b>count-to-infinity problem</b>. RIP guards against it in three ways.</p>
+  <p class="frag rip-protection-lead">RIP cannot stop a loop forming, but it guards against the
+  counting in <b>two</b> ways.</p>
   <div class="rip-protection-grid">
-    <div class="frag rip-protection-card split">
-      <span class="rip-protection-tag">Split horizon</span>
-      <h3>Do not send it back</h3>
-      <p>Never advertise a route back to the neighbour you learned it from. If R1&rsquo;s route to a
-      destination came from R2, R1 leaves that destination out of the updates it sends to R2.</p>
-    </div>
     <div class="frag rip-protection-card poison">
       <span class="rip-protection-tag">Poison reverse</span>
       <h3>Send it back as infinity</h3>
-      <p>Stronger: R1 does advertise the route back to R2, but with a cost of
-      <b>infinity</b>.</p>
-      <p class="rip-protection-note">Both are only <b>heuristics</b>. They break a loop between
-      <b>two</b> routers, but not one running through three or more.</p>
+      <p>If R1&rsquo;s route to a destination runs through R2, R1 advertises that destination back
+      to R2 at a cost of <b>infinity</b> &mdash; so R2 never tries to reach it through R1.</p>
+      <p class="rip-protection-note">Only a <b>heuristic</b>. It breaks a loop between <b>two</b>
+      routers, but not one running through three or more.</p>
     </div>
     <div class="frag rip-protection-card cap">
       <span class="rip-protection-tag">Count only to 16</span>
       <h3>Make infinity deliberately small</h3>
-      <p>Therefore, this is why in RIP the maximum path length is bounded to
-      <b>15 hops</b>.</p>
+      <p>So the counting cannot run away for long: at <b>16</b> a route is already infinity. That
+      is why the maximum path length in RIP is <b>15 hops</b>.</p>
     </div>
   </div>
-  <div class="source">Split horizon, poisoned reverse and RIP infinity: RFC 2453 &sect;&sect;3.2,
-    3.4.2&ndash;3.4.4, 3.9.2</div>
+  <div class="source">Count to infinity, poisoned reverse and RIP infinity: RFC 2453 &sect;&sect;3.2,
+    3.4.3&ndash;3.4.4, 3.9.2</div>
 </section>
 
 <section class="slide" data-sec="OSPF">
