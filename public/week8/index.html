@@ -1858,23 +1858,23 @@ svg text{font-family:var(--sans)}
   border-radius:9px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:13px;
   text-align:center;text-transform:uppercase;letter-spacing:.04em}
 .session-trigger{position:absolute;width:0;height:0;pointer-events:none}
-.session-conversation-slide[data-step="1"] .conversation-channel,
-.session-conversation-slide[data-step="2"] .conversation-channel,
-.session-conversation-slide[data-step="3"] .conversation-channel,
-.session-conversation-slide[data-step="4"] .conversation-channel{opacity:1}
+.session-conversation-slide:not([data-step="0"]) .conversation-channel{opacity:1}
 .session-conversation-slide[data-step="1"] .conversation-channel-label,
 .session-conversation-slide[data-step="1"] .session-card.tcp,
 .session-conversation-slide[data-step="2"] .conversation-message.open,
 .session-conversation-slide[data-step="2"] .session-card.open,
 .session-conversation-slide[data-step="3"] .conversation-message.keepalive,
 .session-conversation-slide[data-step="3"] .session-card.keepalive,
-.session-conversation-slide[data-step="4"] .conversation-message.update,
-.session-conversation-slide[data-step="4"] .conversation-payload,
-.session-conversation-slide[data-step="4"] .session-card.update{opacity:1}
+.session-conversation-slide:is([data-step="4"],[data-step="5"]) .conversation-message.update,
+.session-conversation-slide:is([data-step="4"],[data-step="5"]) .conversation-payload,
+.session-conversation-slide:is([data-step="4"],[data-step="5"]) .session-card.update{opacity:1}
 .session-conversation-slide[data-step="1"] .session-card.tcp,
 .session-conversation-slide[data-step="2"] .session-card.open,
 .session-conversation-slide[data-step="3"] .session-card.keepalive,
-.session-conversation-slide[data-step="4"] .session-card.update{transform:none}
+.session-conversation-slide:is([data-step="4"],[data-step="5"]) .session-card.update{transform:none}
+.session-card .scl{display:block}
+.session-card .scl + .scl{margin-top:6px;opacity:0;transition:opacity .25s}
+.session-conversation-slide[data-step="5"] .session-card.update .scl + .scl{opacity:1}
 
 .field-explain{display:grid;grid-template-columns:125px 1fr;gap:12px;padding:11px 14px;
   border-radius:10px;background:var(--surface);border:1px solid var(--border);font-size:16px;
@@ -3403,6 +3403,7 @@ svg text{font-family:var(--sans)}
     <span class="frag session-trigger" aria-hidden="true"></span>
     <span class="frag session-trigger" aria-hidden="true"></span>
     <span class="frag session-trigger" aria-hidden="true"></span>
+    <span class="frag session-trigger" aria-hidden="true"></span>
   </div>
   <div class="session-card-stage">
     <div class="session-card tcp"><b>TCP · the channel</b><span>Both iBGP and eBGP use TCP as the channel for the conversation. We will study TCP later in this course.</span></div>
@@ -3410,10 +3411,11 @@ svg text{font-family:var(--sans)}
       establish the BGP relationship.</span></div>
     <div class="session-card keepalive"><b>KEEPALIVE · maintain</b><span>KEEPALIVE acknowledges
       OPEN and later confirms that the session remains active.</span></div>
-    <div class="session-card update"><b>UPDATE · exchange routes</b><span>An UPDATE
+    <div class="session-card update"><b>UPDATE · exchange routes</b><span><span class="scl">An UPDATE
       <b>advertises</b> one or more destination prefixes together with the <b>AS-level path</b> to
-      them &mdash; that pairing is the <b>path vector</b>, which we open up next. An UPDATE can also
-      <b>withdraw</b> prefixes that are no longer reachable.</span></div>
+      them &mdash; that pairing is the <b>path vector</b>, which we open up next.</span><span
+      class="scl">An UPDATE can also <b>withdraw</b> prefixes that are no longer
+      reachable.</span></span></div>
   </div>
   <div class="source">BGP transport and messages: RFC 4271 §§4.1-4.4, 8</div>
 </section>
