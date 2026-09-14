@@ -597,6 +597,11 @@ svg text{font-family:var(--sans)}
 .rip-message-lane::before{position:absolute;top:50%;font-size:35px;line-height:1;transform:translateY(-50%)}
 .rip-message-lane.request::before{content:"→";right:-36px;color:var(--current)}
 .rip-message-lane.response::before{content:"←";left:-36px;color:var(--accent)}
+/* .frag.on resets transform, so this centres with auto margins rather than a translate */
+.rip-udp-note{position:absolute;left:0;right:0;top:117px;margin-inline:auto;width:fit-content;
+  padding:3px 13px;border:1px solid var(--good);border-radius:20px;background:var(--good-soft);
+  white-space:nowrap;font-family:var(--mono);font-size:12.5px;font-weight:600;
+  letter-spacing:.04em;color:var(--good)}
 .rip-response-reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;flex:0 0 auto;
   width:100%;max-width:1050px;margin:15px auto 0}
 .rip-response-reason{min-height:126px;padding:14px 17px;border:1px solid var(--border);border-top:6px solid var(--accent);border-radius:14px;
@@ -2730,7 +2735,7 @@ svg text{font-family:var(--sans)}
 
 <section class="slide" data-sec="RIP">
   <div class="kicker">Two message types &middot; three reasons to send a Response</div>
-  <h2>RIP carries Request and Response messages over UDP</h2>
+  <h2>The RIP conversation: Request and Response</h2>
   <p class="frag rip-lead">Distance vector rests on routers <b>talking to their direct
   neighbours</b>. So how does RIP carry that conversation?</p>
   <div class="rip-dialogue" aria-label="RIP Request and Response exchange between two routers">
@@ -2740,6 +2745,7 @@ svg text{font-family:var(--sans)}
     <div class="frag rip-message-lane response"><b>Response</b><span class="lane-alias">also known as
     a RIP advertisement</span><span>Advertise the <b>distance vector</b> held in this router's RIP
     routing table.</span></div>
+    <div class="frag rip-udp-note">this conversation is carried over UDP</div>
     <div class="rip-dialogue-router right">R2</div>
   </div>
   <div class="rip-response-reasons" aria-label="Three situations that cause RIP to send a Response">
