@@ -2145,7 +2145,8 @@ svg text{font-family:var(--sans)}
 .import-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .import-policy-card.s1,
 .import-policy-slide:is([data-step="4"],[data-step="5"],[data-step="6"],[data-step="7"]) .import-policy-card.s2,
 .export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .export-policy-card.s1,
-.export-policy-slide[data-step="4"] .export-policy-card.s2{opacity:1;transform:none}
+.export-policy-slide[data-step="4"] .export-policy-card.s2,
+.export-policy-slide[data-step="5"] .export-policy-card.s3{opacity:1;transform:none}
 .export-policy-card .pv-q-list li{font-size:16.5px}
 .export-policy-slide:is([data-step="1"],[data-step="2"],[data-step="3"]) .s1 .q1,
 .export-policy-slide:is([data-step="2"],[data-step="3"]) .s1 .q2,
@@ -2226,13 +2227,13 @@ svg text{font-family:var(--sans)}
 .export-policy-slide:not([data-step="0"]) .export-path-focus .value{
   color:#fff;font-weight:900}
 
-.export-policy-slide[data-step="4"] .export-ebgp-line.top{height:7px;background:var(--good)}
-.export-policy-slide[data-step="4"] .export-ebgp-line.bottom{height:3px;background:var(--bad)}
-.export-policy-slide[data-step="4"] .export-update.top{opacity:1}
-.export-policy-slide[data-step="4"] .export-policy-block.bottom{opacity:1;transform:scale(1)}
-.export-policy-slide[data-step="4"] .export-internal-state{display:none}
-.export-policy-slide[data-step="4"] .export-outbound-state{display:inline}
-.export-policy-slide[data-step="4"] .export-internal-only{display:none}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-ebgp-line.top{height:7px;background:var(--good)}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-ebgp-line.bottom{height:3px;background:var(--bad)}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-update.top{opacity:1}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-policy-block.bottom{opacity:1;transform:scale(1)}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-internal-state{display:none}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-outbound-state{display:inline}
+.export-policy-slide:is([data-step="4"],[data-step="5"]) .export-internal-only{display:none}
 
 .speaker-decision-stage{display:grid;grid-template-columns:610px 1fr;gap:20px;width:100%;
   max-width:1070px;height:335px;margin:0 auto;padding:15px;border:1px solid var(--border);
@@ -3991,6 +3992,7 @@ svg text{font-family:var(--sans)}
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
     <span class="frag export-policy-trigger" aria-hidden="true"></span>
+    <span class="frag export-policy-trigger" aria-hidden="true"></span>
   </div>
   <div class="export-policy-status">
     <div class="export-policy-card s1"><b>1 · The setting</b>
@@ -4005,7 +4007,10 @@ svg text{font-family:var(--sans)}
     <div class="export-policy-card s2"><b>2 · Export policy decides</b><span>AS A learned this route from a
       <b>peer</b>. It may hand a peer route to a <b>paying customer</b>, so A1 prepends itself and
       sends <strong>AS A · AS E · AS H · AS D</strong> to AS X. Giving it to <b>AS Y</b>, another
-      peer, would carry AS Y's traffic for free &mdash; so AS A says nothing.</span></div>
+      peer, would carry AS Y's traffic for free &mdash; so AS A withholds it.</span></div>
+    <div class="export-policy-card s3"><b>3 · Not silence, just no transit</b><span><b>AS A is not
+      silent towards AS Y.</b> It advertises its own prefixes and its customer AS X&rsquo;s. What it
+      withholds is <b>transit</b> &mdash; routes it learned from a peer or a provider.</span></div>
   </div>
   <div class="source">Per-neighbour export policy and route dissemination: RFC 4271 §§9.2, 5.1.5; RFC 8212</div>
 </section>
