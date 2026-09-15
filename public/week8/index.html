@@ -1345,7 +1345,7 @@ svg text{font-family:var(--sans)}
 .lpm-case code{font-family:var(--mono);font-weight:900;color:var(--ink)}
 .agg-lpm-slide .agg-sub .m3{color:var(--current)}
 .agg-lpm-slide .agg-sub .m3 b{color:var(--current)}
-.agg-lpm-slide .agg-status{flex:0 0 310px;height:310px}
+.agg-lpm-slide .agg-status{flex:0 0 288px;height:288px}
 .agg-lpm-slide .agg-card{padding:16px 20px}
 .agg-lpm-slide .lpm-body{gap:13px}
 
@@ -4168,8 +4168,7 @@ svg text{font-family:var(--sans)}
       <li class="m1">The router holds that one aggregated entry. Now suppose <b>Science</b>
         (<code>200.23.18.0/23</code>) moves to a different provider, so its <b>next hop changes</b>
         to <code>cloud-gw</code>.</li>
-      <li class="m1b">As a result we add a <b>separate entry</b> for Science to this table. The
-        aggregate stays, and the <code>/23</code> sits inside it as a <b>more specific</b>.</li>
+      <li class="m1b">As a result we add a <b>separate entry</b> for Science to this table.</li>
       <li class="m2">Now suppose a datagram arrives for <code>200.23.18.5</code>. It matches
         <b>both</b> destination prefixes &mdash; 20 bits on one, 23 on the other.</li>
       <li class="m3"><b>Which entry should the router use?</b></li>
