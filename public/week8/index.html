@@ -1344,7 +1344,7 @@ svg text{font-family:var(--sans)}
 .lpm-case code{font-family:var(--mono);font-weight:900;color:var(--ink)}
 .agg-lpm-slide .agg-sub .m3{color:var(--current)}
 .agg-lpm-slide .agg-sub .m3 b{color:var(--current)}
-.agg-lpm-slide .agg-status{flex:0 0 258px;height:258px}
+.agg-lpm-slide .agg-status{flex:0 0 284px;height:284px}
 .agg-lpm-slide .agg-card{padding:16px 20px}
 .agg-lpm-slide .lpm-body{gap:13px}
 
@@ -4164,9 +4164,10 @@ svg text{font-family:var(--sans)}
   <div class="agg-status">
     <div class="agg-card s1"><b>The forwarding decision</b><div class="lpm-body">
       <ul class="agg-sub">
-      <li class="m1">The Science department is now reached through a different provider, so its
-        <b>next hop is different</b>. A second entry, <code>200.23.18.0/23</code>, is now
-        inserted into the router&rsquo;s forwarding table.</li>
+      <li class="m1">The router now holds that one aggregated entry,
+        <code>200.23.16.0/20</code>. But suppose <b>Science</b> moves to a different provider, so
+        its <b>next hop is different</b>: the aggregate stays, and <code>200.23.18.0/23</code>
+        goes back in beside it &mdash; a <b>more specific</b> entry inside the aggregate.</li>
       <li class="m2">Now suppose a datagram arrives for <code>200.23.18.5</code>. It matches
         <b>both</b> destination prefixes &mdash; 20 bits on one, 23 on the other.</li>
       <li class="m3"><b>Which entry should the router use?</b></li>
