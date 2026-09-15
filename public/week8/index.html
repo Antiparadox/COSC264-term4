@@ -1303,11 +1303,11 @@ svg text{font-family:var(--sans)}
 .agg-how-slide:is([data-step="5"],[data-step="6"]) td.bits b{background:var(--current);color:#fff}
 .agg-how-slide[data-step="6"] tr.dept{display:none}
 .agg-how-slide[data-step="6"] tr.agg{display:table-row}
-.agg-lpm-slide tr.e23{opacity:0;transition:opacity .22s}
-.agg-lpm-slide:not([data-step="0"]) tr.e23{opacity:1}
-.agg-lpm-slide:is([data-step="2"],[data-step="3"]) tr:is(.e20,.e23) td{background:var(--current-soft)}
-.agg-lpm-slide[data-step="4"] tr.e23 td{background:var(--good-soft)}
-.agg-lpm-slide[data-step="4"] tr.e20 td{opacity:.4}
+.agg-lpm-slide tr.e23{display:none}
+.agg-lpm-slide:not(:is([data-step="0"],[data-step="1"])) tr.e23{display:table-row}
+.agg-lpm-slide:is([data-step="3"],[data-step="4"]) tr:is(.e20,.e23) td{background:var(--current-soft)}
+.agg-lpm-slide[data-step="5"] tr.e23 td{background:var(--good-soft)}
+.agg-lpm-slide[data-step="5"] tr.e20 td{opacity:.4}
 .agg-how-slide .agg-status{flex:0 0 152px;height:152px}
 .agg-how-slide .agg-sub .q3{color:var(--current)}
 .agg-how-slide .agg-sub .q3 b{color:var(--current)}
@@ -1330,9 +1330,10 @@ svg text{font-family:var(--sans)}
 .agg-how-slide:is([data-step="5"],[data-step="6"]) .agg-sub .a2,
 .agg-lpm-slide:not([data-step="0"]) .agg-card.s1{opacity:1;transform:none}
 .agg-lpm-slide:not([data-step="0"]) .agg-sub .m1,
-.agg-lpm-slide:is([data-step="2"],[data-step="3"],[data-step="4"]) .agg-sub .m2,
-.agg-lpm-slide:is([data-step="3"],[data-step="4"]) .agg-sub .m3,
-.agg-lpm-slide[data-step="4"] :is(.lpm-rule,.lpm-case).m4{opacity:1}
+.agg-lpm-slide:not(:is([data-step="0"],[data-step="1"])) .agg-sub .m1b,
+.agg-lpm-slide:is([data-step="3"],[data-step="4"],[data-step="5"]) .agg-sub .m2,
+.agg-lpm-slide:is([data-step="4"],[data-step="5"]) .agg-sub .m3,
+.agg-lpm-slide[data-step="5"] :is(.lpm-rule,.lpm-case).m4{opacity:1}
 .lpm-body{display:grid;gap:10px;min-width:0}
 .lpm-rule,.lpm-case{opacity:0;transition:opacity .22s}
 .lpm-rule{display:grid;grid-template-columns:190px 1fr;gap:14px;align-items:center;padding:9px 14px;
@@ -1344,7 +1345,7 @@ svg text{font-family:var(--sans)}
 .lpm-case code{font-family:var(--mono);font-weight:900;color:var(--ink)}
 .agg-lpm-slide .agg-sub .m3{color:var(--current)}
 .agg-lpm-slide .agg-sub .m3 b{color:var(--current)}
-.agg-lpm-slide .agg-status{flex:0 0 284px;height:284px}
+.agg-lpm-slide .agg-status{flex:0 0 310px;height:310px}
 .agg-lpm-slide .agg-card{padding:16px 20px}
 .agg-lpm-slide .lpm-body{gap:13px}
 
@@ -4164,10 +4165,11 @@ svg text{font-family:var(--sans)}
   <div class="agg-status">
     <div class="agg-card s1"><b>The forwarding decision</b><div class="lpm-body">
       <ul class="agg-sub">
-      <li class="m1">The router now holds that one aggregated entry,
-        <code>200.23.16.0/20</code>. But suppose <b>Science</b> moves to a different provider, so
-        its <b>next hop is different</b>: the aggregate stays, and <code>200.23.18.0/23</code>
-        goes back in beside it &mdash; a <b>more specific</b> entry inside the aggregate.</li>
+      <li class="m1">The router holds that one aggregated entry. Now suppose <b>Science</b>
+        (<code>200.23.18.0/23</code>) moves to a different provider, so its <b>next hop changes</b>
+        to <code>cloud-gw</code>.</li>
+      <li class="m1b">As a result we add a <b>separate entry</b> for Science to this table. The
+        aggregate stays, and the <code>/23</code> sits inside it as a <b>more specific</b>.</li>
       <li class="m2">Now suppose a datagram arrives for <code>200.23.18.5</code>. It matches
         <b>both</b> destination prefixes &mdash; 20 bits on one, 23 on the other.</li>
       <li class="m3"><b>Which entry should the router use?</b></li>
@@ -4177,6 +4179,7 @@ svg text{font-family:var(--sans)}
       <p class="lpm-case m4">Here 23 beats 20, so the datagram goes to <code>cloud-gw</code>.</p>
     </div></div>
   </div>
+  <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
   <span class="frag agg-trigger" aria-hidden="true"></span>
