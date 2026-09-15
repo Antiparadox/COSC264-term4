@@ -3653,6 +3653,29 @@ svg text{font-family:var(--sans)}
   <div class="source">Simplified AS hierarchy and valley-free path model: CAIDA AS Relationships; Gao, 2001</div>
 </section>
 
+<section class="slide lecture-recap-slide" data-sec="Why do ASes prefer some routes?">
+  <div class="kicker">Before we look at policy in detail</div>
+  <h2>A quick recap of BGP so far</h2>
+  <ul class="lecture-recap-list">
+    <li class="frag"><b>There are two kinds of routing.</b>
+      <ul class="recap-sub">
+        <li>Inside a single AS it is <b>intra-AS routing</b> &mdash; RIP, OSPF.</li>
+        <li>Between ASes it is <b>inter-AS routing</b>, and <b>BGP</b> is the Internet&rsquo;s answer to it.</li>
+      </ul></li>
+    <li class="frag"><b>BGP has two halves.</b>
+      <ul class="recap-sub">
+        <li><b>eBGP</b> runs between ASes, and learns the <b>AS-level path</b> to prefixes in other ASes.</li>
+        <li><b>iBGP</b> runs inside one AS, and carries what was learned to <b>every BGP speaker</b> in it.</li>
+      </ul></li>
+    <li class="frag"><b>Choosing a route is not one decision.</b>
+      <ul class="recap-sub">
+        <li>What an AS keeps and what it advertises are its <b>import and export policy</b>.</li>
+        <li>And those are driven by the <b>business relationships</b> we have just met &mdash;
+          customer, peer, provider.</li>
+      </ul></li>
+  </ul>
+</section>
+
 <section class="slide stateful policy-table-slide import-table-slide" data-sec="Why do ASes prefer some routes?">
   <div class="kicker">A common commercial ordering—not fixed BGP values</div>
   <h2>Import policy: which route should the AS prefer?</h2>
