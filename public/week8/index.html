@@ -4078,11 +4078,10 @@ svg text{font-family:var(--sans)}
   </table>
   <div class="agg-status">
     <div class="agg-card s1"><b>The old problem</b><ul class="agg-sub">
-      <li class="p1">An IPv4 address is <b>32 bits</b>, and before CIDR the split between network
-        and host could fall in only <b>three places</b> &mdash; after 8, 16 or 24 bits.</li>
-      <li class="p2">With three sizes to choose from, a great deal of an already scarce space went
-        unused. <i>e.g.</i> a site needing 500 addresses had to take a whole <b>16-bit</b> block
-        &mdash; 65,534 host addresses, nearly all of them wasted.</li>
+      <li class="p1">An IPv4 address is <b>32 bits</b>, and before CIDR the split could fall in
+        only <b>three places</b> &mdash; after 8, 16 or 24 bits.</li>
+      <li class="p2">So a site needing 500 addresses had to take a whole <b>16-bit block</b>
+        &mdash; 65,534 addresses, nearly all of them wasted.</li>
       </ul></div>
     <div class="agg-card s2"><b>The answer</b><ul class="agg-sub">
       <li class="c1">Under <b>CIDR</b> the split can fall at <b>any bit</b>.</li>
