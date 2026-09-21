@@ -2660,7 +2660,15 @@ svg text{font-family:var(--sans)}
         </table>
       </div>
       <div class="frag e4 card verdict" style="padding:12px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:20px;line-height:1.5">The minimum distance is <b>1</b>, to <span class="mono">00000</span>, so the decoder outputs data block <b class="mono" style="color:var(--accent)">00</b>. Under our assumption of at most one flip, that <b>must</b> be what the transmitter sent &mdash; the error is corrected.</p>
+        <p style="margin:0;font-size:20px;line-height:1.5">The minimum distance is <b>1</b>, to <span class="mono">00000</span>, so the decoder outputs data block <b class="mono" style="color:var(--accent)">00</b>.</p>
+      </div>
+
+      <div class="frag card" style="padding:12px 16px;border-left:3px solid var(--current)">
+        <p style="margin:0;font-size:20px;line-height:1.5">But is <b class="mono">00</b> necessarily the data the transmitter sent?</p>
+      </div>
+
+      <div class="frag card" style="padding:12px 16px;border-left:3px solid #4caf50">
+        <p style="margin:0;font-size:20px;line-height:1.5">Under our assumption of <b>at most one flip</b>, yes &mdash; it <b>must</b> be. The error is <b style="color:#4caf50">corrected</b>.</p>
       </div>
     </div>
 
