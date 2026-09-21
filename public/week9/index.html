@@ -1778,17 +1778,27 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="CRC">
   <div class="kicker">CRC</div>
   <h2>Polynomial representation</h2>
-  <div style="flex:1;display:flex;flex-direction:column;gap:20px;max-width:1000px">
+  <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1040px">
 
-    <p class="frag" style="margin:0;font-size:22px;line-height:1.6">The divisor <em>P</em> is also called the <b>generator</b> &mdash; it is what generates the FCS.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">Recall that the divisor <em>P</em>
+    is also called the <b>generator</b> &mdash; it is what generates the FCS.</p>
 
-    <p class="frag" style="margin:0;font-size:22px;line-height:1.6">A bit string can also be written as a <b>polynomial</b>, and generators are almost always written that way.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">And recall that we required its
+    <b>highest</b> and <b>lowest</b> order bits to be 1, because that affects <b>which errors it
+    catches</b>.</p>
 
-    <p class="frag" style="margin:0;font-size:22px;line-height:1.6">Two reasons to use the polynomial representation:</p>
+    <div class="frag card" style="padding:13px 20px;border-left:4px solid var(--current)">
+      <p style="margin:0;font-size:21px;line-height:1.5">But <b>how would we know</b> which errors a
+      generator catches? That needs a formal analysis &mdash; and the toolkit for it is the
+      <b>polynomial representation</b>.</p>
+    </div>
 
-    <ul style="margin:0;padding-left:28px;line-height:1.6">
-      <li class="frag" style="font-size:21px;margin-bottom:10px">Every CRC <b>standard</b> publishes its generator in this form.</li>
-      <li class="frag" style="font-size:21px">It is the form in which you can <b>analyse</b> which errors a generator will catch.</li>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">The idea: stop reading a bit
+    string as ones and zeros, and read it as an <b>algebraic object</b> &mdash; a polynomial.</p>
+
+    <ul style="margin:0;padding-left:28px;line-height:1.5">
+      <li class="frag" style="font-size:21px;margin-bottom:11px">Written that way, we can <b>reason about</b> which errors a generator will catch &mdash; and so whether it is a good one.</li>
+      <li class="frag" style="font-size:21px">And it is the standard notation: every CRC <b>standard</b> publishes its generator as a polynomial, not as a bit string.</li>
     </ul>
 
   </div>
