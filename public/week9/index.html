@@ -1194,9 +1194,8 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Internet checksum</div>
   <h2>Internet checksum</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px">
-    <p class="frag" style="margin:0;font-size:19px">Parity is the simplest form of the idea, and a
-    good one to learn on. The <b>Internet checksum</b> is the scheme real protocols actually
-    carry.</p>
+    <p class="frag" style="margin:0;font-size:19px">Parity is the simplest form of the idea. The
+    <b>Internet checksum</b> is the scheme real protocols actually carry.</p>
     <p class="frag" style="margin:0;font-size:19px">The <b>Internet checksum</b> is a specific <b>error-detecting code</b> used in <b>IPv4</b>, <b>TCP</b>, and <b>UDP</b> <span style="font-size:15px;color:var(--muted)">(discussed later)</span> to let the receiver detect bit errors introduced during transmission.</p>
     <div class="frag cols" style="gap:24px;margin-top:6px;align-items:flex-start">
       <div class="col" style="display:flex;flex-direction:column;gap:8px">
@@ -1440,7 +1439,13 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="CRC">
+<section class="slide" id="crc-intro" data-sec="CRC">
+  <style>
+    /* The card arrives with its first bullet, not before it. */
+    #crc-intro .intuition { opacity:0; transition:opacity .25s ease }
+    #crc-intro .intuition:has(.frag.on) { opacity:1 }
+    #crc-intro .intuition li { font-size:19px; line-height:1.5 }
+  </style>
   <div class="kicker">Error Detection</div>
   <h2>Cyclic Redundancy Check (CRC)</h2>
   <div style="flex:1;display:flex;gap:34px;align-items:flex-start">
@@ -1449,8 +1454,15 @@ svg text{font-family:var(--sans)}
       <p class="frag" style="margin:0;font-size:19px;line-height:1.65">The CRC is one of the <b>most common and most powerful</b> error-detecting codes in use.</p>
       <p class="frag" style="margin:0;font-size:19px;line-height:1.65">It lives in the <b>data link layer</b>. Every frame you send over Ethernet or Wi-Fi carries a CRC.</p>
 
-      <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
-        <p style="margin:0;font-size:19px;line-height:1.65"><b>The intuition:</b> sender and receiver agree on a fixed <b>divisor</b> in advance. Both read the message as a <b>number</b>, and the sender appends a few check bits that make the whole thing <b>exactly divisible</b> by that divisor.</p>
+      <div class="intuition card" style="padding:13px 18px;border-left:3px solid var(--accent)">
+        <p style="margin:0 0 9px;font-size:19px;line-height:1.5"><b>The intuition</b></p>
+        <ul style="margin:0;padding-left:22px;display:grid;gap:9px">
+          <li class="frag">This time we read the message as a <b>number</b> &mdash; one big integer,
+            rather than a string of bits.</li>
+          <li class="frag">Sender and receiver agree on a fixed <b>divisor</b> in advance.</li>
+          <li class="frag">The sender appends a few <b>check bits</b>, chosen so that the whole
+            thing &mdash; read as one number &mdash; is <b>exactly divisible</b> by that divisor.</li>
+        </ul>
       </div>
     </div>
     <!-- Right: layer stack -->
