@@ -2186,6 +2186,10 @@ svg text{font-family:var(--sans)}
     </div>
 
     <div style="min-height:150px">
+      <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--current)">
+        <p style="margin:0;font-size:22px;line-height:1.5">Recall that we required <em>P</em>&rsquo;s <b>highest-order bit</b> to be 1. Here is why.</p>
+      </div>
+
       <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--accent)">
         <p style="margin:0;font-size:22px;line-height:1.5">The flipped bits are the last three, so the error polynomial is <b><em>E</em>(x) = x<sup>2</sup> + x + 1</b> &mdash; of <b>degree 2</b>.</p>
       </div>
@@ -2195,23 +2199,23 @@ svg text{font-family:var(--sans)}
       </div>
 
       <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--accent)">
-        <p style="margin:0;font-size:22px;line-height:1.5">A more careful analysis shows this in general: <b>any burst shorter than <em>P</em> is always caught</b>, wherever it sits in the frame.</p>
+        <p style="margin:0;font-size:22px;line-height:1.5">This is why we required the <b>highest-order bit to be 1</b> &mdash; it is what holds the degree at <em>r</em>, and the degree is what sets how long a burst can be and still be caught.</p>
       </div>
 
-      <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--accent)">
-        <p style="margin:0;font-size:22px;line-height:1.5">This is why we required <em>P</em>&rsquo;s <b>highest-order bit to be 1</b> &mdash; it is what holds the degree at <em>r</em>, and the degree is what sets how long a burst can be and still be caught.</p>
+      <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--current)">
+        <p style="margin:0;font-size:22px;line-height:1.5">We also required the <b>lowest-order bit</b> to be 1. Why? That one is trickier.</p>
       </div>
 
-      <div class="frag hot show-shift card" style="padding:14px 20px;border-left:4px solid var(--current)">
-        <p style="margin:0;font-size:22px;line-height:1.5">But that burst sat at the very <b>end</b> of the frame. Move the same kind of burst into the middle: <b><em>E</em>(x) = x<sup>7</sup> + x<sup>6</sup> + x<sup>4</sup></b> &mdash; still only <b>four</b> bits wide.</p>
-      </div>
-
-      <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--accent)">
-        <p style="margin:0;font-size:22px;line-height:1.5">A burst away from the end is just a short pattern <b>shifted along</b>: <b><em>E</em>(x) = x<sup>4</sup>&thinsp;&middot;&thinsp;(x<sup>3</sup> + x<sup>2</sup> + 1)</b>. Our <em>P</em> ends in 1, so it carries <b>no factor of x</b>: it cannot divide the x<sup>4</sup>, and x<sup>3</sup> + x<sup>2</sup> + 1 is too small. <b>Caught again.</b></p>
+      <div class="frag hot show-shift card" style="padding:14px 20px;border-left:4px solid var(--accent)">
+        <p style="margin:0;font-size:22px;line-height:1.5">Suppose the burst is not at the end of the frame but in the <b>middle</b>: <b><em>E</em>(x) = x<sup>7</sup> + x<sup>6</sup> + x<sup>4</sup></b> &mdash; still only <b>four</b> bits wide.</p>
       </div>
 
       <div class="frag hot card" style="padding:14px 20px;border-left:4px solid #cf5c36">
-        <p style="margin:0;font-size:22px;line-height:1.5">Had <em>P</em> ended in 0 &mdash; say <b><code>110100</code> = x<sup>2</sup>&thinsp;&middot;&thinsp;(x<sup>3</sup> + x<sup>2</sup> + 1)</b> &mdash; it would carry a factor of x itself, and <em>E</em> = x<sup>2</sup>&thinsp;&middot;&thinsp;<em>P</em> would divide <b>exactly</b>: a burst of only four <b style="color:#cf5c36">slips through</b>. This is why the <b>lowest-order bit</b> must be 1 as well.</p>
+        <p style="margin:0;font-size:22px;line-height:1.5">Now suppose <em>P</em> ended in 0 &mdash; say <b><code>110100</code> = x<sup>2</sup>&thinsp;&middot;&thinsp;(x<sup>3</sup> + x<sup>2</sup> + 1)</b>. A burst away from the end is a short pattern shifted along: <b><em>E</em>(x) = x<sup>4</sup>&thinsp;&middot;&thinsp;(x<sup>3</sup> + x<sup>2</sup> + 1)</b>, which is exactly <b>x<sup>2</sup>&thinsp;&middot;&thinsp;<em>P</em></b>. It divides with no remainder, so a burst of only four <b style="color:#cf5c36">slips through</b>.</p>
+      </div>
+
+      <div class="frag hot card" style="padding:14px 20px;border-left:4px solid #4caf50">
+        <p style="margin:0;font-size:22px;line-height:1.5">Our <em>P</em> ends in 1, so it carries <b>no factor of x</b>: it cannot divide the x<sup>4</sup>, and x<sup>3</sup> + x<sup>2</sup> + 1 is too small to divide. <b>Caught.</b> This is why the <b>lowest-order bit</b> must be 1 as well.</p>
       </div>
     </div>
 
