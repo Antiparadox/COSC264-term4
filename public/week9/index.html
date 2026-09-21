@@ -1831,6 +1831,10 @@ svg text{font-family:var(--sans)}
     #crc-two-views .lbl { display:inline-block; width:30px; color:var(--muted); font-style:italic }
     #crc-two-views .rule { margin:6px 0; padding:10px 16px; border-left:3px solid var(--accent);
       background:var(--surface); border-radius:6px; font-size:18px; line-height:1.55 }
+    /* The polynomial side of the division stays a question until it is answered. */
+    #crc-two-views .poly-a { display:none }
+    #crc-two-views:has(.ans.on) .poly-q { display:none }
+    #crc-two-views:has(.ans.on) .poly-a { display:block }
   </style>
   <div class="kicker">CRC</div>
   <h2>The same FCS, two representations</h2>
@@ -1855,11 +1859,14 @@ svg text{font-family:var(--sans)}
 
       <div class="frag row" style="font-size:18px;border-top:1px solid var(--border);margin-top:4px;padding-top:2px">
         <div class="lft"><em>F</em> = remainder of<br><span class="mono" style="font-size:17px">1010001101<b style="color:var(--accent)">00000</b></span> &divide; <span class="mono" style="font-size:17px">110101</span></div>
-        <div class="rgt"><em>F</em>(x) = remainder of<br><em>D</em>(x)&thinsp;&middot;&thinsp;<b style="color:var(--accent)">x<sup>5</sup></b> &divide; <em>P</em>(x)</div>
+        <div class="rgt">
+          <span class="poly-q"><em>F</em>(x) = remainder of<br><b style="color:var(--current);font-size:22px">?</b></span>
+          <span class="poly-a"><em>F</em>(x) = remainder of<br><em>D</em>(x)&thinsp;&middot;&thinsp;<b style="color:var(--accent)">x<sup>5</sup></b> &divide; <em>P</em>(x)</span>
+        </div>
       </div>
 
       <div class="frag rule">How do we write &ldquo;append five zeros to <em>D</em>, then divide by <em>P</em>&rdquo; in polynomial form?
-        <div style="margin-top:6px">Multiply <em>D</em>(x) by <b>x<sup>5</sup></b> and divide by <em>P</em>(x) &mdash; it does exactly the same thing. Worth checking for yourself.</div>
+        <div class="frag ans" style="margin-top:6px">Multiply <em>D</em>(x) by <b>x<sup>5</sup></b> and divide by <em>P</em>(x) &mdash; it does exactly the same thing. Worth checking for yourself.</div>
         <div class="frag" style="margin-top:8px"><b>You do not need to learn polynomial division.</b> If it is unfamiliar, work in bit strings and convert the remainder at the end.</div>
       </div>
 
