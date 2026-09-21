@@ -260,42 +260,28 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Learning objectives & module plan (merged) ── -->
-<section class="slide" data-sec="Overview" data-anchor="objectives">
-  <div class="kicker">Module 3</div>
-  <h2>Learning objectives &amp; module plan</h2>
+<section class="slide" data-sec="Overview" data-anchor="recap">
+  <div class="kicker">Module 2 &middot; Routing and Addressing at Internet Scale</div>
+  <h2>A quick recap of last week</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:20px;justify-content:flex-start">
+    <div id="obj-rows" style="display:flex;flex-direction:column;gap:14px">
 
-    <!-- Concept progress bar -->
-    <div id="obj-bar" style="display:flex;align-items:center;margin-bottom:4px">
-      <div class="ob-seg" data-lec="1" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;flex:1;border:1.5px solid var(--border);border-radius:8px;opacity:0.32;transition:opacity 0.35s,border-color 0.35s,background 0.35s">
-        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">CONCEPT 1</span>
-        <span style="font-size:14px;font-weight:600">Error Detection</span>
-      </div>
-      <div class="ob-connector" style="flex:0 0 48px;height:2px;background:var(--border);transition:background 0.4s"></div>
-      <div class="ob-seg" data-lec="2" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;flex:1;border:1.5px solid var(--border);border-radius:8px;opacity:0.32;transition:opacity 0.35s,border-color 0.35s,background 0.35s">
-        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">CONCEPT 2</span>
-        <span style="font-size:14px;font-weight:600">Cyclic Redundancy Check</span>
-      </div>
-      <div class="ob-connector" style="flex:0 0 48px;height:2px;background:var(--border);transition:background 0.4s"></div>
-      <div class="ob-seg" data-lec="3" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 0;flex:1;border:1.5px solid var(--border);border-radius:8px;opacity:0.32;transition:opacity 0.35s,border-color 0.35s,background 0.35s">
-        <span style="font-size:11px;font-weight:700;letter-spacing:0.07em;color:var(--accent)">CONCEPT 3</span>
-        <span style="font-size:14px;font-weight:600">Error Correction</span>
-      </div>
-    </div>
-
-    <!-- One narrative card per concept -->
-    <div id="obj-rows" style="display:flex;flex-direction:column;gap:12px">
-
-      <div class="frag" data-lec="1" style="padding:14px 20px;border-radius:8px;border-left:3px solid transparent;font-size:18px;line-height:1.7">
-        We introduce <strong>error detection</strong> and two fundamental schemes: <strong>parity check</strong> and the <strong>Internet checksum</strong>.
+      <div class="frag" style="padding:16px 22px;border-radius:8px;border-left:3px solid transparent;font-size:20px;line-height:1.65">
+        Inside a single AS, routers run <strong>intra-AS routing</strong> &mdash; <strong>RIP</strong>,
+        a distance-vector protocol, or <strong>OSPF</strong>, a link-state one &mdash; to agree on
+        paths through their own network.
       </div>
 
-      <div class="frag" data-lec="2" style="padding:14px 20px;border-radius:8px;border-left:3px solid transparent;font-size:18px;line-height:1.7">
-        We then talk about the <strong>Cyclic Redundancy Check (CRC)</strong>, which is a more powerful error-detection scheme.
+      <div class="frag" style="padding:16px 22px;border-radius:8px;border-left:3px solid transparent;font-size:20px;line-height:1.65">
+        Between ASes, <strong>BGP</strong> carries AS-level paths, and each AS&rsquo;s
+        <strong>import and export policy</strong> &mdash; shaped by its customer, provider and peer
+        relationships &mdash; decides which routes it keeps and who it passes them on to.
       </div>
 
-      <div class="frag" data-lec="3" style="padding:14px 20px;border-radius:8px;border-left:3px solid transparent;font-size:18px;line-height:1.7">
-        We end with <strong>error correction</strong>: not only detecting that something went wrong, but repairing it.
+      <div class="frag" style="padding:16px 22px;border-radius:8px;border-left:3px solid transparent;font-size:20px;line-height:1.65">
+        Addressing had to scale as well: <strong>CIDR</strong> lets a prefix end at any bit so
+        blocks can be aggregated, with <strong>NAT</strong> and <strong>IPv6</strong> the other two
+        answers to IPv4 running out.
       </div>
 
     </div>
@@ -352,15 +338,22 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="How does error detection work?">
+<section class="slide" id="journey" data-sec="How does error detection work?">
+  <style>
+    /* The first beat is just A talking to B; the network and everything that
+       can go wrong in it arrives with the second. */
+    #journey .net { opacity:0; transition:opacity .3s ease }
+    #journey:has(.f2.on) .net { opacity:1 }
+  </style>
   <div class="kicker">Motivation</div>
   <h2>The journey of a packet</h2>
   <div style="display:flex;flex-direction:column;gap:14px;flex:1;justify-content:flex-start">
 
-    <p class="frag" style="font-size:20px;margin:0;max-width:880px">Consider sending a datagram from <b>host&nbsp;A</b> to <b>host&nbsp;B</b> across a network of links and routers.</p>
+    <p class="frag f1" style="font-size:20px;margin:0;max-width:880px">Consider sending a datagram from <b>host&nbsp;A</b> to <b>host&nbsp;B</b> across a network of links and routers.</p>
 
     <div style="display:flex;justify-content:center;margin-top:2px">
       <svg viewBox="0 0 760 270" style="width:92%;max-height:250px" aria-label="Network diagram: host A sends a datagram to host B through a cloud network, with annotations showing noise, bit flips, and router crashes">
+        <g class="net">
         <!-- Connection lines through cloud -->
         <line x1="74" y1="135" x2="205" y2="135" stroke="var(--current)" stroke-width="3.5"/>
         <line x1="555" y1="135" x2="686" y2="135" stroke="var(--current)" stroke-width="3.5"/>
@@ -382,6 +375,7 @@ svg text{font-family:var(--sans)}
         <circle cx="380" cy="208" r="23" fill="var(--surface)" stroke="var(--edge)" stroke-width="2.5"/>
         <line x1="366" y1="194" x2="394" y2="222" stroke="var(--muted)" stroke-width="2.5"/>
         <line x1="394" y1="194" x2="366" y2="222" stroke="var(--muted)" stroke-width="2.5"/>
+        </g>
         <!-- Left laptop (Host A) -->
         <rect x="10" y="113" width="64" height="44" rx="5" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
         <rect x="16" y="119" width="52" height="32" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
@@ -392,6 +386,7 @@ svg text{font-family:var(--sans)}
         <rect x="692" y="119" width="52" height="32" rx="2" fill="var(--surface-2)" stroke="var(--border)"/>
         <rect x="681" y="157" width="74" height="7" rx="3" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/>
         <text x="718" y="105" font-size="14" fill="var(--accent)" text-anchor="middle" font-weight="700">Host B</text>
+        <g class="net">
         <!-- ── Annotation: noise/interference on left link ── -->
         <polyline points="120,120 126,110 132,130 138,110 144,130 150,120" stroke="#cf5c36" stroke-width="1.8" fill="none"/>
         <text x="135" y="103" font-size="11" fill="#cf5c36" text-anchor="middle" font-weight="600">noise</text>
@@ -401,10 +396,11 @@ svg text{font-family:var(--sans)}
         <!-- ── Annotation: router crash / packet drop ── -->
         <circle cx="380" cy="208" r="26" fill="none" stroke="#cf5c36" stroke-width="1.5" stroke-dasharray="4,3"/>
         <text x="380" y="248" font-size="11" fill="#cf5c36" text-anchor="middle" font-weight="600">crash / drop</text>
+        </g>
       </svg>
     </div>
 
-    <p class="frag" style="font-size:20px;margin:0;max-width:880px">Along the way &mdash; <b>thermal noise</b>, weak signals, interference, equipment crashes &mdash; the packet might arrive <b>corrupted</b>, arrive <b>out of order</b>, or be <b>dropped</b> entirely.</p>
+    <p class="frag f2" style="font-size:20px;margin:0;max-width:880px">Along the way &mdash; <b>thermal noise</b>, weak signals, interference, equipment crashes &mdash; the packet might arrive <b>corrupted</b>, arrive <b>out of order</b>, or be <b>dropped</b> entirely.</p>
 
   </div>
 </section>
