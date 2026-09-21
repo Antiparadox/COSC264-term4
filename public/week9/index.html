@@ -1536,13 +1536,10 @@ svg text{font-family:var(--sans)}
   <h2>How to choose the pattern P?</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:16px;justify-content:flex-start;max-width:1080px">
     <div class="frag">
-      <p style="margin:0 0 8px;font-size:21px">Not every pattern will do &mdash; three <strong>clearly bad</strong> choices:</p>
+      <p style="margin:0 0 8px;font-size:21px">Not every pattern will do &mdash; two <strong>clearly bad</strong> choices:</p>
       <ul style="margin:0;padding-left:24px;line-height:1.75">
         <li class="frag" style="margin-bottom:8px;font-size:20px"><b>P = <code>0000&hellip;0</code></b> &mdash; you cannot divide by zero at all.</li>
-        <li class="frag" style="font-size:20px"><b>Highest-order bit of P = 0</b> &mdash; the leading zero contributes nothing to the division, so P is effectively <strong>one bit shorter</strong>. And since the FCS is always one bit shorter than P, the <strong>effective FCS is one bit shorter</strong> too &mdash; fewer check bits than we intended.</li>
-        <li class="frag" style="font-size:20px"><b>Lowest-order bit of P = 0</b> &mdash; the trailing
-          zero contributes nothing either, unless the burst happens to reach the very last bit of the
-          frame. Anywhere else, P again acts <strong>one bit shorter</strong>.<span style="display:block;margin-top:6px;color:var(--muted)">A zero at either end wastes a check bit &mdash; and fewer check bits means weaker error detection.</span></li>
+        <li class="frag" style="font-size:20px"><b>Highest-order bit of P = 0</b> &mdash; the leading zero contributes nothing to the division, so P is effectively <strong>one bit shorter</strong>. And since the FCS is always one bit shorter than P, the <strong>effective FCS is one bit shorter</strong> too &mdash; fewer check bits than we intended.<span style="display:block;margin-top:6px;color:var(--muted)">Intuitively, fewer check bits means weaker error detection &mdash; not what we want.</span></li>
       </ul>
     </div>
     <p class="frag" style="margin:0;font-size:21px">The exact bit pattern depends on the <strong>type of errors</strong> expected &mdash; but in every case:</p>
@@ -1553,7 +1550,8 @@ svg text{font-family:var(--sans)}
       </div>
       <div class="card" style="flex:1;padding:16px 20px;border-left:3px solid var(--accent)">
         <p style="margin:0 0 6px;font-size:13px;letter-spacing:1.5px;color:var(--muted);font-weight:700">REQUIRED</p>
-        <p style="margin:0;font-size:20px">The <strong>lowest-order bit</strong> = 1</p>
+        <p style="margin:0 0 6px;font-size:20px">The <strong>lowest-order bit</strong> = 1</p>
+        <p style="margin:0;font-size:18px;color:var(--muted);line-height:1.45">Take this one on trust for now &mdash; we will work an example of why later.</p>
       </div>
     </div>
     <p class="frag" style="margin:0;font-size:20px;color:var(--muted);line-height:1.5">Together these
@@ -1932,10 +1930,14 @@ svg text{font-family:var(--sans)}
 <!-- ── Slide: CRC — Short burst example (optional) ── -->
 <section class="slide" id="crc-burst" data-sec="CRC as polynomials">
   <style>
-    /* one slot, four cards: each step replaces the one before it */
+    /* one slot, one card at a time: each step replaces the one before it */
     #crc-burst .hot { display:none }
     #crc-burst .hot.on { display:block }
     #crc-burst .hot.on:has(~ .hot.on) { display:none }
+    /* two error patterns in the same diagram slot */
+    #crc-burst .svg-b { display:none }
+    #crc-burst:has(.show-shift.on) .svg-a { display:none }
+    #crc-burst:has(.show-shift.on) .svg-b { display:block }
   </style>
   <div class="kicker">CRC &middot; optional</div>
   <h2>Example: a short burst error</h2>
@@ -1947,6 +1949,7 @@ svg text{font-family:var(--sans)}
     </div>
 
     <div class="frag" style="display:flex;justify-content:center">
+<div class="svg-a" style="width:100%;max-width:1000px">
 <svg viewBox="0 0 639 152" style="width:100%;max-width:1000px">
 <defs><marker id="ea34" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0.5 L5.5,3 L0,5.5 Z" fill="#cf5c36"/></marker></defs>
 <text x="95.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">14</tspan></text>
@@ -2062,9 +2065,127 @@ svg text{font-family:var(--sans)}
 <text x="613.0" y="120" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">1</text>
 <text x="78" y="145" font-size="11" fill="var(--muted)">E has a 1 exactly where a bit was flipped &#8212; here a burst of three</text>
 </svg>
+</div>
+<div class="svg-b" style="width:100%;max-width:1000px">
+<svg viewBox="0 0 639 152" style="width:100%;max-width:1000px">
+<defs><marker id="ea34b" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0.5 L5.5,3 L0,5.5 Z" fill="#cf5c36"/></marker></defs>
+<text x="95.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">14</tspan></text>
+<text x="132.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">13</tspan></text>
+<text x="169.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">12</tspan></text>
+<text x="206.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">11</tspan></text>
+<text x="243.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">10</tspan></text>
+<text x="280.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">9</tspan></text>
+<text x="317.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">8</tspan></text>
+<text x="354.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">7</tspan></text>
+<text x="391.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">6</tspan></text>
+<text x="428.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">5</tspan></text>
+<text x="465.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">4</tspan></text>
+<text x="502.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">3</tspan></text>
+<text x="539.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">2</tspan></text>
+<text x="576.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">1</tspan></text>
+<text x="613.0" y="8" font-size="9" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">x<tspan font-size="7" dy="-2">0</tspan></text>
+<text x="4" y="30" font-size="12" fill="var(--ink)" font-weight="700" dominant-baseline="middle">Sent  T</text>
+<rect x="78" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="95.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="115" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="132.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="152" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="169.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="189" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="206.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="226" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="243.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="263" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="280.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="300" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="317.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="337" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="354.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="374" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="391.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="411" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="428.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="448" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="465.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="485" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="502.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="522" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="539.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="559" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="576.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="596" y="18" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="613.0" y="30" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<text x="4" y="72" font-size="12" fill="var(--ink)" font-weight="700" dominant-baseline="middle">Received</text>
+<rect x="78" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="95.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="115" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="132.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="152" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="169.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="189" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="206.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="226" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="243.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="263" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="280.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="300" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="317.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="337" y="60" width="34" height="24" rx="2" fill="rgba(207,92,54,0.13)" stroke="#cf5c36" stroke-width="1"/>
+<text x="354.0" y="72" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="374" y="60" width="34" height="24" rx="2" fill="rgba(207,92,54,0.13)" stroke="#cf5c36" stroke-width="1"/>
+<text x="391.0" y="72" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="411" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="428.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="448" y="60" width="34" height="24" rx="2" fill="rgba(207,92,54,0.13)" stroke="#cf5c36" stroke-width="1"/>
+<text x="465.0" y="72" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="485" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="502.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="522" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="539.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="559" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="576.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="596" y="60" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="613.0" y="72" font-size="12" fill="var(--ink)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<line x1="354.0" y1="42" x2="354.0" y2="55" stroke="#cf5c36" stroke-width="1.4" marker-end="url(#ea34b)"/>
+<line x1="391.0" y1="42" x2="391.0" y2="55" stroke="#cf5c36" stroke-width="1.4" marker-end="url(#ea34b)"/>
+<line x1="465.0" y1="42" x2="465.0" y2="55" stroke="#cf5c36" stroke-width="1.4" marker-end="url(#ea34b)"/>
+<text x="4" y="120" font-size="12" fill="#cf5c36" font-weight="700" dominant-baseline="middle">Error  E</text>
+<rect x="78" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="95.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="115" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="132.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="152" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="169.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="189" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="206.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="226" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="243.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="263" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="280.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="300" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="317.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="337" y="108" width="34" height="24" rx="2" fill="rgba(207,92,54,0.13)" stroke="#cf5c36" stroke-width="1"/>
+<text x="354.0" y="120" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="374" y="108" width="34" height="24" rx="2" fill="rgba(207,92,54,0.13)" stroke="#cf5c36" stroke-width="1"/>
+<text x="391.0" y="120" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="411" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="428.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="448" y="108" width="34" height="24" rx="2" fill="rgba(207,92,54,0.13)" stroke="#cf5c36" stroke-width="1"/>
+<text x="465.0" y="120" font-size="12" fill="#cf5c36" font-weight="700" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="485" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="502.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="522" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="539.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="559" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="576.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<rect x="596" y="108" width="34" height="24" rx="2" fill="var(--surface-2)" stroke="var(--border)" stroke-width="1"/>
+<text x="613.0" y="120" font-size="12" fill="var(--muted)" font-weight="400" text-anchor="middle" dominant-baseline="middle">0</text>
+<text x="78" y="145" font-size="11" fill="var(--muted)">E has a 1 exactly where a bit was flipped &#8212; here a burst of four, away from the end of the frame</text>
+</svg>
+</div>
     </div>
 
-    <div style="min-height:118px">
+    <div style="min-height:150px">
       <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--accent)">
         <p style="margin:0;font-size:22px;line-height:1.5">The flipped bits are the last three, so the error polynomial is <b><em>E</em>(x) = x<sup>2</sup> + x + 1</b> &mdash; of <b>degree 2</b>.</p>
       </div>
@@ -2078,7 +2199,19 @@ svg text{font-family:var(--sans)}
       </div>
 
       <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--accent)">
-        <p style="margin:0;font-size:22px;line-height:1.5">This is why we required <em>P</em>&rsquo;s <b>highest-order bit to be 1</b> &mdash; it is what holds the degree at <em>r</em>, and the degree is what sets how long a burst can be and still be caught. <span style="color:var(--muted)">(The <b>lowest-order bit</b> is what makes it hold wherever in the frame the burst falls &mdash; the case we skipped here, where the burst is not at the very end.)</span></p>
+        <p style="margin:0;font-size:22px;line-height:1.5">This is why we required <em>P</em>&rsquo;s <b>highest-order bit to be 1</b> &mdash; it is what holds the degree at <em>r</em>, and the degree is what sets how long a burst can be and still be caught.</p>
+      </div>
+
+      <div class="frag hot show-shift card" style="padding:14px 20px;border-left:4px solid var(--current)">
+        <p style="margin:0;font-size:22px;line-height:1.5">But that burst sat at the very <b>end</b> of the frame. Move the same kind of burst into the middle: <b><em>E</em>(x) = x<sup>7</sup> + x<sup>6</sup> + x<sup>4</sup></b> &mdash; still only <b>four</b> bits wide.</p>
+      </div>
+
+      <div class="frag hot card" style="padding:14px 20px;border-left:4px solid var(--accent)">
+        <p style="margin:0;font-size:22px;line-height:1.5">A burst away from the end is just a short pattern <b>shifted along</b>: <b><em>E</em>(x) = x<sup>4</sup>&thinsp;&middot;&thinsp;(x<sup>3</sup> + x<sup>2</sup> + 1)</b>. Our <em>P</em> ends in 1, so it carries <b>no factor of x</b>: it cannot divide the x<sup>4</sup>, and x<sup>3</sup> + x<sup>2</sup> + 1 is too small. <b>Caught again.</b></p>
+      </div>
+
+      <div class="frag hot card" style="padding:14px 20px;border-left:4px solid #cf5c36">
+        <p style="margin:0;font-size:22px;line-height:1.5">Had <em>P</em> ended in 0 &mdash; say <b><code>110100</code> = x<sup>2</sup>&thinsp;&middot;&thinsp;(x<sup>3</sup> + x<sup>2</sup> + 1)</b> &mdash; it would carry a factor of x itself, and <em>E</em> = x<sup>2</sup>&thinsp;&middot;&thinsp;<em>P</em> would divide <b>exactly</b>: a burst of only four <b style="color:#cf5c36">slips through</b>. This is why the <b>lowest-order bit</b> must be 1 as well.</p>
       </div>
     </div>
 
