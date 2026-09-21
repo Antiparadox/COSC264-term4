@@ -407,21 +407,29 @@ svg text{font-family:var(--sans)}
 
 <section class="slide" id="problem-cats" data-sec="How does error detection work?">
   <style>
-    /* border-collapse paints the borders at table level, so a translated
-       section slides its content out from under them. Same fix the two
-       checksum slides already carry. */
-    #problem-cats tbody.frag, #problem-cats tr.frag { transform:none }
-    /* Unrevealed rows would otherwise sit there as empty bordered boxes:
-       the table grows as each one arrives instead. */
-    #problem-cats tbody.frag { display:none }
-    #problem-cats tbody.frag.on { display:table-row-group }
-    #problem-cats tr.frag { display:none }
-    #problem-cats tr.frag.on { display:table-row }
+    /* Beat order is not document order here -- the three problems are read
+       down the left column first, then the approaches are filled in on the
+       right -- so the beats are counted by markers and the cells gated off
+       them. */
+    #problem-cats .fmark { display:none }
+    #problem-cats tr.r1, #problem-cats tr.r2, #problem-cats tr.r3 { display:none }
+    #problem-cats:has(.f1.on) tr.r1 { display:table-row }
+    #problem-cats:has(.f2.on) tr.r2 { display:table-row }
+    #problem-cats:has(.f3.on) tr.r3 { display:table-row }
+    #problem-cats .ap { opacity:0; transition:opacity .25s ease }
+    #problem-cats:has(.f4.on) .ap1 { opacity:1 }
+    #problem-cats:has(.f5.on) .ap2 { opacity:1 }
     /* The tint has to go on the cells; td carries an opaque background of
-       its own, which paints over anything set on the section. */
-    #problem-cats tbody.frag > tr > td {
+       its own, which paints over anything set on the row or section. */
+    #problem-cats tr.r1 > td {
       background:linear-gradient(rgba(0,200,180,.08), rgba(0,200,180,.08)), var(--surface);
     }
+    #problem-cats .tag {
+      font-size:13px; padding:2px 8px; border-radius:10px;
+      font-weight:600; margin-left:6px; white-space:nowrap;
+    }
+    #problem-cats .tag.now  { background:var(--accent); color:#fff }
+    #problem-cats .tag.next { background:var(--surface-2); border:1px solid var(--border); color:var(--muted) }
   </style>
   <div class="kicker">Motivation</div>
   <h2>Three categories of problem</h2>
@@ -430,22 +438,34 @@ svg text{font-family:var(--sans)}
       <table class="ft" style="font-size:20px;width:100%;table-layout:fixed">
         <colgroup><col style="width:38%"><col style="width:62%"></colgroup>
         <thead><tr><th>Problem</th><th>Approach</th></tr></thead>
-        <tbody class="frag">
-          <tr><td><b>Corrupted packets</b> <span style="font-size:13px;padding:2px 8px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;margin-left:4px">this module</span></td><td>Error detection and correction</td></tr>
-          <tr><td colspan="2" style="padding-top:0;border-top:none;white-space:normal">
+        <tbody>
+          <tr class="r1">
+            <td><b>Corrupted packets</b></td>
+            <td><span class="ap ap1">Error detection and correction<span class="tag now">this module</span></span></td>
+          </tr>
+          <tr class="r1"><td colspan="2" style="padding-top:0;border-top:none;white-space:normal">
             <div style="border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:10px 15px;margin:2px 0 4px;white-space:normal">
               <span style="font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:700">Definition</span>
               <p style="margin:4px 0 0;font-size:16.5px;line-height:1.5;color:var(--ink)">A packet is <b>corrupted</b> when it is delivered, but one or more of its bits have been <b>altered in transit</b>. Those altered bits are called <b>bit errors</b>.</p>
             </div>
           </td></tr>
-        </tbody>
-        <tbody>
-          <tr class="frag"><td>Lost packets <span style="font-size:13px;color:var(--muted)">(Module 4)</span></td><td>ARQ protocols</td></tr>
-          <tr class="frag"><td>Out-of-order packets <span style="font-size:13px;color:var(--muted)">(Module 4)</span></td><td>ARQ protocols</td></tr>
+          <tr class="r2">
+            <td>Lost packets</td>
+            <td><span class="ap ap2">ARQ protocols<span class="tag next">Module 4</span></span></td>
+          </tr>
+          <tr class="r3">
+            <td>Out-of-order packets</td>
+            <td><span class="ap ap2">ARQ protocols<span class="tag next">Module 4</span></span></td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <span class="frag fmark f1" aria-hidden="true"></span>
+  <span class="frag fmark f2" aria-hidden="true"></span>
+  <span class="frag fmark f3" aria-hidden="true"></span>
+  <span class="frag fmark f4" aria-hidden="true"></span>
+  <span class="frag fmark f5" aria-hidden="true"></span>
 </section>
 
 <section class="slide" data-sec="How does error detection work?">
@@ -553,11 +573,11 @@ svg text{font-family:var(--sans)}
 </svg>
     </div>
     <div style="display:flex;gap:18px;margin-top:8px;align-items:flex-start;flex-wrap:wrap">
-      <div id="bit-card-burst" class="frag card" style="padding:13px 20px;flex:0 1 auto;max-width:56%">
-        <p style="margin:0;font-size:21px;line-height:1.45"><b style="color:#cf5c36">Burst error</b> of length B — the span from the first to the last corrupted bit is B positions.</p>
-      </div>
-      <div id="bit-card-single" class="frag card" style="padding:13px 20px;flex:0 1 auto;max-width:42%">
+      <div id="bit-card-single" class="frag card" style="order:2;padding:13px 20px;flex:0 1 auto;max-width:42%">
         <p style="margin:0;font-size:21px;line-height:1.45"><b style="color:var(--accent)">Single-bit error</b> — a single isolated bit is altered.</p>
+      </div>
+      <div id="bit-card-burst" class="frag card" style="order:1;padding:13px 20px;flex:0 1 auto;max-width:56%">
+        <p style="margin:0;font-size:21px;line-height:1.45"><b style="color:#cf5c36">Burst error</b> of length B — the span from the first to the last corrupted bit is B positions.</p>
       </div>
     </div>
   </div>
