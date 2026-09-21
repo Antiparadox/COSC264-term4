@@ -895,14 +895,34 @@ svg text{font-family:var(--sans)}
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Conclusion -->
-    <div class="frag" style="display:flex;flex-direction:column;gap:10px">
-      <p style="margin:0;font-size:18px">A parity check cannot detect a corruption pattern in which an <b>even number of bits</b> are flipped.</p>
-      <div class="card" style="border-left:4px solid var(--warn);padding:12px 20px">
-        <p style="margin:0;font-size:18px">We need a more <b>robust</b> error-detection scheme.</p>
-      </div>
+<section class="slide" data-sec="Parity checks">
+  <div class="kicker">Parity check</div>
+  <h2>The limitation of a parity check</h2>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;gap:16px;max-width:960px">
+
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">A parity check cannot detect a corruption
+    pattern in which an <b>even number of bits</b> are flipped.</p>
+
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">The reason is simple: adding an
+    <b>even number</b> to a count never changes whether that count is odd or even. The recomputed parity
+    bit comes out the same as the one received, and the check passes.</p>
+
+    <div class="frag card" style="border-left:4px solid var(--bad);padding:13px 20px">
+      <p style="margin:0;font-size:21px;line-height:1.5">So we need a more <b>robust</b> error-detection scheme.</p>
     </div>
+
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">How? Intuitively, by spending
+    <b>more check bits</b>. A parity check spends exactly <b>one</b> &mdash; and one bit can only ever
+    answer one yes-or-no question about the whole block.</p>
+
+    <div class="frag card" style="border-left:4px solid var(--accent);padding:13px 20px">
+      <p style="margin:0;font-size:21px;line-height:1.5">That is the idea behind the
+      <b>two-dimensional parity check</b>.</p>
+    </div>
+
   </div>
 </section>
 
