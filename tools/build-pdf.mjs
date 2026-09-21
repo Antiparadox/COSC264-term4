@@ -112,7 +112,7 @@ export function installRecorder() {
   };
 
   const P = {
-    pages: [], acc: new Set(), prevClone: null, prevSlide: null,
+    pages: [], acc: new Set(), prevClone: null, prevSlide: null, prevWeight: 0,
     slides: () => [...document.querySelectorAll('.slide')],
     signature,
   };
@@ -127,15 +127,19 @@ export function installRecorder() {
     const sig = signature(slide);
 
     if (P.prevSlide !== null && P.prevSlide !== idx) {
-      P.pages.push({ idx: P.prevSlide, node: P.prevClone });
+      P.pages.push({ idx: P.prevSlide, node: P.prevClone, weight: P.prevWeight });
       P.acc = new Set();
     } else if (P.prevSlide !== null) {
       const lost = [...P.acc].some((k) => !sig.has(k));
-      if (lost) { P.pages.push({ idx, node: P.prevClone }); P.acc = new Set(); }
+      if (lost) {
+        P.pages.push({ idx, node: P.prevClone, weight: P.prevWeight });
+        P.acc = new Set();
+      }
     }
     sig.forEach((k) => P.acc.add(k));
     P.prevClone = slide.cloneNode(true);
     P.prevSlide = idx;
+    P.prevWeight = sig.size;
     return {
       idx,
       key: idx + '|' + [...sig].sort().join('\u0001'),
@@ -144,18 +148,33 @@ export function installRecorder() {
   };
 
   P.finish = function () {
-    if (P.prevClone) P.pages.push({ idx: P.prevSlide, node: P.prevClone });
+    if (P.prevClone) P.pages.push({ idx: P.prevSlide, node: P.prevClone, weight: P.prevWeight });
     return { reached: P.prevSlide };
   };
 }
 
 /* ---- run after the walk, once the print CSS is in ---- */
-export function buildPrintRoot({ label, stamp, total }) {
+export function buildPrintRoot({ label, stamp, total, handout }) {
   const P = window.__pdf;
+  document.getElementById('pdfroot')?.remove();
   const root = document.createElement('div');
   root.id = 'pdfroot';
-  P.pages.forEach(({ idx, node }) => {
-    const clone = node;
+  // A handout keeps one page per slide. Not the last state -- a slide whose
+  // beats replace content often ends smaller than it was -- but the fullest
+  // one recorded, which is the page worth annotating.
+  let pages = P.pages;
+  if (handout) {
+    const best = new Map();
+    pages.forEach((p) => {
+      const cur = best.get(p.idx);
+      if (!cur || p.weight >= cur.weight) best.set(p.idx, p);
+    });
+    pages = [...best.values()].sort((a, b) => a.idx - b.idx);
+  }
+  pages.forEach(({ idx, node }) => {
+    // Clone again: the pages are reused to print a second variant, so the
+    // stamp and the marker rewrite below must not touch the recorded node.
+    const clone = node.cloneNode(true);
     clone.classList.add('active');
     clone.removeAttribute('hidden');
     const foot = document.createElement('div');
@@ -196,9 +215,9 @@ export function buildPrintRoot({ label, stamp, total }) {
   });
 
   const counts = {};
-  P.pages.forEach((p) => { counts[p.idx] = (counts[p.idx] || 0) + 1; });
+  pages.forEach((p) => { counts[p.idx] = (counts[p.idx] || 0) + 1; });
   return {
-    pages: P.pages.length,
+    pages: pages.length,
     multi: Object.entries(counts)
       .filter(([, c]) => c > 1)
       .map(([slide, c]) => ({ slide: Number(slide) + 1, pages: c })),
@@ -303,19 +322,30 @@ async function main() {
       }
 
       await page.addStyleTag({ content: PRINT_CSS });
-      const info = await page.evaluate(buildPrintRoot, { label, stamp: STAMP, total });
 
-      const file = path.join(OUT, `cosc264-module${m.n}.pdf`);
-      await page.pdf({
-        path: file,
-        width: '1280px',
-        height: '720px',
-        margin: { top: '0', right: '0', bottom: '0', left: '0' },
-        printBackground: true,
-      });
+      const write = async (name) => {
+        const file = path.join(OUT, name);
+        await page.pdf({
+          path: file,
+          width: '1280px',
+          height: '720px',
+          margin: { top: '0', right: '0', bottom: '0', left: '0' },
+          printBackground: true,
+        });
+        return (await stat(file)).size;
+      };
+
+      const info = await page.evaluate(buildPrintRoot, { label, stamp: STAMP, total });
+      const size = await write(`cosc264-module${m.n}.pdf`);
+
+      // The same recorded pages, reduced to one per slide: what a student
+      // prints to write on. Built from the same walk, so it can never drift
+      // from the deck the full PDF was cut from.
+      const hInfo = await page.evaluate(buildPrintRoot,
+        { label, stamp: STAMP, total, handout: true });
+      const hSize = await write(`cosc264-module${m.n}-handout.pdf`);
       await ctx.close();
 
-      const { size } = await stat(file);
       const extra = info.multi.length
         ? `  (${info.multi.length} split: ` +
           info.multi.slice(0, 6).map((x) => `${x.slide}×${x.pages}`).join(', ') +
@@ -325,6 +355,10 @@ async function main() {
         `Module ${m.n}  ${String(total).padStart(3)} slides -> ` +
         `${String(info.pages).padStart(3)} pages  ${(size / 1e6).toFixed(1)} MB` +
         `  [${steps} beats]${extra}`
+      );
+      console.log(
+        `          handout${' '.repeat(6)} -> ` +
+        `${String(hInfo.pages).padStart(3)} pages  ${(hSize / 1e6).toFixed(1)} MB`
       );
       if (steps >= MAX_STEPS) console.warn(`  ! Module ${m.n} hit the step cap; deck may be truncated`);
     }
