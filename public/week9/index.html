@@ -409,7 +409,24 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<section class="slide" data-sec="How does error detection work?">
+<section class="slide" id="problem-cats" data-sec="How does error detection work?">
+  <style>
+    /* border-collapse paints the borders at table level, so a translated
+       section slides its content out from under them. Same fix the two
+       checksum slides already carry. */
+    #problem-cats tbody.frag, #problem-cats tr.frag { transform:none }
+    /* Unrevealed rows would otherwise sit there as empty bordered boxes:
+       the table grows as each one arrives instead. */
+    #problem-cats tbody.frag { display:none }
+    #problem-cats tbody.frag.on { display:table-row-group }
+    #problem-cats tr.frag { display:none }
+    #problem-cats tr.frag.on { display:table-row }
+    /* The tint has to go on the cells; td carries an opaque background of
+       its own, which paints over anything set on the section. */
+    #problem-cats tbody.frag > tr > td {
+      background:linear-gradient(rgba(0,200,180,.08), rgba(0,200,180,.08)), var(--surface);
+    }
+  </style>
   <div class="kicker">Motivation</div>
   <h2>Three categories of problem</h2>
   <div style="display:flex;flex-direction:column;gap:18px;flex:1;justify-content:flex-start;max-width:960px">
@@ -417,7 +434,7 @@ svg text{font-family:var(--sans)}
       <table class="ft" style="font-size:20px;width:100%;table-layout:fixed">
         <colgroup><col style="width:38%"><col style="width:62%"></colgroup>
         <thead><tr><th>Problem</th><th>Approach</th></tr></thead>
-        <tbody class="frag" style="background:rgba(0,200,180,0.08)">
+        <tbody class="frag">
           <tr><td><b>Corrupted packets</b> <span style="font-size:13px;padding:2px 8px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;margin-left:4px">this module</span></td><td>Error detection and correction</td></tr>
           <tr><td colspan="2" style="padding-top:0;border-top:none;white-space:normal">
             <div style="border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:10px 15px;margin:2px 0 4px;white-space:normal">
