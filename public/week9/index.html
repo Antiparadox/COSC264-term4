@@ -753,9 +753,33 @@ svg text{font-family:var(--sans)}
       </div>
     </div>
 
+    <!-- What the channel does to the frame -->
+    <div class="frag card" style="padding:12px 18px">
+      <p style="margin:0 0 8px;font-size:12px;letter-spacing:1.5px;color:var(--muted);font-weight:600">IN TRANSIT</p>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <span style="font-size:12px;color:var(--muted)">Sent:</span>
+        <div style="display:flex;border:2px solid var(--accent);border-radius:5px;overflow:hidden">
+          <div style="padding:4px 12px"><code style="font-size:16px;letter-spacing:2px">10000101</code></div>
+          <div style="width:2px;background:var(--accent)"></div>
+          <div style="padding:4px 8px;background:rgba(0,200,180,0.08)"><code style="font-size:16px;font-weight:600;color:var(--accent)">1</code></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;line-height:1.1">
+          <span style="font-size:11px;color:#cf5c36;font-weight:600">bit 4 flips</span>
+          <span style="font-size:18px;color:#cf5c36">&rarr;</span>
+        </div>
+        <span style="font-size:12px;color:var(--muted)">Received:</span>
+        <div style="display:flex;border:2px solid #cf5c36;border-radius:5px;overflow:hidden">
+          <div style="padding:4px 12px"><code style="font-size:16px;letter-spacing:2px">100<span style="color:#cf5c36;font-weight:700">1</span>0101</code></div>
+          <div style="width:2px;background:#cf5c36"></div>
+          <div style="padding:4px 8px"><code style="font-size:16px;font-weight:600">1</code></div>
+        </div>
+        <span style="font-size:13px;color:var(--muted)">&mdash; the parity bit itself arrives unchanged</span>
+      </div>
+    </div>
+
     <!-- Even parity: receiver (error case) -->
     <div class="frag card" style="padding:12px 18px">
-      <p style="margin:0 0 8px;font-size:12px;letter-spacing:1.5px;color:var(--muted);font-weight:600">RECEIVER <span style="font-size:11px;font-weight:400;letter-spacing:0">&mdash; bit 4 flipped in transit</span></p>
+      <p style="margin:0 0 8px;font-size:12px;letter-spacing:1.5px;color:var(--muted);font-weight:600">RECEIVER</p>
       <div style="display:flex;flex-direction:column;gap:8px">
         <div style="display:flex;align-items:center;gap:10px">
           <span style="font-size:12px;color:var(--muted);min-width:14px">1.</span>
