@@ -2278,7 +2278,7 @@ svg text{font-family:var(--sans)}
       <li class="frag" style="font-size:21px;margin-bottom:16px">An <b>error-detecting code</b> appends check bits so the receiver can test whether the data arrived intact.</li>
       <li class="frag" style="font-size:21px;margin-bottom:16px">A <b>parity check</b> adds a single bit, and misses any corruption that flips an <b>even number</b> of bits.</li>
       <li class="frag" style="font-size:21px;margin-bottom:16px"><b>Two-dimensional parity</b> checks rows and columns. It catches any one, two or three flips and can even <b>correct</b> a single-bit error &mdash; but not four at the corners of a rectangle.</li>
-      <li class="frag" style="font-size:21px;margin-bottom:16px">The <b>Internet checksum</b> is a stronger check than a single parity bit, and cheap to compute &mdash; which is why <b>IP, TCP and UDP</b> all use it.</li>
+      <li class="frag" style="font-size:21px;margin-bottom:16px">The <b>Internet checksum</b> is stronger than a parity check, and <b>very cheap to compute</b> &mdash; which is why <b>IP, TCP and UDP</b> all use it.</li>
       <li class="frag" style="font-size:21px">The <b>CRC</b> appends an FCS that makes the frame divide exactly by an agreed generator &mdash; the strongest of them all.</li>
     </ul>
   </div>
