@@ -2274,11 +2274,12 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Recap</div>
   <h2>Error detection &mdash; what we covered</h2>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-start;max-width:1040px">
-    <ul style="margin:0;padding-left:30px;line-height:1.55">
-      <li class="frag" style="font-size:22px;margin-bottom:20px">An <b>error-detecting code</b> appends check bits so the receiver can test whether the data arrived intact.</li>
-      <li class="frag" style="font-size:22px;margin-bottom:20px">A <b>parity check</b> adds one bit and misses any even number of flips.</li>
-      <li class="frag" style="font-size:22px;margin-bottom:20px">The <b>Internet checksum</b> is cheap to compute and is used by IP, TCP and UDP.</li>
-      <li class="frag" style="font-size:22px">The <b>CRC</b> appends an FCS that makes the frame divide exactly by an agreed generator &mdash; the strongest of the three.</li>
+    <ul style="margin:0;padding-left:30px;line-height:1.5">
+      <li class="frag" style="font-size:21px;margin-bottom:16px">An <b>error-detecting code</b> appends check bits so the receiver can test whether the data arrived intact.</li>
+      <li class="frag" style="font-size:21px;margin-bottom:16px">A <b>parity check</b> adds a single bit, and misses any corruption that flips an <b>even number</b> of bits.</li>
+      <li class="frag" style="font-size:21px;margin-bottom:16px"><b>Two-dimensional parity</b> checks rows and columns. It catches any one, two or three flips and can even <b>correct</b> a single-bit error &mdash; but not four at the corners of a rectangle.</li>
+      <li class="frag" style="font-size:21px;margin-bottom:16px">The <b>Internet checksum</b> is a stronger check than a single parity bit, and cheap to compute &mdash; which is why <b>IP, TCP and UDP</b> all use it.</li>
+      <li class="frag" style="font-size:21px">The <b>CRC</b> appends an FCS that makes the frame divide exactly by an agreed generator &mdash; the strongest of them all.</li>
     </ul>
   </div>
 </section>
