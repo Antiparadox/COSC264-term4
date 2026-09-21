@@ -1780,16 +1780,15 @@ svg text{font-family:var(--sans)}
   <h2>Polynomial representation</h2>
   <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:1040px">
 
-    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">Recall that the divisor <em>P</em>
-    is also called the <b>generator</b> &mdash; it is what generates the FCS.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">The divisor <em>P</em> is also
+    called the <b>generator</b> &mdash; it is what generates the FCS.</p>
 
-    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">And recall that we required its
-    <b>highest</b> and <b>lowest</b> order bits to be 1, because that affects <b>which errors it
-    catches</b>.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5">A good CRC design hinges on a
+    <b>good generator</b>: one that catches most error patterns.</p>
 
     <div class="frag card" style="padding:13px 20px;border-left:4px solid var(--current)">
-      <p style="margin:0;font-size:21px;line-height:1.5">But <b>how would we know</b> which errors a
-      generator catches? That needs a formal analysis &mdash; and the toolkit for it is the
+      <p style="margin:0;font-size:21px;line-height:1.5">But in general, <b>how would we know</b> which errors
+      a generator catches? That needs a formal analysis &mdash; and the toolkit for it is the
       <b>polynomial representation</b>.</p>
     </div>
 
