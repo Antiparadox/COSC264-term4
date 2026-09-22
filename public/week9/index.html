@@ -2785,8 +2785,10 @@ svg text{font-family:var(--sans)}
     #dintuit .hot { display:none }
     #dintuit .hot.on { display:block }
     #dintuit .hot.on:has(~ .hot.on) { display:none }
-    #dintuit .eL, #dintuit .eFlip, #dintuit .eR, #dintuit .eBalls { opacity:0; transition:opacity 0.35s }
-    #dintuit:has(.w1.on) .eL { opacity:1 }
+    #dintuit .eGrid, #dintuit .eL, #dintuit .eFlip, #dintuit .eR, #dintuit .eBalls { opacity:0; transition:opacity 0.35s }
+    #dintuit:has(.w1.on) .eGrid { opacity:1 }
+    #dintuit:has(.n2.on) .eGrid { opacity:0 }
+    #dintuit:has(.n2.on) .eL { opacity:1 }
     #dintuit:has(.n3.on) .eFlip { opacity:1 }
     #dintuit:has(.n4.on) .eR { opacity:1 }
     #dintuit:has(.n5.on) .eBalls { opacity:1 }
@@ -2816,6 +2818,97 @@ svg text{font-family:var(--sans)}
   <marker id="dla2" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="#cf5c36"/></marker>
   <marker id="dra2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
 </defs>
+<g class="eGrid">
+<line x1="80" y1="70" x2="680" y2="70" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="80" y1="125" x2="680" y2="125" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="80" y1="180" x2="680" y2="180" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="80" y1="235" x2="680" y2="235" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="80" y1="290" x2="680" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="80" y1="70" x2="80" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="130" y1="70" x2="130" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="180" y1="70" x2="180" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="230" y1="70" x2="230" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="280" y1="70" x2="280" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="330" y1="70" x2="330" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="380" y1="70" x2="380" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="430" y1="70" x2="430" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="480" y1="70" x2="480" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="530" y1="70" x2="530" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="580" y1="70" x2="580" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="630" y1="70" x2="630" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="680" y1="70" x2="680" y2="290" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<circle cx="80" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="80" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="80" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="80" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="80" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="130" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="130" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="130" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="130" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="130" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="180" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="180" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="180" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="180" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="180" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="230" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="230" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="230" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="230" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="230" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="280" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="280" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="280" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="280" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="280" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="330" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="330" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="330" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="330" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="330" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="380" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="380" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="380" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="380" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="380" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="430" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="430" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="430" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="430" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="430" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="480" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="480" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="480" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="480" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="480" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="530" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="530" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="530" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="530" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="530" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="580" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="580" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="580" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="580" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="580" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="630" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="630" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="630" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="630" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="630" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="680" cy="70" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="680" cy="125" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="680" cy="180" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="680" cy="235" r="2.8" fill="currentColor" opacity="0.32"/>
+<circle cx="680" cy="290" r="2.8" fill="currentColor" opacity="0.32"/>
+<line x1="330" y1="180" x2="380" y2="180" stroke="var(--accent)" stroke-width="2.6"/>
+<circle cx="330" cy="180" r="7" fill="var(--accent)"/>
+<circle cx="380" cy="180" r="7" fill="var(--accent)"/>
+<text x="330" y="206" text-anchor="middle" font-size="14" font-family="monospace" font-weight="700" fill="var(--accent)">00000</text>
+<text x="380" y="162" text-anchor="middle" font-size="14" font-family="monospace" font-weight="700" fill="var(--accent)">00001</text>
+<text x="380" y="324" text-anchor="middle" font-size="13" font-weight="700" fill="var(--muted)">adjacent &mdash; one bit differs</text>
+</g>
 <g class="eL">
 <line x1="90" y1="110" x2="250" y2="110" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
 <line x1="90" y1="110" x2="90" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
