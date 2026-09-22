@@ -2785,12 +2785,11 @@ svg text{font-family:var(--sans)}
     #dintuit .hot { display:none }
     #dintuit .hot.on { display:block }
     #dintuit .hot.on:has(~ .hot.on) { display:none }
-    #dintuit .eL, #dintuit .eFlip, #dintuit .eR, #dintuit .eBalls, #dintuit .eGap { opacity:0; transition:opacity 0.35s }
+    #dintuit .eL, #dintuit .eFlip, #dintuit .eR, #dintuit .eBalls { opacity:0; transition:opacity 0.35s }
     #dintuit:has(.w1.on) .eL { opacity:1 }
     #dintuit:has(.n3.on) .eFlip { opacity:1 }
     #dintuit:has(.n4.on) .eR { opacity:1 }
     #dintuit:has(.n5.on) .eBalls { opacity:1 }
-    #dintuit:has(.n6.on) .eGap { opacity:1 }
   </style>
   <div class="kicker">FEC</div>
   <h2>How does error correction work?</h2>
@@ -2808,8 +2807,6 @@ svg text{font-family:var(--sans)}
 
     <p class="frag hot n5" style="margin:0;font-size:21px;line-height:1.45">Now a few flips only wander <b>around our own codeword</b> &mdash; not far enough to reach another one, so the receiver can still tell which was sent.</p>
 
-    <p class="frag hot n6" style="margin:0;font-size:21px;line-height:1.45">What <b>limits</b> this is the smallest gap between two codewords. Un-encoded that gap was <b>1</b>, so one flip was fatal. Encoding <b>widens</b> it.</p>
-
     </div>
 
     <div style="display:flex;justify-content:center">
@@ -2820,7 +2817,6 @@ svg text{font-family:var(--sans)}
   <marker id="dra2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
 </defs>
 <g class="eL">
-<text x="170" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">without encoding</text>
 <line x1="90" y1="110" x2="250" y2="110" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
 <line x1="90" y1="110" x2="90" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
 <line x1="250" y1="110" x2="250" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
@@ -2833,7 +2829,6 @@ svg text{font-family:var(--sans)}
 <text x="90" y="280" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">10</text>
 <circle cx="250" cy="250" r="7" fill="var(--muted)"/>
 <text x="250" y="280" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">11</text>
-<text x="170" y="300" text-anchor="middle" font-size="13" font-weight="400" fill="var(--muted)">all four are valid messages</text>
 </g>
 <g class="eFlip">
 <path d="M100,110 L238,110" fill="none" stroke="#cf5c36" stroke-width="2.6" marker-end="url(#zg2)"/>
@@ -2927,10 +2922,6 @@ svg text{font-family:var(--sans)}
 <circle cx="472" cy="280" r="46" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
 <circle cx="640" cy="280" r="46" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
 <text x="535" y="344" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">a few flips stay inside your own neighbourhood</text>
-</g>
-<g class="eGap">
-<line x1="526" y1="112" x2="586" y2="112" stroke="#cf5c36" stroke-width="1.6" marker-start="url(#dla2)" marker-end="url(#dra2)"/>
-<text x="556" y="130" text-anchor="middle" font-size="11" font-weight="700" fill="#cf5c36">smallest gap</text>
 </g>
       </svg>
     </div>
