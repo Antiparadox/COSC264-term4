@@ -2683,6 +2683,10 @@ svg text{font-family:var(--sans)}
     #mdd-fail .mono { font-family:monospace }
     #mdd-fail .drow td { color:var(--muted) }
     #mdd-fail:has(.f3.on) .win td { color:#cf5c36; font-weight:700; background:rgba(207,92,54,0.10) }
+    /* one slot, one card at a time */
+    #mdd-fail .hot { display:none }
+    #mdd-fail .hot.on { display:block }
+    #mdd-fail .hot.on:has(~ .hot.on) { display:none }
   </style>
   <div class="kicker">FEC</div>
   <h2>When can we actually correct?</h2>
@@ -2717,14 +2721,21 @@ svg text{font-family:var(--sans)}
 <tr class="drow win"><td class="mono">01010</td><td>2</td><td class="mono">11110</td><td class="mono">11</td></tr>
           </table>
         </div>
-        <div class="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
-          <p style="margin:0;font-size:20px;line-height:1.5"><b>Two</b> codewords sit at distance 2, and two flips are now allowed. We know an error occurred &mdash; but <span class="mono">00</span> and <span class="mono">11</span> are equally plausible, so the error can be <b>detected but not corrected</b>.</p>
-        </div>
       </div>
     </div>
 
-    <div class="frag card" style="padding:12px 16px;border-left:3px solid #cf5c36">
-      <p style="margin:0;font-size:20px;line-height:1.5">Minimum-distance decoding only works if the closest valid codeword is <b>unique</b>. It need not be.</p>
+    <div style="min-height:122px">
+      <div class="frag hot card" style="padding:12px 16px;border-left:3px solid #cf5c36">
+        <p style="margin:0;font-size:20px;line-height:1.5"><b>Two</b> codewords sit at distance 2, and two flips are now allowed. We know an error occurred &mdash; but <span class="mono">00</span> and <span class="mono">11</span> are equally plausible, so the error can be <b>detected but not corrected</b>.</p>
+      </div>
+
+      <div class="frag hot card" style="padding:12px 16px;border-left:3px solid #cf5c36">
+        <p style="margin:0;font-size:20px;line-height:1.5">Minimum-distance decoding only works if the closest valid codeword is <b>unique</b>. It need not be.</p>
+      </div>
+
+      <div class="frag hot card" style="padding:12px 16px;border-left:3px solid var(--current)">
+        <p style="margin:0;font-size:20px;line-height:1.5">We have now seen two examples: <span class="mono">00100</span>, with <b>one</b> bit flipped, which we corrected; and <span class="mono">01010</span>, with <b>two</b>, which we could only detect. But is that the <b>general rule</b> for this code &mdash; whatever the transmitter sent, <b>any</b> single-bit error correctable and <b>no</b> two-bit error correctable?</p>
+      </div>
     </div>
 
   </div>
