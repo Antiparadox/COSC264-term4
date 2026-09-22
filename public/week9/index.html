@@ -2780,6 +2780,164 @@ svg text{font-family:var(--sans)}
 </section>
 
 <!-- ── Slide: Pairwise Distances between Valid Codewords ── -->
+<section class="slide" id="dintuit" data-sec="How many errors can we correct?">
+  <style>
+    #dintuit .hot { display:none }
+    #dintuit .hot.on { display:block }
+    #dintuit .hot.on:has(~ .hot.on) { display:none }
+    #dintuit .eL, #dintuit .eFlip, #dintuit .eR, #dintuit .eBalls, #dintuit .eGap { opacity:0; transition:opacity 0.35s }
+    #dintuit:has(.w1.on) .eL { opacity:1 }
+    #dintuit:has(.n3.on) .eFlip { opacity:1 }
+    #dintuit:has(.n4.on) .eR { opacity:1 }
+    #dintuit:has(.n5.on) .eBalls { opacity:1 }
+    #dintuit:has(.n6.on) .eGap { opacity:1 }
+  </style>
+  <div class="kicker">FEC</div>
+  <h2>How does error correction work?</h2>
+  <div style="flex:1;display:flex;flex-direction:column;gap:10px">
+
+    <div style="min-height:70px">
+
+    <p class="frag hot w1" style="margin:0;font-size:21px;line-height:1.45">Picture the whole space of bit strings as a <b>grid</b>: every node is one specific bit string, and any two <b>adjacent</b> nodes differ in <b>exactly one bit</b> &mdash; Hamming distance 1.</p>
+
+    <p class="frag hot n2" style="margin:0;font-size:21px;line-height:1.45">Take a <b>two-bit</b> message. The whole space is just four points &mdash; <span style="font-family:monospace">00</span>, <span style="font-family:monospace">01</span>, <span style="font-family:monospace">10</span>, <span style="font-family:monospace">11</span> &mdash; and each sits <b>one step</b> from two of the others.</p>
+
+    <p class="frag hot n3" style="margin:0;font-size:21px;line-height:1.45">Send the message as it is, and a <b>single flip</b> moves one step &mdash; onto another perfectly <b>valid</b> message. The receiver cannot tell which was sent.</p>
+
+    <p class="frag hot n4" style="margin:0;font-size:21px;line-height:1.45">Error correction instead <b>encodes</b> each message as a longer string, chosen to sit <b>far apart</b>: <span style="font-family:monospace">00&rarr;00000</span>, <span style="font-family:monospace">01&rarr;00111</span>, <span style="font-family:monospace">10&rarr;11001</span>, <span style="font-family:monospace">11&rarr;11110</span>.</p>
+
+    <p class="frag hot n5" style="margin:0;font-size:21px;line-height:1.45">Now a few flips only wander <b>around our own codeword</b> &mdash; not far enough to reach another one, so the receiver can still tell which was sent.</p>
+
+    <p class="frag hot n6" style="margin:0;font-size:21px;line-height:1.45">What <b>limits</b> this is the smallest gap between two codewords. Un-encoded that gap was <b>1</b>, so one flip was fatal. Encoding <b>widens</b> it.</p>
+
+    </div>
+
+    <div style="display:flex;justify-content:center">
+      <svg class="svgA" viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:770px">
+<defs>
+  <marker id="zg2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
+  <marker id="dla2" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="#cf5c36"/></marker>
+  <marker id="dra2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
+</defs>
+<g class="eL">
+<text x="170" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">without encoding</text>
+<line x1="90" y1="110" x2="250" y2="110" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
+<line x1="90" y1="110" x2="90" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
+<line x1="250" y1="110" x2="250" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
+<line x1="90" y1="250" x2="250" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
+<circle cx="90" cy="110" r="7" fill="var(--muted)"/>
+<text x="90" y="92" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">00</text>
+<circle cx="250" cy="110" r="7" fill="var(--muted)"/>
+<text x="250" y="92" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">01</text>
+<circle cx="90" cy="250" r="7" fill="var(--muted)"/>
+<text x="90" y="280" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">10</text>
+<circle cx="250" cy="250" r="7" fill="var(--muted)"/>
+<text x="250" y="280" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">11</text>
+<text x="170" y="300" text-anchor="middle" font-size="13" font-weight="400" fill="var(--muted)">all four are valid messages</text>
+</g>
+<g class="eFlip">
+<path d="M100,110 L238,110" fill="none" stroke="#cf5c36" stroke-width="2.6" marker-end="url(#zg2)"/>
+<text x="170" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#cf5c36">one flip</text>
+</g>
+<line class="eR" x1="320" y1="40" x2="320" y2="300" stroke="currentColor" stroke-width="1" opacity="0.18"/>
+<g class="eR">
+<text x="535" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">with encoding</text>
+<line x1="388" y1="70" x2="682" y2="70" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="388" y1="112" x2="682" y2="112" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="388" y1="154" x2="682" y2="154" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="388" y1="196" x2="682" y2="196" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="388" y1="238" x2="682" y2="238" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="388" y1="280" x2="682" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="388" y1="70" x2="388" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="430" y1="70" x2="430" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="472" y1="70" x2="472" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="514" y1="70" x2="514" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="556" y1="70" x2="556" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="598" y1="70" x2="598" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="640" y1="70" x2="640" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<line x1="682" y1="70" x2="682" y2="280" stroke="currentColor" stroke-width="1" opacity="0.13"/>
+<circle cx="388" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="388" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="388" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="388" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="388" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="388" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="430" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="430" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="430" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="430" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="430" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="430" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="472" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="472" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="472" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="472" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="472" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="472" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="514" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="514" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="514" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="514" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="514" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="514" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="556" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="556" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="556" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="556" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="556" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="556" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="598" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="598" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="598" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="598" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="598" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="598" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="640" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="640" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="640" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="640" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="640" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="640" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="682" cy="70" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="682" cy="112" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="682" cy="154" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="682" cy="196" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="682" cy="238" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="682" cy="280" r="2.6" fill="currentColor" opacity="0.3"/>
+<circle cx="472" cy="112" r="8" fill="var(--accent)"/>
+<text x="472" y="117" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">A</text>
+<text x="472" y="92" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">00000</text>
+<text x="472" y="144" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(00)</text>
+<circle cx="640" cy="112" r="8" fill="var(--accent)"/>
+<text x="640" y="117" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">B</text>
+<text x="640" y="92" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">00111</text>
+<text x="640" y="144" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(01)</text>
+<circle cx="472" cy="280" r="8" fill="var(--accent)"/>
+<text x="472" y="285" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">C</text>
+<text x="472" y="260" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">11001</text>
+<text x="472" y="312" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(10)</text>
+<circle cx="640" cy="280" r="8" fill="var(--accent)"/>
+<text x="640" y="285" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">D</text>
+<text x="640" y="260" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">11110</text>
+<text x="640" y="312" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(11)</text>
+</g>
+<g class="eBalls">
+<circle cx="472" cy="112" r="46" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
+<circle cx="640" cy="112" r="46" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
+<circle cx="472" cy="280" r="46" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
+<circle cx="640" cy="280" r="46" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
+<text x="535" y="344" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">a few flips stay inside your own neighbourhood</text>
+</g>
+<g class="eGap">
+<line x1="526" y1="112" x2="586" y2="112" stroke="#cf5c36" stroke-width="1.6" marker-start="url(#dla2)" marker-end="url(#dra2)"/>
+<text x="556" y="130" text-anchor="middle" font-size="11" font-weight="700" fill="#cf5c36">smallest gap</text>
+</g>
+      </svg>
+    </div>
+
+  </div>
+</section>
+
 <section class="slide" id="dmin" data-sec="How many errors can we correct?">
   <style>
     #dmin td, #dmin th { border:1px solid var(--border); padding:6px 20px; font-size:18px; text-align:center }
@@ -2823,19 +2981,8 @@ svg text{font-family:var(--sans)}
     #dwalk .hot { display:none }
     #dwalk .hot.on { display:block }
     #dwalk .hot.on:has(~ .hot.on) { display:none }
-    /* the encoding story first, then the formal walk on the grid */
-    #dwalk .svgA, #dwalk .svgB { display:none }
-    #dwalk:has(.w1.on) .svgA { display:block }
-    #dwalk:has(.w2a.on) .svgA { display:none }
-    #dwalk:has(.w2a.on) .svgB { display:block }
-    #dwalk .eL, #dwalk .eFlip, #dwalk .eR, #dwalk .eBalls, #dwalk .eGap { opacity:0; transition:opacity 0.35s }
-    #dwalk:has(.w1.on) .eL { opacity:1 }
-    #dwalk:has(.n3.on) .eFlip { opacity:1 }
-    #dwalk:has(.n4.on) .eR { opacity:1 }
-    #dwalk:has(.n5.on) .eBalls { opacity:1 }
-    #dwalk:has(.n6.on) .eGap { opacity:1 }
     #dwalk .gGrid, #dwalk .gAB, #dwalk .gBall, #dwalk .gStr { opacity:0; transition:opacity 0.35s }
-    #dwalk:has(.w1.on) .gGrid { opacity:1 }
+    #dwalk:has(.w2a.on) .gGrid { opacity:1 }
     #dwalk:has(.w2.on) .gAB { opacity:1 }
     #dwalk:has(.w3.on) .gBall { opacity:1 }
     #dwalk:has(.w5.on) .gStr { opacity:1 }
@@ -2845,18 +2992,6 @@ svg text{font-family:var(--sans)}
   <div style="flex:1;display:flex;flex-direction:column;gap:10px">
 
     <div style="min-height:70px">
-
-    <p class="frag hot w1" style="margin:0;font-size:21px;line-height:1.45">Picture the whole space of bit strings as a <b>grid</b>: every node is one specific bit string, and any two <b>adjacent</b> nodes differ in <b>exactly one bit</b> &mdash; Hamming distance 1.</p>
-
-<p class="frag hot n2" style="margin:0;font-size:21px;line-height:1.45">Take a <b>two-bit</b> message. The whole space is just four points &mdash; <span style="font-family:monospace">00</span>, <span style="font-family:monospace">01</span>, <span style="font-family:monospace">10</span>, <span style="font-family:monospace">11</span> &mdash; and each sits <b>one step</b> from two of the others.</p>
-
-    <p class="frag hot n3" style="margin:0;font-size:21px;line-height:1.45">Send the message as it is, and a <b>single flip</b> moves one step &mdash; onto another perfectly <b>valid</b> message. The receiver cannot tell which was sent.</p>
-
-    <p class="frag hot n4" style="margin:0;font-size:21px;line-height:1.45">Error correction instead <b>encodes</b> each message as a longer string, chosen to sit <b>far apart</b>: <span style="font-family:monospace">00&rarr;00000</span>, <span style="font-family:monospace">01&rarr;00111</span>, <span style="font-family:monospace">10&rarr;11001</span>, <span style="font-family:monospace">11&rarr;11110</span>.</p>
-
-    <p class="frag hot n5" style="margin:0;font-size:21px;line-height:1.45">Now a few flips only wander <b>around our own codeword</b> &mdash; not far enough to reach another one, so the receiver can still tell which was sent.</p>
-
-    <p class="frag hot n6" style="margin:0;font-size:21px;line-height:1.45">What <b>limits</b> this is the smallest gap between two codewords. Un-encoded that gap was <b>1</b>, so one flip was fatal. Encoding <b>widens</b> it.</p>
 
     <p class="frag hot w2a" style="margin:0;font-size:21px;line-height:1.45">Now suppose we use a code whose <b>minimum Hamming distance</b> is <em>d</em>.</p>
 
@@ -2871,65 +3006,7 @@ svg text{font-family:var(--sans)}
     </div>
 
     <div style="display:flex;justify-content:center">
-<svg class="svgA" viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:770px">
-<defs>
-  <marker id="zg2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
-  <marker id="dla2" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="#cf5c36"/></marker>
-  <marker id="dra2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
-</defs>
-<g class="eL">
-<text x="170" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">without encoding</text>
-<line x1="90" y1="110" x2="250" y2="110" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
-<line x1="90" y1="110" x2="90" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
-<line x1="250" y1="110" x2="250" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
-<line x1="90" y1="250" x2="250" y2="250" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
-<circle cx="90" cy="110" r="7" fill="var(--muted)"/>
-<text x="90" y="92" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">00</text>
-<circle cx="250" cy="110" r="7" fill="var(--muted)"/>
-<text x="250" y="92" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">01</text>
-<circle cx="90" cy="250" r="7" fill="var(--muted)"/>
-<text x="90" y="280" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">10</text>
-<circle cx="250" cy="250" r="7" fill="var(--muted)"/>
-<text x="250" y="280" text-anchor="middle" font-size="15" font-family="monospace" font-weight="700" fill="currentColor">11</text>
-<text x="170" y="300" text-anchor="middle" font-size="13" font-weight="400" fill="var(--muted)">all four are valid messages</text>
-</g>
-<g class="eFlip">
-<path d="M100,110 L238,110" fill="none" stroke="#cf5c36" stroke-width="2.6" marker-end="url(#zg2)"/>
-<text x="170" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#cf5c36">one flip</text>
-</g>
-<line class="eR" x1="330" y1="40" x2="330" y2="300" stroke="currentColor" stroke-width="1" opacity="0.18"/>
-<g class="eR">
-<text x="540" y="30" text-anchor="middle" font-size="15" font-weight="700" fill="var(--muted)">with encoding</text>
-<circle cx="430" cy="95" r="8" fill="var(--accent)"/>
-<text x="430" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">A</text>
-<text x="430" y="73" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">00000</text>
-<text x="430" y="125" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(00)</text>
-<circle cx="660" cy="95" r="8" fill="var(--accent)"/>
-<text x="660" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">B</text>
-<text x="660" y="73" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">00111</text>
-<text x="660" y="125" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(01)</text>
-<circle cx="430" cy="265" r="8" fill="var(--accent)"/>
-<text x="430" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">C</text>
-<text x="430" y="243" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">11001</text>
-<text x="430" y="295" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(10)</text>
-<circle cx="660" cy="265" r="8" fill="var(--accent)"/>
-<text x="660" y="270" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">D</text>
-<text x="660" y="243" text-anchor="middle" font-size="13" font-family="monospace" font-weight="700" fill="var(--accent)">11110</text>
-<text x="660" y="295" text-anchor="middle" font-size="12" font-weight="400" fill="var(--muted)">(11)</text>
-</g>
-<g class="eBalls">
-<circle cx="430" cy="95" r="48" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
-<circle cx="660" cy="95" r="48" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
-<circle cx="430" cy="265" r="48" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
-<circle cx="660" cy="265" r="48" fill="rgba(0,200,180,0.08)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="5,4"/>
-<text x="540" y="341" text-anchor="middle" font-size="13" font-weight="700" fill="var(--accent)">a few flips stay inside your own neighbourhood</text>
-</g>
-<g class="eGap">
-<line x1="478" y1="95" x2="612" y2="95" stroke="#cf5c36" stroke-width="1.6" marker-start="url(#dla2)" marker-end="url(#dra2)"/>
-<text x="545" y="86" text-anchor="middle" font-size="12" font-weight="700" fill="#cf5c36">smallest gap</text>
-</g>
-</svg>
-      <svg class="svgB" viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:770px">
+      <svg viewBox="0 0 744 348" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:770px">
 <defs>
           <marker id="zg" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#cf5c36"/></marker>
           <marker id="dla" markerWidth="7" markerHeight="7" refX="1" refY="3" orient="auto"><path d="M7,0 L7,6 L0,3 z" fill="currentColor"/></marker>
