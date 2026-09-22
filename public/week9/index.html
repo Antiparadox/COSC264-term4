@@ -2785,8 +2785,10 @@ svg text{font-family:var(--sans)}
     #dintuit .hot { display:none }
     #dintuit .hot.on { display:block }
     #dintuit .hot.on:has(~ .hot.on) { display:none }
-    #dintuit .eGrid, #dintuit .eL, #dintuit .eFlip, #dintuit .eR, #dintuit .eBalls { opacity:0; transition:opacity 0.35s }
+    #dintuit .eGrid, #dintuit .eUp, #dintuit .eErr, #dintuit .eL, #dintuit .eFlip, #dintuit .eR, #dintuit .eBalls { opacity:0; transition:opacity 0.35s }
     #dintuit:has(.w1.on) .eGrid { opacity:1 }
+    #dintuit:has(.g2.on) .eUp { opacity:1 }
+    #dintuit:has(.g3.on) .eErr { opacity:1 }
     #dintuit:has(.n2.on) .eGrid { opacity:0 }
     #dintuit:has(.n2.on) .eL { opacity:1 }
     #dintuit:has(.n3.on) .eFlip { opacity:1 }
@@ -2800,6 +2802,10 @@ svg text{font-family:var(--sans)}
     <div style="min-height:70px">
 
     <p class="frag hot w1" style="margin:0;font-size:21px;line-height:1.45">Picture the whole space of bit strings as a <b>grid</b>: every node is one specific bit string, and any two <b>adjacent</b> nodes differ in <b>exactly one bit</b> &mdash; Hamming distance 1.</p>
+
+    <p class="frag hot g2" style="margin:0;font-size:21px;line-height:1.45">Step <b>upward</b> instead and we reach <span style="font-family:monospace">00100</span> &mdash; a different bit flipped, still <b>one step</b> from <span style="font-family:monospace">00000</span>. And <span style="font-family:monospace">00100</span> and <span style="font-family:monospace">00001</span> are <b>two steps</b> apart.</p>
+
+    <p class="frag hot g3" style="margin:0;font-size:21px;line-height:1.45">During transmission, every <b>bit error</b> is exactly this &mdash; <b>one step</b> along an edge of the grid.</p>
 
     <p class="frag hot n2" style="margin:0;font-size:21px;line-height:1.45">Suppose the sender wants to transmit a <b>two-bit</b> message &mdash; that is, one of <span style="font-family:monospace">00</span>, <span style="font-family:monospace">01</span>, <span style="font-family:monospace">10</span> or <span style="font-family:monospace">11</span>. Picture them as sitting at the <b>corners</b> of this grid.</p>
 
@@ -2908,6 +2914,8 @@ svg text{font-family:var(--sans)}
 <text x="330" y="206" text-anchor="middle" font-size="14" font-family="monospace" font-weight="700" fill="var(--accent)">00000</text>
 <text x="380" y="162" text-anchor="middle" font-size="14" font-family="monospace" font-weight="700" fill="var(--accent)">00001</text>
 <text x="380" y="324" text-anchor="middle" font-size="13" font-weight="700" fill="var(--muted)">adjacent &mdash; one bit differs</text>
+<g class="eUp"><line x1="330" y1="180" x2="330" y2="125" stroke="var(--accent)" stroke-width="2.6"/><circle cx="330" cy="125" r="7" fill="var(--accent)"/><text x="316" y="130" text-anchor="end" font-size="14" font-family="monospace" font-weight="700" fill="var(--accent)">00100</text><path d="M340,131 Q394,145 386,170" fill="none" stroke="#cf5c36" stroke-width="2" stroke-dasharray="5,4"/><text x="430" y="146" text-anchor="start" font-size="13" font-weight="700" fill="#cf5c36">2 steps apart</text></g>
+<g class="eErr"><path d="M342,180 L368,180" fill="none" stroke="#cf5c36" stroke-width="3" marker-end="url(#zg2)"/><text x="380" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#cf5c36">one bit error = one step</text></g>
 </g>
 <g class="eL">
 <line x1="90" y1="110" x2="250" y2="110" stroke="currentColor" stroke-width="1.6" opacity="0.35"/>
