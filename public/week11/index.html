@@ -441,6 +441,8 @@
     .hot-card { opacity: 0.45; transition: opacity .35s ease; }
     .hot-card.is-active { opacity: 1; }
     .hot-card.is-hidden { opacity: 0.45 !important; visibility: visible !important; pointer-events: auto !important; }
+    .rtt-sample-card.is-hidden > p { display: none; }
+    .rtt-sample-card.is-hidden > strong { margin-bottom: 0 !important; }
     .seq-action-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .seq-action-slide .stateful.is-active { opacity: 1; }
     .tcp-sender-slide .stateful { opacity: 0; transition: opacity .4s ease; }
@@ -3128,20 +3130,20 @@
           <h2>TCP RTT estimation</h2>
         </header>
 
-        <div style="display:grid;grid-template-columns:3fr 2fr;gap:18px;align-items:start;flex:1">
+        <div style="display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:18px;align-items:start;flex:1">
 
           <!-- Left: formula cards -->
-          <div style="display:grid;gap:8px;align-content:start">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-content:start;min-width:0">
 
-            <!-- SampleRTT card: 3 inner frags -->
-            <div class="frag hot-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <!-- SampleRTT card: 3 inner frags; collapses to its title once EstimatedRTT starts -->
+            <div class="frag hot-card rtt-sample-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">SampleRTT</strong>
               <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">EstimatedRTT is derived by taking many individual RTT samples.</p>
               <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Each sample is measured from when a segment is transmitted until its ACK is received.</p>
               <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Retransmitted segments are <strong>excluded</strong>: the ACK could be for the original send or the retransmit — the sender cannot tell, so the measurement would be unreliable.</p>
             </div>
 
-            <!-- EstimatedRTT card: question at step 4, answer at step 5, formula at step 6, unrolled EWMA at step 7 -->
+            <!-- EstimatedRTT card: question at step 4, answer at step 5, formula at step 6, unrolled EWMA at step 7, EWMA naming at step 8 -->
             <div class="frag hot-card stateful" data-step="4" data-active-at="4" style="padding:10px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">EstimatedRTT — exponential weighted moving average</strong>
               <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">SampleRTT varies noticeably from measurement to measurement. So how does TCP smooth out these variations and derive EstimatedRTT from the samples?</p>
@@ -3153,16 +3155,17 @@
                 <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Typical value: <strong>α = 0.125</strong>. Unrolling this one step at a time:</p>
               </div>
               <div class="frag inner-line" data-step="7" style="margin:3px 0 0">
-                <div style="padding:5px 10px;background:color-mix(in srgb,var(--ink) 4%,var(--surface));border-radius:6px;font-family:var(--mono);font-size:17px;color:var(--ink);line-height:1.8;white-space:nowrap;overflow-x:auto">
+                <div style="padding:5px 10px;background:color-mix(in srgb,var(--ink) 4%,var(--surface));border-radius:6px;font-family:var(--mono);font-size:17px;color:var(--ink);line-height:1.6">
                   EstimatedRTT = α·Sample<sub>n</sub> + α(1−α)·Sample<sub>n−1</sub> + α(1−α)<sup>2</sup>·Sample<sub>n−2</sub> + …
                 </div>
                 <p style="margin:3px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Each step further back adds another factor of (1−α) = 0.875 — so older samples count exponentially less.</p>
               </div>
+              <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">This is why it is known as an <strong>exponential weighted moving average</strong>: it smooths out SampleRTT to produce EstimatedRTT.</p>
             </div>
 
           </div>
 
-          <!-- Right: chart appears at step 4; EstimatedRTT line/legend revealed at step 7 -->
+          <!-- Right: chart appears at step 4; EstimatedRTT line/legend revealed at step 8 -->
           <div class="frag" data-step="4" style="align-self:center">
             <svg viewBox="0 0 320 220" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
               <!-- Axis lines -->
@@ -3191,7 +3194,7 @@
               <line x1="50" y1="28" x2="70" y2="28" stroke="var(--teal,#0e7490)" stroke-width="1.5" opacity="0.7"/>
               <text x="74" y="32" font-size="13.5" fill="var(--ink)" font-family="var(--mono,monospace)">SampleRTT</text>
               <!-- EstimatedRTT line + legend: hidden until step 6 -->
-              <g class="frag inner-line" data-step="7">
+              <g class="frag inner-line" data-step="8">
                 <polyline points="45.0,155.0 54.0,153.5 62.9,145.9 71.9,143.6 80.9,144.5 89.8,143.7 98.8,143.7 107.8,144.5 116.7,143.0 125.7,142.7 134.7,141.9 143.6,142.4 152.6,140.1 161.6,138.6 170.5,137.8 179.5,135.9 188.4,133.5 197.4,130.5 206.4,117.4 215.3,114.7 224.3,115.2 233.3,111.5 242.2,110.9 251.2,112.9 260.2,112.9 269.1,113.7 278.1,113.7 287.1,116.1 296.0,110.6 305.0,110.1" fill="none" stroke="var(--amber,#d4920b)" stroke-width="2.5"/>
                 <line x1="148" y1="28" x2="168" y2="28" stroke="var(--amber,#d4920b)" stroke-width="2.5"/>
                 <text x="172" y="32" font-size="13.5" fill="var(--ink)" font-family="var(--mono,monospace)">EstimatedRTT</text>
@@ -3208,6 +3211,7 @@
         <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- Frame 29: TCP timeout interval -->
