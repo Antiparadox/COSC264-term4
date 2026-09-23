@@ -2273,7 +2273,7 @@
         <div class="mux-definition-grid">
           <article class="mux-panel frag stateful" data-step="1" data-active-at="1">
             <h3>Multiplexing</h3>
-            <p>The sender gathers data from the sockets of its application processes and passes transport units to the network layer.</p>
+            <p>The transport layer gathers data from the socket of every application process and passes it down to the network layer.</p>
             <div class="process-row"><span class="mini-process">P1<small>process 1</small></span><span class="mini-process">P2<small>process 2</small></span><span class="mini-process">P3<small>process 3</small></span></div>
             <div class="direction-arrows tiny"><span>↓</span><span>↓</span><span>↓</span></div>
             <div class="socket-row"><span class="mini-socket">socket</span><span class="mini-socket">socket</span><span class="mini-socket">socket</span></div>
@@ -2285,7 +2285,7 @@
 
           <article class="mux-panel demux frag stateful" data-step="2" data-active-at="2">
             <h3>Demultiplexing</h3>
-            <p>The receiver uses transport-header information to deliver data to the correct socket.</p>
+            <p>The transport layer receives data from the network layer and delivers each piece to the correct socket.</p>
             <div class="network-band">network layer</div>
             <div class="direction-arrows"><span></span><span>↓</span><span></span></div>
             <div class="transport-band">transport layer</div>
