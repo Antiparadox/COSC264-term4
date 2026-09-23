@@ -444,6 +444,10 @@
     .seq-action-slide .stateful.is-active { opacity: 1; }
     .tcp-sender-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .tcp-sender-slide .stateful.is-active { opacity: 1; }
+    .tcp-sender-hot { width: min(760px, 100%); margin: 6px auto 0; }
+    .tcp-sender-hot > .frag { display: none; }
+    .tcp-sender-hot > .frag.visible { display: block; }
+    .tcp-sender-hot > .frag.visible:has(~ .frag.visible) { display: none; }
     .fast-retransmit-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .fast-retransmit-slide .stateful.is-active { opacity: 1; }
     .motivation-note { margin: 18px 0 0; color: var(--faint); text-align: center; font: 700 13px/1.3 var(--mono); }
@@ -2827,14 +2831,16 @@
               <rect x="384" y="24" width="50" height="34" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 15%, var(--surface,#f4f6f7))" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <rect x="438" y="24" width="50" height="34" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 15%, var(--surface,#f4f6f7))" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <rect x="492" y="24" width="50" height="34" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 15%, var(--surface,#f4f6f7))" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
-              <!-- MSS brace under one segment -->
-              <path d="M168,64 L168,70 L218,70 L218,64" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="1"/>
-              <text x="193" y="82" text-anchor="middle" font-size="10" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">MSS</text>
               <!-- ellipsis for more -->
               <text x="560" y="46" text-anchor="middle" font-size="16" fill="var(--muted,#6b7f8e)">...</text>
             </g>
 
-            <!-- step 2: seq numbers + color coding + window bracket -->
+            <!-- MSS brace under one segment; gives way to the send window -->
+            <g class="stateful" data-active-at="1" data-hide-after="2">
+              <path d="M168,64 L168,70 L218,70 L218,64" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="1"/>
+              <text x="193" y="82" text-anchor="middle" font-size="10" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">MSS</text>
+            </g>
+            <!-- step 2: seq numbers, counting on from ISN 1000 -->
             <g class="stateful" data-active-at="2">
               <!-- seq numbers above segments -->
               <text x="85"  y="20" text-anchor="middle" font-size="8" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">1001</text>
@@ -2846,7 +2852,14 @@
               <text x="409" y="20" text-anchor="middle" font-size="8" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">7001</text>
               <text x="463" y="20" text-anchor="middle" font-size="8" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">8001</text>
               <text x="517" y="20" text-anchor="middle" font-size="8" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">9001</text>
-
+            </g>
+            <!-- step 3: send window of 5 MSS = 5 segments (3001–7001) -->
+            <g class="stateful" data-active-at="3" data-hide-after="7">
+              <path d="M168,64 L168,72 L434,72 L434,64" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/>
+              <text x="301" y="86" text-anchor="middle" font-size="11" fill="var(--teal,#0f9687)" font-weight="600" font-family="var(--mono,monospace)">send window (5 MSS)</text>
+            </g>
+            <!-- step 4: base at 3001 (1001, 2001 already ACKed); everything in the window is sent -->
+            <g class="stateful" data-active-at="4">
               <!-- color overlays: ACK'd segments (first 2) -->
               <rect x="60"  y="24" width="50" height="34" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <rect x="114" y="24" width="50" height="34" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
@@ -2859,20 +2872,9 @@
               <rect x="276" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
               <rect x="330" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
               <rect x="384" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
-
-              <!-- usable (next 2) — green -->
-              <rect x="438" y="24" width="50" height="34" rx="3" fill="rgba(124,179,66,0.35)" stroke="#7cb342" stroke-width="1.5"/>
-              <rect x="492" y="24" width="50" height="34" rx="3" fill="rgba(124,179,66,0.35)" stroke="#7cb342" stroke-width="1.5"/>
-
             </g>
-            <!-- initial window brace — hides when ACK example sub-frag updates it -->
-            <g class="stateful" data-active-at="2" data-hide-after="5">
-              <path d="M168,64 L168,72 L542,72 L542,64" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/>
-              <text x="355" y="86" text-anchor="middle" font-size="11" fill="var(--teal,#0f9687)" font-weight="600" font-family="var(--mono,monospace)">send window</text>
-            </g>
-
-            <!-- step 3: timer icon + bracket on oldest unACK'd (3001); hides when ACK example sub-frag shifts it -->
-            <g class="stateful" data-active-at="3" data-hide-after="5">
+            <!-- step 5: timer on oldest unACK'd (3001); hides when the ACK example shifts it -->
+            <g class="stateful" data-active-at="5" data-hide-after="7">
               <text x="193" y="110" text-anchor="middle" font-size="28">&#x23F1;</text>
               <line x1="163" y1="96" x2="163" y2="60" stroke="var(--amber,#d4920b)" stroke-width="2"/>
               <line x1="159" y1="96" x2="167" y2="96" stroke="var(--amber,#d4920b)" stroke-width="2"/>
@@ -2880,8 +2882,11 @@
               <text x="155" y="80" text-anchor="end" font-size="9" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">timer</text>
             </g>
 
-            <!-- step 6: ACK 5001 example — 3001 and 4001 now ACKed, window slides, timer restarts on 5001 -->
-            <g class="stateful" data-active-at="6">
+            <!-- step 8: ACK 5001 example — 3001 and 4001 now ACKed, window slides to 5001–9001, 8001/9001 sent, timer restarts on 5001 -->
+            <g class="stateful" data-active-at="8">
+              <!-- 8001, 9001 enter the window and are sent -->
+              <rect x="438" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
+              <rect x="492" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
               <!-- 3001 now ACKed -->
               <rect x="168" y="24" width="50" height="34" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <text x="193" y="45" text-anchor="middle" font-size="8" font-weight="600" fill="#fff" font-family="var(--mono,monospace)">ACK'd</text>
@@ -2889,8 +2894,8 @@
               <rect x="222" y="24" width="50" height="34" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <text x="247" y="45" text-anchor="middle" font-size="8" font-weight="600" fill="#fff" font-family="var(--mono,monospace)">ACK'd</text>
               <!-- window brace shifts right to start at 5001 -->
-              <path d="M276,64 L276,72 L596,72 L596,64" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/>
-              <text x="436" y="86" text-anchor="middle" font-size="11" fill="var(--teal,#0f9687)" font-weight="600" font-family="var(--mono,monospace)">send window</text>
+              <path d="M276,64 L276,72 L542,72 L542,64" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/>
+              <text x="409" y="86" text-anchor="middle" font-size="11" fill="var(--teal,#0f9687)" font-weight="600" font-family="var(--mono,monospace)">send window (5 MSS)</text>
               <!-- timer bracket now on 5001 (new oldest unACKed) -->
               <line x1="271" y1="96" x2="271" y2="60" stroke="var(--amber,#d4920b)" stroke-width="2"/>
               <line x1="267" y1="96" x2="275" y2="96" stroke="var(--amber,#d4920b)" stroke-width="2"/>
@@ -2899,9 +2904,9 @@
               <text x="301" y="112" text-anchor="middle" font-size="28">&#x23F1;</text>
             </g>
 
-            <!-- step 7: retransmit highlight on 5001 (oldest unACKed after ACK 5001) -->
-            <g class="stateful" data-active-at="7">
-              <rect x="272" y="20" width="58" height="42" rx="5" fill="none" stroke="var(--amber,#d4920b)" stroke-width="2.5"/>
+            <!-- step 9: retransmit highlight on 5001 (oldest unACKed after ACK 5001) -->
+            <g class="stateful" data-active-at="9">
+              <rect x="272" y="22" width="58" height="40" rx="5" fill="none" stroke="var(--amber,#d4920b)" stroke-width="2.5"/>
               <text x="301" y="130" text-anchor="middle" font-size="10" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">retransmit</text>
               <text x="301" y="142" text-anchor="middle" font-size="9" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">only this one</text>
               <line x1="301" y1="120" x2="301" y2="62" stroke="var(--amber,#d4920b)" stroke-width="1.5" stroke-dasharray="4,3"/>
@@ -2909,43 +2914,36 @@
           </svg>
         </div>
 
-        <!-- event cards below the diagram, 3 columns -->
-        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;flex:1;align-items:start">
-          <!-- card 1: Data from application (3 sub-frags) -->
-          <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-            <strong style="font-family:var(--serif);font-size:17px;display:block;margin-bottom:5px">Data from application</strong>
-            <p style="margin:0;font-size:15px;line-height:1.45;color:var(--muted)">Divide the byte stream into segments, typically <strong>1 MSS</strong> bytes each.</p>
-            <p class="frag" data-step="2" style="margin:6px 0 0;font-size:15px;line-height:1.45;color:var(--muted)">Assign the next sequence number to each segment and transmit it if within the <strong>send window</strong>.<br><span style="font-size:13px;font-style:italic;color:var(--muted)">e.g. window base is seq&nbsp;3001; the first 5 segments (3001–7001) are transmitted.</span></p>
-            <p class="frag" data-step="3" style="margin:6px 0 0;font-size:15px;line-height:1.45;color:var(--muted)">Start <strong>one timer</strong> for the window if none is running.</p>
+        <!-- event cards: one hot slot, centred under the diagram; each card replaces the previous -->
+        <div class="tcp-sender-hot">
+          <!-- card 1: Data from application -->
+          <div class="frag" data-step="1" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Data from application</strong>
+            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Divide the byte stream into segments, typically <strong>1 MSS</strong> bytes each.</p>
+            <p class="frag" data-step="2" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Number each segment by its first byte, counting on from the <strong>initial sequence number (ISN)</strong> chosen in the handshake.<br><span style="font-size:15px;font-style:italic">e.g. ISN&nbsp;=&nbsp;1000, so the segments start at 1001, 2001, 3001, &hellip;</span></p>
+            <p class="frag" data-step="3" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">As in any pipelined RDT, the sender keeps a <strong>send window</strong>.<br><span style="font-size:15px;font-style:italic">e.g. a window of 5&nbsp;MSS, i.e. 5 segments.</span></p>
+            <p class="frag" data-step="4" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Say the window base is at seq&nbsp;3001. The sender may send anything within the window, so segments 3001&ndash;7001 go out.</p>
+            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Then start <strong>one timer</strong>, if none is running.</p>
           </div>
-          <!-- card 2: ACK received (1 frag) -->
-          <div class="teaching-point frag" data-step="4" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-            <strong style="font-family:var(--serif);font-size:17px;display:block;margin-bottom:5px">ACK received</strong>
-            <p style="margin:0;font-size:15px;line-height:1.45;color:var(--muted)">A cumulative ACK slides the window forward.</p>
-            <p class="frag" data-step="5" style="margin:7px 0 0;font-size:15px;line-height:1.45;color:var(--muted)">Restart the timer if unacknowledged data remains; stop it if everything is confirmed.</p>
-            <p class="frag" data-step="6" style="margin:8px 0 0;font-size:13px;line-height:1.4;color:var(--muted);font-style:italic">e.g. ACK&nbsp;5001 received &#x2192; segs&nbsp;3001 and&nbsp;4001 now ACKed; base advances, window slides, timer restarts on&nbsp;5001.</p>
+          <!-- card 2: ACK received -->
+          <div class="frag" data-step="6" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">ACK received</strong>
+            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">A cumulative ACK slides the window forward.</p>
+            <p class="frag" data-step="7" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Restart the timer if unacknowledged data remains; stop it if everything is confirmed.</p>
+            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">e.g. ACK&nbsp;5001 received &#x2192; segs&nbsp;3001 and&nbsp;4001 are ACKed; the window slides to 5001&ndash;9001, so 8001 and 9001 go out; the timer restarts on&nbsp;5001.</p>
           </div>
-          <!-- card 3: Timeout (2 sub-frags) -->
-          <div style="display:grid;gap:10px;align-content:start">
-            <div class="teaching-point frag" data-step="7" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <strong style="font-family:var(--serif);font-size:17px;display:block;margin-bottom:5px">Timeout</strong>
-              <p style="margin:0;font-size:15px;line-height:1.45;color:var(--muted)">Retransmit only the <strong>oldest unacknowledged segment</strong>, then restart the timer.</p>
-            </div>
-            <div class="frag" data-step="8" style="padding:10px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--amber) 8%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p style="margin:0;font-size:15px;line-height:1.45;color:var(--muted)"><strong style="color:var(--ink)">Different from Go-Back-N:</strong> GBN retransmits <em>every</em> in-flight packet in the window. TCP retransmits only <em>one</em>.</p>
-              <p style="margin:7px 0 0;font-size:13px;line-height:1.4;color:var(--muted);font-style:italic">e.g. in this example, GBN would retransmit segs&nbsp;5001, 6001, and&nbsp;7001; TCP retransmits only seg&nbsp;5001.</p>
-            </div>
+          <!-- card 3: Timeout -->
+          <div class="frag" data-step="9" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Timeout</strong>
+            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Retransmit only the <strong>oldest unacknowledged segment</strong>, then restart the timer.</p>
+          </div>
+          <!-- card 4: contrast with GBN -->
+          <div class="frag" data-step="10" style="padding:12px 20px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--amber) 8%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Different from Go-Back-N</strong>
+            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">GBN retransmits <em>every</em> in-flight packet in the window. TCP retransmits only <em>one</em>.</p>
+            <p style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">e.g. here GBN would retransmit all five segs, 5001&ndash;9001; TCP retransmits only seg&nbsp;5001.</p>
           </div>
         </div>
-        <!-- hidden frag triggers for steps 1-8 -->
-        <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <section class="slide fast-retransmit-slide" data-title="TCP fast retransmit" data-section="TCP">
