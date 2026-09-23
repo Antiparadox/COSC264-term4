@@ -2631,8 +2631,9 @@
         </div>
         <div class="frag" data-step="3" style="padding:16px 22px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);margin-bottom:14px">
           <strong style="font-family:var(--serif);font-size:19px;display:block;margin-bottom:5px">Pipelining and cumulative acknowledgments</strong>
-          <p style="margin:0;font-size:19px;line-height:1.45;color:var(--muted)">The TCP sender uses a <strong>window</strong> of segments in flight, and the TCP receiver uses <strong>cumulative ACKs</strong>.</p>
-          <p style="margin:8px 0 0;font-size:19px;line-height:1.45;color:var(--muted)">Unlike Go-Back-N — where the ACK names the last in-order segment received — TCP's ACK names the <strong>next byte expected</strong>.</p>
+          <p style="margin:0;font-size:19px;line-height:1.45;color:var(--muted)">The TCP sender uses a <strong>window</strong> of segments in flight, for <strong>pipelining</strong>.</p>
+          <p style="margin:8px 0 0;font-size:19px;line-height:1.45;color:var(--muted)">The TCP receiver <strong>keeps a buffer</strong>, as in Selective Repeat, and acknowledges with <strong>cumulative ACKs</strong>, as in Go-Back-N.</p>
+          <p style="margin:8px 0 0;font-size:19px;line-height:1.45;color:var(--muted)">But unlike Go-Back-N — where the ACK names the last in-order segment received — TCP's ACK names the <strong>next byte expected</strong>.</p>
         </div>
         <div class="frag" data-step="4" style="padding:16px 22px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06)">
           <strong style="font-family:var(--serif);font-size:19px;display:block;margin-bottom:5px">Loss recovery</strong>
