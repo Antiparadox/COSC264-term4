@@ -2968,7 +2968,8 @@ svg text{font-family:var(--sans)}
     </div>
     <p class="frag f1" style="margin:0;font-size:19px;line-height:1.55">Sometimes the sender&rsquo;s window and the receiver&rsquo;s window <b>drift apart</b>.</p>
     <p class="frag f2" style="margin:0;font-size:19px;line-height:1.55">Suppose they start aligned: with a window of <b>3</b>, <span style="font-family:var(--mono)">send_base</span> and <span style="font-family:var(--mono)">rcv_base</span> point at the same packet.</p>
-    <p class="frag f3" style="margin:0;font-size:19px;line-height:1.55">Packets 0, 1 and 2 all arrive, but the <b>ACK for packet 0 is lost</b>. The receiver delivers all three and advances <span style="font-family:var(--mono)">rcv_base</span> to <b>3</b>; <span style="font-family:var(--mono)">send_base</span> does not move.</p>
+    <p class="frag f3" style="margin:0;font-size:19px;line-height:1.55">Packets 0, 1 and 2 all arrive. The receiver sends a <b>selective ACK</b> for each, delivers all three, and advances <span style="font-family:var(--mono)">rcv_base</span> to <b>3</b>.</p>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.55">But the <b>ACK for packet 0 is lost</b>. So <span style="font-family:var(--mono)">send_base</span> is stuck where it was &mdash; it does not move.</p>
     <p class="frag f4" style="margin:0;font-size:19px;line-height:1.55">The two windows have <b>drifted</b>.</p>
   </div>
 </section>
