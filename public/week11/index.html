@@ -444,7 +444,7 @@
     .seq-action-slide .stateful.is-active { opacity: 1; }
     .tcp-sender-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .tcp-sender-slide .stateful.is-active { opacity: 1; }
-    .tcp-sender-hot { width: min(760px, 100%); margin: 6px auto 0; }
+    .tcp-sender-hot { width: min(880px, 100%); margin: 6px auto 0; }
     .tcp-sender-hot > .frag { display: none; }
     .tcp-sender-hot > .frag.visible { display: block; }
     .tcp-sender-hot > .frag.visible:has(~ .frag.visible) { display: none; }
@@ -2920,9 +2920,9 @@
           <div class="frag" data-step="1" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Data from application</strong>
             <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Divide the byte stream into segments, typically <strong>1 MSS</strong> bytes each.</p>
-            <p class="frag" data-step="2" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Number each segment by its first byte, counting on from the <strong>initial sequence number (ISN)</strong> chosen in the handshake.<br><span style="font-size:15px;font-style:italic">e.g. ISN&nbsp;=&nbsp;1000, so the segments start at 1001, 2001, 3001, &hellip;</span></p>
+            <p class="frag" data-step="2" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Number each segment by its first byte, counting on from the <strong>initial sequence number (ISN)</strong> chosen in the handshake.<br><span style="font-size:15px;font-style:italic">e.g. ISN&nbsp;=&nbsp;1000 and 1&nbsp;MSS&nbsp;=&nbsp;1000 bytes, so the segments start at 1001, 2001, 3001, &hellip;</span></p>
             <p class="frag" data-step="3" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">As in any pipelined RDT, the sender keeps a <strong>send window</strong>.<br><span style="font-size:15px;font-style:italic">e.g. a window of 5&nbsp;MSS, i.e. 5 segments.</span></p>
-            <p class="frag" data-step="4" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Say the window base is at seq&nbsp;3001. The sender may send anything within the window, so segments 3001&ndash;7001 go out.</p>
+            <p class="frag" data-step="4" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Suppose the first two segments have already been acknowledged, so the window base starts at the third segment, seq&nbsp;3001. The sender may send anything within the window, so segments 3001&ndash;7001 go out.</p>
             <p class="frag" data-step="5" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Then start <strong>one timer</strong>, if none is running.</p>
           </div>
           <!-- card 2: ACK received -->
