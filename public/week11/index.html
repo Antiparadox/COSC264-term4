@@ -2949,12 +2949,8 @@
           <div class="frag" data-step="12" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Timeout</strong>
             <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Retransmit only the <strong>oldest unacknowledged segment</strong>, then restart the timer.</p>
-          </div>
-          <!-- card 4: contrast with GBN -->
-          <div class="frag" data-step="13" style="padding:12px 20px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--amber) 8%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Different from Go-Back-N</strong>
-            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">GBN retransmits <em>every</em> in-flight packet in the window. TCP retransmits only <em>one</em>.</p>
-            <p style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">e.g. here GBN would retransmit all five segs, 5001&ndash;9001; TCP retransmits only seg&nbsp;5001.</p>
+            <p class="frag" data-step="13" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">This is different from <strong>Go-Back-N</strong>. Recall that in GBN, the sender retransmits <em>every</em> in-flight packet in the window; TCP retransmits only <em>one</em>.</p>
+            <p class="frag" data-step="14" style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">e.g. here GBN would retransmit all five segs, 5001&ndash;9001; TCP retransmits only seg&nbsp;5001.</p>
           </div>
         </div>
       </section>
