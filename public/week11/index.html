@@ -2854,7 +2854,7 @@
               <text x="517" y="20" text-anchor="middle" font-size="8" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">9001</text>
             </g>
             <!-- step 3: send window of 5 MSS = 5 segments (3001–7001) -->
-            <g class="stateful" data-active-at="3" data-hide-after="7">
+            <g class="stateful" data-active-at="3" data-hide-after="9">
               <path d="M168,64 L168,72 L434,72 L434,64" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/>
               <text x="301" y="86" text-anchor="middle" font-size="11" fill="var(--teal,#0f9687)" font-weight="600" font-family="var(--mono,monospace)">send window (5 MSS)</text>
             </g>
@@ -2874,7 +2874,7 @@
               <rect x="384" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
             </g>
             <!-- step 5: timer on oldest unACK'd (3001); hides when the ACK example shifts it -->
-            <g class="stateful" data-active-at="5" data-hide-after="7">
+            <g class="stateful" data-active-at="5" data-hide-after="10">
               <text x="193" y="110" text-anchor="middle" font-size="28">&#x23F1;</text>
               <line x1="163" y1="96" x2="163" y2="60" stroke="var(--amber,#d4920b)" stroke-width="2"/>
               <line x1="159" y1="96" x2="167" y2="96" stroke="var(--amber,#d4920b)" stroke-width="2"/>
@@ -2882,30 +2882,40 @@
               <text x="155" y="80" text-anchor="end" font-size="9" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">timer</text>
             </g>
 
-            <!-- step 8: ACK 5001 example — 3001 and 4001 now ACKed, window slides to 5001–9001, 8001/9001 sent, timer restarts on 5001 -->
-            <g class="stateful" data-active-at="8">
-              <!-- 8001, 9001 enter the window and are sent -->
-              <rect x="438" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
-              <rect x="492" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
-              <!-- 3001 now ACKed -->
+            <!-- step 8: ACK 5001 arrives — receiver expects the segment starting at 5001 -->
+            <g class="stateful" data-active-at="8" data-hide-after="8">
+              <rect x="273" y="22" width="56" height="38" rx="5" fill="none" stroke="var(--teal,#0f9687)" stroke-width="2" stroke-dasharray="4,3"/>
+              <text x="301" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">ACK 5001: expecting 5001</text>
+            </g>
+            <!-- step 9: cumulative ACK — 3001 and 4001 now ACKed -->
+            <g class="stateful" data-active-at="9">
+<!-- 3001 now ACKed -->
               <rect x="168" y="24" width="50" height="34" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <text x="193" y="45" text-anchor="middle" font-size="8" font-weight="600" fill="#fff" font-family="var(--mono,monospace)">ACK'd</text>
               <!-- 4001 now ACKed -->
               <rect x="222" y="24" width="50" height="34" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <text x="247" y="45" text-anchor="middle" font-size="8" font-weight="600" fill="#fff" font-family="var(--mono,monospace)">ACK'd</text>
-              <!-- window brace shifts right to start at 5001 -->
+            </g>
+            <!-- step 10: window base moves to 5001; window covers 5001–9001 -->
+            <g class="stateful" data-active-at="10">
+<!-- window brace shifts right to start at 5001 -->
               <path d="M276,64 L276,72 L542,72 L542,64" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/>
               <text x="409" y="86" text-anchor="middle" font-size="11" fill="var(--teal,#0f9687)" font-weight="600" font-family="var(--mono,monospace)">send window (5 MSS)</text>
-              <!-- timer bracket now on 5001 (new oldest unACKed) -->
+            </g>
+            <!-- step 11: 8001, 9001 go out; timer restarts on 5001 -->
+            <g class="stateful" data-active-at="11">
+<!-- 8001, 9001 enter the window and are sent -->
+              <rect x="438" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
+              <rect x="492" y="24" width="50" height="34" rx="3" fill="rgba(128,128,128,0.3)" stroke="var(--muted,#6b7f8e)" stroke-width="1.5"/>
+<!-- timer bracket now on 5001 (new oldest unACKed) -->
               <line x1="271" y1="96" x2="271" y2="60" stroke="var(--amber,#d4920b)" stroke-width="2"/>
               <line x1="267" y1="96" x2="275" y2="96" stroke="var(--amber,#d4920b)" stroke-width="2"/>
               <line x1="267" y1="60" x2="275" y2="60" stroke="var(--amber,#d4920b)" stroke-width="2"/>
               <text x="263" y="80" text-anchor="end" font-size="9" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">timer</text>
               <text x="301" y="112" text-anchor="middle" font-size="28">&#x23F1;</text>
             </g>
-
-            <!-- step 9: retransmit highlight on 5001 (oldest unACKed after ACK 5001) -->
-            <g class="stateful" data-active-at="9">
+            <!-- step 12: retransmit highlight on 5001 (oldest unACKed after ACK 5001) -->
+            <g class="stateful" data-active-at="12">
               <rect x="272" y="22" width="58" height="40" rx="5" fill="none" stroke="var(--amber,#d4920b)" stroke-width="2.5"/>
               <text x="301" y="130" text-anchor="middle" font-size="10" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">retransmit</text>
               <text x="301" y="142" text-anchor="middle" font-size="9" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">only this one</text>
@@ -2930,15 +2940,18 @@
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">ACK received</strong>
             <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">A cumulative ACK slides the window forward.</p>
             <p class="frag" data-step="7" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Restart the timer if unacknowledged data remains; stop it if everything is confirmed.</p>
-            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">e.g. ACK&nbsp;5001 received &#x2192; segs&nbsp;3001 and&nbsp;4001 are ACKed; the window slides to 5001&ndash;9001, so 8001 and 9001 go out; the timer restarts on&nbsp;5001.</p>
+            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">e.g. the sender receives ACK&nbsp;5001: the receiver is expecting the segment starting at&nbsp;5001.</p>
+            <p class="frag" data-step="9" style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">Since ACKs are cumulative, segs&nbsp;3001 and&nbsp;4001 are both acknowledged.</p>
+            <p class="frag" data-step="10" style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">So the window base moves to 5001, and the window now covers 5001&ndash;9001.</p>
+            <p class="frag" data-step="11" style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">Segs&nbsp;8001 and&nbsp;9001 can now go out, and the timer restarts on&nbsp;5001.</p>
           </div>
           <!-- card 3: Timeout -->
-          <div class="frag" data-step="9" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+          <div class="frag" data-step="12" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Timeout</strong>
             <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Retransmit only the <strong>oldest unacknowledged segment</strong>, then restart the timer.</p>
           </div>
           <!-- card 4: contrast with GBN -->
-          <div class="frag" data-step="10" style="padding:12px 20px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--amber) 8%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+          <div class="frag" data-step="13" style="padding:12px 20px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--amber) 8%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Different from Go-Back-N</strong>
             <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">GBN retransmits <em>every</em> in-flight packet in the window. TCP retransmits only <em>one</em>.</p>
             <p style="margin:6px 0 0;font-size:15px;line-height:1.4;color:var(--muted);font-style:italic">e.g. here GBN would retransmit all five segs, 5001&ndash;9001; TCP retransmits only seg&nbsp;5001.</p>
