@@ -2246,7 +2246,7 @@
         </header>
         <div class="motivation-layout">
           <div class="motivation-copy">
-            <p class="motivation-callout motivation-problem frag" data-step="1">The network layer delivers data only to the host, so it cannot tell which socket the data belongs to.</p>
+            <p class="motivation-callout motivation-problem frag" data-step="1">The network layer &mdash; <strong>IP</strong> &mdash; only ever looks at <strong>IP addresses</strong>. To it a host is a single object at a single address, not a collection of sockets, so it cannot tell which socket any piece of data belongs to.</p>
             <p class="motivation-callout motivation-answer frag" data-step="2">The transport layer coordinates this traffic in both directions so each socket gets exactly its own data. This is known as <strong>multiplexing/demultiplexing</strong>.</p>
           </div>
           <div class="motivation-scene" aria-label="Three application processes enclosed within one host above the network layer">
