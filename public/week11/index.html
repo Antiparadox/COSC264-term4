@@ -3225,7 +3225,7 @@
 
           <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">You might be tempted to simply set the timeout interval to EstimatedRTT.</p>
-            <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In practice, this is not conservative enough: EstimatedRTT takes time to adapt to the real RTT.</p>
+            <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In practice, this turns out to be too aggressive: due to exponential averaging, EstimatedRTT takes some time to adapt to the real-time RTT.</p>
             <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">So when the real RTT suddenly spikes &mdash; say the network becomes congested &mdash; EstimatedRTT has not caught up yet, and the timer fires too early.</p>
             <p class="frag inner-line" data-step="4" style="margin:6px 0 0;font-size:17px;line-height:1.45;color:var(--ink);font-weight:600">We therefore need a <strong>safety margin</strong> for RTT variability. How do we choose it?</p>
           </div>
