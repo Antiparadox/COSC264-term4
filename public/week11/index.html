@@ -3563,6 +3563,89 @@
         <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
+      <!-- Zero-window corner case: the stall, and the 1-byte probe that fixes it -->
+      <section class="slide" data-title="A corner case: the zero window" data-section="Flow control">
+        <header class="content-header">
+          <p class="kicker">Flow control · corner case</p>
+          <h2>A corner case: the zero window</h2>
+        </header>
+
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 680px;gap:24px;align-items:start;flex:1">
+
+          <!-- Left: problem card (dims once the solution starts), then solution card -->
+          <div style="display:grid;gap:10px;align-content:start">
+            <div class="frag hot-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The problem</strong>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Suppose B&rsquo;s receive buffer fills up, so B advertises <strong>RcvWindow = 0</strong>. A must stop sending.</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Later, B&rsquo;s application reads the buffered data. The buffer empties, so B&rsquo;s window is open again: RcvWindow &gt; 0.</p>
+              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">But B only reports its window on segments it sends. If B has no data to send to A, A is never informed &mdash; and the connection <strong>stalls</strong>.</p>
+            </div>
+            <div class="frag hot-card stateful" data-step="4" data-active-at="4" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The solution</strong>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">While RcvWindow = 0, A keeps sending tiny segments carrying just <strong>1 byte</strong> of data.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">B must acknowledge each one, and every ACK carries B&rsquo;s current RcvWindow &mdash; so as soon as space frees up, A learns it and resumes sending.</p>
+            </div>
+          </div>
+
+          <!-- Right: A–B timeline, synchronised with the beats -->
+          <div style="align-self:start">
+            <svg viewBox="0 0 680 470" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block" aria-label="Zero receive window: the stall and the 1-byte probe">
+              <defs>
+                <marker id="zw-arr-t" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--teal,#0f9687)"/></marker>
+                <marker id="zw-arr-a" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="var(--amber,#d4920b)"/></marker>
+              </defs>
+
+              <!-- hosts and timelines (always visible) -->
+              <text x="210" y="22" text-anchor="middle" font-size="21" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">Host A</text>
+              <text x="490" y="22" text-anchor="middle" font-size="21" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">Host B</text>
+              <line x1="210" y1="34" x2="210" y2="466" stroke="var(--muted,#6b7f8e)" stroke-width="1.2"/>
+              <line x1="490" y1="34" x2="490" y2="466" stroke="var(--muted,#6b7f8e)" stroke-width="1.2"/>
+
+              <!-- step 1: B advertises a zero window; A stops -->
+              <g class="frag inner-line" data-step="1">
+                <line x1="490" y1="70" x2="216" y2="130" stroke="var(--amber,#d4920b)" stroke-width="2.2" marker-end="url(#zw-arr-a)"/>
+                <rect x="270" y="78" width="160" height="26" rx="5" fill="var(--bg,#eef1f4)"/><text x="350" y="96" text-anchor="middle" font-size="19" font-weight="600" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">RcvWindow = 0</text>
+                <text x="196" y="156" text-anchor="end" font-size="19" font-weight="600" fill="var(--muted,#6b7f8e)" font-family="var(--sans,sans-serif)">A stops sending</text>
+              </g>
+
+              <!-- step 2: B's application drains the buffer -->
+              <g class="frag inner-line" data-step="2">
+                <circle cx="490" cy="186" r="5" fill="var(--teal,#0f9687)"/>
+                <text x="504" y="192" text-anchor="start" font-size="19" font-weight="600" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">buffer emptied,</text><text x="504" y="215" text-anchor="start" font-size="19" font-weight="600" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">RcvWindow &gt; 0</text>
+              </g>
+
+              <!-- step 3: nobody tells A — stall (gone once the probe arrives) -->
+              <g class="frag inner-line stateful" data-step="3" data-active-at="3" data-hide-after="3">
+                <line x1="202" y1="140" x2="202" y2="300" stroke="var(--red,#c0392b)" stroke-width="2" stroke-dasharray="5,4"/>
+                <text x="190" y="236" text-anchor="end" font-size="19" font-weight="700" fill="var(--red,#c0392b)" font-family="var(--sans,sans-serif)">no way to learn</text><text x="190" y="259" text-anchor="end" font-size="19" font-weight="700" fill="var(--red,#c0392b)" font-family="var(--sans,sans-serif)">the new window</text><text x="190" y="282" text-anchor="end" font-size="19" font-weight="700" fill="var(--red,#c0392b)" font-family="var(--sans,sans-serif)">if B has no data</text><text x="190" y="305" text-anchor="end" font-size="19" font-weight="700" fill="var(--red,#c0392b)" font-family="var(--sans,sans-serif)">to send to A!</text>
+              </g>
+
+              <!-- step 4: A keeps sending 1-byte segments -->
+              <g class="frag inner-line" data-step="4">
+                <line x1="210" y1="318" x2="484" y2="368" stroke="var(--teal,#0f9687)" stroke-width="2.2" marker-end="url(#zw-arr-t)"/>
+                <rect x="281" y="320" width="137" height="26" rx="5" fill="var(--bg,#eef1f4)"/><text x="350" y="338" text-anchor="middle" font-size="19" font-weight="600" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">1 byte data</text>
+                <text x="196" y="324" text-anchor="end" font-size="19" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">probe</text>
+              </g>
+
+              <!-- step 5: the ACK carries the current window; A resumes -->
+              <g class="frag inner-line" data-step="5">
+                <line x1="490" y1="384" x2="216" y2="444" stroke="var(--amber,#d4920b)" stroke-width="2.2" marker-end="url(#zw-arr-a)"/>
+                <rect x="224" y="394" width="251" height="26" rx="5" fill="var(--bg,#eef1f4)"/><text x="350" y="412" text-anchor="middle" font-size="19" font-weight="600" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">ACK, RcvWindow = 8194</text>
+                <text x="196" y="452" text-anchor="end" font-size="19" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">A resumes</text>
+              </g>
+
+            </svg>
+          </div>
+
+        </div>
+
+        <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+      </section>
+
       <!-- ── Frame 35: Approaches to congestion control ── -->
       <section class="slide" data-title="Approaches to congestion control" data-section="Congestion control">
         <header class="content-header">
