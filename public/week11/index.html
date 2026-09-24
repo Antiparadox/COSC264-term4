@@ -3290,17 +3290,19 @@
               <!-- Card 1: Flow control (steps 3–6) -->
               <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Flow control</strong>
-                <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Where is the first bottleneck? In Selective Repeat, we assumed the application consumes data as soon as it arrives.</p>
+                <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">In our previous discussions, we always assumed that the application consumes data as soon as it arrives at the receiver.</p>
                 <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In reality, the application may read slowly, so the receiver must hold incoming data and feed it to the application gradually. This is why the receiver maintains a <strong>receive buffer</strong>.</p>
                 <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">This buffer has a limited size: if the sender transmits too fast, it overflows and segments are lost.</p>
                 <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Flow control prevents this by matching the sender&rsquo;s transmission rate to the speed at which the receiver&rsquo;s application reads, so the buffer does not overflow.</p>
               </div>
 
-              <!-- Card 2: Congestion control (steps 7–8); replaces the flow-control card -->
+              <!-- Card 2: Congestion control (steps 7–10); replaces the flow-control card -->
               <div class="frag" data-step="7" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Congestion control</strong>
-                <p class="frag inner-line" data-step="7" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Segments travel through shared routers, each with finite buffers — if too many senders transmit simultaneously, router buffers fill up and segments are dropped.</p>
-                <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Congestion control limits each sender&rsquo;s rate to prevent this network overload.</p>
+                <p class="frag inner-line" data-step="7" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">We have already seen that datagrams travel through the Internet across a series of routers.</p>
+                <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">A router takes time to process each incoming datagram and cannot always forward it immediately, so it keeps a <strong>router buffer</strong>.</p>
+                <p class="frag inner-line" data-step="9" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">If too many senders transmit simultaneously, the buffer of some router along the route fills up and segments are dropped: the network is <strong>congested</strong>.</p>
+                <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Congestion control prevents this by limiting each sender&rsquo;s rate to match what the network can carry.</p>
               </div>
             </div>
 
@@ -3331,9 +3333,9 @@
 
               <!-- Router circle -->
               <circle cx="140" cy="90" r="30" fill="color-mix(in srgb,var(--ink) 4%,var(--surface,#fff))" stroke="var(--muted,#6b7f8e)" stroke-width="1.2"/>
-              <text class="stateful" data-hide-after="6" x="140" y="94" text-anchor="middle" font-size="10.5" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">Router</text>
-              <!-- Router label moves up and its buffer appears with the congestion-control card (step 7) -->
-              <g class="frag inner-line" data-step="7">
+              <text class="stateful" data-hide-after="7" x="140" y="94" text-anchor="middle" font-size="10.5" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">Router</text>
+              <!-- Router label moves up and its buffer appears when the card introduces it (step 8) -->
+              <g class="frag inner-line" data-step="8">
                 <text x="140" y="86" text-anchor="middle" font-size="10.5" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">Router</text>
                 <rect x="126" y="93" width="28" height="18" rx="2" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="0.8"/>
                 <rect x="127" y="102" width="26" height="8" rx="1" fill="var(--muted,#6b7f8e)" opacity="0.3"/>
@@ -3361,8 +3363,8 @@
                 <text x="246" y="156" text-anchor="middle" font-size="10.5" fill="var(--ink,#0d1b2a)" font-family="var(--mono,monospace)">receive buffer</text>
               </g>
 
-              <!-- Congestion control annotation: amber ring + label (step 7+) -->
-              <g class="frag inner-line" data-step="7">
+              <!-- Congestion control annotation: amber ring + label (step 8+) -->
+              <g class="frag inner-line" data-step="8">
                 <circle cx="140" cy="90" r="36" fill="none" stroke="var(--amber,#d4920b)" stroke-width="2.5"/>
                 <line x1="140" y1="141" x2="140" y2="128" stroke="var(--amber,#d4920b)" stroke-width="1.5" marker-end="url(#fc-amber)"/>
                 <rect x="108" y="142" width="64" height="20" rx="5" fill="color-mix(in srgb,var(--amber,#d4920b) 12%,var(--surface,#fff))" stroke="var(--amber,#d4920b)" stroke-width="1"/>
@@ -3382,6 +3384,8 @@
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="9" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="10" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- Frame 32: TCP flow control — the receive window -->
