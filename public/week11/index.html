@@ -3404,9 +3404,10 @@
             <div class="frag hot-card stateful" data-step="1" data-active-at="1" style="padding:9px 14px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:4px">The receive buffer and floating window</strong>
               <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The receiver allocates a fixed-size receive buffer (<strong>RcvBuffer</strong>) for the connection. Incoming data sits there until the application reads it.</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In Selective Repeat, we assume the application consumes data as fast as it arrives — the buffer is always fully available, so <strong>receiver window = buffer size</strong>, always.</p>
-              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In TCP, the application reads at its own pace — so the buffer may contain unread data that reduces available space. We can identify that unread portion as [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
-              <div class="frag inner-line" data-step="3" style="margin:5px 0 0;padding:5px 12px;background:color-mix(in srgb,var(--ink) 5%,var(--surface));border-radius:7px">
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Recall that in RDT, the <strong>receiver window</strong> is the range of packets the receiver is willing to buffer.</p>
+              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In our previous discussions, we assumed the application consumes data as soon as it arrives. The buffer was therefore always fully available to receive, so we always set <strong>receiver window = buffer size</strong>.</p>
+              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In TCP, the application reads at its own pace — so the buffer may contain unread data that reduces available space. We can identify that unread portion as [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
+              <div class="frag inner-line" data-step="4" style="margin:5px 0 0;padding:5px 12px;background:color-mix(in srgb,var(--ink) 5%,var(--surface));border-radius:7px">
                 <span style="font-family:var(--mono);font-size:17px;color:var(--ink)">RcvWindow = RcvBuffer − [LastByteRcvd − LastByteRead]</span>
               </div>
             </div>
@@ -3414,7 +3415,7 @@
           </div>
 
           <!-- Right: single buffer diagram that evolves + mini TCP header -->
-          <div style="align-self:center;display:grid;gap:8px">
+          <div style="align-self:start;margin-top:4px;display:grid;gap:8px">
             <svg viewBox="0 0 240 112" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
               <defs>
                 <marker id="buf-in" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
@@ -3443,7 +3444,7 @@
               </g>
 
               <!-- STEP 2: SR content — appears on top of persistent fill, hides at step 3 -->
-              <g class="frag inner-line stateful" data-step="2" data-active-at="2" data-hide-after="2">
+              <g class="frag inner-line stateful" data-step="3" data-active-at="3" data-hide-after="3">
                 <text x="120" y="44" text-anchor="middle" font-size="9" fill="var(--teal,#0e7490)" font-family="var(--mono,monospace)">room to receive</text>
                 <!-- Underbrace spanning full buffer -->
                 <line x1="32" y1="66" x2="208" y2="66" stroke="var(--teal,#0e7490)" stroke-width="1.2"/>
@@ -3452,12 +3453,12 @@
                 <text x="120" y="77" text-anchor="middle" font-size="9" fill="var(--teal,#0e7490)" font-family="var(--mono,monospace)">receiver window = buffer size</text>
                 <!-- LastByteRead = LastByteRcvd indicator with pointed arrow -->
                 <line x1="30" y1="59" x2="30" y2="87" stroke="var(--muted,#6b7f8e)" stroke-width="0.8" marker-end="url(#tick-dn)"/>
-                <text x="30" y="98" text-anchor="middle" font-size="9" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">LastByteRead</text>
-                <text x="30" y="108" text-anchor="middle" font-size="9" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">= LastByteRcvd</text>
+                <text x="24" y="98" text-anchor="start" font-size="9" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">LastByteRead</text>
+                <text x="24" y="108" text-anchor="start" font-size="9" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">= LastByteRcvd</text>
               </g>
 
               <!-- STEP 3: TCP split content — covers base fill, persistent -->
-              <g class="frag inner-line" data-step="3">
+              <g class="frag inner-line" data-step="4">
                 <!-- Right half: data to be read (grey, covers teal base) -->
                 <rect x="125" y="23" width="84" height="34" fill="color-mix(in srgb,var(--surface,#fff) 82%,var(--muted,#6b7f8e))" stroke="none"/>
                 <text x="167" y="39" text-anchor="middle" font-size="9" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">data to</text>
@@ -3488,6 +3489,7 @@
         <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- Frame: Advertising and enforcing the receive window -->
