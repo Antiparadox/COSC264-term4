@@ -3241,7 +3241,7 @@
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">TimeoutInterval</strong>
             <p class="frag inner-line" data-step="8" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">This is how TCP sets the timeout interval, with DevRTT providing the extra safety margin:</p>
             <p class="frag inner-line" data-step="9" style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">TimeoutInterval = EstimatedRTT + 4&middot;DevRTT</p>
-            <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Empirically, this prevents the timer from firing too early.</p>
+            <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Empirically, this prevents the timer from firing too early in the case of a sudden spike in RTT.</p>
           </div>
 
         </div>
