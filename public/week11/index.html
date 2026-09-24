@@ -3669,24 +3669,26 @@
             <!-- Card 1: Network-assisted -->
             <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Network-assisted</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Routers explicitly notify senders to slow down — for example, by setting a congestion bit in a packet header, or stating the supported rate. Requires router cooperation throughout the path.</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Routers explicitly notify senders to slow down.</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">This requires the routers along the path to cooperate &mdash; e.g. a router sets a congestion bit in the IP packet header, or states the rate it can support.</p>
             </div>
 
             <!-- Card 2: End-to-end -->
-            <div class="frag" data-step="2" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">End-to-end</strong>
-              <p class="frag inner-line" data-step="2" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">No explicit feedback from the network. The sender infers congestion from observable signals — primarily <strong>packet loss</strong> and increased <strong>delay</strong>.</p>
+              <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">No explicit feedback from the network: the sender infers congestion from signals it can observe itself.</p>
+              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">e.g. a <strong>timeout</strong>, or <strong>duplicate ACKs</strong>. TCP treats these as <strong>loss events</strong>.</p>
             </div>
 
             <!-- Card 3: TCP's choice (conclusion) -->
-            <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">TCP uses the <strong>end-to-end</strong> approach — congestion is inferred from <strong>loss events</strong> in the network.</p>
+            <div class="frag" data-step="5" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <p class="frag inner-line" data-step="5" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">TCP uses the <strong>end-to-end</strong> approach — congestion is inferred from <strong>loss events</strong> in the network.</p>
             </div>
 
           </div>
 
-          <!-- Right: sender→router→receiver; frag 1 adds feedback arrow, frag 2 adds observe annotation -->
-          <div style="align-self:center">
+          <!-- Right: sender→router→receiver; steps 1–2 add the router feedback arrow, step 3+ the end-to-end loop -->
+          <div style="align-self:start;margin-top:30px">
             <svg viewBox="0 0 220 160" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
               <defs>
                 <marker id="cc34-arr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
@@ -3717,13 +3719,13 @@
               <text x="191" y="90" text-anchor="middle" font-size="10" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">Receiver</text>
 
               <!-- Frag 1: amber feedback arc router→sender over the top; hides at step 2 -->
-              <g class="frag inner-line stateful" data-step="1" data-active-at="1" data-hide-after="1">
+              <g class="frag inner-line stateful" data-step="1" data-active-at="1" data-hide-after="2">
                 <path d="M110,60 Q72,20 30,72" fill="none" stroke="var(--amber,#d4920b)" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#cc34-amb)"/>
                 <text x="72" y="17" text-anchor="middle" font-size="8.5" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">congestion signal</text>
               </g>
 
               <!-- Frag 2: direct sender↔receiver bypass arrows (end-to-end: no router involvement) -->
-              <g class="frag inner-line" data-step="2">
+              <g class="frag inner-line" data-step="3">
                 <path d="M56,76 Q110,30 165,76" fill="none" stroke="var(--teal,#0e7490)" stroke-width="1.8" marker-end="url(#cc34-teal)"/>
                 <path d="M165,96 Q110,138 56,96" fill="none" stroke="var(--teal,#0e7490)" stroke-width="1.8" marker-end="url(#cc34-teal)"/>
               </g>
@@ -3736,6 +3738,8 @@
         <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 36: TCP congestion detection and action ── -->
