@@ -3526,9 +3526,10 @@
 
             <!-- Card 2: The sender's rule -->
             <div class="frag hot-card stateful" data-step="3" data-active-at="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The sender's rule</strong>
+              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The TCP sender&rsquo;s rule</strong>
               <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">LastByteSent − LastByteAcked ≤ RcvWindow</p>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">In other words, the sender ensures the amount of data in flight never exceeds the advertised RcvWindow.</p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Recall from our earlier discussion: LastByteAcked is essentially the window <strong>base</strong>, and LastByteSent is essentially <strong>nextseqnum</strong>. So the left side counts the bytes in [base, nextseqnum) &mdash; the data in flight.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">In other words, the TCP sender ensures the amount of data in flight never exceeds the advertised RcvWindow.</p>
             </div>
 
           </div>
@@ -3559,6 +3560,7 @@
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 35: Approaches to congestion control ── -->
