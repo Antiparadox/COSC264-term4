@@ -3407,10 +3407,11 @@
               <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Recall that in RDT, the <strong>receiver window</strong> is the range of packets the receiver is willing to buffer.</p>
               <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In our previous discussions, we assumed the application consumes data as soon as it arrives. The buffer was therefore always fully available to receive, so we always set <strong>receiver window = buffer size</strong>.</p>
               <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In TCP, the application reads at its own pace — so the buffer may contain unread data that reduces available space.</p>
-              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">We can identify that unread portion as [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Let <strong>LastByteRcvd</strong> be the sequence number of the last byte received, and <strong>LastByteRead</strong> the sequence number of the last byte the application has read. The unread portion is then [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
               <div class="frag inner-line" data-step="5" style="margin:5px 0 0;padding:5px 12px;background:color-mix(in srgb,var(--ink) 5%,var(--surface));border-radius:7px">
                 <span style="font-family:var(--mono);font-size:17px;color:var(--ink)">RcvWindow = RcvBuffer − [LastByteRcvd − LastByteRead]</span>
               </div>
+              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted);font-style:italic">e.g. RcvBuffer&nbsp;=&nbsp;4000 bytes, LastByteRead&nbsp;=&nbsp;2000, LastByteRcvd&nbsp;=&nbsp;3500 &rarr; RcvWindow&nbsp;=&nbsp;4000&nbsp;&minus;&nbsp;(3500&nbsp;&minus;&nbsp;2000)&nbsp;=&nbsp;<strong>2500</strong> bytes.</p>
             </div>
 
           </div>
@@ -3492,6 +3493,7 @@
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- Frame: Advertising and enforcing the receive window -->
