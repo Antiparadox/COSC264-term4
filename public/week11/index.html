@@ -3407,11 +3407,11 @@
               <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Recall that in RDT, the <strong>receiver window</strong> is the range of packets the receiver is willing to buffer.</p>
               <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In our previous discussions, we assumed the application consumes data as soon as it arrives. The buffer was therefore always fully available to receive, so we always set <strong>receiver window = buffer size</strong>.</p>
               <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In TCP, the application reads at its own pace — so the buffer may contain unread data that reduces available space.</p>
-              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Let <strong>LastByteRcvd</strong> be the sequence number of the last byte received, and <strong>LastByteRead</strong> the sequence number of the last byte the application has read. The unread portion is then [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
-              <div class="frag inner-line" data-step="5" style="margin:5px 0 0;padding:5px 12px;background:color-mix(in srgb,var(--ink) 5%,var(--surface));border-radius:7px">
+              <p class="frag inner-line" data-step="7" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">The unread portion is then [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
+              <div class="frag inner-line" data-step="7" style="margin:5px 0 0;padding:5px 12px;background:color-mix(in srgb,var(--ink) 5%,var(--surface));border-radius:7px">
                 <span style="font-family:var(--mono);font-size:17px;color:var(--ink)">RcvWindow = RcvBuffer − [LastByteRcvd − LastByteRead]</span>
               </div>
-              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted);font-style:italic">e.g. RcvBuffer&nbsp;=&nbsp;4000 bytes, LastByteRead&nbsp;=&nbsp;2000, LastByteRcvd&nbsp;=&nbsp;3500 &rarr; RcvWindow&nbsp;=&nbsp;4000&nbsp;&minus;&nbsp;(3500&nbsp;&minus;&nbsp;2000)&nbsp;=&nbsp;<strong>2500</strong> bytes.</p>
+              <p class="frag inner-line" data-step="8" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted);font-style:italic">e.g. RcvBuffer&nbsp;=&nbsp;4000 bytes, LastByteRead&nbsp;=&nbsp;2000, LastByteRcvd&nbsp;=&nbsp;3500 &rarr; RcvWindow&nbsp;=&nbsp;4000&nbsp;&minus;&nbsp;(3500&nbsp;&minus;&nbsp;2000)&nbsp;=&nbsp;<strong>2500</strong> bytes.</p>
             </div>
 
           </div>
@@ -3468,22 +3468,29 @@
                 <line x1="125" y1="23" x2="125" y2="58" stroke="var(--muted,#6b7f8e)" stroke-width="1" stroke-dasharray="3,2"/>
               </g>
 
-              <!-- STEP 5: RcvWindow brace and the LastByteRcvd / LastByteRead markers -->
+              <!-- STEP 5: LastByteRcvd marker at the divider -->
               <g class="frag inner-line" data-step="5">
-                <!-- Underbrace for left (room to receive = RcvWindow) -->
-                <line x1="32" y1="66" x2="124" y2="66" stroke="var(--amber,#d4920b)" stroke-width="1.2"/>
-                <line x1="32" y1="63" x2="32" y2="66" stroke="var(--amber,#d4920b)" stroke-width="1.2"/>
-                <line x1="124" y1="63" x2="124" y2="66" stroke="var(--amber,#d4920b)" stroke-width="1.2"/>
-                <text x="78" y="77" text-anchor="middle" font-size="9" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">RcvWindow</text>
-                <!-- LastByteRcvd at divider (x=125) — pointed arrow -->
                 <line x1="125" y1="59" x2="125" y2="87" stroke="var(--muted,#6b7f8e)" stroke-width="0.8" marker-end="url(#tick-dn)"/>
                 <text x="125" y="98" text-anchor="middle" font-size="9" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">LastByteRcvd</text>
-                <!-- LastByteRead at right edge (x=210) — pointed arrow -->
+              </g>
+
+              <!-- STEP 6: LastByteRead marker at the right edge -->
+              <g class="frag inner-line" data-step="6">
                 <line x1="210" y1="59" x2="210" y2="87" stroke="var(--muted,#6b7f8e)" stroke-width="0.8" marker-end="url(#tick-dn)"/>
                 <text x="210" y="98" text-anchor="middle" font-size="9" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">LastByteRead</text>
               </g>
 
+              <!-- STEP 7: RcvWindow brace under room to receive -->
+              <g class="frag inner-line" data-step="7">
+                <line x1="32" y1="66" x2="124" y2="66" stroke="var(--amber,#d4920b)" stroke-width="1.2"/>
+                <line x1="32" y1="63" x2="32" y2="66" stroke="var(--amber,#d4920b)" stroke-width="1.2"/>
+                <line x1="124" y1="63" x2="124" y2="66" stroke="var(--amber,#d4920b)" stroke-width="1.2"/>
+                <text x="78" y="77" text-anchor="middle" font-size="9" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">RcvWindow</text>
+              </g>
+
             </svg>
+            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:17px;line-height:1.45;color:var(--muted)"><strong>LastByteRcvd</strong>: the sequence number of the last byte received.</p>
+            <p class="frag" data-step="6" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)"><strong>LastByteRead</strong>: the sequence number of the last byte the application has read.</p>
           </div>
 
         </div>
@@ -3494,6 +3501,8 @@
         <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- Frame: Advertising and enforcing the receive window -->
