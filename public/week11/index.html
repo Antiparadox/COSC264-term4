@@ -3753,55 +3753,66 @@
 
           <div style="display:grid;gap:10px;align-content:start">
 
-            <!-- Card 1: Detection (3 dup ACKs step 1, timeout step 2) -->
+            <!-- Card 1: the congestion window (definition) -->
             <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Detection</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)"><strong>3 duplicate ACKs</strong> — one segment lost, but others still arriving (mild congestion).</p>
-              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)"><strong>Timeout</strong> — <strong>nothing</strong> gets through; the network appears unresponsive (serious congestion).</p>
+              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The congestion window</strong>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender maintains a <strong>congestion window (CongWin)</strong>: a cap on how much unacknowledged data it may have in flight at any time.</p>
+              <p class="frag inner-line" data-step="2" style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--muted);color:var(--ink);font-family:var(--mono)">That is, data in flight &le; CongWin.</p>
             </div>
 
-            <!-- Card 2: Action (CongWin cap step 3, shrink/grow step 4) -->
+            <!-- Card 2: sending -->
             <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Action</strong>
-              <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender maintains a <strong>congestion window (CongWin)</strong> — a cap on how much unacknowledged data it may have in flight at any time.</p>
-              <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">On detecting congestion, <strong>shrink</strong> CongWin.</p>
+              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Sending</strong>
+              <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">As long as there is room in the window (data in flight &lt; CongWin), the sender can send more data.</p>
+            </div>
+
+            <!-- Card 3: detection and action -->
+            <div class="frag" data-step="4" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Detection and action</strong>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender observes a <strong>loss event</strong>, e.g. three duplicate ACKs or a timeout.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">On a loss event, the sender <strong>shrinks</strong> CongWin. Once the window has room again, it sends more data.</p>
             </div>
 
           </div>
 
-          <!-- Right: circular loop diagram, built progressively -->
-          <div style="align-self:center">
-            <svg viewBox="0 0 210 190" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+          <!-- Right: state machine, built beat by beat -->
+          <div style="align-self:start;margin-top:10px">
+            <svg viewBox="0 0 460 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;overflow:visible" aria-label="Congestion control as a state machine">
               <defs>
-                <marker id="cc36-arr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-                  <path d="M0,0.5 L0,6.5 L7,3.5 z" fill="var(--muted,#6b7f8e)"/>
-                </marker>
-                <marker id="cc36-amb" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
-                  <path d="M0,0.5 L0,6.5 L7,3.5 z" fill="var(--amber,#d4920b)"/>
-                </marker>
+                <marker id="cc36-arr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0.5 L0,6.5 L7,3.5 z" fill="var(--muted,#6b7f8e)"/></marker>
+                <marker id="cc36-amb" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0.5 L0,6.5 L7,3.5 z" fill="var(--amber,#d4920b)"/></marker>
               </defs>
 
-              <!-- Persistent: "Send data" node (top) -->
-              <rect x="60" y="8" width="90" height="26" rx="7" fill="color-mix(in srgb,var(--ink) 6%,var(--surface,#fff))" stroke="var(--muted,#6b7f8e)" stroke-width="1.3"/>
-              <text x="105" y="25" text-anchor="middle" font-size="10.5" fill="var(--ink,#0d1b2a)" font-family="var(--mono,monospace)" font-weight="600">Send data</text>
-
-              <!-- Frag 1: arrow + "ACKs / loss?" node (step 1, detection) -->
+              <!-- step 1: the CongWin state (with a start arrow) -->
               <g class="frag inner-line" data-step="1">
-                <path d="M150,34 Q196,95 150,148" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="1.5" marker-end="url(#cc36-arr)"/>
-                <rect x="128" y="150" width="78" height="26" rx="7" fill="color-mix(in srgb,var(--teal) 10%,var(--surface,#fff))" stroke="var(--teal,#0e7490)" stroke-width="1.3"/>
-                <text x="167" y="167" text-anchor="middle" font-size="9.5" fill="var(--teal,#0e7490)" font-family="var(--mono,monospace)">ACKs / loss?</text>
+                <line x1="14" y1="56" x2="46" y2="108" stroke="var(--muted,#6b7f8e)" stroke-width="1.5" marker-end="url(#cc36-arr)"/>
+                <text x="8" y="48" font-size="18" fill="var(--muted,#6b7f8e)" font-family="var(--sans,sans-serif)">start</text>
+                <rect x="20" y="112" width="180" height="76" rx="14" fill="color-mix(in srgb,var(--teal) 10%,var(--surface,#fff))" stroke="var(--teal,#0f9687)" stroke-width="1.6"/>
+                <text x="110" y="144" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">CongWin</text>
               </g>
 
-              <!-- Frag 3: arrow + "Adjust CongWin" node (step 3, action) -->
+              <!-- step 2: the cap it enforces -->
+              <g class="frag inner-line" data-step="2">
+                <text x="110" y="172" text-anchor="middle" font-size="18" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">in flight &#8804; CongWin</text>
+              </g>
+
+              <!-- step 3: room in the window leads to sending -->
               <g class="frag inner-line" data-step="3">
-                <line x1="128" y1="163" x2="100" y2="163" stroke="var(--muted,#6b7f8e)" stroke-width="1.5" marker-end="url(#cc36-arr)"/>
-                <rect x="4" y="150" width="94" height="26" rx="7" fill="color-mix(in srgb,var(--ink) 5%,var(--surface,#fff))" stroke="var(--ink,#0d1b2a)" stroke-width="1.3"/>
-                <text x="51" y="167" text-anchor="middle" font-size="9" fill="var(--ink,#0d1b2a)" font-family="var(--mono,monospace)" font-weight="600">Adjust CongWin</text>
+                <path d="M160,112 Q240,20 320,112" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="1.6" marker-end="url(#cc36-arr)"/>
+                <text x="240" y="52" text-anchor="middle" font-size="18" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">in flight &lt; CongWin</text>
+                <rect x="270" y="112" width="170" height="76" rx="14" fill="color-mix(in srgb,var(--ink) 6%,var(--surface,#fff))" stroke="var(--muted,#6b7f8e)" stroke-width="1.6"/>
+                <text x="355" y="157" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">Send data</text>
               </g>
 
-              <!-- Frag 4: amber arrow closing the loop (step 4, shrink/grow) -->
+              <!-- step 4: a loss event takes the sender back -->
               <g class="frag inner-line" data-step="4">
-                <path d="M51,148 Q14,90 62,34" fill="none" stroke="var(--amber,#d4920b)" stroke-width="1.5" marker-end="url(#cc36-amb)"/>
+                <path d="M320,188 Q240,290 160,188" fill="none" stroke="var(--amber,#d4920b)" stroke-width="1.8" marker-end="url(#cc36-amb)"/>
+                <text x="240" y="264" text-anchor="middle" font-size="18" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">loss event</text>
+              </g>
+
+              <!-- step 5: ... and shrinks the window on the way -->
+              <g class="frag inner-line" data-step="5">
+                <text x="240" y="288" text-anchor="middle" font-size="18" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">/ shrink CongWin</text>
               </g>
 
             </svg>
@@ -3813,6 +3824,7 @@
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 37: How TCP matches its sending rate ── -->
