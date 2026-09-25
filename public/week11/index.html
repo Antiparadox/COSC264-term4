@@ -3858,8 +3858,8 @@
             <!-- Motivation card (steps 1–3): what the sender controls is a rate; folds to its title once RTT enters -->
             <div class="frag hot-card cw-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">What the sender controls</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The previous frame gives a discrete rule: keep data in flight &le; CongWin. But what does the sender actually control?</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">What it controls is its <strong>sending rate</strong>. Since the TCP sender sends data as a byte stream, the sending rate is measured in <strong>bytes per second</strong>.</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The previous frame gives a discrete rule: keep data in flight &le; CongWin. But how does the sender actually obey that rule?</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">It turns out that what the sender can actually control is its own <strong>sending rate</strong>. Since the TCP sender sends data as a byte stream, the sending rate is measured in <strong>bytes per second</strong>.</p>
               <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted);color:var(--ink);font-weight:600">If the sending rate is too high, the data in flight exceeds CongWin. So how should the sender set its sending rate, subject to the in-flight constraint?</p>
             </div>
 
