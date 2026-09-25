@@ -4543,18 +4543,23 @@
             <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Now suppose the retransmitted segment 4 has been received, so the receiver sends a cumulative ACK for everything through segment 9 — it sends ACK 10.</p>
             </div>
+            <!-- Rule card (steps 2–3) -->
             <div class="frag" data-step="2" style="margin-top:8px;padding:10px 14px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 10%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <p style="margin:0 0 6px;font-family:var(--mono);font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)">Fast recovery — exit rule</p>
               <p style="margin:0 0 2px;font-family:var(--mono);font-size:17px;line-height:1.5;color:var(--muted)">On new ACK:</p>
               <p style="margin:0 0 1px;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>• Set CongWin = ssthresh</strong></p>
-              <p style="margin:0 0 8px;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>• Enter congestion avoidance</strong></p>
-              <p style="margin:0 0 4px;font-size:17px;line-height:1.5;color:var(--muted)">The sender receives ACK 10. Base advances to segment 10. <strong>CongWin = ssthresh = 3</strong> — the inflated window deflates back to the halved value.</p>
-              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Enter <strong>congestion avoidance</strong>. Fast recovery is complete.</p>
+              <p class="frag inner-line" data-step="3" style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>• Enter congestion avoidance</strong></p>
+            </div>
+            <!-- Applying it (steps 4–6), synced with the diagram -->
+            <div class="frag inner-line" data-step="4" style="margin-top:8px;padding:10px 14px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender receives ACK 10. Base advances to segment 10.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)"><strong>CongWin = ssthresh = 3</strong> — the inflated window deflates back to the halved value.</p>
+              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Enter <strong>congestion avoidance</strong>. Fast recovery is complete.</p>
             </div>
           </div>
 
           <!-- Right: sender window diagram -->
-          <div style="align-self:center">
+          <div style="align-self:start;margin-top:40px">
             <svg viewBox="0 0 400 75" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
               <!-- Persistent: segment outlines -->
               <rect x="10" y="8" width="28" height="28" rx="3" fill="none" stroke="var(--muted)" stroke-width="0.6" opacity="0.4"/>
@@ -4604,8 +4609,8 @@
                 <rect x="330" y="8" width="28" height="28" rx="3" fill="var(--ink)" opacity="0.08"/>
               </g>
 
-              <!-- Step 2: all 1-9 become ACKed (base advances with ACK 10) -->
-              <g class="frag inner-line" data-step="2">
+              <!-- Step 4: all 1-9 become ACKed (base advances with ACK 10) -->
+              <g class="frag inner-line" data-step="4">
                 <rect x="106" y="8" width="28" height="28" rx="3" fill="var(--teal)" opacity="0.18"/>
                 <rect x="138" y="8" width="28" height="28" rx="3" fill="var(--teal)" opacity="0.15"/>
                 <rect x="170" y="8" width="28" height="28" rx="3" fill="var(--teal)" opacity="0.15"/>
@@ -4615,13 +4620,13 @@
               </g>
 
               <!-- Underbraces (hot-swapping) -->
-              <g class="frag stateful" data-step="1" data-active-at="1" data-hide-after="1">
+              <g class="frag stateful" data-step="1" data-active-at="1" data-hide-after="3">
                 <line x1="106" y1="42" x2="106" y2="48" stroke="var(--teal)" stroke-width="1"/>
                 <line x1="106" y1="48" x2="358" y2="48" stroke="var(--teal)" stroke-width="1"/>
                 <line x1="358" y1="42" x2="358" y2="48" stroke="var(--teal)" stroke-width="1"/>
                 <text x="232" y="62" text-anchor="middle" font-size="12.5" fill="var(--teal)" font-family="var(--mono)" font-weight="600">CongWin = 8</text>
               </g>
-              <g class="frag stateful" data-step="2" data-active-at="2" data-hide-after="99">
+              <g class="frag stateful" data-step="5" data-active-at="5">
                 <line x1="298" y1="42" x2="298" y2="48" stroke="var(--teal)" stroke-width="1"/>
                 <line x1="298" y1="48" x2="390" y2="48" stroke="var(--teal)" stroke-width="1"/>
                 <line x1="390" y1="42" x2="390" y2="48" stroke="var(--teal)" stroke-width="1"/>
@@ -4634,6 +4639,10 @@
 
         <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 44: TCP congestion control overview ── -->
