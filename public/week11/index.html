@@ -4752,19 +4752,24 @@
         </header>
 
         <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px">
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
+          <p class="frag" data-step="1" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
             <strong>Flow control</strong>: the receiver advertises <strong>RcvWindow</strong> in every segment, so a fast sender cannot overflow a slow receiver&rsquo;s buffer.
           </p>
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
+          <p class="frag" data-step="2" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
             <strong>Congestion control</strong>: the TCP sender maintains a <strong>CongWin</strong>, and keeps its data in flight within both caps: <span style="font-family:var(--mono);font-weight:700;color:var(--ink);white-space:nowrap">LastByteSent &minus; LastByteAcked &le; min(CongWin, RcvWindow)</span>.
           </p>
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--ink)">
+          <p class="frag" data-step="3" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--ink)">
             TCP begins in <strong>slow start</strong>, doubling CongWin each RTT until ssthresh, then grows linearly in <strong>congestion avoidance</strong>.
           </p>
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--amber)">
+          <p class="frag" data-step="4" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--amber)">
             Three dup ACKs trigger <strong>fast recovery</strong> — ssthresh and CongWin halve. A <strong>timeout</strong> drops CongWin to 1 MSS and restarts slow start.
           </p>
         </div>
+
+        <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 46: Acknowledgements ── -->
