@@ -4681,23 +4681,29 @@
       </section>
 
       <!-- ── Frame 45: Congestion control summary ── -->
-      <section class="slide" data-title="Congestion control — summary" data-section="Congestion control">
+      <section class="slide" data-title="Flow and congestion control — summary" data-section="Flow and congestion control">
         <header class="content-header">
-          <p class="kicker">Congestion control</p>
-          <h2>Congestion control — summary</h2>
+          <p class="kicker">Flow and congestion control</p>
+          <h2>Flow and congestion control — summary</h2>
         </header>
 
-        <div style="margin-top:24px;display:flex;flex-direction:column;gap:20px">
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:14px 18px;border-left:4px solid var(--teal)">
+        <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px">
+          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
+            <strong>Flow control</strong>: the receiver advertises <span style="font-family:var(--mono);font-weight:700;color:var(--ink);white-space:nowrap">RcvWindow = RcvBuffer &minus; [LastByteRcvd &minus; LastByteRead]</span> in every segment, so a fast sender cannot overflow a slow receiver&rsquo;s buffer.
+          </p>
+          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
+            If RcvWindow = 0, the sender keeps sending <strong>1-byte segments</strong>; their ACKs tell it when the window reopens.
+          </p>
+          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
             The sender keeps its data in flight within both caps: <span style="font-family:var(--mono);font-weight:700;color:var(--ink);white-space:nowrap">LastByteSent &minus; LastByteAcked &le; min(CongWin, RcvWindow)</span>. The receiver sets <strong>RcvWindow</strong> (flow control); the sender sets <strong>CongWin</strong> (congestion control).
           </p>
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:14px 18px;border-left:4px solid var(--ink)">
-            TCP begins in <strong>slow start</strong>, doubling CongWin each RTT until ssthresh, then grows linearly in <strong>congestion avoidance</strong>.
+          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--ink)">
+            <strong>Congestion control</strong>: TCP begins in <strong>slow start</strong>, doubling CongWin each RTT until ssthresh, then grows linearly in <strong>congestion avoidance</strong>.
           </p>
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:14px 18px;border-left:4px solid var(--amber)">
+          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--amber)">
             Three dup ACKs trigger <strong>fast recovery</strong> — ssthresh and CongWin halve. A <strong>timeout</strong> drops CongWin to 1 MSS and restarts slow start.
           </p>
-          <p style="font-size:17px;line-height:1.55;margin:0;padding:14px 18px;border-left:4px solid var(--teal)">
+          <p style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
             The resulting <strong>AIMD sawtooth</strong> continuously probes for available bandwidth while backing off sharply on congestion signals.
           </p>
         </div>
