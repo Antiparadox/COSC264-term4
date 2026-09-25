@@ -3855,18 +3855,22 @@
 
           <div style="display:grid;gap:10px;align-content:start">
 
-            <!-- Card 1: per-RTT implication (frags 1–2) -->
-            <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <!-- Motivation (steps 1–2): TCP is a byte stream, so the limit is a rate in bytes/sec -->
+            <p class="frag" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">TCP carries a <strong>byte stream</strong>, not discrete messages. So what congestion control really limits is TCP&rsquo;s <strong>sending rate</strong>, in bytes per second.</p>
+            <p class="frag" data-step="2" style="margin:0 0 4px;font-size:18px;line-height:1.45;color:var(--ink);font-weight:600">So what sending rate does a given CongWin produce? Can we express it in terms of CongWin and the RTT?</p>
+
+            <!-- Card 1: per-RTT implication (frags 3–4) -->
+            <div class="frag inner-line" data-step="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Per-RTT implication</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender transmits segments back-to-back — all remain in flight until the first ACK returns, which takes one RTT.</p>
-              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">So within one RTT, everything sent is simultaneously in flight. Since at most CongWin bytes can be in flight (assuming the receiver&rsquo;s window is large, so CongWin is the tighter cap), <strong style="color:var(--ink)">the sender can send at most CongWin bytes per RTT.</strong></p>
+              <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender transmits segments back-to-back — all remain in flight until the first ACK returns, which takes one RTT.</p>
+              <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">So within one RTT, everything sent is simultaneously in flight. Since at most CongWin bytes can be in flight, <strong style="color:var(--ink)">the sender can send at most CongWin bytes per RTT.</strong></p>
             </div>
 
-            <!-- Card 2: the corresponding sending rate (frags 3–4) -->
-            <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <!-- Card 2: the corresponding sending rate (frags 5–6) -->
+            <div class="frag inner-line" data-step="5" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The corresponding sending rate</strong>
-              <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">Since TCP carries a continuous byte stream, the corresponding sending rate is:</p>
-              <p class="frag inner-line" data-step="4" style="font-family:var(--mono,monospace);font-size:17px;background:color-mix(in srgb,var(--amber) 8%,var(--surface));padding:8px 12px;border-radius:8px;margin:0;line-height:1.6"><strong>sending rate ≈ CongWin / RTT &nbsp;bytes/sec</strong></p>
+              <p class="frag inner-line" data-step="5" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">Spreading those CongWin bytes over one RTT gives the sending rate:</p>
+              <p class="frag inner-line" data-step="6" style="font-family:var(--mono,monospace);font-size:17px;background:color-mix(in srgb,var(--amber) 8%,var(--surface));padding:8px 12px;border-radius:8px;margin:0;line-height:1.6"><strong>sending rate ≈ CongWin / RTT &nbsp;bytes/sec</strong></p>
             </div>
 
           </div>
@@ -3890,7 +3894,7 @@
               <line x1="148" y1="20" x2="148" y2="185" stroke="var(--muted)" stroke-width="1.5"/>
 
               <!-- Frag step 3: 3 outgoing segments + 1st ACK return + RTT bracket -->
-              <g class="frag inner-line" data-step="1">
+              <g class="frag inner-line" data-step="3">
                 <!-- 3 outgoing segments -->
                 <line x1="62" y1="40" x2="144" y2="80" stroke="var(--ink,#0d1b2a)" stroke-width="1.5" marker-end="url(#cc37-arr)"/>
                 <line x1="62" y1="55" x2="144" y2="95" stroke="var(--ink,#0d1b2a)" stroke-width="1.5" marker-end="url(#cc37-arr)"/>
@@ -3906,7 +3910,7 @@
               </g>
 
               <!-- Frag step 4: "..." + final segment + ≤ CongWin brace -->
-              <g class="frag inner-line" data-step="2">
+              <g class="frag inner-line" data-step="4">
                 <!-- dots signifying more segments -->
                 <text x="62" y="88" font-size="11" fill="var(--muted,#6b7f8e)" text-anchor="middle" font-weight="700">⋮</text>
                 <!-- final segment just before 1st ACK arrives -->
@@ -3927,6 +3931,8 @@
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 38: TCP · slow start ── -->
