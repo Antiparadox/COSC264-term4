@@ -3855,12 +3855,12 @@
 
           <div style="display:grid;gap:10px;align-content:start">
 
-            <!-- Motivation card (steps 1–3): the sender's only control is a rate; folds to its title once RTT enters -->
+            <!-- Motivation card (steps 1–3): what the sender controls is a rate; folds to its title once RTT enters -->
             <div class="frag hot-card cw-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The sender&rsquo;s knob</strong>
+              <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">What the sender controls</strong>
               <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The previous frame gives a discrete rule: keep data in flight &le; CongWin. But what does the sender actually control?</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Imagine you are a TCP sender. All you have is one knob: your <strong>sending rate</strong>. Since TCP sends a byte stream, that rate is in <strong>bytes per second</strong>, not segments per step.</p>
-              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted);color:var(--ink);font-weight:600">Send too fast and data in flight exceeds CongWin; too slowly and the window sits partly empty. So how should you set the knob, subject to the in-flight constraint?</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">What it controls is its <strong>sending rate</strong>. Since the TCP sender sends data as a byte stream, the sending rate is measured in <strong>bytes per second</strong>.</p>
+              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted);color:var(--ink);font-weight:600">If the sending rate is too high, the data in flight exceeds CongWin. So how should the sender set its sending rate, subject to the in-flight constraint?</p>
             </div>
 
             <!-- Card 2: the missing ingredient, RTT (frags 4–5) -->
@@ -3873,7 +3873,7 @@
             <!-- Card 3: the sending rate (frags 6–7) -->
             <div class="frag inner-line" data-step="6" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The sending rate</strong>
-              <p class="frag inner-line" data-step="6" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">So the knob should be set so that CongWin bytes go out per RTT:</p>
+              <p class="frag inner-line" data-step="6" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">So the sender should send CongWin bytes per RTT, i.e. set its sending rate to:</p>
               <p class="frag inner-line" data-step="7" style="font-family:var(--mono,monospace);font-size:17px;background:color-mix(in srgb,var(--amber) 8%,var(--surface));padding:8px 12px;border-radius:8px;margin:0;line-height:1.6"><strong>sending rate ≈ CongWin / RTT &nbsp;bytes/sec</strong></p>
             </div>
 
