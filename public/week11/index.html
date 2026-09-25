@@ -4256,29 +4256,31 @@
           <h2>Why AIMD?</h2>
         </header>
 
-        <div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:0">
 
-          <!-- Card 1: MIAD (step 1) -->
-          <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+          <p class="frag" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Why this particular combination? Let&rsquo;s consider some alternative designs to AIMD. Here are a few options.</p>
+
+          <!-- Card 1: MIAD (step 2; folds to its title once AIAD starts) -->
+          <div class="frag hot-card cw-card stateful" data-step="2" data-active-at="2" data-hide-after="2" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Multiplicative Increase, Additive Decrease (MIAD)</strong>
             <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Multiplicative increase overshoots capacity aggressively, while additive decrease backs off too slowly — congestion persists.</p>
           </div>
 
-          <!-- Card 2: AIAD (step 2, with example sub-frags 3–6) -->
-          <div class="frag" data-step="2" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+          <!-- Card 2: AIAD (step 3, with example sub-frags 3–6) -->
+          <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Additive Increase, Additive Decrease (AIAD)</strong>
             <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">AIAD controls congestion correctly for a single flow, but it fails to address a different issue: <strong>fairness</strong>. The goal of fairness is that every flow sharing a bottleneck link should converge to an equal share of bandwidth.</p>
-            <p class="frag inner-line" data-step="3" style="margin:8px 0 0;font-size:17px;line-height:1.5;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Suppose two flows share a 10 Mbps link: Flow A = 8 Mbps, Flow B = 2 Mbps. This is not fair — a good congestion control design should correct the imbalance while also preventing congestion.</p>
-            <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive increase: both add 1 Mbps → A = 9 Mbps, B = 3 Mbps. Total exceeds capacity → loss.</p>
-            <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive decrease: both subtract 1 Mbps → A = 8 Mbps, B = 2 Mbps. Back to the start — the unfairness never corrects.</p>
-            <p class="frag inner-line" data-step="6" style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--ink);font-weight:600">AIAD does not solve the fairness problem.</p>
+            <p class="frag inner-line" data-step="4" style="margin:8px 0 0;font-size:17px;line-height:1.5;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Suppose two flows share a 10 Mbps link: Flow A = 8 Mbps, Flow B = 2 Mbps. This is not fair — a good congestion control design should correct the imbalance while also preventing congestion.</p>
+            <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive increase: both add 1 Mbps → A = 9 Mbps, B = 3 Mbps. Total exceeds capacity → loss.</p>
+            <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive decrease: both subtract 1 Mbps → A = 8 Mbps, B = 2 Mbps. Back to the start — the unfairness never corrects.</p>
+            <p class="frag inner-line" data-step="7" style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--ink);font-weight:600">AIAD does not solve the fairness problem.</p>
           </div>
 
-          <!-- Card 3: AIMD (step 7) -->
-          <div class="frag" data-step="7" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+          <!-- Card 3: AIMD (step 8) -->
+          <div class="frag" data-step="8" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Additive Increase, Multiplicative Decrease (AIMD)</strong>
             <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Additive increase probes gently; multiplicative decrease reacts sharply. Converges to both <strong>efficiency</strong> and <strong>fairness</strong>.</p>
-            <p class="frag inner-line" data-step="8" style="margin:8px 0 0;font-size:17px;line-height:1.5;color:var(--teal);font-style:italic">Take-home question: using the same example (A = 8 Mbps, B = 2 Mbps), why does multiplicative decrease close the gap where additive decrease could not?</p>
+            <p class="frag inner-line" data-step="9" style="margin:8px 0 0;font-size:17px;line-height:1.5;color:var(--teal);font-style:italic">Take-home question: using the same example (A = 8 Mbps, B = 2 Mbps), why does multiplicative decrease close the gap where additive decrease could not?</p>
           </div>
 
         </div>
@@ -4291,6 +4293,7 @@
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="9" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 41: TCP · reacting to loss ── -->
