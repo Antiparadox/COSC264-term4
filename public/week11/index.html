@@ -3761,8 +3761,8 @@
               <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Flow control already caps the data in flight at RcvWindow.</p>
               <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Congestion control adds a second cap on the same quantity: the <strong>congestion window (CongWin)</strong>, which the sender sets itself and adjusts up and down with the level of congestion.</p>
               <div class="frag inner-line" data-step="3" style="margin:6px 0 0">
-                <p style="margin:0 0 4px;padding:6px 12px;border-radius:8px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));font-family:var(--mono);font-size:17px;font-weight:700;color:var(--ink)">LastByteSent &minus; LastByteAcked &le; CongWin</p>
-                <p class="cw-explain" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The sender always keeps its unacknowledged data in flight within this limit.</p>
+                <p style="margin:0 0 4px;padding:6px 12px;border-radius:8px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));font-family:var(--mono);font-size:17px;font-weight:700;color:var(--ink)">LastByteSent &minus; LastByteAcked<br>&le; min(CongWin, RcvWindow)</p>
+                <p class="cw-explain" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The data in flight must respect both caps.</p>
               </div>
             </div>
 
@@ -3859,7 +3859,7 @@
             <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Per-RTT implication</strong>
               <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender transmits segments back-to-back — all remain in flight until the first ACK returns, which takes one RTT.</p>
-              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">So within one RTT, everything sent is simultaneously in flight. Since at most CongWin bytes can be in flight, <strong style="color:var(--ink)">the sender can send at most CongWin bytes per RTT.</strong></p>
+              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">So within one RTT, everything sent is simultaneously in flight. Since at most CongWin bytes can be in flight (assuming the receiver&rsquo;s window is large, so CongWin is the tighter cap), <strong style="color:var(--ink)">the sender can send at most CongWin bytes per RTT.</strong></p>
             </div>
 
             <!-- Card 2: the corresponding sending rate (frags 3–4) -->
