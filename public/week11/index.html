@@ -4682,6 +4682,9 @@
         </header>
 
         <div style="margin-top:24px;display:flex;flex-direction:column;gap:20px">
+          <p style="font-size:17px;line-height:1.55;margin:0;padding:14px 18px;border-left:4px solid var(--teal)">
+            The sender keeps its data in flight within both caps: <span style="font-family:var(--mono);font-weight:700;color:var(--ink);white-space:nowrap">LastByteSent &minus; LastByteAcked &le; min(CongWin, RcvWindow)</span>. The receiver sets <strong>RcvWindow</strong> (flow control); the sender sets <strong>CongWin</strong> (congestion control).
+          </p>
           <p style="font-size:17px;line-height:1.55;margin:0;padding:14px 18px;border-left:4px solid var(--ink)">
             TCP begins in <strong>slow start</strong>, doubling CongWin each RTT until ssthresh, then grows linearly in <strong>congestion avoidance</strong>.
           </p>
