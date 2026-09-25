@@ -443,6 +443,7 @@
     .hot-card.is-hidden { opacity: 0.45 !important; visibility: visible !important; pointer-events: auto !important; }
     .rtt-sample-card.is-hidden > p { display: none; }
     .fc-hot > .frag { display: none; }
+    .ca-ex.is-hidden { display: none; }
     .cw-card.is-hidden > p, .cw-card.is-hidden .cw-explain { display: none; }
     .cw-card.is-hidden .inner-line { margin-top: 2px !important; }
     .fc-hot > .frag.visible { display: block; }
@@ -4119,32 +4120,32 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin-top:12px">
 
           <!-- Left: cards -->
-          <div style="display:grid">
+          <div style="display:flex;flex-direction:column;gap:12px">
 
-            <!-- Card 0: ssthresh intro (step 1, hot — hides after 1) -->
-            <div class="frag stateful" data-step="1" data-active-at="1" data-hide-after="1" style="grid-row:1;grid-column:1;align-self:start;padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Suppose <strong>ssthresh = 4 MSS</strong> — the point where congestion previously occurred.</p>
-            </div>
-
-            <!-- Cards 1+2 wrapper (appears at step 2, stacks vertically) -->
-            <div class="frag" data-step="2" style="grid-row:1;grid-column:1;align-self:start;display:flex;flex-direction:column;gap:12px">
-
-              <!-- Card 1: Additive increase (steps 2–3) -->
-              <div style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <!-- Card 1: Additive increase (steps 1–2, no diagram yet) -->
+              <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Additive increase</strong>
-                <p class="frag inner-line" data-step="2" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Once CongWin ≥ ssthresh, growth switches from exponential to linear.</p>
-                <div class="frag inner-line" data-step="3" style="margin:6px 0 0;padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
+                <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Once CongWin ≥ ssthresh, growth switches from exponential to linear.</p>
+                <div class="frag inner-line" data-step="2" style="margin:6px 0 0;padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
                   <p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">Additive increase</p>
                   <p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>If no loss detected: CongWin += 1 MSS per RTT</strong></p>
                 </div>
               </div>
 
-              <!-- Card 2: Multiplicative decrease (step 6 top, step 7 bottom — siblings to avoid nested inner-line) -->
-              <div class="frag inner-line" data-step="6" style="padding:12px 16px 8px;border-left:4px solid var(--amber);border-radius:0 14px 0 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <!-- Example: hot cards, one at a time (steps 3–6), synced with the diagram; gone once the decrease card arrives -->
+              <div class="fc-hot ca-ex stateful" data-active-at="0" data-hide-after="6">
+                <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)"><strong style="color:var(--ink)">Example.</strong> Suppose <strong>ssthresh = 4 MSS</strong>, and CongWin has just reached it: CongWin = 4 MSS.</p></div>
+                <div class="frag" data-step="4" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">In the first RTT, the sender sends <strong>4 segments</strong>.</p></div>
+                <div class="frag" data-step="5" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Once all 4 are acknowledged, CongWin grows by just <strong>1 MSS</strong> &mdash; not doubled to 8 &mdash; so CongWin = 5, and the next RTT carries 5 segments.</p></div>
+                <div class="frag" data-step="6" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">And so on: after those 5 are acknowledged, CongWin = 6, then 7, &hellip; one MSS per RTT.</p></div>
+              </div>
+
+              <!-- Card 2: Multiplicative decrease (step 7 top, step 8 bottom — siblings to avoid nested inner-line) -->
+              <div class="frag inner-line" data-step="7" style="padding:12px 16px 8px;border-left:4px solid var(--amber);border-radius:0 14px 0 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Multiplicative decrease</strong>
                 <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">We keep additive increase until we hit a loss event (next couple of frames), where we cut CongWin in half.</p>
               </div>
-              <div class="frag inner-line" data-step="7" style="margin-top:-1px;padding:4px 16px 12px;border-left:4px solid var(--amber);border-radius:0 0 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+              <div class="frag inner-line" data-step="8" style="margin-top:-1px;padding:4px 16px 12px;border-left:4px solid var(--amber);border-radius:0 0 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <div style="padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
                   <p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">Multiplicative decrease</p>
                   <p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>Upon loss event: CongWin = CongWin / 2</strong></p>
@@ -4152,12 +4153,11 @@
                 <p style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Together, this is known as the <strong>AIMD</strong> rule — Additive Increase, Multiplicative Decrease.</p>
               </div>
 
-            </div>
 
           </div>
 
-          <!-- Right: sender/receiver diagram -->
-          <div style="align-self:center">
+          <!-- Right: sender/receiver diagram — appears with the example (step 3) -->
+          <div class="frag" data-step="3" style="align-self:start">
             <svg viewBox="0 0 210 195" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
               <defs>
                 <marker id="ca39-arr" markerWidth="6" markerHeight="6" refX="4.5" refY="3" orient="auto">
@@ -4174,13 +4174,13 @@
               <line x1="55" y1="17" x2="55" y2="190" stroke="var(--muted)" stroke-width="1.5"/>
               <line x1="148" y1="17" x2="148" y2="190" stroke="var(--muted)" stroke-width="1.5"/>
 
-              <!-- Step 1: CW=4 label -->
-              <g class="frag inner-line" data-step="1">
+              <!-- Step 3: CW=4 label -->
+              <g class="frag inner-line" data-step="3">
                 <text x="170" y="36" font-size="8" fill="var(--teal)" font-family="var(--mono,monospace)" font-weight="600">CW=4</text>
               </g>
 
-              <!-- Step 2: RTT 1 — send 4 segments + bracket -->
-              <g class="frag inner-line" data-step="2">
+              <!-- Step 4: RTT 1 — send 4 segments + bracket -->
+              <g class="frag inner-line" data-step="4">
                 <line x1="55" y1="30" x2="144" y2="52" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ca39-arr)"/>
                 <line x1="55" y1="34" x2="144" y2="56" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ca39-arr)"/>
                 <line x1="55" y1="38" x2="144" y2="60" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ca39-arr)"/>
@@ -4192,8 +4192,8 @@
                 <text x="26" y="52" text-anchor="middle" font-size="7" fill="var(--teal)" transform="rotate(-90,26,52)" font-family="var(--mono,monospace)">RTT</text>
               </g>
 
-              <!-- Step 4: ACK + CW=5 + RTT 2 — send 5 segments + bracket -->
-              <g class="frag inner-line" data-step="4">
+              <!-- Step 5: ACK + CW=5 + RTT 2 — send 5 segments + bracket -->
+              <g class="frag inner-line" data-step="5">
                 <line x1="148" y1="58" x2="59" y2="74" stroke="var(--amber)" stroke-width="1.3" stroke-dasharray="4,2.5" marker-end="url(#ca39-amb)"/>
                 <text x="170" y="84" font-size="8" fill="var(--teal)" font-family="var(--mono,monospace)" font-weight="600">CW=5</text>
                 <line x1="55" y1="74" x2="144" y2="96" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ca39-arr)"/>
@@ -4207,8 +4207,8 @@
                 <text x="26" y="98" text-anchor="middle" font-size="7" fill="var(--teal)" transform="rotate(-90,26,98)" font-family="var(--mono,monospace)">RTT</text>
               </g>
 
-              <!-- Step 5: ACK + CW=6 + RTT 3 — send 6 segments + bracket + CW=7 -->
-              <g class="frag inner-line" data-step="5">
+              <!-- Step 6: ACK + CW=6 + RTT 3 — send 6 segments + bracket + CW=7 -->
+              <g class="frag inner-line" data-step="6">
                 <line x1="148" y1="104" x2="59" y2="122" stroke="var(--amber)" stroke-width="1.3" stroke-dasharray="4,2.5" marker-end="url(#ca39-amb)"/>
                 <text x="170" y="134" font-size="8" fill="var(--teal)" font-family="var(--mono,monospace)" font-weight="600">CW=6</text>
                 <line x1="55" y1="122" x2="144" y2="144" stroke="var(--ink)" stroke-width="1.4" marker-end="url(#ca39-arr)"/>
@@ -4224,8 +4224,8 @@
                 <text x="170" y="174" font-size="8" fill="var(--teal)" font-family="var(--mono,monospace)" font-weight="600">CW=7</text>
               </g>
 
-              <!-- Step 6: Loss marker -->
-              <g class="frag inner-line" data-step="6">
+              <!-- Step 7: Loss marker -->
+              <g class="frag inner-line" data-step="7">
                 <line x1="93" y1="151" x2="105" y2="163" stroke="var(--amber)" stroke-width="2.5"/>
                 <line x1="105" y1="151" x2="93" y2="163" stroke="var(--amber)" stroke-width="2.5"/>
                 <text x="99" y="180" text-anchor="middle" font-size="8" fill="var(--amber)" font-family="var(--mono,monospace)" font-weight="600">loss!</text>
@@ -4243,6 +4243,7 @@
         <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- ── Frame 40: Why AIMD? ── -->
