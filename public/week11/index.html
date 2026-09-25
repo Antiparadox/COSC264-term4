@@ -4140,12 +4140,15 @@
                 <div class="frag" data-step="6" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">And so on: after those 5 are acknowledged, CongWin = 6, then 7, &hellip; one MSS per RTT.</p></div>
               </div>
 
-              <!-- Card 2: Multiplicative decrease (step 7 top, step 8 bottom — siblings to avoid nested inner-line) -->
-              <div class="frag inner-line" data-step="7" style="padding:12px 16px 8px;border-left:4px solid var(--amber);border-radius:0 14px 0 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-                <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Multiplicative decrease</strong>
-                <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">We keep additive increase until we hit a loss event, where we cut CongWin in half.</p>
+              <!-- Card 2: the question (step 7, with the loss marker) -->
+              <div class="frag inner-line" data-step="7" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+                <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">We keep doing additive increase, but this cannot last forever: eventually the network becomes congested again, and the sender hits a <strong>loss event</strong>.</p>
+                <p style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--ink);font-weight:600">What should the sender do then?</p>
               </div>
-              <div class="frag inner-line" data-step="8" style="margin-top:-1px;padding:4px 16px 12px;border-left:4px solid var(--amber);border-radius:0 0 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+
+              <!-- Card 3: Multiplicative decrease (step 8) -->
+              <div class="frag inner-line" data-step="8" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+                <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Multiplicative decrease</strong>
                 <div style="padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
                   <p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">Multiplicative decrease</p>
                   <p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>Upon loss event: CongWin = CongWin / 2</strong></p>
