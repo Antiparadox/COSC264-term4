@@ -1,5 +1,6 @@
 /**
- * Check that nothing a deck shows is missing from its PDF.
+ * Check that nothing a deck shows is missing from its PDF -- the full PDF
+ * and the handout alike.
  *
  *   node tools/verify-pdf.mjs            # every module
  *   node tools/verify-pdf.mjs week7 week8
@@ -83,25 +84,30 @@ async function main() {
       await page.addStyleTag({ content: PRINT_CSS });
       const info = await page.evaluate(buildPrintRoot, { label, stamp: STAMP, total });
       const inPdf = new Set(await page.evaluate(collectRootText));
+      const hInfo = await page.evaluate(buildPrintRoot, { label, stamp: STAMP, total, handout: true });
+      const inHandout = new Set(await page.evaluate(collectRootText));
       await ctx.close();
 
-      const missing = [...onScreen.entries()]
-        .filter(([t]) => !inPdf.has(t))
+      const gaps = (have) => [...onScreen.entries()]
+        .filter(([t]) => !have.has(t))
         .map(([text, slide]) => ({ text, slide }));
+      const missing = gaps(inPdf);
+      const hMissing = gaps(inHandout);
 
-      const ok = missing.length === 0 && reached === total - 1;
+      const ok = missing.length === 0 && hMissing.length === 0 && reached === total - 1;
       if (!ok) bad++;
       console.log(
         `\n${ok ? 'OK  ' : 'FAIL'} Module ${m.n}  ${total} slides, ${steps} beats, ` +
-        `${info.pages} pages, ${onScreen.size} distinct strings on screen`
+        `${info.pages} pages (handout ${hInfo.pages}), ${onScreen.size} distinct strings on screen`
       );
       if (reached !== total - 1) console.log(`     ! walk stopped at slide ${reached + 1}/${total}`);
-      if (missing.length) {
-        console.log(`     ! ${missing.length} string(s) shown by the deck but on no page:`);
-        missing.slice(0, 25).forEach((v) =>
+      [['full PDF', missing], ['handout', hMissing]].forEach(([which, list]) => {
+        if (!list.length) return;
+        console.log(`     ! ${list.length} string(s) shown by the deck but on no ${which} page:`);
+        list.slice(0, 25).forEach((v) =>
           console.log(`         slide ${String(v.slide).padStart(2)}: ${JSON.stringify(v.text.slice(0, 88))}`));
-        if (missing.length > 25) console.log(`         … and ${missing.length - 25} more`);
-      }
+        if (list.length > 25) console.log(`         … and ${list.length - 25} more`);
+      });
     }
   } finally {
     await browser.close();

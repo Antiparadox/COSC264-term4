@@ -20,6 +20,12 @@
  * whose beats REPLACE content -- hot-fragment cards, a badge flipping 0 to 1,
  * a table cell being rewritten -- get one page per state, using the fewest
  * pages that still show everything at least once.
+ *
+ * Blurred shadows and glows are dropped from the printed copy. Chrome can only
+ * express a blur in PDF as a greyscale image used as a soft mask, and viewers
+ * that ignore soft masks (GoodNotes on iPad, among others) paint it as a flat
+ * semi-opaque box behind the card. Zero-blur shadows -- the rings and inset
+ * fills some slides use as highlights -- print as plain vectors and are kept.
  */
 import { chromium } from 'playwright';
 import { spawn } from 'node:child_process';
@@ -112,7 +118,7 @@ export function installRecorder() {
   };
 
   const P = {
-    pages: [], acc: new Set(), prevClone: null, prevSlide: null, prevWeight: 0,
+    pages: [], acc: new Set(), prevClone: null, prevSlide: null, prevWeight: 0, prevSig: [],
     slides: () => [...document.querySelectorAll('.slide')],
     signature,
   };
@@ -127,12 +133,12 @@ export function installRecorder() {
     const sig = signature(slide);
 
     if (P.prevSlide !== null && P.prevSlide !== idx) {
-      P.pages.push({ idx: P.prevSlide, node: P.prevClone, weight: P.prevWeight });
+      P.pages.push({ idx: P.prevSlide, node: P.prevClone, weight: P.prevWeight, sig: P.prevSig });
       P.acc = new Set();
     } else if (P.prevSlide !== null) {
       const lost = [...P.acc].some((k) => !sig.has(k));
       if (lost) {
-        P.pages.push({ idx, node: P.prevClone, weight: P.prevWeight });
+        P.pages.push({ idx, node: P.prevClone, weight: P.prevWeight, sig: P.prevSig });
         P.acc = new Set();
       }
     }
@@ -140,6 +146,7 @@ export function installRecorder() {
     P.prevClone = slide.cloneNode(true);
     P.prevSlide = idx;
     P.prevWeight = sig.size;
+    P.prevSig = [...sig];
     return {
       idx,
       key: idx + '|' + [...sig].sort().join('\u0001'),
@@ -148,7 +155,7 @@ export function installRecorder() {
   };
 
   P.finish = function () {
-    if (P.prevClone) P.pages.push({ idx: P.prevSlide, node: P.prevClone, weight: P.prevWeight });
+    if (P.prevClone) P.pages.push({ idx: P.prevSlide, node: P.prevClone, weight: P.prevWeight, sig: P.prevSig });
     return { reached: P.prevSlide };
   };
 }
@@ -159,17 +166,39 @@ export function buildPrintRoot({ label, stamp, total, handout }) {
   document.getElementById('pdfroot')?.remove();
   const root = document.createElement('div');
   root.id = 'pdfroot';
-  // A handout keeps one page per slide. Not the last state -- a slide whose
-  // beats replace content often ends smaller than it was -- but the fullest
-  // one recorded, which is the page worth annotating.
+  // A handout is for writing on, so it drops the intermediate states the
+  // full PDF steps through -- but never content. Per slide it keeps the
+  // fewest recorded pages that between them show everything the slide ever
+  // shows (greedy set cover, fullest page first), in presentation order.
+  // Most slides need one page; a slide whose beats replace content gets as
+  // many as it takes.
   let pages = P.pages;
   if (handout) {
-    const best = new Map();
-    pages.forEach((p) => {
-      const cur = best.get(p.idx);
-      if (!cur || p.weight >= cur.weight) best.set(p.idx, p);
+    const bySlide = new Map();
+    pages.forEach((p, order) => {
+      if (!bySlide.has(p.idx)) bySlide.set(p.idx, []);
+      bySlide.get(p.idx).push({ ...p, order, set: new Set(p.sig) });
     });
-    pages = [...best.values()].sort((a, b) => a.idx - b.idx);
+    const keep = [];
+    bySlide.forEach((list) => {
+      const left = new Set(list.flatMap((p) => p.sig));
+      const chosen = [];
+      while (left.size) {
+        let best = null, gain = 0;
+        list.forEach((p) => {
+          if (chosen.includes(p)) return;
+          let g = 0;
+          p.set.forEach((k) => { if (left.has(k)) g++; });
+          if (g > gain) { gain = g; best = p; }
+        });
+        if (!best) break;
+        chosen.push(best);
+        best.set.forEach((k) => left.delete(k));
+      }
+      if (!chosen.length) chosen.push(list[list.length - 1]);
+      keep.push(...chosen);
+    });
+    pages = keep.sort((a, b) => a.order - b.order);
   }
   pages.forEach(({ idx, node }) => {
     // Clone again: the pages are reused to print a second variant, so the
@@ -184,6 +213,33 @@ export function buildPrintRoot({ label, stamp, total, handout }) {
     root.appendChild(clone);
   });
   document.body.appendChild(root);
+
+  // Blurred shadows and glows would print as soft-masked bitmaps (see the
+  // header). Keep only the zero-blur shadow layers, which print as vectors.
+  const layers = (v) => {
+    const out = []; let depth = 0, cur = '';
+    for (const ch of v) {
+      if (ch === '(') depth++;
+      if (ch === ')') depth--;
+      if (ch === ',' && depth === 0) { out.push(cur.trim()); cur = ''; } else cur += ch;
+    }
+    if (cur.trim()) out.push(cur.trim());
+    return out;
+  };
+  const blurOf = (layer) => {
+    const lengths = layer.replace(/\([^)]*\)/g, '').match(/-?[\d.]+px/g) || [];
+    return lengths.length >= 3 ? parseFloat(lengths[2]) : 0;
+  };
+  root.querySelectorAll('*').forEach((el) => {
+    const cs = getComputedStyle(el);
+    if (cs.boxShadow && cs.boxShadow !== 'none') {
+      const kept = layers(cs.boxShadow).filter((l) => blurOf(l) === 0);
+      el.style.setProperty('box-shadow', kept.length ? kept.join(', ') : 'none', 'important');
+    }
+    if (cs.textShadow && cs.textShadow !== 'none') el.style.setProperty('text-shadow', 'none', 'important');
+    if (cs.filter && cs.filter !== 'none') el.style.setProperty('filter', 'none', 'important');
+    if (cs.backdropFilter && cs.backdropFilter !== 'none') el.style.setProperty('backdrop-filter', 'none', 'important');
+  });
 
   // Chrome's PDF renderer drops arrowheads whose marker paints with
   // `context-stroke`, and cloning duplicates marker ids besides. Give every

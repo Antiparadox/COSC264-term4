@@ -185,18 +185,11 @@ svg text{font-family:var(--sans)}
 /* ============ print / reader ============ */
 @page{size:A4 landscape;margin:10mm}
 @media print{
-  body{overflow:visible;background:#fff}
-  #hud,#progress,#counter,#seclabel,.navzone,#jump{display:none!important}
-  #stage{position:static;width:auto;height:auto;transform:none!important}
-  .slide{position:static;display:flex!important;height:auto;min-height:430px;page-break-after:always;
-    border-bottom:none;padding:30px 48px}
-  h1{font-size:40px} h2{font-size:30px} .sec-title h1{font-size:44px}
-  p,li{font-size:18px} .lead{font-size:21px} .prow .q{font-size:16px}
-  .term{font-size:14px;min-height:0} table.ft{font-size:14px}
-  .footnote{position:static;margin-top:12px}
-  .frag{opacity:1;transform:none}
-  .stack-layer{opacity:0.3;transition:opacity 200ms ease}
-  .stack-layer.hl{opacity:1}
+  /* The deck is interactive: printing it directly drops every beat but the current one.
+     Point at the built PDFs instead, which keep every state. */
+  body > *{display:none !important}
+  body{background:#fff !important}
+  body::before{display:block;white-space:pre-line;padding:48px;color:#15242f;font:18px/1.6 system-ui,sans-serif;content:"COSC264 Module 4 cannot be printed directly from the slides.\A \A To print or annotate this module, download a PDF instead:\A Full PDF: cosc264.up.railway.app/pdf/cosc264-module4.pdf\A Handout: cosc264.up.railway.app/pdf/cosc264-module4-handout.pdf\A \A Both are also linked from the course home page and the handout button on the slides."}
 }
 /* ---------- link-state 3-step slide: spotlight steps 1-2 on the closing fragment ---------- */
 .ls-step{transition:background .35s ease,opacity .35s ease,border-color .35s ease}
@@ -218,7 +211,7 @@ svg text{font-family:var(--sans)}
   <a id="b-home" href="../" title="Course home">⌂ home</a>
   <a id="b-handout" target="_blank" rel="noopener"
     href="../pdf/cosc264-module4-handout.pdf"
-    title="Printable handout — one page per slide">⤓ handout</a>
+    title="Printable handout — the build-up steps collapsed, nothing left out">⤓ handout</a>
   <button id="b-jump" title="Contents (Esc)">⌗ contents</button>
   <button id="b-theme" title="Theme (T)">◐</button>
 </div>
