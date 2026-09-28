@@ -1163,6 +1163,8 @@ svg text{font-family:var(--sans)}
     #tmo-ex:has(.f2.on) .dA { display:block }
     #tmo-ex:has(.f6.on) .dA { display:none }
     #tmo-ex:has(.f6.on) .dB { display:block }
+    #tmo-ex:has(.f7b.on) .dB { display:none }
+    #tmo-ex:has(.f7b.on) .dC { display:block }
     #tmo-ex .sA1,#tmo-ex .sA2,#tmo-ex .sA3,
     #tmo-ex .sB1,#tmo-ex .sB2 { opacity:0; transition:opacity 0.35s }
     #tmo-ex:has(.f3.on) .sA1 { opacity:1 }
@@ -1234,6 +1236,36 @@ svg text{font-family:var(--sans)}
   <text x="280" y="252" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan></text>
   <line x1="420" y1="258" x2="140" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmB)"/>
 </g>
+</svg>
+
+<svg class="dgm dC" viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<defs><marker id="tmC" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
+<text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
+<text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
+<line x1="140" y1="40" x2="140" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<line x1="420" y1="40" x2="420" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<circle cx="112" cy="54" r="11" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+<line x1="112" y1="54" x2="112" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="112" y1="54" x2="117" y2="57" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<!-- Hello, 0 arrives intact -->
+<text x="280" y="62" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text>
+<line x1="140" y1="70" x2="420" y2="94" stroke="currentColor" stroke-width="2" marker-end="url(#tmC)"/>
+<!-- its ACK 0 is slow: it reaches the sender only after the timeout and the resend -->
+
+<line x1="420" y1="104" x2="140" y2="246" stroke="#cf5c36" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#tmC)"/>
+<text x="132" y="262" text-anchor="end" font-size="13" fill="#cf5c36" font-weight="700">late ACK <tspan>0</tspan></text>
+<!-- timer expires first, so the sender resends -->
+<path d="M140,70 L104,70 L104,192 L140,192" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<text x="96" y="135" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="700">timeout</text>
+
+<line x1="140" y1="200" x2="420" y2="224" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmC)"/>
+<!-- the receiver answers the resent copy too -->
+<text x="330" y="262" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan></text>
+<line x1="420" y1="234" x2="140" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmC)"/>
+
+<!-- labels on top, with a background, so the dashed late ACK never runs through them -->
+<rect x="354" y="110" width="52" height="18" rx="4" fill="var(--bg,#eef1f4)"/><text x="402" y="124" text-anchor="end" font-size="13" fill="#cf5c36" font-weight="600">ACK <tspan font-weight="700">0</tspan></text>
+<rect x="146" y="180" width="124" height="18" rx="4" fill="var(--bg,#eef1f4)"/><text x="150" y="194" text-anchor="start" font-size="13" fill="var(--accent)" font-weight="600">Hello, <tspan font-weight="700">0</tspan> &mdash; resent</text>
 </svg>
 
     </div>
