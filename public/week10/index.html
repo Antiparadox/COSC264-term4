@@ -1384,7 +1384,8 @@ svg text{font-family:var(--sans)}
   <style>
     #prem-tmo .pd1,#prem-tmo .pd2,#prem-tmo .pd3,#prem-tmo .pd4,
     #prem-tmo .pd5,#prem-tmo .pd6,#prem-tmo .pd7,#prem-tmo .pd8 { opacity:0; transition:opacity 0.3s }
-    #prem-tmo:has(.f1.on) .pd1,#prem-tmo:has(.f1.on) .pd2 { opacity:1 }
+    #prem-tmo:has(.f1.on) .pd1 { opacity:1 }
+    #prem-tmo:has(.f1b.on) .pd2 { opacity:1 }
     #prem-tmo:has(.f2.on) .pd3 { opacity:1 }
     #prem-tmo:has(.f3.on) .pd4 { opacity:1 }
     #prem-tmo:has(.f5.on) .pd5 { opacity:1 }
@@ -1392,7 +1393,8 @@ svg text{font-family:var(--sans)}
     /* Where each side's sequence number stands, as the exchange runs. */
     #prem-tmo .bs0,#prem-tmo .bs1,#prem-tmo .br0,#prem-tmo .br1 { opacity:0; transition:opacity 0.3s }
     #prem-tmo:has(.f1.on):not(:has(.f7.on)) .bs0 { opacity:1 }
-    #prem-tmo:has(.f1.on) .br1 { opacity:1 }
+    #prem-tmo:has(.f1.on):not(:has(.f1b.on)) .br0 { opacity:1 }
+    #prem-tmo:has(.f1b.on) .br1 { opacity:1 }
     #prem-tmo:has(.f7.on) .bs1 { opacity:1 }
     @keyframes prem-qa-pulse {
       0%,100% { opacity:0.9; transform:scale(1); }
@@ -1432,7 +1434,8 @@ svg text{font-family:var(--sans)}
       </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:8px">
-      <p class="frag f1" style="margin:0;font-size:18px;line-height:1.45">Suppose Hello, 0 has already been sent. ACK 0 is on its way &mdash; but it is delayed.</p>
+      <p class="frag f1" style="margin:0;font-size:18px;line-height:1.45">The sender and the receiver both start at sequence number <b>0</b>. The sender sends <b>Hello, 0</b>.</p>
+      <p class="frag f1b" style="margin:0;font-size:18px;line-height:1.45">The receiver gets it, updates to <b>expect 1</b>, and sends <b>ACK 0</b> &mdash; but the ACK is <b>significantly delayed</b>.</p>
       <p class="frag f2" style="margin:0;font-size:18px;line-height:1.45">Timer fires before ACK 0 arrives. What does the sender do?</p>
       <div class="frag f3 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:18px;line-height:1.45">The <b>rdt 3.0 sender rule</b>: when the timer expires with no ACK heard, the sender assumes the worst and <b>retransmits the same packet</b>.</p><p style="margin:7px 0 0;font-size:18px;line-height:1.45">So Hello, 0 goes out again, still numbered <b>0</b>.</p></div>
       <p class="frag f4" style="margin:0;font-size:18px;line-height:1.45">The receiver gets Hello, 0 a second time. What does it do?</p>
