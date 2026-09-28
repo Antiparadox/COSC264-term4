@@ -1165,6 +1165,11 @@ svg text{font-family:var(--sans)}
     #tmo-ex:has(.f6.on) .dB { display:block }
     #tmo-ex:has(.f7b.on) .dB { display:none }
     #tmo-ex:has(.f7b.on) .dC { display:block }
+    #tmo-ex:has(.f8.on) .dC { display:none }
+    #tmo-ex:has(.f8.on) .dD { display:block }
+    #tmo-ex:has(.f8b.on) .dD { display:none }
+    #tmo-ex:has(.f8b.on) .dE { display:block }
+    #tmo-ex:has(.f9.on) .dE { display:none }
     #tmo-ex .sA1,#tmo-ex .sA2,#tmo-ex .sA3,
     #tmo-ex .sB1,#tmo-ex .sB2 { opacity:0; transition:opacity 0.35s }
     #tmo-ex:has(.f3.on) .sA1 { opacity:1 }
@@ -1184,7 +1189,7 @@ svg text{font-family:var(--sans)}
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
     <div style="flex:0 0 620px;min-height:432px;display:flex;justify-content:center">
 
-<svg class="dgm dA" viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<svg class="dgm dA" viewBox="10 12 440 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="tmA" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
 <text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
@@ -1210,7 +1215,7 @@ svg text{font-family:var(--sans)}
 </g>
 </svg>
 
-<svg class="dgm dB" viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<svg class="dgm dB" viewBox="10 12 440 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="tmB" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
 <text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
@@ -1238,7 +1243,7 @@ svg text{font-family:var(--sans)}
 </g>
 </svg>
 
-<svg class="dgm dC" viewBox="44 12 406 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<svg class="dgm dC" viewBox="10 12 440 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="tmC" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
 <text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
 <text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
@@ -1266,6 +1271,53 @@ svg text{font-family:var(--sans)}
 <!-- labels on top, with a background, so the dashed late ACK never runs through them -->
 <rect x="354" y="110" width="52" height="18" rx="4" fill="var(--bg,#eef1f4)"/><text x="402" y="124" text-anchor="end" font-size="13" fill="#cf5c36" font-weight="600">ACK <tspan font-weight="700">0</tspan></text>
 <rect x="146" y="180" width="124" height="18" rx="4" fill="var(--bg,#eef1f4)"/><text x="150" y="194" text-anchor="start" font-size="13" fill="var(--accent)" font-weight="600">Hello, <tspan font-weight="700">0</tspan> &mdash; resent</text>
+</svg>
+
+<svg class="dgm dD" viewBox="10 12 440 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<defs><marker id="tmD" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
+<text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
+<text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
+<line x1="140" y1="40" x2="140" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<line x1="420" y1="40" x2="420" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<circle cx="112" cy="54" r="11" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+<line x1="112" y1="54" x2="112" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="112" y1="54" x2="117" y2="57" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<!-- too short: the timer fires before a perfectly good ACK can return -->
+<text x="280" y="62" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text>
+<line x1="140" y1="70" x2="420" y2="94" stroke="currentColor" stroke-width="2" marker-end="url(#tmD)"/>
+<line x1="420" y1="104" x2="140" y2="200" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmD)"/>
+<path d="M140,70 L104,70 L104,140 L140,140" fill="none" stroke="#cf5c36" stroke-width="1.6"/>
+<text x="96" y="100" text-anchor="end" font-size="13" fill="#cf5c36" font-weight="700">timeout</text>
+<text x="96" y="117" text-anchor="end" font-size="13" fill="#cf5c36" font-weight="600">(too short)</text>
+<line x1="140" y1="148" x2="420" y2="172" stroke="#cf5c36" stroke-width="2" marker-end="url(#tmD)"/>
+<text x="412" y="194" text-anchor="end" font-size="13" fill="#cf5c36" font-weight="700">duplicate!</text>
+<text x="132" y="216" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan> arrives</text>
+<rect x="268" y="128" width="52" height="18" rx="4" fill="var(--bg,#eef1f4)"/><text x="294" y="142" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK <tspan font-weight="700">0</tspan></text>
+<rect x="146" y="120" width="124" height="18" rx="4" fill="var(--bg,#eef1f4)"/><text x="150" y="134" text-anchor="start" font-size="13" fill="#cf5c36" font-weight="600">Hello, <tspan font-weight="700">0</tspan> &mdash; resent</text>
+</svg>
+
+<svg class="dgm dE" viewBox="10 12 440 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
+<defs><marker id="tmE" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
+<text x="140" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Sender</text>
+<text x="420" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Receiver</text>
+<line x1="140" y1="40" x2="140" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<line x1="420" y1="40" x2="420" y2="290" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+<circle cx="112" cy="54" r="11" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+<line x1="112" y1="54" x2="112" y2="47" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="112" y1="54" x2="117" y2="57" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/>
+<!-- too long: the packet is lost, and the sender waits far longer than a round trip -->
+<text x="280" y="66" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">Hello, <tspan fill="var(--accent)" font-weight="700">0</tspan></text>
+<line x1="140" y1="74" x2="300" y2="100" stroke="#cf5c36" stroke-width="2"/>
+<line x1="301" y1="97" x2="315" y2="111" stroke="#cf5c36" stroke-width="2.6"/>
+<line x1="301" y1="111" x2="315" y2="97" stroke="#cf5c36" stroke-width="2.6"/>
+<text x="308" y="130" text-anchor="middle" font-size="12" fill="#cf5c36" font-weight="600">lost</text>
+<path d="M140,74 L104,74 L104,254 L140,254" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+<text x="96" y="160" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="700">timeout</text>
+<text x="96" y="177" text-anchor="end" font-size="13" fill="var(--accent)" font-weight="600">(too long)</text>
+<line x1="140" y1="130" x2="140" y2="254" stroke="#cf5c36" stroke-width="9" opacity="0.32"/>
+<text x="152" y="196" text-anchor="start" font-size="13" fill="#cf5c36" font-weight="700">sender idle</text>
+<text x="280" y="256" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">Hello, <tspan font-weight="700">0</tspan> &mdash; resent</text>
+<line x1="140" y1="262" x2="420" y2="286" stroke="var(--accent)" stroke-width="2" marker-end="url(#tmE)"/>
 </svg>
 
     </div>
@@ -1301,12 +1353,16 @@ svg text{font-family:var(--sans)}
         <p>The same happens if the ACK is merely <b>delayed</b> rather than lost: as long as the timer expires with no ACK heard, the sender always assumes the worst and <b>retransmits</b>.</p>
       </div>
 
-      <div class="frag hot f8" style="display:block">
+      <div class="frag hot f8">
         <p style="margin:0 0 12px;font-size:19px;line-height:1.6">But <b>how long should the sender wait?</b></p>
-        <div class="card" style="padding:12px 16px;border-left:3px solid #cf5c36;margin-bottom:10px">
+        <div class="card" style="padding:12px 16px;border-left:3px solid #cf5c36">
           <p style="margin:0 0 4px;font-size:18px;font-weight:700">Too short</p>
           <p style="margin:0;font-size:18px;line-height:1.55">The ACK was merely slow, so the sender resends for nothing &mdash; <b>duplicate packets</b>.</p>
         </div>
+      </div>
+
+      <div class="frag hot f8b">
+        <p style="margin:0 0 12px;font-size:19px;line-height:1.6">But <b>how long should the sender wait?</b></p>
         <div class="card" style="padding:12px 16px;border-left:3px solid #cf5c36">
           <p style="margin:0 0 4px;font-size:18px;font-weight:700">Too long</p>
           <p style="margin:0;font-size:18px;line-height:1.55">The sender sits idle long after the packet was lost &mdash; <b>wasted throughput</b>.</p>
@@ -1314,7 +1370,7 @@ svg text{font-family:var(--sans)}
       </div>
 
       <div class="frag hot f9 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p>About <b>one RTT</b> &mdash; the time for a packet to reach the receiver and its ACK to come back.</p>
+        <p>About <b>one round-trip time (RTT)</b> &mdash; the time for a packet to reach the receiver and its ACK to come back.</p>
         <p style="color:var(--muted)">We will come back to how that interval is chosen when we look at TCP.</p>
       </div>
 
