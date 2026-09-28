@@ -443,6 +443,7 @@ svg text{font-family:var(--sans)}
   <style>
     #rdt2-fsm .dgm { display:none; width:100% }
     #rdt2-fsm:has(.s2.on) .intro { display:none }
+    #rdt2-fsm:not(:has(.s2.on)) .fsmrow { display:none !important }
     #rdt2-fsm .dlab { opacity:0; transition:opacity 0.3s }
     #rdt2-fsm:has(.s2.on) .dSend { display:block }
     #rdt2-fsm:has(.s2.on) .labSend { opacity:1 }
@@ -466,14 +467,16 @@ svg text{font-family:var(--sans)}
   </style>
   <div class="kicker">rdt 2.0</div>
   <h2>The protocol as a state machine</h2>
-  <div style="display:flex;flex-direction:column;gap:14px">
+  <div style="display:flex;flex-direction:column;gap:14px;min-height:346px">
 
     <ul class="intro" style="margin:0;padding-left:26px;max-width:1120px">
       <li class="frag s1" style="font-size:21px;line-height:1.65;margin-bottom:14px">We describe what the sender does and what the receiver does with one <b>finite-state machine</b> each.</li>
-      <li class="frag s1b" style="font-size:21px;line-height:1.65">A finite-state machine sits in one of several <b>states</b>, with arrows for the <b>transitions</b> between them &mdash; and each arrow is labelled with the event that triggers that transition.</li>
+      <li class="frag s1b" style="font-size:21px;line-height:1.65;margin-bottom:14px">A finite-state machine is always in one of several <b>states</b>.</li>
+      <li class="frag s1c" style="font-size:21px;line-height:1.65;margin-bottom:14px">It reacts to <b>events</b> by making <b>transitions</b> between states. We draw each transition as an arrow from one state to another.</li>
+      <li class="frag s1d" style="font-size:21px;line-height:1.65">Each arrow is labelled with the <b>event</b> that triggers it: when the machine observes that event, it follows the arrow to the next state.</li>
     </ul>
 
-    <div style="display:flex;gap:24px;align-items:flex-start;margin-top:8px">
+    <div class="fsmrow" style="display:flex;gap:24px;align-items:flex-start;margin-top:8px">
 
       <div style="flex:0 0 730px;display:flex;flex-direction:column;align-items:center;gap:2px">
         <div style="height:22px">
@@ -540,6 +543,11 @@ svg text{font-family:var(--sans)}
         <div class="frag hot s3 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
           <p><span class="evt">data from above &amp; sends packet</span></p>
           <p>The application hands data down. The sender builds the packet, transmits it, and moves to the waiting state.</p>
+        </div>
+
+        <div class="frag hot s3q card" style="padding:16px 20px;border-left:3px solid var(--accent)">
+          <p><b>Now the sender is in <i>Wait for ACK / NAK</i>.</b></p>
+          <p>What could happen next, and what should the sender do in each case? In other words, what transitions leave this state?</p>
         </div>
 
         <div class="frag hot s4 card" style="padding:16px 20px;border-left:3px solid #cf5c36">
