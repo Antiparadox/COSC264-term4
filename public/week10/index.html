@@ -462,6 +462,7 @@ svg text{font-family:var(--sans)}
     #rdt2-fsm .hot.on:has(~ .hot.on) { display:none }
     #rdt2-fsm .hot p { margin:0; font-size:18px; line-height:1.6 }
     #rdt2-fsm .hot p + p { margin-top:10px }
+    #rdt2-fsm .hot .frag:not(.on) { display:none }
     #rdt2-fsm .evt { font-weight:700; color:var(--accent) }
     #rdt2-fsm .evtb { font-weight:700; color:#cf5c36 }
   </style>
@@ -537,7 +538,7 @@ svg text{font-family:var(--sans)}
         <div class="frag hot s2 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
           <p><b>The sender's state machine has two states.</b></p>
           <p><b>Wait for data from above</b> &mdash; the sender is idle, waiting for the next packet from the application.</p>
-          <p><b>Wait for ACK / NAK</b> &mdash; the sender has just sent a packet to the receiver, and has not heard back yet.</p>
+          <p class="frag s2b"><b>Wait for ACK / NAK</b> &mdash; the sender has just sent a packet to the receiver, and has not heard back yet.</p>
         </div>
 
         <div class="frag hot s3 card" style="padding:16px 20px;border-left:3px solid var(--accent)">
