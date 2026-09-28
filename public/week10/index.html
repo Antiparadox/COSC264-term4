@@ -657,13 +657,13 @@ svg text{font-family:var(--sans)}
 <line x1="402" y1="26" x2="402" y2="294" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="422" y1="26" x2="422" y2="294" stroke="currentColor" stroke-width="0.7" opacity="0.18" stroke-dasharray="3,3"/>
 <text class="rl" x="430" y="38" font-size="13" font-weight="600" fill="currentColor">Received:</text>
-<text class="r1" x="430" y="68" font-size="13" fill="currentColor">• she is my</text>
+<text class="r1" x="430" y="68" font-size="13" fill="currentColor">• he is my</text>
 <text class="r2" x="430" y="140" font-size="13" fill="currentColor">• ex</text>
 <text class="r4" x="430" y="220" font-size="13" fill="#cf5c36" font-weight="600">• ex (!)</text>
-<text class="r5" x="430" y="282" font-size="13" fill="currentColor">• girlfriend</text>
+<text class="r5" x="430" y="282" font-size="13" fill="currentColor">• boyfriend</text>
 <g class="s1">
   <line x1="118" y1="42" x2="402" y2="62" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup)"/>
-  <text x="260" y="38" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">she is my</text>
+  <text x="260" y="38" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">he is my</text>
 </g>
 <g class="a1">
   <line x1="402" y1="76" x2="118" y2="96" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup)"/>
@@ -691,12 +691,12 @@ svg text{font-family:var(--sans)}
 </g>
 <g class="s4">
   <line x1="118" y1="264" x2="402" y2="280" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup)"/>
-  <text x="260" y="260" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">girlfriend</text>
+  <text x="260" y="260" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">boyfriend</text>
 </g>
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:450px">
-      <p class="frag d1" style="margin:0;font-size:19px;line-height:1.55">Suppose the sender wants to deliver the message <b>&ldquo;she is my ex girlfriend&rdquo;</b> from the application above. <b>&ldquo;she is my&rdquo;</b> arrives intact &mdash; receiver delivers it and sends ACK.</p>
+      <p class="frag d1" style="margin:0;font-size:19px;line-height:1.55">Suppose the sender wants to deliver the message <b>&ldquo;he is my ex boyfriend&rdquo;</b> from the application above. <b>&ldquo;he is my&rdquo;</b> arrives intact &mdash; receiver delivers it and sends ACK.</p>
       <p class="frag d2" style="margin:0;font-size:19px;line-height:1.55"><b>&ldquo;ex&rdquo;</b> arrives intact &mdash; receiver delivers it and sends ACK.</p>
       <p class="frag d3" style="margin:0;font-size:19px;line-height:1.55">The ACK gets <b>corrupted</b> &mdash; sender cannot tell, so it <b>resends</b> &ldquo;ex&rdquo;.</p>
     </div>
@@ -722,13 +722,13 @@ svg text{font-family:var(--sans)}
 <line x1="402" y1="26" x2="402" y2="294" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
 <line x1="422" y1="26" x2="422" y2="294" stroke="currentColor" stroke-width="0.7" opacity="0.18" stroke-dasharray="3,3"/>
 <text class="rl" x="430" y="38" font-size="13" font-weight="600" fill="currentColor">Received:</text>
-<text class="r1" x="430" y="68" font-size="13" fill="currentColor">• she is my</text>
+<text class="r1" x="430" y="68" font-size="13" fill="currentColor">• he is my</text>
 <text class="r2" x="430" y="140" font-size="13" fill="currentColor">• ex</text>
 <text class="r4" x="430" y="220" font-size="13" fill="#cf5c36" font-weight="600">• ex (!)</text>
-<text class="r5" x="430" y="282" font-size="13" fill="currentColor">• girlfriend</text>
+<text class="r5" x="430" y="282" font-size="13" fill="currentColor">• boyfriend</text>
 <g class="s1">
   <line x1="118" y1="42" x2="402" y2="62" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup2)"/>
-  <text x="260" y="38" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">she is my</text>
+  <text x="260" y="38" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">he is my</text>
 </g>
 <g class="a1">
   <line x1="402" y1="76" x2="118" y2="96" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#fdup2)"/>
@@ -756,15 +756,15 @@ svg text{font-family:var(--sans)}
 </g>
 <g class="s4">
   <line x1="118" y1="264" x2="402" y2="280" stroke="currentColor" stroke-width="1.8" marker-end="url(#fdup2)"/>
-  <text x="260" y="260" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">girlfriend</text>
+  <text x="260" y="260" text-anchor="middle" font-size="14" fill="currentColor" font-weight="600">boyfriend</text>
 </g>
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:450px">
       <p class="frag d4" style="margin:0;font-size:19px;line-height:1.55">Receiver has no idea this is a resend &mdash; it <b>delivers &ldquo;ex&rdquo; again</b>.</p>
-      <p class="frag d5" style="margin:0;font-size:19px;line-height:1.55"><b>&ldquo;girlfriend&rdquo;</b> eventually gets through and is delivered.</p>
+      <p class="frag d5" style="margin:0;font-size:19px;line-height:1.55"><b>&ldquo;boyfriend&rdquo;</b> eventually gets through and is delivered.</p>
       <div class="frag card" style="padding:14px 18px;border-left:3px solid #cf5c36">
-        <p style="margin:0 0 7px;font-size:18px;line-height:1.6">In the end, the receiver delivers &ldquo;she is my <b style="color:#cf5c36">ex ex</b> girlfriend&rdquo;.</p>
+        <p style="margin:0 0 7px;font-size:18px;line-height:1.6">In the end, the receiver delivers &ldquo;he is my <b style="color:#cf5c36">ex ex</b> boyfriend&rdquo;.</p>
         <p style="margin:0;font-size:18px;line-height:1.6">This is the wrong message &mdash; it contains a <b>duplicate &ldquo;ex&rdquo;</b>.</p>
       </div>
       <p class="frag d6" style="margin:0;font-size:20px;line-height:1.5;font-weight:700;color:var(--accent)">How do we fix this?</p>
@@ -834,19 +834,19 @@ svg text{font-family:var(--sans)}
 <g class="x1"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 1</text></g>
 <g class="x0b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 0</text></g>
 <g class="x1b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 1</text></g>
-<g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">she is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">he is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 <g class="m2"><line x1="402" y1="96" x2="118" y2="122" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="90" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m3"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
 <g class="m4ok"><line x1="402" y1="176" x2="118" y2="202" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m4"><line x1="402" y1="176" x2="118" y2="202" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">#### &mdash; corrupted</text></g>
 <g class="m5"><line x1="118" y1="216" x2="402" y2="242" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="210" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan> &mdash; resent</text></g>
 <g class="m6"><line x1="402" y1="256" x2="118" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="250" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
-<g class="m7"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">girlfriend, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="m7"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15a)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">boyfriend, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:440px">
-      <p class="frag f1" style="margin:0;font-size:18px;line-height:1.55">Same story as before: the sender wants to deliver <b>&ldquo;she is my ex girlfriend&rdquo;</b>.</p>
-      <p class="frag f2" style="margin:0;font-size:18px;line-height:1.55">Both sides start from <b>0</b>. The sender tags <b>&ldquo;she is my&rdquo;</b> with <b>0</b> and sends it.</p>
+      <p class="frag f1" style="margin:0;font-size:18px;line-height:1.55">Same story as before: the sender wants to deliver <b>&ldquo;he is my ex boyfriend&rdquo;</b>.</p>
+      <p class="frag f2" style="margin:0;font-size:18px;line-height:1.55">Both sides start from <b>0</b>. The sender tags <b>&ldquo;he is my&rdquo;</b> with <b>0</b> and sends it.</p>
       <p class="frag f3" style="margin:0;font-size:18px;line-height:1.55"><b>0</b> is exactly the number the receiver is expecting, so this is <b>new data</b>.</p>
       <p class="frag f4" style="margin:0;font-size:18px;line-height:1.55">So the receiver <b>delivers the chunk</b>, sends an <b>ACK</b>, and now <b>expects 1</b>.</p>
       <p class="frag f5" style="margin:0;font-size:18px;line-height:1.55"><b>&ldquo;ex&rdquo;</b> is new data too, so the sender <b>flips its bit</b> to <b>1</b> and sends it.</p>
@@ -884,14 +884,14 @@ svg text{font-family:var(--sans)}
 <g class="x1"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 1</text></g>
 <g class="x0b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 0</text></g>
 <g class="x1b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 1</text></g>
-<g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">she is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">he is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 <g class="m2"><line x1="402" y1="96" x2="118" y2="122" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="90" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m3"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
 <g class="m4ok"><line x1="402" y1="176" x2="118" y2="202" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m4"><line x1="402" y1="176" x2="118" y2="202" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">#### &mdash; corrupted</text></g>
 <g class="m5"><line x1="118" y1="216" x2="402" y2="242" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="210" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan> &mdash; resent</text></g>
 <g class="m6"><line x1="402" y1="256" x2="118" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="250" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
-<g class="m7"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">girlfriend, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="m7"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15b)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">boyfriend, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:440px">
@@ -935,14 +935,14 @@ svg text{font-family:var(--sans)}
 <g class="x1"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 1</text></g>
 <g class="x0b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 0</text></g>
 <g class="x1b"><rect x="412" y="40" width="88" height="23" rx="6" fill="rgba(0,200,180,0.13)" stroke="var(--accent)" stroke-width="1"/><text x="456" y="56" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="700">expect 1</text></g>
-<g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">she is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="m1"><line x1="118" y1="56" x2="402" y2="82" stroke="currentColor" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="50" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">he is my, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 <g class="m2"><line x1="402" y1="96" x2="118" y2="122" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="90" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m3"><line x1="118" y1="136" x2="402" y2="162" stroke="currentColor" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="130" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan></text></g>
 <g class="m4ok"><line x1="402" y1="176" x2="118" y2="202" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
 <g class="m4"><line x1="402" y1="176" x2="118" y2="202" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="170" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">#### &mdash; corrupted</text></g>
 <g class="m5"><line x1="118" y1="216" x2="402" y2="242" stroke="#cf5c36" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="210" text-anchor="middle" font-size="13" fill="#cf5c36" font-weight="600">ex, <tspan fill="var(--accent)" font-weight="700">1</tspan> &mdash; resent</text></g>
 <g class="m6"><line x1="402" y1="256" x2="118" y2="282" stroke="var(--accent)" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="250" text-anchor="middle" font-size="13" fill="var(--accent)" font-weight="600">ACK</text></g>
-<g class="m7"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">girlfriend, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
+<g class="m7"><line x1="118" y1="296" x2="402" y2="322" stroke="currentColor" stroke-width="2" marker-end="url(#g15c)"/><text x="260.0" y="290" text-anchor="middle" font-size="13" fill="currentColor" font-weight="600">boyfriend, <tspan fill="var(--accent)" font-weight="700">0</tspan></text></g>
 </svg>
     </div>
     <div style="flex:1;display:flex;flex-direction:column;gap:10px;max-width:440px">
@@ -950,11 +950,11 @@ svg text{font-family:var(--sans)}
         <p style="margin:0;font-size:18px;line-height:1.6">The receiver is <b>expecting 0</b>, but this packet carries <b>1</b> &mdash; so it is a <b>copy it already has</b>.</p>
       </div>
       <p class="frag h2" style="margin:0;font-size:18px;line-height:1.55">It <b>discards the copy</b> and just re-acknowledges, keeping its expected number at <b>0</b>.</p>
-      <p class="frag h3" style="margin:0;font-size:18px;line-height:1.55">The sender sees that ACK, so it can advance: it <b>flips to 0</b> and sends <b>&ldquo;girlfriend&rdquo;</b> with <b>0</b>.</p>
+      <p class="frag h3" style="margin:0;font-size:18px;line-height:1.55">The sender sees that ACK, so it can advance: it <b>flips to 0</b> and sends <b>&ldquo;boyfriend&rdquo;</b> with <b>0</b>.</p>
       <p class="frag h4" style="margin:0;font-size:18px;line-height:1.55"><b>0</b> is what the receiver expects, so this is <b>new data</b>.</p>
       <p class="frag h5" style="margin:0;font-size:18px;line-height:1.55">The receiver <b>delivers the chunk</b> and now <b>expects 1</b>.</p>
       <div class="frag h6 card" style="padding:12px 16px;border-left:3px solid var(--accent)">
-        <p style="margin:0 0 5px;font-size:19px">&ldquo;she is my ex girlfriend&rdquo; <b style="color:var(--accent)">&#10003;</b></p>
+        <p style="margin:0 0 5px;font-size:19px">&ldquo;he is my ex boyfriend&rdquo; <b style="color:var(--accent)">&#10003;</b></p>
         <p style="margin:0;font-size:18px;line-height:1.5">Delivered correctly, with <b>no duplicate</b>.</p>
       </div>
     </div>
