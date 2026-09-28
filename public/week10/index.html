@@ -1497,7 +1497,7 @@ svg text{font-family:var(--sans)}
       <div class="frag g4 card" style="padding:10px 16px;border-left:3px solid var(--accent)"><p style="margin:0;font-size:18px;line-height:1.45">This ACK 0 acknowledges the <b>previous</b> message, Hello, 0. It is a duplicate only because the first ACK 0 was <b>delayed</b>.</p><p style="margin:7px 0 0;font-size:18px;line-height:1.45">It was never meant to say that Everyone, 1 was corrupted, so it must <b>not</b> be treated as a NAK.</p></div>
       <div class="frag g5 card" style="padding:11px 16px;border-left:3px solid var(--accent);background:var(--accent-soft)">
         <p style="margin:0 0 5px;font-size:16px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink,var(--accent))">The retransmission rule in rdt 3.0</p>
-        <p style="margin:0;font-size:18px;line-height:1.45">The sender retransmits <b>only when its timer expires</b>. Any ACK that is corrupt, or carries the wrong sequence number, is <b>ignored</b>.</p>
+        <p style="margin:0;font-size:18px;line-height:1.45">The sender retransmits <b>only when its timer expires</b>. Any ACK that is corrupt, or carries a duplicate sequence number, is <b>ignored</b>.</p>
         <p style="margin:7px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">That is the only difference from rdt 2.2 &mdash; the receiver is unchanged.</p>
       </div>
     </div>
