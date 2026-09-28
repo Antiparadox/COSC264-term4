@@ -1183,11 +1183,14 @@ svg text{font-family:var(--sans)}
     #tmo-ex .hot.on:has(~ .hot.on) { display:none }
     #tmo-ex .hot p { margin:0; font-size:19px; line-height:1.6 }
     #tmo-ex .hot p + p { margin-top:9px }
+    /* The last beat has no diagram, so the rule takes the middle of the frame. */
+    #tmo-ex:has(.f9.on) .tmo-dgmcol { display:none !important }
+    #tmo-ex:has(.f9.on) .tmo-txtcol { margin:40px auto 0; max-width:640px !important }
   </style>
   <div class="kicker">rdt 3.0</div>
   <h2>Timeout and retransmission</h2>
   <div style="flex:1;display:flex;gap:30px;align-items:flex-start">
-    <div style="flex:0 0 620px;min-height:432px;display:flex;justify-content:center">
+    <div class="tmo-dgmcol" style="flex:0 0 620px;min-height:432px;display:flex;justify-content:center">
 
 <svg class="dgm dA" viewBox="10 12 440 282" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px">
 <defs><marker id="tmA" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="context-stroke"/></marker></defs>
@@ -1321,7 +1324,7 @@ svg text{font-family:var(--sans)}
 </svg>
 
     </div>
-    <div style="flex:1;min-height:300px;max-width:430px">
+    <div class="tmo-txtcol" style="flex:1;min-height:300px;max-width:430px">
 
       <p class="frag hot f1" style="margin:0;font-size:21px;line-height:1.55;font-weight:700;color:var(--accent)">How do we resolve these problems?</p>
 
@@ -1369,8 +1372,9 @@ svg text{font-family:var(--sans)}
         </div>
       </div>
 
-      <div class="frag hot f9 card" style="padding:14px 18px;border-left:3px solid var(--accent)">
-        <p>About <b>one round-trip time (RTT)</b> &mdash; the time for a packet to reach the receiver and its ACK to come back.</p>
+      <div class="frag hot f9 card" style="padding:16px 22px;border-left:3px solid var(--accent);background:var(--accent-soft)">
+        <p style="margin:0 0 6px;font-size:16px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink,var(--accent))">Setting the timeout</p>
+        <p>Set the timeout to about <b>one round-trip time (RTT)</b> &mdash; the time for a packet to reach the receiver and its ACK to come back.</p>
         <p style="color:var(--muted)">We will come back to how that interval is chosen when we look at TCP.</p>
       </div>
 
