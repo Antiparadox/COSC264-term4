@@ -241,6 +241,7 @@ svg text{font-family:var(--sans)}
       <li class="frag">Datagrams can get <b>corrupted</b> as they travel through the network.</li>
       <li class="frag"><b>Error detection codes</b> &mdash; parity check, Internet checksum, CRC &mdash; let the receiver detect whether a packet has been corrupted.</li>
       <li class="frag"><b>Forward Error Correction (FEC)</b> goes further: using error-correcting codes, the receiver can not only detect errors but also <b>correct</b> them without asking for a retransmission.</li>
+      <li class="frag" style="list-style:none;margin-left:-26px;padding-left:26px">This works only while the number of bit errors stays within the code&rsquo;s <b>correcting capability</b>: at most &lfloor;(d&minus;1)/2&rfloor; errors, where <i>d</i> is its minimum Hamming distance.</li>
     </ul>
   </div>
 </section>
