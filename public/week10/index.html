@@ -2707,7 +2707,7 @@ svg text{font-family:var(--sans)}
     </div>
     <div class="frag f3 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
       <p style="margin:0;font-size:18px;line-height:1.6">The window starts at <span style="font-family:var(--mono)">rcv_base</span>, which points to the <b>first packet not yet delivered</b> &mdash; everything below it has arrived in order and gone to the application.</p>
-      <p style="margin:6px 0 0;font-size:18px;line-height:1.6;color:var(--muted)">Throughout, we assume the application reads data immediately: as soon as a packet can be delivered in order, it is handed straight to the application.</p>
+      <p style="margin:6px 0 0;font-size:18px;line-height:1.6;color:var(--muted)">Any packet that lands within the window is <b>buffered</b>, but it is not delivered to the application yet: the data has arrived in fragments and is not yet complete.</p>
     </div>
   </div>
 </section>
