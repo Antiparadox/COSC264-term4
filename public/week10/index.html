@@ -2648,7 +2648,7 @@ svg text{font-family:var(--sans)}
   </style>
   <div class="kicker">Selective repeat</div>
   <h2>The receiver&rsquo;s window in Selective Repeat</h2>
-  <div style="display:flex;flex-direction:column;gap:9px">
+  <div style="display:flex;flex-direction:column;gap:7px">
     <div style="display:flex;justify-content:center"><svg viewBox="14 12 496 138" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:592px"><defs><marker id="w2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L6,3 z" fill="context-stroke"/></marker></defs>
       <!-- delivered (left of window, always visible) -->
       <rect x="20" y="52" width="26" height="38" rx="3" fill="rgba(0,200,180,0.55)" stroke="var(--accent)" stroke-width="1.5"/>
@@ -2699,16 +2699,17 @@ svg text{font-family:var(--sans)}
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid #ff9800;background:rgba(255,152,0,0.42);flex-shrink:0"></span><span style="font-size:18px;line-height:1.4">received &amp; buffered</span></div>
       <div style="display:flex;align-items:center;gap:8px"><span style="width:16px;height:21px;border-radius:2px;border:1.5px solid var(--muted);background:none;flex-shrink:0"></span><span style="font-size:18px;line-height:1.4">not yet acceptable</span></div>
     </div>
-    <div class="frag f1 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+    <div class="frag f1 card" style="padding:8px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
       <p style="margin:0;font-size:18px;line-height:1.6">The receiver <b>buffers</b> out-of-order packets rather than discarding them. But its buffer is finite, so it can only accept a finite number of them.</p>
+      <p class="frag f2" style="margin:6px 0 0;font-size:18px;line-height:1.6">That is why the receiver has a <b>window</b>: it fixes the range of out-of-order packets it is willing to buffer.</p>
     </div>
-    <div class="frag f2 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:18px;line-height:1.6">That is why the receiver has a <b>window</b>: it fixes the range of out-of-order packets it is willing to buffer.</p>
-    </div>
-    <div class="frag f3 card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+    <div class="frag f3 card" style="padding:8px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
       <p style="margin:0;font-size:18px;line-height:1.6">The window starts at <span style="font-family:var(--mono)">rcv_base</span>, which points to the <b>first packet not yet delivered</b> &mdash; everything below it has arrived in order and gone to the application.</p>
     </div>
-    <div class="frag f3b card" style="padding:10px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+    <div class="frag f3a card" style="padding:8px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
+      <p style="margin:0;font-size:18px;line-height:1.6">In rdt 3.0 and Go-back-N, the receiver expected exactly <b>one</b> sequence number, <span style="font-family:var(--mono)">expectedseqnum</span>. Here it accepts <b>any</b> sequence number in its window, <span style="font-family:var(--mono)">[rcv_base, rcv_base+N&minus;1]</span>.</p>
+    </div>
+    <div class="frag f3b card" style="padding:8px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
       <p style="margin:0;font-size:18px;line-height:1.6">Any packet that lands within the window is <b>buffered</b>, but it is not delivered to the application yet: the data has arrived in fragments and is not yet complete.</p>
     </div>
   </div>
