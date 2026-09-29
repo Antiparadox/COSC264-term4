@@ -2864,7 +2864,12 @@ svg text{font-family:var(--sans)}
     <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--accent)">
       <p style="margin:0 0 5px;font-size:18px;font-weight:700;font-family:var(--mono)">ACK received, seq# in [send_base, send_base+N&minus;1]</p>
       <p style="margin:0 0 5px;font-size:18px;line-height:1.6">Mark that packet as received.</p>
-      <p style="margin:0;font-size:18px;line-height:1.6">If its sequence number <b>equals <span style="font-family:var(--mono)">send_base</span></b>, advance the base to the next unacknowledged number.</p>
+      <p class="frag" style="margin:0;font-size:18px;line-height:1.6">If its sequence number <b>equals <span style="font-family:var(--mono)">send_base</span></b>, advance the base to the next unacknowledged number.</p>
+    </div>
+
+    <div class="frag card" style="padding:13px 18px;border-left:3px solid var(--muted)">
+      <p style="margin:0 0 5px;font-size:18px;font-weight:700;font-family:var(--mono)">ACK received, seq# outside [send_base, send_base+N&minus;1]</p>
+      <p style="margin:0;font-size:18px;line-height:1.6"><b>Ignore</b> it: it is for a packet that has already been acknowledged, so there is nothing left to do.</p>
     </div>
 
 
