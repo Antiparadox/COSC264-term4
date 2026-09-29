@@ -2838,8 +2838,8 @@ svg text{font-family:var(--sans)}
       <g class="g-redborder"><rect x="208" y="47" width="34" height="48" rx="4" fill="none" stroke="#cf5c36" stroke-width="2.4"/></g>
     </svg></div>
     <div style="display:flex;flex-direction:column;gap:14px;padding-top:60px">
-      <p class="frag f1" style="margin:0;font-size:18px;line-height:1.6">In Selective Repeat, as its name suggests, each individual packet gets its own ACK &mdash; so each outstanding packet deserves <b>its own timer</b>.</p>
-      <p class="frag f2" style="margin:0;font-size:18px;line-height:1.6">When any timer expires, the sender resends <b>that packet only</b> and restarts <b>that</b> timer. Everything else in the window is untouched.</p>
+      <p class="frag f1" style="margin:0;font-size:18px;line-height:1.6">In Selective Repeat, each individual packet gets its own ACK &mdash; so each outstanding packet deserves <b>its own timer</b>.</p>
+      <p class="frag f2" style="margin:0;font-size:18px;line-height:1.6">As its name suggests, Selective Repeat resends selectively: when any timer expires, the sender resends <b>that packet only</b> and restarts <b>that</b> timer. Everything else in the window is untouched.</p>
       <p class="frag f3" style="margin:0;font-size:18px;line-height:1.6">This is in contrast with Go-back-N, where one timer covered the whole window and one expiry resent all packets in flight.</p>
       <p class="frag f4" style="margin:0;font-size:18px;line-height:1.6">This is where Selective Repeat wins: only the packets that were <b>truly lost</b> go out again, so far fewer retransmissions than Go-back-N.</p>
     </div>
