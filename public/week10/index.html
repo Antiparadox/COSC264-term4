@@ -2707,10 +2707,10 @@ svg text{font-family:var(--sans)}
       <p style="margin:0;font-size:18px;line-height:1.6">The window starts at <span style="font-family:var(--mono)">rcv_base</span>, which points to the <b>first packet not yet delivered</b> &mdash; everything below it has arrived in order and gone to the application.</p>
     </div>
     <div class="frag f3a card" style="padding:8px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:18px;line-height:1.6">Unlike rdt 3.0 and Go-back-N, where the receiver accepts only <span style="font-family:var(--mono)">expectedseqnum</span>, it now accepts <b>any</b> sequence number in <span style="font-family:var(--mono)">[rcv_base, rcv_base+N&minus;1]</span>.</p>
+      <p style="margin:0;font-size:18px;line-height:1.6">Unlike rdt 3.0 and Go-back-N, where the receiver accepts only <span style="font-family:var(--mono)">expectedseqnum</span>, it now accepts and buffers <b>any</b> sequence number in <span style="font-family:var(--mono)">[rcv_base, rcv_base+N&minus;1]</span>.</p>
     </div>
     <div class="frag f3b card" style="padding:8px 20px;border-left:3px solid var(--accent);max-width:1010px;align-self:center">
-      <p style="margin:0;font-size:18px;line-height:1.6">Such packets are <b>buffered</b> but not yet delivered, since the data is still incomplete.</p>
+      <p style="margin:0;font-size:18px;line-height:1.6">However, they are merely <b>buffered</b>, not yet delivered to the application, since the data is incomplete.</p>
     </div>
   </div>
 </section>
