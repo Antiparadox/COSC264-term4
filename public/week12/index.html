@@ -360,7 +360,7 @@ svg text{font-family:var(--sans)}
             <td style="padding:9px 16px;font-weight:600">High bandwidth</td>
             <td style="padding:9px 16px">Internet telephony, multimedia apps</td>
             <td style="padding:9px 16px">Email, file transfer (elastic)</td>
-            <td style="padding:9px 16px"><b>UDP</b> preferred<br><span style="opacity:0.65;font-size:18px">TCP throttles itself</span></td>
+            <td style="padding:9px 16px"><b>Neither</b> guarantees it<br><span style="opacity:0.65;font-size:18px">both are best-effort</span></td>
           </tr>
           <tr class="frag">
             <td style="padding:9px 16px;font-weight:600">Low delay</td>
@@ -560,7 +560,7 @@ svg text{font-family:var(--sans)}
             <td style="padding:9px 20px;font-weight:600">HTTP/1.0</td>
             <td style="padding:9px 20px">1996</td>
             <td style="padding:9px 20px">Non-persistent</td>
-            <td style="padding:9px 20px;opacity:0.6">Obsolete</td>
+            <td style="padding:9px 20px;opacity:0.6">Legacy</td>
           </tr>
           <tr style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
             <td style="padding:9px 20px;font-weight:600">HTTP/1.1</td>
@@ -591,7 +591,7 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="HTTP">
   <div class="kicker">HTTP</div>
   <h2>Non-persistent HTTP in action</h2>
-  <p style="margin:0 0 14px;font-size:18px;line-height:1.5">Suppose a client wants to retrieve a file from: <code style="font-size:18px">http://www.someSchool.edu/someDept/pic.gif</code></p>
+  <p style="margin:0 0 14px;font-size:18px;line-height:1.5">Suppose a client wants to retrieve a file from: <code style="font-size:18px">http://www.someSchool.edu/someDepartment/home.index</code></p>
   <div style="display:flex;gap:28px;align-items:flex-start;max-width:1100px">
 
     <!-- Steps -->
@@ -875,6 +875,7 @@ svg text{font-family:var(--sans)}
         <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">
           <li style="font-size:18px;line-height:1.5">Don&rsquo;t confuse this with TCP-level pipelining</li>
           <li style="font-size:18px;line-height:1.5">HTTP pipelining operates at the <b>application layer</b> &mdash; it pipelines <b>HTTP messages</b></li>
+          <li style="font-size:18px;line-height:1.5">In practice, browsers leave HTTP/1.1 pipelining off (one slow response blocks those behind it); HTTP/2 multiplexing replaced it</li>
         </ul>
       </div>
     </div>
@@ -1348,7 +1349,7 @@ svg text{font-family:var(--sans)}
 <!-- Slide 18: Cookies example — REWRITTEN -->
 <section class="slide" data-sec="Cookies and caching">
   <div class="kicker">HTTP</div>
-  <h2>Cookies: an example <span style="font-size:18px;font-weight:400;opacity:0.55;margin-left:6px">[RFC 2109]</span></h2>
+  <h2>Cookies: an example <span style="font-size:18px;font-weight:400;opacity:0.55;margin-left:6px">[RFC 6265]</span></h2>
   <div style="display:flex;gap:28px;align-items:flex-start;margin-top:6px">
 
     <!-- Left: SVG sequence diagram (synced to frags via CSS) -->
@@ -1370,7 +1371,7 @@ svg text{font-family:var(--sans)}
         <g class="msg-setcookie">
           <line x1="400" y1="114" x2="168" y2="134" stroke="currentColor" stroke-width="1.5" opacity="0.55"/><polygon points="173,130 165,134 173,138" fill="currentColor" opacity="0.55"/>
           <text x="282" y="98" text-anchor="middle" font-size="17.5" fill="currentColor" opacity="0.55">HTTP response</text>
-          <text x="282" y="117" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">Set-cookie: 1678</text>
+          <text x="282" y="117" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">Set-Cookie: id=1678</text>
           <text x="412" y="108" text-anchor="start" font-size="17.5" fill="currentColor" opacity="0.55">Server creates</text>
           <text x="412" y="128" text-anchor="start" font-size="17.5" fill="currentColor" opacity="0.55">ID 1678 for user</text>
         </g>
@@ -1392,7 +1393,7 @@ svg text{font-family:var(--sans)}
         <g class="msg-cookiereqs">
           <line x1="165" y1="232" x2="397" y2="252" stroke="currentColor" stroke-width="1.5" opacity="0.55"/><polygon points="392,248 400,252 392,256" fill="currentColor" opacity="0.55"/>
           <text x="282" y="216" text-anchor="middle" font-size="17.5" fill="currentColor" opacity="0.55">HTTP request</text>
-          <text x="282" y="235" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">cookie: 1678</text>
+          <text x="282" y="235" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">Cookie: id=1678</text>
         </g>
 
         <!-- msg-resp2: HTTP response ← -->
@@ -1414,9 +1415,9 @@ svg text{font-family:var(--sans)}
     <!-- Right: callout frags -->
     <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px">
       <div id="ck-exl1" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)">The client sends an HTTP request to the host</div>
-      <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Set-cookie: 1678</b> &mdash; Server assigns a unique ID and sends it to the client</div>
+      <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Set-Cookie: id=1678</b> &mdash; Server assigns a unique ID and sends it to the client</div>
       <div id="ck-exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The cookie ID is stored as an entry in the back-end database, and in the client&rsquo;s browser</div>
-      <div id="ck-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>cookie: 1678</b> &mdash; Client attaches the ID on every future request to the same server</div>
+      <div id="ck-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Cookie: id=1678</b> &mdash; Client attaches the ID on every future request to the same server</div>
       <div id="ck-exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">Server uses the ID to look up the user&rsquo;s state in its database</div>
       <div id="ck-exl6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">Server can then generate a <b>tailored response</b> &mdash; e.g. a personalised page, a pre-filled shopping cart &mdash; for the client&rsquo;s request</div>
     </div>
@@ -1547,8 +1548,8 @@ svg text{font-family:var(--sans)}
 
     <div id="why3" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
       <div>
-        <div style="font-size:18px;font-weight:700;margin-bottom:3px">Lower bandwidth costs</div>
-        <div style="font-size:18px;line-height:1.55">ISPs typically charge for outbound traffic volume. A cache that serves popular objects locally directly reduces that bill.</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:3px">Lower access-link costs</div>
+        <div style="font-size:18px;line-height:1.55">Fewer objects are fetched from origin servers, so less traffic comes in over the institution&rsquo;s access link &mdash; it can avoid or delay a costly upgrade to that link.</div>
       </div>
     </div>
 
@@ -1706,7 +1707,8 @@ svg text{font-family:var(--sans)}
     <div class="frag card" style="padding:16px 24px;border-left:4px solid var(--accent)">
       <p style="margin:0;font-size:19px;font-weight:700">Electronic Mail (Email)</p>
       <ul style="margin:8px 0 0;padding-left:20px;font-size:18px;line-height:1.7;list-style:disc">
-        <li><span style="opacity:0.6;font-size:18px;font-style:italic">Mail access protocol: </span><b>SMTP, POP3, IMAP</b></li>
+        <li><span style="opacity:0.6;font-size:18px;font-style:italic">Mail transfer protocol: </span><b>SMTP</b></li>
+        <li><span style="opacity:0.6;font-size:18px;font-style:italic">Mail access protocols: </span><b>POP3, IMAP</b></li>
         <li><span style="opacity:0.6;font-size:18px;font-style:italic">Message format: </span><b>MIME</b></li>
       </ul>
     </div>
@@ -1762,19 +1764,20 @@ svg text{font-family:var(--sans)}
           <text x="247" y="102" text-anchor="middle" font-size="16.5" font-weight="700" fill="currentColor" opacity="0.8">SMTP</text>
         </g>
 
-        <!-- ov-map: bidirectional MAP arrows both sides -->
-        <g class="ov-map">
-          <line x1="70" y1="108" x2="111" y2="108" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
-          <polygon points="107,105 114,108 107,111" fill="currentColor" opacity="0.55"/>
-          <line x1="114" y1="118" x2="73" y2="118" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
-          <polygon points="77,115 70,118 77,121" fill="currentColor" opacity="0.55"/>
-          <text x="92" y="98" text-anchor="middle" font-size="16.5" font-weight="700" fill="currentColor" opacity="0.75">MAP</text>
+        <!-- Alice's UA submits mail to her server over SMTP (shown with the SMTP beat) -->
+        <g class="ov-smtp">
+          <line x1="70" y1="112" x2="111" y2="112" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+          <polygon points="107,109 114,112 107,115" fill="currentColor" opacity="0.6"/>
+          <text x="92" y="76" text-anchor="middle" font-size="16.5" font-weight="700" fill="currentColor" opacity="0.8">SMTP</text>
+        </g>
 
-          <line x1="380" y1="108" x2="421" y2="108" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
-          <polygon points="417,105 424,108 417,111" fill="currentColor" opacity="0.55"/>
-          <line x1="424" y1="118" x2="383" y2="118" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
-          <polygon points="387,115 380,118 387,121" fill="currentColor" opacity="0.55"/>
-          <text x="402" y="98" text-anchor="middle" font-size="16.5" font-weight="700" fill="currentColor" opacity="0.75">MAP</text>
+        <!-- ov-map: Bob's UA retrieves mail from his server -->
+        <g class="ov-map">
+          <line x1="383" y1="108" x2="424" y2="108" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
+          <polygon points="387,105 380,108 387,111" fill="currentColor" opacity="0.55"/>
+          <line x1="380" y1="118" x2="421" y2="118" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
+          <polygon points="417,115 424,118 417,121" fill="currentColor" opacity="0.55"/>
+          <text x="402" y="76" text-anchor="middle" font-size="16.5" font-weight="700" fill="currentColor" opacity="0.75">MAP</text>
         </g>
 
       </svg>
@@ -1789,7 +1792,7 @@ svg text{font-family:var(--sans)}
         <b>Mail server</b> — a dedicated host that handles email on behalf of its users. It stores a <b>mailbox</b> per recipient for incoming mails and a <b>send queue</b> of outgoing mails
       </div>
       <div id="ov3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <b>SMTP</b> — Simple Mail Transfer Protocol; used between mail servers to transfer messages across the internet
+        <b>SMTP</b> — Simple Mail Transfer Protocol; used to send mail, from the sender&rsquo;s UA to its mail server and between mail servers across the internet
       </div>
       <div id="ov4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
         <b>Mail access protocol (MAP)</b> — used by UAs to retrieve messages from their mail server; POP3 or IMAP
@@ -1907,7 +1910,7 @@ svg text{font-family:var(--sans)}
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">①</span> Alice uses her UA to <b>compose</b> the message
       </div>
       <div id="sm2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">②</span> Alice&rsquo;s UA <b>sends</b> the message to her mail server
+        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">②</span> Alice&rsquo;s UA <b>sends</b> the message to her mail server (also via SMTP)
       </div>
       <div id="sm3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">③</span> The <b style="color:var(--accent)">SMTP client</b> on Alice&rsquo;s server opens a TCP connection to Bob&rsquo;s mail server
@@ -2006,7 +2009,7 @@ svg text{font-family:var(--sans)}
       </div>
 
       <div id="map3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <b>IMAP</b> &mdash; Internet Mail Access Protocol version 4 &nbsp;<span style="opacity:0.5;font-size:18px">[RFC 3501]</span><br>
+        <b>IMAP</b> &mdash; Internet Message Access Protocol version 4 &nbsp;<span style="opacity:0.5;font-size:18px">[RFC 9051]</span><br>
         <span style="font-size:18px;opacity:0.85">Keeps messages on the server; supports folders and sync across multiple devices</span>
       </div>
 
@@ -2040,7 +2043,7 @@ svg text{font-family:var(--sans)}
 <!-- Slide: IMAP -->
 <section class="slide" data-sec="Email">
   <div class="kicker">IMAP</div>
-  <h2>Internet Mail Access Protocol</h2>
+  <h2>Internet Message Access Protocol</h2>
   <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;max-width:860px">
 
     <div id="im1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
@@ -2073,7 +2076,7 @@ svg text{font-family:var(--sans)}
     </g>
     <g class="pp-ph2">
       <polygon points="182,0 354,0 374,33 354,66 182,66" fill="rgba(0,0,0,0.06)" stroke="currentColor" stroke-width="0.8" opacity="0.8"/>
-      <text x="278" y="27" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.8">Authentication</text>
+      <text x="278" y="27" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.8">Authorization</text>
       <text x="278" y="44" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.8">state</text>
     </g>
     <g class="pp-ph3">
@@ -2260,7 +2263,7 @@ svg text{font-family:var(--sans)}
 
       <!-- Protocol -->
       <div id="dn6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        DNS is an <b>application-layer protocol</b> running over <b>UDP on port 53</b>
+        DNS is an <b>application-layer protocol</b> running mainly over <b>UDP on port 53</b> (TCP port 53 for large responses and zone transfers)
       </div>
 
     </div>
@@ -2333,11 +2336,11 @@ svg text{font-family:var(--sans)}
 
       <div id="ds2" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
         <b>Host aliasing</b> — a host with a complex <b>canonical hostname</b> can be reached via simpler <b>alias names</b><br>
-        <span style="font-size:18px;opacity:0.8">e.g. <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">enterprise.com</code> and <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">www.enterprise.com</code> both resolve to the canonical <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">relay1.west-coast.enterprise.com</code></span>
+        <span style="font-size:18px;opacity:0.8">e.g. <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">www.enterprise.com</code> and <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">shop.enterprise.com</code> both resolve to the canonical <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">relay1.west-coast.enterprise.com</code></span>
       </div>
 
       <div id="ds3" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
-        <b>Mail server aliasing</b> — the same idea for email; a friendly address like <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">bob@outlook.com</code> can map to the canonical mail server hostname <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">relay1.west-coast.outlook.com</code>
+        <b>Mail server aliasing</b> — the same idea for email; a friendly address like <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">bob@enterprise.com</code> can map (via an MX record) to the canonical mail server hostname <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">relay1.west-coast.enterprise.com</code>
       </div>
 
     </div>
@@ -2352,7 +2355,7 @@ svg text{font-family:var(--sans)}
 
           <!-- Alias box 1 -->
           <rect x="4" y="32" width="110" height="36" rx="5" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2" opacity="0.8"/>
-          <text x="59" y="53" text-anchor="middle" font-family="monospace" font-size="13.5" fill="currentColor" opacity="0.85">enterprise.com</text>
+          <text x="59" y="47" text-anchor="middle" font-family="monospace" font-size="13.5" fill="currentColor" opacity="0.85">shop.enterprise</text><text x="59" y="62" text-anchor="middle" font-family="monospace" font-size="13.5" fill="currentColor" opacity="0.85">.com</text>
 
           <!-- Alias box 2 -->
           <rect x="4" y="104" width="110" height="42" rx="5" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2" opacity="0.8"/>
@@ -2599,7 +2602,7 @@ svg text{font-family:var(--sans)}
     <!-- Root DNS card -->
     <div class="dh-card dh-card-root" style="top:0%">
       <div style="font-weight:700;font-size:18px;margin-bottom:6px;color:var(--accent,#008080)">Root DNS Servers</div>
-      <div style="font-size:18px;line-height:1.55">13 root server addresses — each backed by a cluster of replicated machines, giving <b>over 1000 physical instances</b> worldwide</div>
+      <div style="font-size:18px;line-height:1.55">13 root server identities (a&ndash;m.root-servers.net) — each replicated via anycast, giving <b>over 1000 physical instances</b> worldwide</div>
     </div>
 
     <!-- TLD DNS card -->
@@ -3067,9 +3070,9 @@ svg text{font-family:var(--sans)}
 
       <div id="ri3" class="frag" style="line-height:1.5;border-radius:6px;border:1.5px solid var(--accent,#0f8f83);padding:12px 15px;background:var(--accent-soft,#d9efec)">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Can we go fully recursive?</div>
-        Yes&nbsp;— instead of local DNS following referrals itself, it passes
-        the query to root, which asks TLD, which asks auth.
-        The answer cascades back through the chain.
+        In principle, yes&nbsp;— root asks TLD, which asks auth.
+        In practice, root and TLD servers refuse recursion (too much load),
+        so only client&nbsp;→ local DNS is recursive.
       </div>
 
     </div>
@@ -3241,7 +3244,7 @@ svg text{font-family:var(--sans)}
       <div id="rr3" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Type NS</div>
         <b>name</b> = domain &nbsp;·&nbsp; <b>value</b> = hostname of the authoritative DNS server for that domain
-        <div style="margin-top:6px;font-size:18px;opacity:.75;font-style:italic">"I don't know — but here's the address of the server that does."</div>
+        <div style="margin-top:6px;font-size:18px;opacity:.75;font-style:italic">"I don't know — but here's the name of the server that does."</div>
       </div>
 
       <div id="rr4" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
@@ -3293,7 +3296,7 @@ svg text{font-family:var(--sans)}
             <td style="padding:7px 10px;opacity:.55">XXXX</td>
           </tr>
           <tr class="rr-row rr-row-CNAME">
-            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">canterbury.ac.nz</td>
+            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">www.canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">web.canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-weight:700">CNAME</td>
             <td style="padding:7px 10px;opacity:.55">XXXX</td>
@@ -3684,15 +3687,15 @@ svg text{font-family:var(--sans)}
   <div style="display:flex;flex-direction:column;gap:26px;font-size:18px;line-height:1.7">
     <div>
       James F. Kurose &amp; Keith W. Ross, <i>Computer Networking: A Top-Down Approach</i>, Addison Wesley, 3<sup>rd</sup> edition, 2005.
-      <div style="font-size:18px;opacity:.6;margin-top:5px">Chapter 2 Application Layer (2.3, 2.4)</div>
+      <div style="font-size:18px;opacity:.6;margin-top:5px">Chapter 2 Application Layer (2.1, 2.2, 2.4, 2.5)</div>
     </div>
     <div>
       William Stallings, <i>Data and Computer Communications</i>, Pearson, 10<sup>th</sup> edition, 2013.
-      <div style="font-size:18px;opacity:.6;margin-top:5px">Chapter 24 Electronic Mail, DNS, and HTTP (24.1, 24.2)</div>
+      <div style="font-size:18px;opacity:.6;margin-top:5px">Chapter 24 Electronic Mail, DNS, and HTTP (24.1&ndash;24.3)</div>
     </div>
     <div>
       Andrew S. Tanenbaum &amp; David J. Wetherall, <i>Computer Networks</i>, Prentice Hall, 5<sup>th</sup> edition, 2010.
-      <div style="font-size:18px;opacity:.6;margin-top:5px">Chapter 7 The Application Layer (7.1, 7.2)</div>
+      <div style="font-size:18px;opacity:.6;margin-top:5px">Chapter 7 The Application Layer (7.1&ndash;7.3)</div>
     </div>
   </div>
 </section>
