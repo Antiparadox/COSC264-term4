@@ -128,7 +128,7 @@
       border-radius: 50%;
       background: var(--teal-soft);
       color: var(--teal);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
 
     .recap-list {
@@ -225,12 +225,12 @@
     .teaching-point strong { font-family: var(--serif); font-size: 21px; }
     .inline-highlight { color: var(--amber); font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
     .protocol-pills { display: flex; gap: 10px; margin-top: 10px; }
-    .protocol-pill { padding: 8px 15px; border-radius: 999px; background: var(--teal-soft); color: var(--teal); font: 800 17px/1 var(--mono); }
+    .protocol-pill { padding: 8px 15px; border-radius: 999px; background: var(--teal-soft); color: var(--teal); font: 800 18px/1 var(--mono); }
     .protocol-pill.udp { background: color-mix(in srgb, var(--amber) 15%, var(--surface)); color: var(--amber); }
 
     .transport-scene {
       position: relative;
-      height: 366px;
+      height: 412px;
       padding: 20px 22px 16px;
       border: 1px solid var(--line);
       border-radius: 22px;
@@ -280,7 +280,7 @@
       border-radius: 13px;
       background: var(--surface);
       text-align: center;
-      font: 800 17px/1.1 var(--mono);
+      font: 800 18px/1.1 var(--mono);
     }
     .stack {
       overflow: hidden;
@@ -289,7 +289,7 @@
       background: var(--surface-2);
       transition: opacity .2s ease, box-shadow .2s ease;
     }
-    .stack-layer { padding: 8px 12px; border-bottom: 1px solid var(--line); color: var(--muted); font: 700 17px/1 var(--mono); }
+    .stack-layer { padding: 8px 12px; border-bottom: 1px solid var(--line); color: var(--muted); font: 700 18px/1 var(--mono); }
     .stack-layer:last-child { border-bottom: 0; }
     .stack-layer.transport { background: var(--teal-soft); color: var(--teal); }
     .stack-layer.lower-layer { max-height: 0; padding-top: 0; padding-bottom: 0; border-bottom-color: transparent; opacity: 0; overflow: hidden; transition: max-height .24s ease, padding .24s ease, opacity .24s ease, border-color .24s ease; }
@@ -310,22 +310,22 @@
       border-radius: 50%;
       background: color-mix(in srgb, var(--amber) 10%, var(--surface));
       color: var(--amber);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
     .wire { height: 3px; background: var(--line); }
     .network-core.is-active { transform: none; }
-    .core-label { margin: 10px 0 0; color: var(--muted); text-align: center; font: 700 17px/1.3 var(--mono); }
+    .core-label { margin: 10px 0 0; color: var(--muted); text-align: center; font: 700 18px/1.3 var(--mono); }
     .flow-note {
       position: absolute;
-      left: 44px;
-      right: 44px;
-      bottom: 22px;
+      left: 22px;
+      right: 22px;
+      bottom: 18px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       margin: 0;
     }
-    .protocol-option { padding: 10px 12px; border-radius: 12px; background: var(--teal-soft); color: var(--teal); font: 800 17px/1.2 var(--mono); text-align: center; }
+    .protocol-option { padding: 9px 8px; border-radius: 12px; white-space: nowrap; background: var(--teal-soft); color: var(--teal); font: 800 18px/1.2 var(--mono); text-align: center; }
     .protocol-option.udp { background: color-mix(in srgb, var(--amber) 15%, var(--surface)); color: var(--amber); }
     .flow-note.stateful { opacity: 0; transform: translateY(8px); transition: opacity .24s ease, transform .24s ease; }
     .flow-note.stateful.is-active { opacity: 1; transform: none; }
@@ -357,7 +357,7 @@
       border-radius: 999px;
       background: var(--teal-soft);
       color: var(--teal);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
     .service-card.tcp .service-tag { background: color-mix(in srgb, var(--amber) 14%, var(--surface)); color: var(--amber); }
 
@@ -377,8 +377,8 @@
     .application-table td { padding: 13px 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 18px; line-height: 1.26; vertical-align: middle; }
     .application-table td:first-child { color: var(--ink); font-weight: 750; }
     .application-table tr.frag.visible:nth-child(even) td { background: color-mix(in srgb, var(--teal-soft) 24%, var(--surface)); }
-    .transport-choice { color: var(--teal); font: 800 17px/1.2 var(--mono); }
-    .application-note { margin: 13px 0 0; color: var(--faint); font-size: 17px; line-height: 1.35; }
+    .transport-choice { color: var(--teal); font: 800 18px/1.2 var(--mono); }
+    .application-note { margin: 13px 0 0; color: var(--faint); font-size: 18px; line-height: 1.35; }
 
     .mux-definition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 24px; }
     .socket-definition {
@@ -392,7 +392,7 @@
       text-align: center;
     }
     .socket-definition h3 { margin: 0 0 4px; font: 700 26px/1.1 var(--serif); }
-    .socket-definition p { max-width: 840px; margin: 0 auto; color: var(--muted); font-size: 17px; line-height: 1.25; }
+    .socket-definition p { max-width: 840px; margin: 0 auto; color: var(--muted); font-size: 18px; line-height: 1.25; }
     .motivation-layout { display: grid; grid-template-columns: 42% 58%; gap: 28px; align-items: stretch; margin-top: 30px; }
     .motivation-copy { display: grid; align-content: center; gap: 18px; }
     .motivation-lead { margin: 0; color: var(--ink); font-size: 24px; line-height: 1.38; }
@@ -404,7 +404,7 @@
     .motivation-scene h3 { margin: 0 0 20px; color: var(--faint); text-align: center; font: 800 17px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
     .host-shell { padding: 14px 14px 10px; border: 2px solid color-mix(in srgb, var(--teal) 46%, var(--line)); border-radius: 17px; background: color-mix(in srgb, var(--teal-soft) 48%, var(--surface)); }
     .host-shell-label { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 0 2px 9px; color: var(--teal); font: 800 17px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-    .host-shell-label span:last-child { color: var(--faint); font-size: 17px; letter-spacing: .04em; }
+    .host-shell-label span:last-child { color: var(--faint); font-size: 18px; letter-spacing: .04em; }
     .motivation-process-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .motivation-node { display: grid; grid-template-rows: auto 64px; justify-items: center; gap: 8px; }
     .motivation-node .mini-process { background: var(--teal-soft); }
@@ -416,7 +416,7 @@
     .motivation-sockets.is-active { opacity: 1; }
     .socket-extra { opacity: 0; transition: opacity .24s ease; }
     .socket-extra.is-active { opacity: 1; }
-    .motivation-sockets .mini-socket { width: auto; padding: 0 10px; height: 30px; font-size: 17px; }
+    .motivation-sockets .mini-socket { width: auto; padding: 0 10px; height: 30px; font-size: 18px; }
     .motivation-link { display: grid; place-items: center; min-height: 64px; color: var(--amber); font: 800 30px/1 var(--sans); }
     .motivation-chaos, .motivation-clean { transition: opacity .24s ease, transform .24s ease; }
     .motivation-chaos { opacity: 0; }
@@ -459,15 +459,15 @@
     .tcp-sender-hot > .frag.visible:has(~ .frag.visible) { display: none; }
     .fast-retransmit-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .fast-retransmit-slide .stateful.is-active { opacity: 1; }
-    .motivation-note { margin: 18px 0 0; color: var(--faint); text-align: center; font: 700 17px/1.3 var(--mono); }
-    .motivation-scene h3 { font-size: 17px; }
-    .motivation-scene .host-shell-label { font-size: 17px; }
-    .motivation-scene .host-shell-label span:last-child { font-size: 17px; }
+    .motivation-note { margin: 18px 0 0; color: var(--faint); text-align: center; font: 700 18px/1.3 var(--mono); }
+    .motivation-scene h3 { font-size: 18px; }
+    .motivation-scene .host-shell-label { font-size: 18px; }
+    .motivation-scene .host-shell-label span:last-child { font-size: 18px; }
     .motivation-scene .mini-process { width: 124px; height: 76px; border-radius: 38px; font-size: 19px; }
-    .motivation-scene .mini-process small { margin-top: 3px; font-size: 17px; }
+    .motivation-scene .mini-process small { margin-top: 3px; font-size: 18px; }
     .motivation-scene .transport-band { padding: 15px; font-size: 20px; }
     .motivation-scene .network-band { padding: 13px; font-size: 18px; }
-    .motivation-scene .motivation-note { margin-top: 8px; font-size: 17px; }
+    .motivation-scene .motivation-note { margin-top: 8px; font-size: 18px; }
     .motivation-scene .motivation-link { min-height: 34px; font-size: 28px; }
     .motivation-scene h3 { margin-bottom: 14px; }
     .mux-panel {
@@ -482,10 +482,10 @@
     .mux-panel.is-active { opacity: 1; border-color: var(--teal); box-shadow: 0 11px 28px rgba(21, 36, 47, .08); }
     .mux-panel > p { font-size: 19.5px; }
     .mux-panel .mini-process { width: 124px; height: 80px; border-radius: 40px; font-size: 20px; }
-    .mux-panel .mini-process small { margin-top: 3px; font-size: 17px; }
+    .mux-panel .mini-process small { margin-top: 3px; font-size: 18px; }
     .mux-panel .transport-band { padding: 15px; font-size: 20px; }
     .mux-panel .network-band { padding: 13px; font-size: 18px; }
-    .mux-panel .mini-socket { width: auto; padding: 0 12px; height: 32px; font-size: 17px; }
+    .mux-panel .mini-socket { width: auto; padding: 0 12px; height: 32px; font-size: 18px; }
     .mux-panel .direction-arrows.tiny { min-height: 0; margin: 4px 0; font-size: 18px; }
     .mux-panel h3 { margin: 0; font: 700 30px/1.1 var(--serif); }
     .mux-panel > p { min-height: 50px; margin: 8px 0 18px; color: var(--muted); font-size: 18px; line-height: 1.35; }
@@ -499,13 +499,13 @@
       border-radius: 50%;
       background: var(--teal-soft);
       color: var(--teal);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
-    .mini-process small, .mini-socket small { display: block; margin-top: 4px; color: var(--muted); font: 700 17px/1 var(--mono); }
-    .mini-socket { display: grid; place-items: center; width: 82px; height: 34px; border: 2px solid var(--amber); border-radius: 6px; background: color-mix(in srgb, var(--amber) 22%, var(--surface)); color: var(--amber); font: 800 17px/1 var(--mono); }
+    .mini-process small, .mini-socket small { display: block; margin-top: 4px; color: var(--muted); font: 700 18px/1 var(--mono); }
+    .mini-socket { display: grid; place-items: center; width: 82px; height: 34px; border: 2px solid var(--amber); border-radius: 6px; background: color-mix(in srgb, var(--amber) 22%, var(--surface)); color: var(--amber); font: 800 18px/1 var(--mono); }
     .direction-arrows { display: grid; grid-template-columns: repeat(3, 1fr); margin: 1px 0; color: var(--teal); text-align: center; font: 800 28px/1 var(--sans); }
-    .transport-band { padding: 13px; border-radius: 10px; background: var(--teal); color: white; text-align: center; font: 800 17px/1 var(--mono); }
-    .network-band { margin-top: 8px; padding: 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--muted); text-align: center; font: 750 17px/1 var(--mono); }
+    .transport-band { padding: 13px; border-radius: 10px; background: var(--teal); color: white; text-align: center; font: 800 18px/1 var(--mono); }
+    .network-band { margin-top: 8px; padding: 11px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--muted); text-align: center; font: 750 18px/1 var(--mono); }
     .mux-panel.demux .network-band { margin: 0 0 8px; }
     .socket-note {
       margin: 17px auto 0;
@@ -524,18 +524,18 @@
     .socket-concept-scene { min-height: 416px; padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: 0 11px 28px rgba(21, 36, 47, .08); }
     .socket-host { max-width: 440px; margin: 0 auto; padding: 16px 20px 18px; border: 2px solid color-mix(in srgb, var(--teal) 45%, var(--line)); border-radius: 18px; background: color-mix(in srgb, var(--teal-soft) 34%, var(--surface)); }
     .socket-host-label { margin: 0 0 12px; color: var(--teal); font: 800 17px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-    .socket-process-box { width: 190px; margin: 0 auto; padding: 11px; border: 2px solid var(--teal); border-radius: 14px; background: var(--surface); color: var(--teal); text-align: center; font: 800 17px/1.2 var(--mono); }
+    .socket-process-box { width: 190px; margin: 0 auto; padding: 11px; border: 2px solid var(--teal); border-radius: 14px; background: var(--surface); color: var(--teal); text-align: center; font: 800 18px/1.2 var(--mono); }
     .socket-connector { margin: 7px 0; color: var(--teal); text-align: center; font: 900 30px/1 var(--sans); }
-    .socket-gateway { width: 240px; margin: 0 auto; padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--amber) 18%, var(--surface)); color: var(--amber); text-align: center; font: 800 17px/1.2 var(--mono); }
-    .socket-gateway small { display: block; margin-top: 4px; color: color-mix(in srgb, var(--amber) 72%, var(--ink)); font: 700 17px/1.15 var(--mono); }
-    .socket-transport { padding: 11px; border-radius: 10px; background: var(--teal); color: #fff; text-align: center; font: 800 17px/1 var(--mono); }
+    .socket-gateway { width: 240px; margin: 0 auto; padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--amber) 18%, var(--surface)); color: var(--amber); text-align: center; font: 800 18px/1.2 var(--mono); }
+    .socket-gateway small { display: block; margin-top: 4px; color: color-mix(in srgb, var(--amber) 72%, var(--ink)); font: 700 18px/1.15 var(--mono); }
+    .socket-transport { padding: 11px; border-radius: 10px; background: var(--teal); color: #fff; text-align: center; font: 800 18px/1 var(--mono); }
     .socket-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .socket-fork { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .socket-concept-scene .socket-host { max-width: 520px; }
-    .socket-concept-scene .socket-host-label { font-size: 17px; }
+    .socket-concept-scene .socket-host-label { font-size: 18px; }
     .socket-concept-scene .socket-process-box { width: 270px; padding: 13px; font-size: 18px; }
     .socket-concept-scene .socket-gateway { width: auto; padding: 13px 8px; font-size: 18px; }
-    .socket-concept-scene .socket-gateway small { margin-top: 5px; font-size: 17px; }
+    .socket-concept-scene .socket-gateway small { margin-top: 5px; font-size: 18px; }
     .socket-concept-scene .socket-transport { padding: 13px; font-size: 19px; }
     .demux-layout {
       display: grid;
@@ -586,19 +586,19 @@
     .packet-field { padding: 14px; border-right: 1px solid var(--line); }
     .packet-field:last-child { border-right: 0; }
     .packet-field small { display: block; margin-bottom: 6px; color: var(--faint); font: 700 17px/1 var(--mono); text-transform: uppercase; }
-    .packet-field strong { color: var(--ink); font: 800 17px/1.2 var(--mono); }
-    .packet-payload { padding: 24px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); color: var(--muted); text-align: center; font: 750 17px/1 var(--mono); }
-    .packet-socket-target { margin-top: 13px; padding: 13px; border-radius: 13px; background: var(--teal-soft); color: var(--teal); text-align: center; font: 800 17px/1.25 var(--mono); opacity: 0; transform: translateY(8px); transition: opacity .24s ease, transform .24s ease; }
+    .packet-field strong { color: var(--ink); font: 800 18px/1.2 var(--mono); }
+    .packet-payload { padding: 24px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); color: var(--muted); text-align: center; font: 750 18px/1 var(--mono); }
+    .packet-socket-target { margin-top: 13px; padding: 13px; border-radius: 13px; background: var(--teal-soft); color: var(--teal); text-align: center; font: 800 18px/1.25 var(--mono); opacity: 0; transform: translateY(8px); transition: opacity .24s ease, transform .24s ease; }
     .packet-socket-target.is-active { opacity: 1; transform: none; }
-    .udp-demux-packet .packet-caption { font-size: 17px; }
-    .udp-demux-packet .packet-section-title { padding: 11px 14px; font-size: 17px; }
-    .udp-demux-packet .packet-field small { margin-bottom: 7px; font-size: 17px; }
+    .udp-demux-packet .packet-caption { font-size: 18px; }
+    .udp-demux-packet .packet-section-title { padding: 11px 14px; font-size: 18px; }
+    .udp-demux-packet .packet-field small { margin-bottom: 7px; font-size: 18px; }
     .udp-demux-packet .packet-field strong { font-size: 20px; }
     .udp-demux-packet .packet-payload { padding: 22px 14px; font-size: 18px; }
     .udp-demux-packet .packet-socket-target { padding: 15px; font-size: 18px; }
-    .four-tuple-scene .packet-caption { font-size: 17px; }
+    .four-tuple-scene .packet-caption { font-size: 18px; }
     .four-tuple-scene .endpoint-pair h3 { font-size: 24px; }
-    .four-tuple-scene .endpoint-value small { margin-bottom: 8px; font-size: 17px; }
+    .four-tuple-scene .endpoint-value small { margin-bottom: 8px; font-size: 18px; }
     .four-tuple-scene .endpoint-value strong { font-size: 19px; }
     .udp-demux-packet { position: relative; }
     .udp-demux-packet .packet-section { opacity: 1; }
@@ -642,7 +642,7 @@
     .tuple-field { padding: 19px 16px; text-align: center; }
     .tuple-field + .tuple-field { border-left: 1px solid var(--line); }
     .tuple-field small { display: block; margin-bottom: 8px; color: var(--faint); font: 700 17px/1 var(--mono); text-transform: uppercase; }
-    .tuple-field strong { color: var(--teal); font: 800 17px/1.2 var(--mono); }
+    .tuple-field strong { color: var(--teal); font: 800 18px/1.2 var(--mono); }
     .source-cloud { display: flex; justify-content: space-between; gap: 16px; }
     .source-card {
       flex: 1;
@@ -652,10 +652,10 @@
       background: var(--surface-2);
       color: var(--muted);
       text-align: center;
-      font: 700 17px/1.45 var(--mono);
+      font: 700 18px/1.45 var(--mono);
     }
     .merge-arrows { margin: 9px 0 5px; color: var(--teal); text-align: center; font: 900 38px/1 var(--sans); letter-spacing: .6em; transform: translateX(.3em); }
-    .socket-target { width: 270px; margin: 0 auto; padding: 15px; border-radius: 13px; background: var(--teal); color: white; text-align: center; font: 800 17px/1.2 var(--mono); }
+    .socket-target { width: 270px; margin: 0 auto; padding: 15px; border-radius: 13px; background: var(--teal); color: white; text-align: center; font: 800 18px/1.2 var(--mono); }
 
     .udp-example {
       display: grid;
@@ -668,15 +668,15 @@
     .udp-connectionless-example .host-card { padding: 11px; }
     .udp-connectionless-example .host-card + .host-card { margin-top: 9px !important; }
     .udp-connectionless-example .host-socket { margin-top: 7px; }
-    .udp-connectionless-example .datagram-card { padding: 12px 15px; font-size: 17px; }
+    .udp-connectionless-example .datagram-card { padding: 12px 15px; font-size: 18px; }
     .udp-connectionless-example .host-card h3 { font-size: 24px; }
-    .udp-connectionless-example .host-socket { width: 190px; padding: 8px 12px; font-size: 17px; }
-    .udp-connectionless-example .host-socket span { font-size: 17px; }
+    .udp-connectionless-example .host-socket { width: 190px; padding: 8px 12px; font-size: 18px; }
+    .udp-connectionless-example .host-socket span { font-size: 18px; }
     .udp-example .host-card + .host-card { margin-top: 12px !important; }
     .udp-example .host-socket { margin-top: 10px; }
     .udp-example .udp-paths { gap: 10px; }
     .udp-example .datagram-card { padding: 11px 14px; }
-    .udp-example .return-note { margin-top: 0; padding: 10px 16px; font-size: 17px; }
+    .udp-example .return-note { margin-top: 0; padding: 10px 16px; font-size: 18px; }
     .host-card {
       padding: 20px;
       border: 1px solid var(--line);
@@ -687,11 +687,11 @@
     }
     .host-card.server { border: 2px solid var(--teal); }
     .host-card h3 { margin: 0 0 7px; font: 700 26px/1.1 var(--serif); }
-    .host-address { color: var(--muted); font: 700 17px/1.35 var(--mono); }
-    .host-socket { width: 160px; margin: 15px auto 0; padding: 11px 12px; border-radius: 10px; background: var(--teal-soft); color: var(--teal); font: 800 17px/1.2 var(--mono); }
+    .host-address { color: var(--muted); font: 700 18px/1.35 var(--mono); }
+    .host-socket { width: 160px; margin: 15px auto 0; padding: 11px 12px; border-radius: 10px; background: var(--teal-soft); color: var(--teal); font: 800 18px/1.2 var(--mono); }
     .host-socket strong, .host-socket span { display: block; }
     .host-socket strong { margin-bottom: 5px; }
-    .host-socket span { margin-top: 2px; color: color-mix(in srgb, var(--teal) 76%, var(--ink)); font-size: 17px; }
+    .host-socket span { margin-top: 2px; color: color-mix(in srgb, var(--teal) 76%, var(--ink)); font-size: 18px; }
     .udp-paths { display: grid; gap: 17px; }
     .datagram-card {
       position: relative;
@@ -700,7 +700,7 @@
       border-radius: 13px;
       background: var(--surface);
       color: var(--muted);
-      font: 700 17px/1.5 var(--mono);
+      font: 700 18px/1.5 var(--mono);
       opacity: .42;
       transition: opacity .22s ease, border-color .22s ease, transform .22s ease;
     }
@@ -738,7 +738,7 @@
       max-width: 960px;
       margin: 12px auto 0;
       color: var(--muted);
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.32;
       text-align: center;
     }
@@ -750,7 +750,7 @@
       padding-top: 9px;
       border-top: 1px solid color-mix(in srgb, var(--teal) 28%, transparent);
       color: var(--muted);
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.28;
       text-align: left;
     }
@@ -791,7 +791,7 @@
     .endpoint-pair h3 { margin: 0; padding: 13px 16px; background: var(--surface-2); font: 700 22px/1.1 var(--serif); }
     .endpoint-value { padding: 17px 16px; border-top: 1px solid var(--line); }
     .endpoint-value small { display: block; margin-bottom: 7px; color: var(--faint); font: 700 17px/1 var(--mono); text-transform: uppercase; }
-    .endpoint-value strong { font: 800 17px/1.25 var(--mono); }
+    .endpoint-value strong { font: 800 18px/1.25 var(--mono); }
     .connection-identity {
       margin: 26px auto 0;
       max-width: 470px;
@@ -800,7 +800,7 @@
       background: var(--teal-soft);
       color: var(--teal);
       text-align: center;
-      font: 800 17px/1.3 var(--mono);
+      font: 800 18px/1.3 var(--mono);
     }
 
     .tcp-example {
@@ -821,7 +821,7 @@
       border-radius: 13px;
       background: var(--surface);
       color: var(--muted);
-      font: 700 17px/1.5 var(--mono);
+      font: 700 18px/1.5 var(--mono);
       opacity: .42;
       transition: opacity .22s ease, border-color .22s ease, transform .22s ease;
     }
@@ -836,7 +836,7 @@
       box-shadow: 0 9px 24px rgba(21, 36, 47, .07);
     }
     .server-process h3 { margin: 0 0 5px; font: 700 27px/1.1 var(--serif); }
-    .server-process > p { margin: 0 0 14px; color: var(--muted); font-size: 17px; }
+    .server-process > p { margin: 0 0 14px; color: var(--muted); font-size: 18px; }
     .connected-socket {
       margin-top: 11px;
       padding: 12px 13px;
@@ -844,9 +844,9 @@
       border-radius: 11px;
       background: var(--surface-2);
       color: var(--muted);
-      font: 700 17px/1.45 var(--mono);
+      font: 700 18px/1.45 var(--mono);
     }
-    .connected-socket strong { display: block; margin-bottom: 3px; color: var(--teal); font-size: 17px; }
+    .connected-socket strong { display: block; margin-bottom: 3px; color: var(--teal); font-size: 18px; }
     .tcp-example-note {
       grid-column: 1 / -1;
       margin: 2px auto 0;
@@ -1021,7 +1021,7 @@
       border-radius: 50%;
       color: var(--surface);
       background: var(--teal);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
     .udp-reason-card h3 { margin: 0 0 9px; font: 700 25px/1.15 var(--serif); }
     .udp-reason-card p { margin: 0; color: var(--muted); font-size: 18px; line-height: 1.42; }
@@ -1061,7 +1061,7 @@
     }
     .tcp-peer.is-active { opacity: 1; border-color: var(--teal); }
     .tcp-peer strong { display: block; margin-bottom: 7px; font: 700 25px/1.1 var(--serif); }
-    .tcp-peer span { color: var(--muted); font: 700 17px/1.3 var(--mono); }
+    .tcp-peer span { color: var(--muted); font: 700 18px/1.3 var(--mono); }
     .tcp-connection-mark { color: var(--amber); text-align: center; font: 900 37px/1 var(--sans); opacity: .35; }
     .tcp-connection-mark.is-active { opacity: 1; }
     .tcp-byte-pipe {
@@ -1086,7 +1086,7 @@
       border-radius: 9px;
       color: var(--surface);
       background: var(--teal);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
     .tcp-byte-arrow { color: var(--amber); font: 900 32px/1 var(--sans); }
     .tcp-boundary-note {
@@ -1163,7 +1163,7 @@
     .tcp-window-strip.is-active { opacity: 1; border-color: var(--amber); }
     .tcp-window-strip span { height: 31px; border-radius: 6px; background: color-mix(in srgb, var(--teal) 24%, var(--surface)); }
     .tcp-window-strip span.in-flight { background: var(--amber); }
-    .tcp-scene-caption { margin-top: 11px; color: var(--faint); text-align: center; font: 700 17px/1.3 var(--mono); }
+    .tcp-scene-caption { margin-top: 11px; color: var(--faint); text-align: center; font: 700 18px/1.3 var(--mono); }
 
     .hot-stack { align-content: start; min-height: 210px; }
     .hot-stack .teaching-point { display: none; font-size: 21px; }
@@ -1180,7 +1180,7 @@
     .tcp-header-points.compact .teaching-point {
       min-height: 0;
       padding: 12px 15px;
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.32;
     }
     .tcp-header-card {
@@ -1215,7 +1215,7 @@
       border-bottom: 1px solid var(--line);
       color: var(--muted);
       text-align: center;
-      font: 700 17px/1.22 var(--mono);
+      font: 700 18px/1.22 var(--mono);
       opacity: .42;
       transition: opacity .2s ease, color .2s ease, background .2s ease;
     }
@@ -1233,7 +1233,7 @@
       min-height: 54px;
       border-bottom: 0;
       color: var(--faint);
-      font-size: 17px;
+      font-size: 18px;
     }
     .tcp-field small {
       display: block;
@@ -1247,7 +1247,7 @@
       margin-top: 6px;
       color: var(--faint);
       text-align: center;
-      font: 700 17px/1.35 var(--mono);
+      font: 700 18px/1.35 var(--mono);
     }
 
     .tcp-handshake-layout {
@@ -1272,7 +1272,7 @@
       text-align: center;
     }
     .tcp-timeline-head strong { font: 700 25px/1.1 var(--serif); }
-    .tcp-timeline-head span { display: block; margin-top: 5px; color: var(--faint); font: 700 17px/1 var(--mono); }
+    .tcp-timeline-head span { display: block; margin-top: 5px; color: var(--faint); font: 700 18px/1 var(--mono); }
     .tcp-timeline {
       position: relative;
       min-height: 325px;
@@ -1338,7 +1338,7 @@
       box-shadow: 0 5px 13px rgba(21, 36, 47, .05);
     }
     .tcp-message-label strong { color: var(--teal); font: 800 18px/1.1 var(--mono); }
-    .tcp-message-label span { display: block; margin-top: 5px; color: var(--muted); font: 700 17px/1.2 var(--mono); }
+    .tcp-message-label span { display: block; margin-top: 5px; color: var(--muted); font: 700 18px/1.2 var(--mono); }
     .tcp-handshake-result {
       margin-top: 13px;
       padding: 12px 15px;
@@ -1346,12 +1346,12 @@
       color: var(--muted);
       background: var(--teal-soft);
       text-align: center;
-      font: 800 17px/1.35 var(--mono);
+      font: 800 18px/1.35 var(--mono);
     }
     .tcp-recall {
       margin: -2px 0 2px 15px;
       color: var(--teal-dark);
-      font: 800 17px/1.35 var(--mono);
+      font: 800 18px/1.35 var(--mono);
       letter-spacing: .02em;
     }
 
@@ -1409,11 +1409,11 @@
     .sequence-side {
       padding: 15px 16px;
       color: var(--muted);
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.35;
     }
     .sequence-side strong { display: block; margin-bottom: 5px; color: var(--ink); font: 700 18px/1.1 var(--serif); }
-    .sequence-side code { color: var(--teal); font: 800 17px/1.2 var(--mono); }
+    .sequence-side code { color: var(--teal); font: 800 18px/1.2 var(--mono); }
     .sequence-message {
       display: grid;
       place-items: center;
@@ -1423,9 +1423,9 @@
       border-left: 1px solid var(--line);
       color: var(--teal);
       text-align: center;
-      font: 800 17px/1.25 var(--mono);
+      font: 800 18px/1.25 var(--mono);
     }
-    .sequence-message small { display: block; margin-top: 5px; color: var(--muted); font: 700 17px/1.2 var(--mono); }
+    .sequence-message small { display: block; margin-top: 5px; color: var(--muted); font: 700 18px/1.2 var(--mono); }
     .sequence-sync-note {
       margin-top: 15px;
       padding: 12px 16px;
@@ -1433,7 +1433,7 @@
       background: var(--teal-soft);
       color: var(--muted);
       text-align: center;
-      font: 700 17px/1.3 var(--mono);
+      font: 700 18px/1.3 var(--mono);
     }
 
     .handshake-example-board { padding: 22px 23px 20px; }
@@ -1468,7 +1468,7 @@
     .example-direction {
       color: var(--teal);
       text-align: center;
-      font: 800 17px/1.25 var(--mono);
+      font: 800 18px/1.25 var(--mono);
     }
     .example-direction span { display: block; color: var(--ink); font-family: var(--serif); font-size: 18px; }
     .example-segment {
@@ -1476,12 +1476,12 @@
       border-radius: 11px;
       background: var(--surface-2);
       color: var(--muted);
-      font: 700 17px/1.45 var(--mono);
+      font: 700 18px/1.45 var(--mono);
     }
     .example-segment strong { color: var(--teal); }
     .example-learning {
       color: var(--muted);
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.35;
     }
     .example-learning strong { display: block; margin-bottom: 4px; color: var(--ink); font: 700 18px/1.15 var(--serif); }
@@ -1492,7 +1492,7 @@
       background: color-mix(in srgb, var(--amber) 13%, var(--surface));
       color: var(--muted);
       text-align: center;
-      font: 700 17px/1.3 var(--mono);
+      font: 700 18px/1.3 var(--mono);
     }
 
     .tcp-close-layout,
@@ -1524,7 +1524,7 @@
       text-align: center;
     }
     .tcp-close-head strong { font: 700 25px/1.1 var(--serif); }
-    .tcp-close-head span { display: block; margin-top: 5px; color: var(--faint); font: 700 17px/1 var(--mono); }
+    .tcp-close-head span { display: block; margin-top: 5px; color: var(--faint); font: 700 18px/1 var(--mono); }
     .tcp-close-timeline {
       position: relative;
       min-height: 340px;
@@ -1603,7 +1603,7 @@
       transform: translateX(-50%);
       box-shadow: 0 4px 12px rgba(21, 36, 47, .05);
     }
-    .tcp-close-label small { display: block; margin-top: 5px; color: var(--muted); font: 700 17px/1.15 var(--mono); }
+    .tcp-close-label small { display: block; margin-top: 5px; color: var(--muted); font: 700 18px/1.15 var(--mono); }
     .tcp-time-wait {
       position: absolute;
       left: -31px;
@@ -1613,7 +1613,7 @@
       background: color-mix(in srgb, var(--amber) 18%, var(--surface));
       color: var(--amber);
       opacity: .15;
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
     .tcp-time-wait.is-active { opacity: 1; }
     .tcp-close-note,
@@ -1625,7 +1625,7 @@
       background: var(--teal-soft);
       color: var(--muted);
       text-align: center;
-      font: 700 17px/1.3 var(--mono);
+      font: 700 18px/1.3 var(--mono);
     }
     .tcp-close-result { margin-top: 12px; }
 
@@ -1666,14 +1666,14 @@
       color: var(--ink);
       opacity: .16;
       text-align: center;
-      font: 800 17px/1.25 var(--mono);
+      font: 800 18px/1.25 var(--mono);
       transition: opacity .22s ease, transform .22s ease;
     }
     .reliable-segment.is-active { opacity: 1; transform: translateY(-4px); }
     .reliable-segment.s1 { left: 74px; }
     .reliable-segment.s2 { left: 242px; }
     .reliable-segment.s3 { left: 410px; }
-    .reliable-segment small { display: block; margin-top: 3px; color: var(--muted); font-size: 17px; }
+    .reliable-segment small { display: block; margin-top: 3px; color: var(--muted); font-size: 18px; }
     .reliable-ack {
       position: absolute;
       right: 92px;
@@ -1686,7 +1686,7 @@
       color: var(--amber);
       opacity: .15;
       text-align: center;
-      font: 800 17px/1.2 var(--mono);
+      font: 800 18px/1.2 var(--mono);
     }
     .reliable-ack.is-active { opacity: 1; }
     .reliable-ack::after {
@@ -1716,7 +1716,7 @@
       background: color-mix(in srgb, var(--red) 10%, var(--surface));
       color: var(--red);
       opacity: .15;
-      font: 800 17px/1.2 var(--mono);
+      font: 800 18px/1.2 var(--mono);
     }
     .reliable-timer.is-active { opacity: 1; }
     .reliable-recovery {
@@ -1727,7 +1727,7 @@
       color: var(--muted);
       opacity: .15;
       text-align: right;
-      font: 700 17px/1.35 var(--mono);
+      font: 700 18px/1.35 var(--mono);
     }
     .reliable-recovery.is-active { opacity: 1; }
 
@@ -1742,7 +1742,7 @@
       background: var(--surface-2);
       color: var(--muted);
       opacity: .15;
-      font: 800 17px/1.2 var(--mono);
+      font: 800 18px/1.2 var(--mono);
     }
     .byte-isn.is-active { opacity: 1; }
     .byte-isn strong { color: var(--teal); }
@@ -1768,7 +1768,7 @@
       padding: 10px 13px;
       background: color-mix(in srgb, var(--teal-soft) 55%, var(--surface));
       color: var(--teal);
-      font: 800 17px/1.2 var(--mono);
+      font: 800 18px/1.2 var(--mono);
     }
     .byte-range {
       display: flex;
@@ -1776,7 +1776,7 @@
       align-items: end;
       padding: 21px 16px 12px;
       color: var(--muted);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
     }
     .byte-range strong { color: var(--ink); font-size: 23px; }
     .byte-ack {
@@ -1788,7 +1788,7 @@
       color: var(--muted);
       opacity: .15;
       text-align: center;
-      font: 700 17px/1.3 var(--mono);
+      font: 700 18px/1.3 var(--mono);
     }
     .byte-ack.is-active { opacity: 1; }
     .byte-ack strong { color: var(--amber); }
@@ -1891,7 +1891,7 @@
       background: #eef5f7;
       color: var(--ink);
       text-align: center;
-      font: 700 17px/1.25 var(--mono);
+      font: 700 18px/1.25 var(--mono);
     }
 
     .ack-byte.received {
@@ -1912,7 +1912,7 @@
       background: #17252f;
       color: #fff;
       text-align: center;
-      font: 700 17px/1.35 var(--mono);
+      font: 700 18px/1.35 var(--mono);
     }
 
     .ack-callout strong {
@@ -1936,7 +1936,7 @@
       background: var(--teal-soft);
       color: var(--ink);
       text-align: center;
-      font: 700 17px/1.2 var(--mono);
+      font: 700 18px/1.2 var(--mono);
     }
 
     .exchange-host.a { grid-column: 1; grid-row: 1; }
@@ -1993,7 +1993,7 @@
       background: #fff;
       color: var(--ink);
       text-align: center;
-      font: 700 17px/1.35 var(--mono);
+      font: 700 18px/1.35 var(--mono);
       opacity: .28;
       transition: opacity .2s ease, transform .2s ease;
     }
@@ -2034,7 +2034,7 @@
       display: block;
       margin-bottom: 18px;
       color: var(--teal);
-      font: 800 17px/1 var(--mono);
+      font: 800 18px/1 var(--mono);
       letter-spacing: .08em;
     }
 
@@ -2048,7 +2048,7 @@
     .sender-event > p {
       margin: 0;
       color: var(--muted);
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.45;
     }
 
@@ -2062,7 +2062,7 @@
       margin: 0;
       padding-left: 18px;
       color: var(--muted);
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.45;
     }
 
@@ -2453,7 +2453,7 @@
               <div class="udp-header-field amber stateful" data-active-at="3"><small>16 bits</small><strong>Length</strong></div>
               <div class="udp-header-field amber stateful" data-active-at="4"><small>16 bits</small><strong>Checksum</strong></div>
             </div>
-            <div class="udp-payload">Application data<br><span style="font: 600 17px/1.3 var(--mono); color: var(--faint);">variable length</span></div>
+            <div class="udp-payload">Application data<br><span style="font: 600 18px/1.3 var(--mono); color: var(--faint);">variable length</span></div>
             <div class="udp-header-size">UDP header · 8 bytes</div>
           </div>
         </div>
@@ -2693,39 +2693,39 @@
           <div style="position:relative;min-height:330px">
             <div class="stateful" data-active-at="1" data-hide-after="1" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The setup</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">With MSS&nbsp;=&nbsp;1000 bytes, the 3000 bytes of data fill <strong>three segments</strong>.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">With MSS&nbsp;=&nbsp;1000 bytes, the 3000 bytes of data fill <strong>three segments</strong>.</p>
             </div>
             <div class="stateful" data-active-at="2" data-hide-after="4" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Three-way handshake</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">First, the client and server perform a three-way handshake to open the TCP connection.</p>
-              <p class="frag inner-line" data-step="3" style="margin:6px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Suppose ISN&nbsp;=&nbsp;1000. Since SYN consumes one sequence number, the first data byte will have seq#&nbsp;<strong>1001</strong>.</p>
-              <p class="frag inner-line" data-step="4" style="margin:6px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">The server's SYNACK carries <strong>ACK&nbsp;=&nbsp;1001</strong>, which signals that it expects byte&nbsp;1001 next.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">First, the client and server perform a three-way handshake to open the TCP connection.</p>
+              <p class="frag inner-line" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Suppose ISN&nbsp;=&nbsp;1000. Since SYN consumes one sequence number, the first data byte will have seq#&nbsp;<strong>1001</strong>.</p>
+              <p class="frag inner-line" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The server's SYNACK carries <strong>ACK&nbsp;=&nbsp;1001</strong>, which signals that it expects byte&nbsp;1001 next.</p>
             </div>
             <div class="stateful" data-active-at="5" data-hide-after="5" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 1</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The client sends the first 1000 bytes (seq&nbsp;=&nbsp;1001).</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the first 1000 bytes (seq&nbsp;=&nbsp;1001).</p>
             </div>
             <div class="stateful" data-active-at="6" data-hide-after="6" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 1</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The client sends the first 1000 bytes (seq&nbsp;=&nbsp;1001).</p>
-              <p style="margin:8px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">The server cumulatively acknowledges with <strong>ACK&nbsp;=&nbsp;2001</strong> &mdash; it has every byte up to 2000 and expects byte 2001 next.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the first 1000 bytes (seq&nbsp;=&nbsp;1001).</p>
+              <p style="margin:8px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The server cumulatively acknowledges with <strong>ACK&nbsp;=&nbsp;2001</strong> &mdash; it has every byte up to 2000 and expects byte 2001 next.</p>
             </div>
             <div class="stateful" data-active-at="7" data-hide-after="7" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 2</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The client sends the next 1000 bytes (seq&nbsp;=&nbsp;2001).</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the next 1000 bytes (seq&nbsp;=&nbsp;2001).</p>
             </div>
             <div class="stateful" data-active-at="8" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 2</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The client sends the next 1000 bytes (seq&nbsp;=&nbsp;2001).</p>
-              <p style="margin:8px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">The server cumulatively acknowledges with <strong>ACK&nbsp;=&nbsp;3001</strong> &mdash; confirming every byte up to 3000.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the next 1000 bytes (seq&nbsp;=&nbsp;2001).</p>
+              <p style="margin:8px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The server cumulatively acknowledges with <strong>ACK&nbsp;=&nbsp;3001</strong> &mdash; confirming every byte up to 3000.</p>
             </div>
           </div>
 
           <!-- right: diagram (60%) -->
           <svg viewBox="0 0 740 415" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:740px;display:block" aria-label="TCP handshake and data transfer timeline with data bar">
             <style>
-              .seq-label{font:700 17px/1 var(--mono,monospace);fill:var(--ink,#1a2a33)}
-              .seq-muted{font:600 17px/1 var(--mono,monospace);fill:var(--muted,#6b7f8e)}
+              .seq-label{font:700 18px/1 var(--mono,monospace);fill:var(--ink,#1a2a33)}
+              .seq-muted{font:600 18px/1 var(--mono,monospace);fill:var(--muted,#6b7f8e)}
               .seq-head{font:800 19px/1 var(--mono,monospace);fill:var(--ink,#1a2a33)}
               .seq-bar{rx:4;ry:4}
               .seq-arrow{stroke-width:2;fill:none;marker-end:url(#seqarr)}
@@ -2926,28 +2926,28 @@
           <!-- card 1: Data from application -->
           <div class="frag" data-step="1" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Data from application</strong>
-            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Divide the byte stream into segments, typically <strong>1 MSS</strong> bytes each.</p>
-            <p class="frag" data-step="2" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Number each segment by its first byte, counting on from the <strong>initial sequence number (ISN)</strong> chosen in the handshake.<br><span style="font-size:17px;font-style:italic">e.g. ISN&nbsp;=&nbsp;1000 and 1&nbsp;MSS&nbsp;=&nbsp;1000 bytes, so the segments start at 1001, 2001, 3001, &hellip;</span></p>
-            <p class="frag" data-step="3" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">As in any pipelined RDT, the sender keeps a <strong>send window</strong>.<br><span style="font-size:17px;font-style:italic">e.g. a window of 5&nbsp;MSS, i.e. 5 segments.</span></p>
-            <p class="frag" data-step="4" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Suppose the first two segments have already been acknowledged, so the window base starts at the third segment, seq&nbsp;3001. The sender may send anything within the window, so segments 3001&ndash;7001 go out.</p>
-            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Then start <strong>one timer</strong>, if none is running.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Divide the byte stream into segments, typically <strong>1 MSS</strong> bytes each.</p>
+            <p class="frag" data-step="2" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Number each segment by its first byte, counting on from the <strong>initial sequence number (ISN)</strong> chosen in the handshake.<br><span style="font-size:18px;font-style:italic">e.g. ISN&nbsp;=&nbsp;1000 and 1&nbsp;MSS&nbsp;=&nbsp;1000 bytes, so the segments start at 1001, 2001, 3001, &hellip;</span></p>
+            <p class="frag" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">As in any pipelined RDT, the sender keeps a <strong>send window</strong>.<br><span style="font-size:18px;font-style:italic">e.g. a window of 5&nbsp;MSS, i.e. 5 segments.</span></p>
+            <p class="frag" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Suppose the first two segments have already been acknowledged, so the window base starts at the third segment, seq&nbsp;3001. The sender may send anything within the window, so segments 3001&ndash;7001 go out.</p>
+            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Then start <strong>one timer</strong>, if none is running.</p>
           </div>
           <!-- card 2: ACK received -->
           <div class="frag" data-step="6" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">ACK received</strong>
-            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">A cumulative ACK slides the window forward.</p>
-            <p class="frag" data-step="7" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Restart the timer if unacknowledged data remains; stop it if everything is confirmed.</p>
-            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted);font-style:italic">e.g. the sender receives ACK&nbsp;5001: the receiver is expecting the segment starting at&nbsp;5001.</p>
-            <p class="frag" data-step="9" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted);font-style:italic">Since ACKs are cumulative, segs&nbsp;3001 and&nbsp;4001 are both acknowledged.</p>
-            <p class="frag" data-step="10" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted);font-style:italic">So the window base moves to 5001, and the window now covers 5001&ndash;9001.</p>
-            <p class="frag" data-step="11" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted);font-style:italic">Segs&nbsp;8001 and&nbsp;9001 can now go out, and the timer restarts on&nbsp;5001.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">A cumulative ACK slides the window forward.</p>
+            <p class="frag" data-step="7" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Restart the timer if unacknowledged data remains; stop it if everything is confirmed.</p>
+            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted);font-style:italic">e.g. the sender receives ACK&nbsp;5001: the receiver is expecting the segment starting at&nbsp;5001.</p>
+            <p class="frag" data-step="9" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted);font-style:italic">Since ACKs are cumulative, segs&nbsp;3001 and&nbsp;4001 are both acknowledged.</p>
+            <p class="frag" data-step="10" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted);font-style:italic">So the window base moves to 5001, and the window now covers 5001&ndash;9001.</p>
+            <p class="frag" data-step="11" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted);font-style:italic">Segs&nbsp;8001 and&nbsp;9001 can now go out, and the timer restarts on&nbsp;5001.</p>
           </div>
           <!-- card 3: Timeout -->
           <div class="frag" data-step="12" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Timeout</strong>
-            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Retransmit only the <strong>oldest unacknowledged segment</strong>, then restart the timer.</p>
-            <p class="frag" data-step="13" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">This is different from <strong>Go-Back-N</strong>. Recall that in GBN, the sender retransmits <em>every</em> in-flight packet in the window; TCP retransmits only <em>one</em>.</p>
-            <p class="frag" data-step="14" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--muted);font-style:italic">e.g. here GBN would retransmit all five segs, 5001&ndash;9001; TCP retransmits only seg&nbsp;5001.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Retransmit only the <strong>oldest unacknowledged segment</strong>, then restart the timer.</p>
+            <p class="frag" data-step="13" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">This is different from <strong>Go-Back-N</strong>. Recall that in GBN, the sender retransmits <em>every</em> in-flight packet in the window; TCP retransmits only <em>one</em>.</p>
+            <p class="frag" data-step="14" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted);font-style:italic">e.g. here GBN would retransmit all five segs, 5001&ndash;9001; TCP retransmits only seg&nbsp;5001.</p>
           </div>
         </div>
       </section>
@@ -3049,18 +3049,18 @@
 
             <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The problem</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Timeout period is relatively long. Suppose seg&nbsp;6001 is lost — in Go-Back-N, the sender must wait until timeout before it can retransmit. This can take a long time.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Timeout period is relatively long. Suppose seg&nbsp;6001 is lost — in Go-Back-N, the sender must wait until timeout before it can retransmit. This can take a long time.</p>
             </div>
 
             <div class="frag" data-step="2" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Duplicate ACKs — an early signal</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The receiver ACKs the last in-order byte. When 7001, 8001, and 9001 arrive but 6001 is missing, each generates another dup&nbsp;ACK&nbsp;6001.</p>
-              <p style="margin:7px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">A stuck ACK (not advancing) means the receiver is still waiting for the same segment — already an <em>early indication of loss</em>, before the timer fires.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The receiver ACKs the last in-order byte. When 7001, 8001, and 9001 arrive but 6001 is missing, each generates another dup&nbsp;ACK&nbsp;6001.</p>
+              <p style="margin:7px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">A stuck ACK (not advancing) means the receiver is still waiting for the same segment — already an <em>early indication of loss</em>, before the timer fires.</p>
             </div>
 
             <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Fast retransmit</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">After <strong>3 duplicate ACKs</strong>, retransmit the missing segment immediately — without waiting for the timeout.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">After <strong>3 duplicate ACKs</strong>, retransmit the missing segment immediately — without waiting for the timeout.</p>
             </div>
 
           </div>
@@ -3082,20 +3082,20 @@
           <!-- Frag 1: cumulative ACK / dup ACK — like GBN -->
           <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Like Go-Back-N: cumulative ACK</strong>
-            <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The receiver sends a <strong>cumulative ACK</strong> for the highest in-order byte received. If a segment arrives out of order, the receiver sends a <strong>duplicate ACK</strong> — ACKing the next expected sequence number, signalling the gap to the sender.</p>
+            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The receiver sends a <strong>cumulative ACK</strong> for the highest in-order byte received. If a segment arrives out of order, the receiver sends a <strong>duplicate ACK</strong> — ACKing the next expected sequence number, signalling the gap to the sender.</p>
           </div>
 
           <!-- Frag 2: buffering out-of-order — like SR -->
           <div class="frag" data-step="2" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Like Selective Repeat: receiver buffer</strong>
-            <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Unlike Go-Back-N, the receiver <strong>buffers out-of-order segments</strong> within the receive window rather than discarding them. Once the missing segment arrives and the gap is filled, buffered data is delivered to the application in order.</p>
+            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Unlike Go-Back-N, the receiver <strong>buffers out-of-order segments</strong> within the receive window rather than discarding them. Once the missing segment arrives and the gap is filled, buffered data is delivered to the application in order.</p>
           </div>
 
           <!-- Frag 3: further improvements / SACK -->
           <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--muted);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--muted) 5%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Further improvements</strong>
-            <p style="margin:0 0 6px;font-size:17px;line-height:1.45;color:var(--muted)">There are further recommendations for ACK generation (e.g. to avoid sending too many ACKs) in <strong style="color:var(--ink)">RFC 1122</strong> and <strong style="color:var(--ink)">RFC 2581</strong>.</p>
-            <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">TCP can also negotiate <strong style="color:var(--ink)">selective ACK options</strong> [<strong style="color:var(--ink)">RFC 2018</strong>] — the receiver reports exactly which byte ranges it holds, letting the sender retransmit only the missing pieces, much like Selective Repeat.</p>
+            <p style="margin:0 0 6px;font-size:18px;line-height:1.45;color:var(--muted)">There are further recommendations for ACK generation (e.g. to avoid sending too many ACKs) in <strong style="color:var(--ink)">RFC 1122</strong> and <strong style="color:var(--ink)">RFC 2581</strong>.</p>
+            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">TCP can also negotiate <strong style="color:var(--ink)">selective ACK options</strong> [<strong style="color:var(--ink)">RFC 2018</strong>] — the receiver reports exactly which byte ranges it holds, letting the sender retransmit only the missing pieces, much like Selective Repeat.</p>
           </div>
 
         </div>
@@ -3116,15 +3116,15 @@
 
           <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The timer should track RTT</strong>
-            <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The sender's retransmit timer is set to roughly the <strong>round-trip time</strong> —</p>
-            <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">just long enough for a packet to receive its ACK. Too short → spurious retransmissions waste bandwidth. Too long → slow recovery when a segment really is lost.</p>
+            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The sender's retransmit timer is set to roughly the <strong>round-trip time</strong> —</p>
+            <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">just long enough for a packet to receive its ACK. Too short → spurious retransmissions waste bandwidth. Too long → slow recovery when a segment really is lost.</p>
           </div>
 
           <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The problem: RTT is not a constant number in the real world</strong>
-            <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Network load, queueing, and path changes cause RTT to fluctuate — sometimes dramatically.</p>
-            <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">A fixed timeout value cannot adapt.</p>
-            <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">This is why TCP <strong>estimates RTT dynamically</strong>, in real time, and updates its RTT estimate continuously.</p>
+            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Network load, queueing, and path changes cause RTT to fluctuate — sometimes dramatically.</p>
+            <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">A fixed timeout value cannot adapt.</p>
+            <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">This is why TCP <strong>estimates RTT dynamically</strong>, in real time, and updates its RTT estimate continuously.</p>
           </div>
 
         </div>
@@ -3151,29 +3151,29 @@
             <!-- SampleRTT card: 3 inner frags; collapses to its title once EstimatedRTT starts -->
             <div class="frag hot-card rtt-sample-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">SampleRTT</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">EstimatedRTT is derived by taking many individual RTT samples.</p>
-              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Each sample is measured from when a segment is transmitted until its ACK is received.</p>
-              <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Retransmitted segments are <strong>excluded</strong>: the ACK could be for the original send or the retransmit — the sender cannot tell, so the measurement would be unreliable.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">EstimatedRTT is derived by taking many individual RTT samples.</p>
+              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Each sample is measured from when a segment is transmitted until its ACK is received.</p>
+              <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Retransmitted segments are <strong>excluded</strong>: the ACK could be for the original send or the retransmit — the sender cannot tell, so the measurement would be unreliable.</p>
             </div>
 
             <!-- EstimatedRTT card: question at step 4, answer at step 5, formula at step 6, unrolled EWMA at step 7, EWMA naming at step 8 -->
             <div class="frag hot-card stateful" data-step="4" data-active-at="4" style="padding:10px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">EstimatedRTT — exponential weighted moving average</strong>
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">SampleRTT varies noticeably from measurement to measurement. So how does TCP smooth out these variations and derive EstimatedRTT from the samples?</p>
-              <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">TCP uses a smoothing technique that computes a smooth, adaptive estimate from the samples.</p>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">SampleRTT varies noticeably from measurement to measurement. So how does TCP smooth out these variations and derive EstimatedRTT from the samples?</p>
+              <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">TCP uses a smoothing technique that computes a smooth, adaptive estimate from the samples.</p>
               <div class="frag inner-line" data-step="6" style="margin:6px 0 0">
                 <div style="padding:6px 12px;background:color-mix(in srgb,var(--ink) 5%,var(--surface));border-radius:7px;margin-bottom:3px">
-                  <span style="font-family:var(--mono);font-size:17px;color:var(--ink)">EstimatedRTT = (1−α)·EstimatedRTT + α·SampleRTT</span>
+                  <span style="font-family:var(--mono);font-size:18px;color:var(--ink)">EstimatedRTT = (1−α)·EstimatedRTT + α·SampleRTT</span>
                 </div>
-                <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Typical value: <strong>α = 0.125</strong>. Unrolling this one step at a time:</p>
+                <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Typical value: <strong>α = 0.125</strong>. Unrolling this one step at a time:</p>
               </div>
               <div class="frag inner-line" data-step="7" style="margin:3px 0 0">
-                <div style="padding:5px 10px;background:color-mix(in srgb,var(--ink) 4%,var(--surface));border-radius:6px;font-family:var(--mono);font-size:17px;color:var(--ink);line-height:1.6">
+                <div style="padding:5px 10px;background:color-mix(in srgb,var(--ink) 4%,var(--surface));border-radius:6px;font-family:var(--mono);font-size:18px;color:var(--ink);line-height:1.6">
                   EstimatedRTT = α·Sample<sub>n</sub> + α(1−α)·Sample<sub>n−1</sub> + α(1−α)<sup>2</sup>·Sample<sub>n−2</sub> + …
                 </div>
-                <p style="margin:3px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">Each step further back adds another factor of (1−α) = 0.875 — so older samples count exponentially less.</p>
+                <p style="margin:3px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Each step further back adds another factor of (1−α) = 0.875 — so older samples count exponentially less.</p>
               </div>
-              <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">This is why it is known as an <strong>exponential weighted moving average</strong>: it smooths out SampleRTT to produce EstimatedRTT.</p>
+              <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">This is why it is known as an <strong>exponential weighted moving average</strong>: it smooths out SampleRTT to produce EstimatedRTT.</p>
             </div>
 
           </div>
@@ -3237,24 +3237,24 @@
         <div style="display:grid;gap:14px;align-content:start;flex:1">
 
           <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-            <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">You might be tempted to simply set the timeout interval to EstimatedRTT.</p>
-            <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In practice, this turns out to be too aggressive: due to exponential averaging, EstimatedRTT takes some time to adapt to the real-time RTT.</p>
-            <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">So when the real RTT suddenly spikes &mdash; say the network becomes congested &mdash; EstimatedRTT has not caught up yet, and the timer fires too early.</p>
-            <p class="frag inner-line" data-step="4" style="margin:6px 0 0;font-size:17px;line-height:1.45;color:var(--ink);font-weight:600">We therefore need a <strong>safety margin</strong> for RTT variability. How do we choose it?</p>
+            <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">You might be tempted to simply set the timeout interval to EstimatedRTT.</p>
+            <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">In practice, this turns out to be too aggressive: due to exponential averaging, EstimatedRTT takes some time to adapt to the real-time RTT.</p>
+            <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">So when the real RTT suddenly spikes &mdash; say the network becomes congested &mdash; EstimatedRTT has not caught up yet, and the timer fires too early.</p>
+            <p class="frag inner-line" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--ink);font-weight:600">We therefore need a <strong>safety margin</strong> for RTT variability. How do we choose it?</p>
           </div>
 
           <div class="frag" data-step="5" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">DevRTT &mdash; tracking variability</strong>
-            <p class="frag inner-line" data-step="5" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">We also maintain <strong>DevRTT</strong> &mdash; a tracker for how much SampleRTT deviates from EstimatedRTT.</p>
-            <p class="frag inner-line" data-step="6" style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--ink);font-family:var(--mono)">DevRTT = (1&minus;&beta;)&middot;DevRTT + &beta;&middot;|SampleRTT &minus; EstimatedRTT|</p>
-            <p class="frag inner-line" data-step="7" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Typical value: <strong>&beta; = 0.25</strong>.</p>
+            <p class="frag inner-line" data-step="5" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">We also maintain <strong>DevRTT</strong> &mdash; a tracker for how much SampleRTT deviates from EstimatedRTT.</p>
+            <p class="frag inner-line" data-step="6" style="margin:6px 0 0;font-size:18px;line-height:1.5;color:var(--ink);font-family:var(--mono)">DevRTT = (1&minus;&beta;)&middot;DevRTT + &beta;&middot;|SampleRTT &minus; EstimatedRTT|</p>
+            <p class="frag inner-line" data-step="7" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Typical value: <strong>&beta; = 0.25</strong>.</p>
           </div>
 
           <div class="frag" data-step="8" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">TimeoutInterval</strong>
-            <p class="frag inner-line" data-step="8" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">This is how TCP sets the timeout interval, with DevRTT providing the extra safety margin:</p>
-            <p class="frag inner-line" data-step="9" style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">TimeoutInterval = EstimatedRTT + 4&middot;DevRTT</p>
-            <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Empirically, this prevents the timer from firing too early in the case of a sudden spike in RTT.</p>
+            <p class="frag inner-line" data-step="8" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">This is how TCP sets the timeout interval, with DevRTT providing the extra safety margin:</p>
+            <p class="frag inner-line" data-step="9" style="margin:6px 0 0;font-size:18px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">TimeoutInterval = EstimatedRTT + 4&middot;DevRTT</p>
+            <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Empirically, this prevents the timer from firing too early in the case of a sudden spike in RTT.</p>
           </div>
 
         </div>
@@ -3300,19 +3300,19 @@
               <!-- Card 1: Flow control (steps 3–6) -->
               <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Flow control</strong>
-                <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">In our previous discussions, we always assumed that the application consumes data as soon as it arrives at the receiver.</p>
-                <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In reality, the application may read slowly, so the receiver must hold incoming data and feed it to the application gradually. This is why the receiver maintains a <strong>receive buffer</strong>.</p>
-                <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">This buffer has a limited size: if the sender transmits too fast, it overflows and segments are lost.</p>
-                <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Flow control prevents this by matching the sender&rsquo;s transmission rate to the speed at which the receiver&rsquo;s application reads, so the buffer does not overflow.</p>
+                <p class="frag inner-line" data-step="3" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">In our previous discussions, we always assumed that the application consumes data as soon as it arrives at the receiver.</p>
+                <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">In reality, the application may read slowly, so the receiver must hold incoming data and feed it to the application gradually. This is why the receiver maintains a <strong>receive buffer</strong>.</p>
+                <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">This buffer has a limited size: if the sender transmits too fast, it overflows and segments are lost.</p>
+                <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Flow control prevents this by matching the sender&rsquo;s transmission rate to the speed at which the receiver&rsquo;s application reads, so the buffer does not overflow.</p>
               </div>
 
               <!-- Card 2: Congestion control (steps 7–10); replaces the flow-control card -->
               <div class="frag" data-step="7" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Congestion control</strong>
-                <p class="frag inner-line" data-step="7" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">We have already seen that datagrams travel through the Internet across a series of routers.</p>
-                <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">A router takes time to process each incoming datagram and cannot always forward it immediately, so it keeps a <strong>router buffer</strong>.</p>
-                <p class="frag inner-line" data-step="9" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">If too many senders transmit simultaneously, the buffer of some router along the route fills up and segments are dropped: the network is <strong>congested</strong>.</p>
-                <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Congestion control prevents this by limiting each sender&rsquo;s rate to match what the network can carry.</p>
+                <p class="frag inner-line" data-step="7" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">We have already seen that datagrams travel through the Internet across a series of routers.</p>
+                <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">A router takes time to process each incoming datagram and cannot always forward it immediately, so it keeps a <strong>router buffer</strong>.</p>
+                <p class="frag inner-line" data-step="9" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">If too many senders transmit simultaneously, the buffer of some router along the route fills up and segments are dropped: the network is <strong>congested</strong>.</p>
+                <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Congestion control prevents this by limiting each sender&rsquo;s rate to match what the network can carry.</p>
               </div>
             </div>
 
@@ -3413,15 +3413,15 @@
             <!-- Card 1: The receive buffer and floating window -->
             <div class="frag hot-card stateful" data-step="1" data-active-at="1" style="padding:9px 14px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:4px">The receive buffer and floating window</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The receiver allocates a fixed-size receive buffer (<strong>RcvBuffer</strong>) for the connection. Incoming data sits there until the application reads it.</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Recall that in RDT, the <strong>receiver window</strong> is the range of packets the receiver is willing to buffer.</p>
-              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In our previous discussions, we assumed the application consumes data as soon as it arrives. The buffer was therefore always fully available to receive, so we always set <strong>receiver window = buffer size</strong>.</p>
-              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">In TCP, the application reads at its own pace — so the buffer may contain unread data that reduces available space.</p>
-              <p class="frag inner-line" data-step="7" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">The unread portion is then [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The receiver allocates a fixed-size receive buffer (<strong>RcvBuffer</strong>) for the connection. Incoming data sits there until the application reads it.</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Recall that in RDT, the <strong>receiver window</strong> is the range of packets the receiver is willing to buffer.</p>
+              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">In our previous discussions, we assumed the application consumes data as soon as it arrives. The buffer was therefore always fully available to receive, so we always set <strong>receiver window = buffer size</strong>.</p>
+              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">In TCP, the application reads at its own pace — so the buffer may contain unread data that reduces available space.</p>
+              <p class="frag inner-line" data-step="7" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The unread portion is then [LastByteRcvd&nbsp;−&nbsp;LastByteRead]; thus the receiver window <strong>floats</strong>:</p>
               <div class="frag inner-line" data-step="7" style="margin:5px 0 0;padding:5px 12px;background:color-mix(in srgb,var(--ink) 5%,var(--surface));border-radius:7px">
-                <span style="font-family:var(--mono);font-size:17px;color:var(--ink)">RcvWindow = RcvBuffer − [LastByteRcvd − LastByteRead]</span>
+                <span style="font-family:var(--mono);font-size:18px;color:var(--ink)">RcvWindow = RcvBuffer − [LastByteRcvd − LastByteRead]</span>
               </div>
-              <p class="frag inner-line" data-step="8" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted);font-style:italic">e.g. RcvBuffer&nbsp;=&nbsp;4000 bytes, LastByteRead&nbsp;=&nbsp;2000, LastByteRcvd&nbsp;=&nbsp;3500 &rarr; RcvWindow&nbsp;=&nbsp;4000&nbsp;&minus;&nbsp;(3500&nbsp;&minus;&nbsp;2000)&nbsp;=&nbsp;<strong>2500</strong> bytes.</p>
+              <p class="frag inner-line" data-step="8" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted);font-style:italic">e.g. RcvBuffer&nbsp;=&nbsp;4000 bytes, LastByteRead&nbsp;=&nbsp;2000, LastByteRcvd&nbsp;=&nbsp;3500 &rarr; RcvWindow&nbsp;=&nbsp;4000&nbsp;&minus;&nbsp;(3500&nbsp;&minus;&nbsp;2000)&nbsp;=&nbsp;<strong>2500</strong> bytes.</p>
             </div>
 
           </div>
@@ -3499,8 +3499,8 @@
               </g>
 
             </svg>
-            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:17px;line-height:1.45;color:var(--muted)"><strong>LastByteRcvd</strong>: the sequence number of the last byte received.</p>
-            <p class="frag" data-step="6" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)"><strong>LastByteRead</strong>: the sequence number of the last byte the application has read.</p>
+            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)"><strong>LastByteRcvd</strong>: the sequence number of the last byte received.</p>
+            <p class="frag" data-step="6" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)"><strong>LastByteRead</strong>: the sequence number of the last byte the application has read.</p>
           </div>
 
         </div>
@@ -3530,16 +3530,16 @@
             <!-- Card 1: How the receiver advertises RcvWindow -->
             <div class="frag hot-card stateful" data-step="1" data-active-at="1" data-hide-after="2" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Advertising the window</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">How does the TCP receiver advertise its current window to the sender?</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">In TCP, the receiver piggybacks RcvWindow on every segment it sends, carried in the <strong>Receive Window</strong> field of the TCP header.</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">How does the TCP receiver advertise its current window to the sender?</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">In TCP, the receiver piggybacks RcvWindow on every segment it sends, carried in the <strong>Receive Window</strong> field of the TCP header.</p>
             </div>
 
             <!-- Card 2: The sender's rule -->
             <div class="frag hot-card stateful" data-step="3" data-active-at="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The TCP sender&rsquo;s rule</strong>
-              <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">LastByteSent − LastByteAcked ≤ RcvWindow</p>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Recall from our earlier discussion: LastByteAcked is essentially the window <strong>base</strong>, and LastByteSent is essentially <strong>nextseqnum</strong>. So the left side counts the bytes in [base, nextseqnum) &mdash; the data in flight.</p>
-              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Recall that in RDT, the sender window N capped the data in flight. The TCP sender works the same way, but its cap is not a fixed N: it is the <strong>RcvWindow</strong> the receiver advertises.</p>
+              <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">LastByteSent − LastByteAcked ≤ RcvWindow</p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Recall from our earlier discussion: LastByteAcked is essentially the window <strong>base</strong>, and LastByteSent is essentially <strong>nextseqnum</strong>. So the left side counts the bytes in [base, nextseqnum) &mdash; the data in flight.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Recall that in RDT, the sender window N capped the data in flight. The TCP sender works the same way, but its cap is not a fixed N: it is the <strong>RcvWindow</strong> the receiver advertises.</p>
             </div>
 
           </div>
@@ -3586,15 +3586,15 @@
           <div style="display:grid;gap:10px;align-content:start">
             <div class="frag hot-card stateful" data-step="1" data-active-at="1" data-hide-after="4" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The problem</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Suppose B&rsquo;s receive buffer fills up, so B advertises <strong>RcvWindow = 0</strong>. A must stop sending.</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Later, B&rsquo;s application reads the buffered data. The buffer empties, so B&rsquo;s window is open again: RcvWindow &gt; 0.</p>
-              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">But A has not heard about it. Its latest information is still RcvWindow = 0, so A still cannot send.</p>
-              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">And B cannot tell A: with no data of its own, B only sends a segment (an ACK) in reply to one from A. A waits for B, B waits for A &mdash; a <strong>deadlock</strong>.</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Suppose B&rsquo;s receive buffer fills up, so B advertises <strong>RcvWindow = 0</strong>. A must stop sending.</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Later, B&rsquo;s application reads the buffered data. The buffer empties, so B&rsquo;s window is open again: RcvWindow &gt; 0.</p>
+              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">But A has not heard about it. Its latest information is still RcvWindow = 0, so A still cannot send.</p>
+              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">And B cannot tell A: with no data of its own, B only sends a segment (an ACK) in reply to one from A. A waits for B, B waits for A &mdash; a <strong>deadlock</strong>.</p>
             </div>
             <div class="frag hot-card stateful" data-step="5" data-active-at="5" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The solution</strong>
-              <p class="frag inner-line" data-step="5" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">While RcvWindow = 0, A keeps sending tiny segments carrying just <strong>1 byte</strong> of data.</p>
-              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">B must acknowledge each one, and every ACK carries B&rsquo;s current RcvWindow &mdash; so as soon as space frees up, A learns it and resumes sending.</p>
+              <p class="frag inner-line" data-step="5" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">While RcvWindow = 0, A keeps sending tiny segments carrying just <strong>1 byte</strong> of data.</p>
+              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">B must acknowledge each one, and every ACK carries B&rsquo;s current RcvWindow &mdash; so as soon as space frees up, A learns it and resumes sending.</p>
             </div>
           </div>
 
@@ -3679,20 +3679,20 @@
             <!-- Card 1: Network-assisted -->
             <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Network-assisted</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Routers explicitly notify senders to slow down.</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">This requires the routers along the path to cooperate &mdash; e.g. a router sets a congestion bit in the IP packet header, or states the rate it can support.</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Routers explicitly notify senders to slow down.</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">This requires the routers along the path to cooperate &mdash; e.g. a router sets a congestion bit in the IP packet header, or states the rate it can support.</p>
             </div>
 
             <!-- Card 2: End-to-end -->
             <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">End-to-end</strong>
-              <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">No explicit feedback from the network: the sender infers congestion from signals it can observe itself.</p>
-              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">e.g. a <strong>timeout</strong>, or <strong>duplicate ACKs</strong>. TCP treats these as <strong>loss events</strong>.</p>
+              <p class="frag inner-line" data-step="3" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">No explicit feedback from the network: the sender infers congestion from signals it can observe itself.</p>
+              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">e.g. a <strong>timeout</strong>, or <strong>duplicate ACKs</strong>. TCP treats these as <strong>loss events</strong>.</p>
             </div>
 
             <!-- Card 3: TCP's choice (conclusion) -->
             <div class="frag" data-step="5" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p class="frag inner-line" data-step="5" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">TCP uses the <strong>end-to-end</strong> approach — congestion is inferred from <strong>loss events</strong> in the network.</p>
+              <p class="frag inner-line" data-step="5" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">TCP uses the <strong>end-to-end</strong> approach — congestion is inferred from <strong>loss events</strong> in the network.</p>
             </div>
 
           </div>
@@ -3766,26 +3766,26 @@
             <!-- Card 1: the congestion window, a second cap on data in flight; collapses to title + formula from step 4 -->
             <div class="frag hot-card cw-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The congestion window</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Flow control already caps the data in flight at RcvWindow.</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">Congestion control adds a second cap on the same quantity: the <strong>congestion window (CongWin)</strong>, which the sender sets itself and adjusts up and down with the level of congestion.</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Flow control already caps the data in flight at RcvWindow.</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Congestion control adds a second cap on the same quantity: the <strong>congestion window (CongWin)</strong>, which the sender sets itself and adjusts up and down with the level of congestion.</p>
               <div class="frag inner-line" data-step="3" style="margin:6px 0 0">
-                <p style="margin:0 0 4px;padding:6px 12px;border-radius:8px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));font-family:var(--mono);font-size:17px;font-weight:700;color:var(--ink)">LastByteSent &minus; LastByteAcked<br>&le; min(CongWin, RcvWindow)</p>
-                <p class="cw-explain" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The data in flight must respect both caps.</p>
+                <p style="margin:0 0 4px;padding:6px 12px;border-radius:8px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ink)">LastByteSent &minus; LastByteAcked<br>&le; min(CongWin, RcvWindow)</p>
+                <p class="cw-explain" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The data in flight must respect both caps.</p>
               </div>
             </div>
 
             <!-- Card 2: sending -->
             <div class="frag inner-line" data-step="4" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Sending</strong>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">As long as there is room in the window (data in flight &lt; CongWin), the sender can send more data.</p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">As long as there is room in the window (data in flight &lt; CongWin), the sender can send more data.</p>
             </div>
 
             <!-- Card 3: detection and action -->
             <div class="frag inner-line" data-step="5" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Detection and action</strong>
-              <p class="frag inner-line" data-step="5" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">The sender observes a <strong>loss event</strong>, e.g. three duplicate ACKs or a timeout.</p>
-              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">On a loss event, the sender <strong>shrinks</strong> CongWin.</p>
-              <p class="frag inner-line" data-step="7" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">If no loss event is observed, the sender slowly <strong>increases</strong> CongWin.</p>
+              <p class="frag inner-line" data-step="5" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The sender observes a <strong>loss event</strong>, e.g. three duplicate ACKs or a timeout.</p>
+              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">On a loss event, the sender <strong>shrinks</strong> CongWin.</p>
+              <p class="frag inner-line" data-step="7" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">If no loss event is observed, the sender slowly <strong>increases</strong> CongWin.</p>
             </div>
 
           </div>
@@ -3866,23 +3866,23 @@
             <!-- Motivation card (steps 1–3): what the sender controls is a rate; folds to its title once RTT enters -->
             <div class="frag hot-card cw-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">What the sender controls</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The previous frame gives a discrete rule: keep data in flight &le; CongWin. But how does the sender actually obey that rule?</p>
-              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">It turns out that what the sender can actually control is its own <strong>sending rate</strong>. Since the TCP sender sends data as a byte stream, the sending rate is measured in <strong>bytes per second</strong>.</p>
-              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted);color:var(--ink);font-weight:600">If the sending rate is too high, the data in flight exceeds CongWin. So how should the sender set its sending rate, subject to the in-flight constraint?</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">The previous frame gives a discrete rule: keep data in flight &le; CongWin. But how does the sender actually obey that rule?</p>
+              <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">It turns out that what the sender can actually control is its own <strong>sending rate</strong>. Since the TCP sender sends data as a byte stream, the sending rate is measured in <strong>bytes per second</strong>.</p>
+              <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted);color:var(--ink);font-weight:600">If the sending rate is too high, the data in flight exceeds CongWin. So how should the sender set its sending rate, subject to the in-flight constraint?</p>
             </div>
 
             <!-- Card 2: the missing ingredient, RTT (frags 4–5) -->
             <div class="frag inner-line" data-step="4" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The missing ingredient: RTT</strong>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Recall: the sender transmits segments back-to-back — all remain in flight until the first ACK returns, which takes one RTT.</p>
-              <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">So within one RTT, everything sent is simultaneously in flight. Since at most CongWin bytes can be in flight, <strong style="color:var(--ink)">the sender can send at most CongWin bytes per RTT.</strong></p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Recall: the sender transmits segments back-to-back — all remain in flight until the first ACK returns, which takes one RTT.</p>
+              <p class="frag inner-line" data-step="5" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">So within one RTT, everything sent is simultaneously in flight. Since at most CongWin bytes can be in flight, <strong style="color:var(--ink)">the sender can send at most CongWin bytes per RTT.</strong></p>
             </div>
 
             <!-- Card 3: the sending rate (frags 6–7) -->
             <div class="frag inner-line" data-step="6" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The sending rate</strong>
-              <p class="frag inner-line" data-step="6" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">So the sender should send CongWin bytes per RTT, i.e. set its sending rate to:</p>
-              <p class="frag inner-line" data-step="7" style="font-family:var(--mono,monospace);font-size:17px;background:color-mix(in srgb,var(--amber) 8%,var(--surface));padding:8px 12px;border-radius:8px;margin:0;line-height:1.6"><strong>sending rate ≈ CongWin / RTT &nbsp;bytes/sec</strong></p>
+              <p class="frag inner-line" data-step="6" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--muted)">So the sender should send CongWin bytes per RTT, i.e. set its sending rate to:</p>
+              <p class="frag inner-line" data-step="7" style="font-family:var(--mono,monospace);font-size:18px;background:color-mix(in srgb,var(--amber) 8%,var(--surface));padding:8px 12px;border-radius:8px;margin:0;line-height:1.6"><strong>sending rate ≈ CongWin / RTT &nbsp;bytes/sec</strong></p>
             </div>
 
           </div>
@@ -3963,14 +3963,14 @@
             <!-- Case 1 (steps 3–4) -->
             <div class="frag" data-step="3" style="padding:14px 18px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:6px">Case 1: just after the connection is set up</strong>
-              <p class="frag inner-line" data-step="3" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The three-way handshake has just finished. The sender knows nothing yet about how much the network can carry, so it starts by setting CongWin small and increases it very quickly.</p>
-              <p class="frag inner-line" data-step="4" style="margin:10px 0 0;font-size:17px;line-height:1.5;color:var(--muted);color:var(--ink);font-size:19px">This phase is called <strong>slow start</strong>.</p>
+              <p class="frag inner-line" data-step="3" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">The three-way handshake has just finished. The sender knows nothing yet about how much the network can carry, so it starts by setting CongWin small and increases it very quickly.</p>
+              <p class="frag inner-line" data-step="4" style="margin:10px 0 0;font-size:18px;line-height:1.5;color:var(--muted);color:var(--ink);font-size:19px">This phase is called <strong>slow start</strong>.</p>
             </div>
             <!-- Case 2 (steps 5–6) -->
             <div class="frag" data-step="5" style="padding:14px 18px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:6px">Case 2: a while after the connection is set up</strong>
-              <p class="frag inner-line" data-step="5" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">CongWin has already grown large, close to what the network can carry. Now the sender should grow it carefully, to avoid causing congestion.</p>
-              <p class="frag inner-line" data-step="6" style="margin:10px 0 0;font-size:17px;line-height:1.5;color:var(--muted);color:var(--ink);font-size:19px">This phase is called <strong>congestion avoidance</strong>.</p>
+              <p class="frag inner-line" data-step="5" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">CongWin has already grown large, close to what the network can carry. Now the sender should grow it carefully, to avoid causing congestion.</p>
+              <p class="frag inner-line" data-step="6" style="margin:10px 0 0;font-size:18px;line-height:1.5;color:var(--muted);color:var(--ink);font-size:19px">This phase is called <strong>congestion avoidance</strong>.</p>
             </div>
           </div>
         </div>
@@ -3997,33 +3997,33 @@
             <!-- Card 1: Starting conservatively (frags 1–3, hides at step 4) -->
             <div class="frag stateful" data-step="1" data-active-at="1" data-hide-after="3" style="grid-row:1;grid-column:1;align-self:start;padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Starting conservatively</strong>
-              <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">When a connection begins, the sender knows nothing about the path — start conservatively: <strong>CongWin = 1 MSS</strong>.</p>
-              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Since CongWin = 1 MSS, the in-flight constraint means the sender may only send <strong>1 MSS per RTT</strong>.</p>
-              <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Each segment carries exactly 1 MSS of data. Send one segment, wait for its ACK.</p>
+              <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">When a connection begins, the sender knows nothing about the path — start conservatively: <strong>CongWin = 1 MSS</strong>.</p>
+              <p class="frag inner-line" data-step="2" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Since CongWin = 1 MSS, the in-flight constraint means the sender may only send <strong>1 MSS per RTT</strong>.</p>
+              <p class="frag inner-line" data-step="3" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Each segment carries exactly 1 MSS of data. Send one segment, wait for its ACK.</p>
             </div>
 
             <!-- Card 2: Exponential growth (frags 4–9, hides at step 10) -->
             <div class="frag stateful" data-step="4" data-active-at="4" data-hide-after="9" style="grid-row:1;grid-column:1;align-self:start;padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Growing the window</strong>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Each ACK confirms the network handled the segment — likely no congestion yet.</p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Each ACK confirms the network handled the segment — likely no congestion yet.</p>
               <div class="frag inner-line" data-step="5" style="margin:6px 0 0;padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
                 <p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">Slow-start rule</p>
-                <p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>For every ACK received: CongWin += 1 MSS</strong></p>
+                <p style="margin:0;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)"><strong>For every ACK received: CongWin += 1 MSS</strong></p>
               </div>
-              <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">CongWin increases to 2 — in the next RTT the sender can send <strong>2 MSS</strong>.</p>
-              <p class="frag inner-line" data-step="7" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Two more ACKs received — each adds 1 MSS. CongWin increases to 4, and in the next RTT we can send <strong>4 MSS</strong>.</p>
-              <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">The pattern: the growth rate depends on the current window size.</p>
+              <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">CongWin increases to 2 — in the next RTT the sender can send <strong>2 MSS</strong>.</p>
+              <p class="frag inner-line" data-step="7" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Two more ACKs received — each adds 1 MSS. CongWin increases to 4, and in the next RTT we can send <strong>4 MSS</strong>.</p>
+              <p class="frag inner-line" data-step="8" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">The pattern: the growth rate depends on the current window size.</p>
               <div class="frag inner-line" data-step="9" style="margin:6px 0 0;padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
                 <p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">Slow-start empirical rule</p>
-                <p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>CongWin doubles every RTT — 1, 2, 4, 8, 16… — exponential growth</strong></p>
+                <p style="margin:0;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)"><strong>CongWin doubles every RTT — 1, 2, 4, 8, 16… — exponential growth</strong></p>
               </div>
             </div>
 
             <!-- Card 3: The threshold (frags 10–11, stays) -->
             <div class="frag stateful" data-step="10" data-active-at="10" style="grid-row:1;grid-column:1;align-self:start;padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The threshold</strong>
-              <p class="frag inner-line" data-step="10" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Exponential growth can't last forever. A threshold called <strong>ssthresh</strong> (slow-start threshold) marks where slow start ends.</p>
-              <p class="frag inner-line" data-step="11" style="margin:4px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">When CongWin ≥ ssthresh → switch to <strong>congestion avoidance</strong> (next frame).</p>
+              <p class="frag inner-line" data-step="10" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Exponential growth can't last forever. A threshold called <strong>ssthresh</strong> (slow-start threshold) marks where slow start ends.</p>
+              <p class="frag inner-line" data-step="11" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">When CongWin ≥ ssthresh → switch to <strong>congestion avoidance</strong> (next frame).</p>
             </div>
 
           </div>
@@ -4132,25 +4132,25 @@
               <!-- Card 1: Additive increase (steps 1–2, no diagram yet) -->
               <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Additive increase</strong>
-                <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Once CongWin ≥ ssthresh, growth switches from exponential to linear.</p>
+                <p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Once CongWin ≥ ssthresh, growth switches from exponential to linear.</p>
                 <div class="frag inner-line" data-step="2" style="margin:6px 0 0;padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
                   <p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">Additive increase</p>
-                  <p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>If no loss detected: CongWin += 1 MSS per RTT</strong></p>
+                  <p style="margin:0;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)"><strong>If no loss detected: CongWin += 1 MSS per RTT</strong></p>
                 </div>
               </div>
 
               <!-- Example: hot cards, one at a time (steps 3–6), synced with the diagram; gone once the decrease card arrives -->
               <div class="fc-hot ca-ex stateful" data-active-at="0" data-hide-after="6">
-                <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)"><strong style="color:var(--ink)">Example.</strong> Suppose <strong>ssthresh = 4 MSS</strong>, and CongWin has just reached it: CongWin = 4 MSS.</p></div>
-                <div class="frag" data-step="4" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">In the first RTT, the sender sends <strong>4 segments</strong>.</p></div>
-                <div class="frag" data-step="5" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Once all 4 are acknowledged, CongWin grows by just <strong>1 MSS</strong> &mdash; not doubled to 8 &mdash; so CongWin = 5, and the next RTT carries 5 segments.</p></div>
-                <div class="frag" data-step="6" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">And so on: after those 5 are acknowledged, CongWin = 6, then 7, &hellip; one MSS per RTT.</p></div>
+                <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)"><strong style="color:var(--ink)">Example.</strong> Suppose <strong>ssthresh = 4 MSS</strong>, and CongWin has just reached it: CongWin = 4 MSS.</p></div>
+                <div class="frag" data-step="4" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">In the first RTT, the sender sends <strong>4 segments</strong>.</p></div>
+                <div class="frag" data-step="5" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Once all 4 are acknowledged, CongWin grows by just <strong>1 MSS</strong> &mdash; not doubled to 8 &mdash; so CongWin = 5, and the next RTT carries 5 segments.</p></div>
+                <div class="frag" data-step="6" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)"><p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">And so on: after those 5 are acknowledged, CongWin = 6, then 7, &hellip; one MSS per RTT.</p></div>
               </div>
 
               <!-- Card 2: the question (step 7, with the loss marker) -->
               <div class="frag inner-line" data-step="7" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-                <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">We keep doing additive increase, but this cannot last forever: eventually the network becomes congested again, and the sender hits a <strong>loss event</strong>.</p>
-                <p style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--ink);font-weight:600">What should the sender do then?</p>
+                <p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">We keep doing additive increase, but this cannot last forever: eventually the network becomes congested again, and the sender hits a <strong>loss event</strong>.</p>
+                <p style="margin:6px 0 0;font-size:18px;line-height:1.5;color:var(--ink);font-weight:600">What should the sender do then?</p>
               </div>
 
               <!-- Card 3: Multiplicative decrease (step 8) -->
@@ -4158,9 +4158,9 @@
                 <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Multiplicative decrease</strong>
                 <div style="padding:8px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px">
                   <p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">Multiplicative decrease</p>
-                  <p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>Upon loss event: CongWin = CongWin / 2</strong></p>
+                  <p style="margin:0;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)"><strong>Upon loss event: CongWin = CongWin / 2</strong></p>
                 </div>
-                <p style="margin:6px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Together, this is known as the <strong>AIMD</strong> rule — Additive Increase, Multiplicative Decrease.</p>
+                <p style="margin:6px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Together, this is known as the <strong>AIMD</strong> rule — Additive Increase, Multiplicative Decrease.</p>
               </div>
 
 
@@ -4270,25 +4270,25 @@
           <!-- Card 1: MIAD (step 2; folds to its title once AIAD starts) -->
           <div class="frag hot-card cw-card stateful" data-step="2" data-active-at="2" data-hide-after="2" style="padding:10px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:4px">Multiplicative Increase, Additive Decrease (MIAD)</strong>
-            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Multiplicative increase overshoots capacity aggressively, while additive decrease backs off too slowly — congestion persists.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Multiplicative increase overshoots capacity aggressively, while additive decrease backs off too slowly — congestion persists.</p>
           </div>
 
           <!-- Card 2: AIAD (step 3, with example sub-frags 3–6) -->
           <div class="frag" data-step="3" style="padding:10px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:4px">Additive Increase, Additive Decrease (AIAD)</strong>
-            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Does AIAD control congestion correctly? For a single flow, yes.</p>
-            <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:17px;line-height:1.4;color:var(--muted)">But here is what goes wrong: a different issue, <strong>fairness</strong>. The goal of fairness is that every flow sharing a bottleneck link should converge to an equal share of bandwidth.</p>
-            <p class="frag inner-line" data-step="5" style="margin:8px 0 0;font-size:17px;line-height:1.4;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Suppose two flows share a 10 Mbps link: Flow A = 8 Mbps, Flow B = 2 Mbps. This is not fair — a good congestion control design should correct the imbalance while also preventing congestion.</p>
-            <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:17px;line-height:1.4;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive increase: both add 1 Mbps → A = 9 Mbps, B = 3 Mbps. Total exceeds capacity → loss.</p>
-            <p class="frag inner-line" data-step="7" style="margin:4px 0 0;font-size:17px;line-height:1.4;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive decrease: both subtract 1 Mbps → A = 8 Mbps, B = 2 Mbps. Back to the start — the unfairness never corrects.</p>
-            <p class="frag inner-line" data-step="8" style="margin:6px 0 0;font-size:17px;line-height:1.4;color:var(--ink);font-weight:600">AIAD does not solve the fairness problem.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Does AIAD control congestion correctly? For a single flow, yes.</p>
+            <p class="frag inner-line" data-step="4" style="margin:4px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">But here is what goes wrong: a different issue, <strong>fairness</strong>. The goal of fairness is that every flow sharing a bottleneck link should converge to an equal share of bandwidth.</p>
+            <p class="frag inner-line" data-step="5" style="margin:8px 0 0;font-size:18px;line-height:1.4;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Suppose two flows share a 10 Mbps link: Flow A = 8 Mbps, Flow B = 2 Mbps. This is not fair — a good congestion control design should correct the imbalance while also preventing congestion.</p>
+            <p class="frag inner-line" data-step="6" style="margin:4px 0 0;font-size:18px;line-height:1.4;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive increase: both add 1 Mbps → A = 9 Mbps, B = 3 Mbps. Total exceeds capacity → loss.</p>
+            <p class="frag inner-line" data-step="7" style="margin:4px 0 0;font-size:18px;line-height:1.4;color:var(--muted);padding-left:12px;border-left:2px solid var(--amber)">Additive decrease: both subtract 1 Mbps → A = 8 Mbps, B = 2 Mbps. Back to the start — the unfairness never corrects.</p>
+            <p class="frag inner-line" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--ink);font-weight:600">AIAD does not solve the fairness problem.</p>
           </div>
 
           <!-- Card 3: AIMD (step 8) -->
           <div class="frag" data-step="9" style="padding:10px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:4px">Additive Increase, Multiplicative Decrease (AIMD)</strong>
-            <p style="margin:0;font-size:17px;line-height:1.4;color:var(--muted)">Additive increase probes gently; multiplicative decrease reacts sharply. Converges to both <strong>efficiency</strong> and <strong>fairness</strong>.</p>
-            <p class="frag inner-line" data-step="10" style="margin:8px 0 0;font-size:17px;line-height:1.4;color:var(--teal);font-style:italic">Take-home question: using the same example (A = 8 Mbps, B = 2 Mbps), why does multiplicative decrease close the gap where additive decrease could not?</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Additive increase probes gently; multiplicative decrease reacts sharply. Converges to both <strong>efficiency</strong> and <strong>fairness</strong>.</p>
+            <p class="frag inner-line" data-step="10" style="margin:8px 0 0;font-size:18px;line-height:1.4;color:var(--teal);font-style:italic">Take-home question: using the same example (A = 8 Mbps, B = 2 Mbps), why does multiplicative decrease close the gap where additive decrease could not?</p>
           </div>
 
         </div>
@@ -4317,27 +4317,27 @@
           <!-- Card 0 (steps 1–3): what every loss event changes; folds to title + rule once the cases start -->
           <div class="frag hot-card cw-card stateful" data-step="1" data-active-at="1" data-hide-after="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">What a loss event changes</strong>
-            <p class="frag inner-line" data-step="1" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">We said TCP cuts CongWin in half on a loss. That is not the whole truth: there are two kinds of loss event.</p>
+            <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">We said TCP cuts CongWin in half on a loss. That is not the whole truth: there are two kinds of loss event.</p>
             <div class="frag inner-line" data-step="2" style="margin:5px 0 0">
-              <p style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">What every loss event changes is the <strong>slow-start threshold</strong>, our empirical estimate of the network&rsquo;s capacity. It is set to half the CongWin at which the loss occurred:</p>
-              <div style="margin:6px 0 0;padding:6px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px"><p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">On any loss event</p><p style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.5;color:var(--ink)"><strong>ssthresh = CongWin / 2</strong></p></div>
+              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">What every loss event changes is the <strong>slow-start threshold</strong>, our empirical estimate of the network&rsquo;s capacity. It is set to half the CongWin at which the loss occurred:</p>
+              <div style="margin:6px 0 0;padding:6px 12px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));border-radius:8px"><p style="margin:0 0 2px;font-size:17px;font-family:var(--mono);color:var(--teal);font-weight:600;letter-spacing:.08em;text-transform:uppercase">On any loss event</p><p style="margin:0;font-family:var(--mono);font-size:18px;line-height:1.5;color:var(--ink)"><strong>ssthresh = CongWin / 2</strong></p></div>
             </div>
-            <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">What happens to CongWin itself depends on the loss signal. There are two cases.</p>
+            <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">What happens to CongWin itself depends on the loss signal. There are two cases.</p>
           </div>
 
           <!-- Case 1: Timeout (steps 4–5) -->
           <div class="frag inner-line" data-step="4" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Case 1: Timeout</strong>
-            <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">A timeout signals <strong>severe</strong> congestion: the sender hears nothing back at all.</p>
-            <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">So be conservative and start from scratch: reset <strong>CongWin = 1 MSS</strong> and enter <strong>slow start</strong>.</p>
+            <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">A timeout signals <strong>severe</strong> congestion: the sender hears nothing back at all.</p>
+            <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">So be conservative and start from scratch: reset <strong>CongWin = 1 MSS</strong> and enter <strong>slow start</strong>.</p>
           </div>
 
           <!-- Case 2: Three duplicate ACKs (steps 6–8) -->
           <div class="frag inner-line" data-step="6" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Case 2: Three duplicate ACKs</strong>
-            <p class="frag inner-line" data-step="6" style="margin:0;font-size:17px;line-height:1.45;color:var(--muted)">Three duplicate ACKs signal a <strong>milder</strong> loss: the receiver is still replying, so some data was lost but packets are still getting through.</p>
-            <p class="frag inner-line" data-step="7" style="margin:5px 0 0;font-size:17px;line-height:1.45;color:var(--muted)">So the sender enters <strong>fast recovery</strong>, and eventually CongWin is cut only to <strong>ssthresh</strong>, half its old value.</p>
-            <p class="frag inner-line" data-step="8" style="margin:6px 0 0;font-size:17px;line-height:1.45;color:var(--muted);color:var(--teal);font-style:italic">This is the TCP Reno design. In TCP Tahoe, there is no distinction: both cases reset CongWin = 1 MSS and enter slow start.</p>
+            <p class="frag inner-line" data-step="6" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Three duplicate ACKs signal a <strong>milder</strong> loss: the receiver is still replying, so some data was lost but packets are still getting through.</p>
+            <p class="frag inner-line" data-step="7" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">So the sender enters <strong>fast recovery</strong>, and eventually CongWin is cut only to <strong>ssthresh</strong>, half its old value.</p>
+            <p class="frag inner-line" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted);color:var(--teal);font-style:italic">This is the TCP Reno design. In TCP Tahoe, there is no distinction: both cases reset CongWin = 1 MSS and enter slow start.</p>
           </div>
 
         </div>
@@ -4368,43 +4368,43 @@
               <div style="display:grid;position:absolute;top:0;left:0;right:0">
                 <!-- Steps 1-4: setup scenario -->
                 <div class="frag stateful" data-step="1" data-active-at="1" data-hide-after="4" style="grid-row:1;grid-column:1;align-self:start;padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-                  <p class="frag inner-line" data-step="1" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">Suppose CongWin = 6. Segments 1–3 have been acknowledged, and the sender has more data to transmit.</p>
-                  <p class="frag inner-line" data-step="2" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">The sender fills the congestion window: segments 4–9 are now in flight.</p>
-                  <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">The sender then receives three dup ACKs for segment 4. What does this mean?</p>
-                  <p class="frag inner-line" data-step="4" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Segment 4 is likely <strong>lost</strong> during transmission. But importantly, three ACKs means three of the in-flight packets 5–9 reached the receiver — suppose those are segments 5, 6, 8.</p>
+                  <p class="frag inner-line" data-step="1" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--muted)">Suppose CongWin = 6. Segments 1–3 have been acknowledged, and the sender has more data to transmit.</p>
+                  <p class="frag inner-line" data-step="2" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--muted)">The sender fills the congestion window: segments 4–9 are now in flight.</p>
+                  <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--muted)">The sender then receives three dup ACKs for segment 4. What does this mean?</p>
+                  <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Segment 4 is likely <strong>lost</strong> during transmission. But importantly, three ACKs means three of the in-flight packets 5–9 reached the receiver — suppose those are segments 5, 6, 8.</p>
                 </div>
                 <!-- Steps 5-7: what should the sender do? -->
                 <div class="frag stateful" data-step="5" data-active-at="5" data-hide-after="7" style="grid-row:1;grid-column:1;align-self:start;padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-                  <p class="frag inner-line" data-step="5" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)">What should the sender do now?</p>
-                  <p class="frag inner-line" data-step="6" style="margin:0 0 6px;font-size:17px;line-height:1.5;color:var(--muted)"><strong>Fast retransmit</strong>: immediately resend segment 4.</p>
-                  <p class="frag inner-line" data-step="7" style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender enters <strong>fast recovery</strong>.</p>
+                  <p class="frag inner-line" data-step="5" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--muted)">What should the sender do now?</p>
+                  <p class="frag inner-line" data-step="6" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--muted)"><strong>Fast retransmit</strong>: immediately resend segment 4.</p>
+                  <p class="frag inner-line" data-step="7" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">The sender enters <strong>fast recovery</strong>.</p>
                 </div>
                 <!-- Steps 8-11: inflation rule + why inflate -->
                 <div class="frag stateful" data-step="8" data-active-at="8" data-hide-after="11" style="grid-row:1;grid-column:1;align-self:start;padding:10px 14px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 10%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
                   <p class="frag inner-line" data-step="8" style="margin:0">
                     <span style="display:block;font-family:var(--mono);font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:6px">Fast recovery — enter</span>
-                    <span style="display:block;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)">ssthresh = CongWin / 2 = <strong>3</strong></span>
-                    <span style="display:block;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink);margin-bottom:10px">CongWin = ssthresh + <strong>3</strong> = <strong>6</strong></span>
-                    <span style="display:block;font-size:17px;line-height:1.5;color:var(--muted)"><strong>Why inflate by 3?</strong></span>
+                    <span style="display:block;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)">ssthresh = CongWin / 2 = <strong>3</strong></span>
+                    <span style="display:block;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink);margin-bottom:10px">CongWin = ssthresh + <strong>3</strong> = <strong>6</strong></span>
+                    <span style="display:block;font-size:18px;line-height:1.5;color:var(--muted)"><strong>Why inflate by 3?</strong></span>
                   </p>
-                  <p class="frag inner-line" data-step="9" style="margin:8px 0 0;padding-left:1.1em;text-indent:-1.1em;font-size:17px;line-height:1.5;color:var(--muted)">• CongWin limits how many segments can be in flight. If we simply apply AIMD and set CongWin = ssthresh = 6/2 = 3, the window starts at base 4 and covers segments 4, 5, 6.</p>
-                  <p class="frag inner-line" data-step="10" style="margin:6px 0 0;padding-left:1.1em;text-indent:-1.1em;font-size:17px;line-height:1.5;color:var(--muted)">• However, by observing 3 dup ACKs, we know 3 segments among 5–9 are no longer in flight. Segments <strong>5, 6, 8</strong> are confirmed received and do not occupy in-flight slots.</p>
-                  <p class="frag inner-line" data-step="11" style="margin:6px 0 0;padding-left:1.1em;text-indent:-1.1em;font-size:17px;line-height:1.5;color:var(--muted)">• The only truly in-flight segments are <strong>4, 7, 9</strong>. This justifies inflating CongWin to 6 = ssthresh (3) + confirmed received (3), reflecting that only 3 segments are truly in flight.</p>
+                  <p class="frag inner-line" data-step="9" style="margin:8px 0 0;padding-left:1.1em;text-indent:-1.1em;font-size:18px;line-height:1.5;color:var(--muted)">• CongWin limits how many segments can be in flight. If we simply apply AIMD and set CongWin = ssthresh = 6/2 = 3, the window starts at base 4 and covers segments 4, 5, 6.</p>
+                  <p class="frag inner-line" data-step="10" style="margin:6px 0 0;padding-left:1.1em;text-indent:-1.1em;font-size:18px;line-height:1.5;color:var(--muted)">• However, by observing 3 dup ACKs, we know 3 segments among 5–9 are no longer in flight. Segments <strong>5, 6, 8</strong> are confirmed received and do not occupy in-flight slots.</p>
+                  <p class="frag inner-line" data-step="11" style="margin:6px 0 0;padding-left:1.1em;text-indent:-1.1em;font-size:18px;line-height:1.5;color:var(--muted)">• The only truly in-flight segments are <strong>4, 7, 9</strong>. This justifies inflating CongWin to 6 = ssthresh (3) + confirmed received (3), reflecting that only 3 segments are truly in flight.</p>
                 </div>
               </div>
             </div>
             <!-- Step 12: rule box (in flow, stays visible) -->
             <div class="frag stateful" data-step="12" data-active-at="12" data-hide-after="99" style="padding:10px 14px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 10%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <p style="margin:0 0 4px;font-family:var(--mono);font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)">Fast recovery — per dup ACK</p>
-              <p style="margin:0 0 4px;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>For each additional dup ACK: CongWin += 1 MSS</strong></p>
-              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">For the same reason, each additional dup ACK signifies one less segment is truly in flight — the window can grow by 1.</p>
+              <p style="margin:0 0 4px;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)"><strong>For each additional dup ACK: CongWin += 1 MSS</strong></p>
+              <p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">For the same reason, each additional dup ACK signifies one less segment is truly in flight — the window can grow by 1.</p>
             </div>
             <!-- Steps 13-14: example cards (normal frags, in flow below rule box) -->
             <div class="frag" data-step="13" style="margin-top:8px;padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Segment 7 received, yet segment 4 still pending (another dup ACK for 4): <strong>CongWin = 7</strong> — can now send segment 10.</p>
+              <p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Segment 7 received, yet segment 4 still pending (another dup ACK for 4): <strong>CongWin = 7</strong> — can now send segment 10.</p>
             </div>
             <div class="frag" data-step="14" style="margin-top:8px;padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Segment 9 received, yet segment 4 still pending (another dup ACK for 4): <strong>CongWin = 8</strong> — can now send segment 11.</p>
+              <p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Segment 9 received, yet segment 4 still pending (another dup ACK for 4): <strong>CongWin = 8</strong> — can now send segment 11.</p>
             </div>
           </div>
 
@@ -4548,20 +4548,20 @@
           <!-- Left: frag cards (stacked in flow) -->
           <div>
             <div class="frag" data-step="1" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">Now suppose the retransmitted segment 4 has been received, so the receiver sends a cumulative ACK for everything through segment 9 — it sends ACK 10.</p>
+              <p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Now suppose the retransmitted segment 4 has been received, so the receiver sends a cumulative ACK for everything through segment 9 — it sends ACK 10.</p>
             </div>
             <!-- Rule card (steps 2–3) -->
             <div class="frag" data-step="2" style="margin-top:8px;padding:10px 14px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 10%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <p style="margin:0 0 6px;font-family:var(--mono);font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)">Fast recovery — exit rule</p>
-              <p style="margin:0 0 2px;font-family:var(--mono);font-size:17px;line-height:1.5;color:var(--muted)">On new ACK:</p>
-              <p style="margin:0 0 1px;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>• Set CongWin = ssthresh</strong></p>
-              <p class="frag inner-line" data-step="3" style="margin:0;font-family:var(--mono);font-size:17px;line-height:1.6;color:var(--ink)"><strong>• Enter congestion avoidance</strong></p>
+              <p style="margin:0 0 2px;font-family:var(--mono);font-size:18px;line-height:1.5;color:var(--muted)">On new ACK:</p>
+              <p style="margin:0 0 1px;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)"><strong>• Set CongWin = ssthresh</strong></p>
+              <p class="frag inner-line" data-step="3" style="margin:0;font-family:var(--mono);font-size:18px;line-height:1.6;color:var(--ink)"><strong>• Enter congestion avoidance</strong></p>
             </div>
             <!-- Applying it (steps 4–6), synced with the diagram -->
             <div class="frag inner-line" data-step="4" style="margin-top:8px;padding:10px 14px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-              <p style="margin:0;font-size:17px;line-height:1.5;color:var(--muted)">The sender receives ACK 10. Base advances to segment 10.</p>
-              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)"><strong>CongWin = ssthresh = 3</strong> — the inflated window deflates back to the halved value.</p>
-              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:17px;line-height:1.5;color:var(--muted)">Enter <strong>congestion avoidance</strong>. Fast recovery is complete.</p>
+              <p style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">The sender receives ACK 10. Base advances to segment 10.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)"><strong>CongWin = ssthresh = 3</strong> — the inflated window deflates back to the halved value.</p>
+              <p class="frag inner-line" data-step="6" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Enter <strong>congestion avoidance</strong>. Fast recovery is complete.</p>
             </div>
           </div>
 
@@ -4759,16 +4759,16 @@
         </header>
 
         <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px">
-          <p class="frag" data-step="1" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
+          <p class="frag" data-step="1" style="font-size:18px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
             <strong>Flow control</strong>: the receiver advertises <strong>RcvWindow</strong> in every segment, so a fast sender cannot overflow a slow receiver&rsquo;s buffer.
           </p>
-          <p class="frag" data-step="2" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
+          <p class="frag" data-step="2" style="font-size:18px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
             <strong>Congestion control</strong>: the TCP sender maintains a <strong>CongWin</strong>, and keeps its data in flight within both caps: <span style="font-family:var(--mono);font-weight:700;color:var(--ink);white-space:nowrap">LastByteSent &minus; LastByteAcked &le; min(CongWin, RcvWindow)</span>.
           </p>
-          <p class="frag" data-step="3" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--ink)">
+          <p class="frag" data-step="3" style="font-size:18px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--ink)">
             TCP begins in <strong>slow start</strong>, doubling CongWin each RTT until ssthresh, then grows linearly in <strong>congestion avoidance</strong>.
           </p>
-          <p class="frag" data-step="4" style="font-size:17px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--amber)">
+          <p class="frag" data-step="4" style="font-size:18px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--amber)">
             Three dup ACKs trigger <strong>fast recovery</strong> — ssthresh and CongWin halve. A <strong>timeout</strong> drops CongWin to 1 MSS and restarts slow start.
           </p>
         </div>
@@ -4784,13 +4784,13 @@
         <header class="content-header">
           <h2>Acknowledgements</h2>
         </header>
-        <div style="margin-top:16px;font-size:17px;line-height:1.7">
+        <div style="margin-top:16px;font-size:18px;line-height:1.7">
           <p style="margin:0 0 10px">Lecture notes are developed based on slides from the following sources:</p>
           <ul style="margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px">
             <li>Dr Mengmeng Ge's lecture notes for COSC264, University of Canterbury, 2024</li>
             <li>Assoc Prof Dan Kim's lecture notes for COSC264, University of Canterbury, 2017</li>
             <li>Prof Aleksandar Kuzmanovic's lecture notes for CS340, Northwestern University, 2005 —
-              <span style="font-family:var(--mono);font-size:17px;word-break:break-all">https://users.cs.northwestern.edu/~akuzma/classes/CS340-w05/lecture_notes.htm</span>
+              <span style="font-family:var(--mono);font-size:18px;word-break:break-all">https://users.cs.northwestern.edu/~akuzma/classes/CS340-w05/lecture_notes.htm</span>
             </li>
             <li>Dr Barry Wu's lecture notes for COSC264, University of Canterbury</li>
           </ul>
@@ -4802,18 +4802,18 @@
         <header class="content-header">
           <h2>References</h2>
         </header>
-        <div style="margin-top:16px;font-size:17px;line-height:1.65;display:flex;flex-direction:column;gap:12px">
+        <div style="margin-top:16px;font-size:18px;line-height:1.65;display:flex;flex-direction:column;gap:12px">
           <div>
             <p style="margin:0">James F. Kurose &amp; Keith W. Ross, <em>Computer Networking: A Top-Down Approach Featuring the Internet</em>, Addison Wesley, 3rd edition, 2005.</p>
-            <p style="margin:4px 0 0 1.2em;color:var(--muted);font-size:17px">Chapter 3 Transport Layer (3.1 – 3.3, 3.5 – 3.7)</p>
+            <p style="margin:4px 0 0 1.2em;color:var(--muted);font-size:18px">Chapter 3 Transport Layer (3.1 – 3.3, 3.5 – 3.7)</p>
           </div>
           <div>
             <p style="margin:0">William Stallings, <em>Data and Computer Communications</em>, Pearson, 10th edition, 2013.</p>
-            <p style="margin:4px 0 0 1.2em;color:var(--muted);font-size:17px">Chapter 15 Transport Protocols</p>
+            <p style="margin:4px 0 0 1.2em;color:var(--muted);font-size:18px">Chapter 15 Transport Protocols</p>
           </div>
           <div>
             <p style="margin:0">Andrew S. Tanenbaum &amp; David J. Wetherall, <em>Computer Networks</em>, Prentice Hall, 5th edition, 2010.</p>
-            <p style="margin:4px 0 0 1.2em;color:var(--muted);font-size:17px">Chapter 6 The Transport Layer (6.2, 6.3, 6.5)</p>
+            <p style="margin:4px 0 0 1.2em;color:var(--muted);font-size:18px">Chapter 6 The Transport Layer (6.2, 6.3, 6.5)</p>
           </div>
         </div>
       </section>
@@ -5034,12 +5034,12 @@
     transform: translateX(-50%);
     white-space: nowrap;
     color: var(--ink);
-    font: 700 17px/1 var(--mono);
+    font: 700 18px/1 var(--mono);
   }
   .tcp-rdt-event p {
     margin: .25rem 0 0;
     color: var(--muted);
-    font-size: 17px;
+    font-size: 18px;
     line-height: 1.3;
     text-align: center;
   }
@@ -5052,7 +5052,7 @@
     border-radius: 14px;
     background: var(--teal-soft);
     color: var(--teal);
-    font-size: 17px;
+    font-size: 18px;
     text-align: center;
   }
 
