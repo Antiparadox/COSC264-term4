@@ -369,15 +369,17 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="Network Applications">
   <div class="kicker">Network applications</div>
   <h2>Application-layer protocols</h2>
-  <div style="display:flex;flex-direction:column;gap:22px;max-width:980px">
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">An application-layer protocol defines how an application&rsquo;s processes, running on different end systems, <b>pass messages to each other</b>.</p>
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">An application-layer protocol is <b>only one piece</b> (a big piece) of a network application.</p>
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">A <b>network application</b> is made of many pieces &mdash; a user interface, local storage, and the logic that talks to other end systems.</p>
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">An <b>application-layer protocol</b> is only one piece of it &mdash; but a big piece.</p>
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">It defines how the application&rsquo;s processes, running on different end systems, <b>pass messages to each other</b>: which messages exist, their format, and when and how to respond.</p>
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">This is what lets programs on different machines work together &mdash; e.g. any web browser can fetch a page from any web server, whoever wrote each program. Some examples:</p>
     <div class="frag" style="overflow-x:auto">
       <table style="border-collapse:collapse;width:100%;max-width:640px;font-size:18px">
         <thead>
           <tr style="border-bottom:2px solid var(--accent)">
             <th style="padding:10px 24px;text-align:left;font-weight:700">Network application</th>
-            <th style="padding:10px 24px;text-align:left;font-weight:700">Application protocol</th>
+            <th style="padding:10px 24px;text-align:left;font-weight:700">Application-layer protocol</th>
           </tr>
         </thead>
         <tbody>
@@ -400,7 +402,7 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Module 6</div>
   <h1>The Web and HTTP</h1>
   <div class="rule"></div>
-  <p class="sub">The application protocol behind every page you load</p>
+  <p class="sub">The application-layer protocol behind every page you load</p>
   <div class="roadmap" aria-label="Module 6 concepts">
     <span class="rmi">1 &middot; Network applications</span>
     <span class="rmi here">2 &middot; The Web and HTTP</span>
