@@ -14,7 +14,7 @@
 /* ============ design tokens ============ */
 :root{
   --bg:#eef1f4; --surface:#ffffff; --surface-2:#f3f6f8; --border:#d4dde3;
-  --ink:#15242f; --muted:#54646f; --faint:#84939d;
+  --ink:#15242f; --fg:var(--ink); --fg-muted:var(--muted); --card-bg:var(--surface); --surface-1:var(--surface); --card-border:var(--border); --muted:#54646f; --faint:#84939d;
   --accent:#0f8f83; --accent-soft:#d9efec; --accent-ink:#0a5b53;
   --current:#c47d16; --current-soft:#f7e8ca;
   --bad:#cf4536; --bad-soft:#f7dbd6;
@@ -27,7 +27,7 @@
 }
 @media (prefers-color-scheme:dark){:root{
   --bg:#0c1418; --surface:#142027; --surface-2:#101b21; --border:#273741;
-  --ink:#e8eff4; --muted:#9fb2bd; --faint:#6b7d88;
+  --ink:#e8eff4; --fg:var(--ink); --fg-muted:var(--muted); --card-bg:var(--surface); --surface-1:var(--surface); --card-border:var(--border); --muted:#9fb2bd; --faint:#6b7d88;
   --accent:#31b3a5; --accent-soft:#0f302d; --accent-ink:#83ded4;
   --current:#e0a34c; --current-soft:#382b16;
   --bad:#e56a5c; --bad-soft:#3a1e1b; --good:#5fb47c;
@@ -36,7 +36,7 @@
 }}
 :root[data-theme="light"]{
   --bg:#eef1f4; --surface:#ffffff; --surface-2:#f3f6f8; --border:#d4dde3;
-  --ink:#15242f; --muted:#54646f; --faint:#84939d;
+  --ink:#15242f; --fg:var(--ink); --fg-muted:var(--muted); --card-bg:var(--surface); --surface-1:var(--surface); --card-border:var(--border); --muted:#54646f; --faint:#84939d;
   --accent:#0f8f83; --accent-soft:#d9efec; --accent-ink:#0a5b53;
   --current:#c47d16; --current-soft:#f7e8ca;
   --bad:#cf4536; --bad-soft:#f7dbd6; --good:#3c8a58; --edge:#9fb0ba; --sign:#1b6e42;
@@ -44,7 +44,7 @@
 }
 :root[data-theme="dark"]{
   --bg:#0c1418; --surface:#142027; --surface-2:#101b21; --border:#273741;
-  --ink:#e8eff4; --muted:#9fb2bd; --faint:#6b7d88;
+  --ink:#e8eff4; --fg:var(--ink); --fg-muted:var(--muted); --card-bg:var(--surface); --surface-1:var(--surface); --card-border:var(--border); --muted:#9fb2bd; --faint:#6b7d88;
   --accent:#31b3a5; --accent-soft:#0f302d; --accent-ink:#83ded4;
   --current:#e0a34c; --current-soft:#382b16;
   --bad:#e56a5c; --bad-soft:#3a1e1b; --good:#5fb47c; --edge:#465863; --sign:#2b8f5a;
@@ -467,11 +467,11 @@ svg text{font-family:var(--sans)}
         <text x="712" y="135" text-anchor="middle" font-size="16" fill="var(--muted,#888)" font-family="inherit">server</text>
         <!-- Request arrow -->
         <line x1="197" y1="50" x2="623" y2="50" stroke="var(--accent)" stroke-width="2" marker-end="url(#arr)"/>
-        <text x="410" y="42" text-anchor="middle" font-size="16" fill="var(--accent)" font-family="monospace">GET http://www.someschool.edu/someDept/pic.gif</text>
+        <text x="410" y="42" text-anchor="middle" font-size="16" fill="var(--accent)" font-family="inherit" font-weight="600">HTTP request for a file</text>
         <!-- Response arrow (frag 5) -->
         <g class="frag">
           <line x1="623" y1="78" x2="197" y2="78" stroke="var(--fg)" stroke-width="2" marker-end="url(#arr2)"/>
-          <text x="410" y="100" text-anchor="middle" font-size="16" fill="var(--fg)" font-family="inherit" font-weight="600">HTTP response (file / object)</text>
+          <text x="410" y="100" text-anchor="middle" font-size="16" fill="var(--fg)" font-family="inherit" font-weight="600">HTTP response (the file)</text>
         </g>
       </svg>
     </div>
@@ -485,7 +485,7 @@ svg text{font-family:var(--sans)}
   <h2>How HTTP works</h2>
   <div style="display:flex;flex-direction:column;gap:20px;max-width:960px">
 
-    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">HTTP uses <b>TCP</b> as its transport protocol — so before any HTTP message is sent, a TCP connection must be established first. <span style="opacity:0.7;font-size:18px">(HTTP/3 uses QUIC instead — an exception.)</span></p>
+    <p class="frag" style="margin:0;font-size:19px;line-height:1.6">HTTP uses <b>TCP</b> as its transport protocol — so before any HTTP message is sent, a TCP connection must be established first.</p>
 
     <div class="frag" style="display:flex;flex-direction:column;gap:0;max-width:720px">
       <!-- Header row -->
