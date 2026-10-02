@@ -842,6 +842,7 @@ svg text{font-family:var(--sans)}
   .slide:has(#pers2.on) #persopen{opacity:1!important}
   .slide:has(#pers3.on) #persobj2{opacity:1!important}
   #pers-rt .frag:not(.on){display:none}
+  #pl4 li.frag:not(.on){display:none}
   .slide:has(#pers-rt.on) #persb0{opacity:1!important}
   .slide:has(#pers-rt.on) #persb1{opacity:1!important}
   .slide:has(#pers-rt.on) #persb2{opacity:1!important}
@@ -869,8 +870,8 @@ svg text{font-family:var(--sans)}
       <div id="pl4" class="frag" style="border-left:3px solid var(--card-border,rgba(0,0,0,0.2));padding:8px 14px;font-size:18px;line-height:1.7">
         <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">
           <li style="font-size:18px;line-height:1.5">Don&rsquo;t confuse this with TCP-level pipelining.</li>
-          <li style="font-size:18px;line-height:1.5"><b>HTTP pipelining</b> operates at the <b>application layer</b>: the client sends several <b>HTTP requests</b> without waiting for each response.</li>
-          <li style="font-size:18px;line-height:1.5"><b>TCP pipelining</b> operates at the <b>transport layer</b>: the sender keeps several <b>segments</b> in flight within its window, whatever messages they carry.</li>
+          <li class="frag" style="font-size:18px;line-height:1.5"><b>HTTP pipelining</b> operates at the <b>application layer</b>: the client sends several <b>HTTP requests</b> without waiting for each response.</li>
+          <li class="frag" style="font-size:18px;line-height:1.5"><b>TCP pipelining</b> operates at the <b>transport layer</b>: the sender keeps several <b>segments</b> in flight within its window. TCP cuts each HTTP message into segments, so these may be pieces of one HTTP request, or of several.</li>
         </ul>
       </div>
     </div>
