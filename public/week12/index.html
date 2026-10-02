@@ -413,21 +413,21 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="The Web">
   <div class="kicker">The Web</div>
   <h2>The World Wide Web and HTTP</h2>
-  <div style="display:flex;flex-direction:column;gap:16px;max-width:980px">
+  <div style="display:flex;flex-direction:column;gap:10px;max-width:980px">
 
     <!-- Frag 1: Web definition card -->
-    <div class="frag card" style="padding:14px 20px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:16px">
+    <div class="frag card" style="padding:9px 20px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:16px">
       <div style="font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;line-height:1.6">The<br>Web</div>
       <div style="width:1px;background:currentColor;opacity:0.2;align-self:stretch"></div>
-      <div style="font-size:18px;line-height:1.55">The <b>World Wide Web</b> (aka Web) is a <b>network application</b>: a global collection of documents and other resources shared over the Internet &mdash; like a large file storage system. A client can request a file and get it back.</div>
+      <div style="font-size:18px;line-height:1.55">The <b>World Wide Web</b> (aka Web) is a <b>network application</b>: a global collection of documents and other resources shared over the Internet &mdash; like a large file storage system.</div>
     </div>
 
     <!-- Frag 2: URL -->
     <div class="frag" style="font-size:18px;line-height:1.6;padding:0 4px">
       Each object on the Web (e.g., an image, an HTML file) is addressable by a <b>URL</b>:
-      <div style="margin-top:8px;font-family:monospace;font-size:18px;padding:10px 16px;background:var(--surface-2,rgba(0,0,0,0.04));border-radius:6px;position:relative">
+      <div style="margin-top:6px;font-family:monospace;font-size:18px;padding:7px 16px;background:var(--surface-2,rgba(0,0,0,0.04));border-radius:6px;position:relative">
         <span style="color:var(--accent)">http://</span>www.someschool.edu<span style="color:var(--muted,#888)">/someDept/pic.gif</span>
-        <div style="display:flex;font-size:18px;font-family:inherit;margin-top:6px;gap:0">
+        <div style="display:flex;font-size:18px;font-family:inherit;margin-top:2px;gap:0">
           <span style="color:var(--accent);margin-left:44px">└── host name ──┘</span>
           <span style="color:var(--muted,#888);margin-left:4px">└──── path name ────┘</span>
         </div>
@@ -435,13 +435,16 @@ svg text{font-family:var(--sans)}
     </div>
 
     <!-- Frag 3: HTTP definition card -->
-    <div class="frag card" style="padding:14px 20px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:16px">
+    <div class="frag card" style="padding:9px 20px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:16px">
       <div style="font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;line-height:1.6">HTTP</div>
       <div style="width:1px;background:currentColor;opacity:0.2;align-self:stretch"></div>
       <div style="font-size:18px;line-height:1.55">The <b>Hypertext Transfer Protocol</b> is the <b>application-layer protocol</b> that supports the Web &mdash; it defines how clients request objects by URL and how servers respond.</div>
     </div>
 
-    <!-- Frag 4: Diagram -->
+    <!-- Frag 4: request-response pattern -->
+    <p class="frag" style="margin:0;font-size:18px;line-height:1.55;padding:0 4px">HTTP follows a <b>request&ndash;response</b> pattern: the client sends an <b>HTTP request</b> for an object, and the server answers with an <b>HTTP response</b> carrying it.</p>
+
+    <!-- Frag 5: Diagram -->
     <div class="frag" style="display:flex;justify-content:center">
       <svg viewBox="0 0 820 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px">
         <defs>
