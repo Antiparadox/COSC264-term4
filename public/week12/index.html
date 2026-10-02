@@ -1214,25 +1214,60 @@ svg text{font-family:var(--sans)}
   <div style="display:flex;gap:48px;align-items:flex-start;margin-top:12px">
 
     <!-- Left: full response as one frag -->
-    <div id="rsp0" class="frag" style="flex:0 0 auto;font-family:monospace;font-size:18px;line-height:2.1;background:var(--surface-2,rgba(0,0,0,0.03));border-radius:8px;padding:14px 22px;border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div><span style="color:#7c3aed;font-weight:600">HTTP/1.1</span>&nbsp;<span style="color:var(--accent);font-weight:700">200</span>&nbsp;OK</div>
-      <div>Connection: close</div>
-      <div>Date: Thu, 06 Aug 1998 12:00:15 GMT</div>
-      <div>Server: Apache/1.3.0 (Unix)</div>
-      <div>Last-Modified: Mon, 22 Jun 1998 &hellip;</div>
-      <div>Content-Length: 6821</div>
-      <div>Content-Type: text/html</div>
+    <div id="rsp0" class="frag" style="flex:0 0 auto;font-family:monospace;font-size:18px;line-height:2.0;background:var(--surface-2,rgba(0,0,0,0.03));border-radius:8px;padding:12px 22px;border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div><span class="rxr" id="rxr1">HTTP/1.1</span>&nbsp;<span class="rxr" id="rxr2">200</span>&nbsp;<span class="rxr" id="rxr3">OK</span></div>
+      <div><span class="rxr" id="rxr4">Connection: close</span></div>
+      <div><span class="rxr" id="rxr5">Date: Thu, 06 Aug 1998 12:00:15 GMT</span></div>
+      <div><span class="rxr" id="rxr6">Server: Apache/1.3.0 (Unix)</span></div>
+      <div><span class="rxr" id="rxr7">Last-Modified: Mon, 22 Jun 1998 &hellip;</span></div>
+      <div><span class="rxr" id="rxr8">Content-Length: 6821</span></div>
+      <div><span class="rxr" id="rxr9">Content-Type: text/html</span></div>
       <div style="border-top:1px dashed var(--card-border,rgba(0,0,0,0.2));margin:5px 0"></div>
-      <div style="opacity:0.55;font-size:18px;line-height:1.7">&lt;!DOCTYPE html&gt;<br>&lt;html&gt;&lt;head&gt;&lt;title&gt;Example&lt;/title&gt;&lt;/head&gt;<br>&lt;body&gt;&lt;h1&gt;Hello!&lt;/h1&gt;<br>&lt;script&gt;console.log("hi");&lt;/script&gt;<br>&lt;/body&gt;&lt;/html&gt;</div>
+      <div class="rxr" id="rxr10" style="opacity:0.7;font-size:18px;line-height:1.7;display:block">&lt;!DOCTYPE html&gt;<br>&lt;html&gt;&lt;head&gt;&lt;title&gt;Example&lt;/title&gt;&lt;/head&gt;<br>&lt;body&gt;&lt;h1&gt;Hello!&lt;/h1&gt;<br>&lt;script&gt;console.log("hi");&lt;/script&gt;<br>&lt;/body&gt;&lt;/html&gt;</div>
     </div>
 
-    <!-- Right: two label callouts -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px">
-      <div id="rsp-exl1" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)"><b>Status line</b>: HTTP/1.1 200 OK</div>
-      <div id="rsp-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Body</b>: the requested HTML file (with embedded JS)</div>
+    <!-- Right: one callout per region -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:6px;padding-top:4px;font-size:18px">
+      <div id="rsp-exl1" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Version</b>: HTTP/1.1</div>
+      <div id="rsp-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Status code</b>: 200 &mdash; success</div>
+      <div id="rsp-exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Phrase</b>: OK</div>
+      <div id="rsp-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header</b>: <code>Connection: close</code> &mdash; close after this response</div>
+      <div id="rsp-exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header</b>: <code>Date</code> &mdash; when the response was sent</div>
+      <div id="rsp-exl6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header</b>: <code>Server</code> &mdash; the server software</div>
+      <div id="rsp-exl7" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header</b>: <code>Last-Modified</code> &mdash; when the object last changed</div>
+      <div id="rsp-exl8" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header</b>: <code>Content-Length</code> &mdash; body size in bytes</div>
+      <div id="rsp-exl9" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header</b>: <code>Content-Type</code> &mdash; the body is HTML</div>
+      <div id="rsp-exl10" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:4px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Body</b>: the requested HTML file (with embedded JS)</div>
     </div>
 
   </div>
+
+  </div>
+
+<style>
+  /* Each callout highlights its own region of the example response */
+  .rxr { padding: 1px 4px; margin: 0 -4px; border-radius: 5px; transition: background .2s ease, color .2s ease, box-shadow .2s ease; }
+  .slide:has(#rsp-exl1.on):not(:has(#rsp-exl2.on)) #rxr1 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl1.on):not(:has(#rsp-exl2.on)) #rsp-exl1 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl2.on):not(:has(#rsp-exl3.on)) #rxr2 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl2.on):not(:has(#rsp-exl3.on)) #rsp-exl2 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl3.on):not(:has(#rsp-exl4.on)) #rxr3 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl3.on):not(:has(#rsp-exl4.on)) #rsp-exl3 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl4.on):not(:has(#rsp-exl5.on)) #rxr4 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl4.on):not(:has(#rsp-exl5.on)) #rsp-exl4 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl5.on):not(:has(#rsp-exl6.on)) #rxr5 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl5.on):not(:has(#rsp-exl6.on)) #rsp-exl5 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl6.on):not(:has(#rsp-exl7.on)) #rxr6 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl6.on):not(:has(#rsp-exl7.on)) #rsp-exl6 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl7.on):not(:has(#rsp-exl8.on)) #rxr7 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl7.on):not(:has(#rsp-exl8.on)) #rsp-exl7 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl8.on):not(:has(#rsp-exl9.on)) #rxr8 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl8.on):not(:has(#rsp-exl9.on)) #rsp-exl8 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl9.on):not(:has(#rsp-exl10.on)) #rxr9 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl9.on):not(:has(#rsp-exl10.on)) #rsp-exl9 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#rsp-exl10.on) #rxr10 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); opacity: 1 !important; }
+  .slide:has(#rsp-exl10.on) #rsp-exl10 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+</style>
 </section>
 
 
