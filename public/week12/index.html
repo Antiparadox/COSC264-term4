@@ -768,6 +768,7 @@ svg text{font-family:var(--sans)}
         <div class="frag" style="margin-top:6px">So for <i>n</i> requests: <span style="font-family:var(--mono)"><b>total &asymp; (1 + <i>n</i>) RTT</b></span> (plus transmission time).</div>
         <div class="frag" style="margin-top:6px">Amortised over the <i>n</i> objects: <span style="font-family:var(--mono);white-space:nowrap">(1 + <i>n</i>)/<i>n</i> = (1/<i>n</i> + 1) RTT</span>. As <i>n</i> becomes large, <span style="white-space:nowrap">1/<i>n</i> &rarr; 0</span>, so this approaches <b>~1 RTT per object</b>.</div>
       </div>
+      <p class="frag" style="margin:4px 0 0;font-size:19px;line-height:1.5;font-weight:700;color:var(--accent)">Can we do even better than 1 RTT per object?</p>
     </div>
     <div style="flex:0 0 310px">
       <svg viewBox="0 0 250 324" xmlns="http://www.w3.org/2000/svg" style="width:100%">
