@@ -764,8 +764,9 @@ svg text{font-family:var(--sans)}
       </div>
       <div id="pers-rt" class="frag card" style="padding:14px 18px;font-size:18px;line-height:1.8">
         <div style="font-weight:700;margin-bottom:6px;font-size:18px">Response time on one persistent connection:</div>
-        <div>1 RTT for initial TCP handshake + 1 RTT per HTTP request</div>
-        <div style="margin-top:6px">Amortised: <b>~1 RTT per object</b> for many requests</div>
+        <div>1 RTT for the initial TCP handshake, then 1 RTT for each HTTP request.</div>
+        <div class="frag" style="margin-top:6px">So for <i>n</i> requests: <span style="font-family:var(--mono)"><b>total &asymp; (1 + <i>n</i>) RTT</b></span> (plus transmission time).</div>
+        <div class="frag" style="margin-top:6px">Amortised over the <i>n</i> objects: <span style="font-family:var(--mono)">(1 + <i>n</i>)/<i>n</i> RTT</span>, which approaches <b>~1 RTT per object</b> as <i>n</i> becomes large.</div>
       </div>
     </div>
     <div style="flex:0 0 310px">
@@ -839,6 +840,7 @@ svg text{font-family:var(--sans)}
   .slide:has(#pers1.on) #persobj1{opacity:1!important}
   .slide:has(#pers2.on) #persopen{opacity:1!important}
   .slide:has(#pers3.on) #persobj2{opacity:1!important}
+  #pers-rt .frag:not(.on){display:none}
   .slide:has(#pers-rt.on) #persb0{opacity:1!important}
   .slide:has(#pers-rt.on) #persb1{opacity:1!important}
   .slide:has(#pers-rt.on) #persb2{opacity:1!important}
