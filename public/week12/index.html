@@ -1278,7 +1278,8 @@ svg text{font-family:var(--sans)}
 
   <!-- Frag 1: motivating question -->
   <div id="ck1" class="frag" style="margin-top:14px;border-left:4px solid var(--accent);padding:10px 18px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);font-size:18px;line-height:1.6">
-    HTTP is <b>stateless</b> &mdash; every request is independent; the server retains no memory of past requests. But many applications <em>need</em> state. How does an online shopping site remember your cart, or recognise you across visits?
+    HTTP is <b>stateless</b> &mdash; every request is independent; the server retains no memory of past requests.
+    <div class="frag" style="margin-top:8px">So the server does not remember your earlier conversations with it. Yet many applications <em>need</em> that memory: when you refresh an online shop&rsquo;s page, the items in your cart should not just disappear. <b>How does the server know what is in your cart?</b></div>
   </div>
 
   <!-- Frag 2: answer -->
