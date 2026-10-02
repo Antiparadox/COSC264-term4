@@ -868,9 +868,9 @@ svg text{font-family:var(--sans)}
       </div>
       <div id="pl4" class="frag" style="border-left:3px solid var(--card-border,rgba(0,0,0,0.2));padding:8px 14px;font-size:18px;line-height:1.7">
         <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">
-          <li style="font-size:18px;line-height:1.5">Don&rsquo;t confuse this with TCP-level pipelining</li>
-          <li style="font-size:18px;line-height:1.5">HTTP pipelining operates at the <b>application layer</b> &mdash; it pipelines <b>HTTP messages</b></li>
-          <li style="font-size:18px;line-height:1.5">In practice, browsers leave HTTP/1.1 pipelining off (one slow response blocks those behind it); HTTP/2 multiplexing replaced it</li>
+          <li style="font-size:18px;line-height:1.5">Don&rsquo;t confuse this with TCP-level pipelining.</li>
+          <li style="font-size:18px;line-height:1.5"><b>HTTP pipelining</b> operates at the <b>application layer</b>: the client sends several <b>HTTP requests</b> without waiting for each response.</li>
+          <li style="font-size:18px;line-height:1.5"><b>TCP pipelining</b> operates at the <b>transport layer</b>: the sender keeps several <b>segments</b> in flight within its window, whatever messages they carry.</li>
         </ul>
       </div>
     </div>
