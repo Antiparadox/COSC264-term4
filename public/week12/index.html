@@ -1583,8 +1583,7 @@ svg text{font-family:var(--sans)}
     <!-- Right: callout frags -->
     <div style="flex:1;display:flex;flex-direction:column;gap:10px;padding-top:6px;font-size:18px">
       <div id="cg1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
-        <b>Goal:</b> the proxy server/cache wants to avoid re-fetching an object if its cached copy is still up-to-date
-        <div style="margin-top:8px">The proxy sends the following HTTP GET request:</div>
+        A <b>conditional GET</b> is an ordinary GET with an <code>If-modified-since</code> header line. A proxy uses it to check whether its cached copy is still up to date, e.g.:
       </div>
       <div id="cg2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="border:1px solid var(--card-border,rgba(0,0,0,0.18));border-radius:4px;padding:8px 14px;background:var(--surface-2,rgba(0,0,0,0.05));font-family:monospace;font-size:18px;line-height:1.8">
