@@ -1434,24 +1434,11 @@ svg text{font-family:var(--sans)}
   <div class="kicker">HTTP</div>
   <h2>The problem: every request goes to the origin</h2>
 
-  <p id="why0" class="frag" style="margin:14px 0 0;font-size:18px;line-height:1.6">Picture a university: thousands of users fetch the same popular pages and images, and every request travels across the Internet to the <b>origin server</b> that hosts the object.</p>
-
-  <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px">
-    <div id="why1" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div style="font-size:18px;font-weight:700;margin-bottom:3px">Slow responses</div>
-      <div style="font-size:18px;line-height:1.55">Each object makes a full round trip to a possibly distant origin server &mdash; even when someone nearby fetched the same object a moment ago.</div>
-    </div>
-    <div id="why2" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div style="font-size:18px;font-weight:700;margin-bottom:3px">A congested access link</div>
-      <div style="font-size:18px;line-height:1.55">All of that traffic squeezes through the institution&rsquo;s single link to the Internet &mdash; a bottleneck.</div>
-    </div>
-    <div id="why3" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div style="font-size:18px;font-weight:700;margin-bottom:3px">High cost</div>
-      <div style="font-size:18px;line-height:1.55">Carrying more traffic means paying for a faster, more expensive access link.</div>
-    </div>
+  <div style="margin-top:18px;display:flex;flex-direction:column;gap:18px;max-width:1000px">
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">Picture a university: thousands of users fetch the same popular pages and images, and every request travels across the Internet to the <b>origin server</b> that hosts the object.</p>
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">Every one of those requests lands on the same origin server, through the same congested links &mdash; enough of them can <b>overwhelm</b> it.</p>
+    <p class="frag" style="margin:0;font-size:21px;line-height:1.5;font-weight:700;color:var(--accent)">How can we avoid this?</p>
   </div>
-
-  <p id="why4" class="frag" style="margin:16px 0 0;font-size:19px;line-height:1.5;font-weight:700;color:var(--accent)">Idea: keep copies of popular objects close to the users, and answer repeated requests locally.</p>
 </section>
 
 <!-- Slide 20: Why caching? -->
@@ -1519,10 +1506,22 @@ svg text{font-family:var(--sans)}
       When the object is not cached, it issues its own HTTP request to the origin server to fetch it
     </div>
   </div>
+</section>
 
-  <!-- Frag 4: how this solves the problem -->
-  <div id="wc4" class="frag" style="margin-top:14px;border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);font-size:18px;line-height:1.55">
-    Requests answered by the cache get a <b>faster response</b> and never cross the <b>access link</b> &mdash; cutting its congestion and <b>cost</b>.
+<!-- Web caching: the benefits -->
+<section class="slide" data-sec="Cookies and caching">
+  <div class="kicker">HTTP</div>
+  <h2>What web caching buys us</h2>
+
+  <div style="margin-top:18px;display:flex;flex-direction:column;gap:14px;max-width:1000px">
+    <div class="frag" style="padding:14px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div style="font-size:19px;font-weight:700;margin-bottom:4px">Quicker responses</div>
+      <div style="font-size:18px;line-height:1.55">A cached object is served from a nearby cache, with no round trip to a distant origin server &mdash; everyone gets their object sooner.</div>
+    </div>
+    <div class="frag" style="padding:14px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div style="font-size:19px;font-weight:700;margin-bottom:4px">Less congestion</div>
+      <div style="font-size:18px;line-height:1.55">Requests answered by the cache never reach the origin server or cross the institution&rsquo;s access link &mdash; so neither is overwhelmed.</div>
+    </div>
   </div>
 </section>
 
