@@ -1451,79 +1451,63 @@ svg text{font-family:var(--sans)}
     A <b>web cache</b> (also called a <b>proxy server</b>) is a network entity that satisfies HTTP requests on behalf of an origin server &mdash; storing copies of recently requested objects locally.
   </div>
 
-  <!-- Frag 2: diagram -->
-  <div id="wc2" class="frag" style="margin-top:18px;display:flex;justify-content:center">
-
-    <!-- SVG: client → cache → origin server (wider, centred) -->
-    <svg viewBox="0 0 700 140" width="700" xmlns="http://www.w3.org/2000/svg" style="font-family:inherit;display:block;overflow:visible;color:var(--fg,#15242f)">
-
-      <!-- Client box -->
-      <rect x="10" y="40" width="90" height="56" rx="6" fill="var(--surface-2,rgba(0,0,0,0.05))" stroke="var(--card-border,rgba(0,0,0,0.18))" stroke-width="1.2"/>
-      <text x="55" y="65" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Client</text>
-      <text x="55" y="82" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.6">browser</text>
-
-      <!-- Cache box -->
-      <rect x="302" y="28" width="96" height="80" rx="6" fill="rgba(0,128,128,0.08)" stroke="var(--accent)" stroke-width="1.8"/>
-      <text x="350" y="60" text-anchor="middle" font-size="16" font-weight="700" fill="var(--accent)">Cache /</text>
-      <text x="350" y="76" text-anchor="middle" font-size="16" font-weight="700" fill="var(--accent)">Proxy</text>
-      <text x="350" y="94" text-anchor="middle" font-size="16" fill="var(--accent)" opacity="0.75">server</text>
-
-      <!-- Origin server box -->
-      <rect x="600" y="40" width="90" height="56" rx="6" fill="var(--surface-2,rgba(0,0,0,0.05))" stroke="var(--card-border,rgba(0,0,0,0.18))" stroke-width="1.2"/>
-      <text x="645" y="65" text-anchor="middle" font-size="16" font-weight="700" fill="currentColor">Origin</text>
-      <text x="645" y="82" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.6">server</text>
-
-      <!-- Client ↔ Cache arrows -->
-      <line x1="102" y1="62" x2="300" y2="62" stroke="currentColor" stroke-width="1.4" opacity="0.5"/>
-      <polygon points="296,57 302,62 296,67" fill="currentColor" opacity="0.5"/>
-      <text x="200" y="55" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.7">HTTP request</text>
-
-      <line x1="300" y1="80" x2="102" y2="80" stroke="currentColor" stroke-width="1.4" opacity="0.5"/>
-      <polygon points="106,75 100,80 106,85" fill="currentColor" opacity="0.5"/>
-      <text x="200" y="96" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.7">HTTP response</text>
-
-      <!-- Cache ↔ Origin arrows -->
-      <line x1="400" y1="62" x2="598" y2="62" stroke="currentColor" stroke-width="1.4" opacity="0.5"/>
-      <polygon points="594,57 600,62 594,67" fill="currentColor" opacity="0.5"/>
-      <text x="500" y="55" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.7">HTTP request</text>
-
-      <line x1="598" y1="80" x2="400" y2="80" stroke="currentColor" stroke-width="1.4" opacity="0.5"/>
-      <polygon points="404,75 398,80 404,85" fill="currentColor" opacity="0.5"/>
-      <text x="500" y="96" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.7">HTTP response</text>
-
+  <!-- Diagram: built up with the two role cards -->
+  <div style="margin-top:18px;display:flex;justify-content:center">
+    <svg viewBox="0 0 760 150" width="760" xmlns="http://www.w3.org/2000/svg" style="font-family:inherit;display:block;overflow:visible;color:var(--fg,#15242f)">
+      <!-- Cache acting as a SERVER: client and cache, client-cache exchange (with wc2) -->
+      <g class="wc-srv">
+        <rect x="10" y="44" width="110" height="60" rx="7" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+        <text x="65" y="70" text-anchor="middle" font-size="17" font-weight="700" fill="currentColor">Client</text>
+        <text x="65" y="91" text-anchor="middle" font-size="17" fill="currentColor" opacity="0.6">browser</text>
+        <rect x="320" y="30" width="120" height="88" rx="7" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="380" y="58" text-anchor="middle" font-size="17" font-weight="700" fill="var(--accent)">Web cache</text>
+        <text x="380" y="78" text-anchor="middle" font-size="17" fill="var(--accent)" opacity="0.8">(proxy)</text>
+        <rect x="352" y="88" width="56" height="6" rx="2" fill="var(--accent)" opacity="0.35"/><rect x="352" y="97" width="56" height="6" rx="2" fill="var(--accent)" opacity="0.25"/><rect x="352" y="106" width="56" height="6" rx="2" fill="var(--accent)" opacity="0.15"/>
+        <line class="wc-a1" x1="122" y1="64" x2="312" y2="64" stroke-width="1.8"/><polygon class="wc-a1" points="310,59 318,64 310,69"/><text class="wc-a1-t" x="220" y="54" text-anchor="middle" font-size="17">HTTP request</text>
+        <line class="wc-a1" x1="318" y1="90" x2="128" y2="90" stroke-width="1.8"/><polygon class="wc-a1" points="130,85 122,90 130,95"/><text class="wc-a1-t" x="220" y="114" text-anchor="middle" font-size="17">HTTP response</text>
+      </g>
+      <!-- Cache acting as a CLIENT: origin server and cache-origin exchange, on a miss (with wc3) -->
+      <g class="wc-cli">
+        <rect x="640" y="44" width="110" height="60" rx="7" fill="var(--surface)" stroke="var(--border)" stroke-width="1.4"/>
+        <text x="695" y="70" text-anchor="middle" font-size="17" font-weight="700" fill="currentColor">Origin</text>
+        <text x="695" y="91" text-anchor="middle" font-size="17" fill="currentColor" opacity="0.6">server</text>
+        <line class="wc-a2" x1="442" y1="64" x2="632" y2="64" stroke-width="1.8"/><polygon class="wc-a2" points="630,59 638,64 630,69"/><text class="wc-a2-t" x="540" y="54" text-anchor="middle" font-size="17">HTTP request</text>
+        <line class="wc-a2" x1="638" y1="90" x2="448" y2="90" stroke-width="1.8"/><polygon class="wc-a2" points="450,85 442,90 450,95"/><text class="wc-a2-t" x="540" y="114" text-anchor="middle" font-size="17">HTTP response</text>
+        <text x="540" y="140" text-anchor="middle" font-size="17" font-style="italic" fill="var(--accent)">only on a cache miss</text>
+      </g>
     </svg>
-
   </div>
 
-  <!-- Frag 3: dual role -->
-  <div id="wc3" class="frag" style="margin-top:16px;display:flex;gap:12px">
-    <div style="flex:1;padding:10px 16px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.55">
+  <!-- Frags 2-3: dual role, each with its half of the diagram -->
+  <div style="margin-top:16px;display:flex;gap:12px">
+    <div id="wc2" class="frag" style="flex:1;padding:10px 16px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.55">
       <div style="font-weight:700;margin-bottom:4px;font-size:18px">Acts as a server</div>
-      Receives HTTP requests from clients and returns responses &mdash; just like an origin server would
+      Receives HTTP requests from clients and, if it holds a copy of the object, returns it in the response &mdash; just like an origin server would
     </div>
-    <div style="flex:1;padding:10px 16px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.55">
+    <div id="wc3" class="frag" style="flex:1;padding:10px 16px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.55">
       <div style="font-weight:700;margin-bottom:4px;font-size:18px">Acts as a client</div>
-      When the object is not cached, it issues its own HTTP request to the origin server to fetch it
+      When the object is not cached, it issues its own HTTP request to the origin server, stores the copy, then answers the client
     </div>
   </div>
-</section>
 
-<!-- Web caching: the benefits -->
-<section class="slide" data-sec="Cookies and caching">
-  <div class="kicker">HTTP</div>
-  <h2>What web caching buys us</h2>
-
-  <div style="margin-top:18px;display:flex;flex-direction:column;gap:14px;max-width:1000px">
-    <div class="frag" style="padding:14px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div style="font-size:19px;font-weight:700;margin-bottom:4px">Quicker responses</div>
-      <div style="font-size:18px;line-height:1.55">A cached object is served from a nearby cache, with no round trip to a distant origin server &mdash; everyone gets their object sooner.</div>
-    </div>
-    <div class="frag" style="padding:14px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div style="font-size:19px;font-weight:700;margin-bottom:4px">Less congestion</div>
-      <div style="font-size:18px;line-height:1.55">Requests answered by the cache never reach the origin server or cross the institution&rsquo;s access link &mdash; so neither is overwhelmed.</div>
-    </div>
+  <!-- Frag 4: what this buys us -->
+  <div id="wc4" class="frag" style="margin-top:14px;border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);font-size:18px;line-height:1.55">
+    Requests answered by the cache get a <b>quicker response</b>, and never reach the origin server or cross the <b>access link</b> &mdash; so neither is overwhelmed.
   </div>
+
+<style>
+  .wc-srv, .wc-cli { opacity: 0; transition: opacity .3s ease; }
+  .slide:has(#wc2.on) .wc-srv { opacity: 1; }
+  .slide:has(#wc3.on) .wc-cli { opacity: 1; }
+  .wc-a1, .wc-a2 { stroke: currentColor; fill: currentColor; opacity: .45; transition: opacity .3s, stroke .3s, fill .3s; }
+  .wc-a1-t, .wc-a2-t { fill: currentColor; opacity: .65; }
+  .slide:has(#wc2.on):not(:has(#wc3.on)) .wc-a1 { stroke: var(--accent); fill: var(--accent); opacity: 1; }
+  .slide:has(#wc2.on):not(:has(#wc3.on)) .wc-a1-t { fill: var(--accent); opacity: 1; font-weight: 700; }
+  .slide:has(#wc3.on):not(:has(#wc4.on)) .wc-a2 { stroke: var(--accent); fill: var(--accent); opacity: 1; }
+  .slide:has(#wc3.on):not(:has(#wc4.on)) .wc-a2-t { fill: var(--accent); opacity: 1; font-weight: 700; }
+</style>
 </section>
+
 
 <!-- Slide 21: Conditional GET -->
 <section class="slide" data-sec="Cookies and caching">
