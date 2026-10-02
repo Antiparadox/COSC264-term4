@@ -975,21 +975,21 @@ svg text{font-family:var(--sans)}
         <div style="font-weight:700;margin-bottom:4px;font-size:18px">Header lines</div>
         <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">
           <li style="font-size:18px;line-height:1.5">Zero or more <code>field-name: value</code> pairs, one per line</li>
-          <li style="font-size:18px;line-height:1.5">Common examples:
+          <li class="frag" style="font-size:18px;line-height:1.5">Common examples:
             <div style="margin-top:3px;display:flex;flex-direction:column;gap:5px">
-              <div>
+              <div class="frag">
                 <div style="padding:4px 10px;background:var(--surface-1,rgba(0,0,0,0.05));border-radius:4px;font-family:monospace;font-size:18px">Host: www.example.com</div>
                 <div style="margin-top:2px;font-size:18px;opacity:0.8;padding-left:2px">Mandatory in HTTP/1.1 &mdash; identifies the target server</div>
               </div>
-              <div>
+              <div class="frag">
                 <div style="padding:4px 10px;background:var(--surface-1,rgba(0,0,0,0.05));border-radius:4px;font-family:monospace;font-size:18px">Content-Type: text/html; charset=UTF-8</div>
                 <div style="margin-top:2px;font-size:18px;opacity:0.8;padding-left:2px">Format of the message body</div>
               </div>
-              <div>
+              <div class="frag">
                 <div style="padding:4px 10px;background:var(--surface-1,rgba(0,0,0,0.05));border-radius:4px;font-family:monospace;font-size:18px">Connection: close</div>
                 <div style="margin-top:2px;font-size:18px;opacity:0.8;padding-left:2px">Close the TCP connection after this response</div>
               </div>
-              <div>
+              <div class="frag">
                 <div style="padding:4px 10px;background:var(--surface-1,rgba(0,0,0,0.05));border-radius:4px;font-family:monospace;font-size:18px">Accept-Language: da, en-gb;q=0.8, en;q=0.7</div>
                 <div style="margin-top:2px;font-size:18px;opacity:0.8;padding-left:2px">Preferred languages, weighted by q (default 1): Danish &rarr; British English &rarr; any English</div>
               </div>
@@ -1045,6 +1045,7 @@ svg text{font-family:var(--sans)}
   .slide:has(#req-url-ver.on) #req-method { opacity: 0 !important; }
   .slide:has(#req-headers.on) #req-url-ver { opacity: 0 !important; }
   .slide:has(#req-blank.on) #req-headers { opacity: 0 !important; }
+  #req-headers .frag:not(.on) { display: none; }
   .slide:has(#req-body.on) #req-blank { opacity: 0 !important; }
 
   /* Diagram highlights — active only while its frag is the current one */
