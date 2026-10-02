@@ -664,22 +664,22 @@ svg text{font-family:var(--sans)}
 
     <!-- Left: content -->
     <div style="flex:1;display:flex;flex-direction:column;gap:11px">
-      <!-- Frag 1: RTT definition -->
-      <div class="frag card" style="padding:12px 18px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:14px">
-        <div style="font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;line-height:1.7">RTT</div>
-        <div style="width:1px;background:currentColor;opacity:0.2;align-self:stretch"></div>
-        <div style="font-size:18px;line-height:1.5"><b>Round Trip Time</b> &mdash; time for a small packet to travel from client to server and back</div>
-      </div>
-      <!-- Frag 2: Response time definition card -->
+      <!-- Frag 1: Response time definition card -->
       <div class="frag card" style="padding:12px 18px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:14px">
         <div style="font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);white-space:nowrap;line-height:1.8">Response<br>time</div>
         <div style="width:1px;background:currentColor;opacity:0.2;align-self:stretch"></div>
-        <div style="font-size:18px;line-height:1.5">Time to retrieve a single object using HTTP</div>
+        <div style="font-size:18px;line-height:1.5">The time to retrieve a single object using HTTP &mdash; from the client&rsquo;s request until the object is received</div>
       </div>
-      <!-- Frag 3: Q&A -->
+      <!-- Frag 2: Q&A -->
       <div class="frag" style="font-size:18px;line-height:1.7;padding:2px 4px">
         <div><b>Q:</b> What is the response time for non-persistent HTTP?</div>
         <div><b>A:</b> <b>2 RTTs + file transmission time</b></div>
+      </div>
+      <!-- Frag 3: recall RTT -->
+      <div class="frag card" style="padding:12px 18px;border-left:4px solid var(--accent);display:flex;align-items:center;gap:14px">
+        <div style="font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);white-space:nowrap;line-height:1.7">RTT</div>
+        <div style="width:1px;background:currentColor;opacity:0.2;align-self:stretch"></div>
+        <div style="font-size:18px;line-height:1.5">Recall: <b>round-trip time</b> &mdash; the time for a small packet to travel from client to server and back</div>
       </div>
       <!-- Frag 4: first RTT (triggers bracket) -->
       <div id="rtt1" class="frag" style="border-left:3px solid var(--accent);padding:8px 14px;font-size:18px;line-height:1.5;background:var(--surface-2,rgba(0,0,0,0.03));border-radius:0 6px 6px 0">
