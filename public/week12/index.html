@@ -1075,28 +1075,49 @@ svg text{font-family:var(--sans)}
 
     <!-- Left: full request as one frag -->
     <div id="ex0" class="frag" style="flex:0 0 auto;font-family:monospace;font-size:18px;line-height:2.1;background:var(--surface-2,rgba(0,0,0,0.03));border-radius:8px;padding:14px 22px;border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div><span style="color:var(--accent);font-weight:700">GET</span>&nbsp;<span style="color:#d97706;font-weight:600">/somedir/page.html</span>&nbsp;<span style="color:#7c3aed;font-weight:600">HTTP/1.1</span></div>
-      <div>Host: www.someschool.edu</div>
-      <div>User-agent: Mozilla/4.0</div>
-      <div style="color:var(--accent);font-weight:600">Connection: close</div>
-      <div>Accept-language: fr</div>
+      <div><span class="exr" id="exr1">GET</span>&nbsp;<span class="exr" id="exr2">/somedir/page.html</span>&nbsp;<span class="exr" id="exr3">HTTP/1.1</span></div>
+      <div><span class="exr" id="exr4">Host: www.someschool.edu</span></div>
+      <div><span class="exr" id="exr5">User-agent: Mozilla/4.0</span></div>
+      <div><span class="exr" id="exr6">Connection: close</span></div>
+      <div><span class="exr" id="exr7">Accept-language: fr</span></div>
       <div style="border-top:1px dashed var(--card-border,rgba(0,0,0,0.2));margin:5px 0"></div>
-      <div style="opacity:0.4;font-style:italic">(empty entity body)</div>
+      <div><span class="exr" id="exr8" style="opacity:0.55;font-style:italic">(empty entity body)</span></div>
     </div>
 
     <!-- Right: simple label callouts, one per field -->
     <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px">
-      <div id="exl1" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)"><b>Method</b>: GET</div>
+      <div id="exl1" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Method</b>: GET</div>
       <div id="exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>URL</b>: /somedir/page.html</div>
       <div id="exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>HTTP version</b>: HTTP/1.1</div>
       <div id="exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header field</b>: Host: www.someschool.edu</div>
       <div id="exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header field</b>: User-agent: Mozilla/4.0</div>
-      <div id="exl6" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)"><b>Header field</b>: Connection: close</div>
+      <div id="exl6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header field</b>: Connection: close</div>
       <div id="exl7" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Header field</b>: Accept-language: fr</div>
       <div id="exl8" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Body</b>: (empty)</div>
     </div>
 
   </div>
+
+<style>
+  /* Each callout highlights its own region of the example request */
+  .exr { padding: 2px 4px; margin: 0 -4px; border-radius: 5px; transition: background .2s ease, color .2s ease, box-shadow .2s ease; }
+  .slide:has(#exl1.on):not(:has(#exl2.on)) #exr1 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl1.on):not(:has(#exl2.on)) #exl1 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#exl2.on):not(:has(#exl3.on)) #exr2 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl2.on):not(:has(#exl3.on)) #exl2 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#exl3.on):not(:has(#exl4.on)) #exr3 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl3.on):not(:has(#exl4.on)) #exl3 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#exl4.on):not(:has(#exl5.on)) #exr4 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl4.on):not(:has(#exl5.on)) #exl4 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#exl5.on):not(:has(#exl6.on)) #exr5 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl5.on):not(:has(#exl6.on)) #exl5 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#exl6.on):not(:has(#exl7.on)) #exr6 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl6.on):not(:has(#exl7.on)) #exl6 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#exl7.on):not(:has(#exl8.on)) #exr7 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl7.on):not(:has(#exl8.on)) #exl7 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+  .slide:has(#exl8.on) #exr8 { background: var(--accent-soft); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; opacity: 1 !important; }
+  .slide:has(#exl8.on) #exl8 { border-left-color: var(--accent) !important; background: var(--accent-soft) !important; }
+</style>
 </section>
 
 <!-- ========== SLIDE 15: HTTP response message format ========== -->
