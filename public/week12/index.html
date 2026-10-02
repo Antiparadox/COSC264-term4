@@ -1432,6 +1432,31 @@ svg text{font-family:var(--sans)}
 <!-- Slide 19: Web caching -->
 <section class="slide" data-sec="Cookies and caching">
   <div class="kicker">HTTP</div>
+  <h2>The problem: every request goes to the origin</h2>
+
+  <p id="why0" class="frag" style="margin:14px 0 0;font-size:18px;line-height:1.6">Picture a university: thousands of users fetch the same popular pages and images, and every request travels across the Internet to the <b>origin server</b> that hosts the object.</p>
+
+  <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px">
+    <div id="why1" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div style="font-size:18px;font-weight:700;margin-bottom:3px">Slow responses</div>
+      <div style="font-size:18px;line-height:1.55">Each object makes a full round trip to a possibly distant origin server &mdash; even when someone nearby fetched the same object a moment ago.</div>
+    </div>
+    <div id="why2" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div style="font-size:18px;font-weight:700;margin-bottom:3px">A congested access link</div>
+      <div style="font-size:18px;line-height:1.55">All of that traffic squeezes through the institution&rsquo;s single link to the Internet &mdash; a bottleneck.</div>
+    </div>
+    <div id="why3" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div style="font-size:18px;font-weight:700;margin-bottom:3px">High cost</div>
+      <div style="font-size:18px;line-height:1.55">Carrying more traffic means paying for a faster, more expensive access link.</div>
+    </div>
+  </div>
+
+  <p id="why4" class="frag" style="margin:16px 0 0;font-size:19px;line-height:1.5;font-weight:700;color:var(--accent)">Idea: keep copies of popular objects close to the users, and answer repeated requests locally.</p>
+</section>
+
+<!-- Slide 20: Why caching? -->
+<section class="slide" data-sec="Cookies and caching">
+  <div class="kicker">HTTP</div>
   <h2>Web caching</h2>
 
   <!-- Frag 1: definition -->
@@ -1495,36 +1520,9 @@ svg text{font-family:var(--sans)}
     </div>
   </div>
 
-</section>
-
-<!-- Slide 20: Why caching? -->
-<section class="slide" data-sec="Cookies and caching">
-  <div class="kicker">HTTP</div>
-  <h2>Why caching?</h2>
-
-  <div style="margin-top:20px;display:flex;flex-direction:column;gap:14px">
-
-    <div id="why1" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div>
-        <div style="font-size:18px;font-weight:700;margin-bottom:3px">Faster response time</div>
-        <div style="font-size:18px;line-height:1.55">Cached objects are served from a nearby proxy &mdash; no round trip across the internet to the origin server. Substantially lower latency for the client.</div>
-      </div>
-    </div>
-
-    <div id="why2" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div>
-        <div style="font-size:18px;font-weight:700;margin-bottom:3px">Reduced access-link traffic</div>
-        <div style="font-size:18px;line-height:1.55">Requests satisfied by the cache never travel over the institution&rsquo;s uplink to the internet &mdash; less congestion on that bottleneck link.</div>
-      </div>
-    </div>
-
-    <div id="why3" class="frag" style="padding:12px 18px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div>
-        <div style="font-size:18px;font-weight:700;margin-bottom:3px">Lower access-link costs</div>
-        <div style="font-size:18px;line-height:1.55">Fewer objects are fetched from origin servers, so less traffic comes in over the institution&rsquo;s access link &mdash; it can avoid or delay a costly upgrade to that link.</div>
-      </div>
-    </div>
-
+  <!-- Frag 4: how this solves the problem -->
+  <div id="wc4" class="frag" style="margin-top:14px;border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);font-size:18px;line-height:1.55">
+    Requests answered by the cache get a <b>faster response</b> and never cross the <b>access link</b> &mdash; cutting its congestion and <b>cost</b>.
   </div>
 </section>
 
