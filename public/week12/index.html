@@ -330,7 +330,38 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 
-<!-- Slide 5: What applications need from the transport layer -->
+<!-- Slide 5: Application-Layer Protocols -->
+<section class="slide" data-sec="Network Applications">
+  <div class="kicker">Network applications</div>
+  <h2>Application-layer protocols</h2>
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">An <b>application-layer protocol</b> is one piece of a network application &mdash; but a big piece.</p>
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">It defines how the application&rsquo;s processes, running on different end systems, <b>pass messages to each other</b>: which messages exist, their format, and when and how to respond.</p>
+    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">This is what lets programs on different machines work together &mdash; e.g. any web browser can fetch a page from any web server, whoever wrote each program.</p>
+    <div class="frag" style="overflow-x:auto">
+      <table style="border-collapse:collapse;width:100%;max-width:640px;font-size:18px">
+        <thead>
+          <tr style="border-bottom:2px solid var(--accent)">
+            <th style="padding:10px 24px;text-align:left;font-weight:700">Network application</th>
+            <th style="padding:10px 24px;text-align:left;font-weight:700">Application-layer protocol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
+            <td style="padding:10px 24px">Web application</td>
+            <td style="padding:10px 24px">HTTP</td>
+          </tr>
+          <tr>
+            <td style="padding:10px 24px">Email</td>
+            <td style="padding:10px 24px">SMTP</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Slide 6: What applications need from the transport layer -->
 <section class="slide" data-sec="Network Applications">
   <div class="kicker">Network applications</div>
   <h2>What applications need from the transport layer</h2>
@@ -358,38 +389,6 @@ svg text{font-family:var(--sans)}
             <td style="padding:9px 16px;font-weight:600">Low delay</td>
             <td style="padding:9px 16px">Internet telephony, teleconferencing, multiplayer games</td>
             <td style="padding:9px 16px"><b>UDP</b> preferred<br><span style="opacity:0.65;font-size:18px">TCP retransmissions add latency</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- Slide 4: Application-Layer Protocols -->
-<section class="slide" data-sec="Network Applications">
-  <div class="kicker">Network applications</div>
-  <h2>Application-layer protocols</h2>
-  <div style="display:flex;flex-direction:column;gap:16px;max-width:1040px">
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">A <b>network application</b> is made of many pieces &mdash; a user interface, local storage, and the logic that talks to other end systems.</p>
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">An <b>application-layer protocol</b> is only one piece of it &mdash; but a big piece.</p>
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">It defines how the application&rsquo;s processes, running on different end systems, <b>pass messages to each other</b>: which messages exist, their format, and when and how to respond.</p>
-    <p class="frag" style="margin:0;font-size:20px;line-height:1.6">This is what lets programs on different machines work together &mdash; e.g. any web browser can fetch a page from any web server, whoever wrote each program. Some examples:</p>
-    <div class="frag" style="overflow-x:auto">
-      <table style="border-collapse:collapse;width:100%;max-width:640px;font-size:18px">
-        <thead>
-          <tr style="border-bottom:2px solid var(--accent)">
-            <th style="padding:10px 24px;text-align:left;font-weight:700">Network application</th>
-            <th style="padding:10px 24px;text-align:left;font-weight:700">Application-layer protocol</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
-            <td style="padding:10px 24px">Web application</td>
-            <td style="padding:10px 24px">HTTP</td>
-          </tr>
-          <tr>
-            <td style="padding:10px 24px">Email</td>
-            <td style="padding:10px 24px">SMTP</td>
           </tr>
         </tbody>
       </table>
