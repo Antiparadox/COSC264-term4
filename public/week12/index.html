@@ -1128,6 +1128,10 @@ svg text{font-family:var(--sans)}
 
     <!-- Left: frags (exclusive) -->
     <div style="flex:1;position:relative;min-width:0;min-height:240px">
+      <div id="resp-version" class="frag" style="position:absolute;top:0;left:0;right:0;border-left:3px solid var(--accent);padding:7px 14px;font-size:18px;line-height:1.5;background:var(--surface-2,rgba(0,0,0,0.03));border-radius:0 6px 6px 0">
+        <div style="font-weight:700;margin-bottom:6px;font-size:18px">Version</div>
+        <div>The HTTP version the server is using &mdash; e.g. <code>HTTP/1.1</code>, just as in the request line.</div>
+      </div>
       <div id="resp-status" class="frag" style="position:absolute;top:0;left:0;right:0;border-left:3px solid var(--accent);padding:7px 14px;font-size:18px;line-height:1.5;background:var(--surface-2,rgba(0,0,0,0.03));border-radius:0 6px 6px 0">
         <div style="font-weight:700;margin-bottom:6px;font-size:18px">Status code &amp; phrase</div>
         <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px">
@@ -1152,6 +1156,10 @@ svg text{font-family:var(--sans)}
             <tr><td style="padding:0 14px 0 0;font-family:monospace;color:var(--accent);font-weight:700">505</td><td>HTTP Version Not Supported</td></tr>
           </tbody>
         </table>
+      </div>
+      <div id="resp-rest" class="frag" style="position:absolute;top:0;left:0;right:0;border-left:3px solid var(--accent);padding:7px 14px;font-size:18px;line-height:1.5;background:var(--surface-2,rgba(0,0,0,0.03));border-radius:0 6px 6px 0">
+        <div style="font-weight:700;margin-bottom:6px;font-size:18px">Header lines, blank line, entity body</div>
+        <div>Same structure as in the request: <code>field-name: value</code> header lines, a blank line (a lone CRLF), then the body &mdash; here, the <b>requested object</b> itself.</div>
       </div>
     </div>
 
@@ -1186,9 +1194,17 @@ svg text{font-family:var(--sans)}
     fill: var(--surface); stroke: var(--border); stroke-width: 1.2;
   }
   #rdiag-body rect { fill: rgba(0,0,0,0.03); stroke: rgba(0,0,0,0.18); stroke-width: 1.5; stroke-dasharray: 6,3; }
+  .slide:has(#resp-status.on) #resp-version { opacity: 0 !important; }
   .slide:has(#resp-examples.on) #resp-status { opacity: 0 !important; }
-  .slide:has(#resp-status.on):not(:has(#resp-examples.on)) #rdiag-status rect { fill: var(--accent)!important; stroke: var(--accent)!important; }
-  .slide:has(#resp-status.on):not(:has(#resp-examples.on)) #rdiag-status text { fill: #fff!important; font-weight: 700; }
+  .slide:has(#resp-rest.on) #resp-examples { opacity: 0 !important; }
+  .slide:has(#resp-version.on):not(:has(#resp-status.on)) #rdiag-version rect { fill: var(--accent)!important; stroke: var(--accent)!important; }
+  .slide:has(#resp-version.on):not(:has(#resp-status.on)) #rdiag-version text { fill: #fff!important; font-weight: 700; }
+  .slide:has(#resp-status.on):not(:has(#resp-rest.on)) #rdiag-status rect { fill: var(--accent)!important; stroke: var(--accent)!important; }
+  .slide:has(#resp-status.on):not(:has(#resp-rest.on)) #rdiag-status text { fill: #fff!important; font-weight: 700; }
+  .slide:has(#resp-rest.on) #rdiag-headers rect, .slide:has(#resp-rest.on) #rdiag-blank rect { fill: var(--accent)!important; stroke: var(--accent)!important; }
+  .slide:has(#resp-rest.on) #rdiag-headers text, .slide:has(#resp-rest.on) #rdiag-blank text { fill: #fff!important; font-weight: 700; }
+  .slide:has(#resp-rest.on) #rdiag-body rect { stroke: var(--accent)!important; stroke-width: 2!important; }
+  .slide:has(#resp-rest.on) #rdiag-body text { fill: var(--accent)!important; font-weight: 700!important; }
 </style>
 
 <!-- ========== SLIDE 16: HTTP response — an example ========== -->
