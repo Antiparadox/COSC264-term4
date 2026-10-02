@@ -1380,7 +1380,7 @@ svg text{font-family:var(--sans)}
     </div>
 
     <!-- Right: callout frags -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px;min-height:400px">
       <div id="ck-exl1" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)">The client sends an HTTP request to the host</div>
       <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Set-Cookie: id=1678</b> &mdash; Server assigns a unique ID and sends it to the client</div>
       <div id="ck-exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The cookie ID is stored as an entry in the back-end database, and in the client&rsquo;s browser</div>
@@ -1396,6 +1396,8 @@ svg text{font-family:var(--sans)}
   .msg-req1, .msg-setcookie, .msg-dbentry, .msg-cookiereqs, .msg-resp2, .msg-dbaccess { opacity: 0; }
 
   /* Reveal on frag (cumulative) */
+  /* Callouts in two groups of three: the second group replaces the first */
+  .slide:has(#ck-exl4.on) #ck-exl1, .slide:has(#ck-exl4.on) #ck-exl2, .slide:has(#ck-exl4.on) #ck-exl3 { display: none; }
   .slide:has(#ck-exl1.on) .msg-req1 { opacity: 1; }
   .slide:has(#ck-exl2.on) .msg-setcookie { opacity: 1; }
   .slide:has(#ck-exl3.on) .msg-dbentry { opacity: 1; }
