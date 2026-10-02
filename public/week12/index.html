@@ -343,23 +343,20 @@ svg text{font-family:var(--sans)}
       <table style="border-collapse:collapse;width:100%;font-size:18px">
         <thead>
           <tr style="border-bottom:2px solid var(--accent)">
-            <th style="padding:9px 16px;text-align:left;font-weight:700;width:16%">Property</th>
-            <th style="padding:9px 16px;text-align:left;font-weight:700;width:30%">Requires it</th>
-            <th style="padding:9px 16px;text-align:left;font-weight:700;width:30%">Can do without</th>
-            <th style="padding:9px 16px;text-align:left;font-weight:700;width:24%">Transport protocol</th>
+            <th style="padding:9px 16px;text-align:left;font-weight:700;width:24%">Property</th>
+            <th style="padding:9px 16px;text-align:left;font-weight:700;width:46%">Example applications</th>
+            <th style="padding:9px 16px;text-align:left;font-weight:700;width:30%">Transport protocol</th>
           </tr>
         </thead>
         <tbody>
           <tr style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
             <td style="padding:9px 16px;font-weight:600">Reliable data transfer</td>
             <td style="padding:9px 16px">Email, IM, file transfer, financial apps</td>
-            <td style="padding:9px 16px">Multimedia apps (loss-tolerant)</td>
             <td style="padding:9px 16px"><b>TCP</b> preferred<br><span style="opacity:0.65;font-size:18px">UDP unsuitable</span></td>
           </tr>
           <tr class="frag">
             <td style="padding:9px 16px;font-weight:600">Low delay</td>
             <td style="padding:9px 16px">Internet telephony, teleconferencing, multiplayer games</td>
-            <td style="padding:9px 16px">Email, file transfer (delay-tolerant)</td>
             <td style="padding:9px 16px"><b>UDP</b> preferred<br><span style="opacity:0.65;font-size:18px">TCP retransmissions add latency</span></td>
           </tr>
         </tbody>
