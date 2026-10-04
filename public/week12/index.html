@@ -1773,8 +1773,8 @@ svg text{font-family:var(--sans)}
 
   <!-- Always-visible definition card -->
   <div style="margin-top:6px;margin-bottom:12px;padding:7px 16px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border-left:3px solid var(--accent);font-size:18px;line-height:1.55">
-    SMTP moves messages between mail servers. It consists of a <b>client side</b> and a <b>server side</b>.<br>
-    Every mail server runs both an <b>SMTP client</b> (when sending) and an <b>SMTP server</b> (when receiving).
+    SMTP has a <b>client side</b> and a <b>server side</b>, and always runs over <b>TCP</b>.<br>
+    The sender&rsquo;s UA acts as an SMTP client towards its mail server; a mail server acts as an <b>SMTP client</b> when sending and as an <b>SMTP server</b> when receiving.
   </div>
 
   <div style="display:flex;gap:22px;align-items:flex-start">
@@ -1853,7 +1853,7 @@ svg text{font-family:var(--sans)}
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">①</span> Alice uses her UA to <b>compose</b> the message
       </div>
       <div id="sm2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">②</span> Alice&rsquo;s UA <b>sends</b> the message to her mail server (also via SMTP)
+        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">②</span> Alice&rsquo;s UA (<b style="color:var(--accent)">SMTP client</b>) <b>sends</b> the message to her mail server (<b style="color:var(--accent)">SMTP server</b>)
       </div>
       <div id="sm3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">③</span> The <b style="color:var(--accent)">SMTP client</b> on Alice&rsquo;s server opens a TCP connection to Bob&rsquo;s mail server
