@@ -1833,18 +1833,10 @@ svg text{font-family:var(--sans)}
           <text x="330" y="172" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">4</text>
         </g>
 
-        <!-- sm-6: arrow Bob's server → Bob's agent + circle ⑤ -->
-        <g class="sm-6">
-          <line x1="380" y1="112" x2="421" y2="112" stroke="currentColor" stroke-width="1.8" opacity="0.65"/>
-          <polygon points="417,109 424,112 417,115" fill="currentColor" opacity="0.65"/>
-          <circle cx="402" cy="134" r="11" fill="currentColor" opacity="0.75"/>
-          <text x="402" y="140" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">5</text>
-        </g>
-
       </svg>
     </div>
 
-    <!-- Right: 5 step frags -->
+    <!-- Right: 4 step frags -->
     <div style="flex:1;display:flex;flex-direction:column;gap:7px;padding-top:4px;font-size:18px">
       <div id="sm1" class="frag" style="border-left:3px solid var(--accent);padding:6px 12px;border-radius:0 4px 4px 0;background:rgba(0,128,128,0.06)">
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">①</span> Alice uses her UA to <b>compose</b> the message
@@ -1858,20 +1850,16 @@ svg text{font-family:var(--sans)}
       <div id="sm5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">④</span> The <b style="color:var(--accent)">SMTP server</b> on Bob&rsquo;s server receives the message and places it in Bob&rsquo;s <b>mailbox</b>
       </div>
-      <div id="sm6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">⑤</span> Bob invokes his UA to <b>read</b> the message
-      </div>
     </div>
 
   </div>
 </section>
 <style>
-  .sm-1, .sm-2, .sm-34, .sm-5, .sm-6 { opacity: 0; }
+  .sm-1, .sm-2, .sm-34, .sm-5 { opacity: 0; }
   .slide:has(#sm1.on) .sm-1 { opacity: 1; }
   .slide:has(#sm2.on) .sm-2 { opacity: 1; }
   .slide:has(#sm3.on) .sm-34 { opacity: 1; }
   .slide:has(#sm5.on) .sm-5 { opacity: 1; }
-  .slide:has(#sm6.on) .sm-6 { opacity: 1; }
 
   /* Accent highlights */
   .slide:has(#sm1.on):not(:has(#sm2.on)) .sm-1 rect { stroke: var(--accent) !important; opacity: 1 !important; }
@@ -1886,12 +1874,8 @@ svg text{font-family:var(--sans)}
   .slide:has(#sm3.on):not(:has(#sm5.on)) .sm-34 circle { fill: var(--accent) !important; opacity: 1 !important; }
   .slide:has(#sm3.on):not(:has(#sm5.on)) .sm-34 .sm-lbl { fill: var(--accent) !important; opacity: 1 !important; }
 
-  .slide:has(#sm5.on):not(:has(#sm6.on)) .sm-5 rect { fill: var(--accent) !important; opacity: 0.35 !important; }
-  .slide:has(#sm5.on):not(:has(#sm6.on)) .sm-5 circle { fill: var(--accent) !important; opacity: 1 !important; }
-
-  .slide:has(#sm6.on) .sm-6 line { stroke: var(--accent) !important; opacity: 1 !important; }
-  .slide:has(#sm6.on) .sm-6 polygon { fill: var(--accent) !important; opacity: 1 !important; }
-  .slide:has(#sm6.on) .sm-6 circle { fill: var(--accent) !important; opacity: 1 !important; }
+  .slide:has(#sm5.on) .sm-5 rect { fill: var(--accent) !important; opacity: 0.35 !important; }
+  .slide:has(#sm5.on) .sm-5 circle { fill: var(--accent) !important; opacity: 1 !important; }
 </style>
 
 <!-- Slide 28: Mail Access Protocols -->
