@@ -1815,38 +1815,36 @@ svg text{font-family:var(--sans)}
           <text x="92" y="140" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">2</text>
         </g>
 
-        <!-- sm-34: SMTP arrow between servers + circles ③④ -->
+        <!-- sm-34: SMTP arrow between servers + circle ③ -->
         <g class="sm-34">
           <line x1="214" y1="112" x2="277" y2="112" stroke="currentColor" stroke-width="1.8" opacity="0.65"/>
           <polygon points="273,109 280,112 273,115" fill="currentColor" opacity="0.65"/>
-          <text x="247" y="100" text-anchor="middle" font-size="16.5" font-weight="700" fill="currentColor" opacity="0.75">SMTP</text>
-          <circle cx="230" cy="134" r="11" fill="currentColor" opacity="0.75"/>
-          <text x="230" y="140" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">3</text>
-          <circle cx="264" cy="134" r="11" fill="currentColor" opacity="0.75"/>
-          <text x="264" y="140" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">4</text>
+          <text class="sm-lbl" x="247" y="100" text-anchor="middle" font-size="16.5" font-weight="700" fill="currentColor" opacity="0.75">SMTP</text>
+          <circle cx="247" cy="134" r="11" fill="currentColor" opacity="0.75"/>
+          <text x="247" y="140" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">3</text>
         </g>
 
-        <!-- sm-5: mailbox highlight + circle ⑤ on Bob's server -->
+        <!-- sm-5: mailbox highlight + circle ④ on Bob's server -->
         <g class="sm-5">
           <rect x="292" y="100" width="76" height="10" rx="2" fill="currentColor" opacity="0.35"/>
           <rect x="292" y="114" width="76" height="10" rx="2" fill="currentColor" opacity="0.28"/>
           <rect x="292" y="128" width="76" height="10" rx="2" fill="currentColor" opacity="0.22"/>
           <circle cx="330" cy="166" r="11" fill="currentColor" opacity="0.75"/>
-          <text x="330" y="172" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">5</text>
+          <text x="330" y="172" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">4</text>
         </g>
 
-        <!-- sm-6: arrow Bob's server → Bob's agent + circle ⑥ -->
+        <!-- sm-6: arrow Bob's server → Bob's agent + circle ⑤ -->
         <g class="sm-6">
           <line x1="380" y1="112" x2="421" y2="112" stroke="currentColor" stroke-width="1.8" opacity="0.65"/>
           <polygon points="417,109 424,112 417,115" fill="currentColor" opacity="0.65"/>
           <circle cx="402" cy="134" r="11" fill="currentColor" opacity="0.75"/>
-          <text x="402" y="140" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">6</text>
+          <text x="402" y="140" text-anchor="middle" font-size="16.5" font-weight="700" fill="white">5</text>
         </g>
 
       </svg>
     </div>
 
-    <!-- Right: 6 step frags -->
+    <!-- Right: 5 step frags -->
     <div style="flex:1;display:flex;flex-direction:column;gap:7px;padding-top:4px;font-size:18px">
       <div id="sm1" class="frag" style="border-left:3px solid var(--accent);padding:6px 12px;border-radius:0 4px 4px 0;background:rgba(0,128,128,0.06)">
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">①</span> Alice uses her UA to <b>compose</b> the message
@@ -1855,16 +1853,13 @@ svg text{font-family:var(--sans)}
         <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">②</span> Alice&rsquo;s UA (<b style="color:var(--accent)">SMTP client</b>) <b>sends</b> the message to her mail server (<b style="color:var(--accent)">SMTP server</b>)
       </div>
       <div id="sm3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">③</span> The <b style="color:var(--accent)">SMTP client</b> on Alice&rsquo;s server opens a TCP connection to Bob&rsquo;s mail server
-      </div>
-      <div id="sm4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">④</span> Alice&rsquo;s message is <b>transferred over the TCP connection</b>
+        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">③</span> The <b style="color:var(--accent)">SMTP client</b> on Alice&rsquo;s server opens a TCP connection to Bob&rsquo;s mail server and <b>transfers</b> Alice&rsquo;s message over it
       </div>
       <div id="sm5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">⑤</span> The <b style="color:var(--accent)">SMTP server</b> on Bob&rsquo;s server receives the message and places it in Bob&rsquo;s <b>mailbox</b>
+        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">④</span> The <b style="color:var(--accent)">SMTP server</b> on Bob&rsquo;s server receives the message and places it in Bob&rsquo;s <b>mailbox</b>
       </div>
       <div id="sm6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 12px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">⑥</span> Bob invokes his UA to <b>read</b> the message
+        <span style="font-family:monospace;font-weight:700;font-size:18px;opacity:0.7">⑤</span> Bob invokes his UA to <b>read</b> the message
       </div>
     </div>
 
@@ -1889,7 +1884,7 @@ svg text{font-family:var(--sans)}
   .slide:has(#sm3.on):not(:has(#sm5.on)) .sm-34 line { stroke: var(--accent) !important; opacity: 1 !important; }
   .slide:has(#sm3.on):not(:has(#sm5.on)) .sm-34 polygon { fill: var(--accent) !important; opacity: 1 !important; }
   .slide:has(#sm3.on):not(:has(#sm5.on)) .sm-34 circle { fill: var(--accent) !important; opacity: 1 !important; }
-  .slide:has(#sm3.on):not(:has(#sm5.on)) .sm-34 text { fill: var(--accent) !important; opacity: 1 !important; }
+  .slide:has(#sm3.on):not(:has(#sm5.on)) .sm-34 .sm-lbl { fill: var(--accent) !important; opacity: 1 !important; }
 
   .slide:has(#sm5.on):not(:has(#sm6.on)) .sm-5 rect { fill: var(--accent) !important; opacity: 0.35 !important; }
   .slide:has(#sm5.on):not(:has(#sm6.on)) .sm-5 circle { fill: var(--accent) !important; opacity: 1 !important; }
