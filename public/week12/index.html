@@ -1883,59 +1883,40 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Mail Access Protocol</div>
   <h2>Retrieving email from the server</h2>
 
-  <div style="display:flex;gap:28px;align-items:flex-start;margin-top:10px">
+  <div style="display:flex;gap:32px;align-items:flex-start;margin-top:14px">
 
-    <!-- Left: simplified diagram — Bob's mail server → MAP → Bob's agent -->
-    <div style="flex:0 0 auto">
-      <svg viewBox="0 0 310 185" width="370" xmlns="http://www.w3.org/2000/svg"
-           style="font-family:inherit;display:block;overflow:visible;color:var(--fg,#15242f)">
+    <!-- Left: Bob's mail server → MAP → Bob's agent -->
+    <svg viewBox="0 0 300 112" width="300" xmlns="http://www.w3.org/2000/svg"
+         style="flex:0 0 auto;font-family:inherit;display:block;overflow:visible;color:var(--fg,#15242f)">
+      <rect x="0" y="0" width="120" height="112" rx="6" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
+      <text x="60" y="24" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">Bob's</text>
+      <text x="60" y="44" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">mail server</text>
+      <rect x="14" y="60" width="92" height="10" rx="2" fill="currentColor" opacity="0.28"/>
+      <rect x="14" y="74" width="92" height="10" rx="2" fill="currentColor" opacity="0.22"/>
+      <rect x="14" y="88" width="92" height="10" rx="2" fill="currentColor" opacity="0.16"/>
 
-        <!-- Mail server box -->
-        <rect x="10" y="22" width="95" height="145" rx="6" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
-        <text x="57" y="44" text-anchor="middle" font-size="13.5" fill="currentColor" opacity="0.85">Bob's</text>
-        <text x="57" y="59" text-anchor="middle" font-size="13.5" fill="currentColor" opacity="0.85">mail server</text>
-        <!-- inbox stack -->
-        <rect x="20" y="80" width="75" height="10" rx="2" fill="currentColor" opacity="0.28"/>
-        <rect x="20" y="94" width="75" height="10" rx="2" fill="currentColor" opacity="0.22"/>
-        <rect x="20" y="108" width="75" height="10" rx="2" fill="currentColor" opacity="0.16"/>
-        <text x="57" y="140" text-anchor="middle" font-size="13.5" fill="currentColor" opacity="0.5">mailbox</text>
+      <line x1="120" y1="58" x2="205" y2="58" stroke="var(--accent)" stroke-width="2"/>
+      <polygon points="201,55 208,58 201,61" fill="var(--accent)"/>
+      <text x="164" y="46" text-anchor="middle" font-size="16.5" font-weight="700" fill="var(--accent)">MAP</text>
 
-        <!-- MAP arrow (server → agent) -->
-        <line x1="105" y1="94" x2="178" y2="94" stroke="currentColor" stroke-width="2" opacity="0.55"/>
-        <polygon points="174,91 181,94 174,97" fill="currentColor" opacity="0.55"/>
-        <text x="142" y="82" text-anchor="middle" font-size="13.5" font-weight="700" fill="currentColor" opacity="0.8">MAP</text>
-        <text x="142" y="114" text-anchor="middle" font-size="13.5" fill="currentColor" opacity="0.55">POP3 / IMAP</text>
+      <rect x="210" y="24" width="90" height="68" rx="6" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
+      <text x="255" y="54" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">Bob's</text>
+      <text x="255" y="74" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">agent</text>
+    </svg>
 
-        <!-- Bob's agent box -->
-        <rect x="183" y="60" width="80" height="68" rx="6" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
-        <text x="223" y="90" text-anchor="middle" font-size="13.5" fill="currentColor" opacity="0.85">Bob's</text>
-        <text x="223" y="105" text-anchor="middle" font-size="13.5" fill="currentColor" opacity="0.85">agent</text>
-
-        <!-- Greyed label: where mail comes from -->
-        <text x="57" y="178" text-anchor="middle" font-size="13.5" fill="currentColor" opacity="0.4">(mail arrives via SMTP)</text>
-
-      </svg>
-    </div>
-
-    <!-- Right: frags -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:12px;padding-top:6px;font-size:18px">
-
-      <div id="map1" class="frag" style="border-left:4px solid var(--accent);padding:8px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.07)">
-        <b>Mail access protocols</b> retrieve email from the mail server to the recipient's user agent
+    <div style="flex:1;display:flex;flex-direction:column;gap:12px;font-size:18px">
+      <div id="map1" class="frag" style="border-left:4px solid var(--accent);padding:10px 16px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.07)">
+        <b>Mail access protocols (MAP)</b> retrieve email from the mail server to the recipient&rsquo;s user agent
       </div>
-
       <div id="map2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <b>POP3</b> &mdash; Post Office Protocol version 3 &nbsp;<span style="opacity:0.5;font-size:18px">[RFC 1939]</span><br>
-        <span style="font-size:18px;opacity:0.85">Downloads messages to the local device. Simple and stateless between sessions</span>
+        <b>POP3</b> &mdash; Post Office Protocol version 3 <span style="opacity:0.5">[RFC 1939]</span>
       </div>
-
       <div id="map3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <b>IMAP</b> &mdash; Internet Message Access Protocol version 4 &nbsp;<span style="opacity:0.5;font-size:18px">[RFC 9051]</span><br>
-        <span style="font-size:18px;opacity:0.85">Keeps messages on the server; supports folders and sync across multiple devices</span>
+        <b>IMAP</b> &mdash; Internet Message Access Protocol <span style="opacity:0.5">[RFC 9051]</span>
       </div>
-
     </div>
   </div>
+
 </section>
 
 <!-- Slide: Web-based Email -->
@@ -2052,6 +2033,40 @@ svg text{font-family:var(--sans)}
   .slide:has(#pp4.on):not(:has(#pp5.on)) .pp-ph4 polygon { fill: rgba(0,128,128,0.18) !important; stroke: var(--accent) !important; stroke-width: 1.5 !important; opacity: 1 !important; }
   .slide:has(#pp4.on):not(:has(#pp5.on)) .pp-ph4 text { fill: var(--accent) !important; opacity: 1 !important; }
 </style>
+
+<section class="slide" data-sec="Email">
+  <div class="kicker">Mail Access Protocol</div>
+  <h2>Comparing POP3 and IMAP</h2>
+  <div style="max-width:1000px">
+  <!-- one row per beat -->
+  <table style="border-collapse:collapse;width:100%;font-size:18px;margin-top:18px;line-height:1.45">
+    <thead>
+      <tr style="border-bottom:2px solid var(--accent)">
+        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:22%"></th>
+        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:39%">POP3</th>
+        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:39%">IMAP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="frag" style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
+        <td style="padding:8px 16px;vertical-align:top;font-weight:600">Messages</td>
+        <td style="padding:8px 16px;vertical-align:top">Downloaded to the device, then usually deleted from the server</td>
+        <td style="padding:8px 16px;vertical-align:top">Kept on the server</td>
+      </tr>
+      <tr class="frag" style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
+        <td style="padding:8px 16px;vertical-align:top;font-weight:600">Folders</td>
+        <td style="padding:8px 16px;vertical-align:top">None on the server; a single mailbox</td>
+        <td style="padding:8px 16px;vertical-align:top">Created and kept on the server</td>
+      </tr>
+      <tr class="frag">
+        <td style="padding:8px 16px;vertical-align:top;font-weight:600">Multiple devices</td>
+        <td style="padding:8px 16px;vertical-align:top">Poorly suited: mail ends up on one device</td>
+        <td style="padding:8px 16px;vertical-align:top">Read status and folders stay in sync across devices</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</section>
 
 <!-- Slide 26: Email Message Format -->
 <section class="slide" data-sec="Email">
