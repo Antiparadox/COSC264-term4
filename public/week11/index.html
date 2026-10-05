@@ -3269,7 +3269,7 @@
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Like Go-Back-N: cumulative ACK</strong>
             <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The receiver sends <strong>cumulative ACKs</strong>: each ACK names the next byte it expects, confirming every byte before it.</p>
             <p class="frag" data-step="2" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">If a segment arrives out of order, the receiver immediately sends a <strong>duplicate ACK</strong>, again naming the next expected byte.</p>
-            <p class="frag" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">This signals the gap to the sender.</p>
+            <p class="frag" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The sender then sees duplicate ACKs, and <strong>three duplicate ACKs</strong> signal that a segment has probably been lost.</p>
           </div>
 
           <!-- Card 2: buffering out-of-order — like SR -->
