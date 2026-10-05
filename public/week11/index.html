@@ -2811,11 +2811,13 @@
         </div>
         <div class="teaching-point frag" data-step="3" style="padding:14px 22px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);margin-bottom:14px">
           <strong style="font-family:var(--serif);font-size:19px;display:block;margin-bottom:5px">Maximum Segment Size (MSS)</strong>
-          <p style="margin:0;font-size:19px;line-height:1.45;color:var(--muted)">The largest payload a single TCP segment can carry &mdash; negotiated during the handshake. Typical value: <strong>1460 bytes</strong> on Ethernet (1500&thinsp;MTU &minus; 20&thinsp;IP &minus; 20&thinsp;TCP).</p>
+          <p style="margin:0;font-size:19px;line-height:1.45;color:var(--muted)">The largest payload a single TCP segment can carry &mdash; negotiated during the handshake. Typical value: <b>1460 bytes</b> on Ethernet (1500&thinsp;MTU &minus; 20&thinsp;IP &minus; 20&thinsp;TCP).</p>
         </div>
         <div class="teaching-point frag" data-step="4" style="padding:14px 22px;border-left:4px solid var(--amber);border-radius:0 16px 16px 0;background:color-mix(in srgb, var(--amber) 8%, var(--surface));box-shadow:0 8px 22px rgba(21,36,47,.06)">
           <strong style="font-family:var(--serif);font-size:19px;display:block;margin-bottom:5px">SYN and FIN consume a sequence number</strong>
-          <p style="margin:0;font-size:19px;line-height:1.45;color:var(--muted)">SYN and FIN each consume exactly one sequence number, even though they carry no application data &mdash; this ensures they can be reliably acknowledged.</p>
+          <p style="margin:0;font-size:19px;line-height:1.45;color:var(--muted)">SYN and FIN each consume exactly one sequence number, even though they carry no application data.</p>
+          <p class="frag" data-step="5" style="margin:8px 0 0;font-size:19px;line-height:1.45;font-weight:700;color:var(--teal)">Why do they need a sequence number?</p>
+          <p class="frag" data-step="6" style="margin:8px 0 0;font-size:19px;line-height:1.45;color:var(--muted)">So that they can be <b>reliably acknowledged</b>: the ACK for a SYN or FIN names its sequence number + 1, and an unacknowledged SYN or FIN is retransmitted.</p>
         </div>
       </section>
 
