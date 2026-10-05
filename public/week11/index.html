@@ -3329,20 +3329,20 @@
               <text x="463" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">8001</text>
               <text x="517" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">9001</text>
             </g>
-            <!-- step 1: bytes up to 5000 already delivered -->
+            <!-- step 1: bytes up to 5000 received in order -->
             <g class="stateful" data-active-at="1">
-              <rect x="60" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="85" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
-              <rect x="114" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="139" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
-              <rect x="168" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="193" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
-              <rect x="222" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="247" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="60" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="85" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
+              <rect x="114" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="139" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
+              <rect x="168" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="193" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
+              <rect x="222" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="247" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
             </g>
             <!-- step 1: next expected 5001 -->
             <g class="stateful" data-active-at="1" data-hide-after="1">
               <path d="M276,50 L276,56 L542,56 L542,50" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/><text x="409" y="69" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">receive window (5 MSS)</text><text x="276" y="104" text-anchor="start" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">&#9650; base</text>
             </g>
-            <!-- step 2: 5001 in order, delivered -->
+            <!-- step 2: 5001 arrives in order -->
             <g class="stateful" data-active-at="2">
-              <rect x="276" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="301" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="276" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="301" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
             </g>
             <!-- step 2: ACK 6001 -->
             <g class="stateful" data-active-at="2" data-hide-after="2">
@@ -3376,12 +3376,12 @@
             <g class="stateful" data-active-at="7" data-hide-after="7">
               <rect x="330" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 25%, var(--surface,#f4f6f7))" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="355" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">arrived</text><text x="355" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">retransmitted</text>
             </g>
-            <!-- step 8: 6001-9001 delivered, ACK 10001 -->
+            <!-- step 8: 6001-9001 now in order, ACK 10001 -->
             <g class="stateful" data-active-at="8">
-              <rect x="330" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="355" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
-              <rect x="384" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="409" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
-              <rect x="438" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="463" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
-              <rect x="492" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="517" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text><text x="566" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">ACK 10001</text><path d="M546,50 L546,56 L616,56" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/><text x="616" y="69" text-anchor="end" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">receive window &#8594;</text><text x="546" y="104" text-anchor="start" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">&#9650; base</text>
+              <rect x="330" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="355" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
+              <rect x="384" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="409" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
+              <rect x="438" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="463" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text>
+              <rect x="492" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="517" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">ready</text><text x="566" y="86" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">ACK 10001</text><path d="M546,50 L546,56 L616,56" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/><text x="616" y="69" text-anchor="end" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">receive window &#8594;</text><text x="546" y="104" text-anchor="start" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">&#9650; base</text>
             </g>
           </svg>
         </div>
@@ -3390,11 +3390,12 @@
         <div class="tcp-sender-hot">
           <div class="frag" data-step="1" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">The setup</strong>
-            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The receiver keeps a <b>receive window</b>, e.g. 5&nbsp;MSS. Its <b>base</b> is the next byte it expects: it has delivered every byte up to 5000, so the base is <b>seq&nbsp;5001</b>.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The receiver keeps a <b>receive window</b>, e.g. 5&nbsp;MSS. Its <b>base</b> is the next byte it expects: it has received every byte up to 5000 in order, so the base is <b>seq&nbsp;5001</b>.</p>
+            <p style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--faint)">(Bytes the application has not yet read stay in the receive buffer; we return to this in flow control.)</p>
           </div>
           <div class="frag" data-step="2" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">In-order segment arrives</strong>
-            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;5001 arrives in order. The receiver delivers it to the application and sends <b>ACK&nbsp;6001</b>: the next byte it expects. The window base moves to 6001.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;5001 arrives in order. It is now ready for the application to read, and the receiver sends <b>ACK&nbsp;6001</b>: the next byte it expects. The window base moves to 6001.</p>
           </div>
           <div class="frag" data-step="3" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Out-of-order segments arrive</strong>
@@ -3406,7 +3407,7 @@
           <div class="frag" data-step="7" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">The gap is filled</strong>
             <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The retransmitted seg&nbsp;6001 arrives and fills the gap.</p>
-            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">The receiver delivers bytes 6001&ndash;10000 to the application in order, and immediately sends one cumulative <b>ACK&nbsp;10001</b>. The window base moves to 10001.</p>
+            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Bytes 6001&ndash;10000 are now in order and ready for the application to read, and the receiver immediately sends one cumulative <b>ACK&nbsp;10001</b>. The window base moves to 10001.</p>
           </div>
         </div>
       </section>
