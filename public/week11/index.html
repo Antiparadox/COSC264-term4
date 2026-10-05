@@ -3269,21 +3269,20 @@
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Like Go-Back-N: cumulative ACK</strong>
             <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The receiver sends <strong>cumulative ACKs</strong>: each ACK names the next byte it expects, confirming every byte before it.</p>
             <p class="frag" data-step="2" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">If a segment arrives out of order, the receiver immediately sends a <strong>duplicate ACK</strong>, again naming the next expected byte.</p>
-            <p class="frag" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The sender then sees duplicate ACKs, and <strong>three duplicate ACKs</strong> signal that a segment has probably been lost.</p>
           </div>
 
           <!-- Card 2: buffering out-of-order — like SR -->
-          <div class="frag" data-step="4" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+          <div class="frag" data-step="3" style="padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Like Selective Repeat: receiver buffer</strong>
-            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Unlike Go-Back-N, the receiver <strong>buffers out-of-order segments</strong> within its receive window instead of discarding them.</p>
-            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Once the missing segment arrives and fills the gap, the buffered data is delivered to the application in order.</p>
+            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The receiver <strong>buffers out-of-order segments</strong> within its receive window instead of discarding them.</p>
+            <p class="frag" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Once the missing segment arrives and fills the gap, the buffered data is delivered to the application in order.</p>
           </div>
 
           <!-- Card 3: further improvements / SACK -->
-          <div class="frag" data-step="6" style="padding:12px 16px;border-left:4px solid var(--muted);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--muted) 5%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+          <div class="frag" data-step="5" style="padding:12px 16px;border-left:4px solid var(--muted);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--muted) 5%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Further improvements</strong>
             <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">RFC&nbsp;1122 and RFC&nbsp;5681 add rules for generating ACKs, e.g. <strong>delayed ACKs</strong>, to avoid sending too many.</p>
-            <p class="frag" data-step="7" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">TCP can also negotiate <strong>selective ACK (SACK)</strong> [RFC&nbsp;2018]: the receiver reports exactly which byte ranges it holds, so the sender retransmits only the missing pieces, much like Selective Repeat.</p>
+            <p class="frag" data-step="6" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">TCP can also negotiate <strong>selective ACK (SACK)</strong> [RFC&nbsp;2018]: the receiver reports exactly which byte ranges it holds, so the sender retransmits only the missing pieces, much like Selective Repeat.</p>
           </div>
 
         </div>
@@ -3294,7 +3293,6 @@
         <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- Frame 27: TCP timeout: the challenge -->
