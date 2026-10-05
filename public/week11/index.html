@@ -209,6 +209,16 @@
     }
     .divider-slide h2 { font-size: 70px; line-height: 1.04; }
 
+    /* mux / demux walkthrough frames */
+    .mx-layout { display: grid; grid-template-columns: 600px 1fr; gap: 30px; align-items: start; margin-top: 14px; }
+    .mx-svg { width: 600px; height: auto; display: block; overflow: visible; }
+    .mx-scene .mx-show { opacity: 0; transition: opacity .24s ease; }
+    .mx-scene .mx-show.is-active { opacity: 1; }
+    .mx-scene .mx-hl { transition: fill .24s ease; }
+    .mx-scene .mx-hl.is-active { fill: var(--teal); }
+    .mx-scene tspan.mx-hl.is-active { text-decoration: underline; text-decoration-thickness: 2px; }
+    .mx-points { display: grid; gap: 12px; }
+    .mx-points .teaching-point { min-height: 0; }
     .transport-layout { display: grid; grid-template-columns: 40% 60%; gap: 26px; align-items: start; }
     .transport-points { display: grid; gap: 12px; }
     .transport-intro { margin: 0 0 2px; color: var(--muted); font-size: 19px; line-height: 1.4; }
@@ -2300,35 +2310,111 @@
                     </div>
       </section>
 
-      <section class="slide" data-title="Multiplexing and demultiplexing" data-section="Multiplexing and demultiplexing">
+      <section class="slide" data-title="Multiplexing" data-section="Multiplexing and demultiplexing">
         <header class="content-header">
-          <p class="kicker">Combine outgoing data · route incoming data</p>
-          <h2>Multiplexing sends; demultiplexing delivers</h2>
+          <p class="kicker">Sending side &middot; many sockets, one path</p>
+          <h2>Multiplexing</h2>
         </header>
-        <div class="mux-definition-grid">
-          <article class="mux-panel frag stateful" data-step="1" data-active-at="1">
-            <h3>Multiplexing</h3>
-            <p>The transport layer gathers data from the socket of every application process and passes it down to the network layer.</p>
-            <div class="process-row"><span class="mini-process">P1<small>process 1</small></span><span class="mini-process">P2<small>process 2</small></span><span class="mini-process">P3<small>process 3</small></span></div>
-            <div class="direction-arrows tiny"><span>↓</span><span>↓</span><span>↓</span></div>
-            <div class="socket-row"><span class="mini-socket">socket</span><span class="mini-socket">socket</span><span class="mini-socket">socket</span></div>
-            <div class="direction-arrows"><span>↘</span><span>↓</span><span>↙</span></div>
-            <div class="transport-band">transport layer</div>
-            <div class="direction-arrows"><span></span><span>↓</span><span></span></div>
-            <div class="network-band">network layer</div>
-          </article>
+        <div class="mx-layout">
+          <div class="mx-scene">
+            <svg class="mx-svg" viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="mux across three sockets">
+            <rect x="8" y="8" width="584" height="304" rx="16" fill="color-mix(in srgb, var(--teal-soft) 22%, var(--surface))" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="26" y="36" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--faint)" letter-spacing="1">HOST A</text>
+            <text class="mx-hl stateful" data-active-at="3" x="574" y="36" text-anchor="end" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--faint)">IP 203.0.113.10</text>
+            <rect x="50" y="48" width="120" height="40" rx="10" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="110" y="74" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--ink)">P1</text>
+            <rect x="45" y="148" width="130" height="30" rx="8" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="110" y="169" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">socket :5001</text>
+            <rect x="240" y="48" width="120" height="40" rx="10" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="300" y="74" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--ink)">P2</text>
+            <rect x="235" y="148" width="130" height="30" rx="8" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="300" y="169" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">socket :5002</text>
+            <rect x="430" y="48" width="120" height="40" rx="10" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="490" y="74" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--ink)">P3</text>
+            <rect x="425" y="148" width="130" height="30" rx="8" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="490" y="169" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">socket :5003</text>
+            <rect x="24" y="192" width="552" height="106" rx="12" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="205" y="212" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--teal)">transport layer</text>
+            <rect x="24" y="352" width="552" height="56" rx="12" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="300" y="386" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--muted)">network layer</text>
+            <g class="mx-show stateful" data-active-at="1"><rect x="28" y="98" width="164" height="30" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><text x="110" y="119" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">Hello</text></g>
+            <g class="mx-show stateful" data-active-at="1"><line x1="110" y1="129" x2="110" y2="141" stroke="var(--teal)" stroke-width="2"/><polygon points="105,140 115,140 110,147" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="2"><line x1="110" y1="179" x2="110" y2="211" stroke="var(--teal)" stroke-width="2"/><polygon points="105,210 115,210 110,217" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="2"><rect x="30" y="218" width="160" height="70" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><path d="M30,244 V226 a8,8 0 0 1 8,-8 H182 a8,8 0 0 1 8,8 V244 Z" fill="color-mix(in srgb, var(--amber) 15%, var(--surface))"/><line x1="30" y1="244" x2="190" y2="244" stroke="var(--amber)" stroke-width="1"/><text x="110" y="237" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--amber)">5001 → 9000</text><text x="110" y="272" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">Hello</text></g>
+            <g class="mx-show stateful" data-active-at="1"><rect x="218" y="98" width="164" height="30" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><text x="300" y="119" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">GET /index.html</text></g>
+            <g class="mx-show stateful" data-active-at="1"><line x1="300" y1="129" x2="300" y2="141" stroke="var(--teal)" stroke-width="2"/><polygon points="295,140 305,140 300,147" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="2"><line x1="300" y1="179" x2="300" y2="211" stroke="var(--teal)" stroke-width="2"/><polygon points="295,210 305,210 300,217" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="2"><rect x="220" y="218" width="160" height="70" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><path d="M220,244 V226 a8,8 0 0 1 8,-8 H372 a8,8 0 0 1 8,8 V244 Z" fill="color-mix(in srgb, var(--amber) 15%, var(--surface))"/><line x1="220" y1="244" x2="380" y2="244" stroke="var(--amber)" stroke-width="1"/><text x="300" y="237" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--amber)">5002 → 80</text><text x="300" y="272" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">GET /index.html</text></g>
+            <g class="mx-show stateful" data-active-at="1"><rect x="408" y="98" width="164" height="30" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><text x="490" y="119" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">ping</text></g>
+            <g class="mx-show stateful" data-active-at="1"><line x1="490" y1="129" x2="490" y2="141" stroke="var(--teal)" stroke-width="2"/><polygon points="485,140 495,140 490,147" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="2"><line x1="490" y1="179" x2="490" y2="211" stroke="var(--teal)" stroke-width="2"/><polygon points="485,210 495,210 490,217" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="2"><rect x="410" y="218" width="160" height="70" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><path d="M410,244 V226 a8,8 0 0 1 8,-8 H562 a8,8 0 0 1 8,8 V244 Z" fill="color-mix(in srgb, var(--amber) 15%, var(--surface))"/><line x1="410" y1="244" x2="570" y2="244" stroke="var(--amber)" stroke-width="1"/><text x="490" y="237" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--amber)">5003 → 7</text><text x="490" y="272" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">ping</text></g>
+            <g class="mx-show stateful" data-active-at="3">
+            <path d="M110,289 C110,318 300,312 300,330" fill="none" stroke="var(--amber)" stroke-width="2"/>
+            <path d="M300,289 C300,318 300,312 300,330" fill="none" stroke="var(--amber)" stroke-width="2"/>
+            <path d="M490,289 C490,318 300,312 300,330" fill="none" stroke="var(--amber)" stroke-width="2"/>
+            <line x1="300" y1="330" x2="300" y2="344" stroke="var(--amber)" stroke-width="2"/><polygon points="295,343 305,343 300,351" fill="var(--amber)"/>
+            <text x="300" y="432" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">one shared path · one host · one IP address</text></g>
+            </svg>
+          </div>
+          <div class="mx-points">
+            <div class="teaching-point frag" data-step="1"><strong>Each process writes to its own socket.</strong> P1, P2 and P3 each hand a message to their socket.</div>
+            <div class="teaching-point frag" data-step="2"><strong>Each message becomes a segment.</strong> The transport layer adds a header carrying the source and destination ports.</div>
+            <div class="teaching-point frag" data-step="3"><strong>One shared path.</strong> All segments go down to the same network layer, one after another &mdash; to IP, they come from a single host with a single IP address.</div>
+            <div class="teaching-point frag" data-step="4" style="background:var(--teal-soft)"><strong>Multiplexing</strong> gathers data from many sockets, labels each piece with its ports, and sends it down one shared path.</div>
+          </div>
+        </div>
+      </section>
 
-          <article class="mux-panel demux frag stateful" data-step="2" data-active-at="2">
-            <h3>Demultiplexing</h3>
-            <p>The transport layer receives data from the network layer and delivers each piece to the correct socket.</p>
-            <div class="network-band">network layer</div>
-            <div class="direction-arrows"><span></span><span>↓</span><span></span></div>
-            <div class="transport-band">transport layer</div>
-            <div class="direction-arrows"><span>↙</span><span>↓</span><span>↘</span></div>
-            <div class="socket-row"><span class="mini-socket">socket</span><span class="mini-socket">socket</span><span class="mini-socket">socket</span></div>
-            <div class="direction-arrows tiny"><span>↑</span><span>↑</span><span>↑</span></div>
-            <div class="process-row"><span class="mini-process">P1<small>process 1</small></span><span class="mini-process">P2<small>process 2</small></span><span class="mini-process">P3<small>process 3</small></span></div>
-          </article>
+
+      <section class="slide" data-title="Demultiplexing" data-section="Multiplexing and demultiplexing">
+        <header class="content-header">
+          <p class="kicker">Receiving side &middot; one path, many sockets</p>
+          <h2>Demultiplexing</h2>
+        </header>
+        <div class="mx-layout">
+          <div class="mx-scene">
+            <svg class="mx-svg" viewBox="0 0 600 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="demux across three sockets">
+            <rect x="8" y="8" width="584" height="304" rx="16" fill="color-mix(in srgb, var(--teal-soft) 22%, var(--surface))" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="26" y="36" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--faint)" letter-spacing="1">HOST A</text>
+            <text class="mx-hl stateful" data-active-at="1" x="574" y="36" text-anchor="end" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--faint)">IP 203.0.113.10</text>
+            <rect x="50" y="48" width="120" height="40" rx="10" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="110" y="74" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--ink)">P1</text>
+            <rect x="45" y="148" width="130" height="30" rx="8" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="110" y="169" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">socket :5001</text>
+            <rect x="240" y="48" width="120" height="40" rx="10" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="300" y="74" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--ink)">P2</text>
+            <rect x="235" y="148" width="130" height="30" rx="8" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="300" y="169" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">socket :5002</text>
+            <rect x="430" y="48" width="120" height="40" rx="10" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="490" y="74" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--ink)">P3</text>
+            <rect x="425" y="148" width="130" height="30" rx="8" fill="var(--surface)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="490" y="169" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">socket :5003</text>
+            <rect x="24" y="192" width="552" height="106" rx="12" fill="var(--teal-soft)" stroke="var(--teal)" stroke-width="1.5"/>
+            <text x="205" y="212" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--teal)">transport layer</text>
+            <rect x="24" y="352" width="552" height="56" rx="12" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+            <text x="300" y="386" text-anchor="middle" font-family="var(--mono)" font-size="18" font-weight="800" fill="var(--muted)">network layer</text>
+            <g class="mx-show stateful" data-active-at="3"><rect x="28" y="98" width="164" height="30" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><text x="110" y="119" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">Hi!</text></g>
+            <g class="mx-show stateful" data-active-at="3"><line x1="110" y1="147" x2="110" y2="135" stroke="var(--teal)" stroke-width="2"/><polygon points="105,136 115,136 110,129" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="3"><line x1="110" y1="217" x2="110" y2="185" stroke="var(--teal)" stroke-width="2"/><polygon points="105,186 115,186 110,179" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="1"><rect x="30" y="218" width="160" height="70" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><path d="M30,244 V226 a8,8 0 0 1 8,-8 H182 a8,8 0 0 1 8,8 V244 Z" fill="color-mix(in srgb, var(--amber) 15%, var(--surface))"/><line x1="30" y1="244" x2="190" y2="244" stroke="var(--amber)" stroke-width="1"/><text x="110" y="237" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--amber)">9000 → <tspan class="mx-hl stateful" data-active-at="2">5001</tspan></text><text x="110" y="272" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">Hi!</text></g>
+            <g class="mx-show stateful" data-active-at="3"><rect x="218" y="98" width="164" height="30" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><text x="300" y="119" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">200 OK</text></g>
+            <g class="mx-show stateful" data-active-at="3"><line x1="300" y1="147" x2="300" y2="135" stroke="var(--teal)" stroke-width="2"/><polygon points="295,136 305,136 300,129" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="3"><line x1="300" y1="217" x2="300" y2="185" stroke="var(--teal)" stroke-width="2"/><polygon points="295,186 305,186 300,179" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="1"><rect x="220" y="218" width="160" height="70" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><path d="M220,244 V226 a8,8 0 0 1 8,-8 H372 a8,8 0 0 1 8,8 V244 Z" fill="color-mix(in srgb, var(--amber) 15%, var(--surface))"/><line x1="220" y1="244" x2="380" y2="244" stroke="var(--amber)" stroke-width="1"/><text x="300" y="237" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--amber)">80 → <tspan class="mx-hl stateful" data-active-at="2">5002</tspan></text><text x="300" y="272" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">200 OK</text></g>
+            <g class="mx-show stateful" data-active-at="3"><rect x="408" y="98" width="164" height="30" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><text x="490" y="119" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">pong</text></g>
+            <g class="mx-show stateful" data-active-at="3"><line x1="490" y1="147" x2="490" y2="135" stroke="var(--teal)" stroke-width="2"/><polygon points="485,136 495,136 490,129" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="3"><line x1="490" y1="217" x2="490" y2="185" stroke="var(--teal)" stroke-width="2"/><polygon points="485,186 495,186 490,179" fill="var(--teal)"/></g>
+            <g class="mx-show stateful" data-active-at="1"><rect x="410" y="218" width="160" height="70" rx="8" fill="var(--surface)" stroke="var(--amber)" stroke-width="1.5"/><path d="M410,244 V226 a8,8 0 0 1 8,-8 H562 a8,8 0 0 1 8,8 V244 Z" fill="color-mix(in srgb, var(--amber) 15%, var(--surface))"/><line x1="410" y1="244" x2="570" y2="244" stroke="var(--amber)" stroke-width="1"/><text x="490" y="237" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="800" fill="var(--amber)">7 → <tspan class="mx-hl stateful" data-active-at="2">5003</tspan></text><text x="490" y="272" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--ink)">pong</text></g>
+            <g class="mx-show stateful" data-active-at="1"><line x1="300" y1="351" x2="300" y2="306" stroke="var(--amber)" stroke-width="2"/><polygon points="295,307 305,307 300,299" fill="var(--amber)"/><text x="300" y="432" text-anchor="middle" font-family="var(--mono)" font-size="16" font-weight="700" fill="var(--teal)">all addressed to IP 203.0.113.10</text></g>
+            </svg>
+          </div>
+          <div class="mx-points">
+            <div class="teaching-point frag" data-step="1"><strong>Segments arrive.</strong> The network layer delivers them to this host, all addressed to its single IP address.</div>
+            <div class="teaching-point frag" data-step="2"><strong>Read the destination port.</strong> The transport layer looks at each segment&rsquo;s header.</div>
+            <div class="teaching-point frag" data-step="3"><strong>Deliver to the matching socket.</strong> It strips the header and hands the data to the socket with that port, e.g. &ldquo;200 OK&rdquo; goes to port 5002 (P2).</div>
+            <div class="teaching-point frag" data-step="4" style="background:var(--teal-soft)"><strong>Demultiplexing</strong> delivers each segment&rsquo;s data to the right socket.</div>
+          </div>
         </div>
       </section>
 
