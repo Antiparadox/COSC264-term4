@@ -2010,18 +2010,20 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="Email">
   <div class="kicker">IMAP</div>
   <h2>Internet Message Access Protocol</h2>
-  <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;max-width:860px">
+  <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;max-width:860px;font-size:18px">
+
+    <p style="margin:0;font-size:18px">IMAP addresses POP3&rsquo;s limitations:</p>
 
     <div id="im1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
-      IMAP <b>keeps messages on the server</b> and replicates copies to the client
+      IMAP <b>keeps messages on the server</b>; each device works with copies
     </div>
 
     <div id="im2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-      Users can <b>organise messages in folders</b> — folder structure is stored on the server, accessible from any device
+      It <b>keeps per-message state on the server</b>, e.g. read or unread, flagged, so every device sees the same status
     </div>
 
     <div id="im3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-      IMAP maintains <b>user state information</b> across sessions (e.g. folder names, message-to-folder mappings)
+      It supports <b>folders on the server</b>: create folders and move messages into them, visible from any device
     </div>
 
   </div>
