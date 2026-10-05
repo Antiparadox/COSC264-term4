@@ -1919,50 +1919,6 @@ svg text{font-family:var(--sans)}
 
 </section>
 
-<!-- Slide: Web-based Email -->
-<section class="slide" data-sec="Email">
-  <div class="kicker">Web-based Email</div>
-  <h2>Accessing email via a browser</h2>
-  <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px;max-width:860px">
-
-    <div id="wb1" class="frag" style="display:flex;align-items:center;gap:20px;padding:16px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div style="flex:1">
-        <p style="margin:0;font-size:18px;font-weight:600">Web-based email is accessed through a web browser</p>
-        <p style="margin:8px 0 0;font-size:18px;opacity:0.7">Uses <b>HTTP</b> for communication between the user's browser and the mail server</p>
-      </div>
-    </div>
-
-    <div id="wb2" class="frag" style="display:flex;align-items:center;gap:20px;padding:16px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
-      <div style="flex:1">
-        <p style="margin:0;font-size:18px;font-weight:600">Web-based email services</p>
-        <p style="margin:8px 0 0;font-size:18px;opacity:0.7">Examples: <b>Gmail</b>, <b>Outlook</b> (web)</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- Slide: IMAP -->
-<section class="slide" data-sec="Email">
-  <div class="kicker">IMAP</div>
-  <h2>Internet Message Access Protocol</h2>
-  <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;max-width:860px">
-
-    <div id="im1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
-      IMAP <b>keeps messages on the server</b> and replicates copies to the client
-    </div>
-
-    <div id="im2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-      Users can <b>organise messages in folders</b> — folder structure is stored on the server, accessible from any device
-    </div>
-
-    <div id="im3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-      IMAP maintains <b>user state information</b> across sessions (e.g. folder names, message-to-folder mappings)
-    </div>
-
-  </div>
-</section>
-
 <!-- Slide 29: POP3 -->
 <section class="slide" data-sec="Email">
   <div class="kicker">POP3</div>
@@ -2034,34 +1990,88 @@ svg text{font-family:var(--sans)}
   .slide:has(#pp4.on):not(:has(#pp5.on)) .pp-ph4 text { fill: var(--accent) !important; opacity: 1 !important; }
 </style>
 
+<!-- Slide: IMAP -->
 <section class="slide" data-sec="Email">
-  <div class="kicker">Mail Access Protocol</div>
-  <h2>Comparing POP3 and IMAP</h2>
-  <div style="max-width:1000px">
+  <div class="kicker">IMAP</div>
+  <h2>Internet Message Access Protocol</h2>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;max-width:860px">
+
+    <div id="im1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
+      IMAP <b>keeps messages on the server</b> and replicates copies to the client
+    </div>
+
+    <div id="im2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+      Users can <b>organise messages in folders</b> — folder structure is stored on the server, accessible from any device
+    </div>
+
+    <div id="im3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+      IMAP maintains <b>user state information</b> across sessions (e.g. folder names, message-to-folder mappings)
+    </div>
+
+  </div>
+</section>
+
+<!-- Slide: Web-based Email -->
+<section class="slide" data-sec="Email">
+  <div class="kicker">Web-based Email</div>
+  <h2>Accessing email via a browser</h2>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px;max-width:860px">
+
+    <div id="wb1" class="frag" style="display:flex;align-items:center;gap:20px;padding:16px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div style="flex:1">
+        <p style="margin:0;font-size:18px;font-weight:600">Web-based email is accessed through a web browser</p>
+        <p style="margin:8px 0 0;font-size:18px;opacity:0.7">Uses <b>HTTP</b> for communication between the user's browser and the mail server</p>
+      </div>
+    </div>
+
+    <div id="wb2" class="frag" style="display:flex;align-items:center;gap:20px;padding:16px 20px;border-radius:8px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1))">
+      <div style="flex:1">
+        <p style="margin:0;font-size:18px;font-weight:600">Web-based email services</p>
+        <p style="margin:8px 0 0;font-size:18px;opacity:0.7">Examples: <b>Gmail</b>, <b>Outlook</b> (web)</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="slide" data-sec="Email">
+  <div class="kicker">Email</div>
+  <h2>Comparing POP3, IMAP and web-based email</h2>
+  <div style="max-width:1100px">
   <!-- one row per beat -->
   <table style="border-collapse:collapse;width:100%;font-size:18px;margin-top:18px;line-height:1.45">
     <thead>
       <tr style="border-bottom:2px solid var(--accent)">
-        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:22%"></th>
-        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:39%">POP3</th>
-        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:39%">IMAP</th>
+        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:19%"></th>
+        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:27%">POP3</th>
+        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:27%">IMAP</th>
+        <th style="padding:8px 16px;vertical-align:top;text-align:left;width:27%">Web-based email</th>
       </tr>
     </thead>
     <tbody>
       <tr class="frag" style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
+        <td style="padding:8px 16px;vertical-align:top;font-weight:600">Accessed with</td>
+        <td style="padding:8px 16px;vertical-align:top">A mail app</td>
+        <td style="padding:8px 16px;vertical-align:top">A mail app</td>
+        <td style="padding:8px 16px;vertical-align:top">A web browser, over <b>HTTP</b></td>
+      </tr>
+      <tr class="frag" style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
         <td style="padding:8px 16px;vertical-align:top;font-weight:600">Messages</td>
         <td style="padding:8px 16px;vertical-align:top">Downloaded to the device, then usually deleted from the server</td>
+        <td style="padding:8px 16px;vertical-align:top">Kept on the server</td>
         <td style="padding:8px 16px;vertical-align:top">Kept on the server</td>
       </tr>
       <tr class="frag" style="border-bottom:1px solid var(--card-border,rgba(0,0,0,0.08))">
         <td style="padding:8px 16px;vertical-align:top;font-weight:600">Folders</td>
         <td style="padding:8px 16px;vertical-align:top">None on the server; a single mailbox</td>
         <td style="padding:8px 16px;vertical-align:top">Created and kept on the server</td>
+        <td style="padding:8px 16px;vertical-align:top">Created and kept on the server</td>
       </tr>
       <tr class="frag">
         <td style="padding:8px 16px;vertical-align:top;font-weight:600">Multiple devices</td>
         <td style="padding:8px 16px;vertical-align:top">Poorly suited: mail ends up on one device</td>
         <td style="padding:8px 16px;vertical-align:top">Read status and folders stay in sync across devices</td>
+        <td style="padding:8px 16px;vertical-align:top">Any device with a browser sees the same mailbox</td>
       </tr>
     </tbody>
   </table>
