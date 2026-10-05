@@ -3390,7 +3390,7 @@
         <div class="tcp-sender-hot">
           <div class="frag" data-step="1" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">The setup</strong>
-            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The receiver keeps a <b>receive window</b>, e.g. 5&nbsp;MSS.</p>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The receiver keeps a <b>receive window</b>, e.g. 5&nbsp;MSS. It is at most the size of the receive buffer, but not always equal to it. <span style="color:var(--faint)">We return to this in flow control.</span></p>
             <p class="frag" data-step="2" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">In Selective Repeat (Module&nbsp;4), the window base <span style="font-family:var(--mono)">rcv_base</span> was the first packet <b>not yet delivered</b> to the application.</p>
             <p class="frag" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">In TCP, the base is instead the <b>next byte the receiver expects</b>. Here every byte up to 5000 has been received in order, so the base is <b>seq&nbsp;5001</b>.</p>
             <p class="frag" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.4;font-weight:700;color:var(--teal)">Why are these not the same?</p>
