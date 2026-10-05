@@ -3277,20 +3277,11 @@
             <p class="frag" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Once the missing segment arrives and fills the gap, the buffered data is delivered to the application in order.</p>
           </div>
 
-          <!-- Card 3: further improvements / SACK -->
-          <div class="frag" data-step="4" style="padding:12px 16px;border-left:4px solid var(--muted);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--muted) 5%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
-            <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Further improvements</strong>
-            <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">RFC&nbsp;1122 and RFC&nbsp;5681 add rules for generating ACKs, e.g. <strong>delayed ACKs</strong>, to avoid sending too many.</p>
-            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">TCP can also negotiate <strong>selective ACK (SACK)</strong> [RFC&nbsp;2018]: the receiver reports exactly which byte ranges it holds, so the sender retransmits only the missing pieces, much like Selective Repeat.</p>
-          </div>
-
         </div>
 
         <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="4" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
-        <p class="frag" data-step="5" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <!-- Frame 27: TCP timeout: the challenge -->
@@ -3419,6 +3410,12 @@
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">The gap is filled</strong>
             <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The retransmitted seg&nbsp;6001 arrives and fills the gap.</p>
             <p class="frag" data-step="12" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Bytes 6001&ndash;10000 are now in order and ready for the application to read, and the receiver immediately sends one cumulative <b>ACK&nbsp;10001</b>. The window base moves to 10001.</p>
+          </div>
+          <!-- card 5: further improvements -->
+          <div class="frag" data-step="13" style="padding:12px 20px;border-left:4px solid var(--muted);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--muted) 5%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Further improvements</strong>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">RFC&nbsp;1122 and RFC&nbsp;5681 add rules for generating ACKs, e.g. <strong>delayed ACKs</strong>, to avoid sending too many.</p>
+            <p class="frag" data-step="14" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">TCP can also negotiate <strong>selective ACK (SACK)</strong> [RFC&nbsp;2018]: the receiver reports exactly which byte ranges it holds, so the sender retransmits only the missing pieces, much like Selective Repeat.</p>
           </div>
         </div>
       </section>
