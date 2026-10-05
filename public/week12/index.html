@@ -1981,8 +1981,13 @@ svg text{font-family:var(--sans)}
     </div>
   </div>
 
+  <!-- Where messages live -->
+  <div id="ppk" class="frag" style="margin-top:12px;padding:10px 16px;border-left:3px solid rgba(0,0,0,0.2);border-radius:0 6px 6px 0;background:var(--surface-2,rgba(0,0,0,0.03));font-size:18px;line-height:1.55">
+    Messages wait on the server until the UA downloads them; the UA then either <b>deletes</b> them from the server (download-and-delete) or <b>leaves a copy</b> there (download-and-keep)
+  </div>
+
   <!-- Limitations -->
-  <div id="pp5" class="frag" style="margin-top:16px;padding:10px 16px;border-left:4px solid var(--accent);border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);font-size:18px;line-height:1.6">
+  <div id="pp5" class="frag" style="margin-top:12px;padding:10px 16px;border-left:4px solid var(--accent);border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);font-size:18px;line-height:1.6">
     <b>Notable limitations:</b>
     <ul style="margin:6px 0 0;padding-left:20px">
       <li style="font-size:18px">Keeps no state on the server (e.g. read or unread), so what you do on one device is not seen on the others</li>
@@ -2014,12 +2019,8 @@ svg text{font-family:var(--sans)}
 
     <p style="margin:0;font-size:18px">IMAP addresses POP3&rsquo;s limitations:</p>
 
-    <div id="im1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
-      IMAP <b>keeps messages on the server</b>; each device works with copies
-    </div>
-
-    <div id="im2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-      It <b>keeps per-message state on the server</b>, e.g. read or unread, flagged, so every device sees the same status
+    <div id="im2" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
+      IMAP <b>keeps per-message state on the server</b>, e.g. read or unread, flagged, so every device sees the same status
     </div>
 
     <div id="im3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
