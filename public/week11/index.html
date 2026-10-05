@@ -3096,7 +3096,7 @@
             <p class="frag" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">As in any pipelined RDT, the sender keeps a <strong>send window</strong>.<br><span style="font-size:18px;font-style:italic">e.g. a window of 5&nbsp;MSS, i.e. 5 segments.</span></p>
             <p class="frag" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">The <strong>window base</strong> is the oldest unacknowledged segment.</p>
             <p class="frag" data-step="5" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Suppose the first two segments have already been acknowledged, so the window base starts at the third segment, seq&nbsp;3001. The sender may send anything within the window, so segments 3001&ndash;7001 go out.</p>
-            <p class="frag" data-step="6" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Then start <strong>one timer</strong>, if none is running.</p>
+            <p class="frag" data-step="6" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Then start <strong>one timer</strong>, if none is running. As in <strong>Go-Back-N</strong>, this single timer runs for the oldest unacknowledged segment, at the window base, and covers the entire window.</p>
           </div>
           <!-- card 2: ACK received -->
           <div class="frag" data-step="7" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
