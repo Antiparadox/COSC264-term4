@@ -3336,6 +3336,14 @@
             <g class="stateful" data-active-at="1" data-hide-after="5">
               <path d="M276,50 L276,56 L542,56 L542,50" fill="none" stroke="var(--teal,#0f9687)" stroke-width="1.3"/><text x="409" y="69" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">receive window (5 MSS)</text>
             </g>
+            <!-- step 5 on: 1001-2001 read by the application (delivered); 3001-4001 received, still in the buffer -->
+            <g class="stateful" data-active-at="5">
+              <rect x="60" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 80%, var(--ink,#1a2a33))" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="85" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text><rect x="114" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 80%, var(--ink,#1a2a33))" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="139" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+            </g>
+            <g class="stateful" data-active-at="5" data-hide-after="5">
+              <path d="M168,50 L168,56 L272,56 L272,50" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="1.3"/>
+              <text x="220" y="69" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">in buffer, unread</text>
+            </g>
             <!-- steps 3-5: base at 5001 -->
             <g class="stateful" data-active-at="3" data-hide-after="5">
               <text x="276" y="104" text-anchor="start" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">&#9650; base</text>
