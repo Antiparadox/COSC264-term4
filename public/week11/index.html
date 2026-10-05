@@ -162,6 +162,12 @@
       font: 600 24px/1.3 var(--sans);
     }
 
+    .recap-compact { gap: 13px; margin-top: 22px; }
+    .recap-compact .recap-item { font-size: 22px; line-height: 1.35; }
+    .recap-compact .recap-item::before { font-size: 28px; }
+    .recap-compact .recap-sub { font-size: 20px; }
+    .recap-compact .recap-sub::before { font-size: 20px; }
+
     .roadmap-lead { max-width: 1160px; margin: 20px 0 0; font-size: 23px; line-height: 1.4; color: var(--muted); }
     .roadmap-svg .frag { transform: none; }
     .roadmap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 24px; }
@@ -2750,6 +2756,24 @@
           </div>
         </div>
       </section>
+
+      <section class="slide" data-title="Module 5 so far" data-section="Recap">
+        <header class="content-header">
+          <p class="kicker">Recap &middot; Module 5 so far</p>
+          <h2>What we have covered so far</h2>
+        </header>
+        <div class="recap-list recap-compact">
+          <div class="recap-item frag" data-step="1"><span>The transport layer gives two processes on different hosts a logical <b>end-to-end channel</b>, hiding the network below.</span></div>
+          <div class="recap-item frag" data-step="2"><span>A process sends and receives through a <b>socket</b>, which is bound to a <b>port number</b> on its host.</span></div>
+          <div class="recap-item frag" data-step="3"><span>IP only reaches the host, so the transport layer <b>multiplexes</b> data from many sockets into segments, and <b>demultiplexes</b> each arriving segment to the right socket.</span></div>
+          <div class="recap-item recap-sub frag" data-step="4"><span>UDP finds the socket by <b>destination IP address and port</b>; TCP by <b>four values</b> &mdash; source and destination IP addresses and ports.</span></div>
+          <div class="recap-item frag" data-step="5"><span><b>UDP</b> is unreliable and connectionless: no setup, an 8-byte header (ports, length, checksum). Many senders can share one UDP socket.</span></div>
+          <div class="recap-item frag" data-step="6"><span><b>TCP</b> is reliable and connection-oriented: a <b>three-way handshake</b> (SYN, SYN+ACK, ACK) opens a connection, and FIN/ACK in each direction closes it.</span></div>
+          <div class="recap-item recap-sub frag" data-step="7"><span>Each client gets its own <b>connected socket</b> on the server.</span></div>
+          <div class="recap-item recap-sub frag" data-step="8"><span>The TCP header (20+ bytes) adds sequence and ACK numbers, flags, a receive window and a checksum.</span></div>
+        </div>
+      </section>
+
 
       <section class="slide" data-title="The RDT used by TCP" data-section="TCP">
         <header class="content-header">
