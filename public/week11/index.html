@@ -835,9 +835,17 @@
       align-items: center;
       margin-top: 24px;
     }
-    .tcp-rule-points { margin-top: 22px; }
+    .tcp-rule-points { margin-top: 14px; }
+    .tcp-rule-points + .tcp-example { margin-top: 14px; }
     .tcp-example .connection-card { opacity: 1; border-color: var(--teal); transform: none; }
     .tcp-clients { display: grid; gap: 18px; }
+    .tcp-slot { display: grid; }
+    .tcp-slot > * { grid-area: 1 / 1; }
+    .hs-card { align-self: center; padding: 14px 16px; border: 2px dashed var(--amber); border-radius: 13px; background: color-mix(in srgb, var(--amber) 10%, var(--surface)); color: var(--amber); text-align: center; font: 700 18px/1.5 var(--mono); opacity: 0; transition: opacity .22s ease; }
+    .hs-card strong { color: var(--ink); }
+    .hs-card.is-active { opacity: 1; }
+    .tcp-example .tcp-conn { transition: opacity .22s ease; }
+    .tcp-example .tcp-conn:not(.is-active) { opacity: 0 !important; }
     .tcp-paths { display: grid; gap: 18px; }
     .connection-card {
       position: relative;
@@ -2612,8 +2620,9 @@
           <h2>One connected socket per client</h2>
         </header>
         <div class="udp-rule-points tcp-rule-points">
-          <div class="udp-rule-point frag" data-step="1"><div>If several clients want to talk to the same server, they each get their own <strong>connection</strong> &mdash; and so their own <strong>connected socket</strong> on that server.</div></div>
-          <div class="udp-rule-point frag" data-step="2"><div>Compare with <strong>UDP</strong>: being connectionless, it lets many clients share a single socket.</div></div>
+          <div class="udp-rule-point frag" data-step="1"><div>If several clients want to talk to the same server, each must first complete its own <strong>handshake</strong>.</div></div>
+          <div class="udp-rule-point frag" data-step="2"><div>After the handshake, each client has its own <strong>connection</strong> and <strong>connected socket</strong> on the server.</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div>Compare with <strong>UDP</strong>: being connectionless, it lets many clients share a single socket.</div></div>
         </div>
         <div class="tcp-example frag" data-step="1">
           <div class="tcp-clients">
@@ -2629,14 +2638,14 @@
             </article>
           </div>
           <div class="tcp-paths">
-            <div class="connection-card"><strong>Connection from A</strong><br>203.0.113.10:46428<br>→ 192.0.2.80:80</div>
-            <div class="connection-card"><strong>Connection from B</strong><br>198.51.100.23:42345<br>→ 192.0.2.80:80</div>
+            <div class="tcp-slot"><div class="hs-card stateful" data-active-at="1" data-hide-after="1"><strong>TCP handshake</strong><br>A &#8644; C</div><div class="connection-card tcp-conn stateful" data-active-at="2"><strong>Connection from A</strong><br>203.0.113.10:46428<br>→ 192.0.2.80:80</div></div>
+            <div class="tcp-slot"><div class="hs-card stateful" data-active-at="1" data-hide-after="1"><strong>TCP handshake</strong><br>B &#8644; C</div><div class="connection-card tcp-conn stateful" data-active-at="2"><strong>Connection from B</strong><br>198.51.100.23:42345<br>→ 192.0.2.80:80</div></div>
           </div>
           <article class="server-process">
             <h3>Web server C</h3>
-            <p>192.0.2.80 · listening on port 80</p>
-            <div class="connected-socket"><strong>Connected socket A</strong>203.0.113.10:46428 ↔ 192.0.2.80:80</div>
-            <div class="connected-socket"><strong>Connected socket B</strong>198.51.100.23:42345 ↔ 192.0.2.80:80</div>
+            <p>192.0.2.80 · listening on TCP port 80</p>
+            <div class="connected-socket tcp-conn stateful" data-active-at="2"><strong>Connected socket A</strong>203.0.113.10:46428 ↔ 192.0.2.80:80</div>
+            <div class="connected-socket tcp-conn stateful" data-active-at="2"><strong>Connected socket B</strong>198.51.100.23:42345 ↔ 192.0.2.80:80</div>
           </article>
         </div>
             </section>
