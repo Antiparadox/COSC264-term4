@@ -3298,6 +3298,120 @@
       </section>
 
       <!-- Frame 27: TCP timeout: the challenge -->
+      <section class="slide tcp-sender-slide" data-title="TCP receiver in action" data-section="TCP">
+        <header class="content-header">
+          <p class="kicker">TCP reliable data transfer</p>
+          <h2>The TCP receiver rules: an example</h2>
+        </header>
+
+        <!-- synchronized diagram: the receiver's view of the byte stream -->
+        <div style="display:flex;justify-content:center;padding:0 0 6px">
+          <svg viewBox="0 0 620 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:1000px;display:block;overflow:visible" aria-label="TCP receiver buffer diagram">
+            <!-- always: empty slots and their sequence numbers -->
+            <g>
+              <rect x="60" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="114" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="168" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="222" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="276" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="330" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="384" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="438" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <rect x="492" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 8%, var(--surface,#f4f6f7))" stroke="var(--line,#c9d3da)" stroke-width="1.5"/>
+              <text x="566" y="38" text-anchor="middle" font-size="16" fill="var(--muted,#6b7f8e)">...</text>
+              <text x="85" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">1001</text>
+              <text x="139" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">2001</text>
+              <text x="193" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">3001</text>
+              <text x="247" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">4001</text>
+              <text x="301" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">5001</text>
+              <text x="355" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">6001</text>
+              <text x="409" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">7001</text>
+              <text x="463" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">8001</text>
+              <text x="517" y="12" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted,#6b7f8e)" font-family="var(--mono,monospace)">9001</text>
+            </g>
+            <!-- step 1: bytes up to 5000 already delivered -->
+            <g class="stateful" data-active-at="1">
+              <rect x="60" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="85" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="114" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="139" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="168" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="193" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="222" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="247" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+            </g>
+            <!-- step 1: next expected 5001 -->
+            <g class="stateful" data-active-at="1" data-hide-after="1">
+              <text x="276" y="92" text-anchor="start" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">&#9650; expected</text>
+            </g>
+            <!-- step 2: 5001 in order, delivered -->
+            <g class="stateful" data-active-at="2">
+              <rect x="276" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="301" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+            </g>
+            <!-- step 2: ACK 6001 -->
+            <g class="stateful" data-active-at="2" data-hide-after="2">
+              <text x="301" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">ACK 6001</text>
+            </g>
+            <!-- steps 2-7: still expecting 6001 -->
+            <g class="stateful" data-active-at="2" data-hide-after="7">
+              <text x="330" y="92" text-anchor="start" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">&#9650; expected</text>
+            </g>
+            <!-- steps 3-6: 6001 lost, a gap -->
+            <g class="stateful" data-active-at="3" data-hide-after="6">
+              <rect x="330" y="18" width="50" height="28" rx="3" fill="none" stroke="var(--red,#c0392b)" stroke-width="1.5" stroke-dasharray="4,3"/><text x="355" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="var(--red,#c0392b)" font-family="var(--mono,monospace)">&#10005; lost</text>
+            </g>
+            <!-- step 4: 7001 buffered -->
+            <g class="stateful" data-active-at="4" data-hide-after="7">
+              <rect x="384" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--amber,#d4920b) 40%, var(--surface,#f4f6f7))" stroke="var(--amber,#d4920b)" stroke-width="1.5"/><text x="409" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">buffer</text>
+            </g>
+            <!-- step 5: dup ACK 6001 -->
+            <g class="stateful" data-active-at="5" data-hide-after="6">
+              <text x="409" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">dup ACK</text>
+            </g>
+            <!-- step 6: 8001, 9001 buffered -->
+            <g class="stateful" data-active-at="6" data-hide-after="7">
+              <rect x="438" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--amber,#d4920b) 40%, var(--surface,#f4f6f7))" stroke="var(--amber,#d4920b)" stroke-width="1.5"/><text x="463" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">buffer</text><rect x="492" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--amber,#d4920b) 40%, var(--surface,#f4f6f7))" stroke="var(--amber,#d4920b)" stroke-width="1.5"/><text x="517" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">buffer</text>
+            </g>
+            <!-- step 6: two more dup ACKs -->
+            <g class="stateful" data-active-at="6" data-hide-after="6">
+              <text x="463" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">dup ACK</text><text x="517" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">dup ACK</text>
+            </g>
+            <!-- step 7: retransmitted 6001 fills the gap -->
+            <g class="stateful" data-active-at="7" data-hide-after="7">
+              <rect x="330" y="18" width="50" height="28" rx="3" fill="color-mix(in srgb, var(--teal,#0f9687) 25%, var(--surface,#f4f6f7))" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="355" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">arrived</text><text x="355" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">retransmitted</text>
+            </g>
+            <!-- step 8: 6001-9001 delivered, ACK 10001 -->
+            <g class="stateful" data-active-at="8">
+              <rect x="330" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="355" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="384" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="409" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="438" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="463" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text>
+              <rect x="492" y="18" width="50" height="28" rx="3" fill="rgba(0,200,180,0.45)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/><text x="517" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" font-family="var(--mono,monospace)">deliv</text><text x="566" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">ACK 10001</text><text x="546" y="92" text-anchor="start" font-size="11" font-weight="700" fill="var(--teal,#0f9687)" font-family="var(--mono,monospace)">&#9650; expected</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- event cards: one hot slot; each card replaces the previous -->
+        <div class="tcp-sender-hot">
+          <div class="frag" data-step="1" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">The setup</strong>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The receiver has delivered every byte up to 5000 to the application, so it expects <b>seq&nbsp;5001</b> next.</p>
+          </div>
+          <div class="frag" data-step="2" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">In-order segment arrives</strong>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;5001 arrives in order. The receiver delivers it to the application and sends <b>ACK&nbsp;6001</b>: the next byte it expects.</p>
+          </div>
+          <div class="frag" data-step="3" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Out-of-order segments arrive</strong>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;6001 is lost on the way.</p>
+            <p class="frag" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;7001 arrives out of order. The receiver <b>buffers</b> it rather than discarding it, unlike Go-Back-N.</p>
+            <p class="frag" data-step="5" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">It immediately sends a <b>duplicate ACK&nbsp;6001</b>: it is still expecting byte 6001.</p>
+            <p class="frag" data-step="6" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Segs&nbsp;8001 and&nbsp;9001 are buffered too, each triggering another duplicate ACK&nbsp;6001. After three duplicates, the sender fast-retransmits seg&nbsp;6001.</p>
+          </div>
+          <div class="frag" data-step="7" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
+            <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">The gap is filled</strong>
+            <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">The retransmitted seg&nbsp;6001 arrives and fills the gap.</p>
+            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">The receiver delivers bytes 6001&ndash;10000 to the application in order, and immediately sends one cumulative <b>ACK&nbsp;10001</b>.</p>
+          </div>
+        </div>
+      </section>
+
+
       <section class="slide" data-title="TCP timeout: the challenge" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
