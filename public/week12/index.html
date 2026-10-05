@@ -2176,34 +2176,57 @@ svg text{font-family:var(--sans)}
   <div class="kicker">MIME</div>
   <h2>Multipurpose Internet Mail Extensions</h2>
   <div style="display:flex;gap:32px;align-items:flex-start;margin-top:8px">
-    <div style="flex:1;min-width:0;font-size:18px;line-height:1.55">
-      <div id="mi2" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);margin-bottom:14px">
-        MIME extends the message format with additional header fields that describe and encode non-ASCII content &mdash; telling the receiver how to decode the body
+    <div style="flex:1;min-width:0;font-size:18px;line-height:1.55;display:flex;flex-direction:column;gap:12px">
+      <div id="mi2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        <b>MIME</b> extends the message format with <b>additional header fields</b>
+      </div>
+      <div id="mi2b" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        These fields declare the content&rsquo;s <b>type</b> and how it is <b>encoded</b>
+      </div>
+      <div id="mi2c" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        so the receiver knows how to <b>decode the body</b>
       </div>
       <div id="mi3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
         e.g. <b>base64</b> encoding converts binary data into printable ASCII text, which can be used for image attachments
       </div>
     </div>
     <div style="flex:1;min-width:0">
-      <!-- Mock MIME message -->
+      <!-- Mock MIME message; lines highlight with the beats -->
       <div style="font-family:monospace;font-size:18px;line-height:1.8;border:1px solid var(--card-border,rgba(0,0,0,0.18));border-radius:6px;padding:14px 16px;background:var(--surface-2,rgba(0,0,0,0.04))">
         From: alice@crepes.fr<br>
         To: bob@hamburger.edu<br>
         Subject: Picture of yummy crepe.<br>
-        <span id="mime-headers" style="opacity:0">
-          <span style="background:rgba(0,128,128,0.13);color:var(--accent,#008080);font-weight:700;padding:1px 4px;border-radius:3px;display:inline-block;margin-top:2px">MIME-Version: 1.0</span><br>
-          <span style="background:rgba(0,128,128,0.13);color:var(--accent,#008080);font-weight:700;padding:1px 4px;border-radius:3px;display:inline-block">Content-Transfer-Encoding: base64</span><br>
-          <span style="background:rgba(0,128,128,0.13);color:var(--accent,#008080);font-weight:700;padding:1px 4px;border-radius:3px;display:inline-block">Content-Type: image/jpeg</span>
+        <span id="mime-headers">
+          <span id="mh-ver" class="mh" style="margin-top:2px">MIME-Version: 1.0</span><br>
+          <span id="mh-cte" class="mh">Content-Transfer-Encoding: base64</span><br>
+          <span id="mh-ct" class="mh">Content-Type: image/jpeg</span>
         </span>
         <div style="border-top:1px dashed rgba(0,0,0,0.2);margin:8px 0"></div>
-        <span style="opacity:0.55">(base64 encoded data&hellip;<br>
+        <span id="mime-body" class="mh">(base64 encoded data&hellip;<br>
         &hellip;base64 encoded data)</span>
       </div>
     </div>
   </div>
 </section>
 <style>
-  .slide:has(#mi2.on) #mime-headers { opacity: 1 !important; }
+  #mime-headers { opacity: 0; transition: opacity .22s ease; }
+  .slide:has(#mi2.on) #mime-headers { opacity: 1; }
+  .mh { display: inline-block; padding: 1px 4px; margin-left: -4px; border-radius: 3px; transition: background .22s ease, color .22s ease; }
+  #mime-headers .mh { font-weight: 700; }
+  #mime-body { color: var(--muted); }
+  /* mi2: the new header fields */
+  .slide:has(#mi2.on):not(:has(#mi2b.on)) #mime-headers .mh,
+  /* mi2b: type and encoding */
+  .slide:has(#mi2b.on):not(:has(#mi2c.on)) :is(#mh-ct, #mh-cte),
+  /* mi2c: the body they describe */
+  .slide:has(#mi2c.on):not(:has(#mi3.on)) #mime-body,
+  /* mi3: base64 encoding and the encoded body */
+  .slide:has(#mi3.on) :is(#mh-cte, #mime-body) { background: rgba(0,128,128,0.15); color: var(--accent); }
+  /* hot highlight on the current card */
+  .slide:has(#mi2.on):not(:has(#mi2b.on)) #mi2,
+  .slide:has(#mi2b.on):not(:has(#mi2c.on)) #mi2b,
+  .slide:has(#mi2c.on):not(:has(#mi3.on)) #mi2c,
+  .slide:has(#mi3.on) #mi3 { border-left: 4px solid var(--accent) !important; background: rgba(0,128,128,0.07) !important; }
 </style>
 
 <!-- Concept opener: DNS -->
