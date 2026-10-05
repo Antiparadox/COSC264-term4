@@ -2362,7 +2362,7 @@
             </svg>
           </div>
           <div class="mx-points">
-            <div class="teaching-point" style="background:var(--teal-soft)"><strong>Multiplexing</strong> gathers data from many sockets, labels each piece with its ports, and sends it down to the network layer.</div>
+            <div class="teaching-point" style="background:var(--teal-soft)"><strong>Multiplexing</strong> gathers data from many sockets and sends it down to the network layer.</div>
             <div class="teaching-point frag" data-step="1"><strong>Each process writes to its own socket.</strong> P1, P2 and P3 each hand a message to their socket.</div>
             <div class="teaching-point frag" data-step="2"><strong>Each message becomes a segment.</strong> The transport layer adds a header carrying the source and destination ports.</div>
             <div class="teaching-point frag" data-step="3"><strong>One shared path.</strong> All segments go down to the same network layer, one after another &mdash; to IP, they come from a single host with a single IP address.</div>
