@@ -2104,38 +2104,71 @@ svg text{font-family:var(--sans)}
   <div class="kicker">Message Format</div>
   <h2>Structure of an email message</h2>
   <div style="display:flex;gap:32px;align-items:flex-start;margin-top:8px">
-    <div style="flex:1;min-width:0;font-size:18px;line-height:1.55">
-      <div id="mf1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);margin-bottom:14px">
-        An email message is <b>ASCII text</b> — <b>header fields</b> followed (optionally) by a <b>body</b>
+    <div style="flex:1;min-width:0;font-size:18px;line-height:1.5;display:flex;flex-direction:column;gap:10px">
+      <div id="mf1" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        An email message consists of <b>header fields</b>, followed (optionally) by a <b>body</b>
+      </div>
+      <div id="mf2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        <b>Header fields</b> describe the message, e.g. <code>From:</code> and <code>Subject:</code>
+      </div>
+      <div id="mf3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        The <b>body</b> carries the message content itself
+      </div>
+      <div id="mf4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        The whole message is <b>ASCII text</b>, which encodes English letters, digits and punctuation
+      </div>
+      <div id="mf5" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07)">
+        <b>Problem:</b> ASCII alone cannot carry images, attachments, or non-ASCII characters (e.g. Chinese, Arabic)
       </div>
     </div>
     <div style="flex:1;min-width:0">
-      <!-- Mock message with callouts -->
-      <div style="position:relative;font-family:monospace;font-size:18px;line-height:1.75;border:1px solid var(--card-border,rgba(0,0,0,0.18));border-radius:6px;padding:14px 16px;background:var(--surface-2,rgba(0,0,0,0.04))">
+      <!-- Mock message; regions and lines highlight with the beats -->
+      <div id="mf-msg" style="position:relative;font-family:monospace;font-size:18px;line-height:1.75;border:1px solid var(--card-border,rgba(0,0,0,0.18));border-radius:6px;padding:14px 16px;background:var(--surface-2,rgba(0,0,0,0.04))">
         <div style="display:flex;align-items:flex-start;gap:10px">
-          <div style="border-left:3px solid var(--accent);padding-left:8px;flex:1">
+          <div id="mf-hdr" style="border-left:3px solid rgba(0,0,0,0.25);padding-left:8px;flex:1">
             Date: Mon, 10 Aug 2026 09:00 GMT<br>
-            From: alice@crepes.fr<br>
+            <span class="mf-ex">From: alice@crepes.fr</span><br>
             To: bob@hamburger.edu<br>
-            Subject: Picture of yummy crepe.<br>
+            <span class="mf-ex">Subject: Picture of yummy crepe.</span><br>
             Cc: charlie@example.com
           </div>
-          <div id="mf-hdr-label" class="mf-label" style="opacity:0;font-family:sans-serif;font-size:18px;font-weight:700;color:var(--accent);white-space:nowrap;padding-top:26px">Header lines</div>
+          <div id="mf-hdr-label" class="mf-label" style="font-family:sans-serif;font-size:18px;font-weight:700;white-space:nowrap;padding-top:26px">Header fields</div>
         </div>
         <div style="border-top:1px dashed rgba(0,0,0,0.2);margin:8px 0"></div>
         <div style="display:flex;align-items:flex-start;gap:10px">
-          <div style="border-left:3px solid rgba(0,0,0,0.25);padding-left:8px;flex:1">
+          <div id="mf-body" style="border-left:3px solid rgba(0,0,0,0.25);padding-left:8px;flex:1">
             Hello Bob, here is the picture<br>
             you asked for. Enjoy!
           </div>
-          <div id="mf-body-label" class="mf-label" style="opacity:0;font-family:sans-serif;font-size:18px;font-weight:700;color:var(--accent);white-space:nowrap;padding-top:4px">Body</div>
+          <div id="mf-body-label" class="mf-label" style="font-family:sans-serif;font-size:18px;font-weight:700;white-space:nowrap;padding-top:4px">Body</div>
         </div>
       </div>
     </div>
   </div>
+
 </section>
 <style>
-  .slide:has(#mf1.on) .mf-label { opacity: 1 !important; }
+  .mf-label { opacity: 0; transition: opacity .22s ease, color .22s ease; color: var(--muted); }
+  .mf-ex { border-radius: 3px; padding: 1px 3px; margin-left: -3px; transition: background .22s ease, color .22s ease; }
+  #mf-hdr, #mf-body, #mf-msg { transition: border-color .22s ease; }
+  .slide:has(#mf1.on) .mf-label { opacity: 1; }
+  /* mf1: both regions */
+  .slide:has(#mf1.on):not(:has(#mf2.on)) :is(#mf-hdr, #mf-body) { border-left-color: var(--accent); }
+  .slide:has(#mf1.on):not(:has(#mf2.on)) .mf-label { color: var(--accent); }
+  /* mf2: header fields, From and Subject as examples */
+  .slide:has(#mf2.on):not(:has(#mf3.on)) #mf-hdr { border-left-color: var(--accent); }
+  .slide:has(#mf2.on):not(:has(#mf3.on)) #mf-hdr-label { color: var(--accent); }
+  .slide:has(#mf2.on):not(:has(#mf3.on)) .mf-ex { background: rgba(0,128,128,0.15); color: var(--accent); font-weight: 700; }
+  /* mf3: body */
+  .slide:has(#mf3.on):not(:has(#mf4.on)) #mf-body { border-left-color: var(--accent); }
+  .slide:has(#mf3.on):not(:has(#mf4.on)) #mf-body-label { color: var(--accent); }
+  /* mf4: the whole message is ASCII */
+  .slide:has(#mf4.on):not(:has(#mf5.on)) #mf-msg { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  /* hot highlight on the current card */
+  .slide:has(#mf1.on):not(:has(#mf2.on)) #mf1,
+  .slide:has(#mf2.on):not(:has(#mf3.on)) #mf2,
+  .slide:has(#mf3.on):not(:has(#mf4.on)) #mf3,
+  .slide:has(#mf4.on):not(:has(#mf5.on)) #mf4 { border-left:4px solid var(--accent) !important; background: rgba(0,128,128,0.07) !important; }
 </style>
 
 <!-- Slide 27: MIME -->
@@ -2144,10 +2177,7 @@ svg text{font-family:var(--sans)}
   <h2>Multipurpose Internet Mail Extensions</h2>
   <div style="display:flex;gap:32px;align-items:flex-start;margin-top:8px">
     <div style="flex:1;min-width:0;font-size:18px;line-height:1.55">
-      <div id="mi1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);margin-bottom:14px">
-        <b>Problem:</b> standard email is ASCII-only &mdash; it cannot natively carry images, attachments, or non-ASCII characters (e.g. Chinese, Arabic)
-      </div>
-      <div id="mi2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03));margin-bottom:14px">
+      <div id="mi2" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);margin-bottom:14px">
         MIME extends the message format with additional header fields that describe and encode non-ASCII content &mdash; telling the receiver how to decode the body
       </div>
       <div id="mi3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
