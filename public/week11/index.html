@@ -3411,7 +3411,7 @@
           <div class="frag" data-step="7" style="padding:12px 20px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb, var(--teal) 6%, var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
             <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:4px">Out-of-order segments arrive</strong>
             <p style="margin:0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;6001 is lost on the way.</p>
-            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;7001 arrives out of order but <b>within the receive window</b>, so the receiver <b>buffers</b> it rather than discarding it, unlike Go-Back-N.</p>
+            <p class="frag" data-step="8" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Seg&nbsp;7001 arrives out of order but <b>within the receive window</b>, so the receiver <b>buffers</b> it rather than discarding it.</p>
             <p class="frag" data-step="9" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">It immediately sends a <b>duplicate ACK&nbsp;6001</b>: it is still expecting byte 6001.</p>
             <p class="frag" data-step="10" style="margin:6px 0 0;font-size:18px;line-height:1.4;color:var(--muted)">Segs&nbsp;8001 and&nbsp;9001 are buffered too, each triggering another duplicate ACK&nbsp;6001. After three duplicates, the sender fast-retransmits seg&nbsp;6001.</p>
           </div>
