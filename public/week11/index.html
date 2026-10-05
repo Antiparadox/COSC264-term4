@@ -716,6 +716,8 @@
     }
     .datagram-card.is-active { opacity: 1; border-color: var(--amber); transform: translateX(5px); }
     .datagram-card strong { color: var(--ink); }
+    .dg-src { display: inline-block; margin: 0 -4px; padding: 0 4px; border-radius: 5px; transition: background .22s ease, color .22s ease; }
+    .dg-src.is-active { background: var(--teal-soft); color: var(--teal); }
     .datagram-card::after { content: "\2192"; position: absolute; right: -23px; top: 50%; color: var(--teal); font: 900 27px/1 var(--sans); transform: translateY(-50%); }
     .return-note {
       grid-column: 1 / -1;
@@ -2418,9 +2420,9 @@
           <h2>Different sources, one socket</h2>
         </header>
         <div class="udp-rule-points">
-          <div class="udp-rule-point frag" data-step="1"><div>Since UDP is connectionless, two different senders can send to the <strong>same destination socket</strong>, as depicted in this diagram.</div></div>
-          <div class="udp-rule-point frag" data-step="2"><div class="udp-rule-ask">But then how does the destination reply to each of them?</div></div>
-          <div class="udp-rule-point frag" data-step="3"><div>Every datagram also carries its <strong>source IP address and port</strong> &mdash; the return address the destination replies to.</div></div>
+          <div class="udp-rule-point frag" data-step="2"><div>Since UDP is connectionless, two different senders can send to the <strong>same destination socket</strong>, as depicted in this diagram.</div></div>
+          <div class="udp-rule-point frag" data-step="3"><div class="udp-rule-ask">But then how does the destination reply to each of them?</div></div>
+          <div class="udp-rule-point frag" data-step="4"><div>Every datagram also carries its <strong>source IP address and port</strong> &mdash; the return address the destination replies to.</div></div>
           <div class="udp-last-point frag" data-step="1">
             <div class="udp-example udp-connectionless-example">
               <div>
@@ -2428,14 +2430,14 @@
                   <h3>Client A</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 203.0.113.10</span><span>Port: 46428</span></div>
                 </article>
-                <article class="host-card udp-client-b stateful" data-active-at="1" style="margin-top: 18px;">
+                <article class="host-card udp-client-b stateful" data-active-at="2" style="margin-top: 18px;">
                   <h3>Client B</h3>
                   <div class="host-socket"><strong>socket</strong><span>IP address: 198.51.100.23</span><span>Port: 42345</span></div>
                 </article>
               </div>
               <div class="udp-paths">
-                <div class="datagram-card stateful" data-active-at="2"><strong>UDP datagram from A</strong><br>source socket<br>203.0.113.10:46428<br>destination socket<br>192.0.2.80:19157</div>
-                <div class="datagram-card udp-datagram-b stateful" data-active-at="1"><strong>UDP datagram from B</strong><br>source socket<br>198.51.100.23:42345<br>destination socket<br>192.0.2.80:19157</div>
+                <div class="datagram-card stateful" data-active-at="1"><strong>UDP datagram from A</strong><br><span class="dg-src stateful" data-active-at="4">source socket<br>203.0.113.10:46428</span><br>destination socket<br>192.0.2.80:19157</div>
+                <div class="datagram-card udp-datagram-b stateful" data-active-at="2"><strong>UDP datagram from B</strong><br><span class="dg-src stateful" data-active-at="4">source socket<br>198.51.100.23:42345</span><br>destination socket<br>192.0.2.80:19157</div>
               </div>
               <article class="host-card server">
                 <h3>Server C</h3>
