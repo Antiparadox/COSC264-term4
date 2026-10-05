@@ -480,6 +480,10 @@
     .rtt-sample-card.is-hidden > strong { margin-bottom: 0 !important; }
     .seq-action-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .seq-action-slide .stateful.is-active { opacity: 1; }
+    .seq-action-slide .hs-g:not(.is-active), .seq-action-slide .hs-g.is-hidden { display: none; }
+    .seq-action-slide tspan.seq-num { fill-opacity: 0; transition: fill-opacity .3s ease; }
+    .seq-action-slide tspan.seq-num.is-active { fill-opacity: 1; }
+    .seq-action-slide .seq-hl { fill: var(--teal); text-decoration: underline; text-decoration-thickness: 2px; }
     .tcp-sender-slide .stateful { opacity: 0; transition: opacity .4s ease; }
     .tcp-sender-slide .stateful.is-active { opacity: 1; }
     .tcp-sender-hot { width: min(1000px, 100%); margin: 6px auto 0; }
@@ -2824,7 +2828,7 @@
       <!-- ====== Slide 23: Sequence numbers in action (diagram) ====== -->
       <section class="slide seq-action-slide" data-title="Sequence numbers in action" data-section="TCP">
         <header class="content-header">
-          <p class="kicker">ISN = 1000 · MSS = 1000 bytes · 3000 bytes to send</p>
+          <p class="kicker">MSS = 1000 bytes · 3000 bytes to send</p>
           <h2>Sequence and acknowledgment in action</h2>
         </header>
         <p style="margin:0 0 12px;font-size:18px;line-height:1.45;color:var(--muted)">The client wants to transmit 3000 bytes of application data over a TCP connection.</p>
@@ -2835,26 +2839,29 @@
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The setup</strong>
               <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">With MSS&nbsp;=&nbsp;1000 bytes, the 3000 bytes of data fill <strong>three segments</strong>.</p>
             </div>
-            <div class="stateful" data-active-at="2" data-hide-after="4" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
+            <div class="stateful" data-active-at="2" data-hide-after="9" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Three-way handshake</strong>
-              <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">First, the client and server perform a three-way handshake to open the TCP connection.</p>
-              <p class="frag inner-line" data-step="3" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Suppose ISN&nbsp;=&nbsp;1000. Since SYN consumes one sequence number, the first data byte will have seq#&nbsp;<strong>1001</strong>.</p>
-              <p class="frag inner-line" data-step="4" style="margin:6px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The server's SYNACK carries <strong>ACK&nbsp;=&nbsp;1001</strong>, which signals that it expects byte&nbsp;1001 next.</p>
+              <div class="hs-g stateful" data-active-at="2" data-hide-after="2"><p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">First, the client and server perform a three-way handshake to open the TCP connection.</p></div>
+              <div class="hs-g stateful" data-active-at="3" data-hide-after="4"><p style="margin:0;font-size:18px;line-height:1.45;font-weight:700;color:var(--teal)">Each of these messages carries a sequence number. Where does it start?</p><p class="stateful" data-active-at="4" style="margin:8px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Each side picks an <b>initial sequence number (ISN)</b>: the number its first segment carries, typically chosen at random. Say the client&rsquo;s ISN is <b>1000</b>.</p></div>
+              <div class="hs-g stateful" data-active-at="5" data-hide-after="5"><p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client&rsquo;s <b>SYN</b> carries its ISN: <b>seq&nbsp;=&nbsp;1000</b>.</p></div>
+              <div class="hs-g stateful" data-active-at="6" data-hide-after="7"><p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The server replies <b>SYN+ACK</b>, carrying its own ISN, <b>seq&nbsp;=&nbsp;300</b>, and <b>ack&nbsp;=&nbsp;1001</b>.</p><p class="stateful" data-active-at="7" style="margin:8px 0 0;font-size:18px;line-height:1.45;color:var(--muted)"><b>1001, not 1000</b>: an ACK names the <b>next</b> sequence number expected, not the last one received.</p></div>
+              <div class="hs-g stateful" data-active-at="8" data-hide-after="8"><p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client acknowledges the server&rsquo;s ISN with <b>ack&nbsp;=&nbsp;301</b>. The three-way handshake is complete.</p></div>
+              <div class="hs-g stateful" data-active-at="9" data-hide-after="9"><p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client&rsquo;s next sequence number is <b>1001</b>, so its first data byte is byte 1001 &mdash; exactly what the server&rsquo;s <b>ack&nbsp;=&nbsp;1001</b> says it expects next.</p></div>
             </div>
-            <div class="stateful" data-active-at="5" data-hide-after="5" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
+            <div class="stateful" data-active-at="10" data-hide-after="10" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 1</strong>
               <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the first 1000 bytes (seq&nbsp;=&nbsp;1001).</p>
             </div>
-            <div class="stateful" data-active-at="6" data-hide-after="6" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
+            <div class="stateful" data-active-at="11" data-hide-after="11" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 1</strong>
               <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the first 1000 bytes (seq&nbsp;=&nbsp;1001).</p>
               <p style="margin:8px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The server cumulatively acknowledges with <strong>ACK&nbsp;=&nbsp;2001</strong> &mdash; it has every byte up to 2000 and expects byte 2001 next.</p>
             </div>
-            <div class="stateful" data-active-at="7" data-hide-after="7" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
+            <div class="stateful" data-active-at="12" data-hide-after="12" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 2</strong>
               <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the next 1000 bytes (seq&nbsp;=&nbsp;2001).</p>
             </div>
-            <div class="stateful" data-active-at="8" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
+            <div class="stateful" data-active-at="13" style="position:absolute;inset:0;padding:16px 20px;border:2px solid var(--teal);border-radius:16px;background:var(--surface);box-shadow:0 8px 22px rgba(21,36,47,.06);transition:opacity .3s ease">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">Transmit segment 2</strong>
               <p style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The client sends the next 1000 bytes (seq&nbsp;=&nbsp;2001).</p>
               <p style="margin:8px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">The server cumulatively acknowledges with <strong>ACK&nbsp;=&nbsp;3001</strong> &mdash; confirming every byte up to 3000.</p>
@@ -2888,70 +2895,76 @@
             <g class="stateful" data-active-at="1" style="transition:opacity .4s ease">
               <text x="0" y="56" class="seq-muted">Data to be transmitted:</text>
             </g>
-            <g class="stateful" data-active-at="1" data-hide-after="5" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="1" data-hide-after="10" style="transition:opacity .4s ease">
               <rect x="0" y="66" width="230" height="30" fill="var(--teal,#0f9687)" opacity="0.75" class="seq-bar"/>
             </g>
-            <g class="stateful" data-active-at="3" data-hide-after="5" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="9" data-hide-after="10" style="transition:opacity .4s ease">
               <text x="115" y="87" text-anchor="middle" style="font:700 17px/1 var(--mono,monospace);fill:#fff">1001 – 2000</text>
             </g>
-            <g class="stateful" data-active-at="1" data-hide-after="7" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="1" data-hide-after="12" style="transition:opacity .4s ease">
               <rect x="0" y="102" width="230" height="30" fill="var(--teal,#0f9687)" opacity="0.6" class="seq-bar"/>
             </g>
-            <g class="stateful" data-active-at="3" data-hide-after="7" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="9" data-hide-after="12" style="transition:opacity .4s ease">
               <text x="115" y="123" text-anchor="middle" style="font:700 17px/1 var(--mono,monospace);fill:#fff">2001 – 3000</text>
             </g>
             <g class="stateful" data-active-at="1" style="transition:opacity .4s ease">
               <rect x="0" y="138" width="230" height="30" fill="var(--teal,#0f9687)" opacity="0.35" class="seq-bar"/>
             </g>
-            <g class="stateful" data-active-at="3" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="9" style="transition:opacity .4s ease">
               <text x="115" y="159" text-anchor="middle" style="font:700 17px/1 var(--mono,monospace);fill:#fff">3001 – 4000</text>
             </g>
 
-            <!-- 3-way handshake (appears at step 2) -->
+            <!-- 3-way handshake: messages at step 2, numbers revealed and highlighted at steps 4-9 -->
             <g class="stateful" data-active-at="2" style="transition:opacity .4s ease">
               <line x1="270" y1="74" x2="690" y2="94" class="seq-arrow" stroke="var(--teal,#0f9687)"/>
-              <text x="480" y="64" text-anchor="middle" class="seq-label">SYN  seq=1000</text>
-
+              <text x="480" y="64" text-anchor="middle" class="seq-label">SYN<tspan class="seq-num stateful" data-active-at="5">&#160;&#160;seq=1000</tspan></text>
               <line x1="690" y1="128" x2="270" y2="148" class="seq-arrow-r" stroke="var(--amber,#d4920b)"/>
-              <text x="480" y="118" text-anchor="middle" class="seq-label">SYN+ACK  seq=300, ack=1001</text>
-
+              <text x="480" y="118" text-anchor="middle" class="seq-label">SYN+ACK<tspan class="seq-num stateful" data-active-at="6">&#160;&#160;seq=300, ack=1001</tspan></text>
               <line x1="270" y1="182" x2="690" y2="202" class="seq-arrow" stroke="var(--teal,#0f9687)"/>
-              <text x="480" y="172" text-anchor="middle" class="seq-label">ACK  ack=301</text>
-
-              <!-- divider -->
-              <line x1="40" y1="220" x2="736" y2="220" stroke="var(--line,#d0d8dd)" stroke-width="1" stroke-dasharray="5,4"/>
+              <text x="480" y="172" text-anchor="middle" class="seq-label">ACK<tspan class="seq-num stateful" data-active-at="8">&#160;&#160;ack=301</tspan></text>
+              <line x1="262" y1="220" x2="736" y2="220" stroke="var(--line,#d0d8dd)" stroke-width="1" stroke-dasharray="5,4"/>
             </g>
+            <rect class="stateful" data-active-at="9" data-hide-after="9" x="-3" y="63" width="236" height="36" rx="6" fill="none" stroke="var(--amber,#d4920b)" stroke-width="3"/>
+            <text x="0" y="196" class="seq-muted stateful" data-active-at="4">client ISN = 1000</text>
+            <text x="0" y="196" class="seq-muted seq-ov stateful" data-active-at="4" data-hide-after="5"><tspan class="seq-hl">client ISN = 1000</tspan></text>
+            <text x="0" y="222" class="seq-muted stateful" data-active-at="6">server ISN = 300</text>
+            <text x="0" y="222" class="seq-muted seq-ov stateful" data-active-at="6" data-hide-after="6"><tspan class="seq-hl">server ISN = 300</tspan></text>
+            <text x="480" y="64" text-anchor="middle" class="seq-label seq-ov stateful" data-active-at="5" data-hide-after="5"><tspan fill-opacity="0">SYN&#160;&#160;</tspan><tspan class="seq-hl">seq=1000</tspan></text>
+            <text x="480" y="118" text-anchor="middle" class="seq-label seq-ov stateful" data-active-at="6" data-hide-after="6"><tspan fill-opacity="0">SYN+ACK&#160;&#160;</tspan><tspan class="seq-hl">seq=300, ack=1001</tspan></text>
+            <text x="480" y="118" text-anchor="middle" class="seq-label seq-ov stateful" data-active-at="7" data-hide-after="7"><tspan fill-opacity="0">SYN+ACK&#160;&#160;seq=300, </tspan><tspan class="seq-hl">ack=1001</tspan></text>
+            <text x="480" y="118" text-anchor="middle" class="seq-label seq-ov stateful" data-active-at="9" data-hide-after="9"><tspan fill-opacity="0">SYN+ACK&#160;&#160;seq=300, </tspan><tspan class="seq-hl">ack=1001</tspan></text>
+            <text x="480" y="172" text-anchor="middle" class="seq-label seq-ov stateful" data-active-at="8" data-hide-after="8"><tspan fill-opacity="0">ACK&#160;&#160;</tspan><tspan class="seq-hl">ack=301</tspan></text>
 
             <!-- segment 1 send (appears at step 5) -->
-            <g class="stateful" data-active-at="5" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="10" style="transition:opacity .4s ease">
               <line x1="270" y1="240" x2="690" y2="270" class="seq-arrow" stroke="var(--teal,#0f9687)"/>
               <rect x="315" y="232" width="330" height="28" rx="6" fill="var(--surface,#f4f6f7)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <text x="480" y="252" text-anchor="middle" class="seq-label">SEG 1 · seq=1001 · 1000 bytes</text>
             </g>
 
             <!-- ACK for seg 1 (appears at step 6) -->
-            <g class="stateful" data-active-at="6" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="11" style="transition:opacity .4s ease">
               <line x1="690" y1="286" x2="270" y2="312" class="seq-arrow-r" stroke="var(--amber,#d4920b)"/>
               <rect x="405" y="282" width="150" height="28" rx="6" fill="var(--surface,#f4f6f7)" stroke="var(--amber,#d4920b)" stroke-width="1.5"/>
               <text x="480" y="302" text-anchor="middle" class="seq-label" style="fill:var(--amber,#d4920b)">ACK = 2001</text>
             </g>
 
             <!-- segment 2 send (appears at step 7) -->
-            <g class="stateful" data-active-at="7" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="12" style="transition:opacity .4s ease">
               <line x1="270" y1="334" x2="690" y2="364" class="seq-arrow" stroke="var(--teal,#0f9687)"/>
               <rect x="315" y="326" width="330" height="28" rx="6" fill="var(--surface,#f4f6f7)" stroke="var(--teal,#0f9687)" stroke-width="1.5"/>
               <text x="480" y="346" text-anchor="middle" class="seq-label">SEG 2 · seq=2001 · 1000 bytes</text>
             </g>
 
             <!-- ACK for seg 2 (appears at step 8) -->
-            <g class="stateful" data-active-at="8" style="transition:opacity .4s ease">
+            <g class="stateful" data-active-at="13" style="transition:opacity .4s ease">
               <line x1="690" y1="380" x2="270" y2="406" class="seq-arrow-r" stroke="var(--amber,#d4920b)"/>
               <rect x="405" y="376" width="150" height="28" rx="6" fill="var(--surface,#f4f6f7)" stroke="var(--amber,#d4920b)" stroke-width="1.5"/>
               <text x="480" y="396" text-anchor="middle" class="seq-label" style="fill:var(--amber,#d4920b)">ACK = 3001</text>
             </g>
           </svg>
         </div>
-        <!-- hidden frag triggers for steps 1–8 -->
+        <!-- hidden frag triggers for steps 1–13 -->
         <p class="frag" data-step="1" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="2" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="3" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
@@ -2960,6 +2973,11 @@
         <p class="frag" data-step="6" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="7" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
         <p class="frag" data-step="8" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="9" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="10" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="11" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="12" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
+        <p class="frag" data-step="13" style="position:absolute;visibility:hidden;height:0;margin:0"></p>
       </section>
 
       <section class="slide tcp-sender-slide" data-title="TCP sender rules" data-section="TCP">
