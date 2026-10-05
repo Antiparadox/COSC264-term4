@@ -434,6 +434,9 @@
     .motivation-node .motivation-link { grid-row: 2; grid-column: 1; min-height: 34px; }
     .motivation-sockets { grid-row: 3; display: flex; justify-content: center; gap: 6px; opacity: 0; transition: opacity .24s ease; }
     .motivation-sockets.is-active { opacity: 1; }
+    .motivation-sockets .mini-socket:has(.sock-port.is-active) { height: auto; min-height: 30px; flex-direction: column; padding: 3px 10px; line-height: 1.15; }
+    .sock-port { display: block; max-height: 0; overflow: hidden; opacity: 0; font: inherit; transition: max-height .24s ease, opacity .24s ease; }
+    .sock-port.is-active { max-height: 24px; opacity: 1; }
     .socket-extra { opacity: 0; transition: opacity .24s ease; }
     .socket-extra.is-active { opacity: 1; }
     .motivation-sockets .mini-socket { width: auto; padding: 0 10px; height: 30px; font-size: 18px; }
@@ -2272,13 +2275,14 @@
             <p class="motivation-lead frag" data-step="1">A single host can run many network applications over multiple processes. Each process may need to send and receive traffic through the network.</p>
             <p class="motivation-lead frag" data-step="2">A process does not talk to the network directly. It sends and receives through a <strong>socket</strong>.</p>
             <p class="motivation-lead frag" data-step="3">A socket is the transport layer&rsquo;s endpoint &mdash; the door a process writes its outgoing data into, and reads its incoming data out of.</p>
-            <p class="motivation-lead frag" data-step="4">A process may hold <strong>more than one socket</strong>.</p>
+            <p class="motivation-lead frag" data-step="4">Each socket is bound to a <strong>port number</strong> (16 bits, 0&ndash;65535), which the transport layer uses to tell sockets apart.</p>
+            <p class="motivation-lead frag" data-step="5">A process may hold <strong>more than one socket</strong>.</p>
           </div>
           <div class="motivation-scene frag" data-step="1" aria-label="Three application processes enclosed within one host above the network layer">
             <h3>processes and network layer</h3>
             <div class="host-shell">
               <div class="host-shell-label"><span>Host A</span><span>three application processes</span></div>
-              <div class="motivation-process-row"><div class="motivation-node"><span class="mini-process">P1<small>process 1</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div><div class="motivation-node"><span class="mini-process">P2<small>process 2</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span><span class="mini-socket socket-extra stateful" data-active-at="4">socket</span></span></div><div class="motivation-node"><span class="mini-process">P3<small>process 3</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket</span></span></div></div>
+              <div class="motivation-process-row"><div class="motivation-node"><span class="mini-process">P1<small>process 1</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket<small class="sock-port stateful" data-active-at="4">:5001</small></span></span></div><div class="motivation-node"><span class="mini-process">P2<small>process 2</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket<small class="sock-port stateful" data-active-at="4">:5002</small></span><span class="mini-socket socket-extra stateful" data-active-at="5">socket<small class="sock-port stateful" data-active-at="4">:5004</small></span></span></div><div class="motivation-node"><span class="mini-process">P3<small>process 3</small></span><span class="motivation-link motivation-chaos stateful" data-active-at="1" data-hide-after="9">↕</span><span class="motivation-link motivation-clean stateful" data-active-at="9">↓</span><span class="motivation-sockets stateful" data-active-at="2"><span class="mini-socket">socket<small class="sock-port stateful" data-active-at="4">:5003</small></span></span></div></div>
             </div>
             <p class="motivation-note">many processes ↔ one shared path</p>
                     </div>
@@ -2358,13 +2362,12 @@
             </svg>
           </div>
           <div class="mx-points">
+            <div class="teaching-point" style="background:var(--teal-soft)"><strong>Multiplexing</strong> gathers data from many sockets, labels each piece with its ports, and sends it down to the network layer.</div>
             <div class="teaching-point frag" data-step="1"><strong>Each process writes to its own socket.</strong> P1, P2 and P3 each hand a message to their socket.</div>
             <div class="teaching-point frag" data-step="2"><strong>Each message becomes a segment.</strong> The transport layer adds a header carrying the source and destination ports.</div>
             <div class="teaching-point frag" data-step="3"><strong>One shared path.</strong> All segments go down to the same network layer, one after another &mdash; to IP, they come from a single host with a single IP address.</div>
-            <div class="teaching-point frag" data-step="4" style="background:var(--teal-soft)"><strong>Multiplexing</strong> gathers data from many sockets, labels each piece with its ports, and sends it down one shared path.</div>
           </div>
-        </div>
-      </section>
+        </div></section>
 
 
       <section class="slide" data-title="Demultiplexing" data-section="Multiplexing and demultiplexing">
