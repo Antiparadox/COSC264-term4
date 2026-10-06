@@ -3923,7 +3923,7 @@
               <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Suppose B&rsquo;s receive buffer fills up, so B advertises <strong>RcvWindow = 0</strong>. A must stop sending.</p>
               <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Later, B&rsquo;s application reads the buffered data. The buffer empties, so B&rsquo;s window is open again: RcvWindow &gt; 0.</p>
               <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">But A has not heard about it. Its latest information is still RcvWindow = 0, so A still cannot send.</p>
-              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">And B cannot tell A: with no data of its own, B only sends a segment (an ACK) in reply to one from A.</p>
+              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">And B cannot tell A: B only sends a segment (an ACK) in reply to one from A.</p>
               <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">A waits for B, B waits for A &mdash; a <strong>deadlock</strong>.</p>
             </div>
             <div class="frag hot-card stateful" data-step="6" data-active-at="6" style="padding:12px 16px;border-left:4px solid var(--teal);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--teal) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
