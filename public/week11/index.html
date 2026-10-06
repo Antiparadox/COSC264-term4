@@ -3433,7 +3433,7 @@
           <div class="recap-item frag" data-step="4"><span><b>Sender</b>: sends anything within its window, with <b>one timer</b> for the oldest unacknowledged segment; a cumulative ACK slides the window forward.</span></div>
           <div class="recap-item recap-sub frag" data-step="5"><span>On <b>timeout</b>, it retransmits only the oldest unacknowledged segment, not the whole window.</span></div>
           <div class="recap-item recap-sub frag" data-step="6"><span>On <b>three duplicate ACKs</b>, it <b>fast-retransmits</b> that segment without waiting for the timeout.</span></div>
-          <div class="recap-item frag" data-step="7"><span><b>Receiver</b>: its window base is the next byte expected. It buffers out-of-order segments within the window and immediately sends duplicate ACKs; once a gap is filled, one cumulative ACK covers it all.</span></div>
+          <div class="recap-item frag" data-step="7"><span><b>Receiver</b>: its window base is the next byte expected. It buffers out-of-order segments within the window.</span></div>
           <div class="recap-item recap-sub frag" data-step="8"><span>Received in order is not the same as delivered: unread bytes wait in the receive buffer.</span></div>
         </div>
       </section>
