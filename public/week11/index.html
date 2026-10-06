@@ -3871,9 +3871,9 @@
             <!-- Card 2: The sender's rule -->
             <div class="frag hot-card stateful" data-step="3" data-active-at="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The TCP sender&rsquo;s rule</strong>
-              <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">LastByteSent − LastByteAcked ≤ RcvWindow</p>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Recall from our earlier discussion: the window <strong>base</strong> is the byte just after LastByteAcked, and <strong>nextseqnum</strong> is the byte just after LastByteSent. The off-by-ones cancel, so the left side is nextseqnum&nbsp;&minus;&nbsp;base: the bytes in flight.</p>
-              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Recall that in RDT, the sender window N capped the data in flight. The TCP sender works the same way, but its cap is not a fixed N: it is the <strong>RcvWindow</strong> the receiver advertises.</p>
+              <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">nextseqnum − base ≤ RcvWindow</p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">The left side counts the bytes in [<strong>base</strong>, <strong>nextseqnum</strong>): the data in flight.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Recall that in RDT, the sender window N capped the data in flight. In flow control, the TCP sender works the same way, but its cap is not a fixed N: it is the <strong>RcvWindow</strong> the receiver advertises.</p>
             </div>
 
           </div>
@@ -4103,7 +4103,7 @@
               <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">Flow control already caps the data in flight at RcvWindow.</p>
               <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.45;color:var(--muted)">Congestion control adds a second cap on the same quantity: the <strong>congestion window (CongWin)</strong>, which the sender sets itself and adjusts up and down with the level of congestion.</p>
               <div class="frag inner-line" data-step="3" style="margin:6px 0 0">
-                <p style="margin:0 0 4px;padding:6px 12px;border-radius:8px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ink)">LastByteSent &minus; LastByteAcked<br>&le; min(CongWin, RcvWindow)</p>
+                <p style="margin:0 0 4px;padding:6px 12px;border-radius:8px;background:color-mix(in srgb,var(--teal) 10%,var(--surface));font-family:var(--mono);font-size:18px;font-weight:700;color:var(--ink)">nextseqnum &minus; base<br>&le; min(CongWin, RcvWindow)</p>
                 <p class="cw-explain" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">The data in flight must respect both caps.</p>
               </div>
             </div>
@@ -5097,7 +5097,7 @@
             <strong>Flow control</strong>: the receiver advertises <strong>RcvWindow</strong> in every segment, so a fast sender cannot overflow a slow receiver&rsquo;s buffer.
           </p>
           <p class="frag" data-step="2" style="font-size:18px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--teal)">
-            <strong>Congestion control</strong>: the TCP sender maintains a <strong>CongWin</strong>, and keeps its data in flight within both caps: <span style="font-family:var(--mono);font-weight:700;color:var(--ink);white-space:nowrap">LastByteSent &minus; LastByteAcked &le; min(CongWin, RcvWindow)</span>.
+            <strong>Congestion control</strong>: the TCP sender maintains a <strong>CongWin</strong>, and keeps its data in flight within both caps: <span style="font-family:var(--mono);font-weight:700;color:var(--ink);white-space:nowrap">nextseqnum &minus; base &le; min(CongWin, RcvWindow)</span>.
           </p>
           <p class="frag" data-step="3" style="font-size:18px;line-height:1.55;margin:0;padding:12px 18px;border-left:4px solid var(--ink)">
             TCP begins in <strong>slow start</strong>, doubling CongWin each RTT until ssthresh, then grows linearly in <strong>congestion avoidance</strong>.
