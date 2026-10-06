@@ -3421,6 +3421,24 @@
       </section>
 
 
+      <section class="slide" data-title="TCP reliable data transfer so far" data-section="Recap">
+        <header class="content-header">
+          <p class="kicker">Recap &middot; TCP reliable data transfer</p>
+          <h2>What we have covered so far</h2>
+        </header>
+        <div class="recap-list recap-compact">
+          <div class="recap-item frag" data-step="1"><span>TCP&rsquo;s RDT mixes <b>Go-Back-N</b> and <b>Selective Repeat</b>: a pipelined sender window, cumulative ACKs, and a receiver buffer for out-of-order segments.</span></div>
+          <div class="recap-item frag" data-step="2"><span><b>Sequence numbers count bytes</b>: each segment is numbered by its first byte, counting on from the <b>ISN</b> chosen in the three-way handshake. SYN and FIN each use one number.</span></div>
+          <div class="recap-item recap-sub frag" data-step="3"><span>An <b>ACK names the next byte expected</b>, e.g. ACK&nbsp;1001 for a SYN with seq&nbsp;1000.</span></div>
+          <div class="recap-item frag" data-step="4"><span><b>Sender</b>: sends anything within its window, with <b>one timer</b> for the oldest unacknowledged segment; a cumulative ACK slides the window forward.</span></div>
+          <div class="recap-item recap-sub frag" data-step="5"><span>On <b>timeout</b>, it retransmits only the oldest unacknowledged segment, not the whole window.</span></div>
+          <div class="recap-item recap-sub frag" data-step="6"><span>On <b>three duplicate ACKs</b>, it <b>fast-retransmits</b> that segment without waiting for the timeout.</span></div>
+          <div class="recap-item frag" data-step="7"><span><b>Receiver</b>: its window base is the next byte expected. It buffers out-of-order segments within the window and immediately sends duplicate ACKs; once a gap is filled, one cumulative ACK covers it all.</span></div>
+          <div class="recap-item recap-sub frag" data-step="8"><span>Received in order is not the same as delivered: unread bytes wait in the receive buffer.</span></div>
+        </div>
+      </section>
+
+
       <section class="slide" data-title="TCP timeout: the challenge" data-section="TCP">
         <header class="content-header">
           <p class="kicker">TCP reliable data transfer</p>
