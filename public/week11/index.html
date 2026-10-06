@@ -3871,9 +3871,9 @@
             <!-- Card 2: The sender's rule -->
             <div class="frag hot-card stateful" data-step="3" data-active-at="3" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">The TCP sender&rsquo;s rule</strong>
-              <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">nextseqnum − base ≤ RcvWindow</p>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">The left side counts the bytes in [<strong>base</strong>, <strong>nextseqnum</strong>): the data in flight.</p>
-              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">Recall that in RDT, the sender window N capped the data in flight. In flow control, the TCP sender works the same way, but its cap is not a fixed N: it is the <strong>RcvWindow</strong> the receiver advertises.</p>
+              <p class="frag inner-line" data-step="3" style="margin:0 0 6px;font-size:18px;line-height:1.5;color:var(--ink);font-family:var(--mono);font-weight:700">data in flight ≤ RcvWindow</p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Recall that the data in flight is the range [<strong>base</strong>, <strong>nextseqnum</strong>), so the sender keeps <span style="font-family:var(--mono);color:var(--ink)">nextseqnum&nbsp;&minus;&nbsp;base &le; RcvWindow</span>.</p>
+              <p class="frag inner-line" data-step="5" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">In RDT, the sender window N capped the data in flight. In flow control, the TCP sender works the same way, but its cap is not a fixed N: it is the <strong>RcvWindow</strong> the receiver advertises.</p>
             </div>
 
           </div>
