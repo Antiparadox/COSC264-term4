@@ -4117,7 +4117,7 @@
             <!-- Card 2: sending -->
             <div class="frag inner-line" data-step="4" style="padding:12px 16px;border-left:4px solid var(--ink);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--ink) 4%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:5px">Sending</strong>
-              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">As long as there is room in the window (data in flight &lt; CongWin), the sender can send more data.</p>
+              <p class="frag inner-line" data-step="4" style="margin:0;font-size:18px;line-height:1.45;color:var(--muted)">As long as there is room in the window (data in flight &lt; min(CongWin, RcvWindow)), the sender can send more data.</p>
             </div>
 
             <!-- Card 3: detection and action -->
@@ -4143,26 +4143,27 @@
               <g class="frag inner-line" data-step="2">
                 <line x1="14" y1="56" x2="46" y2="108" stroke="var(--muted,#6b7f8e)" stroke-width="1.5" marker-end="url(#cc36-arr)"/>
                 <text x="8" y="48" font-size="18" fill="var(--muted,#6b7f8e)" font-family="var(--sans,sans-serif)">start</text>
-                <rect x="20" y="112" width="180" height="76" rx="14" fill="color-mix(in srgb,var(--teal) 10%,var(--surface,#fff))" stroke="var(--teal,#0f9687)" stroke-width="1.6"/>
-                <text x="110" y="144" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">CongWin</text>
+                <rect x="4" y="104" width="212" height="100" rx="14" fill="color-mix(in srgb,var(--teal) 10%,var(--surface,#fff))" stroke="var(--teal,#0f9687)" stroke-width="1.6"/>
+                <text x="110" y="136" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">CongWin</text>
               </g>
 
               <!-- step 3: the cap it enforces -->
               <g class="frag inner-line" data-step="3">
-                <text x="110" y="172" text-anchor="middle" font-size="18" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">in flight &#8804; CongWin</text>
+                <text x="110" y="164" text-anchor="middle" font-size="18" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">in flight &#8804;</text>
+                <text x="110" y="188" text-anchor="middle" font-size="16" fill="var(--teal,#0f9687)" font-family="var(--sans,sans-serif)">min(CongWin, RcvWindow)</text>
               </g>
 
               <!-- step 4: room in the window leads to sending -->
               <g class="frag inner-line" data-step="4">
-                <path d="M160,112 Q240,20 320,112" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="1.6" marker-end="url(#cc36-arr)"/>
-                <text x="240" y="52" text-anchor="middle" font-size="18" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">in flight &lt; CongWin</text>
+                <path d="M160,104 Q240,12 320,112" fill="none" stroke="var(--muted,#6b7f8e)" stroke-width="1.6" marker-end="url(#cc36-arr)"/>
+                <text x="240" y="40" text-anchor="middle" font-size="16" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">in flight &lt; min(CongWin, RcvWindow)</text>
                 <rect x="280" y="112" width="170" height="76" rx="14" fill="color-mix(in srgb,var(--ink) 6%,var(--surface,#fff))" stroke="var(--muted,#6b7f8e)" stroke-width="1.6"/>
                 <text x="365" y="157" text-anchor="middle" font-size="20" font-weight="700" fill="var(--ink,#1a2a33)" font-family="var(--mono,monospace)">Send data</text>
               </g>
 
               <!-- step 5: a loss event takes the sender back -->
               <g class="frag inner-line" data-step="5">
-                <path d="M320,188 Q240,290 160,188" fill="none" stroke="var(--amber,#d4920b)" stroke-width="1.8" marker-end="url(#cc36-amb)"/>
+                <path d="M320,188 Q240,290 160,204" fill="none" stroke="var(--amber,#d4920b)" stroke-width="1.8" marker-end="url(#cc36-amb)"/>
                 <text x="240" y="264" text-anchor="middle" font-size="18" font-weight="700" fill="var(--amber,#d4920b)" font-family="var(--mono,monospace)">loss event</text>
               </g>
 
