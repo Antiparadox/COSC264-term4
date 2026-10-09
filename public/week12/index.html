@@ -3375,207 +3375,19 @@ svg text{font-family:var(--sans)}
 </style>
 
 <!-- ===================================================
-     SLIDE 42 — DNS Message Format
-     =================================================== -->
-<section class="slide" data-sec="DNS">
-  <div class="kicker">DNS Architecture</div>
-  <h2>DNS protocol message format</h2>
-
-  <div style="display:flex;gap:28px;margin-top:10px;align-items:flex-start">
-
-    <!-- Text left 44% -->
-    <div style="flex:44;display:flex;flex-direction:column;gap:12px;font-size:18px">
-
-      <div id="dm1" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        DNS uses the <b>same message format</b> for both <b>queries</b> and <b>replies</b> — a fixed 12-byte header followed by four variable-length sections.
-      </div>
-
-      <div id="dm2" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Identification</div>
-        16-bit number assigned by the client. The reply copies this same value, so the client can match each reply to its original query.
-      </div>
-
-      <div id="dm3" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Flags</div>
-        <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px">
-          <li style="font-size:inherit">Query (0) or reply (1)</li>
-          <li style="font-size:inherit">Recursion desired (RD) — client requests full recursive resolution</li>
-          <li style="font-size:inherit">Recursion available (RA) — server indicates it supports recursion</li>
-        </ul>
-      </div>
-
-      <div id="dm4" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Count fields</div>
-        Four 16-bit counters — one per section below — telling how many records appear in each variable-length section.
-      </div>
-
-      <div id="dm5" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Questions</div>
-        The name and record type being queried. e.g. this Type A question asks for the IP address of the domain facebook.com.
-        <div style="margin-top:6px;font-family:var(--mono);font-size:18px;background:rgba(0,0,0,0.05);border-radius:4px;padding:6px 10px">(facebook.com, A)</div>
-      </div>
-
-      <div id="dm6" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Answers</div>
-        Resource Records (RRs) that directly answer the query.
-        <div style="margin-top:6px;font-family:var(--mono);font-size:18px;background:rgba(0,0,0,0.05);border-radius:4px;padding:6px 10px">(facebook.com, 157.240.22.35, A, TTL=300)</div>
-      </div>
-
-      <div id="dm7" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Authority</div>
-        NS records pointing to authoritative servers — returned in referral responses.
-        <div style="margin-top:6px;font-family:var(--mono);font-size:18px;background:rgba(0,0,0,0.05);border-radius:4px;padding:6px 10px">(facebook.com, a.ns.facebook.com, NS)</div>
-      </div>
-
-      <div id="dm8" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Additional</div>
-        'Glue' Resource Records (RRs) accompanying the authority section — so you can reach the name server without an extra lookup.
-        <div style="margin-top:6px;font-family:var(--mono);font-size:18px;background:rgba(0,0,0,0.05);border-radius:4px;padding:6px 10px">(a.ns.facebook.com, 129.134.30.12, A)</div>
-      </div>
-
-    </div>
-
-    <!-- Diagram right 56% -->
-    <div style="flex:56;padding-top:4px">
-      <div class="dns-msg-wrap">
-        <div class="dns-ruler"><span>&larr; 16 bits &rarr;</span><span>&larr; 16 bits &rarr;</span><span></span></div>
-        <table class="dns-msg-tbl" style="width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed">
-          <colgroup><col style="width:42%"><col style="width:42%"><col style="width:16%"></colgroup>
-          <tbody>
-            <tr>
-              <td class="dns-mcell dns-mhdr dns-m-ident">identification</td>
-              <td class="dns-mcell dns-mhdr dns-m-flags">flags</td>
-              <td rowspan="3" class="dns-brace dns-brace-h"><span>header<br>12 bytes</span></td>
-            </tr>
-            <tr>
-              <td class="dns-mcell dns-mhdr dns-m-counts">number of questions</td>
-              <td class="dns-mcell dns-mhdr dns-m-counts">number of answer RRs</td>
-            </tr>
-            <tr>
-              <td class="dns-mcell dns-mhdr dns-m-counts">number of authority RRs</td>
-              <td class="dns-mcell dns-mhdr dns-m-counts">number of additional RRs</td>
-            </tr>
-            <tr>
-              <td class="dns-mcell dns-mvar dns-m-questions" colspan="2">questions<br><span class="dns-sub">variable number of questions</span></td>
-              <td rowspan="4" class="dns-brace dns-brace-v"><span>variable<br>length</span></td>
-            </tr>
-            <tr><td class="dns-mcell dns-mvar dns-m-answers" colspan="2">answers<br><span class="dns-sub">variable number of resource records</span></td></tr>
-            <tr><td class="dns-mcell dns-mvar dns-m-authority" colspan="2">authority<br><span class="dns-sub">variable number of resource records</span></td></tr>
-            <tr><td class="dns-mcell dns-mvar dns-m-additional" colspan="2">additional information<br><span class="dns-sub">variable number of resource records</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-</section>
-<style>
-  /* DNS message diagram */
-  .dns-msg-wrap { background: var(--surface,#fff); border: 1.5px solid var(--border,rgba(0,0,0,0.12)); border-radius: 10px; padding: 10px 12px 12px; box-shadow: 0 6px 18px rgba(21,36,47,.07); }
-  .dns-ruler { display: grid; grid-template-columns: 42% 42% 16%; font-family: var(--mono); font-size: 16px; color: var(--muted,#54646f); text-align: center; margin-bottom: 4px; }
-  .dns-mcell { border: 1px solid var(--border,rgba(0,0,0,0.14)); padding: 9px 12px; text-align: center; font-size: 18px; transition: opacity .2s, background .2s; }
-  .dns-mhdr  { background: color-mix(in srgb, #c47d16 13%, var(--surface,#fff)); font-weight: 600; }
-  .dns-mvar  { background: color-mix(in srgb, #0f8f83 9%, var(--surface,#fff)); padding: 11px 12px; }
-  .dns-brace { position: relative; padding: 0 0 0 18px; vertical-align: middle; font-size: 16px; color: var(--muted,#54646f); line-height: 1.3; }
-  .dns-brace::before { content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 8px; border: 2px solid currentColor; border-left: none; border-radius: 0 6px 6px 0; opacity: .55; }
-  .dns-brace-h { color: #b06c0c; } .dns-brace-v { color: #0f8f83; }
-  .dns-sub   { font-size: 16px; opacity: .6; }
-
-  /* dm frag cards hidden until .on */
-  #dm1,#dm2,#dm3,#dm4,#dm5,#dm6,#dm7,#dm8 { display: none !important; }
-  #dm1.on,#dm2.on,#dm3.on,#dm4.on,#dm5.on,#dm6.on,#dm7.on,#dm8.on { display: block !important; }
-
-  /* hot-frag chain */
-  .slide:has(#dm2.on) #dm1 { display: none !important; }
-  .slide:has(#dm3.on) #dm2 { display: none !important; }
-  .slide:has(#dm4.on) #dm3 { display: none !important; }
-  .slide:has(#dm5.on) #dm4 { display: none !important; }
-  .slide:has(#dm6.on) #dm5 { display: none !important; }
-  .slide:has(#dm7.on) #dm6 { display: none !important; }
-  .slide:has(#dm8.on) #dm7 { display: none !important; }
-
-  /* Frag 2: identification */
-  .slide:has(#dm2.on) .dns-m-ident   { background: var(--accent-soft,#d9efec) !important; opacity: 1 !important; }
-  .slide:has(#dm2.on) .dns-m-flags,
-  .slide:has(#dm2.on) .dns-m-counts,
-  .slide:has(#dm2.on) .dns-m-questions,
-  .slide:has(#dm2.on) .dns-m-answers,
-  .slide:has(#dm2.on) .dns-m-authority,
-  .slide:has(#dm2.on) .dns-m-additional { opacity: .22 !important; background: none !important; border-left: none !important; }
-
-  /* Frag 3: flags */
-  .slide:has(#dm3.on) .dns-m-flags   { background: var(--accent-soft,#d9efec) !important; opacity: 1 !important; }
-  .slide:has(#dm3.on) .dns-m-ident,
-  .slide:has(#dm3.on) .dns-m-counts,
-  .slide:has(#dm3.on) .dns-m-questions,
-  .slide:has(#dm3.on) .dns-m-answers,
-  .slide:has(#dm3.on) .dns-m-authority,
-  .slide:has(#dm3.on) .dns-m-additional { opacity: .22 !important; background: none !important; border-left: none !important; }
-
-  /* Frag 4: count fields */
-  .slide:has(#dm4.on) .dns-m-counts  { background: var(--accent-soft,#d9efec) !important; opacity: 1 !important; }
-  .slide:has(#dm4.on) .dns-m-ident,
-  .slide:has(#dm4.on) .dns-m-flags,
-  .slide:has(#dm4.on) .dns-m-questions,
-  .slide:has(#dm4.on) .dns-m-answers,
-  .slide:has(#dm4.on) .dns-m-authority,
-  .slide:has(#dm4.on) .dns-m-additional { opacity: .22 !important; background: none !important; border-left: none !important; }
-
-  /* Frag 5: questions */
-  .slide:has(#dm5.on) .dns-m-questions { background: var(--accent-soft,#d9efec) !important; border-left: 3px solid var(--accent,#0f8f83) !important; opacity: 1 !important; }
-  .slide:has(#dm5.on) .dns-m-ident,
-  .slide:has(#dm5.on) .dns-m-flags,
-  .slide:has(#dm5.on) .dns-m-counts,
-  .slide:has(#dm5.on) .dns-m-answers,
-  .slide:has(#dm5.on) .dns-m-authority,
-  .slide:has(#dm5.on) .dns-m-additional { opacity: .22 !important; background: none !important; border-left: none !important; }
-
-  /* Frag 6: answers */
-  .slide:has(#dm6.on) .dns-m-answers  { background: var(--accent-soft,#d9efec) !important; border-left: 3px solid var(--accent,#0f8f83) !important; opacity: 1 !important; }
-  .slide:has(#dm6.on) .dns-m-ident,
-  .slide:has(#dm6.on) .dns-m-flags,
-  .slide:has(#dm6.on) .dns-m-counts,
-  .slide:has(#dm6.on) .dns-m-questions,
-  .slide:has(#dm6.on) .dns-m-authority,
-  .slide:has(#dm6.on) .dns-m-additional { opacity: .22 !important; background: none !important; border-left: none !important; }
-
-  /* Frag 7: authority */
-  .slide:has(#dm7.on) .dns-m-authority { background: var(--accent-soft,#d9efec) !important; border-left: 3px solid var(--accent,#0f8f83) !important; opacity: 1 !important; }
-  .slide:has(#dm7.on) .dns-m-ident,
-  .slide:has(#dm7.on) .dns-m-flags,
-  .slide:has(#dm7.on) .dns-m-counts,
-  .slide:has(#dm7.on) .dns-m-questions,
-  .slide:has(#dm7.on) .dns-m-answers,
-  .slide:has(#dm7.on) .dns-m-additional { opacity: .22 !important; background: none !important; border-left: none !important; }
-
-  /* Frag 8: additional */
-  .slide:has(#dm8.on) .dns-m-additional { background: var(--accent-soft,#d9efec) !important; border-left: 3px solid var(--accent,#0f8f83) !important; opacity: 1 !important; }
-  .slide:has(#dm8.on) .dns-m-ident,
-  .slide:has(#dm8.on) .dns-m-flags,
-  .slide:has(#dm8.on) .dns-m-counts,
-  .slide:has(#dm8.on) .dns-m-questions,
-  .slide:has(#dm8.on) .dns-m-answers,
-  .slide:has(#dm8.on) .dns-m-authority  { opacity: .22 !important; background: none !important; border-left: none !important; }
-</style>
-
-<!-- ===================================================
      SLIDE 43 — DNS Query & Response Example
      =================================================== -->
 <section class="slide" data-sec="DNS">
-  <!-- invisible frag triggers for diagram highlights -->
-  <span id="qr1" class="frag" style="display:none"></span>
-  <span id="qr2" class="frag" style="display:none"></span>
-  <span id="qr3" class="frag" style="display:none"></span>
-  <span id="qr4" class="frag" style="display:none"></span>
-  <span id="qr5" class="frag" style="display:none"></span>
 
   <div class="kicker">DNS Architecture</div>
   <h2>Query &amp; response: a live example</h2>
 
   <div style="display:flex;gap:16px;margin-top:8px;align-items:flex-start">
 
+    <!-- left: QUERY panel, then hot explanation cards -->
+    <div style="flex:42;display:flex;flex-direction:column;gap:12px;min-width:0">
     <!-- QUERY -->
-    <div class="qr-panel" style="flex:42">
+    <div class="qr-panel">
       <div class="qr-head"><span>QUERY</span><span class="qr-route">client &rarr; local DNS &middot; UDP 53</span></div>
       <div class="qr-row qr-txid"><span class="qr-key">Transaction ID</span><span class="qr-val">0x6492</span></div>
       <div class="qr-row qr-flags"><span class="qr-key">Flags</span><span class="qr-val">0x0100 <span class="qr-note">(query, RD=1)</span></span></div>
@@ -3584,6 +3396,40 @@ svg text{font-family:var(--sans)}
       <div class="qr-div"></div>
       <div class="qr-row qr-questions qr-sec">Questions</div>
       <div class="qr-row qr-questions qr-ind">www.facebook.com &nbsp; <b>A</b></div>
+    </div>
+
+      <div id="qr0" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Same format both ways</div>
+        Queries and replies share one format: a <b>12-byte header</b> (six 16-bit fields), then four <b>variable-length sections</b>.
+      </div>
+      <div id="qr1" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Identification</div>
+        A 16-bit ID chosen by the client. The reply copies it (<span style="font-family:var(--mono);font-size:18px">0x6492</span>), so the client can match each reply to its query.
+      </div>
+      <div id="qr2" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Flags</div>
+        Query or reply; <b>recursion desired (RD)</b>, set by the client; <b>recursion available (RA)</b>, set by the server.
+      </div>
+      <div id="qr3" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Counts</div>
+        Four 16-bit counters: how many records each section below holds &mdash; here 1, 2, 4 and 8.
+      </div>
+      <div id="qr4" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Questions</div>
+        The name and record type being asked: <span style="font-family:var(--mono);font-size:18px">(www.facebook.com, A)</span>.
+      </div>
+      <div id="qr5" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Answers</div>
+        Records that answer the question: here a <b>CNAME</b> to the canonical name, then that name&rsquo;s <b>A</b> record.
+      </div>
+      <div id="qr6" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Authority</div>
+        <b>NS</b> records naming the authoritative servers for the domain.
+      </div>
+      <div id="qr7" class="frag qr-card">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Additional</div>
+        &lsquo;Glue&rsquo; records: the <b>IP addresses</b> of those name servers, so they can be reached without an extra lookup.
+      </div>
     </div>
 
     <!-- RESPONSE -->
@@ -3626,27 +3472,22 @@ svg text{font-family:var(--sans)}
   .qr-note { opacity:.6; font-size:18px; font-family:inherit; }
   .qr-div  { height:1px; background:var(--border,rgba(0,0,0,0.1)); margin:2px 0; }
 
-  /* Frag 1: Transaction ID + Flags together */
-  .slide:has(#qr1.on) .qr-txid,
-  .slide:has(#qr1.on) .qr-flags { background:var(--accent-soft,#d9efec) !important; border-left-color:var(--accent,#0f8f83) !important; }
-
-  /* Frag 2: Count fields */
-  .slide:has(#qr2.on) .qr-counts { background:var(--accent-soft,#d9efec) !important; border-left-color:var(--accent,#0f8f83) !important; }
-  .slide:has(#qr2.on) .qr-txid,
-  .slide:has(#qr2.on) .qr-flags  { background:none !important; border-left-color:transparent !important; }
-
-  /* Frag 3: Questions */
-  .slide:has(#qr3.on) .qr-questions { background:var(--accent-soft,#d9efec) !important; border-left-color:var(--accent,#0f8f83) !important; }
-  .slide:has(#qr3.on) .qr-counts    { background:none !important; border-left-color:transparent !important; }
-
-  /* Frag 4: Answers */
-  .slide:has(#qr4.on) .qr-answers   { background:var(--accent-soft,#d9efec) !important; border-left-color:var(--accent,#0f8f83) !important; }
-  .slide:has(#qr4.on) .qr-questions { background:none !important; border-left-color:transparent !important; }
-
-  /* Frag 5: Authority + Additional */
-  .slide:has(#qr5.on) .qr-authority,
-  .slide:has(#qr5.on) .qr-additional { background:var(--accent-soft,#d9efec) !important; border-left-color:var(--accent,#0f8f83) !important; }
-  .slide:has(#qr5.on) .qr-answers    { background:none !important; border-left-color:transparent !important; }
+  /* explanation cards: hot, one at a time */
+  .qr-card { line-height: 1.5; font-size: 18px; border-radius: 8px; border: 1.5px solid rgba(0,0,0,0.12); padding: 10px 14px; background: var(--surface-2,rgba(0,0,0,0.03)); }
+  #qr0:not(.on), #qr1:not(.on), #qr2:not(.on), #qr3:not(.on), #qr4:not(.on), #qr5:not(.on), #qr6:not(.on), #qr7:not(.on) { display: none !important; }
+  .slide:has(#qr1.on) #qr0, .slide:has(#qr2.on) #qr1, .slide:has(#qr3.on) #qr2, .slide:has(#qr4.on) #qr3,
+  .slide:has(#qr5.on) #qr4, .slide:has(#qr6.on) #qr5, .slide:has(#qr7.on) #qr6 { display: none !important; }
+  /* qr0: header rows vs section rows */
+  .slide:has(#qr0.on):not(:has(#qr1.on)) :is(.qr-txid, .qr-flags, .qr-counts) { background: color-mix(in srgb, #c47d16 12%, transparent); }
+  .slide:has(#qr0.on):not(:has(#qr1.on)) :is(.qr-questions, .qr-answers, .qr-authority, .qr-additional) { background: color-mix(in srgb, #0f8f83 8%, transparent); }
+  /* one field group per beat, in both panels */
+  .slide:has(#qr1.on):not(:has(#qr2.on)) .qr-txid,
+  .slide:has(#qr2.on):not(:has(#qr3.on)) .qr-flags,
+  .slide:has(#qr3.on):not(:has(#qr4.on)) .qr-counts,
+  .slide:has(#qr4.on):not(:has(#qr5.on)) .qr-questions,
+  .slide:has(#qr5.on):not(:has(#qr6.on)) .qr-answers,
+  .slide:has(#qr6.on):not(:has(#qr7.on)) .qr-authority,
+  .slide:has(#qr7.on) .qr-additional { background: var(--accent-soft,#d9efec) !important; border-left-color: var(--accent,#0f8f83) !important; }
 
 /* ---- course home link (added for hosting) ---- */
 #hud a{background:var(--surface);border:1px solid var(--border);color:var(--muted);
