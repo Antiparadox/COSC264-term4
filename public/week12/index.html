@@ -2725,9 +2725,9 @@ svg text{font-family:var(--sans)}
       <div id="dh1" class="frag" style="display:none"></div>
       <div style="font-weight:700;font-size:18px;margin-bottom:6px;color:var(--accent,#008080)">Root DNS Servers</div>
       <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
-        <li style="font-size:18px;line-height:1.5">13 root server identities (a&ndash;m.root-servers.net)</li>
-        <li class="frag" style="font-size:18px;line-height:1.5">Each identity&rsquo;s IP address is shared by many machines worldwide; a query goes to the nearest one</li>
-        <li class="frag" style="font-size:18px;line-height:1.5">Together, <b>over 1000 physical instances</b></li>
+        <li style="font-size:18px;line-height:1.5">The top of the hierarchy: they direct each query to the right TLD DNS server, e.g. the one for <b>.nz</b></li>
+        <li class="frag" style="font-size:18px;line-height:1.5">There are 13 root server identities (<span style="white-space:nowrap">a&ndash;m.root-servers.net</span>)</li>
+        <li class="frag" style="font-size:18px;line-height:1.5">Each is replicated: its IP address is shared by many machines worldwide, and a query goes to the nearest one</li>
       </ul>
     </div>
 
@@ -2748,7 +2748,7 @@ svg text{font-family:var(--sans)}
       <div style="font-weight:700;font-size:18px;margin-bottom:6px;color:var(--accent,#008080)">Authoritative DNS Servers</div>
       <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
         <li style="font-size:18px;line-height:1.5">Each organisation&rsquo;s own DNS server</li>
-        <li class="frag" style="font-size:18px;line-height:1.5">The <b>definitive source</b> for its hostname-to-IP mappings</li>
+        <li class="frag" style="font-size:18px;line-height:1.5">It stores the organisation&rsquo;s own records &mdash; the <b>original copy</b> that every answer for its hostnames comes from</li>
         <li class="frag" style="font-size:18px;line-height:1.5">e.g. Canterbury&rsquo;s authoritative server holds the IP for <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px;white-space:nowrap">www.canterbury.ac.nz</code></li>
       </ul>
     </div>
@@ -2803,6 +2803,8 @@ svg text{font-family:var(--sans)}
     border-top: 11px solid transparent;
     border-bottom: 11px solid transparent;
   }
+  /* the root callout is taller than its tier: aim its arrow at the root box */
+  .dh-card-root::before { top: 63px; }
   /* Show correct card per active frag */
   .slide:has(#dh1.on):not(:has(#dh2.on)) .dh-card-root { opacity: 1; }
   .slide:has(#dh2.on):not(:has(#dh3.on)) .dh-card-tld  { opacity: 1; }
