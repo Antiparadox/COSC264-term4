@@ -3564,7 +3564,7 @@ svg text{font-family:var(--sans)}
 <section class="slide" data-sec="DNS">
 
   <div class="kicker">DNS Architecture</div>
-  <h2>Query &amp; response: a live example</h2>
+  <h2>Query &amp; response: an example</h2>
 
   <div style="display:flex;gap:16px;margin-top:8px;align-items:flex-start">
 
@@ -3579,12 +3579,12 @@ svg text{font-family:var(--sans)}
       <div class="qr-row qr-counts"><span class="qr-key">Authority RRs</span><span class="qr-val" style="min-width:40px">0</span><span class="qr-key">Additional RRs</span><span class="qr-val">0</span></div>
       <div class="qr-div"></div>
       <div class="qr-row qr-questions qr-sec">Questions</div>
-      <div class="qr-row qr-questions qr-ind">www.facebook.com &nbsp; <b>A</b></div>
+      <div class="qr-row qr-questions qr-ind">www.canterbury.ac.nz &nbsp; <b>A</b></div>
     </div>
 
       <div id="qr1" class="frag qr-card">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">The question</div>
-        The query asks one question: what is the IP address (type <b>A</b>) of <span style="font-family:var(--mono);font-size:18px">www.facebook.com</span>?
+        The query asks one question: what is the IP address (type <b>A</b>) of <span style="font-family:var(--mono);font-size:18px">www.canterbury.ac.nz</span>?
       </div>
       <div id="qr2" class="frag qr-card">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">The answer</div>
@@ -3592,15 +3592,15 @@ svg text{font-family:var(--sans)}
       </div>
       <div id="qr3" class="frag qr-card">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">First: a CNAME</div>
-        <span style="font-family:var(--mono);font-size:18px">www.facebook.com</span> is an <b>alias</b>; its canonical name is <span style="font-family:var(--mono);font-size:18px">star-mini.c10r.facebook.com</span>.
+        <span style="font-family:var(--mono);font-size:18px">www.canterbury.ac.nz</span> is an <b>alias</b>; its canonical name is <span style="font-family:var(--mono);font-size:18px">web.canterbury.ac.nz</span>.
       </div>
       <div id="qr4" class="frag qr-card">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Then: an A record</div>
-        The canonical name&rsquo;s IP address, <span style="font-family:var(--mono);font-size:18px">31.13.78.35</span> &mdash; the answer we wanted.
+        The canonical name&rsquo;s IP address, <span style="font-family:var(--mono);font-size:18px">132.181.106.9</span> &mdash; the answer we wanted.
       </div>
       <div id="qr5" class="frag qr-card">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Authority</div>
-        An <b>NS</b> record naming an authoritative server for <span style="font-family:var(--mono);font-size:18px">c10r.facebook.com</span>: the final level, which holds the answer&rsquo;s record.
+        An <b>NS</b> record naming an authoritative server for <span style="font-family:var(--mono);font-size:18px">canterbury.ac.nz</span>: the final level, which holds the answer&rsquo;s record.
       </div>
       <div id="qr6" class="frag qr-card">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Additional</div>
@@ -3614,21 +3614,21 @@ svg text{font-family:var(--sans)}
       <div class="qr-row qr-txid"><span class="qr-key">Transaction ID</span><span class="qr-val">0x6492</span></div>
       <div class="qr-row qr-flags"><span class="qr-key">Flags</span><span class="qr-val">0x8180 <span class="qr-note">(reply, RA=1, no error)</span></span></div>
       <div class="qr-row qr-counts"><span class="qr-key">Questions</span><span class="qr-val" style="min-width:40px">1</span><span class="qr-key">Answer RRs</span><span class="qr-val">2</span></div>
-      <div class="qr-row qr-counts"><span class="qr-key">Authority RRs</span><span class="qr-val" style="min-width:40px">4</span><span class="qr-key">Additional RRs</span><span class="qr-val">8</span></div>
+      <div class="qr-row qr-counts"><span class="qr-key">Authority RRs</span><span class="qr-val" style="min-width:40px">1</span><span class="qr-key">Additional RRs</span><span class="qr-val">1</span></div>
       <div class="qr-div"></div>
       <div class="qr-row qr-questions qr-sec">Questions</div>
-      <div class="qr-row qr-questions qr-ind">www.facebook.com &nbsp; <b>A</b></div>
+      <div class="qr-row qr-questions qr-ind">www.canterbury.ac.nz &nbsp; <b>A</b></div>
       <div class="qr-row qr-answers qr-sec">Answers</div>
-      <div class="qr-row qr-answers qr-cname qr-ind">www.facebook.com &nbsp; CNAME</div>
-      <div class="qr-row qr-answers qr-cname qr-ind2">star-mini.c10r.facebook.com</div>
-      <div class="qr-row qr-answers qr-arec qr-ind">star-mini.c10r.facebook.com &nbsp; A</div>
-      <div class="qr-row qr-answers qr-arec qr-ind2">31.13.78.35</div>
+      <div class="qr-row qr-answers qr-cname qr-ind">www.canterbury.ac.nz &nbsp; CNAME</div>
+      <div class="qr-row qr-answers qr-cname qr-ind2">web.canterbury.ac.nz</div>
+      <div class="qr-row qr-answers qr-arec qr-ind">web.canterbury.ac.nz &nbsp; A</div>
+      <div class="qr-row qr-answers qr-arec qr-ind2">132.181.106.9</div>
       <div class="qr-row qr-authority qr-sec">Authority</div>
-      <div class="qr-row qr-authority qr-ind">c10r.facebook.com &nbsp; NS</div>
-      <div class="qr-row qr-authority qr-ind2">d.ns.c10r.facebook.com</div>
+      <div class="qr-row qr-authority qr-ind">canterbury.ac.nz &nbsp; NS</div>
+      <div class="qr-row qr-authority qr-ind2">itdns.canterbury.ac.nz</div>
       <div class="qr-row qr-additional qr-sec">Additional</div>
-      <div class="qr-row qr-additional qr-ind">d.ns.c10r.facebook.com &nbsp; A</div>
-      <div class="qr-row qr-additional qr-ind2">185.89.219.11</div>
+      <div class="qr-row qr-additional qr-ind">itdns.canterbury.ac.nz &nbsp; A</div>
+      <div class="qr-row qr-additional qr-ind2">132.181.2.225</div>
     </div>
 
   </div>
