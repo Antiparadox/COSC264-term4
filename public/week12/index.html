@@ -2202,8 +2202,27 @@ svg text{font-family:var(--sans)}
           <span id="mh-ct" class="mh">Content-Type: image/jpeg</span>
         </span>
         <div style="border-top:1px dashed rgba(0,0,0,0.2);margin:8px 0"></div>
-        <span id="mime-body" class="mh">(base64 encoded data&hellip;<br>
-        &hellip;base64 encoded data)</span>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span id="mime-body" class="mh" style="flex:0 0 auto">(base64 encoded data&hellip;<br>
+          &hellip;base64 encoded data)</span>
+          <div class="mime-decoded" style="display:flex;align-items:center;gap:10px">
+            <span style="font-family:var(--sans,sans-serif);font-size:22px;color:var(--accent)">&rarr;</span>
+            <figure style="margin:0;text-align:center">
+            <svg viewBox="0 0 120 84" width="132" height="92" xmlns="http://www.w3.org/2000/svg" aria-label="decoded image: a crepe on a plate" style="display:block;border-radius:6px">
+              <rect width="120" height="84" rx="6" fill="#f3ead9"/>
+              <ellipse cx="60" cy="60" rx="50" ry="17" fill="#ffffff" stroke="#d8cfbf" stroke-width="1.5"/>
+              <ellipse cx="60" cy="60" rx="38" ry="11" fill="none" stroke="#ece5d8" stroke-width="1"/>
+              <path d="M20,58 Q58,16 100,55 L62,66 Z" fill="#e8b45e" stroke="#c48a35" stroke-width="1.5" stroke-linejoin="round"/>
+              <path d="M62,66 Q60,44 38,40" fill="none" stroke="#c48a35" stroke-width="1.2"/>
+              <path d="M44,47 q8,-6 16,0 t16,2" fill="none" stroke="#6e3f22" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="50" cy="51" r="4" fill="#d6455d"/><circle cx="64" cy="45" r="4" fill="#d6455d"/><circle cx="77" cy="51" r="4" fill="#d6455d"/>
+              <path d="M50,47 l0,-2 M64,41 l0,-2 M77,47 l0,-2" stroke="#3f8f4a" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="40" cy="54" r="1" fill="#fff"/><circle cx="70" cy="56" r="1" fill="#fff"/><circle cx="86" cy="53" r="1" fill="#fff"/>
+            </svg>
+              <figcaption style="font-family:var(--sans,sans-serif);font-size:16px;line-height:1.3;color:var(--muted);margin-top:4px">decoded image</figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2214,6 +2233,8 @@ svg text{font-family:var(--sans)}
   .mh { display: inline-block; padding: 1px 4px; margin-left: -4px; border-radius: 3px; transition: background .22s ease, color .22s ease; }
   #mime-headers .mh { font-weight: 700; }
   #mime-body { color: var(--muted); }
+  .mime-decoded { opacity: 0; transition: opacity .3s ease; }
+  .slide:has(#mi3.on) .mime-decoded { opacity: 1; }
   /* mi2: the new header fields */
   .slide:has(#mi2.on):not(:has(#mi2b.on)) #mime-headers .mh,
   /* mi2b: type and encoding */
