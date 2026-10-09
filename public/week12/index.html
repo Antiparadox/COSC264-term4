@@ -2862,91 +2862,81 @@ svg text{font-family:var(--sans)}
 
     <!-- Diagram right 40% -->
     <div style="flex:40;display:flex;justify-content:center;padding-top:6px">
-      <svg viewBox="0 0 250 292" width="100%"
-           style="font-family:inherit;overflow:visible;color:var(--fg,#15242f);max-width:280px"
-           xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 300 338" width="100%"
+           style="font-family:inherit;overflow:visible;color:var(--fg,#15242f);max-width:420px"
+           xmlns="http://www.w3.org/2000/svg" aria-label="Local DNS server with cache, between your computer and the DNS hierarchy">
 
-        <!-- DNS Hierarchy box — always visible from start -->
-        <rect x="25" y="4" width="200" height="62" rx="6"
-              fill="rgba(0,0,0,0.03)" stroke="currentColor" stroke-width="1.2"
-              stroke-dasharray="4,3" opacity="0.72"/>
-        <text x="125" y="23" text-anchor="middle" font-size="14.5" font-weight="600"
-              fill="currentColor" opacity="0.7">DNS Hierarchy</text>
-        <text x="125" y="39" text-anchor="middle" font-size="14.5"
-              fill="currentColor" opacity="0.5">Root  ·  TLD  ·  Authoritative</text>
-        <text x="125" y="56" text-anchor="middle" font-size="14.5"
-              fill="currentColor" opacity="0.38">(separate from local DNS)</text>
-
-        <!-- Forward arrow: local DNS → hierarchy — grey until ld4, then teal -->
-        <line class="ld-fwd-line" x1="125" y1="122" x2="125" y2="70" stroke-dasharray="5,3" stroke-width="1.6"/>
-        <polygon class="ld-fwd-head" points="125,66 119,78 131,78"/>
-        <text class="ld-fwd-label" x="143" y="94" font-size="14.5">forwards</text>
-        <text class="ld-fwd-label" x="143" y="107" font-size="14.5">query</text>
-
-        <!-- Local DNS server box — always visible from start -->
-        <rect x="35" y="122" width="180" height="66" rx="6"
-              fill="rgba(0,128,128,0.07)" stroke="var(--accent,#008080)" stroke-width="2"/>
-        <text x="125" y="148" text-anchor="middle" font-size="14.5" font-weight="700"
-              fill="var(--accent,#008080)">Local DNS server</text>
-        <text x="125" y="165" text-anchor="middle" font-size="14.5"
-              fill="currentColor" opacity="0.55">e.g. dns.canterbury.ac.nz</text>
-        <text x="125" y="180" text-anchor="middle" font-size="14.5"
-              fill="currentColor" opacity="0.38">(cache)</text>
-
-        <!-- Client group — hidden until ld2 -->
-        <g class="ld-client">
-          <line x1="125" y1="188" x2="125" y2="248"
-                stroke="currentColor" stroke-width="1" opacity="0.3"/>
-          <rect x="60" y="248" width="130" height="38" rx="4"
-                fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
-          <text x="125" y="272" text-anchor="middle" font-size="14.5"
-                fill="currentColor">Your computer</text>
+        <!-- ld1: the DNS hierarchy (mini version of the previous frame), separate from the local server -->
+        <g class="ld-h">
+          <rect x="0" y="0" width="300" height="116" rx="8" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="5,4" opacity="0.45"/>
+          <text x="10" y="14" font-size="12" fill="currentColor" opacity="0.6" font-weight="600">DNS hierarchy</text>
+          <g class="ld-root"><rect x="115" y="18" width="70" height="22" rx="5" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.1" opacity="0.9"/><text x="150.0" y="33.5" text-anchor="middle" font-size="12.5" fill="currentColor">Root</text></g>
+          <path d="M150,40 V47 M75,47 H225 M75,47 V54 M225,47 V54 M75,76 V86 M225,76 V86" fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g><rect x="40" y="54" width="70" height="22" rx="5" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.1" opacity="0.9"/><text x="75.0" y="69.5" text-anchor="middle" font-size="12.5" fill="currentColor">.com</text></g><g><rect x="190" y="54" width="70" height="22" rx="5" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.1" opacity="0.9"/><text x="225.0" y="69.5" text-anchor="middle" font-size="12.5" fill="currentColor">.nz</text></g>
+          <g><rect x="15" y="86" width="120" height="22" rx="5" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.1" opacity="0.9"/><text x="75.0" y="101.5" text-anchor="middle" font-size="12.5" fill="currentColor">youtube.com</text></g><g><rect x="160" y="86" width="130" height="22" rx="5" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.1" opacity="0.9"/><text x="225.0" y="101.5" text-anchor="middle" font-size="12.5" fill="currentColor">canterbury.ac.nz</text></g>
+          <g class="ld-bypass"><line x1="113" y1="29" x2="187" y2="29" stroke="var(--amber,#d4920b)" stroke-width="2"/><text x="192" y="33" font-size="12" fill="var(--amber,#d4920b)" font-weight="700" font-style="italic">bypassed</text></g>
         </g>
 
-        <!-- Query arrow: client → local DNS — hidden until ld3 (left side, x=108) -->
-        <g class="ld-arrow-query">
-          <line x1="108" y1="248" x2="108" y2="188"
-                stroke="var(--accent,#008080)" stroke-width="2" stroke-dasharray="5,3"/>
-          <polygon points="108,188 102.5,200 113.5,200" fill="var(--accent,#008080)"/>
-          <text x="88" y="222" text-anchor="middle" font-size="14.5"
-                fill="var(--accent,#008080)" transform="rotate(-90,88,222)">youtube.com</text>
+        <!-- ld1: the local DNS server (server icon; its cache appears at ld4) -->
+        <g class="ld-srv">
+          <rect x="0" y="146" width="300" height="92" rx="8" fill="rgba(0,128,128,0.04)" stroke="var(--accent,#008080)" stroke-width="1.5"/>
+          <text x="10" y="162" font-size="12.5" font-weight="700" fill="var(--accent,#008080)">Local DNS server</text>
+          <text x="122" y="162" font-size="12" fill="currentColor" opacity="0.6">dns.canterbury.ac.nz</text>
+          <rect x="12" y="172" width="64" height="18" rx="3" fill="rgba(0,128,128,0.10)" stroke="var(--accent,#008080)" stroke-width="1.3"/><circle cx="21" cy="181" r="2.4" fill="var(--accent,#008080)"/><circle cx="29" cy="181" r="2.4" fill="var(--accent,#008080)" opacity="0.5"/><line x1="42" y1="181" x2="69" y2="181" stroke="var(--accent,#008080)" stroke-width="1.2" opacity="0.6"/><rect x="12" y="193" width="64" height="18" rx="3" fill="rgba(0,128,128,0.10)" stroke="var(--accent,#008080)" stroke-width="1.3"/><circle cx="21" cy="202" r="2.4" fill="var(--accent,#008080)"/><circle cx="29" cy="202" r="2.4" fill="var(--accent,#008080)" opacity="0.5"/><line x1="42" y1="202" x2="69" y2="202" stroke="var(--accent,#008080)" stroke-width="1.2" opacity="0.6"/><rect x="12" y="214" width="64" height="18" rx="3" fill="rgba(0,128,128,0.10)" stroke="var(--accent,#008080)" stroke-width="1.3"/><circle cx="21" cy="223" r="2.4" fill="var(--accent,#008080)"/><circle cx="29" cy="223" r="2.4" fill="var(--accent,#008080)" opacity="0.5"/><line x1="42" y1="223" x2="69" y2="223" stroke="var(--accent,#008080)" stroke-width="1.2" opacity="0.6"/>
+        </g>
+        <g class="ld-cache">
+          <rect x="88" y="170" width="206" height="62" rx="6" fill="var(--surface,#fff)" stroke="var(--accent,#008080)" stroke-width="1.2"/>
+          <text x="95" y="184" font-size="12" font-weight="700" fill="var(--accent,#008080)">cache</text>
+          <text class="ld-ttl" x="288" y="184" text-anchor="end" font-size="12" font-weight="700" fill="var(--accent,#008080)">TTL</text>
+          <g class="ld-row1">
+            <rect class="ld-hit" x="91" y="190" width="200" height="18" rx="3" fill="rgba(0,128,128,0.16)"/>
+            <rect class="ld-new" x="91" y="190" width="200" height="18" rx="3" fill="color-mix(in srgb, var(--amber,#d4920b) 22%, transparent)"/>
+            <text x="95" y="203" font-size="11.5" fill="currentColor">youtube.com &#8594; 142.250.66.14</text>
+            <text class="ld-ttl" x="288" y="203" text-anchor="end" font-size="11.5" fill="currentColor">2h</text>
+          </g>
+          <g class="ld-row2">
+            <rect x="91" y="211" width="200" height="18" rx="3" fill="color-mix(in srgb, var(--amber,#d4920b) 14%, transparent)"/>
+            <text x="95" y="224" font-size="11.5" fill="currentColor">.com TLD &#8594; 192.5.6.30</text>
+            <text x="288" y="224" text-anchor="end" font-size="11.5" fill="currentColor">2d</text>
+          </g>
         </g>
 
-        <!-- Reply arrow: local DNS → client — hidden until ld4 (right side, x=142) -->
-        <g class="ld-arrow-reply">
-          <line x1="142" y1="188" x2="142" y2="248"
-                stroke="var(--accent,#008080)" stroke-width="2"/>
-          <polygon points="142,248 136.5,236 147.5,236" fill="var(--accent,#008080)"/>
+        <!-- ld5: forward into the hierarchy and back -->
+        <g class="ld-fw"><line x1="40" y1="144" x2="40" y2="125" stroke="var(--accent,#008080)" stroke-width="2" stroke-dasharray="5,3"/><polygon points="35,126 45,126 40,118" fill="var(--accent,#008080)"/><line x1="66" y1="118" x2="66" y2="137" stroke="var(--amber,#d4920b)" stroke-width="2"/><polygon points="61,136 71,136 66,144" fill="var(--amber,#d4920b)"/><text x="33" y="136" text-anchor="end" font-size="12" fill="var(--accent,#008080)" font-weight="600">query</text><text x="74" y="136" font-size="12" fill="var(--amber,#d4920b)" font-weight="600">reply</text></g>
+
+        <!-- ld2: your computer -->
+        <g class="ld-pc">
+          <rect x="22" y="276" width="64" height="34" rx="3" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="27" y="281" width="54" height="24" rx="1.5" fill="rgba(0,128,128,0.08)"/>
+          <path d="M12,313 H96 L90,319 H18 Z" fill="currentColor" opacity="0.55"/>
+          <text x="54" y="334" text-anchor="middle" font-size="12.5" fill="currentColor">Your computer</text>
         </g>
 
+        <!-- ld3: query to the local server -->
+        <g class="ld-q"><line x1="40" y1="274" x2="40" y2="247" stroke="var(--accent,#008080)" stroke-width="2" stroke-dasharray="5,3"/><polygon points="35,248 45,248 40,240" fill="var(--accent,#008080)"/><text x="76" y="256" font-size="12" fill="var(--accent,#008080)" font-weight="600">youtube.com?</text></g>
+
+        <!-- ld4: reply to your computer -->
+        <g class="ld-r"><line x1="66" y1="240" x2="66" y2="267" stroke="var(--amber,#d4920b)" stroke-width="2"/><polygon points="61,266 71,266 66,274" fill="var(--amber,#d4920b)"/><text x="76" y="271" font-size="12" fill="var(--amber,#d4920b)" font-weight="600">142.250.66.14</text></g>
       </svg>
     </div>
 
   </div>
 </section>
 <style>
-  /* Local DNS slide state machine */
-  .ld-fwd-line  { stroke: currentColor; opacity: 0; }
-  .ld-fwd-head  { fill: currentColor; opacity: 0; }
-  .ld-fwd-label { fill: currentColor; opacity: 0; }
-  .ld-client       { opacity: 0; }
-  .ld-arrow-query  { opacity: 0; }
-  .ld-arrow-reply  { opacity: 0; }
-
-  /* ld2: client appears */
-  .slide:has(#ld2.on) .ld-client { opacity: 1 !important; }
-  /* ld3: ld1 and ld2 cards disappear */
+  /* cards: ld1-ld2 give way to ld3-ld6 */
   #ld3:not(.on), #ld4:not(.on), #ld5:not(.on), #ld6:not(.on) { display: none !important; }
   .slide:has(#ld3.on) #ld1,
   .slide:has(#ld3.on) #ld2 { display: none !important; }
-  /* ld3: query arrow highlighted */
-  .slide:has(#ld3.on) .ld-arrow-query { opacity: 1 !important; }
-  /* ld4: reply arrow appears (cached case — answer from local DNS) */
-  .slide:has(#ld4.on) .ld-arrow-reply { opacity: 1 !important; }
-  /* ld5: forward arrow goes teal (not-cached — query goes up to hierarchy) */
-  .slide:has(#ld5.on) .ld-fwd-line  { stroke: var(--accent,#008080) !important; opacity: 1 !important; }
-  .slide:has(#ld5.on) .ld-fwd-head  { fill:   var(--accent,#008080) !important; opacity: 1 !important; }
-  .slide:has(#ld5.on) .ld-fwd-label { fill:   var(--accent,#008080) !important; opacity: 0.85 !important; }
+  /* diagram, synced to the beats */
+  .ld-h, .ld-srv, .ld-pc, .ld-q, .ld-r, .ld-cache, .ld-row1, .ld-row2, .ld-fw, .ld-hit, .ld-new, .ld-ttl, .ld-bypass { opacity: 0; transition: opacity .25s ease; }
+  .slide:has(#ld1.on) :is(.ld-h, .ld-srv) { opacity: 1; }
+  .slide:has(#ld2.on) .ld-pc { opacity: 1; }
+  .slide:has(#ld3.on) .ld-q { opacity: 1; }
+  .slide:has(#ld4.on) :is(.ld-cache, .ld-row1, .ld-r) { opacity: 1; }
+  .slide:has(#ld4.on):not(:has(#ld5.on)) .ld-hit { opacity: 1; }
+  .slide:has(#ld5.on):not(:has(#ld6.on)) :is(.ld-fw, .ld-new) { opacity: 1; }
+  .slide:has(#ld6.on) :is(.ld-ttl, .ld-row2, .ld-bypass) { opacity: 1; }
+  .slide:has(#ld6.on) .ld-root { opacity: 0.4; }
 </style>
 
 <!-- ===================================================
