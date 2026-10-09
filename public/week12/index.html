@@ -2720,28 +2720,39 @@ svg text{font-family:var(--sans)}
 
     </svg>
 
-    <!-- Root DNS card -->
+    <!-- Root DNS card (trigger dh1 inside, then its bullets) -->
     <div class="dh-card dh-card-root" style="top:0%">
+      <div id="dh1" class="frag" style="display:none"></div>
       <div style="font-weight:700;font-size:18px;margin-bottom:6px;color:var(--accent,#008080)">Root DNS Servers</div>
-      <div style="font-size:18px;line-height:1.55">13 root server identities (a&ndash;m.root-servers.net) — but each identity&rsquo;s IP address is shared by many machines worldwide, and a query goes to the nearest one, giving <b>over 1000 physical instances</b></div>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
+        <li style="font-size:18px;line-height:1.5">13 root server identities (a&ndash;m.root-servers.net)</li>
+        <li class="frag" style="font-size:18px;line-height:1.5">Each identity&rsquo;s IP address is shared by many machines worldwide; a query goes to the nearest one</li>
+        <li class="frag" style="font-size:18px;line-height:1.5">Together, <b>over 1000 physical instances</b></li>
+      </ul>
     </div>
 
     <!-- TLD DNS card -->
     <div class="dh-card dh-card-tld" style="top:26%">
+      <div id="dh2" class="frag" style="display:none"></div>
       <div style="font-weight:700;font-size:18px;margin-bottom:6px;color:var(--accent,#008080)">Top-Level Domain (TLD) DNS Servers</div>
-      <div style="font-size:18px;line-height:1.55">Handle <b>.com</b>, <b>.org</b>, <b>.edu</b> and country-code domains (.nz, .uk). Maintained by dedicated registries — e.g. <b>Verisign</b> (.com), <b>Public Interest Registry</b> (.org), <b>EDUCAUSE</b> (.edu), <b>InternetNZ</b> (.nz).</div>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
+        <li style="font-size:18px;line-height:1.5">Handle generic domains: <b>.com</b>, <b>.org</b>, <b>.edu</b></li>
+        <li class="frag" style="font-size:18px;line-height:1.5">&hellip;and country-code domains: <b>.nz</b>, <b>.uk</b></li>
+        <li class="frag" style="font-size:18px;line-height:1.5">Each is run by a dedicated registry, e.g. <b>Verisign</b> (.com), <b>InternetNZ</b> (.nz)</li>
+      </ul>
     </div>
 
     <!-- Authoritative DNS card -->
-    <div class="dh-card dh-card-auth" style="top:60%">
+    <div class="dh-card dh-card-auth" style="top:52%">
+      <div id="dh3" class="frag" style="display:none"></div>
       <div style="font-weight:700;font-size:18px;margin-bottom:6px;color:var(--accent,#008080)">Authoritative DNS Servers</div>
-      <div style="font-size:18px;line-height:1.55">Each organisation's own DNS server — the <b>definitive source</b> for its hostname-to-IP mappings. e.g. Canterbury's authoritative server holds the IP for <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">www.canterbury.ac.nz</code></div>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
+        <li style="font-size:18px;line-height:1.5">Each organisation&rsquo;s own DNS server</li>
+        <li class="frag" style="font-size:18px;line-height:1.5">The <b>definitive source</b> for its hostname-to-IP mappings</li>
+        <li class="frag" style="font-size:18px;line-height:1.5">e.g. Canterbury&rsquo;s authoritative server holds the IP for <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px;white-space:nowrap">www.canterbury.ac.nz</code></li>
+      </ul>
     </div>
 
-    <!-- Hidden frag triggers -->
-    <div id="dh1" class="frag" style="display:none"></div>
-    <div id="dh2" class="frag" style="display:none"></div>
-    <div id="dh3" class="frag" style="display:none"></div>
 
   </div>
 </section>
