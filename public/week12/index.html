@@ -3133,167 +3133,92 @@ svg text{font-family:var(--sans)}
 
   <div style="display:flex;gap:24px;margin-top:10px;align-items:flex-start">
 
-    <!-- Text left 38% — frags stack (no hot-frag) -->
+    <!-- Text left: three hot cards, each a list of beats -->
     <div style="flex:38;display:flex;flex-direction:column;gap:12px;font-size:18px">
 
-      <div id="ri1" class="frag" style="line-height:1.5;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
+      <div id="ri1" class="frag" style="line-height:1.5;border-radius:6px;padding:12px 15px;border:1.5px solid rgba(0,0,0,0.12);background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Iterative query</div>
-        The contacted server does <b>not</b> resolve the name for you.
-        It returns a <b>referral</b>&nbsp;— "I don't know, try that server."
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
+          <li style="font-size:18px;line-height:1.5">The contacted server does <b>not</b> resolve the name for you.</li>
+          <li id="ri1b" class="frag" style="font-size:18px;line-height:1.5">Instead, it returns a <b>referral</b>: &ldquo;I don&rsquo;t know &mdash; try that server.&rdquo;</li>
+          <li id="ri1c" class="frag" style="font-size:18px;line-height:1.5">The local DNS server follows each referral, until the authoritative server returns the <b>answer</b>.</li>
+        </ul>
       </div>
 
-      <div id="ri2" class="frag" style="line-height:1.5;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
+      <div id="ri2" class="frag" style="line-height:1.5;border-radius:6px;padding:12px 15px;border:1.5px solid rgba(0,0,0,0.12);background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Recursive query</div>
-        The contacted server takes <b>full responsibility</b>&nbsp;—
-        it resolves the name itself (querying the next server in the chain)
-        and returns the <b>final answer</b>.
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
+          <li style="font-size:18px;line-height:1.5">The contacted server takes <b>full responsibility</b>:</li>
+          <li id="ri2b" class="frag" style="font-size:18px;line-height:1.5">it resolves the name itself, querying the next servers on your behalf,</li>
+          <li id="ri2c" class="frag" style="font-size:18px;line-height:1.5">and returns the <b>final answer</b>. e.g. client &rarr; local DNS server.</li>
+        </ul>
       </div>
 
-      <div id="ri3" class="frag" style="line-height:1.5;border-radius:6px;border:1.5px solid var(--accent,#0f8f83);padding:12px 15px;background:var(--accent-soft,#d9efec)">
+      <div id="ri3" class="frag" style="line-height:1.5;border-radius:6px;padding:12px 15px;border:1.5px solid var(--accent,#0f8f83);background:var(--accent-soft,#d9efec)">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Can we go fully recursive?</div>
-        In principle, yes&nbsp;— root asks TLD, which asks auth.
-        In practice, root and TLD servers refuse recursion (too much load),
-        so only client&nbsp;→ local DNS is recursive.
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
+          <li style="font-size:18px;line-height:1.5">In principle, yes: root asks the TLD server, which asks the authoritative server,</li>
+          <li id="ri3b" class="frag" style="font-size:18px;line-height:1.5">and the answer flows back along the chain.</li>
+          <li id="ri3c" class="frag" style="font-size:18px;line-height:1.5">In practice, root and TLD servers <b>refuse recursion</b>: too much load.</li>
+          <li id="ri3d" class="frag" style="font-size:18px;line-height:1.5">So only client &rarr; local DNS server is recursive.</li>
+        </ul>
       </div>
 
     </div>
 
     <!-- Diagram right 62% -->
     <div style="flex:62;display:flex;justify-content:center;padding-top:2px">
-      <svg viewBox="0 0 440 340" width="100%"
+      <svg viewBox="0 0 480 384" width="100%"
            style="font-family:inherit;overflow:visible;color:var(--fg,#15242f);max-width:600px"
-           xmlns="http://www.w3.org/2000/svg">
-
-        <!-- ── Node boxes ── -->
-        <rect x="3" y="276" width="136" height="42" rx="5"
-              fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
-        <text x="71" y="301" text-anchor="middle" font-size="12" fill="currentColor">Client</text>
-
-        <rect x="3" y="136" width="136" height="54" rx="5"
-              fill="rgba(0,128,128,0.07)" stroke="var(--accent,#0f8f83)" stroke-width="2"/>
-        <text x="71" y="160" text-anchor="middle" font-size="12" font-weight="700"
-              fill="var(--accent,#0f8f83)">Local DNS server</text>
-        <text x="71" y="178" text-anchor="middle" font-size="12"
-              fill="currentColor" opacity="0.5">(ISP / university)</text>
-
-        <rect x="168" y="6" width="126" height="44" rx="5"
-              fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
-        <text x="231" y="26" text-anchor="middle" font-size="12" font-weight="600"
-              fill="currentColor">Root DNS</text>
-        <text x="231" y="41" text-anchor="middle" font-size="12"
-              fill="currentColor" opacity="0.55">server</text>
-
-        <rect x="300" y="88" width="138" height="48" rx="5"
-              fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
-        <text x="371" y="109" text-anchor="middle" font-size="12" font-weight="600"
-              fill="currentColor">.nz TLD</text>
-        <text x="371" y="126" text-anchor="middle" font-size="12"
-              fill="currentColor" opacity="0.55">server (InternetNZ)</text>
-
-        <rect x="296" y="252" width="142" height="52" rx="5"
-              fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
-        <text x="367" y="273" text-anchor="middle" font-size="12" font-weight="600"
-              fill="currentColor">Authoritative DNS</text>
-        <text x="367" y="290" text-anchor="middle" font-size="12"
-              fill="currentColor" opacity="0.5">dns.canterbury.ac.nz</text>
-
-        <!-- ── Iterative arrows: local DNS ↔ root/TLD/auth (steps 2–7) ── -->
-        <g class="ri40-iter">
-          <!-- Local DNS → Root (query, dashed teal) -->
-          <line x1="112" y1="136" x2="192" y2="54"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="192,52 185,64 199,60" fill="var(--accent,#0f8f83)"/>
-          <!-- Root → Local DNS (referral, amber) -->
-          <line x1="210" y1="50" x2="128" y2="136"
-                stroke="#c57600" stroke-width="1.8"/>
-          <polygon points="126,138 123,126 135,128" fill="#c57600"/>
-          <!-- Local DNS → TLD (query, dashed teal) -->
-          <line x1="139" y1="150" x2="308" y2="102"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="310,101 298,97 300,109" fill="var(--accent,#0f8f83)"/>
-          <!-- TLD → Local DNS (referral, amber) -->
-          <line x1="308" y1="124" x2="139" y2="172"
-                stroke="#c57600" stroke-width="1.8"/>
-          <polygon points="137,174 141,162 151,168" fill="#c57600"/>
-          <!-- Local DNS → Auth (query, dashed teal) -->
-          <line x1="139" y1="180" x2="298" y2="262"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="300,264 288,260 292,272" fill="var(--accent,#0f8f83)"/>
-          <!-- Auth → Local DNS (answer, teal solid) -->
-          <line x1="296" y1="286" x2="139" y2="186"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8"/>
-          <polygon points="137,184 143,196 151,188" fill="var(--accent,#0f8f83)"/>
-        </g>
-
-        <!-- ── Recursive arrows: client ↔ local DNS (steps 1 & 8) ── -->
-        <g class="ri40-step18">
-          <!-- Client → Local DNS (query, dashed teal) -->
-          <line x1="50" y1="276" x2="50" y2="196"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="50,194 44.5,204 55.5,204" fill="var(--accent,#0f8f83)"/>
-          <!-- Local DNS → Client (reply, solid teal) -->
-          <line x1="92" y1="190" x2="92" y2="270"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8"/>
-          <polygon points="92,276 86.5,266 97.5,266" fill="var(--accent,#0f8f83)"/>
-        </g>
-
-        <!-- ── Fully recursive chain (frag 3): every server delegates ── -->
-        <g class="ri40-fullrecur">
-          <!-- Client → Local DNS (query) -->
-          <line x1="50" y1="276" x2="50" y2="196"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="50,194 44.5,204 55.5,204" fill="var(--accent,#0f8f83)"/>
-          <!-- Local DNS → Root (forwarded query, dashed) -->
-          <line x1="112" y1="136" x2="192" y2="54"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="192,52 185,64 199,60" fill="var(--accent,#0f8f83)"/>
-          <!-- Root → TLD (forwarded query, dashed) -->
-          <line x1="282" y1="50" x2="320" y2="88"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="322,90 310,86 314,98" fill="var(--accent,#0f8f83)"/>
-          <!-- TLD → Auth (forwarded query, dashed) -->
-          <line x1="371" y1="136" x2="367" y2="252"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8" stroke-dasharray="5,3"/>
-          <polygon points="367,254 361,244 373,244" fill="var(--accent,#0f8f83)"/>
-          <!-- Auth → TLD (answer cascading back, solid, offset right) -->
-          <line x1="390" y1="252" x2="394" y2="136"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8"/>
-          <polygon points="394,134 388,144 400,144" fill="var(--accent,#0f8f83)"/>
-          <!-- TLD → Root (answer cascading back, solid) -->
-          <line x1="340" y1="88" x2="300" y2="52"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8"/>
-          <polygon points="298,50 302,62 312,56" fill="var(--accent,#0f8f83)"/>
-          <!-- Root → Local DNS (final answer, solid) -->
-          <line x1="210" y1="50" x2="128" y2="136"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8"/>
-          <polygon points="126,138 123,126 135,128" fill="var(--accent,#0f8f83)"/>
-          <!-- Local DNS → Client (reply, solid) -->
-          <line x1="92" y1="190" x2="92" y2="270"
-                stroke="var(--accent,#0f8f83)" stroke-width="1.8"/>
-          <polygon points="92,276 86.5,266 97.5,266" fill="var(--accent,#0f8f83)"/>
-        </g>
-
+           xmlns="http://www.w3.org/2000/svg" aria-label="Iterative and recursive DNS queries">
+        <g><rect x="170" y="0" width="150" height="56" rx="8" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.2"/><rect x="180" y="12" width="20" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="184" cy="16" r="1.3" fill="currentColor"/><rect x="180" y="22" width="20" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="184" cy="26" r="1.3" fill="currentColor"/><text x="208" y="25" font-size="13" font-weight="700" fill="currentColor">Root</text><text x="245.0" y="46" text-anchor="middle" font-size="12.5" fill="currentColor" opacity="0.6">DNS server</text></g>
+        <g><rect x="330" y="150" width="150" height="56" rx="8" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.2"/><rect x="340" y="162" width="20" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="344" cy="166" r="1.3" fill="currentColor"/><rect x="340" y="172" width="20" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="344" cy="176" r="1.3" fill="currentColor"/><text x="368" y="175" font-size="13" font-weight="700" fill="currentColor">.nz TLD</text><text x="405.0" y="196" text-anchor="middle" font-size="12.5" fill="currentColor" opacity="0.6">InternetNZ</text></g>
+        <g><rect x="330" y="316" width="150" height="56" rx="8" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.2"/><rect x="340" y="328" width="20" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="344" cy="332" r="1.3" fill="currentColor"/><rect x="340" y="338" width="20" height="8" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.1"/><circle cx="344" cy="342" r="1.3" fill="currentColor"/><text x="368" y="341" font-size="13" font-weight="700" fill="currentColor">Authoritative</text><text x="405.0" y="362" text-anchor="middle" font-size="12.5" fill="currentColor" opacity="0.6">dns.canterbury.ac.nz</text></g>
+        <g><rect x="0" y="150" width="150" height="62" rx="8" fill="rgba(0,128,128,0.06)" stroke="var(--accent,#0f8f83)" stroke-width="1.6"/>
+          <rect x="10" y="162" width="38" height="11" rx="2" fill="rgba(0,128,128,0.12)" stroke="var(--accent,#0f8f83)" stroke-width="1.1"/><circle cx="16" cy="167.5" r="1.6" fill="var(--accent,#0f8f83)"/><rect x="10" y="176" width="38" height="11" rx="2" fill="rgba(0,128,128,0.12)" stroke="var(--accent,#0f8f83)" stroke-width="1.1"/><circle cx="16" cy="181.5" r="1.6" fill="var(--accent,#0f8f83)"/><rect x="10" y="190" width="38" height="11" rx="2" fill="rgba(0,128,128,0.12)" stroke="var(--accent,#0f8f83)" stroke-width="1.1"/><circle cx="16" cy="195.5" r="1.6" fill="var(--accent,#0f8f83)"/>
+          <text x="56" y="172" font-size="13" font-weight="700" fill="var(--accent,#0f8f83)">Local DNS</text>
+          <text x="56" y="189" font-size="13" font-weight="700" fill="var(--accent,#0f8f83)">server</text>
+          <text x="56" y="205" font-size="12.5" fill="currentColor" opacity="0.6">(ISP / uni)</text></g>
+        <g><rect x="43" y="318" width="64" height="34" rx="3" fill="var(--surface-2,rgba(0,0,0,0.04))" stroke="currentColor" stroke-width="1.3"/>
+          <rect x="48" y="323" width="54" height="24" rx="1.5" fill="rgba(0,128,128,0.08)"/>
+          <path d="M33,355 H117 L111,361 H39 Z" fill="currentColor" opacity="0.55"/>
+          <text x="75" y="378" text-anchor="middle" font-size="13" fill="currentColor">Client</text></g>
+        <!-- iterative: queries, then referrals, then the answer -->
+        <g class="ri-iq"><line x1="137.4" y1="156.7" x2="216.4" y2="69.4" stroke="var(--accent,#0f8f83)" stroke-width="2.2" stroke-dasharray="5,3"/><polygon points="222.4,62.7 220.5,73.1 212.3,65.7" fill="var(--accent,#0f8f83)"/><text x="191.8" y="124.4" text-anchor="start" font-size="13" font-weight="600" fill="var(--accent,#0f8f83)">query</text><line x1="150.2" y1="192.0" x2="321.2" y2="189.1" stroke="var(--accent,#0f8f83)" stroke-width="2.2" stroke-dasharray="5,3"/><polygon points="330.2,189.0 321.3,194.6 321.1,183.6" fill="var(--accent,#0f8f83)"/><text x="240.4" y="210.5" text-anchor="middle" font-size="13" font-weight="600" fill="var(--accent,#0f8f83)">query</text><line x1="134.6" y1="221.6" x2="321.8" y2="327.2" stroke="var(--accent,#0f8f83)" stroke-width="2.2" stroke-dasharray="5,3"/><polygon points="329.6,331.6 319.1,331.9 324.5,322.4" fill="var(--accent,#0f8f83)"/><text x="224.2" y="294.5" text-anchor="middle" font-size="13" font-weight="600" fill="var(--accent,#0f8f83)">query</text></g>
+        <g class="ri-iref"><line x1="207.6" y1="49.3" x2="128.6" y2="136.6" stroke="var(--amber,#c57600)" stroke-width="2.2"/><polygon points="122.6,143.3 124.5,132.9 132.7,140.3" fill="var(--amber,#c57600)"/><text x="153.2" y="89.6" text-anchor="end" font-size="13" font-weight="600" fill="var(--amber,#c57600)">referral</text><line x1="329.8" y1="167.0" x2="158.8" y2="169.9" stroke="var(--amber,#c57600)" stroke-width="2.2"/><polygon points="149.8,170.0 158.7,164.4 158.9,175.4" fill="var(--amber,#c57600)"/><text x="239.6" y="156.5" text-anchor="middle" font-size="13" font-weight="600" fill="var(--amber,#c57600)">referral</text></g>
+        <g class="ri-ians"><line x1="340.4" y1="312.4" x2="153.2" y2="206.8" stroke="var(--amber,#c57600)" stroke-width="2.2"/><polygon points="145.4,202.4 155.9,202.1 150.5,211.6" fill="var(--amber,#c57600)"/><text x="250.8" y="247.5" text-anchor="middle" font-size="13" font-weight="600" fill="var(--amber,#c57600)">answer</text></g>
+        <!-- recursive: client <-> local server -->
+        <g class="ri-cq"><line x1="89.0" y1="316.0" x2="89.0" y2="223.0" stroke="var(--accent,#0f8f83)" stroke-width="2.2" stroke-dasharray="5,3"/><polygon points="89.0,214.0 94.5,223.0 83.5,223.0" fill="var(--accent,#0f8f83)"/><text x="99.0" y="269.0" text-anchor="start" font-size="13" font-weight="600" fill="var(--accent,#0f8f83)">query</text></g>
+        <g class="ri-ca"><line x1="61.0" y1="214.0" x2="61.0" y2="307.0" stroke="var(--amber,#c57600)" stroke-width="2.2"/><polygon points="61.0,316.0 55.5,307.0 66.5,307.0" fill="var(--amber,#c57600)"/><text x="51.0" y="269.0" text-anchor="end" font-size="13" font-weight="600" fill="var(--amber,#c57600)">final answer</text></g>
+        <!-- fully recursive chain -->
+        <g class="ri-fq"><line x1="137.4" y1="156.7" x2="216.4" y2="69.4" stroke="var(--accent,#0f8f83)" stroke-width="2.2" stroke-dasharray="5,3"/><polygon points="222.4,62.7 220.5,73.1 212.3,65.7" fill="var(--accent,#0f8f83)"/><text x="191.8" y="124.4" text-anchor="start" font-size="13" font-weight="600" fill="var(--accent,#0f8f83)">query</text><line x1="292.6" y1="62.7" x2="371.5" y2="150.0" stroke="var(--accent,#0f8f83)" stroke-width="2.2" stroke-dasharray="5,3"/><polygon points="377.6,156.7 367.5,153.7 375.6,146.3" fill="var(--accent,#0f8f83)"/><text x="323.2" y="124.4" text-anchor="end" font-size="13" font-weight="600" fill="var(--accent,#0f8f83)">query</text><line x1="391.0" y1="206.0" x2="391.0" y2="307.0" stroke="var(--accent,#0f8f83)" stroke-width="2.2" stroke-dasharray="5,3"/><polygon points="391.0,316.0 385.5,307.0 396.5,307.0" fill="var(--accent,#0f8f83)"/><text x="381.0" y="265.0" text-anchor="end" font-size="13" font-weight="600" fill="var(--accent,#0f8f83)">query</text></g>
+        <g class="ri-fa"><line x1="419.0" y1="316.0" x2="419.0" y2="215.0" stroke="var(--amber,#c57600)" stroke-width="2.2"/><polygon points="419.0,206.0 424.5,215.0 413.5,215.0" fill="var(--amber,#c57600)"/><text x="429.0" y="265.0" text-anchor="start" font-size="13" font-weight="600" fill="var(--amber,#c57600)">answer</text><line x1="392.4" y1="143.3" x2="313.5" y2="56.0" stroke="var(--amber,#c57600)" stroke-width="2.2"/><polygon points="307.4,49.3 317.5,52.3 309.4,59.7" fill="var(--amber,#c57600)"/><text x="361.8" y="89.6" text-anchor="start" font-size="13" font-weight="600" fill="var(--amber,#c57600)">answer</text><line x1="207.6" y1="49.3" x2="128.6" y2="136.6" stroke="var(--amber,#c57600)" stroke-width="2.2"/><polygon points="122.6,143.3 124.5,132.9 132.7,140.3" fill="var(--amber,#c57600)"/><text x="153.2" y="89.6" text-anchor="end" font-size="13" font-weight="600" fill="var(--amber,#c57600)">answer</text></g>
+        <g class="ri-fx"><g class="ri-x"><circle cx="335.1" cy="109.7" r="10" fill="var(--bg,#eef1f4)"/><text x="335.1" y="109.7" dy="0.36em" text-anchor="middle" font-size="18" font-weight="800" fill="var(--red,#c0392b)">&#10005;</text></g><g class="ri-x"><circle cx="391.0" cy="261.0" r="10" fill="var(--bg,#eef1f4)"/><text x="391.0" y="261.0" dy="0.36em" text-anchor="middle" font-size="18" font-weight="800" fill="var(--red,#c0392b)">&#10005;</text></g></g>
       </svg>
     </div>
 
   </div>
 </section>
 <style>
-  /* Slide 40 state machine — all arrow groups hidden by default */
-  .ri40-iter, .ri40-step18, .ri40-fullrecur { opacity: 0; }
-
-  /* Frag 1 (iterative): highlight steps 2–7, dim steps 1&8 */
-  .slide:has(#ri1.on) .ri40-iter   { opacity: 1   !important; }
-  .slide:has(#ri1.on) .ri40-step18 { opacity: 0.15 !important; }
-
-  /* Frag 2 (recursive): highlight steps 1&8, dim steps 2–7 */
-  .slide:has(#ri2.on) .ri40-iter   { opacity: 0.12 !important; }
-  .slide:has(#ri2.on) .ri40-step18 { opacity: 1   !important; }
-
-  /* Frag 3 (fully recursive): hide steps 1–8, show full chain */
-  .slide:has(#ri3.on) .ri40-iter      { opacity: 0 !important; }
-  .slide:has(#ri3.on) .ri40-step18    { opacity: 0 !important; }
-  .slide:has(#ri3.on) .ri40-fullrecur { opacity: 1 !important; }
+  /* hot cards: one at a time */
+  #ri2:not(.on), #ri3:not(.on) { display: none !important; }
+  .slide:has(#ri2.on) #ri1, .slide:has(#ri3.on) #ri2 { display: none !important; }
+  /* diagram, synced to every bullet */
+  .ri-iq, .ri-iref, .ri-ians, .ri-cq, .ri-ca, .ri-fq, .ri-fa, .ri-fx { opacity: 0; transition: opacity .25s ease; }
+  /* iterative */
+  .slide:has(#ri1.on):not(:has(#ri2.on)) .ri-iq { opacity: 1; }
+  .slide:has(#ri1b.on):not(:has(#ri2.on)) .ri-iref { opacity: 1; }
+  .slide:has(#ri1c.on):not(:has(#ri2.on)) .ri-ians { opacity: 1; }
+  /* recursive: client asks; local server resolves on its behalf; final answer */
+  .slide:has(#ri2.on):not(:has(#ri3.on)) .ri-cq { opacity: 1; }
+  .slide:has(#ri2b.on):not(:has(#ri3.on)) :is(.ri-iq, .ri-iref, .ri-ians) { opacity: 0.3; }
+  .slide:has(#ri2c.on):not(:has(#ri3.on)) .ri-ca { opacity: 1; }
+  /* fully recursive */
+  .slide:has(#ri3.on) :is(.ri-cq, .ri-fq) { opacity: 1; }
+  .slide:has(#ri3b.on) :is(.ri-fa, .ri-ca) { opacity: 1; }
+  .slide:has(#ri3c.on) .ri-fx { opacity: 1; }
+  .slide:has(#ri3c.on) :is(.ri-fq, .ri-fa) { opacity: 0.35; }
+  .slide:has(#ri3d.on) :is(.ri-fq, .ri-fa, .ri-fx) { opacity: 0.12; }
 </style>
 
 
