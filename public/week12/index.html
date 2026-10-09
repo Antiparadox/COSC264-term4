@@ -3227,18 +3227,18 @@ svg text{font-family:var(--sans)}
   <div class="kicker">DNS Architecture</div>
   <h2>DNS Resource Records</h2>
 
-  <div style="display:flex;gap:28px;margin-top:10px;align-items:flex-start">
 
-    <!-- Text left 40% -->
-    <div style="flex:40;display:flex;flex-direction:column;gap:12px;font-size:18px">
+  <div id="rr1" class="frag rr-band">
+    <div style="flex:1;font-size:18px;line-height:1.5">DNS&rsquo;s distributed database stores its mappings as <b>Resource Records (RRs)</b>: each DNS server keeps a table of records, all in the same four-field format.</div>
+    <div class="rr-chips">
+      <div class="rr-chip" style="--c:#0f8f83"><span class="rr-chip-name">name</span><span class="rr-chip-cap">e.g. a hostname</span></div><div class="rr-chip" style="--c:#0f8f83"><span class="rr-chip-name">value</span><span class="rr-chip-cap">e.g. an IP address</span></div><div class="rr-chip" style="--c:#c47d16"><span class="rr-chip-name">type</span><span class="rr-chip-cap">A, NS, CNAME, MX</span></div><div class="rr-chip" style="--c:#5b6bd6"><span class="rr-chip-name">TTL</span><span class="rr-chip-cap">time-to-live (s)</span></div>
+    </div>
+  </div>
 
-      <div id="rr1" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
-        DNS distributes data as <b>Resource Records (RRs)</b>.
-        Each record has four fields:
-        <div style="margin-top:8px;font-family:var(--mono);font-size:18px;background:rgba(0,0,0,0.05);border-radius:4px;padding:7px 12px;letter-spacing:.01em">
-          (name,&nbsp; value,&nbsp; type,&nbsp; TTL <span style="font-family:inherit;font-size:18px;opacity:.6">— Time-To-Live</span>)
-        </div>
-      </div>
+  <div style="display:flex;gap:24px;margin-top:14px;align-items:flex-start">
+
+    <!-- Type cards left (hot) -->
+    <div style="flex:36;display:flex;flex-direction:column;gap:12px;font-size:18px">
 
       <div id="rr2" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:12px 15px;background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Type A</div>
@@ -3263,8 +3263,8 @@ svg text{font-family:var(--sans)}
 
     </div>
 
-    <!-- Table right 60% -->
-    <div style="flex:60;padding-top:4px">
+    <!-- Table right -->
+    <div style="flex:64">
       <table class="rr-tbl" style="width:100%;border-collapse:collapse;font-size:18px">
         <thead>
           <tr class="rr-thead">
@@ -3318,6 +3318,12 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 <style>
+  /* RR format band */
+  .rr-band { display: flex; align-items: center; gap: 20px; padding: 12px 16px; border: 1.5px solid var(--border,rgba(0,0,0,0.12)); border-radius: 10px; background: var(--surface-2,rgba(0,0,0,0.03)); margin-top: 6px; }
+  .rr-chips { display: flex; gap: 8px; flex: 0 0 auto; }
+  .rr-chip { display: flex; flex-direction: column; align-items: center; padding: 6px 12px; border-radius: 8px; border: 1.5px solid var(--c); background: color-mix(in srgb, var(--c) 9%, var(--surface,#fff)); }
+  .rr-chip-name { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--c); }
+  .rr-chip-cap { font-size: 16px; color: var(--muted,#54646f); white-space: nowrap; }
   /* RR table base */
   .rr-tbl { border: 1.5px solid var(--border,rgba(0,0,0,0.12)); border-radius:10px; overflow:hidden; background: var(--surface,#fff); box-shadow: 0 6px 18px rgba(21,36,47,.07); border-collapse: separate !important; border-spacing: 0; }
   .rr-tbl th { color: var(--muted,#54646f); white-space: nowrap; }
@@ -3331,17 +3337,16 @@ svg text{font-family:var(--sans)}
   .rr-row:last-child { border-bottom: none; }
 
   /* all rr frag cards hidden until .on */
-  #rr1,#rr2,#rr3,#rr4,#rr5 { display:none !important; }
-  #rr1.on,#rr2.on,#rr3.on,#rr4.on,#rr5.on { display:block !important; }
+  #rr2,#rr3,#rr4,#rr5 { display:none !important; }
+  #rr2.on,#rr3.on,#rr4.on,#rr5.on { display:block !important; }
 
   /* hot-frag: each new frag hides previous */
-  .slide:has(#rr2.on) #rr1 { display:none !important; }
   .slide:has(#rr3.on) #rr2 { display:none !important; }
   .slide:has(#rr4.on) #rr3 { display:none !important; }
   .slide:has(#rr5.on) #rr4 { display:none !important; }
 
   /* Frag 1: highlight table header */
-  .slide:has(#rr1.on) .rr-thead { background: var(--accent-soft,#d9efec) !important; }
+  .slide:has(#rr1.on):not(:has(#rr2.on)) .rr-thead { background: var(--accent-soft,#d9efec) !important; }
 
   /* Frag 2: A rows bright, rest dim */
   .slide:has(#rr2.on) .rr-row-A    { background: var(--accent-soft,#d9efec) !important; border-left: 3px solid var(--accent,#0f8f83); opacity: 1 !important; }
