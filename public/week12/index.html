@@ -2515,7 +2515,8 @@ svg text{font-family:var(--sans)}
     <svg viewBox="0 0 820 265" width="820" xmlns="http://www.w3.org/2000/svg"
          style="font-family:inherit;display:block;overflow:visible;color:var(--fg,#15242f)">
 
-      <!-- Client boxes -->
+      <!-- Client boxes: dl1 (many users) -->
+      <g class="dl-clients">
       <rect x="10" y="26" width="120" height="40" rx="5" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
       <text x="70" y="51" text-anchor="middle" font-size="16" fill="currentColor">Client 1</text>
 
@@ -2524,14 +2525,19 @@ svg text{font-family:var(--sans)}
 
       <rect x="10" y="198" width="120" height="40" rx="5" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
       <text x="70" y="223" text-anchor="middle" font-size="16" fill="currentColor">Client 3</text>
+      </g>
 
-      <!-- DNS Server box -->
+      <!-- DNS Server box: dl1c (DNS load balancing) -->
+      <g class="dl-dns">
       <rect x="330" y="90" width="164" height="68" rx="6" fill="rgba(0,128,128,0.08)" stroke="var(--accent,#008080)" stroke-width="1.5"/>
       <text x="412" y="116" text-anchor="middle" font-size="16" fill="currentColor" font-weight="600">DNS Server</text>
       <text x="412" y="134" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.55">round-robin</text>
       <text x="412" y="150" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.55">rotation</text>
+      </g>
 
-      <!-- Web Server boxes -->
+      <!-- Web Server boxes: dl1b (many instances, distinct IPs, one hostname) -->
+      <g class="dl-servers">
+      <text x="734" y="8" text-anchor="middle" font-size="16" fill="var(--accent,#008080)" font-weight="600">all named youtube.com</text>
       <rect x="652" y="20" width="164" height="52" rx="5" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
       <text x="734" y="40" text-anchor="middle" font-size="16" fill="currentColor">YouTube Server A</text>
       <text x="734" y="60" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.55">192.0.2.1</text>
@@ -2543,6 +2549,7 @@ svg text{font-family:var(--sans)}
       <rect x="652" y="192" width="164" height="52" rx="5" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
       <text x="734" y="212" text-anchor="middle" font-size="16" fill="currentColor">YouTube Server C</text>
       <text x="734" y="232" text-anchor="middle" font-size="16" fill="currentColor" opacity="0.55">192.0.2.3</text>
+      </g>
 
       <!-- Path 1: Client 1 → DNS → Web Server A -->
       <g class="dl-p1" opacity="0">
@@ -2559,7 +2566,7 @@ svg text{font-family:var(--sans)}
       <g class="dl-p2" opacity="0">
         <line x1="130" y1="132" x2="330" y2="132" stroke="var(--accent,#008080)" stroke-width="1.8" stroke-dasharray="5,3"/>
         <polygon points="322,127 322,137 330,132" fill="var(--accent,#008080)"/>
-        <text x="140" y="122" text-anchor="start" font-size="16" fill="var(--accent,#008080)" paint-order="stroke" stroke="var(--bg,#eef1f4)" stroke-width="5" stroke-linejoin="round">2nd query</text>
+        <text x="140" y="122" text-anchor="start" font-size="16" fill="var(--accent,#008080)" paint-order="stroke" stroke="var(--bg,#eef1f4)" stroke-width="5" stroke-linejoin="round">2nd query: youtube.com</text>
         <line x1="494" y1="132" x2="652" y2="132" stroke="var(--accent,#008080)" stroke-width="1.8"/>
         <polygon points="644,127 644,137 652,132" fill="var(--accent,#008080)"/>
         <text x="575" y="122" text-anchor="middle" font-size="16" fill="var(--accent,#008080)" paint-order="stroke" stroke="var(--bg,#eef1f4)" stroke-width="5" stroke-linejoin="round">→ 192.0.2.2 first</text>
@@ -2587,7 +2594,10 @@ svg text{font-family:var(--sans)}
 
 </section>
 <style>
-  .dl-p1, .dl-p2, .dl-p3 { opacity: 0; }
+  .dl-p1, .dl-p2, .dl-p3, .dl-clients, .dl-servers, .dl-dns { opacity: 0; transition: opacity .25s ease; }
+  .slide:has(#dl1.on) .dl-clients { opacity: 1; }
+  .slide:has(#dl1b.on) .dl-servers { opacity: 1; }
+  .slide:has(#dl1c.on) .dl-dns { opacity: 1; }
   .slide:has(#dl2.on) .dl-p1 { opacity: 1 !important; }
   .slide:has(#dl3.on) .dl-p1 { opacity: 0.2 !important; }
   .slide:has(#dl3.on) .dl-p2 { opacity: 1 !important; }
