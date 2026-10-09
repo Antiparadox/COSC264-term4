@@ -2506,16 +2506,22 @@ svg text{font-family:var(--sans)}
     <div id="dl1b" class="frag" style="line-height:1.5">
       The service is therefore distributed across <b>many server instances</b>, each with a <b>distinct IP address</b>, all sharing the <b>same hostname</b> (e.g. <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">youtube.com</code>).
     </div>
+    <div id="dl1q" class="frag" style="line-height:1.5;font-weight:700;color:var(--accent)">
+      How are users assigned to these servers?
+    </div>
     <div id="dl1c" class="frag" style="line-height:1.5">
-      How are users assigned to these servers? <b>DNS load balancing</b> — DNS stores all the IPs and <b>rotates their order</b> on each response, so consecutive clients get a different IP listed first.
+      <b>DNS load balancing</b> — DNS stores all the IPs and <b>rotates their order</b> on each response, so consecutive clients get a different IP listed first.
+    </div>
+    <div id="dl1e" class="frag" style="line-height:1.5">
+      e.g. three clients query <code style="font-size:18px;background:rgba(0,0,0,0.07);padding:1px 4px;border-radius:3px">youtube.com</code> in turn:
     </div>
   </div>
 
-  <div style="display:flex;justify-content:center;margin-top:20px">
+  <div style="display:flex;justify-content:center;margin-top:14px">
     <svg viewBox="0 0 820 265" width="820" xmlns="http://www.w3.org/2000/svg"
          style="font-family:inherit;display:block;overflow:visible;color:var(--fg,#15242f)">
 
-      <!-- Client boxes: dl1 (many users) -->
+      <!-- Client boxes: dl1e (the concrete example) -->
       <g class="dl-clients">
       <rect x="10" y="26" width="120" height="40" rx="5" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.2"/>
       <text x="70" y="51" text-anchor="middle" font-size="16" fill="currentColor">Client 1</text>
@@ -2595,7 +2601,7 @@ svg text{font-family:var(--sans)}
 </section>
 <style>
   .dl-p1, .dl-p2, .dl-p3, .dl-clients, .dl-servers, .dl-dns { opacity: 0; transition: opacity .25s ease; }
-  .slide:has(#dl1.on) .dl-clients { opacity: 1; }
+  .slide:has(#dl1e.on) .dl-clients { opacity: 1; }
   .slide:has(#dl1b.on) .dl-servers { opacity: 1; }
   .slide:has(#dl1c.on) .dl-dns { opacity: 1; }
   .slide:has(#dl2.on) .dl-p1 { opacity: 1 !important; }
