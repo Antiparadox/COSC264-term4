@@ -2614,9 +2614,10 @@ svg text{font-family:var(--sans)}
 <!-- Slide 36: Why not centralised DNS? -->
 <section class="slide" data-sec="DNS">
   <div class="kicker">DNS</div>
-  <h2>Why not a centralised design?</h2>
+  <h2>DNS is distributed, not centralised</h2>
 
-  <p style="font-size:18px;margin-top:10px;margin-bottom:2px">A centralised design would use a <b>single server</b> that hosts the translation database — every DNS query goes to that server.</p>
+  <p style="font-size:18px;margin-top:10px;margin-bottom:2px">Recall that DNS stores the hostname-to-IP mapping in a <b>distributed database</b>, spread across many DNS servers.</p>
+  <p id="cd0" class="frag" style="font-size:18px;margin-top:10px;margin-bottom:2px;font-weight:700;color:var(--accent)">Why not a centralised design &mdash; a <span style="white-space:nowrap">single server</span> hosting the whole database, so that every DNS query goes to it?</p>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;max-width:820px">
 
