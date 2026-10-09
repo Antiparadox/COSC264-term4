@@ -3271,45 +3271,45 @@ svg text{font-family:var(--sans)}
             <th style="padding:8px 10px;text-align:left;font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase">name</th>
             <th style="padding:8px 10px;text-align:left;font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase">value</th>
             <th style="padding:8px 10px;text-align:left;font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase">type</th>
-            <th style="padding:8px 10px;text-align:left;font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase">TTL</th>
+            <th style="padding:8px 10px;text-align:left;font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase">TTL <span style="text-transform:none;letter-spacing:0;font-weight:500;opacity:.6">(s)</span></th>
           </tr>
         </thead>
         <tbody>
           <tr class="rr-row rr-row-A">
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">web.canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">132.181.106.9</td>
-            <td style="padding:7px 10px;font-weight:700">A</td>
-            <td style="padding:7px 10px;opacity:.55">XXXX</td>
+            <td style="padding:7px 10px"><span class="rr-badge rr-b-A">A</span></td>
+            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px;opacity:.7">3600</td>
           </tr>
           <tr class="rr-row rr-row-A">
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">itdns.canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">132.181.2.225</td>
-            <td style="padding:7px 10px;font-weight:700">A</td>
-            <td style="padding:7px 10px;opacity:.55">XXXX</td>
+            <td style="padding:7px 10px"><span class="rr-badge rr-b-A">A</span></td>
+            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px;opacity:.7">3600</td>
           </tr>
           <tr class="rr-row rr-row-A">
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">mail.canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">132.181.3.225</td>
-            <td style="padding:7px 10px;font-weight:700">A</td>
-            <td style="padding:7px 10px;opacity:.55">XXXX</td>
+            <td style="padding:7px 10px"><span class="rr-badge rr-b-A">A</span></td>
+            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px;opacity:.7">3600</td>
           </tr>
           <tr class="rr-row rr-row-NS">
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">itdns.canterbury.ac.nz</td>
-            <td style="padding:7px 10px;font-weight:700">NS</td>
-            <td style="padding:7px 10px;opacity:.55">XXXX</td>
+            <td style="padding:7px 10px"><span class="rr-badge rr-b-NS">NS</span></td>
+            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px;opacity:.7">86400</td>
           </tr>
           <tr class="rr-row rr-row-CNAME">
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">www.canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">web.canterbury.ac.nz</td>
-            <td style="padding:7px 10px;font-weight:700">CNAME</td>
-            <td style="padding:7px 10px;opacity:.55">XXXX</td>
+            <td style="padding:7px 10px"><span class="rr-badge rr-b-CNAME">CNAME</span></td>
+            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px;opacity:.7">3600</td>
           </tr>
           <tr class="rr-row rr-row-MX">
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">canterbury.ac.nz</td>
             <td style="padding:7px 10px;font-family:var(--mono);font-size:18px">mail.canterbury.ac.nz</td>
-            <td style="padding:7px 10px;font-weight:700">MX</td>
-            <td style="padding:7px 10px;opacity:.55">XXXX</td>
+            <td style="padding:7px 10px"><span class="rr-badge rr-b-MX">MX</span></td>
+            <td style="padding:7px 10px;font-family:var(--mono);font-size:18px;opacity:.7">3600</td>
           </tr>
         </tbody>
       </table>
@@ -3319,7 +3319,13 @@ svg text{font-family:var(--sans)}
 </section>
 <style>
   /* RR table base */
-  .rr-tbl { border: 1.5px solid var(--border,rgba(0,0,0,0.12)); border-radius:8px; overflow:hidden; }
+  .rr-tbl { border: 1.5px solid var(--border,rgba(0,0,0,0.12)); border-radius:10px; overflow:hidden; background: var(--surface,#fff); box-shadow: 0 6px 18px rgba(21,36,47,.07); border-collapse: separate !important; border-spacing: 0; }
+  .rr-tbl th { color: var(--muted,#54646f); white-space: nowrap; }
+  .rr-badge { display:inline-block; min-width:62px; text-align:center; padding:2px 8px; border-radius:999px; font-family:var(--mono); font-size:16px; font-weight:700; }
+  .rr-b-A     { background: color-mix(in srgb, #0f8f83 16%, transparent); color: #0f8f83; }
+  .rr-b-NS    { background: color-mix(in srgb, #c47d16 18%, transparent); color: #b06c0c; }
+  .rr-b-CNAME { background: color-mix(in srgb, #5b6bd6 16%, transparent); color: #5b6bd6; }
+  .rr-b-MX    { background: color-mix(in srgb, #c2416b 15%, transparent); color: #c2416b; }
   .rr-thead { background: var(--surface-2,rgba(0,0,0,0.04)); border-bottom: 1.5px solid var(--border,rgba(0,0,0,0.12)); }
   .rr-row { border-bottom: 1px solid var(--border,rgba(0,0,0,0.07)); transition: opacity .2s, background .2s; }
   .rr-row:last-child { border-bottom: none; }
@@ -3387,8 +3393,8 @@ svg text{font-family:var(--sans)}
         <div style="font-weight:700;color:var(--accent);margin-bottom:5px">Flags</div>
         <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px">
           <li style="font-size:inherit">Query (0) or reply (1)</li>
-          <li style="font-size:inherit">Recursion desired — client requests full recursive resolution</li>
-          <li style="font-size:inherit">Recursion available — server indicates it supports recursion</li>
+          <li style="font-size:inherit">Recursion desired (RD) — client requests full recursive resolution</li>
+          <li style="font-size:inherit">Recursion available (RA) — server indicates it supports recursion</li>
         </ul>
       </div>
 
@@ -3425,18 +3431,15 @@ svg text{font-family:var(--sans)}
 
     <!-- Diagram right 56% -->
     <div style="flex:56;padding-top:4px">
-      <div style="border:1.5px solid var(--border,rgba(0,0,0,0.15));border-radius:8px;overflow:hidden">
-        <table class="dns-msg-tbl" style="width:100%;border-collapse:collapse;table-layout:fixed">
-          <colgroup>
-            <col style="width:44%">
-            <col style="width:44%">
-            <col style="width:12%">
-          </colgroup>
+      <div class="dns-msg-wrap">
+        <div class="dns-ruler"><span>&larr; 16 bits &rarr;</span><span>&larr; 16 bits &rarr;</span><span></span></div>
+        <table class="dns-msg-tbl" style="width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed">
+          <colgroup><col style="width:42%"><col style="width:42%"><col style="width:16%"></colgroup>
           <tbody>
             <tr>
               <td class="dns-mcell dns-mhdr dns-m-ident">identification</td>
               <td class="dns-mcell dns-mhdr dns-m-flags">flags</td>
-              <td rowspan="3" class="dns-12b">← 12<br>bytes</td>
+              <td rowspan="3" class="dns-brace dns-brace-h"><span>header<br>12 bytes</span></td>
             </tr>
             <tr>
               <td class="dns-mcell dns-mhdr dns-m-counts">number of questions</td>
@@ -3447,25 +3450,12 @@ svg text{font-family:var(--sans)}
               <td class="dns-mcell dns-mhdr dns-m-counts">number of additional RRs</td>
             </tr>
             <tr>
-              <td class="dns-mcell dns-mvar dns-m-questions" colspan="3">
-                questions<br><span class="dns-sub">variable number of questions</span>
-              </td>
+              <td class="dns-mcell dns-mvar dns-m-questions" colspan="2">questions<br><span class="dns-sub">variable number of questions</span></td>
+              <td rowspan="4" class="dns-brace dns-brace-v"><span>variable<br>length</span></td>
             </tr>
-            <tr>
-              <td class="dns-mcell dns-mvar dns-m-answers" colspan="3">
-                answers<br><span class="dns-sub">variable number of resource records</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="dns-mcell dns-mvar dns-m-authority" colspan="3">
-                authority<br><span class="dns-sub">variable number of resource records</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="dns-mcell dns-mvar dns-m-additional" colspan="3">
-                additional information<br><span class="dns-sub">variable number of resource records</span>
-              </td>
-            </tr>
+            <tr><td class="dns-mcell dns-mvar dns-m-answers" colspan="2">answers<br><span class="dns-sub">variable number of resource records</span></td></tr>
+            <tr><td class="dns-mcell dns-mvar dns-m-authority" colspan="2">authority<br><span class="dns-sub">variable number of resource records</span></td></tr>
+            <tr><td class="dns-mcell dns-mvar dns-m-additional" colspan="2">additional information<br><span class="dns-sub">variable number of resource records</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -3475,11 +3465,15 @@ svg text{font-family:var(--sans)}
 </section>
 <style>
   /* DNS message diagram */
-  .dns-mcell { border: 1px solid var(--border,rgba(0,0,0,0.12)); padding: 10px 12px; text-align: center; font-size: 18px; transition: opacity .2s, background .2s; }
-  .dns-mhdr  { background: rgba(220, 170, 20, 0.15); font-weight: 600; }
-  .dns-mvar  { background: rgba(0, 150, 140, 0.09); padding: 12px; }
-  .dns-12b   { border: none !important; padding: 0 0 0 10px; font-size: 18px; opacity: .5; white-space: nowrap; vertical-align: middle; text-align: left; }
-  .dns-sub   { font-size: 18px; opacity: .6; }
+  .dns-msg-wrap { background: var(--surface,#fff); border: 1.5px solid var(--border,rgba(0,0,0,0.12)); border-radius: 10px; padding: 10px 12px 12px; box-shadow: 0 6px 18px rgba(21,36,47,.07); }
+  .dns-ruler { display: grid; grid-template-columns: 42% 42% 16%; font-family: var(--mono); font-size: 16px; color: var(--muted,#54646f); text-align: center; margin-bottom: 4px; }
+  .dns-mcell { border: 1px solid var(--border,rgba(0,0,0,0.14)); padding: 9px 12px; text-align: center; font-size: 18px; transition: opacity .2s, background .2s; }
+  .dns-mhdr  { background: color-mix(in srgb, #c47d16 13%, var(--surface,#fff)); font-weight: 600; }
+  .dns-mvar  { background: color-mix(in srgb, #0f8f83 9%, var(--surface,#fff)); padding: 11px 12px; }
+  .dns-brace { position: relative; padding: 0 0 0 18px; vertical-align: middle; font-size: 16px; color: var(--muted,#54646f); line-height: 1.3; }
+  .dns-brace::before { content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 8px; border: 2px solid currentColor; border-left: none; border-radius: 0 6px 6px 0; opacity: .55; }
+  .dns-brace-h { color: #b06c0c; } .dns-brace-v { color: #0f8f83; }
+  .dns-sub   { font-size: 16px; opacity: .6; }
 
   /* dm frag cards hidden until .on */
   #dm1,#dm2,#dm3,#dm4,#dm5,#dm6,#dm7,#dm8 { display: none !important; }
@@ -3575,10 +3569,10 @@ svg text{font-family:var(--sans)}
   <div style="display:flex;gap:16px;margin-top:8px;align-items:flex-start">
 
     <!-- QUERY -->
-    <div style="flex:42;border:1.5px solid var(--border,rgba(0,0,0,0.15));border-radius:8px;overflow:hidden">
-      <div style="background:rgba(0,0,0,0.05);padding:7px 14px;font-size:18px;font-weight:700;letter-spacing:.06em;font-family:var(--mono);border-bottom:1px solid rgba(0,0,0,0.08)">QUERY →</div>
+    <div class="qr-panel" style="flex:42">
+      <div class="qr-head"><span>QUERY</span><span class="qr-route">client &rarr; local DNS &middot; UDP 53</span></div>
       <div class="qr-row qr-txid"><span class="qr-key">Transaction ID</span><span class="qr-val">0x6492</span></div>
-      <div class="qr-row qr-flags"><span class="qr-key">Flags</span><span class="qr-val">0x0100 <span class="qr-note">(query)</span></span></div>
+      <div class="qr-row qr-flags"><span class="qr-key">Flags</span><span class="qr-val">0x0100 <span class="qr-note">(query, RD=1)</span></span></div>
       <div class="qr-row qr-counts"><span class="qr-key">Questions</span><span class="qr-val" style="min-width:40px">1</span><span class="qr-key">Answer RRs</span><span class="qr-val">0</span></div>
       <div class="qr-row qr-counts"><span class="qr-key">Authority RRs</span><span class="qr-val" style="min-width:40px">0</span><span class="qr-key">Additional RRs</span><span class="qr-val">0</span></div>
       <div class="qr-div"></div>
@@ -3587,10 +3581,10 @@ svg text{font-family:var(--sans)}
     </div>
 
     <!-- RESPONSE -->
-    <div style="flex:58;border:1.5px solid var(--border,rgba(0,0,0,0.15));border-radius:8px;overflow:hidden">
-      <div style="background:rgba(15,143,131,0.09);padding:7px 14px;font-size:18px;font-weight:700;letter-spacing:.06em;font-family:var(--mono);border-bottom:1px solid rgba(0,0,0,0.08);color:var(--accent,#0f8f83)">← RESPONSE</div>
+    <div class="qr-panel qr-resp" style="flex:58">
+      <div class="qr-head"><span>RESPONSE</span><span class="qr-route">local DNS &rarr; client</span></div>
       <div class="qr-row qr-txid"><span class="qr-key">Transaction ID</span><span class="qr-val">0x6492</span></div>
-      <div class="qr-row qr-flags"><span class="qr-key">Flags</span><span class="qr-val">0x8180 <span class="qr-note">(response, no error)</span></span></div>
+      <div class="qr-row qr-flags"><span class="qr-key">Flags</span><span class="qr-val">0x8180 <span class="qr-note">(reply, RA=1, no error)</span></span></div>
       <div class="qr-row qr-counts"><span class="qr-key">Questions</span><span class="qr-val" style="min-width:40px">1</span><span class="qr-key">Answer RRs</span><span class="qr-val">2</span></div>
       <div class="qr-row qr-counts"><span class="qr-key">Authority RRs</span><span class="qr-val" style="min-width:40px">4</span><span class="qr-key">Additional RRs</span><span class="qr-val">8</span></div>
       <div class="qr-div"></div>
@@ -3612,6 +3606,11 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 <style>
+  /* Packet panels */
+  .qr-panel { border: 1.5px solid var(--border,rgba(0,0,0,0.12)); border-radius: 10px; overflow: hidden; background: var(--surface,#fff); box-shadow: 0 6px 18px rgba(21,36,47,.07); }
+  .qr-head  { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 7px 14px; font-family: var(--mono); font-size: 18px; font-weight: 700; letter-spacing: .06em; background: color-mix(in srgb, var(--ink,#15242f) 6%, var(--surface,#fff)); border-bottom: 1px solid var(--border,rgba(0,0,0,0.1)); }
+  .qr-resp .qr-head { background: color-mix(in srgb, #0f8f83 12%, var(--surface,#fff)); color: var(--accent,#0f8f83); }
+  .qr-route { font-size: 16px; font-weight: 600; letter-spacing: 0; opacity: .7; }
   /* Packet row base */
   .qr-row  { display:flex; gap:12px; padding:2px 14px; border-left:3px solid transparent; transition:background .18s; font-family:var(--mono); font-size:17px; line-height:1.35; }
   .qr-key  { opacity:.55; white-space:nowrap; min-width:100px; }
