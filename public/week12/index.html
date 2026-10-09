@@ -2827,8 +2827,7 @@ svg text{font-family:var(--sans)}
       <div id="ld1" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:13px 16px;background:var(--surface-2,rgba(0,0,0,0.03))">
         Every ISP or institution operates a <b>local DNS server</b>
         (also called a <em>default name server</em>).
-        It is <b>not</b> part of the root / TLD / authoritative hierarchy — it sits
-        <b>separately</b> from that.
+        <span id="ld1b" class="frag" style="display:block;margin-top:6px">It is <b>not</b> part of the root / TLD / authoritative hierarchy — it sits <b>separately</b> from that.</span>
       </div>
 
       <div id="ld2" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:13px 16px;background:var(--surface-2,rgba(0,0,0,0.03))">
@@ -2929,7 +2928,8 @@ svg text{font-family:var(--sans)}
   .slide:has(#ld3.on) #ld2 { display: none !important; }
   /* diagram, synced to the beats */
   .ld-h, .ld-srv, .ld-pc, .ld-q, .ld-r, .ld-cache, .ld-row1, .ld-row2, .ld-fw, .ld-hit, .ld-new, .ld-ttl, .ld-bypass { opacity: 0; transition: opacity .25s ease; }
-  .slide:has(#ld1.on) :is(.ld-h, .ld-srv) { opacity: 1; }
+  .slide:has(#ld1.on) .ld-srv { opacity: 1; }
+  .slide:has(#ld1b.on) .ld-h { opacity: 1; }
   .slide:has(#ld2.on) .ld-pc { opacity: 1; }
   .slide:has(#ld3.on) .ld-q { opacity: 1; }
   .slide:has(#ld4.on) :is(.ld-cache, .ld-row1, .ld-r) { opacity: 1; }
