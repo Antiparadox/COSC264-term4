@@ -3139,9 +3139,9 @@ svg text{font-family:var(--sans)}
       <div id="ri1" class="frag" style="line-height:1.5;border-radius:6px;padding:12px 15px;border:1.5px solid rgba(0,0,0,0.12);background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Iterative query</div>
         <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
-          <li style="font-size:18px;line-height:1.5">The contacted server does <b>not</b> resolve the name for you.</li>
-          <li id="ri1b" class="frag" style="font-size:18px;line-height:1.5">Instead, it returns a <b>referral</b>: &ldquo;I don&rsquo;t know &mdash; try that server.&rdquo;</li>
-          <li id="ri1c" class="frag" style="font-size:18px;line-height:1.5">The local DNS server follows each referral, until the authoritative server returns the <b>answer</b>.</li>
+          <li style="font-size:18px;line-height:1.5">The contacted server does <b>not</b> query other servers for you: it replies only with what it knows itself.</li>
+          <li id="ri1b" class="frag" style="font-size:18px;line-height:1.5">If it doesn&rsquo;t know the answer, it returns a <b>referral</b>: &ldquo;I don&rsquo;t know &mdash; try that server.&rdquo;</li>
+          <li id="ri1c" class="frag" style="font-size:18px;line-height:1.5">The authoritative server <em>does</em> know, so its reply to the same kind of query is the <b>answer</b>.</li>
         </ul>
       </div>
 
