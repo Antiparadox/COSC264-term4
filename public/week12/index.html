@@ -2267,7 +2267,7 @@ svg text{font-family:var(--sans)}
 <!-- DNS Overview -->
 <section class="slide" data-sec="DNS">
   <div class="kicker">DNS</div>
-  <h2>Domain Name System &mdash; overview</h2>
+  <h2>Hostnames and IP addresses</h2>
 
   <div style="display:flex;gap:28px;align-items:flex-start;margin-top:10px">
 
@@ -2290,21 +2290,6 @@ svg text{font-family:var(--sans)}
       <div id="dn3" class="frag" style="display:flex;gap:10px;align-items:baseline">
         <span style="color:var(--accent);font-size:18px;line-height:1;flex-shrink:0">&bull;</span>
         <span>How does the browser know how to translate between a hostname and an IP address?</span>
-      </div>
-
-      <!-- Solution -->
-      <div id="dn4" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);margin-top:4px">
-        <b>DNS</b> is that translation mechanism &mdash; it maps human-readable <b>hostnames</b> to numerical <b>IP addresses</b>
-      </div>
-
-      <!-- Distributed database (merged with directory lookup) -->
-      <div id="dn5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        DNS implements a <b>distributed database</b> &mdash; a global hostname-to-IP mapping distributed across a hierarchy of DNS servers &ensp;<span style="font-size:18px;opacity:0.5">[RFC 1034, 1035]</span>
-      </div>
-
-      <!-- Protocol -->
-      <div id="dn6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
-        DNS is an <b>application-layer protocol</b> running mainly over <b>UDP on port 53</b> (TCP port 53 for large responses and zone transfers)
       </div>
 
     </div>
@@ -2336,8 +2321,72 @@ svg text{font-family:var(--sans)}
           <text x="134" y="176" text-anchor="middle" font-size="26" fill="currentColor" opacity="0.3">?</text>
         </g>
 
-        <!-- Resolver state: appears on dn4+ -->
-        <g class="dns-r" opacity="0">
+      </svg>
+    </div>
+
+  </div>
+</section>
+<style>
+  .dns-w, .dns-b, .dns-q { opacity: 0; transition: opacity .25s ease; }
+  .slide:has(#dn1.on) .dns-w { opacity: 1; }
+  .slide:has(#dn2.on) .dns-b { opacity: 1; }
+  .slide:has(#dn3.on) .dns-q { opacity: 1; }
+</style>
+
+<section class="slide" data-sec="DNS">
+  <div class="kicker">DNS</div>
+  <h2>Domain Name System &mdash; overview</h2>
+
+  <div style="display:flex;gap:28px;align-items:flex-start;margin-top:10px">
+
+    <!-- Left: question recap, then the answer and two summary cards -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:11px;font-size:18px">
+
+      <p style="margin:0;font-size:18px;color:var(--fg-muted)">How does the browser translate a hostname into an IP address?</p>
+
+      <div id="dnb1" class="frag" style="border-left:4px solid var(--accent);padding:8px 16px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);margin-top:4px">
+        <b>DNS</b> is that translation mechanism &mdash; it maps human-readable <b>hostnames</b> to numerical <b>IP addresses</b>
+      </div>
+
+      <div id="dnb2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        DNS stores this mapping in a <b>distributed database</b>, spread across a hierarchy of DNS servers &ensp;<span style="font-size:18px;opacity:0.5">[RFC 1034, 1035]</span>
+      </div>
+
+      <div id="dnb3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:8px 14px;border-radius:0 4px 4px 0;background:var(--surface-2,rgba(0,0,0,0.03))">
+        DNS is an <b>application-layer protocol</b> running mainly over <b>UDP on port 53</b> (TCP port 53 for large responses and zone transfers)
+      </div>
+
+    </div>
+
+    <!-- Right: diagram -->
+    <div style="flex:0 0 auto;padding-top:4px">
+      <svg viewBox="0 0 220 356" width="220" xmlns="http://www.w3.org/2000/svg"
+           style="font-family:inherit;display:block;overflow:visible;color:var(--fg,#15242f)">
+
+        <!-- Browser box -->
+        <g>
+        <rect x="10" y="6" width="200" height="80" rx="6" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
+        <text x="110" y="30" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">Browser</text>
+        <text x="110" y="52" text-anchor="middle" font-family="monospace" font-size="16.5" fill="currentColor" opacity="0.7">canterbury.ac.nz</text>
+        <text x="110" y="74" text-anchor="middle" font-size="16.5" fill="var(--accent,#008080)" font-weight="600" opacity="0.85">hostname</text>
+        </g>
+
+        <!-- UC web server with its IP address -->
+        <g>
+        <rect x="10" y="246" width="200" height="80" rx="6" fill="rgba(0,0,0,0.04)" stroke="currentColor" stroke-width="1.3" opacity="0.8"/>
+        <text x="110" y="270" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">UC web server</text>
+        <text x="110" y="292" text-anchor="middle" font-family="monospace" font-size="16.5" fill="currentColor" opacity="0.7">132.181.106.9</text>
+        <text x="110" y="314" text-anchor="middle" font-size="16.5" fill="var(--accent,#008080)" font-weight="600" opacity="0.85">IP address</text>
+        </g>
+
+        <!-- Question state until the answer -->
+        <g class="dnsB-q">
+          <line x1="110" y1="86" x2="110" y2="244" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.35"/>
+          <text x="134" y="176" text-anchor="middle" font-size="26" fill="currentColor" opacity="0.3">?</text>
+        </g>
+
+        <!-- Resolver: appears with the answer -->
+        <g class="dnsB-r">
           <rect x="40" y="130" width="140" height="72" rx="6" fill="rgba(0,128,128,0.08)" stroke="var(--accent,#008080)" stroke-width="1.3"/>
           <text x="110" y="160" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">DNS</text>
           <text x="110" y="182" text-anchor="middle" font-size="16.5" fill="currentColor" opacity="0.85">Resolver</text>
@@ -2352,18 +2401,13 @@ svg text{font-family:var(--sans)}
     </div>
 
   </div>
+
 </section>
 <style>
-  .dns-q { opacity: 0; }
-  .slide:has(#dn3.on) .dns-q { opacity: 1; }
-  .slide:has(#dn4.on) .dns-q { opacity: 0 !important; }
-
-  .dns-r { opacity: 0; }
-  .slide:has(#dn4.on) .dns-r { opacity: 1; }
-
-  .dns-w, .dns-b { opacity: 0; transition: opacity .25s ease; }
-  .slide:has(#dn1.on) .dns-w { opacity: 1; }
-  .slide:has(#dn2.on) .dns-b { opacity: 1; }
+  .dnsB-q { opacity: 1; transition: opacity .25s ease; }
+  .slide:has(#dnb1.on) .dnsB-q { opacity: 0; }
+  .dnsB-r { opacity: 0; transition: opacity .25s ease; }
+  .slide:has(#dnb1.on) .dnsB-r { opacity: 1; }
 </style>
 
 <!-- Slide 34: DNS Additional Services -->
