@@ -2926,10 +2926,13 @@ svg text{font-family:var(--sans)}
   </div>
 </section>
 <style>
-  /* cards: ld1-ld2 give way to ld3-ld6 */
-  #ld3:not(.on), #ld4:not(.on), #ld5:not(.on), #ld6:not(.on) { display: none !important; }
-  .slide:has(#ld3.on) #ld1,
-  .slide:has(#ld3.on) #ld2 { display: none !important; }
+  /* cards are hot: only the current card is shown */
+  #ld2:not(.on), #ld3:not(.on), #ld4:not(.on), #ld5:not(.on), #ld6:not(.on) { display: none !important; }
+  .slide:has(#ld2.on) #ld1,
+  .slide:has(#ld3.on) #ld2,
+  .slide:has(#ld4.on) #ld3,
+  .slide:has(#ld5.on) #ld4,
+  .slide:has(#ld6.on) #ld5 { display: none !important; }
   /* diagram, synced to the beats */
   .ld-h, .ld-srv, .ld-pc, .ld-q, .ld-r, .ld-cache, .ld-row1, .ld-row2, .ld-fwq, .ld-fwr, .ld-hit, .ld-new, .ld-empty, .ld-ttl, .ld-bypass { opacity: 0; transition: opacity .25s ease; }
   .slide:has(#ld1.on) .ld-srv { opacity: 1; }
