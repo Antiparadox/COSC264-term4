@@ -1203,15 +1203,15 @@ svg text{font-family:var(--sans)}
           <line x1="564" y1="206" x2="564" y2="224" stroke="currentColor" stroke-width="1.2" opacity="0.45"/>
           <line x1="592" y1="206" x2="592" y2="224" stroke="currentColor" stroke-width="1.2" opacity="0.45"/>
           <ellipse cx="578" cy="224" rx="14" ry="5" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.45"/>
-          <text x="155" y="164" text-anchor="end" font-size="17.5" fill="currentColor" opacity="0.55">cookie file</text>
-          <text x="155" y="184" text-anchor="end" font-size="17.5" fill="currentColor" opacity="0.55">stored in browser</text>
+          <text class="ck-file" x="155" y="164" text-anchor="end" font-size="17.5" fill="currentColor" opacity="0.55">cookie file</text>
+          <text class="ck-file" x="155" y="184" text-anchor="end" font-size="17.5" fill="currentColor" opacity="0.55">stored in browser</text>
         </g>
 
         <!-- msg-cookiereqs: HTTP request + Cookie: 1678 → -->
         <g class="msg-cookiereqs">
           <line x1="165" y1="232" x2="397" y2="252" stroke="currentColor" stroke-width="1.5" opacity="0.55"/><polygon points="392,248 400,252 392,256" fill="currentColor" opacity="0.55"/>
           <text x="282" y="216" text-anchor="middle" font-size="17.5" fill="currentColor" opacity="0.55">HTTP request</text>
-          <text x="282" y="235" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">Cookie: id=1678</text>
+          <g class="ck-c-hdr"><text x="282" y="235" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">Cookie: id=1678</text></g>
         </g>
 
         <!-- msg-resp2: HTTP response ← -->
@@ -1237,7 +1237,9 @@ svg text{font-family:var(--sans)}
         <span id="ck-exl2b" class="frag" style="display:block;margin-top:5px">The cookie uniquely identifies this session with the client, e.g. <b>id=1678</b>.</span>
         <span id="ck-exl2c" class="frag" style="display:block;margin-top:5px">It is embedded in the response as a header line: <b style="white-space:nowrap">Set-Cookie: id=1678</b>.</span></div>
       <div id="ck-exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The ID is stored as an entry in the server&rsquo;s <b>back-end database</b>, and in the client&rsquo;s <b>cookie file</b>, managed by the browser</div>
-      <div id="ck-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Cookie: id=1678</b> &mdash; a header line in every later <b>HTTP request</b> to the same server: the client attaches the ID</div>
+      <div id="ck-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">Later, the client sends another <b>HTTP request</b> to the same server.
+        <span id="ck-exl4b" class="frag" style="display:block;margin-top:5px">The browser finds the cookie for this server in its cookie file,</span>
+        <span id="ck-exl4c" class="frag" style="display:block;margin-top:5px">and attaches it to the request as a header line: <b style="white-space:nowrap">Cookie: id=1678</b>.</span></div>
       <div id="ck-exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server uses the ID as a key to look up the user&rsquo;s state in its database</div>
       <div id="ck-exl6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">Server can then generate a <b>tailored response</b> &mdash; e.g. a personalised page, a pre-filled shopping cart &mdash; for the client&rsquo;s request</div>
     </div>
@@ -1248,7 +1250,10 @@ svg text{font-family:var(--sans)}
   /* All diagram message groups hidden until their frag appears */
   .msg-req1, .msg-setcookie, .msg-dbentry, .msg-cookiereqs, .msg-resp2, .msg-dbaccess { opacity: 0; }
   .ck-sc-id, .ck-sc-hdr { opacity: 0; transition: opacity .25s ease; }
-  #ck-exl2b:not(.on), #ck-exl2c:not(.on) { display: none; }
+  #ck-exl2b:not(.on), #ck-exl2c:not(.on), #ck-exl4b:not(.on), #ck-exl4c:not(.on) { display: none; }
+  .ck-c-hdr { opacity: 0; transition: opacity .25s ease; }
+  .slide:has(#ck-exl4c.on) .ck-c-hdr { opacity: 1; }
+  .slide:has(#ck-exl4b.on):not(:has(#ck-exl4c.on)) .ck-file { fill: var(--accent) !important; opacity: 1 !important; }
   .slide:has(#ck-exl2b.on) .ck-sc-id { opacity: 1; }
   .slide:has(#ck-exl2c.on) .ck-sc-hdr { opacity: 1; }
 
