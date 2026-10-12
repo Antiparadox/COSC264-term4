@@ -854,6 +854,7 @@ svg text{font-family:var(--sans)}
   .slide:has(#pers2.on) #persopen{opacity:1!important}
   .slide:has(#pers3.on) #persobj2{opacity:1!important}
   #pers-rt .frag:not(.on){display:none}
+  .slide:has(#req-examples.on) #req-order{display:none}
   .slide:has(#pers-rt.on) #persb0{opacity:1!important}
   .slide:has(#pers-rt.on) #persb1{opacity:1!important}
   .slide:has(#pers-rt.on) #persb2{opacity:1!important}
@@ -967,7 +968,8 @@ svg text{font-family:var(--sans)}
         <div style="font-weight:700;margin-bottom:4px;font-size:18px">Header lines</div>
         <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">
           <li style="font-size:18px;line-height:1.5">Zero or more <code>field-name: value</code> pairs, one per line</li>
-          <li class="frag" style="font-size:18px;line-height:1.5">Common examples:
+          <li id="req-order" class="frag" style="font-size:18px;line-height:1.5">They can appear in <b>any order</b>: HTTP is plain text, lines separated by CR LF &mdash; unlike IP and TCP headers, whose fields sit at fixed byte positions</li>
+          <li id="req-examples" class="frag" style="font-size:18px;line-height:1.5">Common examples:
             <div style="margin-top:3px;display:flex;flex-direction:column;gap:5px">
               <div class="frag">
                 <div style="padding:4px 10px;background:var(--surface-1,rgba(0,0,0,0.05));border-radius:4px;font-family:monospace;font-size:18px">Host: www.example.com</div>
