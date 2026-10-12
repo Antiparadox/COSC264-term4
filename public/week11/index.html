@@ -4369,7 +4369,7 @@
             <!-- Card 3: The threshold (frags 10–11, stays) -->
             <div class="frag stateful" data-step="9" data-active-at="9" style="grid-row:1;grid-column:1;align-self:start;padding:12px 16px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 6%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:18px;display:block;margin-bottom:6px">The threshold</strong>
-              <p class="frag inner-line" data-step="9" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Exponential growth can't last forever. A threshold called <strong>ssthresh</strong> (slow-start threshold) marks where slow start ends.</p>
+              <p class="frag inner-line" data-step="9" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">Exponential growth can't last forever. A threshold called <strong>ssthresh</strong> (slow-start threshold) marks where slow start ends. Think of it as the sender&rsquo;s <strong>empirical estimate of the network&rsquo;s safe limit</strong>: roughly how large CongWin can grow before congestion sets in.</p>
               <p class="frag inner-line" data-step="10" style="margin:4px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">When CongWin ≥ ssthresh → switch to <strong>congestion avoidance</strong> (next frame).</p>
             </div>
 
