@@ -4312,7 +4312,7 @@
             <!-- Case 2 (steps 5–6) -->
             <div class="frag" data-step="5" style="padding:14px 18px;border-left:4px solid var(--amber);border-radius:0 14px 14px 0;background:color-mix(in srgb,var(--amber) 8%,var(--surface));box-shadow:0 6px 18px rgba(21,36,47,.08)">
               <strong style="font-family:var(--serif);font-size:20px;display:block;margin-bottom:6px">Case 2: a while after the connection is set up</strong>
-              <p class="frag inner-line" data-step="5" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">CongWin has already grown large, close to what the network can carry. Now the sender should grow it carefully, to avoid causing congestion.</p>
+              <p class="frag inner-line" data-step="5" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">CongWin has already grown large, close to what the network can carry. Now the sender should stop growing it quickly: it still grows CongWin, but <strong>slowly and carefully</strong>, to avoid causing congestion.</p>
               <p class="frag inner-line" data-step="6" style="margin:10px 0 0;font-size:18px;line-height:1.5;color:var(--muted);color:var(--ink);font-size:19px">This phase is called <strong>congestion avoidance</strong>.</p>
             </div>
           </div>
