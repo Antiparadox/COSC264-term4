@@ -1348,12 +1348,12 @@ svg text{font-family:var(--sans)}
   <!-- Frags 2-3: dual role, each with its half of the diagram -->
   <div style="margin-top:16px;display:flex;gap:12px">
     <div id="wc2" class="frag" style="flex:1;padding:10px 16px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.55">
-      <div style="font-weight:700;margin-bottom:4px;font-size:18px">Acts as a server</div>
-      Receives HTTP requests from clients and, if it holds a copy of the object, returns it in the response &mdash; just like an origin server would
+      <div style="font-weight:700;margin-bottom:4px;font-size:18px">Cache hit</div>
+      The cache holds a copy of the requested object, so it returns it directly &mdash; acting as a <b>server</b>, just like an origin server would
     </div>
     <div id="wc3" class="frag" style="flex:1;padding:10px 16px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.55">
-      <div style="font-weight:700;margin-bottom:4px;font-size:18px">Acts as a client</div>
-      When the object is not cached, it issues its own HTTP request to the origin server, stores the copy, then answers the client
+      <div style="font-weight:700;margin-bottom:4px;font-size:18px">Cache miss</div>
+      The object is not cached, so the cache acts as a <b>client</b>: it requests the object from the origin server, stores a copy, then answers the client
     </div>
   </div>
 
