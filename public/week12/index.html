@@ -1159,7 +1159,7 @@ svg text{font-family:var(--sans)}
 
   <!-- Frag 2: answer -->
   <div id="ck2" class="frag" style="margin-top:10px;font-size:18px;line-height:1.6;padding:6px 4px">
-    The answer: <b>cookies</b> &mdash; the server gives the client a unique ID, which the client sends back on every later request.
+    The answer: <b>cookies</b>.
   </div>
 
 </section>
@@ -1189,9 +1189,9 @@ svg text{font-family:var(--sans)}
         <g class="msg-setcookie">
           <line x1="400" y1="114" x2="168" y2="134" stroke="currentColor" stroke-width="1.5" opacity="0.55"/><polygon points="173,130 165,134 173,138" fill="currentColor" opacity="0.55"/>
           <text x="282" y="98" text-anchor="middle" font-size="17.5" fill="currentColor" opacity="0.55">HTTP response</text>
-          <text x="282" y="117" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">Set-Cookie: id=1678</text>
-          <text x="412" y="108" text-anchor="start" font-size="17.5" fill="currentColor" opacity="0.55">Server creates</text>
-          <text x="412" y="128" text-anchor="start" font-size="17.5" fill="currentColor" opacity="0.55">ID 1678 for user</text>
+          <g class="ck-sc-hdr"><text x="282" y="117" text-anchor="middle" font-size="17.5" fill="currentColor" font-weight="700" opacity="0.75">Set-Cookie: id=1678</text></g>
+          <g class="ck-sc-id"><text x="412" y="108" text-anchor="start" font-size="17.5" fill="currentColor" opacity="0.55">Server creates</text>
+          <text x="412" y="128" text-anchor="start" font-size="17.5" fill="currentColor" opacity="0.55">ID 1678 for user</text></g>
         </g>
 
         <!-- msg-dbentry: backend DB entry + client browser storage -->
@@ -1233,7 +1233,9 @@ svg text{font-family:var(--sans)}
     <!-- Right: callout frags -->
     <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px;min-height:400px">
       <div id="ck-exl1" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)">The client sends an HTTP request to the host</div>
-      <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Set-Cookie: id=1678</b> &mdash; a header line in the <b>HTTP response</b>: the server assigns a unique ID and sends it to the client</div>
+      <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server generates an <b>HTTP response</b>; on top of that, it prepares a <b>cookie</b> for the user.
+        <span id="ck-exl2b" class="frag" style="display:block;margin-top:5px">The cookie uniquely identifies this session with the client, e.g. <b>id=1678</b>.</span>
+        <span id="ck-exl2c" class="frag" style="display:block;margin-top:5px">It is embedded in the response as a header line: <b style="white-space:nowrap">Set-Cookie: id=1678</b>.</span></div>
       <div id="ck-exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The ID is stored as an entry in the server&rsquo;s <b>back-end database</b>, and in the client&rsquo;s <b>cookie file</b>, managed by the browser</div>
       <div id="ck-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Cookie: id=1678</b> &mdash; a header line in every later <b>HTTP request</b> to the same server: the client attaches the ID</div>
       <div id="ck-exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server uses the ID as a key to look up the user&rsquo;s state in its database</div>
@@ -1245,6 +1247,10 @@ svg text{font-family:var(--sans)}
 <style>
   /* All diagram message groups hidden until their frag appears */
   .msg-req1, .msg-setcookie, .msg-dbentry, .msg-cookiereqs, .msg-resp2, .msg-dbaccess { opacity: 0; }
+  .ck-sc-id, .ck-sc-hdr { opacity: 0; transition: opacity .25s ease; }
+  #ck-exl2b:not(.on), #ck-exl2c:not(.on) { display: none; }
+  .slide:has(#ck-exl2b.on) .ck-sc-id { opacity: 1; }
+  .slide:has(#ck-exl2c.on) .ck-sc-hdr { opacity: 1; }
 
   /* Reveal on frag (cumulative) */
   /* Callouts in two groups of three: the second group replaces the first */
