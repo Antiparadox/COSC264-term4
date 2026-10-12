@@ -1159,33 +1159,9 @@ svg text{font-family:var(--sans)}
 
   <!-- Frag 2: answer -->
   <div id="ck2" class="frag" style="margin-top:10px;font-size:18px;line-height:1.6;padding:6px 4px">
-    The answer: <b>cookies</b> &mdash; here&rsquo;s how it works.
+    The answer: <b>cookies</b> &mdash; the server gives the client a unique ID, which the client sends back on every later request.
   </div>
 
-  <!-- Frags 3a–3d: four components, each revealed separately -->
-  <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
-
-    <div id="ck3a" class="frag" style="display:flex;align-items:flex-start;gap:12px;padding:9px 14px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.5">
-      <span style="min-width:22px;font-weight:700;color:var(--accent)">1.</span>
-      <span>A <code>Set-Cookie</code> header line in the <b>HTTP response</b> &mdash; the server sends the client a unique ID on first contact</span>
-    </div>
-
-    <div id="ck3b" class="frag" style="display:flex;align-items:flex-start;gap:12px;padding:9px 14px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.5">
-      <span style="min-width:22px;font-weight:700;color:var(--accent)">2.</span>
-      <span>A <code>Cookie</code> header line in subsequent <b>HTTP requests</b> &mdash; the client echoes the ID back on every future request</span>
-    </div>
-
-    <div id="ck3c" class="frag" style="display:flex;align-items:flex-start;gap:12px;padding:9px 14px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.5">
-      <span style="min-width:22px;font-weight:700;color:var(--accent)">3.</span>
-      <span>A <b>cookie file</b> stored on the client, managed by the browser &mdash; persists across sessions</span>
-    </div>
-
-    <div id="ck3d" class="frag" style="display:flex;align-items:flex-start;gap:12px;padding:9px 14px;border-radius:6px;background:var(--surface-2,rgba(0,0,0,0.04));border:1px solid var(--card-border,rgba(0,0,0,0.1));font-size:18px;line-height:1.5">
-      <span style="min-width:22px;font-weight:700;color:var(--accent)">4.</span>
-      <span>A <b>back-end database</b> on the server, keyed by the cookie ID &mdash; stores per-user state</span>
-    </div>
-
-  </div>
 </section>
 
 <!-- Slide 18: Cookies example — REWRITTEN -->
@@ -1257,10 +1233,10 @@ svg text{font-family:var(--sans)}
     <!-- Right: callout frags -->
     <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px;min-height:400px">
       <div id="ck-exl1" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)">The client sends an HTTP request to the host</div>
-      <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Set-Cookie: id=1678</b> &mdash; Server assigns a unique ID and sends it to the client</div>
-      <div id="ck-exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The cookie ID is stored as an entry in the back-end database, and in the client&rsquo;s browser</div>
-      <div id="ck-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Cookie: id=1678</b> &mdash; Client attaches the ID on every future request to the same server</div>
-      <div id="ck-exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">Server uses the ID to look up the user&rsquo;s state in its database</div>
+      <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Set-Cookie: id=1678</b> &mdash; a header line in the <b>HTTP response</b>: the server assigns a unique ID and sends it to the client</div>
+      <div id="ck-exl3" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The ID is stored as an entry in the server&rsquo;s <b>back-end database</b>, and in the client&rsquo;s <b>cookie file</b>, managed by the browser</div>
+      <div id="ck-exl4" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))"><b>Cookie: id=1678</b> &mdash; a header line in every later <b>HTTP request</b> to the same server: the client attaches the ID</div>
+      <div id="ck-exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server uses the ID as a key to look up the user&rsquo;s state in its database</div>
       <div id="ck-exl6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">Server can then generate a <b>tailored response</b> &mdash; e.g. a personalised page, a pre-filled shopping cart &mdash; for the client&rsquo;s request</div>
     </div>
 
