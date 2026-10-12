@@ -5033,9 +5033,9 @@
             <text x="14" y="97" text-anchor="middle" font-size="10.5" fill="var(--muted)" font-family="var(--mono)" opacity="0.75" transform="rotate(-90,14,97)">CongWin</text>
 
             <!-- The curve (persistent) -->
-            <!-- slow start 1 → CA 1 → triple-dup-ACK drop (fast recovery) → CA 2 → timeout drop → slow start 2 → CA 3 -->
+            <!-- slow start 1 → CA 1 → triple-dup-ACK drop to ssthresh+3 (fast recovery) → deflate to ssthresh on exit → CA 2 → timeout drop → slow start 2 → CA 3 -->
             <polyline
-              points="55,175 80,164 106,144 131,112 153,79 170,52 184,38 218,32 253,28 278,25 286,97 326,86 364,76 376,174 400,160 420,137 432,125 485,115 540,105 595,95 638,87"
+              points="55,175 80,164 106,144 131,112 153,79 170,52 184,38 218,32 253,28 278,25 284,97 298,97 302,108 334,99 364,90 376,174 400,160 420,137 432,125 485,115 540,105 595,95 638,87"
               fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" opacity="0.85"/>
 
             <!-- ── Frag 1: slow start label + 1 MSS ── -->
@@ -5056,16 +5056,18 @@
             <g class="frag inner-line" data-step="3">
               <text x="265" y="14" text-anchor="middle" font-size="11" font-weight="600" fill="var(--amber)" font-family="var(--sans)">3 dup ACKs</text>
               <line x1="272" y1="18" x2="279" y2="22" stroke="var(--amber)" stroke-width="1.2" marker-end="url(#ov-ah-amber)"/>
-              <line x1="42" y1="108" x2="286" y2="108" stroke="var(--amber)" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+              <line x1="42" y1="108" x2="302" y2="108" stroke="var(--amber)" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
               <text x="44" y="105" font-size="10.5" fill="var(--amber)" font-family="var(--mono)" opacity="0.85">ssthresh</text>
               <text x="325" y="63" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Fast recovery</text>
-              <line x1="325" y1="67" x2="312" y2="80" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
+              <line x1="318" y1="67" x2="296" y2="91" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
+              <path d="M276,97 L272,97 L272,108 L276,108" fill="none" stroke="var(--amber)" stroke-width="1.1"/>
+              <text x="268" y="106" text-anchor="end" font-size="10.5" fill="var(--amber)" font-family="var(--mono)">+3</text>
             </g>
 
             <!-- ── Frag 4: CA 2 ── -->
             <g class="frag inner-line" data-step="4">
               <text x="330" y="133" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Congestion avoidance</text>
-              <line x1="330" y1="127" x2="330" y2="91" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
+              <line x1="330" y1="127" x2="330" y2="104" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
             </g>
 
             <!-- ── Frag 5: Timeout ── -->
@@ -5082,13 +5084,11 @@
               <text x="378" y="122" font-size="10.5" fill="var(--amber)" font-family="var(--mono)" opacity="0.85">ssthresh</text>
             </g>
 
-            <!-- ── Frag 7: CA 3 + AIMD bracket ── -->
+            <!-- ── Frag 7: CA 3 ── -->
             <g class="frag inner-line" data-step="7">
               <rect x="468" y="8" rx="8" ry="8" width="186" height="26" style="fill:color-mix(in srgb,var(--teal) 12%,var(--surface));stroke:var(--teal);stroke-width:1.2"/>
               <text x="561" y="25" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Congestion avoidance</text>
               <line x1="561" y1="34" x2="561" y2="100" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
-              <path d="M184,188 L184,195 L638,195 L638,188" fill="none" stroke="var(--ink)" stroke-width="1.2" opacity="0.4"/>
-              <text x="411" y="209" text-anchor="middle" font-size="10.5" fill="var(--ink)" font-family="var(--mono)" opacity="0.6">AIMD</text>
             </g>
           </svg>
         </div>
