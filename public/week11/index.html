@@ -4210,7 +4210,7 @@
               <p class="frag inner-line" data-step="1" style="margin:0;font-size:18px;line-height:1.5;color:var(--muted)">The previous frame gives a discrete rule: keep data in flight &le; CongWin. But how does the sender actually obey that rule?</p>
               <p class="frag inner-line" data-step="2" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">In practice, the TCP sender can control its <strong>sending rate</strong> to obey the cap. Since the TCP sender sends data as a byte stream, the sending rate is measured in <strong>bytes per second</strong>.</p>
               <p class="frag inner-line" data-step="3" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--muted)">If the sending rate is too high, the data in flight exceeds CongWin.</p>
-              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--ink);font-weight:600">So how should the sender set its sending rate &mdash; that is, how many bytes should it send per second &mdash; to obey the in-flight constraint?</p>
+              <p class="frag inner-line" data-step="4" style="margin:5px 0 0;font-size:18px;line-height:1.5;color:var(--ink);font-weight:600">So, given a fixed CongWin, what sending rate &mdash; how many bytes per second &mdash; should the sender use to obey the in-flight constraint?</p>
             </div>
 
             <!-- Card 2: the missing ingredient, RTT (frags 4–5) -->
