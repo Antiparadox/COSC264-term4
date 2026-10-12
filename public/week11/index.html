@@ -5035,7 +5035,7 @@
             <!-- The curve (persistent) -->
             <!-- slow start 1 → CA 1 → triple-dup-ACK drop to ssthresh+3 (fast recovery) → deflate to ssthresh on exit → CA 2 → timeout drop → slow start 2 → CA 3 -->
             <polyline
-              points="55,175 80,164 106,144 131,112 153,79 170,52 184,38 218,32 253,28 278,25 284,97 298,97 302,108 334,99 364,90 376,174 400,160 420,137 432,125 485,115 540,105 595,95 638,87"
+              points="55,175 82,168 109,154 136,126 163,70 176,38 218,34 253,29 278,25 284,82.5 298,82.5 302,103.5 334,97 364,90 376,175 398,168 418,154 432,136.0 485,128.0 540,120.0 595,112.0 638,106.0"
               fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" opacity="0.85"/>
 
             <!-- ── Frag 1: slow start label + 1 MSS ── -->
@@ -5048,6 +5048,8 @@
 
             <!-- ── Frag 2: CA 1 ── -->
             <g class="frag inner-line" data-step="2">
+<line x1="42" y1="38" x2="176" y2="38" stroke="var(--amber)" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+              <text x="122" y="34" font-size="10.5" fill="var(--amber)" font-family="var(--mono)" opacity="0.85">ssthresh&#8320;</text>
               <text x="226" y="67" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Congestion avoidance</text>
               <line x1="226" y1="55" x2="226" y2="35" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
             </g>
@@ -5056,18 +5058,18 @@
             <g class="frag inner-line" data-step="3">
               <text x="265" y="14" text-anchor="middle" font-size="11" font-weight="600" fill="var(--amber)" font-family="var(--sans)">3 dup ACKs</text>
               <line x1="272" y1="18" x2="279" y2="22" stroke="var(--amber)" stroke-width="1.2" marker-end="url(#ov-ah-amber)"/>
-              <line x1="42" y1="108" x2="302" y2="108" stroke="var(--amber)" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
-              <text x="44" y="105" font-size="10.5" fill="var(--amber)" font-family="var(--mono)" opacity="0.85">ssthresh</text>
-              <text x="325" y="63" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Fast recovery</text>
-              <line x1="318" y1="67" x2="296" y2="91" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
-              <path d="M276,97 L272,97 L272,108 L276,108" fill="none" stroke="var(--amber)" stroke-width="1.1"/>
-              <text x="268" y="106" text-anchor="end" font-size="10.5" fill="var(--amber)" font-family="var(--mono)">+3</text>
+              <line x1="42" y1="103.5" x2="302" y2="103.5" stroke="var(--amber)" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+              <text x="166" y="117" font-size="10.5" fill="var(--amber)" font-family="var(--mono)" opacity="0.85">ssthresh&#8321; = &#189; CongWin</text>
+              <text x="330" y="57" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Fast recovery</text>
+              <line x1="322" y1="62" x2="297" y2="77.5" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
+              <path d="M276,82.5 L272,82.5 L272,103.5 L276,103.5" fill="none" stroke="var(--amber)" stroke-width="1.1"/>
+              <text x="268" y="97.0" text-anchor="end" font-size="10.5" fill="var(--amber)" font-family="var(--mono)">+3</text>
             </g>
 
             <!-- ── Frag 4: CA 2 ── -->
             <g class="frag inner-line" data-step="4">
               <text x="330" y="133" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Congestion avoidance</text>
-              <line x1="330" y1="127" x2="330" y2="104" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
+              <line x1="330" y1="127" x2="330" y2="101.4" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
             </g>
 
             <!-- ── Frag 5: Timeout ── -->
@@ -5079,16 +5081,16 @@
 
             <!-- ── Frag 6: Slow start 2 + ssthresh₂ ── -->
             <g class="frag inner-line" data-step="6">
-              <text x="416" y="157" font-size="11" font-weight="600" fill="var(--ink)" font-family="var(--sans)">Slow start</text>
-              <line x1="376" y1="125" x2="433" y2="125" stroke="var(--amber)" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
-              <text x="378" y="122" font-size="10.5" fill="var(--amber)" font-family="var(--mono)" opacity="0.85">ssthresh</text>
+              <text x="424" y="166" font-size="11" font-weight="600" fill="var(--ink)" font-family="var(--sans)">Slow start</text>
+              <line x1="364" y1="136.0" x2="440" y2="136.0" stroke="var(--amber)" stroke-width="1" stroke-dasharray="5,3" opacity="0.5"/>
+              <text x="446" y="150" font-size="10.5" fill="var(--amber)" font-family="var(--mono)" opacity="0.85">ssthresh&#8322; = &#189; CongWin</text>
             </g>
 
             <!-- ── Frag 7: CA 3 ── -->
             <g class="frag inner-line" data-step="7">
               <rect x="468" y="8" rx="8" ry="8" width="186" height="26" style="fill:color-mix(in srgb,var(--teal) 12%,var(--surface));stroke:var(--teal);stroke-width:1.2"/>
               <text x="561" y="25" text-anchor="middle" font-size="11" font-weight="600" fill="var(--teal)" font-family="var(--sans)">Congestion avoidance</text>
-              <line x1="561" y1="34" x2="561" y2="100" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
+              <line x1="561" y1="34" x2="561" y2="119.9" stroke="var(--teal)" stroke-width="1.2" marker-end="url(#ov-ah-teal)"/>
             </g>
           </svg>
         </div>
