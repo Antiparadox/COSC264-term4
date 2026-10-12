@@ -1155,8 +1155,8 @@ svg text{font-family:var(--sans)}
   <div id="ck1" class="frag" style="margin-top:14px;border-left:4px solid var(--accent);padding:10px 18px;border-radius:0 6px 6px 0;background:rgba(0,128,128,0.07);font-size:18px;line-height:1.6">
     HTTP is <b>stateless</b> &mdash; every request is independent; the server retains no memory of past requests.
     <div class="frag" style="margin-top:8px">So the server does not remember your earlier conversations with it.</div>
-    <div class="frag" style="margin-top:6px">Yet many applications <em>need</em> that memory: e.g. you log in to Learn once, then click to another course page &mdash; a <b>new HTTP request</b>.</div>
-    <div class="frag" style="margin-top:6px"><b>How does the server know it is still you, without asking for your password on every page?</b></div>
+    <div class="frag" style="margin-top:6px">Yet many applications <em>need</em> that memory: e.g. you log in to Learn once; some time later, you visit Learn again &mdash; a <b>new HTTP request</b> &mdash; and it recognises you without asking you to log in.</div>
+    <div class="frag" style="margin-top:6px"><b>How does the server know it is you?</b></div>
   </div>
 
   <!-- Frag 2: answer -->
@@ -1233,7 +1233,7 @@ svg text{font-family:var(--sans)}
     </div>
 
     <!-- Right: callout frags -->
-    <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px;min-height:400px">
+    <div style="flex:1;display:flex;flex-direction:column;gap:8px;padding-top:6px;font-size:18px;min-height:330px">
       <div id="ck-exl1" class="frag" style="border-left:3px solid var(--accent);padding:6px 14px;border-radius:0 5px 5px 0;background:rgba(0,128,128,0.06)">The client sends an HTTP request to the host, e.g. to log in</div>
       <div id="ck-exl2" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server generates an <b>HTTP response</b>; on top of that, it prepares a <b>cookie</b> for the user.
         <span id="ck-exl2b" class="frag" style="display:block;margin-top:5px">The cookie uniquely identifies this session with the client, e.g. <b>id=1678</b>.</span>
@@ -1243,7 +1243,7 @@ svg text{font-family:var(--sans)}
         <span id="ck-exl4b" class="frag" style="display:block;margin-top:5px">The browser finds the cookie for this server in its cookie file,</span>
         <span id="ck-exl4c" class="frag" style="display:block;margin-top:5px">and attaches it to the request as a header line: <b style="white-space:nowrap">Cookie: id=1678</b>.</span></div>
       <div id="ck-exl5" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server uses the ID as a key to look up the user&rsquo;s state in its database</div>
-      <div id="ck-exl6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server can then generate a <b>tailored response</b>, e.g. your logged-in page, without asking for your password again</div>
+      <div id="ck-exl6" class="frag" style="border-left:3px solid rgba(0,0,0,0.2);padding:6px 14px;border-radius:0 5px 5px 0;background:var(--surface-2,rgba(0,0,0,0.03))">The server can then generate a <b>tailored response</b>, e.g. your logged-in Learn page, without asking you to log in again</div>
     </div>
 
   </div>
@@ -1252,6 +1252,7 @@ svg text{font-family:var(--sans)}
   /* All diagram message groups hidden until their frag appears */
   .msg-req1, .msg-setcookie, .msg-dbentry, .msg-cookiereqs, .msg-resp2, .msg-dbaccess { opacity: 0; }
   .ck-sc-id, .ck-sc-hdr { opacity: 0; transition: opacity .25s ease; }
+  #ck-exl4:not(.on), #ck-exl5:not(.on), #ck-exl6:not(.on) { display: none; }
   #ck-exl2b:not(.on), #ck-exl2c:not(.on), #ck-exl4b:not(.on), #ck-exl4c:not(.on) { display: none; }
   .ck-c-hdr { opacity: 0; transition: opacity .25s ease; }
   .slide:has(#ck-exl4c.on) .ck-c-hdr { opacity: 1; }
