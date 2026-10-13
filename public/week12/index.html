@@ -1255,7 +1255,7 @@ svg text{font-family:var(--sans)}
   .msg-req1, .msg-setcookie, .msg-dbentry, .msg-cookiereqs, .msg-resp2, .msg-dbaccess { opacity: 0; }
   .ck-sc-id, .ck-sc-hdr { opacity: 0; transition: opacity .25s ease; }
   #ck-exl4:not(.on), #ck-exl5:not(.on), #ck-exl6:not(.on) { display: none; }
-  #ck-exl2b:not(.on), #ck-exl2c:not(.on), #ck-exl4b:not(.on), #ck-exl4c:not(.on) { display: none; }
+  #ck-exl2b:not(.on), #ck-exl2c:not(.on), #ck-exl4b:not(.on), #ck-exl4c:not(.on) { display: none !important; }
   .ck-c-hdr { opacity: 0; transition: opacity .25s ease; }
   .slide:has(#ck-exl4c.on) .ck-c-hdr { opacity: 1; }
   .slide:has(#ck-exl4b.on):not(:has(#ck-exl4c.on)) .ck-file { fill: var(--accent) !important; opacity: 1 !important; }
@@ -2590,8 +2590,7 @@ svg text{font-family:var(--sans)}
 
       <div id="ld6" class="frag" style="line-height:1.55;border-radius:6px;border:1.5px solid rgba(0,0,0,0.12);padding:13px 16px;background:var(--surface-2,rgba(0,0,0,0.03))">
         Cache entries have a <b>TTL (time-to-live)</b> and expire after some time (typically hours).
-        TLD server addresses are routinely cached in local DNS servers —
-        so <b>root servers are bypassed for most everyday queries</b>.
+        <span id="ld6b" class="frag" style="display:block;margin-top:6px">TLD server addresses are routinely cached in local DNS servers &mdash; so <b>root servers are bypassed for most everyday queries</b>.</span>
       </div>
 
     </div>
@@ -2685,8 +2684,10 @@ svg text{font-family:var(--sans)}
   .slide:has(#ld5c.on) .ld-r { opacity: 1; }
   .slide:has(#ld5d.on) .ld-row1 { opacity: 1; }
   .slide:has(#ld5d.on):not(:has(#ld6.on)) .ld-new { opacity: 1; }
-  .slide:has(#ld6.on) :is(.ld-ttl, .ld-row2, .ld-bypass) { opacity: 1; }
-  .slide:has(#ld6.on) .ld-root { opacity: 0.4; }
+  .slide:has(#ld6.on) .ld-ttl { opacity: 1; }
+  .slide:has(#ld6b.on) :is(.ld-row2, .ld-bypass) { opacity: 1; }
+  .slide:has(#ld6b.on) .ld-root { opacity: 0.4; }
+  #ld6b:not(.on) { display: none !important; }
 </style>
 
 <!-- ===================================================
