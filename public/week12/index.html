@@ -2873,22 +2873,23 @@ svg text{font-family:var(--sans)}
     <!-- Text left: three hot cards, each a list of beats -->
     <div style="flex:38;display:flex;flex-direction:column;gap:12px;font-size:18px">
 
+      <p style="margin:0;font-size:18px;line-height:1.5">Iterative vs recursive describes the <b>request</b>, not the outcome: what the asker wants the contacted server to do.</p>
+
       <div id="ri1" class="frag" style="line-height:1.5;border-radius:6px;padding:12px 15px;border:1.5px solid rgba(0,0,0,0.12);background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Iterative query</div>
         <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
-          <li style="font-size:18px;line-height:1.5">The contacted server does <b>not</b> query other servers for you: it replies only with what it knows itself.</li>
+          <li style="font-size:18px;line-height:1.5">The request asks the contacted server <b>not</b> to query other servers: &ldquo;just tell me what you already know.&rdquo;</li>
           <li id="ri1b" class="frag" style="font-size:18px;line-height:1.5">If it doesn&rsquo;t know the answer, it returns a <b>referral</b>: &ldquo;I don&rsquo;t know &mdash; try that server.&rdquo;</li>
-          <li id="ri1c" class="frag" style="font-size:18px;line-height:1.5">The authoritative server <em>does</em> know, so its reply to the same kind of query is the <b>answer</b>.</li>
+          <li id="ri1c" class="frag" style="font-size:18px;line-height:1.5">If it does know (e.g. the authoritative server), it returns the <b>answer</b>.</li>
         </ul>
       </div>
 
       <div id="ri2" class="frag" style="line-height:1.5;border-radius:6px;padding:12px 15px;border:1.5px solid rgba(0,0,0,0.12);background:var(--surface-2,rgba(0,0,0,0.03))">
         <div style="font-weight:700;color:var(--accent);margin-bottom:4px">Recursive query</div>
         <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px">
-          <li style="font-size:18px;line-height:1.5">The contacted server takes <b>full responsibility</b>:</li>
-          <li id="ri2b" class="frag" style="font-size:18px;line-height:1.5">it resolves the name itself, querying the next servers on your behalf,</li>
-          <li id="ri2c" class="frag" style="font-size:18px;line-height:1.5">and returns the <b>final answer</b>. e.g. client &rarr; local DNS server.</li>
-          <li id="ri2d" class="frag" style="font-size:18px;line-height:1.5">Recursive vs iterative describes the <b>request</b>, not the outcome: the difference only shows when the server doesn&rsquo;t know the answer.</li>
+          <li style="font-size:18px;line-height:1.5">The request asks the contacted server to take <b>full responsibility</b> for the final answer.</li>
+          <li id="ri2b" class="frag" style="font-size:18px;line-height:1.5">If it knows (e.g. from its cache), it returns the <b>answer</b>.</li>
+          <li id="ri2c" class="frag" style="font-size:18px;line-height:1.5">If it doesn&rsquo;t know, it must resolve the name itself, querying other servers on your behalf, then return the <b>final answer</b>. e.g. client &rarr; local DNS server.</li>
         </ul>
       </div>
 
@@ -2946,10 +2947,10 @@ svg text{font-family:var(--sans)}
   .slide:has(#ri1.on):not(:has(#ri2.on)) .ri-iq { opacity: 1; }
   .slide:has(#ri1b.on):not(:has(#ri2.on)) .ri-iref { opacity: 1; }
   .slide:has(#ri1c.on):not(:has(#ri2.on)) .ri-ians { opacity: 1; }
-  /* recursive: client asks; local server resolves on its behalf; final answer */
+  /* recursive: client asks; knows -> answer; doesn't know -> resolves on its behalf, then the final answer */
   .slide:has(#ri2.on):not(:has(#ri3.on)) .ri-cq { opacity: 1; }
-  .slide:has(#ri2b.on):not(:has(#ri3.on)) :is(.ri-iq, .ri-iref, .ri-ians) { opacity: 0.3; }
-  .slide:has(#ri2c.on):not(:has(#ri3.on)) .ri-ca { opacity: 1; }
+  .slide:has(#ri2b.on):not(:has(#ri3.on)) .ri-ca { opacity: 1; }
+  .slide:has(#ri2c.on):not(:has(#ri3.on)) :is(.ri-iq, .ri-iref, .ri-ians) { opacity: 0.3; }
   /* fully recursive */
   .slide:has(#ri3.on) :is(.ri-cq, .ri-fq) { opacity: 1; }
   .slide:has(#ri3b.on) :is(.ri-fa, .ri-ca) { opacity: 1; }
