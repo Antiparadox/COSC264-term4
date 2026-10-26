@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COSC264 Term 4 review sheet</title>
+<meta name="description" content="A two-page review sheet for the COSC264 Term 4 final exam: routing, addressing, error control, reliable data transfer, transport and application protocols.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1f4; --paper:#ffffff; --surface-2:#f3f6f8; --border:#d4dde3;
+    --ink:#15242f; --muted:#54646f; --faint:#84939d;
+    --accent:#0f8f83; --accent-soft:#e3f3f1; --accent-ink:#0a5b53;
+    --amber:#b06c0c; --amber-soft:#fbf1e3;
+    --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+    --sans:Inter,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:11.8px;line-height:1.36;-webkit-font-smoothing:antialiased}
+
+  /* one sheet of A4 per .page */
+  .page{width:210mm;min-height:297mm;margin:18px auto;padding:10mm 11mm 8mm;background:var(--paper);box-shadow:0 1px 2px rgba(21,36,47,.06),0 12px 32px rgba(21,36,47,.08);display:flex;flex-direction:column;gap:2.6mm}
+  .toolbar{max-width:210mm;margin:18px auto 0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 2px;font-size:14px;color:var(--muted)}
+  .toolbar a{color:var(--accent-ink)}
+  .toolbar button{font:inherit;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
+
+  header.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5px solid var(--ink);padding-bottom:2.2mm}
+  .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 1mm}
+  h1{font-family:var(--serif);font-size:23px;line-height:1.1;margin:0}
+  .pg{font-family:var(--mono);font-size:10px;color:var(--faint);white-space:nowrap}
+
+  .mod{border:1px solid var(--border);border-radius:6px;padding:2.2mm 3mm 2.4mm;break-inside:avoid}
+  .mod h2{font-family:var(--serif);font-size:16px;margin:0 0 1.6mm;display:flex;gap:2.4mm;align-items:baseline}
+  .mod h2 .n{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:0 1.4mm;white-space:nowrap}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:3.4mm;align-items:start}
+  h3{font-size:9.6px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:1.4mm 0 .6mm}
+  h3:first-child{margin-top:0}
+  ul{margin:0;padding-left:4.2mm}
+  li{margin:.2mm 0}
+  b{font-weight:650}
+  code,.m{font-family:var(--mono);font-size:10.8px}
+  .rule{font-family:var(--mono);font-size:10.6px;background:var(--accent-soft);border-left:2.5px solid var(--accent);padding:1mm 2mm;margin:.8mm 0;border-radius:0 4px 4px 0;line-height:1.45}
+  .watch{background:var(--amber-soft);border-left:2.5px solid var(--amber);padding:1.2mm 2.2mm;border-radius:0 4px 4px 0;margin-top:1.4mm}
+  .watch h3{color:var(--amber);margin-top:0}
+  table{width:100%;border-collapse:collapse;font-size:11.2px;margin:.6mm 0}
+  th,td{text-align:left;vertical-align:top;padding:.55mm 1.4mm;border-bottom:1px solid var(--border)}
+  th{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1.5px solid var(--ink)}
+  tr:last-child td{border-bottom:0}
+  .foot{margin-top:auto;font-size:10px;color:var(--faint);display:flex;justify-content:space-between}
+
+  @page{size:A4;margin:0}
+  @media print{
+    body{background:#fff}
+    .toolbar{display:none}
+    .page{margin:0;box-shadow:none;break-after:page;min-height:auto;height:297mm;overflow:hidden}
+    .page:last-child{break-after:auto}
+  }
+  @media screen and (max-width:820px){
+    .page{width:auto;min-height:0;margin:12px;padding:16px}
+    .cols{grid-template-columns:1fr}
+    .toolbar{margin:12px 16px 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="/">&larr; Course home</a>
+  <button type="button" onclick="window.print()">Print / save as PDF</button>
+</div>
+
+<!-- ================= PAGE 1: Modules 1–3 ================= -->
+<section class="page">
+  <header class="top">
+    <div><p class="kicker">COSC264 &middot; Term 4 &middot; Final exam review</p><h1>Review sheet</h1></div>
+    <div class="pg">Modules 1&ndash;3 &middot; page 1 of 2</div>
+  </header>
+
+  <div class="mod">
+    <h2><span class="n">Module 1</span>Introduction to Routing</h2>
+    <div class="cols">
+      <div>
+        <h3>Key ideas</h3>
+        <ul>
+          <li><b>Routing</b> computes paths and builds forwarding tables; <b>forwarding</b> just reads one row per packet.</li>
+          <li>The Internet is a network of <b>autonomous systems (ASes)</b>: stub, multi-homed, transit. So routing splits into <b>intra-AS</b> and <b>inter-AS</b>.</li>
+          <li><b>Distance-vector</b> = distributed Bellman&ndash;Ford: each router relaxes using only its neighbours&rsquo; vectors, and re-sends its own vector when it changes.</li>
+          <li><b>Link-state</b>: routers flood their link costs, all build the same map, then each runs <b>Dijkstra</b>.</li>
+        </ul>
+        <h3>Relaxation</h3>
+        <div class="rule">if c(s,w) + d<sub>w</sub>(v) &lt; d<sub>s</sub>(v):<br>&nbsp;&nbsp;d<sub>s</sub>(v) &larr; c(s,w) + d<sub>w</sub>(v);&nbsp; next<sub>s</sub>(v) &larr; w</div>
+      </div>
+      <div>
+        <table>
+          <tr><th></th><th>Distance-vector</th><th>Link-state</th></tr>
+          <tr><td><b>Knows</b></td><td>Only neighbours&rsquo; vectors</td><td>Full topology (LSDB)</td></tr>
+          <tr><td><b>Algorithm</b></td><td>Bellman&ndash;Ford</td><td>Dijkstra</td></tr>
+          <tr><td><b>Loops</b></td><td>Prone (count-to-infinity)</td><td>Loop-free</td></tr>
+          <tr><td><b>Memory</b></td><td>Small</td><td>Large</td></tr>
+        </table>
+        <div class="watch">
+          <h3>Watch out</h3>
+          <ul>
+            <li>Count-to-infinity: after a link gets worse, neighbours keep quoting each other&rsquo;s stale cost.</li>
+            <li><b>Poison reverse</b> advertises &infin; back to your next hop. It breaks a two-router loop, not one through three or more.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mod">
+    <h2><span class="n">Module 2</span>Routing and Addressing at Internet Scale</h2>
+    <div class="cols">
+      <div>
+        <h3>Intra-AS</h3>
+        <ul>
+          <li><b>RIP</b>: distance-vector, cost in hops, periodic Responses. Infinity = 16, so the longest path is <b>15 hops</b>.</li>
+          <li><b>OSPF</b>: link-state, floods advertisements; a large AS is split into <b>areas</b> to save memory and speed convergence.</li>
+        </ul>
+        <h3>Inter-AS: BGP (path vector)</h3>
+        <ul>
+          <li><b>eBGP</b> learns AS-level paths between ASes; <b>iBGP</b> spreads them to every BGP speaker inside the AS.</li>
+          <li><b>Import</b> (LOCAL_PREF): customer &gt; peer &gt; provider. <b>Export</b>: customer routes to everyone; peer and provider routes to customers only.</li>
+          <li>Route choice at one router: <b>LOCAL_PREF</b> &rarr; shortest <b>AS_PATH</b> &rarr; lowest <b>intra-AS cost</b> to the exit.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Addressing</h3>
+        <ul>
+          <li><b>NAT</b> maps private <span class="m">(IP, port)</span> &harr; public <span class="m">(IP, new port)</span> in a translation table; replies are matched by the public port.</li>
+          <li><b>IPv6</b>: 128-bit addresses (48-bit routing prefix, 16-bit subnet, 64-bit interface). Across IPv4-only routers: <b>translation</b> (lossy) or <b>tunnelling</b> (IPv6 packet inside an IPv4 packet).</li>
+        </ul>
+        <div class="watch">
+          <h3>Watch out</h3>
+          <ul>
+            <li><b>Longest-prefix match</b>: if several entries match, the longest prefix wins, e.g. /23 beats /20.</li>
+            <li>NAT rewrites the <b>port</b> as well as the address.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mod">
+    <h2><span class="n">Module 3</span>Error Detection and Correction</h2>
+    <div class="cols">
+      <div>
+        <h3>Error detection</h3>
+        <ul>
+          <li>The sender adds redundant bits computed from the data; the receiver recomputes them and compares. A mismatch reveals an error.</li>
+          <li>Schemes: <b>parity check</b> (single and 2-D), <b>Internet checksum</b>, <b>Cyclic Redundancy Check (CRC)</b>.</li>
+        </ul>
+        <h3>Error correction (FEC)</h3>
+        <ul>
+          <li><b>Forward error correction</b> repairs errors at the receiver itself, without a retransmission.</li>
+          <li>The encoder maps each k-bit data block to an n-bit <b>codeword</b> (n &gt; k); the extra n &minus; k bits are the redundancy.</li>
+          <li>Schemes: <b>2-D parity</b> (corrects a single-bit error), <b>block codes</b>.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Minimum Hamming distance decoding</h3>
+        <ul>
+          <li><b>Hamming distance</b> d(v<sub>1</sub>, v<sub>2</sub>): the number of bit positions where they differ, e.g. d(011011, 110001) = 3.</li>
+          <li><b>Decoding</b>: a valid codeword &rarr; output its data block. Otherwise an error is <b>detected</b>; output the block of the <b>nearest</b> codeword, if it is unique.</li>
+          <li>A code&rsquo;s <b>minimum Hamming distance d</b> is the smallest distance between any two of its codewords.</li>
+        </ul>
+        <div class="rule">corrects up to &lfloor;(d &minus; 1)/2&rfloor; bit errors<br>detects&nbsp; up to d &minus; 1 bit errors</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>cosc264.up.railway.app/review</span><span>Notation follows the module decks</span></div>
+</section>
+
+<!-- ================= PAGE 2: Modules 4–6 ================= -->
+<section class="page">
+  <header class="top">
+    <div><p class="kicker">COSC264 &middot; Term 4 &middot; Final exam review</p><h1>Review sheet</h1></div>
+    <div class="pg">Modules 4&ndash;6 &middot; page 2 of 2</div>
+  </header>
+
+  <div class="mod">
+    <h2><span class="n">Module 4</span>Reliable Data Transfer: ARQ Protocols</h2>
+    <div class="cols">
+      <div>
+        <table>
+          <tr><th>Version</th><th>Channel</th><th>Adds</th></tr>
+          <tr><td>rdt 1.0</td><td>Perfect</td><td>Nothing: send and forget</td></tr>
+          <tr><td>rdt 2.0</td><td>Bit errors</td><td>Checksum, ACK/NAK, resend on NAK</td></tr>
+          <tr><td>rdt 2.1</td><td>Bit errors</td><td>1-bit sequence number spots duplicates</td></tr>
+          <tr><td>rdt 2.2</td><td>Bit errors</td><td>No NAKs: a duplicate ACK acts as a NAK</td></tr>
+          <tr><td>rdt 3.0</td><td>Errors + loss</td><td>Timer: resend if no ACK in time</td></tr>
+        </table>
+      </div>
+      <div>
+        <table>
+          <tr><th></th><th>Go-back-N</th><th>Selective repeat</th></tr>
+          <tr><td><b>ACKs</b></td><td>Cumulative</td><td>Individual</td></tr>
+          <tr><td><b>Timer</b></td><td>One, for the oldest</td><td>One per packet</td></tr>
+          <tr><td><b>Receiver</b></td><td>Accepts only <span class="m">expectedseqnum</span></td><td>Buffers out-of-order in its window</td></tr>
+          <tr><td><b>Timeout</b></td><td>Resend <b>all</b> in flight</td><td>Resend only that packet</td></tr>
+        </table>
+        <div class="watch">
+          <h3>Watch out</h3>
+          <ul>
+            <li>Selective repeat needs <b>window size &le; &frac12; &times; seq# space</b>, or the receiver can&rsquo;t tell new packets from old.</li>
+            <li>SR receivers re-ACK packets below <span class="m">rcv_base</span>, or the sender&rsquo;s window stalls.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mod">
+    <h2><span class="n">Module 5</span>Network Transport Layer Protocols</h2>
+    <div class="cols">
+      <div>
+        <h3>Basics</h3>
+        <ul>
+          <li><b>Demultiplexing</b>: UDP by <b>destination IP + port</b>; TCP by the <b>4-tuple</b> (both IPs and ports).</li>
+          <li><b>UDP</b>: connectionless, unreliable, 8-byte header. <b>TCP</b>: reliable byte stream; opens with <b>SYN, SYN+ACK, ACK</b>, closes with FIN/ACK each way.</li>
+          <li><b>Sequence numbers count bytes</b> from the ISN; an <b>ACK names the next byte expected</b>. SYN and FIN each use one sequence number.</li>
+          <li>One timer, for the oldest unACKed segment. Timeout &rarr; resend that segment; <b>3 duplicate ACKs</b> &rarr; fast retransmit.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Flow and congestion control</h3>
+        <div class="rule">RcvWindow = RcvBuffer &minus; (LastByteRcvd &minus; LastByteRead)<br>nextseqnum &minus; base &le; min(CongWin, RcvWindow)<br>sending rate &asymp; CongWin / RTT</div>
+        <ul>
+          <li><b>Slow start</b>: +1 MSS per ACK (doubles every RTT) until CongWin &ge; ssthresh.</li>
+          <li><b>Congestion avoidance</b>: +1 MSS per RTT (AIMD: additive increase, multiplicative decrease).</li>
+          <li><b>Any loss</b>, in either phase: ssthresh = CongWin / 2. Then:<br>&bull; <b>timeout</b> &rarr; CongWin = 1 MSS, slow start;<br>&bull; <b>3 duplicate ACKs</b> &rarr; CongWin = ssthresh + 3, fast recovery; on a new ACK, CongWin = ssthresh, congestion avoidance.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mod">
+    <h2><span class="n">Module 6</span>Network Applications</h2>
+    <div class="cols">
+      <div>
+        <h3>Web and HTTP</h3>
+        <ul>
+          <li>HTTP runs over TCP and is <b>stateless</b>. Non-persistent: <b>2 RTT</b> + transmit per object; persistent: <b>~1 RTT</b> per object; pipelined: requests sent without waiting.</li>
+          <li>Request line <span class="m">method URL version</span>; response line <span class="m">version code phrase</span> (200, 301, 404). Then <span class="m">field: value</span> header lines, <b>in any order</b>, a blank line, the body.</li>
+          <li><b>Cookies</b> add state: <span class="m">Set-Cookie</span> in a response, <span class="m">Cookie</span> in later requests. A <b>web cache</b> answers hits itself; on a miss it fetches and keeps a copy.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>DNS</h3>
+        <ul>
+          <li>Maps hostnames to IP addresses, and aliases to their <b>canonical hostnames</b>.</li>
+          <li>Distributed hierarchy: <b>root &rarr; TLD &rarr; authoritative</b>; a <b>local DNS server</b> answers clients and caches records for their TTL.</li>
+          <li><b>Recursive</b>: &ldquo;get me the final answer&rdquo; (client &rarr; local). <b>Iterative</b>: &ldquo;tell me what you know&rdquo;, answered with the answer or a referral (local &rarr; root, TLD, authoritative).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>cosc264.up.railway.app/review</span><span>Good luck in the exam!</span></div>
+</section>
+
+</body>
+</html>
